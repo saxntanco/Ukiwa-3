@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="OVGR・RPR試験を、計画から完全復元まで8ステップで整理します。">
+<meta name="theme-color" content="#79dcfa">
+<title>OVGR・RPR試験を安全に進める8ステップ｜ぷかぷかうきわメモ</title>
+<style>
+:root{--sky:#8ee2ff;--cream:#fffaf0;--ink:#24465b;--muted:#688293;--navy:#184c68;--pink:#ff86af;--pink2:#ee5f96;--yellow:#ffd669;--green:#73d495;--blue:#70aaff;--line:#d6edf5;--shadow:0 18px 42px rgba(35,102,135,.16);--max:1180px;--read:780px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);line-height:1.82;font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",system-ui,sans-serif;background:linear-gradient(180deg,#8ee2ff 0,#d8f7ff 18%,#fffaf0 52%)}a{color:inherit;text-decoration:none}
+.progress{position:fixed;top:0;left:0;z-index:100;width:0;height:4px;background:linear-gradient(90deg,var(--pink),var(--yellow));box-shadow:0 1px 6px rgba(238,95,150,.35)}
+.header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,.92);box-shadow:0 8px 24px rgba(33,98,129,.08)}
+.header-inner{width:min(var(--max),calc(100% - 30px));min-height:69px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:1000}.ring{width:40px;height:40px;border-radius:50%;transform:rotate(-9deg);background:radial-gradient(circle,#fff 0 29%,transparent 30%),conic-gradient(var(--pink) 0 25%,var(--yellow) 25% 50%,#70d5ff 50% 75%,#80dd9b 75%);border:4px solid #fff;box-shadow:0 7px 18px rgba(42,112,143,.22)}
+.header-links{display:flex;gap:7px}.header-links a{padding:9px 13px;border-radius:999px;background:#fff;color:#41677b;font-weight:900;font-size:.88rem;box-shadow:0 5px 14px rgba(42,112,143,.08)}.header-links a:hover{color:var(--pink2)}
+.hero{padding:68px 16px 72px;text-align:center;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-56px;height:105px;background:#fffaf0;border-radius:50%;z-index:-1}
+.breadcrumb{width:min(980px,100%);margin:0 auto 20px;color:#527587;font-size:.86rem;font-weight:800;text-align:left}.breadcrumb a{color:#2f7899}
+.kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;margin-bottom:17px;border-radius:999px;background:rgba(255,255,255,.9);color:#37718f;font-weight:1000;box-shadow:0 7px 18px rgba(39,112,146,.10)}
+.hero h1{max-width:940px;margin:0 auto;color:var(--navy);font-size:clamp(2.25rem,6vw,4.8rem);line-height:1.15;text-shadow:0 4px 0 #fff,0 12px 25px rgba(34,107,139,.16)}
+.lead{max-width:800px;margin:22px auto 0;color:#4d6f81;font-size:1.05rem;font-weight:650}.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:21px}.chip{padding:6px 10px;border-radius:999px;background:#fff;color:#477287;font-weight:900;font-size:.82rem}
+.layout{width:min(var(--max),calc(100% - 24px));margin:auto;padding:38px 0 90px;display:grid;grid-template-columns:minmax(0,var(--read)) 260px;gap:38px;justify-content:center;align-items:start}
+.paper{padding:clamp(23px,5vw,46px);border-radius:31px;background:rgba(255,255,255,.94);border:2px solid #fff;box-shadow:var(--shadow)}
+.safety{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:19px;margin-bottom:25px;border-radius:22px;background:linear-gradient(135deg,#fff8df,#ffedb5);border:2px solid #ffda63}.safety-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:var(--yellow);font-size:1.45rem}.safety strong{display:block;color:#765a14}.safety p{margin:1px 0 0;color:#735f31;font-size:.91rem;font-weight:650}
+.conclusion{margin:0 0 31px;padding:22px;border-radius:21px;background:linear-gradient(135deg,#eaf9ff,#f9fdff);border:2px solid #cdebf5}.conclusion-label{display:inline-flex;margin-bottom:8px;padding:4px 9px;border-radius:999px;background:#2c91b7;color:#fff;font-weight:1000;font-size:.78rem}.conclusion p{margin:0;color:#365f73;font-weight:750}
+.paper h2{margin:46px 0 16px;padding-left:15px;border-left:8px solid var(--pink);color:var(--navy);font-size:clamp(1.55rem,3.5vw,2.2rem);line-height:1.35}.paper h3{margin:0 0 6px;color:var(--navy);font-size:1.08rem}.paper p{color:#526f80}.steps{display:grid;gap:13px;margin:20px 0}
+.step{display:grid;grid-template-columns:58px 1fr;gap:15px;padding:17px;border-radius:21px;background:#fff;border:1px solid #e0f0f6;box-shadow:0 8px 18px rgba(52,109,136,.07)}
+.num{width:54px;height:54px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(135deg,var(--blue),#8dddf9);color:#fff;font-size:1.15rem;font-weight:1000;box-shadow:inset 0 -4px 0 rgba(29,73,101,.11)}
+.step:nth-child(2) .num{background:linear-gradient(135deg,#e65c5c,#ff9179)}.step:nth-child(3) .num{background:linear-gradient(135deg,#ea9741,#ffc269)}.step:nth-child(4) .num{background:linear-gradient(135deg,#807fff,#b8a4ff)}.step:nth-child(5) .num{background:linear-gradient(135deg,#42b4ce,#77deea)}.step:nth-child(6) .num{background:linear-gradient(135deg,#4fbf83,#87dfa7)}.step:nth-child(7) .num{background:linear-gradient(135deg,#ee78a5,#ffafc8)}.step:nth-child(8) .num{background:linear-gradient(135deg,#2f88b7,#63c0df)}
+.step p{margin:0;font-size:.92rem;font-weight:650}.callout{padding:19px 21px;border-radius:19px;background:#fff4f7;border-left:6px solid var(--pink);color:#6f4860;font-weight:700}.points{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.point{padding:18px;border-radius:19px;background:linear-gradient(145deg,#fff,#f5fcff);border:1px solid #dfeff5}.point b{display:block;margin:7px 0 5px;color:var(--navy)}.point p{margin:0;font-size:.88rem}
+.document{margin-top:35px;padding:25px;border-radius:23px;background:linear-gradient(135deg,#effaff,#fff7d9);border:2px solid #d7edf5}.document h3{font-size:1.25rem}.document p{margin:7px 0 18px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:49px;padding:11px 17px;border-radius:15px;font-weight:1000}.primary{color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink2));box-shadow:0 10px 21px rgba(239,91,146,.26)}.secondary{background:#fff;color:var(--navy);box-shadow:0 8px 18px rgba(52,109,136,.10)}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.summary-grid{display:grid;gap:11px}.summary-item{padding:16px;border-radius:17px;background:#f3fbfd;border:1px solid #dcedf3}.summary-item b{display:block;color:var(--navy);margin-bottom:3px}.summary-item p{margin:0;font-size:.91rem}
+.toc{position:sticky;top:93px;padding:20px;border-radius:22px;background:rgba(255,255,255,.9);border:2px solid #fff;box-shadow:0 10px 25px rgba(44,105,137,.11)}.toc-title{display:block;margin-bottom:10px;color:var(--navy);font-weight:1000}.toc a{display:block;padding:8px 9px;border-radius:10px;color:#547487;font-size:.88rem;font-weight:850}.toc a:hover,.toc a.active{background:#eaf8fc;color:#1d789d}.toc .pdf{margin-top:12px;background:#fff1f6;color:var(--pink2)}
+.footer{padding:75px 16px 27px;text-align:center;color:#fff;background:linear-gradient(#55c9dc,#2097bd)}.footer strong{font-size:1.3rem}.footer p{margin:4px 0 0;color:rgba(255,255,255,.85)}
+.backtop{position:fixed;right:18px;bottom:18px;width:49px;height:49px;border:0;border-radius:16px;background:#fff;color:var(--pink2);box-shadow:0 10px 25px rgba(42,103,133,.22);opacity:0;pointer-events:none;transition:.2s;font-weight:1000}.backtop.show{opacity:1;pointer-events:auto}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}.points{grid-template-columns:1fr}.header-links a:first-child{display:none}}
+@media(max-width:640px){.header-inner{min-height:63px}.brand{font-size:.92rem}.ring{width:36px;height:36px}.header-links a{padding:8px 10px;font-size:.8rem}.hero{padding:46px 13px 58px}.hero h1{font-size:clamp(2.35rem,12vw,3.8rem)}.lead{font-size:.94rem}.layout{width:min(100% - 20px,var(--max));padding-top:25px}.paper{padding:19px}.step{grid-template-columns:48px 1fr;padding:14px}.num{width:46px;height:46px;border-radius:15px}.actions{display:grid}.btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="header"><div class="header-inner"><a class="brand" href="index.html"><span class="ring"></span><span>ぷかぷかうきわメモ</span></a><div class="header-links"><a href="index.html">ホーム</a><a href="index.html#articles">記事一覧</a></div></div></header>
+<section class="hero">
+  <div class="breadcrumb"><a href="index.html">トップ</a> › <a href="index.html#articles">保護継電器</a> › OVGR・RPR試験</div>
+  <div class="kicker">⚡ 保護継電器・試験手順</div>
+  <h1>OVGR・RPR試験を<br>安全に進める8ステップ</h1>
+  <p class="lead">GCR-mini VSを使用する試験について、計画、完全停電、制御電源確認、CTT、試験配線、測定、完全復元までの流れを整理します。</p>
+  <div class="chips"><span class="chip">OVGR</span><span class="chip">RPR</span><span class="chip">GCR-mini VS</span><span class="chip">読了 約8分</span></div>
+</section>
+<main class="layout">
+  <article class="paper">
+    <div class="safety"><div class="safety-icon">🦺</div><div><strong>安全上の前提</strong><p>実設備では、現場責任者、保安規程、操作票、系統状態、展開接続図、メーカー取扱説明書、無電圧確認、誤投入防止措置を優先します。</p></div></div>
+    <div class="conclusion"><span class="conclusion-label">最初に結論</span><p>試験結果が良好でも、配線・短絡片・整定値・CT比・遮断器位置を試験前状態へ戻し、復電前の相互確認が終わるまでは試験完了ではありません。</p></div>
+
+    <h2 id="overview">全体の8ステップ</h2>
+    <div class="steps">
+      <section class="step"><div class="num">1</div><div><h3>事前準備</h3><p>対象試験、整定値、管理値、試験器の校正期限を記録します。</p></div></section>
+      <section class="step"><div class="num">2</div><div><h3>完全停電</h3><p>主回路・制御回路・他電源の無電圧、接地、誤投入防止を確認します。</p></div></section>
+      <section class="step"><div class="num">3</div><div><h3>制御電源の確認と隔離</h3><p>銘板・展開図・実測でAC/DC、電圧、極性を確定し、上流への逆送を防止します。</p></div></section>
+      <section class="step"><div class="num">4</div><div><h3>CTTの分離</h3><p>CT二次開放禁止の一般原則と、完全停電下の盤固有手順を区別します。</p></div></section>
+      <section class="step"><div class="num">5</div><div><h3>試験配線</h3><p>制御電源、試験電圧、試験電流、トリップ検出を別系統として確認します。</p></div></section>
+      <section class="step"><div class="num">6</div><div><h3>試験と記録</h3><p>動作値試験と動作時間試験を区別し、測定値と管理範囲を同じ場所へ記録します。</p></div></section>
+      <section class="step"><div class="num">7</div><div><h3>完全復元</h3><p>コード、既設配線、短絡片、整定、CT比、遮断器位置を試験前へ戻します。</p></div></section>
+      <section class="step"><div class="num">8</div><div><h3>復電前の相互確認</h3><p>別人確認を含め、残置物、復元本数、設定、写真を照合します。</p></div></section>
+    </div>
+
+    <h2 id="power">制御電源で最も重要なこと</h2>
+    <p>S1-S2などの端子名だけでは、制御電源の種類や定格電圧は確定できません。実機銘板、展開接続図、既設回路の実測を照合し、AC/DC、電圧、DCの場合は極性を確認します。</p>
+    <div class="callout">外部補助電源を使用するときは、上流回路への逆送や、制御変圧器などを介した意図しない昇圧を防ぐため、電源側と負荷側の関係を確認します。</div>
+
+    <h2 id="ctt">CTTで混同しやすいこと</h2>
+    <div class="points">
+      <div class="point"><span>🧲</span><b>CT二次開放禁止</b><p>一次電流が流れる可能性のある状態では、CT二次回路を開放しません。</p></div>
+      <div class="point"><span>↔️</span><b>CT側／継電器側</b><p>CT一次導体の一次側・二次側ではなく、試験端子の両側を区別する呼び方です。</p></div>
+      <div class="point"><span>🧪</span><b>設備固有手順</b><p>完全停電下の固有手順は、一般原則と分けて扱い、図面と現物で確認します。</p></div>
+    </div>
+
+    <h2 id="measurement">測定と完全復元</h2>
+    <p>動作値試験では入力を徐々に変化させ、最初に動作した値を記録します。動作時間試験では、指定された倍率の入力を急変させ、接点変化までの時間を測定します。</p>
+    <p>試験後は、試験器の出力をゼロにしてから停止し、補助電源を切り、コードを撤去します。切り離した配線、短絡片、仮設短絡線、整定値、CT比、周波数、ロック設定、遮断器位置を試験前記録と照合します。</p>
+
+    <section class="document" id="document">
+      <h3>📄 保護継電器試験要領書 Rev.10</h3>
+      <p>PDFは記事内へ埋め込まず、別タブでそのまま開きます。</p>
+      <div class="actions">
+        <a class="btn primary" href="ovgr-rpr-test-manual-rev10.pdf" target="_blank" rel="noopener">PDFを別タブで開く</a>
+        <a class="btn secondary" href="ovgr-rpr-test-manual-rev10.pdf" download>PDFを保存</a>
+      </div>
+    </section>
+
+    <h2 id="summary">要点整理</h2>
+    <div class="summary-grid">
+      <div class="summary-item"><b>今回の結論</b><p>測定だけでなく、試験前記録から完全復元・復電前確認までを一つの試験工程として扱います。</p></div>
+      <div class="summary-item"><b>覚えるべきポイント</b><p>制御電源は端子名だけで決めず、CT二次開放禁止の一般原則と盤固有条件を混同しません。</p></div>
+      <div class="summary-item"><b>現場で確認するもの</b><p>単線結線図、展開接続図、機器形式、銘板、CT比、整定値、操作票、試験前後写真、復元本数。</p></div>
+      <div class="summary-item"><b>間違えやすい点</b><p>測定結果が良ければ作業完了だと考えること、CT側という言葉をCT一次側と混同することです。</p></div>
+      <div class="summary-item"><b>不確かな点</b><p>設備固有の切離し位置、線番、試験値、判定基準は、対象設備の資料と現物照合が必要です。</p></div>
+    </div>
+  </article>
+
+  <aside class="toc">
+    <span class="toc-title">この記事の目次</span>
+    <a href="#overview">全体の8ステップ</a>
+    <a href="#power">制御電源</a>
+    <a href="#ctt">CTT</a>
+    <a href="#measurement">測定と完全復元</a>
+    <a href="#summary">要点整理</a>
+    <a class="pdf" href="#document">📄 PDF資料</a>
+  </aside>
+</main>
+<footer class="footer"><strong>ぷかぷかうきわメモ</strong><p>電気保安の現場と勉強の備忘録</p></footer>
+<button class="backtop" id="backtop">↑</button>
+<script>
+const progress=document.getElementById("progress"),back=document.getElementById("backtop"),sections=[...document.querySelectorAll("article [id]")],links=[...document.querySelectorAll(".toc a[href^='#']")];
+function onScroll(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(scrollY/max*100)+"%";back.classList.toggle("show",scrollY>550);let current="";sections.forEach(s=>{if(s.getBoundingClientRect().top<180)current=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+current))}
+addEventListener("scroll",onScroll,{passive:true});onScroll();back.addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
+</script>
+</body></html>

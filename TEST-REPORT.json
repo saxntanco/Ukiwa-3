@@ -1,0 +1,42 @@
+{
+  "console_errors": [],
+  "page_errors": [],
+  "checks": {
+    "desktop": {
+      "title": "ぷかぷかうきわメモ｜電気保安を、空の冒険に。",
+      "character_cards": 7,
+      "article_cards": 4,
+      "scroll_width": 1440,
+      "viewport_width": 1440,
+      "horizontal_overflow": false,
+      "char_real_mode": true,
+      "article_modal_open": true,
+      "chat_drawer_open": true,
+      "chat_messages": 3,
+      "dark_mode": true
+    },
+    "mobile": {
+      "title": "ぷかぷかうきわメモ｜電気保安を、空の冒険に。",
+      "character_cards": 7,
+      "article_cards": 4,
+      "scroll_width": 390,
+      "viewport_width": 390,
+      "horizontal_overflow": false,
+      "char_real_mode": true,
+      "article_modal_open": true,
+      "chat_drawer_open": true,
+      "chat_messages": 3,
+      "dark_mode": true,
+      "bottom_nav_visible": true
+    }
+  },
+  "file_checks": {
+    "index_exists": true,
+    "simulator_exists": true,
+    "pdf_exists": true,
+    "manifest_exists": true,
+    "inline_style": true,
+    "inline_script": true,
+    "embedded_images": 25
+  }
+}
