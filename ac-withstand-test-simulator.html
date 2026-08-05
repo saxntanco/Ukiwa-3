@@ -144,6 +144,7 @@ footer{margin-top:14px;color:#687486;font-size:12px}
 <header class="hero">
 <h1>交流耐圧試験 回路シミュレータ <span style="font-size:.55em;opacity:.9">最終版</span></h1>
 <p>「電源を入れたら、どこに電圧が現れ、どの電流がどこを流れ、計器は何を示すのか」を、理解図・取説結線図・位相図・実機写真で同じ条件のまま確認できます。画面は自由に移動でき、前工程の完了条件はありません。</p>
+<p style="margin:0 0 10px"><a href="./index.html" style="color:#fff;font-weight:900">← ぷかぷかうきわメモへ戻る</a></p>
 <div class="hero-chips"><span class="chip">最終調整版</span><span class="chip">取説結線に準拠</span><span class="chip">リアクトルなし／あり比較</span><span class="chip">AC1周期アニメーション</span><span class="chip">スマホ・PC専用配置</span><span class="chip">計算ボタン方式</span></div>
 </header>
 <div class="safety"><b>高電圧試験の実操作を指示するものではありません。</b> 実設備では取扱説明書、操作票、社内手順、現場責任者の指示、定格、系統分離、検電、短絡接地、誤送電防止、立入管理を優先してください。画面の「順番」は電気の伝わる速度ではなく、操作と因果関係を理解する順番です。</div>
@@ -442,8 +443,28 @@ const stepsReact=[
 {t:'⑧ 計器を読む',d:'一次電圧・一次電流・A1・A2を確認します。A1とA2は指示内容が異なります。',p:['source','control','hv','cableReturn','reactorHv','reactorReturn','transformerReturn']}
 ];
 
-function tab(id){$$('.tabbtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));$$('.panel').forEach(p=>p.classList.toggle('active',p.id===id));}
-$$('.tabbtn').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
+function tab(id){
+ const allowed=['flow','wiring','calc','photos','audit'];
+ if(!allowed.includes(id)) id='flow';
+ $$('.tabbtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+ $$('.panel').forEach(p=>p.classList.toggle('active',p.id===id));
+}
+function openTabFromHash(){
+ const id=(location.hash||'#flow').slice(1);
+ tab(id);
+ const target=document.getElementById(id);
+ if(target){
+  requestAnimationFrame(()=>target.scrollIntoView({block:'start'}));
+ }
+}
+$$('.tabbtn').forEach(b=>b.addEventListener('click',()=>{
+ const id=b.dataset.tab;
+ tab(id);
+ if(history.replaceState) history.replaceState(null,'','#'+id);
+ else location.hash=id;
+}));
+window.addEventListener('hashchange',openTabFromHash);
+openTabFromHash();
 
 function values(instant=false){
  const pct=+$('#voltSlider').value/1000,Vmax=Math.max(0,+$('#testV').value||0),f=+$('#freq').value,V2=Vmax*pct,V1=V2/100;

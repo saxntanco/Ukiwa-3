@@ -474,7 +474,7 @@ body.dark .safety-box{background:#3d2027;color:#ffe8ec}
 <a class="nav-link" href="#home">🏠 ホーム<small>HOME</small></a>
 <a class="nav-link" href="#characters">🎭 図鑑<small>CHARACTER</small></a>
 <a class="nav-link" href="#articles">📄 記事<small>ARTICLES</small></a>
-<a class="nav-link" href="ac-withstand-test-simulator.html">🧪 シミュレータ<small>SIMULATOR</small></a>
+<a class="nav-link" href="./ac-withstand-test-simulator.html">🧪 シミュレータ<small>SIMULATOR</small></a>
 <a class="nav-link" href="#map">🗺️ 空のマップ<small>MAP</small></a>
 <a class="nav-link" href="#safety">🛡️ 安全第一<small>SAFETY</small></a>
 </nav>
@@ -513,7 +513,7 @@ body.dark .safety-box{background:#3d2027;color:#ffe8ec}
 <div class="content">
 <section class="section quick-section">
 <div aria-label="学習ショートカット" class="panel quick-row">
-<a class="quick-item" href="ac-withstand-test-simulator.html"><span><span class="quick-icon">🖥️</span><b>シミュレータ</b><small>実機をまねて確認</small></span></a>
+<a class="quick-item" href="./ac-withstand-test-simulator.html#calc"><span><span class="quick-icon">⚡</span><b>充電電流計算</b><small>電圧・周波数・長さから計算</small></span></a>
 <button class="quick-item open-chat"><span><span class="quick-icon">💬</span><b>すぐ質問</b><small>分からないを残さない</small></span></button>
 <a class="quick-item" href="#characters"><span><span class="quick-icon">🎭</span><b>機器図鑑</b><small>キャラ ⇄ 実機</small></span></a>
 <a class="quick-item" href="#map"><span><span class="quick-icon">🗺️</span><b>空のマップ</b><small>学ぶ順番を確認</small></span></a>
@@ -580,7 +580,7 @@ body.dark .safety-box{background:#3d2027;color:#ffe8ec}
 <footer class="footer">
 <div class="shell footer-grid">
 <div><h3>ぷかぷかうきわメモ</h3><p>電気保安の難しさを消すのではなく、難しいものへ近づく勇気をつくる。</p><small>かわいく覚えて、現場では真剣に。</small></div>
-<div><strong>学ぶ</strong><p><a href="#articles">記事</a><br/><a href="#characters">機器図鑑</a><br/><a href="ac-withstand-test-simulator.html">シミュレータ</a></p></div>
+<div><strong>学ぶ</strong><p><a href="#articles">記事</a><br/><a href="#characters">機器図鑑</a><br/><a href="./ac-withstand-test-simulator.html#flow">シミュレータ</a></p></div>
 <div><strong>安全</strong><p><a href="#safety">安全第一</a><br/><a href="./ovgr-rpr-test-manual-rev10.pdf" rel="noopener" target="_blank">参考PDF</a></p></div>
 </div>
 </footer>
@@ -701,7 +701,10 @@ function articleBody(id){
  <div class="article-photo-strip"><img src="${ARTICLES[0].image}" alt="試験機器全体"><img src="${CHARACTERS[1].real}" alt="IP-R2000前面"><img src="${CHARACTERS[2].real}" alt="耐圧トランス"></div>
  <div class="safety-box" style="margin-top:18px"><strong>高電圧試験の実操作を指示するものではありません。</strong><p>系統分離、無電圧確認、接地、誤送電防止、立入管理、操作票、取扱説明書、責任者指示を優先してください。</p></div>
  <h3>理解チェック</h3>${quizHtml('ac','充電電流に影響するものは？','静電容量・周波数・電圧','電圧だけ')}
- <p><a class="btn blue" href="ac-withstand-test-simulator.html">シミュレータを開く</a></p>`;
+ <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
+  <a class="btn blue" href="./ac-withstand-test-simulator.html#calc">充電電流を計算する</a>
+  <a class="btn" href="./ac-withstand-test-simulator.html#flow">耐圧回路シミュレータを開く</a>
+ </div>`;
  if(id==='ovgr') return `
  <h3>30秒要約</h3><p>OVGRは零相電圧を入力として地絡異常を検出します。試験値だけでなく、試験前状態の記録、切り離し、整定値、配線、完全復元までを工程として管理します。</p>
  <h3>8ステップ</h3><ol><li>通常状態を記録</li><li>系統状態・停電条件を確認</li><li>制御電源と他電源を確認</li><li>試験端子・切離し箇所を照合</li><li>試験回路を図面と照合</li><li>動作値・時限・接点を記録</li><li>配線・整定・表示を完全復元</li><li>復電前に相互確認</li></ol>
