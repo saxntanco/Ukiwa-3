@@ -1,0 +1,18 @@
+{
+  "characters": 15,
+  "main_rank_s": 12,
+  "support_rank_a": 3,
+  "technique_fields": true,
+  "simulator_calc_link": true,
+  "simulator_flow_link": true,
+  "pdf_link": true,
+  "numeric_character_refs_remaining": 0,
+  "render_technique": true,
+  "chat_technique_entries": 15,
+  "missing_files": [],
+  "node_syntax": {
+    "available": true,
+    "ok": true,
+    "message": ""
+  }
+}
