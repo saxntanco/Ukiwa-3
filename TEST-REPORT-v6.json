@@ -1,0 +1,15 @@
+{
+  "vt_brothers": true,
+  "device_number_panel": true,
+  "ocr_51_50": true,
+  "dgr_67": true,
+  "ovgr_64": true,
+  "rpr_32": true,
+  "vcb_52": true,
+  "sim_formula_title": true,
+  "sim_formula_eq": true,
+  "sim_derivation": true,
+  "sim_units_cable": true,
+  "node_ok": true,
+  "node_message": ""
+}

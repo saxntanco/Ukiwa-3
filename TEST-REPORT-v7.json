@@ -1,0 +1,13 @@
+{
+  "rpr_is_32_note_present": true,
+  "67p_note_present": true,
+  "island_gallery_present": true,
+  "island_svgs": [
+    "lab-island.svg",
+    "relay-island.svg",
+    "field-island.svg",
+    "safety-island.svg"
+  ],
+  "node_ok": true,
+  "node_message": ""
+}

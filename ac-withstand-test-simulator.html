@@ -138,6 +138,16 @@ footer{margin-top:14px;color:#687486;font-size:12px}
 @media(max-width:850px){.meter-rack,.manual-audit{grid-template-columns:1fr}.meter-controls{grid-template-columns:1fr}}
 
 </style>
+
+<style id="v6-formula-units">
+.formula-panel{max-width:1120px;margin:24px auto;padding:22px;border-radius:22px;background:#ffffff;border:1px solid #cde8f5;box-shadow:0 10px 24px rgba(45,121,184,.08)}
+.formula-panel h2{margin:0 0 14px;color:#17324d}
+.formula-panel p,.formula-panel li{line-height:1.9;color:#334e68}
+.formula-box{margin:14px 0;padding:16px;border-radius:16px;background:linear-gradient(180deg,#f7fcff,#eef7ff);border:1px solid #d9ecf8}
+.warning-box{background:linear-gradient(180deg,#fffaf2,#fff3e0);border-color:#ffe3a6}
+.formula-panel ul{padding-left:1.2em}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -600,5 +610,55 @@ $('#presetClear').onclick=()=>{$('#testV').value=10350;$('#freq').value=50;$('#i
 renderSteps();renderWireList();setPattern('plain');setView('seq');update();
 })();
 </script>
+
+<section class="formula-panel">
+  <h2>充電電流の公式と単位</h2>
+
+  <p><b>結論：</b>ケーブルの充電電流は、<b>I = 2π f C V</b> で求めます。</p>
+
+  <div class="formula-box">
+    <p><b>各記号の意味と単位</b></p>
+    <ul>
+      <li><b>I [A]</b>：充電電流</li>
+      <li><b>f [Hz]</b>：周波数</li>
+      <li><b>C [F]</b>：ケーブル全体の静電容量</li>
+      <li><b>V [V]</b>：印加電圧（通常は相電圧で扱うことが多い。条件を確認）</li>
+    </ul>
+  </div>
+
+  <div class="formula-box">
+    <p><b>長さあたりの静電容量を使う場合</b></p>
+    <p>ケーブル長さを <b>ℓ</b> とすると、全静電容量は</p>
+    <p><b>C [F] = c [F/m] × ℓ [m]</b></p>
+    <p>したがって、</p>
+    <p><b>I [A] = 2π × f [Hz] × c [F/m] × ℓ [m] × V [V]</b></p>
+
+    <p>もし静電容量が <b>c [μF/km]</b>、長さが <b>ℓ [km]</b> なら、まず</p>
+    <p><b>C [μF] = c [μF/km] × ℓ [km]</b></p>
+    <p>と求め、最後に <b>μF → F（×10<sup>-6</sup>）</b> に変換します。</p>
+  </div>
+
+  <div class="formula-box">
+    <p><b>導出過程</b></p>
+    <p>コンデンサのリアクタンスは、</p>
+    <p><b>Xc [Ω] = 1 / (2π f C)</b></p>
+    <p>電流はオームの法則の形で、</p>
+    <p><b>I [A] = V [V] / Xc [Ω]</b></p>
+    <p>これに代入すると、</p>
+    <p><b>I = V ÷ (1 / 2π f C) = 2π f C V</b></p>
+    <p>つまり、<b>V ÷ Ω = A</b> となり、単位も整合します。</p>
+  </div>
+
+  <div class="formula-box warning-box">
+    <p><b>間違えやすい点</b></p>
+    <ul>
+      <li><b>m と km をそろえる</b>：c が [F/m] なら長さも [m]、c が [μF/km] なら長さも [km] にする。</li>
+      <li><b>μF を F に直す</b>：0.2 μF = 0.2 × 10<sup>-6</sup> F。</li>
+      <li><b>相電圧か線間電圧か</b>：条件に応じて確認する。</li>
+      <li><b>C は全静電容量</b>：長さあたり容量 c そのものではない。</li>
+    </ul>
+  </div>
+</section>
+
 </body>
 </html>

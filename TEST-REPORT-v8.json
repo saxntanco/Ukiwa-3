@@ -1,0 +1,11 @@
+{
+  "version": "v8",
+  "relay_link": true,
+  "lab_link": true,
+  "field_link": true,
+  "safety_link": true,
+  "island_cta_count": 9,
+  "island_images_present": true,
+  "node_ok": true,
+  "node_message": ""
+}
