@@ -1,15 +1,14 @@
 {
-  "version": "FINAL-v5-ISLAND-VT",
-  "output": "/mnt/data/アップロード用_島VTリニューアル完成版_v5/index.html",
-  "file_size_bytes": 3627064,
-  "island_count": 6,
-  "vt_feature": true,
-  "vina_new_portrait": true,
-  "tia_new_portrait": true,
-  "broken_anchors": [],
-  "duplicate_ids": [],
+  "version": "FINAL-v6-technique-restored",
+  "output": "/mnt/data/アップロード用_必殺技完全復元版_v6/index.html",
+  "file_size_bytes": 3632380,
+  "character_count": 16,
+  "all_characters_have_techniques": true,
+  "characters_missing_techniques": [],
+  "safety_ring_restored": true,
+  "technique_visible_in_character_cards": true,
+  "vt_pair_technique_restored": true,
+  "missing_required_strings": [],
   "node_ok": true,
-  "node_messages": [],
-  "desktop_main_map_visible_override": true,
-  "sidebar_map_updated": true
+  "node_messages": []
 }
