@@ -1,42 +1,16 @@
 {
-  "console_errors": [],
-  "page_errors": [],
-  "checks": {
-    "desktop": {
-      "title": "ぷかぷかうきわメモ｜電気保安を、空の冒険に。",
-      "character_cards": 7,
-      "article_cards": 4,
-      "scroll_width": 1440,
-      "viewport_width": 1440,
-      "horizontal_overflow": false,
-      "char_real_mode": true,
-      "article_modal_open": true,
-      "chat_drawer_open": true,
-      "chat_messages": 3,
-      "dark_mode": true
-    },
-    "mobile": {
-      "title": "ぷかぷかうきわメモ｜電気保安を、空の冒険に。",
-      "character_cards": 7,
-      "article_cards": 4,
-      "scroll_width": 390,
-      "viewport_width": 390,
-      "horizontal_overflow": false,
-      "char_real_mode": true,
-      "article_modal_open": true,
-      "chat_drawer_open": true,
-      "chat_messages": 3,
-      "dark_mode": true,
-      "bottom_nav_visible": true
-    }
-  },
-  "file_checks": {
-    "index_exists": true,
-    "simulator_exists": true,
-    "pdf_exists": true,
-    "manifest_exists": true,
-    "inline_style": true,
-    "inline_script": true,
-    "embedded_images": 25
-  }
+  "version": "MASTER-v2-20260806",
+  "output": "/mnt/data/アップロード用_総合調整完成版/index.html",
+  "file_size_bytes": 3982188,
+  "single_upload_file": true,
+  "character_count": 16,
+  "guided_start": true,
+  "water_basics": true,
+  "all_tance_section": true,
+  "advanced_terms": true,
+  "character_filters": true,
+  "broken_anchors": [],
+  "duplicate_ids": [],
+  "node_ok": true,
+  "node_message": ""
 }
