@@ -1,16 +1,15 @@
 {
-  "version": "MASTER-v2-20260806",
-  "output": "/mnt/data/アップロード用_総合調整完成版/index.html",
-  "file_size_bytes": 3982188,
-  "single_upload_file": true,
-  "character_count": 16,
-  "guided_start": true,
-  "water_basics": true,
-  "all_tance_section": true,
-  "advanced_terms": true,
-  "character_filters": true,
+  "version": "FINAL-v5-ISLAND-VT",
+  "output": "/mnt/data/アップロード用_島VTリニューアル完成版_v5/index.html",
+  "file_size_bytes": 3627064,
+  "island_count": 6,
+  "vt_feature": true,
+  "vina_new_portrait": true,
+  "tia_new_portrait": true,
   "broken_anchors": [],
   "duplicate_ids": [],
   "node_ok": true,
-  "node_message": ""
+  "node_messages": [],
+  "desktop_main_map_visible_override": true,
+  "sidebar_map_updated": true
 }
