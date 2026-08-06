@@ -148,6 +148,33 @@ footer{margin-top:14px;color:#687486;font-size:12px}
 .formula-panel ul{padding-left:1.2em}
 </style>
 
+
+<style id="unit-calculator-v13">
+#customCapWrap{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#customCapWrap.hidden{display:none}
+.unit-derivation{margin-top:18px;padding:18px;border:1px solid #cfe3f2;border-radius:20px;background:linear-gradient(145deg,#f9fdff,#f4f7ff)}
+.unit-title span{font-size:11px;letter-spacing:.14em;color:#2673b5;font-weight:900}
+.unit-title h3{margin:4px 0 14px;color:#153d61;font-size:23px}
+.derivation-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.derivation-step{padding:14px;border-radius:15px;background:#fff;border:1px solid #d8e8f5}
+.derivation-step b{display:block;margin-bottom:8px;color:#1e659b}
+.formula-line{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:800;line-height:1.75;color:#17324d;overflow-wrap:anywhere}
+.unit-check{margin-top:12px;padding:12px 14px;border-radius:14px;background:#eaf8ff;color:#224b6c}
+.unit-explain-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.unit-explain-grid>div{padding:14px;border-radius:15px;background:#fff;border:1px solid #d8e8f5}
+.unit-explain-grid h4{margin:0 0 8px;color:#1f639a}
+.unit-explain-grid p{margin:5px 0;line-height:1.75;color:#405e76}
+.calc-trace{margin-top:12px;padding:16px;border-radius:16px;background:#101d2b;color:#e8f6ff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:1.85;white-space:normal}
+.calc-trace .step{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.calc-trace .step:last-child{border-bottom:0}
+.calc-trace .label{color:#8ed8ff;font-weight:900}
+.calc-trace .unit{color:#ffd983}
+.calc-caution{margin-top:12px;padding:13px;border-radius:14px;background:#fff5df;border:1px solid #ffd38a;color:#684b18;line-height:1.75}
+@media(max-width:800px){
+  #customCapWrap,.derivation-steps,.unit-explain-grid{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -380,16 +407,86 @@ footer{margin-top:14px;color:#687486;font-size:12px}
 <div class="field"><label for="calcFreq">電源周波数</label><select id="calcFreq"><option value="50">50Hz</option><option value="60">60Hz</option></select></div>
 <div class="field"><label for="calcVoltage">試験電圧</label><select id="calcVoltage"><option value="10350">6.6kV回路：10,350V</option><option value="5175">3.3kV回路：5,175V</option><option value="custom">任意入力</option></select></div>
 <div id="customVWrap" class="field hidden"><label for="customV">任意試験電圧 [V]</label><input id="customV" type="number" min="0" step="1"></div>
-<div class="field"><label for="cableSize">高圧ケーブルサイズ・代表静電容量</label><select id="cableSize"><option value="0.27">22mm²（0.27μF/km）</option><option value="0.32">38mm²（0.32μF/km）</option><option value="0.37">60mm²（0.37μF/km）</option><option value="0.45">100mm²（0.45μF/km）</option><option value="0.52">150mm²（0.52μF/km）</option><option value="0.55">250mm²（0.55μF/km）</option></select></div>
-<div class="field"><label for="length">長さ [m]</label><input id="length" type="number" min="0" step="1" placeholder="例：100"></div>
+<div class="field">
+<label for="cableSize">高圧ケーブルサイズ・長さ当たり静電容量 c</label>
+<select id="cableSize">
+<option value="0.27">22mm²（代表値 0.27 μF/km）</option>
+<option value="0.32">38mm²（代表値 0.32 μF/km）</option>
+<option value="0.37">60mm²（代表値 0.37 μF/km）</option>
+<option value="0.45">100mm²（代表値 0.45 μF/km）</option>
+<option value="0.52">150mm²（代表値 0.52 μF/km）</option>
+<option value="0.55">250mm²（代表値 0.55 μF/km）</option>
+<option value="custom">任意のメーカー値を入力</option>
+</select>
+</div>
+<div id="customCapWrap" class="hidden">
+  <div class="field"><label for="customCap">長さ当たり静電容量 c</label><input id="customCap" type="number" min="0" step="0.001" placeholder="例：0.32"></div>
+  <div class="field"><label for="customCapUnit">c の単位</label>
+    <select id="customCapUnit">
+      <option value="uFkm">μF/km</option>
+      <option value="nFm">nF/m</option>
+      <option value="uFm">μF/m</option>
+      <option value="Fm">F/m</option>
+    </select>
+  </div>
+</div>
+<div class="field"><label for="length">ケーブル長さ ℓ</label><input id="length" type="number" min="0" step="0.001" placeholder="例：100"></div>
+<div class="field"><label for="lengthUnit">長さの単位</label>
+<select id="lengthUnit"><option value="m">m</option><option value="km">km</option></select>
+</div>
 <div class="row"><label class="radio"><input type="radio" name="phaseMode" value="3" checked>3相一括</label><label class="radio"><input type="radio" name="phaseMode" value="1">1相分</label></div>
 <div class="btnrow" style="margin-top:11px"><button id="calcBtn" class="btn primary">計算</button><button id="applyBtn" class="btn green" disabled>シミュレータへ反映</button><button id="resetCalc" class="btn">リセット</button></div>
-<div class="notice" style="margin-top:10px">使用式：Ic＝2πfCV。サイズ別静電容量は、提示された計算サイトと同じ代表値です。実ケーブルの仕様・実測値を優先してください。</div>
+<div class="notice" style="margin-top:10px">
+<b>使用式：</b>I<sub>c</sub> [A] = 2π × f [Hz] × C [F] × V [V]。<br>
+代表静電容量は学習用の目安です。実務計算では、ケーブルメーカーの仕様値・設備資料・実測値を優先してください。
+</div>
 </div>
 <div class="s7">
 <div id="calcResult" class="calc-placeholder"><div><b>計算結果はまだありません</b><br>すべての条件を入力し、「計算」を押してください。</div></div>
 </div>
 </div>
+
+<div class="unit-derivation">
+  <div class="unit-title">
+    <span>UNIT & DERIVATION</span>
+    <h3>なぜ I<sub>c</sub> = 2πfCV になるのか</h3>
+  </div>
+
+  <div class="derivation-steps">
+    <div class="derivation-step">
+      <b>① コンデンサのリアクタンス</b>
+      <div class="formula-line">X<sub>c</sub> [Ω] = 1 ÷ { 2π × f [Hz] × C [F] }</div>
+    </div>
+    <div class="derivation-step">
+      <b>② オームの法則の形</b>
+      <div class="formula-line">I<sub>c</sub> [A] = V [V] ÷ X<sub>c</sub> [Ω]</div>
+    </div>
+    <div class="derivation-step">
+      <b>③ X<sub>c</sub> を代入</b>
+      <div class="formula-line">I<sub>c</sub> = V ÷ { 1 ÷ (2πfC) } = 2πfCV</div>
+    </div>
+  </div>
+
+  <div class="unit-check">
+    <b>単位確認：</b>V ÷ Ω = A。したがって、計算途中で C を必ず [F] にそろえます。
+  </div>
+
+  <div class="unit-explain-grid">
+    <div>
+      <h4>c [μF/km] と ℓ [m] を使う場合</h4>
+      <p>長さの単位が違うため、まず <b>ℓ [m] ÷ 1000 = ℓ [km]</b> とします。</p>
+      <p>C [μF] = c [μF/km] × ℓ [km]</p>
+      <p>C [F] = C [μF] × 10<sup>-6</sup></p>
+    </div>
+    <div>
+      <h4>この計算機の電圧の扱い</h4>
+      <p>入力した V を、1相分のケーブルへ印加される電圧として計算します。</p>
+      <p>「3相一括」は、同じ条件の1相分を3本として <b>1相分 × 3</b> で表示します。</p>
+      <p>実際の試験結線が異なる場合、この倍率をそのまま適用しないでください。</p>
+    </div>
+  </div>
+</div>
+
 </div>
 </section>
 
@@ -595,13 +692,121 @@ $('#wirePlainBtn').onclick=()=>{state.wireMode='plain';state.wireKey=null;$('#wi
 /* calculator */
 function invalidate(){if(!state.calc)return;state.calc=null;$('#applyBtn').disabled=true;$('#calcStatus').textContent='再計算必要';$('#calcStatus').className='status warn';$('#calcResult').className='calc-placeholder';$('#calcResult').innerHTML='<div><b>条件が変更されました</b><br>「計算」をもう一度押してください。</div>'}
 $('#calcVoltage').onchange=()=>{$('#customVWrap').classList.toggle('hidden',$('#calcVoltage').value!=='custom');invalidate()};
-['calcFreq','calcVoltage','customV','cableSize','length'].forEach(id=>$('#'+id).addEventListener('input',invalidate));$$('input[name="phaseMode"]').forEach(x=>x.onchange=invalidate);
-function calculate(){const f=+$('#calcFreq').value,V=$('#calcVoltage').value==='custom'?+$('#customV').value:+$('#calcVoltage').value,cap=+$('#cableSize').value,len=+$('#length').value,phase=+document.querySelector('input[name="phaseMode"]:checked').value;if(!(V>0&&cap>0&&len>0)){alert('試験電圧、ケーブルサイズ、長さを入力してください。');return}const C1=cap*len/1000,I1=2*Math.PI*f*C1*1e-6*V,Ic=phase===3?I1*3:I1,Ctotal=phase===3?C1*3:C1;const rows=[];[['DR-1220MH',200,500],['DR-1250MH',80,1000]].forEach(([name,L,meter])=>{for(let n=0;n<=5;n++){const il=n*V/(2*Math.PI*f*L),a=Math.abs(Ic-il);rows.push({name,n,il,a,meter})}});state.calc={f,V,cap,len,phase,C1,Ctotal,Ic};$('#calcStatus').textContent='計算済み';$('#calcStatus').className='status on';$('#applyBtn').disabled=false;$('#calcResult').className='calc-placeholder ready';$('#calcResult').innerHTML=`<div class="metrics"><div class="metric"><div class="k">試験電圧</div><div class="v">${fmt(V,0)}V</div></div><div class="metric"><div class="k">全体静電容量</div><div class="v">${fmt(Ctotal,4)}μF</div></div><div class="metric"><div class="k">1相分</div><div class="v">${fmt(I1*1000,1)}mA</div></div><div class="metric"><div class="k">${phase===3?'3相一括':'今回の試験'}</div><div class="v">${fmt(Ic*1000,1)}mA</div></div></div><div class="mono" style="margin-top:10px">C1 = ${cap} μF/km × ${len} m ÷ 1000 = ${fmt(C1,4)} μF
-Ic = 2πfCV
-Ic(1相) = 2π × ${f} × ${fmt(C1,4)}×10⁻⁶ × ${fmt(V,0)} = ${fmt(I1*1000,1)} mA
-${phase===3?'3相一括 = 1相分 × 3 = '+fmt(Ic*1000,1)+' mA':'1相分 = '+fmt(Ic*1000,1)+' mA'}</div><h3 style="margin-top:14px">リアクトル台数比較</h3><div class="table-wrap"><table><thead><tr><th>機種</th><th>台数</th><th>補償電流</th><th>A1理想値</th><th>A2レンジ</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.name}</td><td>${r.n}</td><td>${fmt(r.il*1000,1)}mA</td><td class="${r.a<=.167?'ok':'badtext'}">${fmt(r.a*1000,1)}mA</td><td class="${Ic*1000<=r.meter?'ok':'badtext'}">${r.meter}mA F.S.</td></tr>`).join('')}</tbody></table></div>`}
+$('#cableSize').onchange=()=>{$('#customCapWrap').classList.toggle('hidden',$('#cableSize').value!=='custom');invalidate()};
+['calcFreq','calcVoltage','customV','cableSize','customCap','customCapUnit','length','lengthUnit'].forEach(id=>$('#'+id).addEventListener('input',invalidate));
+$$('input[name="phaseMode"]').forEach(x=>x.onchange=invalidate);
+function calculate(){
+ const f=+$('#calcFreq').value;
+ const V=$('#calcVoltage').value==='custom'?+$('#customV').value:+$('#calcVoltage').value;
+ const lengthInput=+$('#length').value;
+ const lengthUnit=$('#lengthUnit').value;
+ const phase=+document.querySelector('input[name="phaseMode"]:checked').value;
+
+ let capInput,capUnit,capLabel;
+ if($('#cableSize').value==='custom'){
+   capInput=+$('#customCap').value;
+   capUnit=$('#customCapUnit').value;
+   capLabel=`任意入力 ${capInput}`;
+ }else{
+   capInput=+$('#cableSize').value;
+   capUnit='uFkm';
+   capLabel=`代表値 ${capInput}`;
+ }
+
+ if(!(V>0&&capInput>0&&lengthInput>0)){
+   alert('試験電圧、静電容量、ケーブル長さを入力してください。');
+   return;
+ }
+
+ const lengthM=lengthUnit==='km'?lengthInput*1000:lengthInput;
+ const lengthKm=lengthM/1000;
+
+ let cFperM=0;
+ let capUnitText='';
+ if(capUnit==='uFkm'){
+   cFperM=capInput*1e-6/1000;
+   capUnitText='μF/km';
+ }else if(capUnit==='nFm'){
+   cFperM=capInput*1e-9;
+   capUnitText='nF/m';
+ }else if(capUnit==='uFm'){
+   cFperM=capInput*1e-6;
+   capUnitText='μF/m';
+ }else{
+   cFperM=capInput;
+   capUnitText='F/m';
+ }
+
+ const C1F=cFperM*lengthM;
+ const C1uF=C1F*1e6;
+ const Xc=1/(2*Math.PI*f*C1F);
+ const I1=V/Xc;
+ const I1Direct=2*Math.PI*f*C1F*V;
+ const Ic=phase===3?I1*3:I1;
+ const CtotalF=phase===3?C1F*3:C1F;
+ const CtotaluF=CtotalF*1e6;
+
+ const rows=[];
+ [['DR-1220MH',200,500],['DR-1250MH',80,1000]].forEach(([name,L,meter])=>{
+   for(let n=0;n<=5;n++){
+     const il=n*V/(2*Math.PI*f*L);
+     const a=Math.abs(Ic-il);
+     rows.push({name,n,il,a,meter});
+   }
+ });
+
+ state.calc={f,V,capInput,capUnit,capUnitText,lengthInput,lengthUnit,lengthM,lengthKm,phase,C1F,C1uF,CtotalF,CtotaluF,Xc,I1,Ic};
+ $('#calcStatus').textContent='計算済み';
+ $('#calcStatus').className='status on';
+ $('#applyBtn').disabled=false;
+ $('#calcResult').className='calc-placeholder ready';
+
+ let capacityTrace='';
+ if(capUnit==='uFkm'){
+   capacityTrace=`
+    <div class="step"><span class="label">長さ換算：</span>${fmt(lengthInput,3)} <span class="unit">${lengthUnit}</span> = ${fmt(lengthM,3)} <span class="unit">m</span> = ${fmt(lengthKm,6)} <span class="unit">km</span></div>
+    <div class="step"><span class="label">全静電容量：</span>C₁ [μF] = ${fmt(capInput,6)} [μF/km] × ${fmt(lengthKm,6)} [km] = ${fmt(C1uF,8)} <span class="unit">μF</span></div>`;
+ }else{
+   capacityTrace=`
+    <div class="step"><span class="label">長さ換算：</span>${fmt(lengthInput,3)} <span class="unit">${lengthUnit}</span> = ${fmt(lengthM,3)} <span class="unit">m</span></div>
+    <div class="step"><span class="label">長さ当たり容量：</span>c = ${fmt(capInput,8)} <span class="unit">${capUnitText}</span> = ${cFperM.toExponential(8)} <span class="unit">F/m</span></div>
+    <div class="step"><span class="label">全静電容量：</span>C₁ [F] = ${cFperM.toExponential(8)} [F/m] × ${fmt(lengthM,3)} [m] = ${C1F.toExponential(8)} <span class="unit">F</span></div>`;
+ }
+
+ $('#calcResult').innerHTML=`
+ <div class="metrics">
+   <div class="metric"><div class="k">試験電圧 V</div><div class="v">${fmt(V,0)} V</div></div>
+   <div class="metric"><div class="k">1相分静電容量 C₁</div><div class="v">${fmt(C1uF,6)} μF</div></div>
+   <div class="metric"><div class="k">1相分リアクタンス Xc</div><div class="v">${fmt(Xc,1)} Ω</div></div>
+   <div class="metric"><div class="k">1相分充電電流 Ic</div><div class="v">${fmt(I1*1000,2)} mA</div></div>
+   <div class="metric"><div class="k">${phase===3?'3相一括':'今回の試験'}</div><div class="v">${fmt(Ic*1000,2)} mA</div></div>
+   <div class="metric"><div class="k">全体静電容量</div><div class="v">${fmt(CtotaluF,6)} μF</div></div>
+ </div>
+
+ <div class="calc-trace">
+   <div class="step"><span class="label">入力：</span>f = ${fmt(f,0)} <span class="unit">Hz</span>、V = ${fmt(V,0)} <span class="unit">V</span>、c = ${fmt(capInput,8)} <span class="unit">${capUnitText}</span></div>
+   ${capacityTrace}
+   <div class="step"><span class="label">μF → F：</span>C₁ [F] = ${fmt(C1uF,8)} [μF] × 10⁻⁶ = ${C1F.toExponential(8)} <span class="unit">F</span></div>
+   <div class="step"><span class="label">容量リアクタンス：</span>Xc [Ω] = 1 ÷ (2π × ${fmt(f,0)} [Hz] × ${C1F.toExponential(8)} [F]) = ${fmt(Xc,3)} <span class="unit">Ω</span></div>
+   <div class="step"><span class="label">V ÷ Xc：</span>I₁ [A] = ${fmt(V,0)} [V] ÷ ${fmt(Xc,3)} [Ω] = ${I1.toExponential(8)} <span class="unit">A</span></div>
+   <div class="step"><span class="label">直接式の照合：</span>2π × ${fmt(f,0)} [Hz] × ${C1F.toExponential(8)} [F] × ${fmt(V,0)} [V] = ${I1Direct.toExponential(8)} <span class="unit">A</span></div>
+   <div class="step"><span class="label">${phase===3?'3相一括':'1相分'}：</span>${phase===3?`${fmt(I1*1000,3)} [mA/相] × 3 = ${fmt(Ic*1000,3)} [mA]`:`${fmt(Ic*1000,3)} [mA]`}</div>
+ </div>
+
+ <div class="calc-caution">
+   <b>電圧の扱い：</b>この計算では、入力した V を1相分のケーブルに印加される電圧として使用しています。
+   「3相一括」は同条件の1相分を3本として加算した表示です。実際の試験結線・一括方法・遮へい層の接地条件が異なる場合は、
+   設備図面、試験要領書、ケーブル仕様書を優先してください。
+ </div>
+
+ <h3 style="margin-top:14px">リアクトル台数比較</h3>
+ <div class="table-wrap"><table>
+ <thead><tr><th>機種</th><th>台数</th><th>補償電流</th><th>A1理想値</th><th>A2レンジ</th></tr></thead>
+ <tbody>${rows.map(r=>`<tr><td>${r.name}</td><td>${r.n}</td><td>${fmt(r.il*1000,1)} mA</td><td class="${r.a<=.167?'ok':'badtext'}">${fmt(r.a*1000,1)} mA</td><td class="${Ic*1000<=r.meter?'ok':'badtext'}">${r.meter} mA F.S.</td></tr>`).join('')}</tbody>
+ </table></div>`;
+}
 function applyCalc(){if(!state.calc)return;$('#testV').value=Math.round(state.calc.V);$('#freq').value=state.calc.f;$('#icFull').value=(state.calc.Ic*1000).toFixed(1);setPattern('plain');tab('flow');window.scrollTo({top:0,behavior:'smooth'});update()}
-function resetCalc(){state.calc=null;$('#length').value='';$('#applyBtn').disabled=true;$('#calcStatus').textContent='未計算';$('#calcStatus').className='status';$('#calcResult').className='calc-placeholder';$('#calcResult').innerHTML='<div><b>計算結果はまだありません</b><br>すべての条件を入力し、「計算」を押してください。</div>'}
+function resetCalc(){state.calc=null;$('#length').value='';$('#customCap').value='';$('#lengthUnit').value='m';$('#applyBtn').disabled=true;$('#calcStatus').textContent='未計算';$('#calcStatus').className='status';$('#calcResult').className='calc-placeholder';$('#calcResult').innerHTML='<div><b>計算結果はまだありません</b><br>すべての条件を入力し、「計算」を押してください。</div>'}
 $('#calcBtn').onclick=calculate;$('#applyBtn').onclick=applyCalc;$('#resetCalc').onclick=resetCalc;
 
 $('#preset66').onclick=()=>{$('#testV').value=10350;$('#freq').value=50;$('#icFull').value=300;$('#resLeak').value=0;update()};
@@ -610,55 +815,6 @@ $('#presetClear').onclick=()=>{$('#testV').value=10350;$('#freq').value=50;$('#i
 renderSteps();renderWireList();setPattern('plain');setView('seq');update();
 })();
 </script>
-
-<section class="formula-panel">
-  <h2>充電電流の公式と単位</h2>
-
-  <p><b>結論：</b>ケーブルの充電電流は、<b>I = 2π f C V</b> で求めます。</p>
-
-  <div class="formula-box">
-    <p><b>各記号の意味と単位</b></p>
-    <ul>
-      <li><b>I [A]</b>：充電電流</li>
-      <li><b>f [Hz]</b>：周波数</li>
-      <li><b>C [F]</b>：ケーブル全体の静電容量</li>
-      <li><b>V [V]</b>：印加電圧（通常は相電圧で扱うことが多い。条件を確認）</li>
-    </ul>
-  </div>
-
-  <div class="formula-box">
-    <p><b>長さあたりの静電容量を使う場合</b></p>
-    <p>ケーブル長さを <b>ℓ</b> とすると、全静電容量は</p>
-    <p><b>C [F] = c [F/m] × ℓ [m]</b></p>
-    <p>したがって、</p>
-    <p><b>I [A] = 2π × f [Hz] × c [F/m] × ℓ [m] × V [V]</b></p>
-
-    <p>もし静電容量が <b>c [μF/km]</b>、長さが <b>ℓ [km]</b> なら、まず</p>
-    <p><b>C [μF] = c [μF/km] × ℓ [km]</b></p>
-    <p>と求め、最後に <b>μF → F（×10<sup>-6</sup>）</b> に変換します。</p>
-  </div>
-
-  <div class="formula-box">
-    <p><b>導出過程</b></p>
-    <p>コンデンサのリアクタンスは、</p>
-    <p><b>Xc [Ω] = 1 / (2π f C)</b></p>
-    <p>電流はオームの法則の形で、</p>
-    <p><b>I [A] = V [V] / Xc [Ω]</b></p>
-    <p>これに代入すると、</p>
-    <p><b>I = V ÷ (1 / 2π f C) = 2π f C V</b></p>
-    <p>つまり、<b>V ÷ Ω = A</b> となり、単位も整合します。</p>
-  </div>
-
-  <div class="formula-box warning-box">
-    <p><b>間違えやすい点</b></p>
-    <ul>
-      <li><b>m と km をそろえる</b>：c が [F/m] なら長さも [m]、c が [μF/km] なら長さも [km] にする。</li>
-      <li><b>μF を F に直す</b>：0.2 μF = 0.2 × 10<sup>-6</sup> F。</li>
-      <li><b>相電圧か線間電圧か</b>：条件に応じて確認する。</li>
-      <li><b>C は全静電容量</b>：長さあたり容量 c そのものではない。</li>
-    </ul>
-  </div>
-</section>
 
 </body>
 </html>
