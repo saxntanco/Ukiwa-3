@@ -581,6 +581,70 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   .nav-card-quote span{font-size:6.5px;padding:4px 7px}
   .nav-card-footer{padding-top:5px;font-size:5.2px}
 }
+</style><style id="v24-clean-home-style">
+/* v24 — clean homepage: no repeated lower menu cards */
+.route-section{
+  padding-bottom:28px!important;
+}
+.map-panel{
+  margin-bottom:16px!important;
+}
+.route-info-modal[hidden]{display:none!important}
+.route-info-modal{
+  position:fixed;inset:0;z-index:1000;
+  display:grid;place-items:center;padding:18px;
+}
+.route-info-backdrop{
+  position:absolute;inset:0;
+  background:rgba(2,28,46,.72);
+  backdrop-filter:blur(8px);
+}
+.route-info-dialog{
+  position:relative;z-index:1;
+  width:min(430px,94vw);
+  padding:24px 21px 20px;
+  border-radius:24px;
+  color:#103c65;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(116,221,242,.22),transparent 26%),
+    linear-gradient(160deg,#fff,#e9faff);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 28px 70px rgba(0,35,58,.32);
+}
+.route-info-close{
+  position:absolute;right:12px;top:12px;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid #c4e2ec;background:#fff;
+  color:#0a618b;font-size:24px;
+}
+.route-info-kicker{
+  display:block;padding-right:54px;
+  font-size:9px;letter-spacing:.17em;font-weight:1000;color:#1683ad;
+}
+.route-info-dialog h2{
+  margin:5px 48px 8px 0;font-size:26px;line-height:1.3;
+}
+.route-info-dialog p{
+  margin:0;color:#55778a;font-size:13px;line-height:1.75;
+}
+.route-info-tags{
+  display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;
+}
+.route-info-tags span{
+  padding:7px 10px;border-radius:999px;
+  background:#eefaff;border:1px solid #c5e7ef;
+  color:#0b668d;font-size:10px;font-weight:900;
+}
+.route-info-ok{
+  width:100%;min-height:46px;margin-top:18px;
+  border:0;border-radius:13px;
+  background:linear-gradient(135deg,#1289d6,#0769b8);
+  color:white;font-weight:1000;
+}
+@media(max-width:520px){
+  .route-section{padding-bottom:18px!important}
+  .map-panel{margin-bottom:8px!important}
+}
 </style></head>
 <body>
 <header class="site-header">
@@ -630,8 +694,8 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 <strong>最初の航路を選ぼう</strong>
 </div>
 <div class="nav-card-route-links">
-<a data-back-route="basics" href="#basics"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
-<a data-back-route="guide" href="#guide"><b>目的から探す</b><small>機器・試験・用語</small></a>
+<a data-back-route="basics" data-route-modal="basics" href="#"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
+<a data-back-route="guide" data-route-modal="guide" href="#"><b>目的から探す</b><small>機器・試験・用語</small></a>
 <a data-back-route="map" href="#map"><b>海のマップへ</b><small>6つの修行島</small></a>
 </div>
 </div>
@@ -668,10 +732,10 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 <div class="ring-hole-message">カードをタップで<br/>くわしく見る 👆</div>
 <div class="orbit" id="orbit">
 <button class="route-card" data-href="./ac-withstand-test-simulator.html#calc" data-i="0" type="button"><span class="route-num">01</span><span class="icon">🧪</span><strong>耐圧シミュレータ</strong><small>ケーブル耐圧試験をシミュレーション</small></button>
-<button class="route-card" data-href="#articles" data-i="1" type="button"><span class="route-num">02</span><span class="icon">📚</span><strong>現場の記事</strong><small>実務に役立つ現場の知識</small></button>
-<button class="route-card" data-href="#basics" data-i="2" type="button"><span class="route-num">03</span><span class="icon">⚙️</span><strong>RLC・タンス図</strong><small>原理とシーケンスをやさしく解説</small></button>
-<button class="route-card" data-href="#guide" data-i="3" type="button"><span class="route-num">04</span><span class="icon">📖</span><strong>キャラクター図鑑</strong><small>うきわちゃんと見て学ぶ</small></button>
-<button class="route-card" data-href="#glossary" data-i="4" type="button"><span class="route-num">05</span><span class="icon">⚡</span><strong>用語・公式集</strong><small>基礎から応用まですぐに調べられる</small></button>
+<button class="route-card" data-action="articles" data-href="#" data-i="1" type="button"><span class="route-num">02</span><span class="icon">📚</span><strong>現場の記事</strong><small>実務に役立つ現場の知識</small></button>
+<button class="route-card" data-action="basics" data-href="#" data-i="2" type="button"><span class="route-num">03</span><span class="icon">⚙️</span><strong>RLC・タンス図</strong><small>原理とシーケンスをやさしく解説</small></button>
+<button class="route-card" data-action="guide" data-href="#" data-i="3" type="button"><span class="route-num">04</span><span class="icon">📖</span><strong>キャラクター図鑑</strong><small>うきわちゃんと見て学ぶ</small></button>
+<button class="route-card" data-action="glossary" data-href="#" data-i="4" type="button"><span class="route-num">05</span><span class="icon">⚡</span><strong>用語・公式集</strong><small>基礎から応用まですぐに調べられる</small></button>
 <button class="route-card" data-href="#map" data-i="5" type="button"><span class="route-num">06</span><span class="icon">🗺️</span><strong>海のマップ</strong><small>6つの修行島から学ぶ</small></button>
 </div>
 <button aria-label="前のメニュー" class="ring-arrow prev" id="prevRoute" type="button">‹</button>
@@ -687,7 +751,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 <div class="map-copy">
 <h2>海の冒険マップ</h2>
 <p>目的地を選ぶと、あなたのルートが光るよ！</p>
-<a href="#map-detail">マップを見る <i>→</i></a>
+<a href="#map">マップを見る <i>→</i></a>
 </div>
 <div class="map-art">
 <img alt="海に浮かぶ学習アイランドのマップ" loading="lazy" src="./ocean-map-art.jpg"/>
@@ -699,34 +763,19 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 </section>
 </section>
 <!-- ホームは選択に徹し、詳細は必要なときだけ開く -->
-<section class="destination destination-card" id="basics">
-<h2>💧 電気の基礎・RLC</h2>
-<p>水でV・I・Rをつかみ、抵抗・コンダクタンス・キャパシタンス・インダクタンス・リアクタンス・サセプタンス・インピーダンス・アドミタンスへ進みます。</p>
-</section>
-<section class="destination destination-card" id="articles">
-<h2>📚 現場の記事</h2>
-<p>保護継電器、交流耐圧、充電電流、復旧確認など、現場で必要なテーマへ進む入口です。</p>
-</section>
-<section class="destination destination-card" id="guide">
-<h2>📖 キャラクター図鑑</h2>
-<p>ホームではうきわちゃんだけを表示。ほかのキャラクターは図鑑側で整理する設計です。</p>
-</section>
-<section class="destination destination-card" id="glossary">
-<h2>⚡ 用語・公式集</h2>
-<p>公式には記号・単位・一次値／二次値を明確にして整理します。</p>
-</section>
-<section class="destination destination-card" id="map-detail">
-<h2>🗺️ 6つの修行アイランド</h2>
-<p>ぷかぷかハーバー、リレー・シタデル、テストラボ・アイランド、サブステーション・シティ、フィールド・フォグ、ブラックアウト・シー。</p>
-</section>
+
+
+
+
+
 </main>
 <button aria-label="質問を開く" class="chat-bubble" type="button">💬</button>
 <nav aria-label="メインナビゲーション" class="bottom-nav">
 <a class="active" href="#home"><span><b>🏠</b>ホーム</span></a>
-<a href="#basics"><span><b>💧</b>基礎</span></a>
+<a data-route-modal="basics" href="#"><span><b>💧</b>基礎</span></a>
 <a href="#map"><span><b>🗺️</b>マップ</span></a>
-<a href="#guide"><span><b>🎭</b>図鑑</span></a>
-<a href="#glossary"><span><b>💬</b>用語</span></a>
+<a data-route-modal="guide" href="#"><span><b>🎭</b>図鑑</span></a>
+<a data-route-modal="glossary" href="#"><span><b>💬</b>用語</span></a>
 </nav>
 <script>
 (() => {
@@ -795,10 +844,10 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   // Ring carousel
   const routes = [
     ['耐圧シミュレータ','ケーブル耐圧試験をシミュレーション','./ac-withstand-test-simulator.html#calc'],
-    ['現場の記事','実務に役立つ現場の知識','#articles'],
-    ['RLC・タンス図','原理とシーケンスをやさしく解説','#basics'],
-    ['キャラクター図鑑','うきわちゃんと見て学ぶ','#guide'],
-    ['用語・公式集','基礎から応用まですぐに調べられる','#glossary'],
+    ['現場の記事','実務に役立つ現場の知識','#'],
+    ['RLC・タンス図','原理とシーケンスをやさしく解説','#'],
+    ['キャラクター図鑑','うきわちゃんと見て学ぶ','#'],
+    ['用語・公式集','基礎から応用まですぐに調べられる','#'],
     ['海のマップ','6つの修行島から学ぶ','#map']
   ];
   const shell = document.getElementById('routeRing');
@@ -846,11 +895,67 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   }
   function move(d){selected=(selected+d+cards.length)%cards.length;render()}
 
+
+  const routeModal=document.getElementById('routeInfoModal');
+  const routeModalTitle=document.getElementById('routeInfoTitle');
+  const routeModalText=document.getElementById('routeInfoText');
+  const routeModalTags=document.getElementById('routeInfoTags');
+  const routeInfo={
+    articles:{
+      title:'📚 現場の記事',
+      text:'保護継電器、交流耐圧、充電電流、復旧確認など、現場で必要になるテーマを記事から探します。',
+      tags:['保護継電器','耐圧試験','復旧確認','現場判断']
+    },
+    basics:{
+      title:'⚙️ 電気の基礎・RLC',
+      text:'水のイメージからV・I・Rをつかみ、RLC、リアクタンス、サセプタンス、インピーダンスへ進みます。',
+      tags:['V・I・R','RLC','リアクタンス','インピーダンス']
+    },
+    guide:{
+      title:'📖 キャラクター図鑑',
+      text:'機器や保護継電器の役割をキャラクターから覚え、必要なときに実機・原理へ進みます。',
+      tags:['保護継電器','高圧機器','CT・VT','試験']
+    },
+    glossary:{
+      title:'⚡ 用語・公式集',
+      text:'記号、単位、公式、一次値・二次値を必要なときに素早く確認するための入口です。',
+      tags:['公式','単位','一次値・二次値','用語']
+    }
+  };
+  function openRouteModal(key){
+    const d=routeInfo[key];
+    if(!d||!routeModal)return;
+    routeModalTitle.textContent=d.title;
+    routeModalText.textContent=d.text;
+    routeModalTags.replaceChildren(...d.tags.map(t=>{
+      const s=document.createElement('span');s.textContent=t;return s;
+    }));
+    routeModal.hidden=false;
+    document.body.style.overflow='hidden';
+    routeModal.querySelector('.route-info-close')?.focus();
+  }
+  function closeRouteModal(){
+    routeModal.hidden=true;
+    document.body.style.overflow='';
+  }
+  routeModal?.querySelectorAll('[data-close-route-modal]').forEach(el=>el.addEventListener('click',closeRouteModal));
+  document.querySelectorAll('[data-route-modal]').forEach(el=>el.addEventListener('click',e=>{
+    e.preventDefault();openRouteModal(el.dataset.routeModal);
+  }));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&routeModal&&!routeModal.hidden)closeRouteModal();
+  });
+
   document.getElementById('prevRoute').addEventListener('click',()=>move(-1));
   document.getElementById('nextRoute').addEventListener('click',()=>move(1));
   cards.forEach((card,i)=>card.addEventListener('click',()=>{
-    if(i===selected){location.href=routes[i][2]}
-    else{selected=i;render()}
+    if(i===selected){
+      const action=card.dataset.action;
+      if(action){openRouteModal(action)}
+      else{location.href=routes[i][2]}
+    }else{
+      selected=i;render()
+    }
   }));
   shell.addEventListener('keydown',e=>{
     if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}
@@ -883,6 +988,15 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
     downX=null;dragging=false;
     shell.style.setProperty('--tilt-x','0deg');shell.style.setProperty('--tilt-y','0deg');
   });
+
+  link.addEventListener('click',e=>{
+    const action=cards[selected]?.dataset.action;
+    if(action){
+      e.preventDefault();
+      openRouteModal(action);
+    }
+  });
+
   render();
 
   // Back-face route links: stop pointer events from becoming swipe gestures.
@@ -894,5 +1008,15 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 
 })();
 </script>
-</body>
+<div aria-labelledby="routeInfoTitle" aria-modal="true" class="route-info-modal" hidden="" id="routeInfoModal" role="dialog">
+<div class="route-info-backdrop" data-close-route-modal=""></div>
+<div class="route-info-dialog">
+<button aria-label="閉じる" class="route-info-close" data-close-route-modal="" type="button">×</button>
+<span class="route-info-kicker">LEARNING ROUTE</span>
+<h2 id="routeInfoTitle"></h2>
+<p id="routeInfoText"></p>
+<div class="route-info-tags" id="routeInfoTags"></div>
+<button class="route-info-ok" data-close-route-modal="" type="button">ホームに戻る</button>
+</div>
+</div></body>
 </html>

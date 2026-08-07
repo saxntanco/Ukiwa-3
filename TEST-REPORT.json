@@ -1,12 +1,19 @@
 {
-  "version": "v23-navigation-card-back",
-  "premium_back_redesign": true,
-  "navigation_card_concept": true,
-  "domains": 6,
-  "first_route_links": 3,
-  "swipe_both_directions_toggle": true,
-  "tap_does_not_flip": true,
-  "specular_flip_highlight": true,
+  "version": "v24-clean-home",
+  "removed_visible_lower_cards": [
+    "電気の基礎・RLC",
+    "現場の記事",
+    "キャラクター図鑑",
+    "用語・公式集",
+    "6つの修行アイランド"
+  ],
+  "homepage_flow": [
+    "URカード",
+    "3Dうきわメニュー",
+    "海の冒険マップ",
+    "固定ボトムナビ"
+  ],
+  "route_details_open_in_modal": true,
   "js_syntax_ok": true,
   "duplicate_ids": [],
   "broken_internal_anchors": []
