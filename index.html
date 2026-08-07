@@ -1,11 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#078bca">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#078bca" name="theme-color"/>
 <title>ぷかぷかうきわメモ｜電気保安を、海の冒険に。</title>
-<meta name="description" content="高圧受変電設備、保護継電器、試験・測定を海の冒険世界で学ぶ電気保安学習サイト。">
+<meta content="高圧受変電設備、保護継電器、試験・測定を海の冒険世界で学ぶ電気保安学習サイト。" name="description"/>
 <style>
 :root{
   --deep:#073b71;
@@ -299,12 +300,9 @@ body.dark .route-section{background:linear-gradient(#082f49,#0a5978)}
 body.dark .route-head h2,.dark .route-head p{color:#eafcff}
 body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;border-color:#1b5c78}
 </style>
-
-<link rel="icon" href="./icon-192.png" type="image/png" sizes="192x192">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="180x180">
-<link rel="manifest" href="./manifest.webmanifest">
-
-
+<link href="./icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="./apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="./manifest.webmanifest" rel="manifest"/>
 <style id="v22-card-swipe">
 .hero-card{
   touch-action:pan-y;
@@ -314,126 +312,422 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 }
 .hero-card:active{cursor:grabbing}
 </style>
+<style id="v23-navigation-card-back">
+/* v23 — premium navigation-card back */
+.hero-card-inner{
+  transition:transform .56s cubic-bezier(.22,.74,.18,1)!important;
+}
+.hero-card{
+  position:relative;
+}
+.hero-card::after{
+  content:"";
+  position:absolute;
+  inset:7% -18%;
+  z-index:8;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 37%,rgba(255,255,255,.0) 42%,rgba(255,255,255,.30) 49%,rgba(255,244,192,.18) 52%,rgba(255,255,255,0) 59%,transparent 64%);
+  transform:translateX(-80%) skewX(-8deg);
+  opacity:0;
+}
+.hero-card.is-flipping::after{
+  animation:v23Specular .56s cubic-bezier(.22,.74,.18,1);
+}
+@keyframes v23Specular{
+  0%{transform:translateX(-80%) skewX(-8deg);opacity:0}
+  20%{opacity:.18}
+  50%{opacity:.45}
+  82%{opacity:.14}
+  100%{transform:translateX(80%) skewX(-8deg);opacity:0}
+}
 
-</head>
+.hero-card-back{
+  transform:rotateY(180deg);
+  padding:24px 22px 19px!important;
+  color:white;
+  text-align:left;
+  display:flex!important;
+  flex-direction:column;
+  justify-content:flex-start!important;
+  overflow:hidden;
+  border:3px solid #e3bd66!important;
+  background:
+    radial-gradient(circle at 50% 23%,rgba(96,224,247,.18),transparent 28%),
+    radial-gradient(circle at 85% 8%,rgba(255,255,255,.12),transparent 16%),
+    linear-gradient(160deg,#083f70 0%,#062f59 50%,#061f3f 100%)!important;
+}
+.hero-card-back:before{
+  content:"";
+  position:absolute;
+  inset:13px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    inset 0 0 34px rgba(90,208,239,.10),
+    inset 0 0 0 1px rgba(220,188,101,.10);
+  pointer-events:none;
+}
+.hero-card-back:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.08;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 24px,rgba(184,239,255,.9) 25px 26px),
+    repeating-linear-gradient(90deg,transparent 0 24px,rgba(184,239,255,.9) 25px 26px),
+    radial-gradient(circle at 17% 79%,transparent 0 25px,rgba(255,255,255,.8) 26px 27px,transparent 28px 43px,rgba(255,255,255,.5) 44px 45px,transparent 46px);
+  mix-blend-mode:screen;
+}
+
+.nav-card-grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.22;
+  background:
+    linear-gradient(38deg,transparent 46%,rgba(89,219,245,.22) 47% 48%,transparent 49%) 0 0/90px 90px,
+    linear-gradient(-29deg,transparent 46%,rgba(89,219,245,.18) 47% 48%,transparent 49%) 20px 30px/110px 110px;
+}
+.nav-card-brand{position:relative;z-index:2;text-align:center}
+.nav-card-kicker{
+  display:block;
+  font-size:8px;
+  letter-spacing:.19em;
+  font-weight:1000;
+  color:#7de5f5;
+}
+.nav-card-brand h2{
+  margin:5px 0 2px!important;
+  font-size:27px!important;
+  line-height:1.13!important;
+  letter-spacing:-.03em;
+  text-align:center;
+  color:#fff;
+  text-shadow:0 3px 12px rgba(0,0,0,.16);
+}
+.nav-card-sub{
+  display:block;
+  font-size:7px;
+  letter-spacing:.16em;
+  color:#c2eaf3;
+  font-weight:900;
+}
+
+.nav-card-emblem{
+  position:relative;
+  width:78px;height:78px;
+  margin:8px auto 6px;
+  display:grid;place-items:center;
+}
+.nav-card-emblem img{
+  position:relative;z-index:3;
+  width:48px;height:48px;
+  filter:drop-shadow(0 0 9px rgba(105,226,249,.46)) drop-shadow(0 2px 2px rgba(0,0,0,.16));
+}
+.nav-card-ripple{
+  position:absolute;left:50%;top:50%;border-radius:50%;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(122,228,247,.40);
+}
+.nav-card-ripple.r1{width:66px;height:66px;box-shadow:0 0 18px rgba(88,214,241,.18)}
+.nav-card-ripple.r2{width:82px;height:82px;border-color:rgba(225,191,100,.30)}
+
+.nav-card-summary{
+  position:relative;z-index:2;
+  margin:3px 4px 8px!important;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(143,223,241,.16);
+  color:#e2f8fd!important;
+  font-size:9.5px!important;
+  line-height:1.65!important;
+  text-align:center;
+}
+
+.nav-card-domains{
+  position:relative;z-index:2;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+.nav-card-domains>span{
+  min-width:0;
+  padding:6px 5px;
+  border-radius:9px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.09),rgba(77,178,209,.06));
+  border:1px solid rgba(137,224,241,.19);
+  text-align:center;
+}
+.nav-card-domains b{
+  display:block;
+  font-size:8.5px;
+  line-height:1.25;
+  color:#fff;
+}
+.nav-card-domains small{
+  display:block;
+  margin-top:2px;
+  font-size:6.3px;
+  line-height:1.25;
+  color:#9fd6e4;
+}
+
+.nav-card-route{
+  position:relative;z-index:4;
+  margin-top:8px;
+  padding:8px;
+  border-radius:12px;
+  background:
+    linear-gradient(135deg,rgba(222,187,92,.12),rgba(53,177,217,.09));
+  border:1px solid rgba(225,189,96,.36);
+}
+.nav-card-route-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:6px;
+}
+.nav-card-route-head span{
+  font-size:6.5px;
+  letter-spacing:.15em;
+  color:#e3c66f;
+  font-weight:1000;
+}
+.nav-card-route-head strong{
+  font-size:10px;
+  color:#fff;
+}
+.nav-card-route-links{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+.nav-card-route-links a{
+  min-height:43px;
+  padding:6px 4px;
+  border-radius:8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(255,255,255,.86);
+  color:#075682;
+  box-shadow:0 4px 9px rgba(0,17,37,.13);
+}
+.nav-card-route-links a b{
+  display:block;
+  font-size:8.5px;
+  line-height:1.25;
+}
+.nav-card-route-links a small{
+  display:block;
+  margin-top:2px;
+  font-size:6px;
+  color:#5f8497;
+}
+
+.nav-card-quote{
+  position:relative;z-index:2;
+  margin-top:7px;
+  text-align:center;
+}
+.nav-card-quote span{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(71,197,226,.09);
+  color:#d9f6fb;
+  font-size:7.2px;
+  line-height:1.45;
+  font-weight:800;
+}
+
+.nav-card-footer{
+  position:relative;z-index:2;
+  margin-top:auto;
+  padding-top:7px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:5px;
+  border-top:1px solid rgba(255,255,255,.15);
+  color:#9ed1df;
+  font-size:5.8px;
+  letter-spacing:.05em;
+  font-weight:900;
+}
+
+@media(max-width:520px){
+  .hero-card-back{padding:20px 17px 15px!important}
+  .nav-card-brand h2{font-size:23px!important}
+  .nav-card-emblem{width:68px;height:68px;margin:6px auto 4px}
+  .nav-card-emblem img{width:42px;height:42px}
+  .nav-card-ripple.r1{width:58px;height:58px}.nav-card-ripple.r2{width:70px;height:70px}
+  .nav-card-summary{font-size:8.6px!important;padding:7px 8px;margin-bottom:6px!important}
+  .nav-card-domains{gap:4px}
+  .nav-card-domains>span{padding:5px 3px}
+  .nav-card-domains b{font-size:7.6px}
+  .nav-card-domains small{font-size:5.7px}
+  .nav-card-route{margin-top:6px;padding:6px}
+  .nav-card-route-head{margin-bottom:5px}
+  .nav-card-route-links{gap:4px}
+  .nav-card-route-links a{min-height:40px;padding:5px 2px}
+  .nav-card-route-links a b{font-size:7.7px}
+  .nav-card-route-links a small{font-size:5.5px}
+  .nav-card-quote{margin-top:5px}
+  .nav-card-quote span{font-size:6.5px;padding:4px 7px}
+  .nav-card-footer{padding-top:5px;font-size:5.2px}
+}
+</style></head>
 <body>
 <header class="site-header">
-  <a class="brand" href="#home" aria-label="ぷかぷかうきわメモ ホーム">
-    <img src="./favicon.svg" alt="">
-    <span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span>
-  </a>
-  <div class="header-actions">
-    <button class="theme-btn" id="themeToggle" type="button" aria-label="ダークモードを切り替える">☀️ ダークモード</button>
-    <button class="menu-btn" type="button" aria-label="メニュー">≡</button>
-  </div>
+<a aria-label="ぷかぷかうきわメモ ホーム" class="brand" href="#home">
+<img alt="" src="./favicon.svg"/>
+<span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span>
+</a>
+<div class="header-actions">
+<button aria-label="ダークモードを切り替える" class="theme-btn" id="themeToggle" type="button">☀️ ダークモード</button>
+<button aria-label="メニュー" class="menu-btn" type="button">≡</button>
+</div>
 </header>
-
 <main>
 <section class="hero" id="home">
-  <div class="hero-grid">
-    <div class="card-stage">
-      <div class="hero-card" id="heroCard" role="group" tabindex="0" aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります">
-        <span class="hero-card-inner">
-          <span class="hero-card-face hero-card-front"><img src="./ukiwa-card.png" alt="うきわちゃんURカード" fetchpriority="high"></span>
-          <span class="hero-card-face hero-card-back">
-            <span class="back-kicker">ABOUT THIS SITE</span>
-            <h2>ぷかぷかうきわメモとは？</h2>
-            <p>電気保安を、海の冒険として楽しく学ぶための学習サイトです。キャラクターで役割を覚え、式と実機で確かめます。</p>
-            <ul>
-              <li>高圧受変電設備</li><li>保護継電器</li><li>試験・測定</li><li>接地・絶縁</li><li>シーケンス</li><li>安全確認</li>
-            </ul>
-            <span class="skill">安全確認環《セーフティ・リング》</span>
-            <small>カードのゲーム表現や数値は、実機の定格・性能・整定値を表すものではありません。</small>
-          </span>
-        </span>
-      </div>
-      <span class="card-water" aria-hidden="true"></span>
-    </div>
-    <div class="hero-copy">
-      <span class="world-badge">🌊 海上保安群島《オーシャン・リング》</span>
-      <h1>電気保安を、<br>海の冒険に。</h1>
-      <p>直感でつかみ、式で確かめ、<br>現場で使える知識になる。</p>
-      <a class="hero-cta" href="#routes">🌊 さあ、冒険に出発する <i>→</i></a>
-      <span class="hero-scroll">スクロールしてルートを選択<span>⌄</span></span>
-    </div>
-  </div>
+<div class="hero-grid">
+<div class="card-stage">
+<div aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります" class="hero-card" id="heroCard" role="group" tabindex="0">
+<span class="hero-card-inner">
+<span class="hero-card-face hero-card-front"><img alt="うきわちゃんURカード" fetchpriority="high" src="./ukiwa-card.png"/></span>
+<span class="hero-card-face hero-card-back">
+<span aria-hidden="true" class="nav-card-grid"></span>
+<div class="nav-card-brand">
+<span class="nav-card-kicker">PUKA PUKA UKIWA MEMO</span>
+<h2>電気保安を、<br/>海の冒険に。</h2>
+<span class="nav-card-sub">OCEAN SAFETY LEARNING GUIDE</span>
+</div>
+<div aria-hidden="true" class="nav-card-emblem">
+<span class="nav-card-ripple r1"></span>
+<span class="nav-card-ripple r2"></span>
+<img alt="" src="./favicon.svg"/>
+</div>
+<p class="nav-card-summary">
+  高圧受変電設備や保護継電器、試験・測定、電気の原理を、
+  キャラクターと海の冒険を通して学ぶ電気保安学習サイト。
+</p>
+<div aria-label="この海で学べること" class="nav-card-domains">
+<span><b>受変電設備</b><small>高圧機器・変圧器</small></span>
+<span><b>保護継電器</b><small>OCR・GR・DGR</small></span>
+<span><b>試験・測定</b><small>耐圧・絶縁・接地</small></span>
+<span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></span>
+<span><b>シーケンス</b><small>接点・自己保持</small></span>
+<span><b>安全・事故</b><small>停復電・原因分析</small></span>
+</div>
+<div class="nav-card-route">
+<div class="nav-card-route-head">
+<span>YOUR FIRST ROUTE</span>
+<strong>最初の航路を選ぼう</strong>
+</div>
+<div class="nav-card-route-links">
+<a data-back-route="basics" href="#basics"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
+<a data-back-route="guide" href="#guide"><b>目的から探す</b><small>機器・試験・用語</small></a>
+<a data-back-route="map" href="#map"><b>海のマップへ</b><small>6つの修行島</small></a>
+</div>
+</div>
+<div class="nav-card-quote">
+<span>「分からないまま進む方が、こわいよ。<br/>一緒に、ひとつずつ確かめよう。」</span>
+</div>
+<div class="nav-card-footer">
+<span>UKW-001</span>
+<span>PUKA PUKA UKIWA MEMO</span>
+<span>SAFETY NAVIGATION CARD ⚓</span>
+</div>
+</span>
+</span>
+</div>
+<span aria-hidden="true" class="card-water"></span>
+</div>
+<div class="hero-copy">
+<span class="world-badge">🌊 海上保安群島《オーシャン・リング》</span>
+<h1>電気保安を、<br/>海の冒険に。</h1>
+<p>直感でつかみ、式で確かめ、<br/>現場で使える知識になる。</p>
+<a class="hero-cta" href="#routes">🌊 さあ、冒険に出発する <i>→</i></a>
+<span class="hero-scroll">スクロールしてルートを選択<span>⌄</span></span>
+</div>
+</div>
 </section>
-
 <section class="route-section" id="routes">
-  <div class="route-head">
-    <span class="eyebrow">CHOOSE YOUR ROUTE</span>
-    <h2>今日の目的を選ぼう！</h2>
-  </div>
-  <div class="route-ring" id="routeRing" tabindex="0" aria-label="浮き輪メニュー。左右スワイプまたは左右キーで選択">
-    <div class="ring-water" aria-hidden="true"></div>
-    <div class="ring-prop" aria-hidden="true"><img src="./ukiwa-ring-3d.png" alt=""></div>
-    <div class="ring-hole-message">カードをタップで<br>くわしく見る 👆</div>
-    <div class="orbit" id="orbit">
-      <button class="route-card" type="button" data-i="0" data-href="./ac-withstand-test-simulator.html#calc"><span class="route-num">01</span><span class="icon">🧪</span><strong>耐圧シミュレータ</strong><small>ケーブル耐圧試験をシミュレーション</small></button>
-      <button class="route-card" type="button" data-i="1" data-href="#articles"><span class="route-num">02</span><span class="icon">📚</span><strong>現場の記事</strong><small>実務に役立つ現場の知識</small></button>
-      <button class="route-card" type="button" data-i="2" data-href="#basics"><span class="route-num">03</span><span class="icon">⚙️</span><strong>RLC・タンス図</strong><small>原理とシーケンスをやさしく解説</small></button>
-      <button class="route-card" type="button" data-i="3" data-href="#guide"><span class="route-num">04</span><span class="icon">📖</span><strong>キャラクター図鑑</strong><small>うきわちゃんと見て学ぶ</small></button>
-      <button class="route-card" type="button" data-i="4" data-href="#glossary"><span class="route-num">05</span><span class="icon">⚡</span><strong>用語・公式集</strong><small>基礎から応用まですぐに調べられる</small></button>
-      <button class="route-card" type="button" data-i="5" data-href="#map"><span class="route-num">06</span><span class="icon">🗺️</span><strong>海のマップ</strong><small>6つの修行島から学ぶ</small></button>
-    </div>
-    <button class="ring-arrow prev" id="prevRoute" type="button" aria-label="前のメニュー">‹</button>
-    <button class="ring-arrow next" id="nextRoute" type="button" aria-label="次のメニュー">›</button>
-  </div>
-  <div class="pager" id="pager" aria-label="ルート位置"></div>
-  <div class="route-selected" aria-live="polite">
-    <h3 id="selectedTitle">耐圧シミュレータ</h3>
-    <p id="selectedDesc">ケーブル耐圧試験をシミュレーション</p>
-    <a id="selectedLink" href="./ac-withstand-test-simulator.html#calc">このルートへ進む →</a>
-  </div>
-
-  <section class="map-panel" id="map">
-    <div class="map-copy">
-      <h2>海の冒険マップ</h2>
-      <p>目的地を選ぶと、あなたのルートが光るよ！</p>
-      <a href="#map-detail">マップを見る <i>→</i></a>
-    </div>
-    <div class="map-art">
-      <img src="./ocean-map-art.jpg" alt="海に浮かぶ学習アイランドのマップ" loading="lazy">
-      <span class="map-label ml1">基礎の入り江</span>
-      <span class="map-label ml2">試験の灯台島</span>
-      <span class="map-label ml3">保護の聖堂島</span>
-      <span class="map-label ml4">トラブルの暗礁域</span>
-    </div>
-  </section>
+<div class="route-head">
+<span class="eyebrow">CHOOSE YOUR ROUTE</span>
+<h2>今日の目的を選ぼう！</h2>
+</div>
+<div aria-label="浮き輪メニュー。左右スワイプまたは左右キーで選択" class="route-ring" id="routeRing" tabindex="0">
+<div aria-hidden="true" class="ring-water"></div>
+<div aria-hidden="true" class="ring-prop"><img alt="" src="./ukiwa-ring-3d.png"/></div>
+<div class="ring-hole-message">カードをタップで<br/>くわしく見る 👆</div>
+<div class="orbit" id="orbit">
+<button class="route-card" data-href="./ac-withstand-test-simulator.html#calc" data-i="0" type="button"><span class="route-num">01</span><span class="icon">🧪</span><strong>耐圧シミュレータ</strong><small>ケーブル耐圧試験をシミュレーション</small></button>
+<button class="route-card" data-href="#articles" data-i="1" type="button"><span class="route-num">02</span><span class="icon">📚</span><strong>現場の記事</strong><small>実務に役立つ現場の知識</small></button>
+<button class="route-card" data-href="#basics" data-i="2" type="button"><span class="route-num">03</span><span class="icon">⚙️</span><strong>RLC・タンス図</strong><small>原理とシーケンスをやさしく解説</small></button>
+<button class="route-card" data-href="#guide" data-i="3" type="button"><span class="route-num">04</span><span class="icon">📖</span><strong>キャラクター図鑑</strong><small>うきわちゃんと見て学ぶ</small></button>
+<button class="route-card" data-href="#glossary" data-i="4" type="button"><span class="route-num">05</span><span class="icon">⚡</span><strong>用語・公式集</strong><small>基礎から応用まですぐに調べられる</small></button>
+<button class="route-card" data-href="#map" data-i="5" type="button"><span class="route-num">06</span><span class="icon">🗺️</span><strong>海のマップ</strong><small>6つの修行島から学ぶ</small></button>
+</div>
+<button aria-label="前のメニュー" class="ring-arrow prev" id="prevRoute" type="button">‹</button>
+<button aria-label="次のメニュー" class="ring-arrow next" id="nextRoute" type="button">›</button>
+</div>
+<div aria-label="ルート位置" class="pager" id="pager"></div>
+<div aria-live="polite" class="route-selected">
+<h3 id="selectedTitle">耐圧シミュレータ</h3>
+<p id="selectedDesc">ケーブル耐圧試験をシミュレーション</p>
+<a href="./ac-withstand-test-simulator.html#calc" id="selectedLink">このルートへ進む →</a>
+</div>
+<section class="map-panel" id="map">
+<div class="map-copy">
+<h2>海の冒険マップ</h2>
+<p>目的地を選ぶと、あなたのルートが光るよ！</p>
+<a href="#map-detail">マップを見る <i>→</i></a>
+</div>
+<div class="map-art">
+<img alt="海に浮かぶ学習アイランドのマップ" loading="lazy" src="./ocean-map-art.jpg"/>
+<span class="map-label ml1">基礎の入り江</span>
+<span class="map-label ml2">試験の灯台島</span>
+<span class="map-label ml3">保護の聖堂島</span>
+<span class="map-label ml4">トラブルの暗礁域</span>
+</div>
 </section>
-
+</section>
 <!-- ホームは選択に徹し、詳細は必要なときだけ開く -->
 <section class="destination destination-card" id="basics">
-  <h2>💧 電気の基礎・RLC</h2>
-  <p>水でV・I・Rをつかみ、抵抗・コンダクタンス・キャパシタンス・インダクタンス・リアクタンス・サセプタンス・インピーダンス・アドミタンスへ進みます。</p>
+<h2>💧 電気の基礎・RLC</h2>
+<p>水でV・I・Rをつかみ、抵抗・コンダクタンス・キャパシタンス・インダクタンス・リアクタンス・サセプタンス・インピーダンス・アドミタンスへ進みます。</p>
 </section>
 <section class="destination destination-card" id="articles">
-  <h2>📚 現場の記事</h2>
-  <p>保護継電器、交流耐圧、充電電流、復旧確認など、現場で必要なテーマへ進む入口です。</p>
+<h2>📚 現場の記事</h2>
+<p>保護継電器、交流耐圧、充電電流、復旧確認など、現場で必要なテーマへ進む入口です。</p>
 </section>
 <section class="destination destination-card" id="guide">
-  <h2>📖 キャラクター図鑑</h2>
-  <p>ホームではうきわちゃんだけを表示。ほかのキャラクターは図鑑側で整理する設計です。</p>
+<h2>📖 キャラクター図鑑</h2>
+<p>ホームではうきわちゃんだけを表示。ほかのキャラクターは図鑑側で整理する設計です。</p>
 </section>
 <section class="destination destination-card" id="glossary">
-  <h2>⚡ 用語・公式集</h2>
-  <p>公式には記号・単位・一次値／二次値を明確にして整理します。</p>
+<h2>⚡ 用語・公式集</h2>
+<p>公式には記号・単位・一次値／二次値を明確にして整理します。</p>
 </section>
 <section class="destination destination-card" id="map-detail">
-  <h2>🗺️ 6つの修行アイランド</h2>
-  <p>ぷかぷかハーバー、リレー・シタデル、テストラボ・アイランド、サブステーション・シティ、フィールド・フォグ、ブラックアウト・シー。</p>
+<h2>🗺️ 6つの修行アイランド</h2>
+<p>ぷかぷかハーバー、リレー・シタデル、テストラボ・アイランド、サブステーション・シティ、フィールド・フォグ、ブラックアウト・シー。</p>
 </section>
 </main>
-
-<button class="chat-bubble" type="button" aria-label="質問を開く">💬</button>
-<nav class="bottom-nav" aria-label="メインナビゲーション">
-  <a class="active" href="#home"><span><b>🏠</b>ホーム</span></a>
-  <a href="#basics"><span><b>💧</b>基礎</span></a>
-  <a href="#map"><span><b>🗺️</b>マップ</span></a>
-  <a href="#guide"><span><b>🎭</b>図鑑</span></a>
-  <a href="#glossary"><span><b>💬</b>用語</span></a>
+<button aria-label="質問を開く" class="chat-bubble" type="button">💬</button>
+<nav aria-label="メインナビゲーション" class="bottom-nav">
+<a class="active" href="#home"><span><b>🏠</b>ホーム</span></a>
+<a href="#basics"><span><b>💧</b>基礎</span></a>
+<a href="#map"><span><b>🗺️</b>マップ</span></a>
+<a href="#guide"><span><b>🎭</b>図鑑</span></a>
+<a href="#glossary"><span><b>💬</b>用語</span></a>
 </nav>
-
 <script>
 (() => {
   // Hero card: swipe/drag to flip. Tap/click does nothing.
@@ -443,6 +737,10 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   let cardDragging = false;
 
   function setCardSide(back){
+    heroCard.classList.remove('is-flipping');
+    void heroCard.offsetWidth;
+    heroCard.classList.add('is-flipping');
+    setTimeout(()=>heroCard.classList.remove('is-flipping'), 620);
     heroCard.classList.toggle('is-flipped', back);
     heroCard.setAttribute(
       'aria-label',
@@ -586,6 +884,14 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
     shell.style.setProperty('--tilt-x','0deg');shell.style.setProperty('--tilt-y','0deg');
   });
   render();
+
+  // Back-face route links: stop pointer events from becoming swipe gestures.
+  document.querySelectorAll('[data-back-route]').forEach(a=>{
+    a.addEventListener('pointerdown',e=>e.stopPropagation());
+    a.addEventListener('pointerup',e=>e.stopPropagation());
+    a.addEventListener('click',e=>e.stopPropagation());
+  });
+
 })();
 </script>
 </body>

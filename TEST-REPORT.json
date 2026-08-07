@@ -1,10 +1,13 @@
 {
-  "version": "v22-bidirectional-toggle",
-  "swipe_left_toggles": true,
-  "swipe_right_toggles": true,
-  "tap_does_nothing": true,
-  "visible_swipe_hint_removed": true,
-  "keyboard_arrows_toggle": true,
+  "version": "v23-navigation-card-back",
+  "premium_back_redesign": true,
+  "navigation_card_concept": true,
+  "domains": 6,
+  "first_route_links": 3,
+  "swipe_both_directions_toggle": true,
+  "tap_does_not_flip": true,
+  "specular_flip_highlight": true,
   "js_syntax_ok": true,
-  "duplicate_ids": []
+  "duplicate_ids": [],
+  "broken_internal_anchors": []
 }
