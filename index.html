@@ -300,7 +300,12 @@ body.dark .route-head h2,.dark .route-head p{color:#eafcff}
 body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;border-color:#1b5c78}
 </style>
 
-<style id="v20-card-swipe">
+<link rel="icon" href="./icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="./manifest.webmanifest">
+
+
+<style id="v22-card-swipe">
 .hero-card{
   touch-action:pan-y;
   cursor:grab;
@@ -308,32 +313,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   -webkit-user-select:none;
 }
 .hero-card:active{cursor:grabbing}
-.card-stage:after{
-  content:"← スワイプでカード裏面 →";
-  position:absolute;
-  z-index:6;
-  left:50%;
-  bottom:8px;
-  transform:translateX(-50%);
-  padding:6px 10px;
-  border-radius:999px;
-  background:rgba(255,255,255,.82);
-  color:#0a679d;
-  border:1px solid rgba(255,255,255,.95);
-  font-size:9px;
-  font-weight:1000;
-  letter-spacing:.04em;
-  box-shadow:0 6px 14px rgba(0,73,112,.10);
-  pointer-events:none;
-}
-@media(max-width:520px){
-  .card-stage:after{bottom:2px;font-size:8px}
-}
 </style>
-
-<link rel="icon" href="./icon-192.png" type="image/png" sizes="192x192">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="180x180">
-<link rel="manifest" href="./manifest.webmanifest">
 
 </head>
 <body>
@@ -352,7 +332,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 <section class="hero" id="home">
   <div class="hero-grid">
     <div class="card-stage">
-      <div class="hero-card" id="heroCard" role="group" tabindex="0" aria-label="うきわちゃんカード。左へスワイプすると裏面、右へスワイプすると表面に戻ります">
+      <div class="hero-card" id="heroCard" role="group" tabindex="0" aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります">
         <span class="hero-card-inner">
           <span class="hero-card-face hero-card-front"><img src="./ukiwa-card.png" alt="うきわちゃんURカード" fetchpriority="high"></span>
           <span class="hero-card-face hero-card-back">
@@ -467,8 +447,8 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
     heroCard.setAttribute(
       'aria-label',
       back
-        ? 'うきわちゃんカード裏面。右へスワイプすると表面に戻ります'
-        : 'うきわちゃんカード表面。左へスワイプすると裏面を表示します'
+        ? 'うきわちゃんカード裏面。左右どちらかへスワイプすると表面に戻ります'
+        : 'うきわちゃんカード表面。左右どちらかへスワイプすると裏面を表示します'
     );
   }
 
@@ -487,10 +467,10 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
     cardStartX = null;
     cardStartY = null;
 
-    // Horizontal swipe only. Normal taps remain on the current face.
+    // Horizontal swipe only. Direction does not matter:
+    // either left or right swipe toggles front/back.
     if(Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy) * 1.15) return;
-    if(dx < 0) setCardSide(true);   // swipe left -> back
-    if(dx > 0) setCardSide(false);  // swipe right -> front
+    setCardSide(!heroCard.classList.contains('is-flipped'));
   });
 
   heroCard.addEventListener('pointercancel', () => {
@@ -501,13 +481,9 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 
   // Keyboard fallback for accessibility.
   heroCard.addEventListener('keydown', e => {
-    if(e.key === 'ArrowLeft'){
+    if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
       e.preventDefault();
-      setCardSide(true);
-    }
-    if(e.key === 'ArrowRight'){
-      e.preventDefault();
-      setCardSide(false);
+      setCardSide(!heroCard.classList.contains('is-flipped'));
     }
   });
 
