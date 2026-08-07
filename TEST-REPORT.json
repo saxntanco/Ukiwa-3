@@ -1,13 +1,14 @@
 {
-  "version": "v17",
-  "ring_asset": "ukiwa-ring-3d.png",
-  "3d_orbit": true,
-  "pointer_tilt": true,
-  "swipe": true,
-  "wheel": true,
-  "keyboard": true,
-  "reduced_motion": true,
+  "version": "v18-concept",
+  "based_on": "approved single-image concept",
+  "hero_card_flip": true,
+  "3d_ring_menu": true,
+  "menu_moves_inside_ring": true,
+  "other_character_grid_hidden": true,
+  "ukiwa_card_kept": true,
+  "map_teaser": true,
   "js_syntax_ok": true,
   "duplicate_ids": [],
-  "broken_internal_anchors": []
+  "broken_internal_anchors": [],
+  "js_messages": []
 }
