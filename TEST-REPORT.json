@@ -1,38 +1,10 @@
 {
-  "version": "v28-relay-library",
-  "home_route": "protective-relay.html",
-  "library_modes": [
-    "manufacturer",
-    "function",
-    "test"
-  ],
-  "manufacturers": [
-    {
-      "name": "オムロン",
-      "status": "available"
-    },
-    {
-      "name": "その他メーカー",
-      "status": "preparing"
-    }
-  ],
-  "omron_models": [
-    "K2ZC-K2RV-NPC",
-    "K2ZC-K2RV-CPC",
-    "K2ZC-K2GV-NUC",
-    "K2ZC-K2GV-NPC",
-    "K2ZC-K2GV-NDC",
-    "K2ZC-N シリーズ",
-    "K2GV"
-  ],
-  "detail_flow": "relay-test-flow.html",
+  "version": "v29-relay-visual",
+  "visual_asset": "protective-relay-menu-visual.png",
+  "visual_used_on_page": true,
+  "visual_modal": true,
   "js_syntax_ok": true,
   "duplicate_ids": {
-    "index.html": [],
-    "protective-relay.html": [],
-    "relay-test-flow.html": []
-  },
-  "broken_internal_anchors": {
     "index.html": [],
     "protective-relay.html": [],
     "relay-test-flow.html": []

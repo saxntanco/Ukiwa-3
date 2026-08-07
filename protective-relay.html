@@ -1,12 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b72b8">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#0b72b8" name="theme-color"/>
 <title>保護継電器ライブラリ｜ぷかぷかうきわメモ</title>
-<link rel="icon" href="./icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link href="./icon-192.png" rel="icon" type="image/png"/>
+<link href="./apple-touch-icon.png" rel="apple-touch-icon"/>
 <style>
 :root{
   --ink:#12395e;--deep:#073b68;--blue:#0b72b8;--blue2:#168fd0;
@@ -138,60 +139,180 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
   .searchbox{width:100%}
 }
 </style>
-</head>
+<style id="v29-relay-visual-style">
+.relay-visual-showcase{
+  width:min(1100px,calc(100% - 20px));
+  margin:14px auto;
+  padding:16px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#ffffff,#eaf9ff);
+  border:1px solid #c9e7f0;
+  box-shadow:0 14px 32px rgba(0,68,98,.08);
+}
+.relay-visual-copy{margin-bottom:12px}
+.relay-visual-kicker{
+  display:block;
+  font-size:9px;
+  letter-spacing:.18em;
+  font-weight:1000;
+  color:#1682ad;
+}
+.relay-visual-copy h2{
+  margin:4px 0 6px;
+  font-size:clamp(20px,3.5vw,30px);
+}
+.relay-visual-copy p{
+  margin:0;
+  font-size:11px;
+  line-height:1.75;
+  color:#5b7a8b;
+}
+.relay-visual-button{
+  position:relative;
+  width:100%;
+  padding:0;
+  border:1px solid #c8e4ed;
+  border-radius:18px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 10px 22px rgba(0,65,94,.08);
+}
+.relay-visual-button img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.relay-visual-button span{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(5,59,97,.85);
+  color:#fff;
+  font-size:9px;
+  font-weight:1000;
+  backdrop-filter:blur(8px);
+}
+.relay-visual-modal[hidden]{display:none!important}
+.relay-visual-modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:grid;
+  place-items:center;
+  padding:14px;
+}
+.relay-visual-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(1,22,36,.80);
+  backdrop-filter:blur(8px);
+}
+.relay-visual-dialog{
+  position:relative;
+  z-index:1;
+  width:min(1400px,96vw);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.relay-visual-dialog img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.relay-visual-close{
+  position:sticky;
+  top:10px;
+  float:right;
+  z-index:3;
+  margin:10px 10px -54px 0;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid #d2e5ec;
+  background:#fff;
+  color:#0a628c;
+  font-size:24px;
+  box-shadow:0 8px 18px rgba(0,0,0,.12);
+}
+@media(max-width:620px){
+  .relay-visual-showcase{
+    width:calc(100% - 12px);
+    padding:12px;
+    border-radius:18px;
+  }
+  .relay-visual-copy p{font-size:10px}
+  .relay-visual-button{border-radius:14px}
+}
+</style></head>
 <body>
 <header class="topbar">
-  <a class="brand" href="./index.html"><img src="./icon-192.png" alt=""><span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span></a>
-  <a class="home-btn" href="./index.html">← ホーム</a>
+<a class="brand" href="./index.html"><img alt="" src="./icon-192.png"/><span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span></a>
+<a class="home-btn" href="./index.html">← ホーム</a>
 </header>
-
 <section class="hero">
-  <span class="eyebrow">PROTECTIVE RELAY LIBRARY</span>
-  <h1>保護継電器ライブラリ</h1>
-  <p>メーカー・保護要素・試験の3方向から、同じ継電器データへたどれます。型式が分かる人も、OCRなどの機能名だけ分かる人も迷わない構成です。</p>
-  <div class="hero-note">実作業はメーカー取扱説明書・社内手順書・操作票・現場責任者の指示を優先してください。メーカー仕様は公式資料で確認できたものだけ登録しています。</div>
+<span class="eyebrow">PROTECTIVE RELAY LIBRARY</span>
+<h1>保護継電器ライブラリ</h1>
+<p>メーカー・保護要素・試験の3方向から、同じ継電器データへたどれます。型式が分かる人も、OCRなどの機能名だけ分かる人も迷わない構成です。</p>
+<div class="hero-note">実作業はメーカー取扱説明書・社内手順書・操作票・現場責任者の指示を優先してください。メーカー仕様は公式資料で確認できたものだけ登録しています。</div>
 </section>
-
-<section class="entry-wrap">
-  <h2 class="entry-title">どう探しますか？</h2>
-  <div class="entry-grid">
-    <button class="entry active" type="button" data-mode="manufacturer"><span class="icon">🏭</span><strong>メーカーから探す</strong><small>メーカー → 型式 → 保護要素 → 原理・試験</small></button>
-    <button class="entry" type="button" data-mode="function"><span class="icon">🛡️</span><strong>保護要素から探す</strong><small>OCR / GR / DGR / OVGR / RPR など</small></button>
-    <button class="entry" type="button" data-mode="test"><span class="icon">🧪</span><strong>試験から学ぶ</strong><small>最小動作・動作時間・位相・復帰確認</small></button>
-  </div>
+<section aria-labelledby="relayVisualTitle" class="relay-visual-showcase">
+<div class="relay-visual-copy">
+<span class="relay-visual-kicker">VISUAL GUIDE</span>
+<h2 id="relayVisualTitle">保護継電器メニューを、まず一枚でつかむ</h2>
+<p>OVGR・RPRの試験、配線、VTT・CTT、CT二次回路、復帰確認までを一枚で俯瞰できます。細かな文字や操作は下のHTMLメニューから確認できます。</p>
+</div>
+<button aria-label="保護継電器メニュー画像を拡大表示" class="relay-visual-button" id="relayVisualButton" type="button">
+<img alt="OVGR・RPRを中心に保護継電器の試験、配線、安全確認、復帰までをまとめた学習メニュー画像" fetchpriority="high" src="./protective-relay-menu-visual.png"/>
+<span>タップで拡大</span>
+</button>
 </section>
-
-<div class="toolbar">
-  <button class="search-toggle" id="searchToggle" type="button">🔎 検索</button>
-  <div class="searchbox" id="searchBox" hidden>
-    <input id="searchInput" type="search" placeholder="メーカー名・型式・保護要素・正式名称">
-  </div>
+<div aria-label="保護継電器メニュー画像" aria-modal="true" class="relay-visual-modal" hidden="" id="relayVisualModal" role="dialog">
+<div class="relay-visual-backdrop" data-close-visual=""></div>
+<div class="relay-visual-dialog">
+<button aria-label="閉じる" class="relay-visual-close" data-close-visual="" type="button">×</button>
+<img alt="保護継電器メニュー拡大表示" src="./protective-relay-menu-visual.png"/>
+</div>
 </div>
 
+<section class="entry-wrap">
+<h2 class="entry-title">どう探しますか？</h2>
+<div class="entry-grid">
+<button class="entry active" data-mode="manufacturer" type="button"><span class="icon">🏭</span><strong>メーカーから探す</strong><small>メーカー → 型式 → 保護要素 → 原理・試験</small></button>
+<button class="entry" data-mode="function" type="button"><span class="icon">🛡️</span><strong>保護要素から探す</strong><small>OCR / GR / DGR / OVGR / RPR など</small></button>
+<button class="entry" data-mode="test" type="button"><span class="icon">🧪</span><strong>試験から学ぶ</strong><small>最小動作・動作時間・位相・復帰確認</small></button>
+</div>
+</section>
+<div class="toolbar">
+<button class="search-toggle" id="searchToggle" type="button">🔎 検索</button>
+<div class="searchbox" hidden="" id="searchBox">
+<input id="searchInput" placeholder="メーカー名・型式・保護要素・正式名称" type="search"/>
+</div>
+</div>
 <main class="library">
-  <aside class="side">
-    <h2>メーカー</h2>
-    <div class="side-list" id="manufacturerSide"></div>
-  </aside>
-
-  <section class="content">
-    <div class="panel" id="listPanel">
-      <h2 id="panelTitle">メーカーから探す</h2>
-      <p id="panelLead">公開中メーカーを選択してください。</p>
-      <div id="panelBody"></div>
-    </div>
-
-    <div class="panel" id="detailPanel" hidden>
-      <div id="detailBody"></div>
-      <div class="backline">
-        <button type="button" id="detailBack">← 一覧へ戻る</button>
-      </div>
-    </div>
-  </section>
+<aside class="side">
+<h2>メーカー</h2>
+<div class="side-list" id="manufacturerSide"></div>
+</aside>
+<section class="content">
+<div class="panel" id="listPanel">
+<h2 id="panelTitle">メーカーから探す</h2>
+<p id="panelLead">公開中メーカーを選択してください。</p>
+<div id="panelBody"></div>
+</div>
+<div class="panel" hidden="" id="detailPanel">
+<div id="detailBody"></div>
+<div class="backline">
+<button id="detailBack" type="button">← 一覧へ戻る</button>
+</div>
+</div>
+</section>
 </main>
-
 <footer>ぷかぷかうきわメモ｜保護継電器ライブラリ</footer>
-
 <script>
 (() => {
   // Data-driven library. Add a manufacturer/model here and it appears automatically.
@@ -533,5 +654,25 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
   renderMode();
 })();
 </script>
-</body>
+<script id="v29-relay-visual-script">
+(() => {
+  const openBtn=document.getElementById('relayVisualButton');
+  const modal=document.getElementById('relayVisualModal');
+  function openVisual(){
+    modal.hidden=false;
+    document.body.style.overflow='hidden';
+    modal.querySelector('.relay-visual-close')?.focus();
+  }
+  function closeVisual(){
+    modal.hidden=true;
+    document.body.style.overflow='';
+    openBtn?.focus();
+  }
+  openBtn?.addEventListener('click',openVisual);
+  modal?.querySelectorAll('[data-close-visual]').forEach(el=>el.addEventListener('click',closeVisual));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && modal && !modal.hidden) closeVisual();
+  });
+})();
+</script></body>
 </html>
