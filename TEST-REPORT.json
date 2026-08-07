@@ -1,8 +1,10 @@
 {
-  "version": "v29-relay-visual",
-  "visual_asset": "protective-relay-menu-visual.png",
-  "visual_used_on_page": true,
-  "visual_modal": true,
+  "version": "v30-kp-prrv-cpc",
+  "kp_prrv_cpc_added": true,
+  "kp_prrv_cpc_image": "kp-prrv-cpc-test-guide.png",
+  "image_location": "KP-PRRV-CPC detail only",
+  "manufacturer_official_verification": "not verified",
+  "source_basis": "user-provided test guide image",
   "js_syntax_ok": true,
   "duplicate_ids": {
     "index.html": [],

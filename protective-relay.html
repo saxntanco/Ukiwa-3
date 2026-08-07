@@ -138,6 +138,40 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
   .toolbar{align-items:stretch;flex-direction:column}
   .searchbox{width:100%}
 }
+
+.model-guide{
+  margin:14px 0 4px;padding:14px;border-radius:17px;
+  background:linear-gradient(145deg,#f8fdff,#e9f8ff);
+  border:1px solid #c9e6ef
+}
+.model-guide-kicker{display:block;font-size:8px;letter-spacing:.16em;font-weight:1000;color:#167ea9}
+.model-guide h3{margin:4px 0 5px;font-size:17px}
+.model-guide p{margin:0 0 10px;font-size:10px;line-height:1.65;color:#607d8f}
+.model-guide-button{
+  position:relative;width:100%;padding:0;border:1px solid #c7e2eb;border-radius:14px;
+  overflow:hidden;background:#fff
+}
+.model-guide-button img{width:100%;height:auto;display:block}
+.model-guide-button span{
+  position:absolute;right:9px;bottom:9px;padding:6px 9px;border-radius:999px;
+  background:rgba(5,59,96,.86);color:#fff;font-size:8px;font-weight:1000
+}
+.guide-modal[hidden]{display:none!important}
+.guide-modal{
+  position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:12px
+}
+.guide-modal-backdrop{position:absolute;inset:0;background:rgba(1,20,34,.84);backdrop-filter:blur(8px)}
+.guide-modal-dialog{
+  position:relative;z-index:1;width:min(1500px,97vw);max-height:94vh;overflow:auto;
+  background:#fff;border-radius:16px;box-shadow:0 28px 80px rgba(0,0,0,.4)
+}
+.guide-modal-dialog img{width:100%;height:auto;display:block}
+.guide-modal-close{
+  position:sticky;top:8px;float:right;z-index:2;margin:8px 8px -52px 0;
+  width:44px;height:44px;border-radius:50%;border:1px solid #cce3ea;
+  background:#fff;color:#0c628c;font-size:24px
+}
+
 </style>
 <style id="v29-relay-visual-style">
 .relay-visual-showcase{
@@ -312,6 +346,15 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
 </div>
 </section>
 </main>
+
+<div class="guide-modal" id="guideModal" hidden role="dialog" aria-modal="true" aria-label="試験資料拡大表示">
+  <div class="guide-modal-backdrop" data-close-guide></div>
+  <div class="guide-modal-dialog">
+    <button class="guide-modal-close" type="button" data-close-guide aria-label="閉じる">×</button>
+    <img id="guideModalImage" src="" alt="試験資料拡大表示">
+  </div>
+</div>
+
 <footer>ぷかぷかうきわメモ｜保護継電器ライブラリ</footer>
 <script>
 (() => {
@@ -324,6 +367,20 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
         status:'available',
         note:'第1弾として公式資料で確認できた型式を登録',
         models:[
+          {
+            id:'kp-prrv-cpc',
+            model:'KP-PRRV-CPC',
+            series:'KP-PRRV-CPC',
+            protectionFunctions:['OVGR','RPR'],
+            description:'添付資料に記載されたOVGR・RPR複合保護継電器。試験条件・配線・OVGR試験・RPR試験・現状復帰の学習資料あり。',
+            verified:false,
+            sourceVerified:true,
+            legacy:false,
+            officialUrl:'',
+            sourceLabel:'添付試験資料',
+            learningStatus:'available',
+            guideImage:'./kp-prrv-cpc-test-guide.png'
+          },
           {
             id:'k2zc-k2rv-npc',
             model:'K2ZC-K2RV-NPC',
@@ -473,7 +530,13 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
   }
 
   function modelCard(maker,model){
-    const legacy=model.legacy?'<span class="verify legacy">受注終了情報あり</span>':'<span class="verify">公式資料確認済み</span>';
+    const legacy=model.legacy
+      ? '<span class="verify legacy">受注終了情報あり</span>'
+      : model.verified
+      ? '<span class="verify">公式資料確認済み</span>'
+      : model.sourceVerified
+      ? '<span class="verify legacy">添付資料ベース・メーカー公式未確認</span>'
+      : '<span class="verify legacy">メーカー資料未確認</span>';
     return `
       <article class="model-card">
         <h3>${esc(model.model)}</h3>
@@ -486,7 +549,9 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
         ${legacy}
         <div style="margin-top:10px;display:flex;gap:7px;flex-wrap:wrap">
           <button type="button" data-open-model="${esc(maker.id)}::${esc(model.id)}">詳細を見る</button>
-          <a class="source-link" href="${esc(model.officialUrl)}" target="_blank" rel="noopener">${esc(model.sourceLabel)} ↗</a>
+          ${model.officialUrl
+            ? `<a class="source-link" href="${esc(model.officialUrl)}" target="_blank" rel="noopener">${esc(model.sourceLabel)} ↗</a>`
+            : `<span class="source-link" aria-label="${esc(model.sourceLabel)}">${esc(model.sourceLabel)}</span>`}
         </div>
       </article>`;
   }
@@ -579,6 +644,19 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
       <div class="model-meta">${funcs}</div>
       <p style="font-size:11px;line-height:1.7;color:#597888">${esc(model.description)}</p>
 
+      ${model.guideImage ? `
+      <section class="model-guide">
+        <div class="model-guide-copy">
+          <span class="model-guide-kicker">TEST GUIDE</span>
+          <h3>KP-PRRV-CPC｜OVGR・RPR 試験ガイド</h3>
+          <p>試験条件 → 試験配線 → OVGR試験 → RPR試験 → 現状復帰を、一枚の資料で確認できます。</p>
+        </div>
+        <button type="button" class="model-guide-button" data-guide-image="${esc(model.guideImage)}" aria-label="KP-PRRV-CPCの試験資料を拡大表示">
+          <img src="${esc(model.guideImage)}" alt="KP-PRRV-CPCのOVGR・RPR試験条件、配線、試験、現状復帰をまとめた資料" loading="lazy">
+          <span>タップで資料を拡大</span>
+        </button>
+      </section>` : ''}
+
       <details class="detail-section" open>
         <summary>① この継電器は何を守る？</summary>
         <div class="detail-body">${esc(learning)}</div>
@@ -611,7 +689,9 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
       <details class="detail-section">
         <summary>⑥ メーカー資料</summary>
         <div class="detail-body">
-          <a class="source-link" href="${esc(model.officialUrl)}" target="_blank" rel="noopener">${esc(model.sourceLabel)} ↗</a>
+          ${model.officialUrl
+            ? `<a class="source-link" href="${esc(model.officialUrl)}" target="_blank" rel="noopener">${esc(model.sourceLabel)} ↗</a>`
+            : `<span class="source-link" aria-label="${esc(model.sourceLabel)}">${esc(model.sourceLabel)}</span>`}
           <div class="warning">${model.verified?'メーカー公式ページで型式・保護要素の存在を確認済み。':'メーカー資料未確認'} ${model.legacy?'この製品は公式ページで受注終了案内があります。':''}</div>
         </div>
       </details>`;
@@ -650,6 +730,28 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
   searchToggle.addEventListener('click',()=>{searchBox.hidden=!searchBox.hidden;if(!searchBox.hidden)searchInput.focus()});
   searchInput.addEventListener('input',()=>search(searchInput.value));
   detailBack.addEventListener('click',()=>{detailPanel.hidden=true;listPanel.hidden=false;window.scrollTo({top:listPanel.offsetTop-78,behavior:'smooth'})});
+
+  const guideModal=document.getElementById('guideModal');
+  const guideModalImage=document.getElementById('guideModalImage');
+
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('[data-guide-image]');
+    if(!btn)return;
+    guideModalImage.src=btn.dataset.guideImage;
+    guideModal.hidden=false;
+    document.body.style.overflow='hidden';
+    guideModal.querySelector('.guide-modal-close')?.focus();
+  });
+
+  function closeGuide(){
+    guideModal.hidden=true;
+    guideModalImage.src='';
+    document.body.style.overflow='';
+  }
+  guideModal?.querySelectorAll('[data-close-guide]').forEach(x=>x.addEventListener('click',closeGuide));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && guideModal && !guideModal.hidden) closeGuide();
+  });
 
   renderMode();
 })();
