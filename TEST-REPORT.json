@@ -1,10 +1,14 @@
 {
-  "version": "v20-swipe-flip",
-  "hero_card_tap_flip": false,
-  "hero_card_swipe_left_to_back": true,
-  "hero_card_swipe_right_to_front": true,
-  "keyboard_left_right_fallback": true,
+  "version": "v21-home-screen-icon",
+  "home_screen_icon_source": "ukiwa-ring-3d.png",
+  "manifest": "manifest.webmanifest",
+  "icons": [
+    "icon-192.png",
+    "icon-512.png",
+    "icon-maskable-512.png",
+    "apple-touch-icon.png"
+  ],
   "js_syntax_ok": true,
   "duplicate_ids": [],
-  "broken_internal_anchors": []
+  "note": "Android may cache the old shortcut icon. Remove the existing home-screen shortcut and add it again after deployment."
 }
