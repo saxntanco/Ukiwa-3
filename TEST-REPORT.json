@@ -1,15 +1,25 @@
 {
-  "version": "v26-relay-series",
-  "protective_relay_page": true,
-  "index.html_duplicate_ids": [],
-  "protective-relay.html_duplicate_ids": [],
-  "js_syntax_ok": true,
-  "relay_visual": "protective-relay-series.png",
-  "relay_entries": [
+  "version": "v27-relay-progressive",
+  "relay_page": "protective-relay.html",
+  "source_reference": "relay-reference.png",
+  "progressive_disclosure": true,
+  "relay_selector": [
     "OVGR",
     "RPR",
     "OCR",
     "GR",
     "DGR"
-  ]
+  ],
+  "ovgr_steps": 5,
+  "rpr_steps": 6,
+  "ocr_gr_dgr_status": "工事中・要原資料確認",
+  "js_syntax_ok": true,
+  "duplicate_ids": {
+    "index.html": [],
+    "protective-relay.html": []
+  },
+  "broken_internal_anchors": {
+    "index.html": [],
+    "protective-relay.html": []
+  }
 }

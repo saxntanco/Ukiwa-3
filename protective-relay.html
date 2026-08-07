@@ -9,193 +9,561 @@
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <style>
 :root{
-  --ink:#12395e;--deep:#073b68;--blue:#0a75b8;--cyan:#39bce6;--ice:#eefaff;
-  --gold:#e4bd62;--red:#d94a42;--green:#138b61;--violet:#6d4bbb;
+  --ink:#12395e;--deep:#073b68;--blue:#0b72b8;--blue2:#168fd0;
+  --ice:#effaff;--line:#c9e7f0;--muted:#607f91;--gold:#e2bd66;
+  --green:#168b67;--red:#d9504b;--violet:#7250b8;--warn:#a76500;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:"Noto Sans JP","Yu Gothic",system-ui,sans-serif;color:var(--ink);background:linear-gradient(#f7fcff,#e4f8ff 55%,#d3f1fb)}
+body{
+  margin:0;font-family:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+  color:var(--ink);background:linear-gradient(180deg,#f7fdff,#e7f8ff 58%,#d9f2fb);
+  padding-bottom:24px
+}
 a,button{font:inherit}
+button{cursor:pointer}
 img{max-width:100%;display:block}
-:focus-visible{outline:3px solid #ffd45a;outline-offset:3px}
+:focus-visible{outline:3px solid #ffd45c;outline-offset:3px}
+[hidden]{display:none!important}
+
+/* header */
 .topbar{
-  position:sticky;top:0;z-index:20;height:70px;padding:8px 14px;
+  position:sticky;top:0;z-index:50;height:68px;padding:8px 12px;
   display:flex;align-items:center;justify-content:space-between;
   background:rgba(255,255,255,.94);backdrop-filter:blur(14px);
-  border-bottom:1px solid #d4ebf3;
+  border-bottom:1px solid #d5ebf3;box-shadow:0 4px 15px rgba(0,66,98,.06)
 }
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0b6fab}
-.brand img{width:42px;height:42px}.brand strong{font-size:17px}.brand small{display:block;font-size:9px;color:#416a83}
-.back{min-height:44px;padding:0 14px;border-radius:13px;border:1px solid #c6e4ee;background:white;color:#0c648e;font-weight:900;text-decoration:none;display:flex;align-items:center}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#0b6fab}
+.brand img{width:40px;height:40px}.brand strong{display:block;font-size:16px}.brand small{display:block;font-size:9px;color:#57778c}
+.home-btn{min-height:44px;padding:0 13px;border-radius:13px;border:1px solid #c7e2ec;background:#fff;color:#0c638d;text-decoration:none;display:flex;align-items:center;font-weight:900}
+
+/* hero */
 .hero{
-  width:min(1180px,calc(100% - 24px));margin:18px auto 0;
-  border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 18px 44px rgba(0,68,99,.14);
-  border:1px solid #cae9f2
+  width:min(1080px,calc(100% - 20px));margin:14px auto 0;padding:24px 20px;
+  border-radius:24px;background:
+    radial-gradient(circle at 88% 15%,rgba(81,203,235,.16),transparent 25%),
+    linear-gradient(145deg,#fff,#eafaff);
+  border:1px solid #cae8f1;box-shadow:0 14px 34px rgba(0,70,100,.10)
 }
-.hero-copy{padding:22px 22px 18px;text-align:center;background:linear-gradient(135deg,#f8feff,#e7f8ff)}
-.kicker{font-size:10px;letter-spacing:.18em;font-weight:1000;color:#1478aa}
-.hero h1{margin:5px 0 5px;font-size:clamp(28px,5vw,46px)}
-.hero p{margin:0;color:#56788b;line-height:1.7;font-size:13px}
-.visual{background:#fff}
-.visual img{width:100%;height:auto}
-.quicknav{
-  position:sticky;top:70px;z-index:15;
-  display:flex;gap:8px;overflow:auto;padding:10px 12px;background:rgba(242,251,255,.95);
-  border-bottom:1px solid #d3eaf1;scrollbar-width:none
+.eyebrow{font-size:9px;letter-spacing:.18em;color:#1682ad;font-weight:1000}
+.hero h1{font-size:clamp(30px,5vw,46px);margin:4px 0 7px}
+.hero p{margin:0;color:#5a798b;font-size:13px;line-height:1.7}
+.hero-note{
+  margin-top:14px;padding:11px 13px;border-radius:14px;background:#f4fbfe;border:1px solid #d3ebf2;
+  font-size:11px;color:#506f81;line-height:1.7
 }
-.quicknav::-webkit-scrollbar{display:none}
-.quicknav a{
-  flex:0 0 auto;min-height:42px;padding:0 13px;border-radius:999px;
-  display:flex;align-items:center;text-decoration:none;background:#fff;color:#0c5276;
-  border:1px solid #c8e2eb;font-size:11px;font-weight:900
+
+/* relay selector */
+.selector-wrap{width:min(1080px,calc(100% - 20px));margin:14px auto}
+.section-title{margin:0 0 9px;font-size:20px}
+.relay-selector{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.relay-selector button{
+  min-height:86px;padding:11px 8px;border-radius:16px;border:1px solid #c8e4ed;
+  background:#fff;color:#153f60;text-align:left;box-shadow:0 7px 17px rgba(0,66,96,.06)
 }
-.quicknav a:hover{background:#e8f8ff}
-.main{width:min(1180px,calc(100% - 24px));margin:18px auto 70px}
-.intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
-.panel{
-  background:#fff;border-radius:20px;border:1px solid #cbe7ef;padding:18px;
-  box-shadow:0 10px 25px rgba(0,71,101,.08)
+.relay-selector button.active{
+  border-color:#68c5e0;background:linear-gradient(145deg,#f8feff,#ddf6fc);
+  box-shadow:0 0 0 2px rgba(57,184,219,.13),0 10px 21px rgba(0,74,105,.09)
 }
-.panel h2{margin:0 0 10px;font-size:21px}.panel p{font-size:12px;line-height:1.8;color:#5f7d8d}
-.rule{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px
+.relay-selector b{display:block;font-size:18px;color:#075f8f}.relay-selector strong{display:block;font-size:11px;margin-top:2px}.relay-selector small{display:block;font-size:8px;color:#6a8594;margin-top:5px;line-height:1.4}
+
+/* learning shell */
+.learning-shell{width:min(1080px,calc(100% - 20px));margin:0 auto}
+.relay-overview{
+  padding:18px;border-radius:20px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 10px 25px rgba(0,69,101,.07)
 }
-.rule span{padding:10px;border-radius:12px;background:#eefaff;border:1px solid #d2eef5;text-align:center;font-size:10px;font-weight:900}
-.relay-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
-.relay-card{
-  scroll-margin-top:132px;background:#fff;border-radius:20px;border:1px solid #cbe7ef;padding:18px;
-  box-shadow:0 10px 24px rgba(0,69,101,.07)
+.relay-overview-head{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.relay-code{
+  width:62px;height:62px;border-radius:17px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#0a78ae,#064f7a);color:#fff;font-size:15px;font-weight:1000
 }
-.relay-card header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.code{
-  width:58px;height:58px;border-radius:16px;display:grid;place-items:center;
-  color:white;background:linear-gradient(145deg,#0b78ad,#064c76);font-weight:1000
+.relay-overview h2{margin:0;font-size:23px}.relay-overview .subtitle{font-size:11px;color:#678292;margin-top:3px}
+.relay-what{
+  display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px
 }
-.relay-card h3{margin:0;font-size:19px}.relay-card small{color:#6c8797}
-.flow{
-  display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:12px
+.relay-what>div{padding:12px;border-radius:13px;background:#f6fcfe;border:1px solid #d8edf3;font-size:11px;line-height:1.6}
+.relay-what b{display:block;color:#0b658d;margin-bottom:3px}
+
+/* steps */
+.steps-block{margin-top:14px;padding:18px;border-radius:20px;background:#fff;border:1px solid var(--line)}
+.steps-head{display:flex;justify-content:space-between;align-items:end;gap:12px}
+.steps-head h2{margin:0;font-size:20px}.steps-head small{font-size:9px;color:#738c9a}
+.step-tabs{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-top:13px
 }
-.flow div{min-height:64px;padding:8px 6px;border-radius:11px;background:#f2fbff;border:1px solid #d3edf4;text-align:center;font-size:9px}
-.flow b{display:block;font-size:10px;margin-bottom:3px}
-.points{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.points div{padding:10px;border-radius:11px;background:#fbfdfe;border:1px solid #e0edf1;font-size:10px;line-height:1.55}
-.notice{
-  margin-top:18px;padding:16px 18px;border-radius:18px;background:#fff7e8;border:1px solid #ecd69b;
-  font-size:11px;line-height:1.75
+.step-tab{
+  min-height:72px;padding:8px 6px;border-radius:13px;border:1px solid #d3e9f0;background:#f7fcfe;color:#214b67;text-align:center
 }
-.notice strong{color:#9b5a00}
-.footer{padding:24px;text-align:center;color:#6d8795;font-size:10px}
+.step-tab.active{background:linear-gradient(145deg,#0d84c0,#096496);color:#fff;border-color:#0a6ea4}
+.step-tab span{display:block;font-size:9px;font-weight:1000}.step-tab b{display:block;font-size:10px;margin-top:4px;line-height:1.35}
+
+.step-detail{
+  margin-top:12px;padding:16px;border-radius:16px;background:linear-gradient(145deg,#fafdff,#edfaff);border:1px solid #d4edf4
+}
+.step-detail h3{margin:0 0 8px;font-size:18px}.step-detail p{margin:0;color:#587789;font-size:11px;line-height:1.75}
+.flowline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.flowline div{min-height:68px;padding:9px 7px;border-radius:12px;background:white;border:1px solid #d6eaf0;text-align:center;font-size:9px;line-height:1.45}
+.flowline b{display:block;font-size:10px;color:#0c648b;margin-bottom:3px}
+
+/* progressive cards */
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+details.info{
+  border:1px solid #d2e8ef;border-radius:14px;background:#fff;overflow:hidden
+}
+details.info summary{
+  min-height:48px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  cursor:pointer;font-size:11px;font-weight:1000;list-style:none
+}
+details.info summary::-webkit-details-marker{display:none}
+details.info summary:after{content:"＋";font-size:18px;color:#1582ae}
+details.info[open] summary:after{content:"−"}
+.details-body{padding:0 14px 13px;font-size:10px;color:#557687;line-height:1.7}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:6px 10px;margin-top:8px}
+.kv b{color:#153e5c}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{padding:5px 8px;border-radius:999px;background:#edf9fd;border:1px solid #d1eaf1;font-size:8px;font-weight:900;color:#0b668d}
+
+/* judgment cards */
+.judgment{
+  display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px
+}
+.jcard{padding:13px;border-radius:14px;background:#fff;border:1px solid #d2e9ef}
+.jcard span{display:block;font-size:8px;letter-spacing:.08em;color:#6a8797;font-weight:1000}
+.jcard strong{display:block;font-size:14px;margin:4px 0;color:#0a608b}
+.jcard p{margin:0;font-size:9px;color:#6b8493;line-height:1.55}
+.jcard .check{margin-top:8px;font-size:12px;font-weight:1000;color:#274d64}
+
+/* warnings */
+.warning{
+  margin-top:12px;border-radius:16px;padding:14px 15px;background:#fff8e9;border:1px solid #ead49c
+}
+.warning h3{margin:0 0 6px;color:#8b5900;font-size:16px}.warning p{margin:0;font-size:10px;color:#765b27;line-height:1.7}
+.warning details{margin-top:8px;border-top:1px solid #ead9aa;padding-top:8px}
+.warning summary{font-size:10px;font-weight:1000;cursor:pointer}
+.warning .details-body{padding:7px 0 0;color:#755e34}
+
+/* restoration */
+.restore{
+  margin-top:14px;padding:18px;border-radius:20px;background:linear-gradient(145deg,#f5fff9,#e9f8ef);
+  border:1px solid #bfe2ca
+}
+.restore h2{margin:0 0 4px;color:#17633c;font-size:21px}.restore .big{font-size:16px;font-weight:1000;color:#1f7146}
+.restore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.restore-grid label{padding:10px;border-radius:12px;background:#fff;border:1px solid #d0ead8;font-size:10px;line-height:1.45}
+
+/* source reference */
+.source-note{
+  margin-top:14px;padding:16px;border-radius:18px;background:#fff;border:1px solid #d2e9ef
+}
+.source-note summary{cursor:pointer;font-weight:1000;font-size:11px}
+.source-note img{margin-top:12px;border-radius:12px;border:1px solid #d7e8ee}
+.source-note p{font-size:9px;color:#6b8392;line-height:1.65}
+
+/* footer */
+.safety{
+  width:min(1080px,calc(100% - 20px));margin:14px auto 24px;padding:15px 16px;border-radius:16px;
+  background:#fff1f0;border:1px solid #efc2bd;color:#78423e;font-size:10px;line-height:1.75
+}
+.safety strong{color:#a33f37}
+footer{text-align:center;font-size:9px;color:#78909b;padding:6px 0 18px}
+
 @media(max-width:760px){
-  .hero{width:calc(100% - 12px);margin-top:8px;border-radius:18px}
-  .hero-copy{padding:16px 14px 13px}
-  .main{width:calc(100% - 12px)}
-  .intro-grid,.relay-grid{grid-template-columns:1fr}
-  .rule{grid-template-columns:1fr 1fr}
-  .flow{grid-template-columns:repeat(3,1fr)}
-  .points{grid-template-columns:1fr}
+  .relay-selector{grid-template-columns:1fr 1fr}
+  .relay-selector button:first-child{grid-column:1/2}
+  .relay-what,.detail-grid,.judgment{grid-template-columns:1fr}
+  .step-tabs{display:flex;overflow-x:auto;scrollbar-width:none;padding-bottom:3px}
+  .step-tabs::-webkit-scrollbar{display:none}
+  .step-tab{flex:0 0 118px}
+  .flowline{grid-template-columns:1fr 1fr}
+  .restore-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:430px){
+  .hero{padding:18px 15px}.hero h1{font-size:30px}
+  .relay-selector button{min-height:78px}
+  .relay-overview,.steps-block,.restore{padding:14px}
+  .relay-code{width:54px;height:54px}
+  .relay-overview h2{font-size:20px}
+  .flowline{grid-template-columns:1fr}
+  .restore-grid{grid-template-columns:1fr}
+  .kv{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="./index.html"><img src="./icon-192.png" alt=""><span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span></a>
-  <a class="back" href="./index.html">← ホーム</a>
+  <a class="home-btn" href="./index.html">← ホーム</a>
 </header>
 
 <section class="hero">
-  <div class="hero-copy">
-    <span class="kicker">PROTECTIVE RELAY SERIES</span>
-    <h1>保護継電器シリーズ</h1>
-    <p>試験の大原則と、OVGR・RPRを中心とした配線・試験・復帰の流れを整理します。</p>
-  </div>
-  <div class="visual">
-    <img src="./protective-relay-series.png" alt="保護継電器シリーズの試験手順をまとめた学習ビジュアル" fetchpriority="high">
-  </div>
+  <span class="eyebrow">PROTECTIVE RELAY SERIES</span>
+  <h1>保護継電器シリーズ</h1>
+  <p>まず継電器を選び、試験全体の流れを確認。端子・配線・判定値・注意点は、必要なところだけ開いて確認できます。</p>
+  <div class="hero-note">添付資料の情報を段階表示へ再構成しています。読み取れない文字や数値は推測せず「要原資料確認」とします。</div>
 </section>
 
-<nav class="quicknav" aria-label="保護継電器シリーズ">
-  <a href="#overview">全体の流れ</a>
-  <a href="#ovgr">OVGR</a>
-  <a href="#rpr">RPR</a>
-  <a href="#ocr">OCR</a>
-  <a href="#gr">GR</a>
-  <a href="#dgr">DGR</a>
-  <a href="#cautions">注意点</a>
-</nav>
-
-<main class="main">
-<section class="intro-grid" id="overview">
-  <div class="panel">
-    <h2>試験の基本フロー</h2>
-    <p>画像内の重要事項を、読めるHTML文字でも整理しています。画像内の細かな文字が端末で潰れても、学習の流れはここで確認できます。</p>
-    <div class="rule">
-      <span>① 試験条件確認</span>
-      <span>② 試験配線</span>
-      <span>③ 動作確認</span>
-      <span>④ 現状復帰</span>
-    </div>
-  </div>
-  <div class="panel">
-    <h2>試験前に確認するもの</h2>
-    <p>制御電源、周波数、継電器整定値・時限、試験端子、VTT・CTTの切替、補助電源端子、コード接続先、記録用紙、安全確保を確認します。</p>
+<section class="selector-wrap">
+  <h2 class="section-title">どの継電器を確認しますか？</h2>
+  <div class="relay-selector" role="tablist" aria-label="保護継電器を選択">
+    <button class="active" type="button" data-relay="OVGR" role="tab"><b>OVGR</b><strong>地絡過電圧継電器</strong><small>零相電圧を監視</small></button>
+    <button type="button" data-relay="RPR" role="tab"><b>RPR</b><strong>逆電力継電器</strong><small>電圧・電流・位相</small></button>
+    <button type="button" data-relay="OCR" role="tab"><b>OCR</b><strong>過電流継電器</strong><small>過電流と時限</small></button>
+    <button type="button" data-relay="GR" role="tab"><b>GR</b><strong>地絡継電器</strong><small>地絡電流を検出</small></button>
+    <button type="button" data-relay="DGR" role="tab"><b>DGR</b><strong>方向性地絡継電器</strong><small>地絡方向を判定</small></button>
   </div>
 </section>
 
-<section class="relay-grid">
-  <article class="relay-card" id="ovgr">
-    <header><span class="code">OVGR</span><span><h3>地絡過電圧継電器</h3><small>零相電圧を使った地絡監視</small></span></header>
-    <div class="flow">
-      <div><b>通常時</b>零相電圧が整定値未満</div>
-      <div><b>試験開始</b>試験電圧を徐々に上げる</div>
-      <div><b>検出</b>整定値到達で継電器動作</div>
-      <div><b>接点</b>動作接点を確認</div>
-      <div><b>時限</b>設定時限を確認</div>
-      <div><b>復帰</b>入力を下げて復帰確認</div>
+<main class="learning-shell">
+  <section class="relay-overview">
+    <div class="relay-overview-head">
+      <span class="relay-code" id="relayCode">OVGR</span>
+      <div>
+        <h2 id="relayName">地絡過電圧継電器</h2>
+        <div class="subtitle" id="relaySubtitle">零相電圧を検出して動作する保護</div>
+      </div>
     </div>
-    <div class="points">
-      <div><b>主な入力</b><br>T-E 等の零相電圧入力</div>
-      <div><b>確認ポイント</b><br>最小動作電圧、動作時間、接点動作</div>
+    <div class="relay-what">
+      <div><b>何を見ている？</b><span id="relayLooks">零相電圧</span></div>
+      <div><b>試験で何を見る？</b><span id="relayTests">最小動作電圧・動作時間・接点動作</span></div>
     </div>
-  </article>
+  </section>
 
-  <article class="relay-card" id="rpr">
-    <header><span class="code">RPR</span><span><h3>逆電力継電器</h3><small>電圧・電流・位相で逆電力を判定</small></span></header>
-    <div class="flow">
-      <div><b>通常時</b>正方向の電力潮流</div>
-      <div><b>試験開始</b>電圧・電流を入力</div>
-      <div><b>位相</b>逆電力条件へ調整</div>
-      <div><b>検出</b>最小動作電力を確認</div>
-      <div><b>時限</b>設定時間を確認</div>
-      <div><b>復帰</b>入力を戻して復帰</div>
+  <section class="steps-block">
+    <div class="steps-head">
+      <h2>試験全体の流れ</h2>
+      <small>現在のステップだけ詳しく表示</small>
     </div>
-    <div class="points">
-      <div><b>主な入力</b><br>電圧入力＋専用CT電流入力</div>
-      <div><b>確認ポイント</b><br>最小動作、位相特性、動作時間</div>
+    <div class="step-tabs" id="stepTabs"></div>
+    <div class="step-detail">
+      <h3 id="stepTitle"></h3>
+      <p id="stepText"></p>
+      <div class="flowline" id="flowline"></div>
+
+      <div class="detail-grid">
+        <details class="info">
+          <summary>端子・配線を詳しく見る</summary>
+          <div class="details-body" id="terminalDetail"></div>
+        </details>
+        <details class="info">
+          <summary>確認ポイントを詳しく見る</summary>
+          <div class="details-body" id="checkDetail"></div>
+        </details>
+      </div>
+
+      <div class="judgment" id="judgment"></div>
+
+      <div class="warning" id="warningBox">
+        <h3>⚠ なぜ切り離すの？</h3>
+        <p id="warningSummary"></p>
+        <details>
+          <summary>危険のしくみ・確認事項を見る</summary>
+          <div class="details-body" id="warningDetail"></div>
+        </details>
+      </div>
     </div>
-  </article>
+  </section>
 
-  <article class="relay-card" id="ocr">
-    <header><span class="code">OCR</span><span><h3>過電流継電器</h3><small>過電流と時限特性</small></span></header>
-    <p>過電流を検出し、整定電流と時限特性に従って動作する保護継電器として整理します。</p>
-  </article>
+  <section class="restore">
+    <h2>現状復帰</h2>
+    <div class="big">試験終了 ≠ 作業終了 ／ 現状復帰完了 ＝ 作業終了</div>
+    <div class="restore-grid">
+      <label>□ 試験器取り外し</label>
+      <label>□ 試験配線取り外し</label>
+      <label>□ 既設配線復元</label>
+      <label>□ CTT 復帰</label>
+      <label>□ VTT 復帰</label>
+      <label>□ 整定値確認</label>
+      <label>□ 仮設物確認</label>
+      <label>□ 別人確認</label>
+      <label>□ 復元後写真</label>
+    </div>
+  </section>
 
-  <article class="relay-card" id="gr">
-    <header><span class="code">GR</span><span><h3>地絡継電器</h3><small>地絡電流を検出</small></span></header>
-    <p>地絡電流を検出する基本的な保護要素として整理します。実際の試験内容は継電器形式と回路構成を確認して扱います。</p>
-  </article>
-
-  <article class="relay-card" id="dgr">
-    <header><span class="code">DGR</span><span><h3>方向性地絡継電器</h3><small>地絡の方向判定</small></span></header>
-    <p>零相電圧と零相電流の位相関係から、地絡事故の方向を判定する保護要素として整理します。</p>
-  </article>
-</section>
-
-<section class="notice" id="cautions">
-  <strong>安全上の注意</strong><br>
-  実設備や試験器の操作は、現場責任者、社内手順書、操作票、系統状態、無電圧確認、誤投入防止措置を優先してください。VTT・CTTの扱い、CT二次回路の開放、試験後の現状復帰は特に重要です。
-</section>
+  <details class="source-note">
+    <summary>元資料を確認する</summary>
+    <p>以下は今回の情報源として使用した資料です。細部の文字が潰れている箇所は、このページ側で推測補完していません。</p>
+    <img src="./relay-reference.png" alt="OVGRとRPRの試験条件、配線、試験、復帰をまとめた元資料" loading="lazy">
+  </details>
 </main>
 
-<footer class="footer">ぷかぷかうきわメモ｜保護継電器シリーズ</footer>
+<section class="safety">
+  <strong>安全上の前提</strong><br>
+  実設備や試験器の操作は、現場責任者、社内手順書、操作票、系統状態、無電圧確認、誤投入防止措置を優先してください。VTT・CTTの扱い、CT二次回路の開放、試験後の現状復帰は特に重要です。
+</section>
+
+<footer>ぷかぷかうきわメモ｜保護継電器シリーズ</footer>
+
+<script>
+(() => {
+  const data = {
+    OVGR:{
+      name:'地絡過電圧継電器',
+      subtitle:'零相電圧を検出して動作する保護',
+      looks:'零相電圧',
+      tests:'最小動作電圧・動作時間・接点動作',
+      steps:[
+        {
+          title:'① 試験条件を確認',
+          text:'形式、保護要素、整定値・時限、制御電源、周波数、試験端子、VTT・CTTの状態、補助電源、記録用紙、安全確保を確認します。',
+          flow:[['通常時','試験前の既設状態'],['確認','形式・整定・時限'],['確認','試験端子・コード'],['準備完了','次に配線へ']],
+          terminals:'資料で確認できる主な表示：S1・S2（補助電源）、T・E（零相電圧入力）、COM・TRIP（接点出力）。端子の最終確認は継電器形式・試験器資料を優先。',
+          check:'資料では OVGR 動作電圧 10%、動作時間 1.0秒の記入例が見えます。これは今回の記入例として扱い、一般化しません。',
+          judgments:[],
+          warning:'VTT・CTTの切離し状態を試験前に確認します。',
+          warningDetail:'資料では、VTTを切り離さず逆送すると上位側へ高電圧が発生するおそれ、CTT側ではCT二次回路の扱いに注意する旨が強調されています。具体的操作は現場手順書と対象回路を確認してください。'
+        },
+        {
+          title:'② 試験配線',
+          text:'試験器から継電器へ必要な入力と接点確認線を接続します。最初は「試験器 → 継電器 → 動作接点」という全体像だけを確認します。',
+          flow:[['試験器','AC補助電源'],['継電器','零相電圧入力'],['継電器','動作接点'],['試験器','TRIP入力']],
+          terminals:'資料に見えるOVGR側の例：補助電源 S1・S2、零相電圧 T・E、動作接点 a1-c1-2 / a2-c1-2。自動復帰・手動復帰の区別が記載されています。詳細は原資料確認。',
+          check:'配線後は、誤投入防止・無電圧確認・接点先・コード接続先を再確認します。',
+          judgments:[],
+          warning:'VTT側の既設回路と試験回路を混同しないこと。',
+          warningDetail:'元資料では逆送防止の観点からVTT切離し理由が説明されています。実設備では回路構成により異なるため、操作票・結線図で確認してください。'
+        },
+        {
+          title:'③ 最小動作電圧',
+          text:'零相電圧をゆっくり上げ、継電器が動作する点を確認します。',
+          flow:[['入力','0V付近から開始'],['上昇','ゆっくり上げる'],['動作','継電器動作を確認'],['記録','測定値を記録']],
+          terminals:'入力は資料上 T-E（零相電圧）として示されています。',
+          check:'測定値と管理値を比較し、OK/NGを記録します。正式な管理値は試験基準を確認してください。',
+          judgments:[
+            ['最小動作電圧','測定値を記録','資料に 285.8V ～ 476.3V の参考表示が見えますが、正式値は要原資料確認']
+          ],
+          warning:'入力は急激に上げず、試験器・継電器の状態を確認しながら実施します。',
+          warningDetail:'具体的な操作速度・印加条件は試験器取扱説明書、対象継電器の試験基準に従ってください。'
+        },
+        {
+          title:'④ 動作時間',
+          text:'所定の入力条件で、継電器が動作するまでの時間を確認します。',
+          flow:[['条件設定','試験条件を設定'],['START','時間測定開始'],['動作','接点動作'],['記録','時間を記録']],
+          terminals:'元資料ではOVGR動作接点を試験器TRIP入力へつないで時間測定する構成が示されています。',
+          check:'資料には「最小動作電圧×150%」の表示と、0.95～1.05秒の参考表示が見えます。正式基準は要原資料確認。',
+          judgments:[
+            ['動作時間','測定値を記録','参考表示：0.95 ～ 1.05 秒／正式値は要原資料確認']
+          ],
+          warning:'整定時間と試験条件の取り違えに注意。',
+          warningDetail:'動作時間の判定は継電器の整定と試験基準に依存します。画面表示だけで合否を断定しないでください。'
+        },
+        {
+          title:'⑤ 現状復帰',
+          text:'試験器と試験配線を外し、既設回路・CTT・VTT・整定値を元に戻して最終確認します。',
+          flow:[['取り外し','試験器'],['復元','既設配線'],['復帰','CTT・VTT'],['最終確認','整定・写真・別人確認']],
+          terminals:'元資料の復帰欄では、試験器、試験配線、既設配線、CTT、VTT、最終確認の順に整理されています。',
+          check:'復帰後に仮設物ゼロ、配線復元、整定値一致、R/S/T 3/3、別人確認（相互確認）等のチェック欄が見えます。',
+          judgments:[],
+          warning:'試験終了と現状復帰完了を同一視しないこと。',
+          warningDetail:'復帰が完了し、必要な確認が終わるまで作業終了扱いにしないという資料の考え方を維持しています。'
+        }
+      ]
+    },
+    RPR:{
+      name:'逆電力継電器',
+      subtitle:'電圧・電流・位相から逆電力を判定する保護',
+      looks:'電圧＋電流＋位相',
+      tests:'最小動作電力・位相特性・動作時間',
+      steps:[
+        {
+          title:'① 試験条件を確認',
+          text:'形式、整定値・時限、制御電源、電圧入力、専用CT電流入力、接点出力、試験記録、安全条件を確認します。',
+          flow:[['通常時','正方向の電力潮流'],['確認','整定値・時限'],['確認','電圧・電流入力'],['準備完了','次に配線へ']],
+          terminals:'資料に見える主な表示：P1・P2・P3（電圧入力）、Kt・Lt（専用CT電流入力）、COM・TRIP（接点出力）。',
+          check:'資料ではRPR動作電力 1%、動作時間 2.0秒の記入例が見えます。今回の例としてのみ扱います。',
+          judgments:[],
+          warning:'CT二次回路を扱うため、切離し・短絡・復帰状態の確認が重要です。',
+          warningDetail:'元資料は、CT二次回路の不用意な開放で高電圧が発生し得ることを警告しています。操作は対象回路の手順に従ってください。'
+        },
+        {
+          title:'② 試験配線',
+          text:'電圧入力、専用CT電流入力、接点確認線を試験器へ接続します。',
+          flow:[['試験器','電圧出力'],['継電器','P1・P2・P3'],['継電器','Kt・Lt'],['試験器','TRIP入力']],
+          terminals:'資料ではP1・P2・P3に相電圧入力、Kt・Ltに専用CT電流入力、a3-c3をRPR動作接点として示す構成が見えます。',
+          check:'Kt・Ltは極性ありとして表示されています。配線は試験器・継電器の取扱資料で最終確認してください。',
+          judgments:[],
+          warning:'CTTを切り離す理由と、CT二次回路の状態を先に確認。',
+          warningDetail:'資料は「試験電流の分流・バイパス防止」と「CT二次回路の注意」を分けて説明しています。'
+        },
+        {
+          title:'③ 最小動作電力',
+          text:'電圧条件を設定し、電流を変化させながらRPRが動作する点を確認します。',
+          flow:[['電圧','条件を固定'],['電流','徐々に変化'],['動作','RPR動作'],['記録','動作値を記録']],
+          terminals:'資料のRPR試験欄では、電圧入力と電流入力を組み合わせて最小動作を確認する構成が示されています。',
+          check:'資料内の細かな測定値・管理値はこの画像から確実に判読できないため、要原資料確認。',
+          judgments:[
+            ['最小動作電力','測定値を記録','管理値・参考値：要原資料確認']
+          ],
+          warning:'実機の定格や整定値とゲーム的・説明用数値を混同しないこと。',
+          warningDetail:'RPRの最小動作判定は対象継電器の整定、結線、試験条件に依存します。'
+        },
+        {
+          title:'④ 位相特性',
+          text:'電圧と電流の位相関係を変化させ、逆電力判定の位相特性を確認します。',
+          flow:[['電圧','基準を設定'],['電流','試験電流'],['位相','角度を変化'],['動作','動作範囲を確認']],
+          terminals:'資料には位相図と「最大感度位相」の確認欄が見えます。細かな角度値は要原資料確認。',
+          check:'基準位相を確認してから試験し、誤った相・極性での判定を避けます。',
+          judgments:[
+            ['位相特性','動作範囲を確認','正式な角度・管理値：要原資料確認']
+          ],
+          warning:'相・極性・位相条件の取り違えに注意。',
+          warningDetail:'RPRは電圧と電流の位相関係が重要です。対象機器の試験要領を確認してください。'
+        },
+        {
+          title:'⑤ 動作時間',
+          text:'所定の逆電力条件を与え、動作接点が変化するまでの時間を確認します。',
+          flow:[['条件設定','逆電力条件'],['START','時間測定'],['動作','接点動作'],['記録','時間を記録']],
+          terminals:'資料ではRPR動作接点をTRIP入力へ接続して時間測定する構成が示されています。',
+          check:'資料に 1.90～2.10秒の参考表示が見えますが、正式な判定値は試験基準を確認してください。',
+          judgments:[
+            ['動作時間','測定値を記録','参考表示：1.90 ～ 2.10 秒／正式値は要原資料確認']
+          ],
+          warning:'動作時間の試験倍率・条件を取り違えないこと。',
+          warningDetail:'元資料には「動作時間の確認（120%入力）」の表示が見えます。正式条件は原資料・試験基準確認。'
+        },
+        {
+          title:'⑥ 現状復帰',
+          text:'試験器、試験配線、既設配線、CTT、VTTを復帰し、整定・仮設・写真・相互確認まで行います。',
+          flow:[['取り外し','試験器・配線'],['復元','既設配線'],['復帰','CTT・VTT'],['完了','最終確認']],
+          terminals:'資料の「最後が一番大事—元に戻す（復帰）」欄をそのまま学習工程として独立させています。',
+          check:'仮設物ゼロ、配線復元、整定値一致、R/S/T 3/3、別人確認、復元後写真などを確認。',
+          judgments:[],
+          warning:'現状復帰完了までが試験作業。',
+          warningDetail:'元資料の「試験終了 ≠ 作業終了／現状復帰完了 ＝ 作業終了」という考え方をそのまま反映しています。'
+        }
+      ]
+    },
+    OCR:{
+      name:'過電流継電器',
+      subtitle:'過電流を検出し、整定と時限で保護する継電器',
+      looks:'過電流',
+      tests:'整定電流・動作時間・時限特性',
+      steps:[{
+        title:'OCR個別ページは工事中',
+        text:'今回の添付資料はOVGR・RPRが中心のため、OCRの個別試験情報はこの資料だけでは不足しています。',
+        flow:[['資料','OVGR/RPR中心'],['不足','OCR詳細なし'],['対応','原資料確認'],['予定','個別ページ制作']],
+        terminals:'要原資料確認',
+        check:'要原資料確認',
+        judgments:[],
+        warning:'添付資料だけではOCR固有の試験条件を確定できません。',
+        warningDetail:'OCRの詳細を追加する場合は、継電器形式、CT比、整定値、時限、試験器形式、試験要領が必要です。'
+      }]
+    },
+    GR:{
+      name:'地絡継電器',
+      subtitle:'地絡電流を検出する保護',
+      looks:'地絡電流',
+      tests:'個別試験情報は要原資料確認',
+      steps:[{
+        title:'GR個別ページは工事中',
+        text:'今回の添付資料だけではGR固有の配線・試験条件を確定できません。',
+        flow:[['資料','OVGR/RPR中心'],['不足','GR詳細なし'],['対応','原資料確認'],['予定','個別ページ制作']],
+        terminals:'要原資料確認',
+        check:'要原資料確認',
+        judgments:[],
+        warning:'GR固有情報は推測で追加しません。',
+        warningDetail:'形式、ZCT構成、整定値、試験器形式、試験要領が必要です。'
+      }]
+    },
+    DGR:{
+      name:'方向性地絡継電器',
+      subtitle:'零相電圧と零相電流の位相関係から方向を判定',
+      looks:'零相電圧＋零相電流＋位相',
+      tests:'個別試験情報は要原資料確認',
+      steps:[{
+        title:'DGR個別ページは工事中',
+        text:'今回の添付資料だけではDGR固有の配線・位相試験条件を確定できません。',
+        flow:[['資料','OVGR/RPR中心'],['不足','DGR詳細なし'],['対応','原資料確認'],['予定','個別ページ制作']],
+        terminals:'要原資料確認',
+        check:'要原資料確認',
+        judgments:[],
+        warning:'方向判定条件を推測で追加しません。',
+        warningDetail:'継電器形式、ZCT・ZPD/EVT等の構成、整定値、位相条件、試験要領が必要です。'
+      }]
+    }
+  };
+
+  const relayButtons=[...document.querySelectorAll('[data-relay]')];
+  const relayCode=document.getElementById('relayCode');
+  const relayName=document.getElementById('relayName');
+  const relaySubtitle=document.getElementById('relaySubtitle');
+  const relayLooks=document.getElementById('relayLooks');
+  const relayTests=document.getElementById('relayTests');
+  const stepTabs=document.getElementById('stepTabs');
+  const stepTitle=document.getElementById('stepTitle');
+  const stepText=document.getElementById('stepText');
+  const flowline=document.getElementById('flowline');
+  const terminalDetail=document.getElementById('terminalDetail');
+  const checkDetail=document.getElementById('checkDetail');
+  const judgment=document.getElementById('judgment');
+  const warningSummary=document.getElementById('warningSummary');
+  const warningDetail=document.getElementById('warningDetail');
+
+  let currentRelay='OVGR';
+  let currentStep=0;
+
+  function renderRelay(){
+    const d=data[currentRelay];
+    relayButtons.forEach(b=>{
+      const on=b.dataset.relay===currentRelay;
+      b.classList.toggle('active',on);
+      b.setAttribute('aria-selected',String(on));
+    });
+    relayCode.textContent=currentRelay;
+    relayName.textContent=d.name;
+    relaySubtitle.textContent=d.subtitle;
+    relayLooks.textContent=d.looks;
+    relayTests.textContent=d.tests;
+
+    stepTabs.replaceChildren();
+    d.steps.forEach((s,i)=>{
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className='step-tab'+(i===currentStep?' active':'');
+      btn.innerHTML=`<span>STEP ${String(i+1).padStart(2,'0')}</span><b>${s.title.replace(/^[①②③④⑤⑥]\s*/,'')}</b>`;
+      btn.addEventListener('click',()=>{currentStep=i;renderStep()});
+      stepTabs.appendChild(btn);
+    });
+    renderStep();
+  }
+
+  function renderStep(){
+    const d=data[currentRelay];
+    const s=d.steps[currentStep];
+    [...stepTabs.children].forEach((b,i)=>b.classList.toggle('active',i===currentStep));
+
+    stepTitle.textContent=s.title;
+    stepText.textContent=s.text;
+
+    flowline.replaceChildren(...s.flow.map(([a,b])=>{
+      const div=document.createElement('div');
+      div.innerHTML=`<b>${a}</b>${b}`;
+      return div;
+    }));
+
+    terminalDetail.textContent=s.terminals;
+    checkDetail.textContent=s.check;
+
+    judgment.replaceChildren(...s.judgments.map(([label,value,note])=>{
+      const div=document.createElement('div');
+      div.className='jcard';
+      div.innerHTML=`<span>判定カード</span><strong>${label}</strong><p>${value}</p><p>${note}</p><div class="check">□ OK　□ NG</div>`;
+      return div;
+    }));
+
+    warningSummary.textContent=s.warning;
+    warningDetail.textContent=s.warningDetail;
+  }
+
+  relayButtons.forEach(btn=>btn.addEventListener('click',()=>{
+    currentRelay=btn.dataset.relay;
+    currentStep=0;
+    renderRelay();
+    document.querySelector('.relay-overview')?.scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+
+  renderRelay();
+})();
+</script>
 </body>
 </html>
