@@ -1,25 +1,40 @@
 {
-  "version": "v27-relay-progressive",
-  "relay_page": "protective-relay.html",
-  "source_reference": "relay-reference.png",
-  "progressive_disclosure": true,
-  "relay_selector": [
-    "OVGR",
-    "RPR",
-    "OCR",
-    "GR",
-    "DGR"
+  "version": "v28-relay-library",
+  "home_route": "protective-relay.html",
+  "library_modes": [
+    "manufacturer",
+    "function",
+    "test"
   ],
-  "ovgr_steps": 5,
-  "rpr_steps": 6,
-  "ocr_gr_dgr_status": "工事中・要原資料確認",
+  "manufacturers": [
+    {
+      "name": "オムロン",
+      "status": "available"
+    },
+    {
+      "name": "その他メーカー",
+      "status": "preparing"
+    }
+  ],
+  "omron_models": [
+    "K2ZC-K2RV-NPC",
+    "K2ZC-K2RV-CPC",
+    "K2ZC-K2GV-NUC",
+    "K2ZC-K2GV-NPC",
+    "K2ZC-K2GV-NDC",
+    "K2ZC-N シリーズ",
+    "K2GV"
+  ],
+  "detail_flow": "relay-test-flow.html",
   "js_syntax_ok": true,
   "duplicate_ids": {
     "index.html": [],
-    "protective-relay.html": []
+    "protective-relay.html": [],
+    "relay-test-flow.html": []
   },
   "broken_internal_anchors": {
     "index.html": [],
-    "protective-relay.html": []
+    "protective-relay.html": [],
+    "relay-test-flow.html": []
   }
 }
