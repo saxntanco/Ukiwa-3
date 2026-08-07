@@ -1,20 +1,15 @@
 {
-  "version": "v24-clean-home",
-  "removed_visible_lower_cards": [
-    "電気の基礎・RLC",
-    "現場の記事",
-    "キャラクター図鑑",
-    "用語・公式集",
-    "6つの修行アイランド"
-  ],
-  "homepage_flow": [
-    "URカード",
-    "3Dうきわメニュー",
-    "海の冒険マップ",
-    "固定ボトムナビ"
-  ],
-  "route_details_open_in_modal": true,
+  "version": "v26-relay-series",
+  "protective_relay_page": true,
+  "index.html_duplicate_ids": [],
+  "protective-relay.html_duplicate_ids": [],
   "js_syntax_ok": true,
-  "duplicate_ids": [],
-  "broken_internal_anchors": []
+  "relay_visual": "protective-relay-series.png",
+  "relay_entries": [
+    "OVGR",
+    "RPR",
+    "OCR",
+    "GR",
+    "DGR"
+  ]
 }
