@@ -1016,162 +1016,9 @@ body{background:linear-gradient(180deg,#f5fbff 0,#eef8fd 52%,#f8fbff 100%)}
 @media(max-width:720px){
   .encyclopedia-note-v8{font-size:10px}
 }
-</style><style id="ocean-ring-v13-style">
-/* ===== v13 FINAL OCEAN RING ===== */
-#home{background:
- radial-gradient(circle at 15% 5%,rgba(255,255,255,.75),transparent 25%),
- linear-gradient(180deg,#76ddeb 0%,#1b9bc2 42%,#08709b 70%,#075276 100%)!important}
-#home .hero-grid{min-height:420px!important;height:auto!important}
-#home .hero-copy{z-index:3}
-#home .hero-copy .eyebrow,#home .hero-copy h1,#home .hero-copy p{color:#fff!important}
-#home .hero-copy h1{font-size:clamp(38px,5vw,66px)!important;line-height:1.02!important}
-#home .hero-copy p{max-width:560px!important}
-#home .hero-art:after{background:linear-gradient(90deg,rgba(0,98,131,.04),rgba(0,83,118,.38) 56%,rgba(0,58,89,.80) 100%)!important}
-#home .hero-art img{filter:drop-shadow(0 22px 35px rgba(0,41,68,.30)) saturate(1.03)!important}
-
-.ocean-command-center{
-  position:relative;overflow:hidden;text-align:center;padding-top:40px!important;padding-bottom:44px!important;
-  background:
-   radial-gradient(circle at 10% 15%,rgba(255,255,255,.9) 0 2px,transparent 3px),
-   radial-gradient(circle at 86% 24%,rgba(255,255,255,.7) 0 4px,transparent 5px),
-   linear-gradient(180deg,#e9fcff,#c6f1f6 50%,#a9e3ed);
-  border-radius:30px;
-}
-.ocean-command-copy{max-width:760px;margin:0 auto 10px}
-.ocean-command-copy h2{font-size:clamp(30px,4vw,49px);margin:5px 0 7px}
-.ocean-command-copy p{margin:0;color:#55788a}
-
-.ocean-ring-shell{
-  position:relative;width:min(820px,100%);height:520px;margin:0 auto;outline:none;touch-action:pan-y;
-  perspective:1100px;
-}
-.ocean-ring-shell:focus-visible{box-shadow:0 0 0 4px rgba(13,119,164,.25);border-radius:30px}
-.ocean-surface{
-  position:absolute;left:50%;bottom:30px;width:72%;height:145px;transform:translateX(-50%);
-  border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.52),rgba(30,152,190,.10) 55%,transparent 70%);
-  filter:blur(1px)
-}
-.lifebuoy-ring{
-  position:absolute;left:50%;top:48%;width:300px;height:300px;transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:conic-gradient(
-    #118ad1 0 45deg,#f9fdff 45deg 90deg,
-    #118ad1 90deg 135deg,#f9fdff 135deg 180deg,
-    #118ad1 180deg 225deg,#f9fdff 225deg 270deg,
-    #118ad1 270deg 315deg,#f9fdff 315deg 360deg);
-  box-shadow:
-    inset 0 0 0 12px #d9af56,
-    inset 0 0 0 18px rgba(255,255,255,.72),
-    0 18px 45px rgba(0,61,91,.24),
-    0 0 0 2px rgba(255,255,255,.85);
-  animation:ringBob 5.7s ease-in-out infinite;
-}
-.lifebuoy-ring:after{
-  content:"";position:absolute;inset:63px;border-radius:50%;
-  background:rgba(213,249,255,.96);
-  box-shadow:inset 0 0 24px rgba(0,86,123,.18),0 0 0 5px rgba(255,255,255,.86)
-}
-.captain-card{
-  position:absolute;left:50%;top:48%;z-index:5;width:142px;
-  transform:translate(-50%,-50%) rotate(-1deg);
-  padding:0;border:0;border-radius:18px;background:#063e61;cursor:pointer;
-  box-shadow:0 18px 35px rgba(0,39,64,.32),0 0 0 3px rgba(233,196,98,.75);
-  transition:transform .25s ease,box-shadow .25s ease;
-}
-.captain-card:hover,.captain-card:focus-visible{transform:translate(-50%,-52%) rotate(0) scale(1.035);box-shadow:0 22px 42px rgba(0,39,64,.38),0 0 0 4px rgba(255,219,116,.9)}
-.captain-card img{display:block;width:100%;aspect-ratio:1024/1450;object-fit:cover;border-radius:18px}
-.captain-card span{
-  position:absolute;left:50%;bottom:-26px;transform:translateX(-50%);
-  color:#075d85;background:#fff;border:1px solid #b9deea;border-radius:999px;
-  padding:5px 9px;font-size:8px;font-weight:1000;letter-spacing:.12em;white-space:nowrap
-}
-.orbit-track{position:absolute;inset:0;z-index:4}
-.orbit-item{
-  --angle:0deg;position:absolute;left:50%;top:48%;width:150px;min-height:92px;
-  padding:11px 12px;border-radius:18px;border:1px solid rgba(255,255,255,.84);
-  background:rgba(255,255,255,.88);color:#123b53;text-align:left;cursor:pointer;
-  transform:
-   translate(-50%,-50%)
-   rotate(var(--angle))
-   translateY(-205px)
-   rotate(calc(var(--angle) * -1))
-   scale(var(--scale,.82));
-  opacity:var(--opacity,.64);
-  box-shadow:0 9px 21px rgba(0,67,98,.12);
-  backdrop-filter:blur(9px);
-  transition:transform .55s cubic-bezier(.22,.8,.22,1),opacity .45s ease,box-shadow .35s ease;
-}
-.orbit-item b{display:block;font-size:13px;margin-top:3px}.orbit-item small{display:block;font-size:9px;color:#63808f;line-height:1.4}.orbit-icon{font-size:20px}
-.orbit-item.is-selected{
-  --scale:1.08;--opacity:1;
-  background:#fff;box-shadow:0 17px 34px rgba(0,56,90,.23),0 0 0 2px rgba(255,205,94,.6)
-}
-.orbit-arrow{
-  position:absolute;top:48%;z-index:8;width:48px;height:48px;transform:translateY(-50%);
-  border:1px solid rgba(255,255,255,.8);border-radius:50%;background:rgba(6,74,105,.78);
-  color:white;font-size:29px;cursor:pointer
-}
-.orbit-arrow.prev{left:10px}.orbit-arrow.next{right:10px}
-.route-panel{
-  position:relative;z-index:8;width:min(520px,calc(100% - 28px));margin:-18px auto 0;padding:15px 18px;
-  border-radius:18px;background:#075378;color:#fff;box-shadow:0 12px 28px rgba(0,62,92,.18)
-}
-.route-panel>span{font-size:7px;letter-spacing:.18em;font-weight:900;color:#9de9f2}
-.route-panel h3{margin:3px 0;font-size:20px}.route-panel p{margin:0 0 10px;font-size:10px;color:#d7f6fa}
-.route-panel .btn{min-height:42px}
-.orbit-hint{margin-top:10px;font-size:9px;color:#477488;font-weight:800}
-
-.captain-card-modal[hidden]{display:none!important}
-.captain-card-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:12px}
-.captain-card-backdrop{position:absolute;inset:0;background:rgba(0,18,28,.82);backdrop-filter:blur(8px)}
-.captain-card-dialog{
-  position:relative;z-index:1;width:min(500px,96vw);max-height:95vh;overflow:auto;
-  padding:12px;border-radius:24px;background:linear-gradient(#f8feff,#e6f8fc);box-shadow:0 28px 70px rgba(0,17,30,.5)
-}
-.captain-modal-head{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 10px}
-.captain-modal-head span{font-size:8px;letter-spacing:.14em;color:#217c9d;font-weight:1000}.captain-modal-head h2{margin:2px 0 0}
-.captain-modal-head button{width:44px;height:44px;border-radius:50%;border:1px solid #bddce6;background:#fff;font-size:24px;color:#0a5c7f}
-.captain-card-dialog>img{display:block;width:min(390px,100%);margin:auto;border-radius:20px;box-shadow:0 17px 36px rgba(0,56,87,.27)}
-.captain-card-dialog>p{margin:12px 2px 5px;font-weight:900}.captain-card-dialog>small{display:block;padding:9px;border-radius:11px;background:#fff7dc;color:#715a1c;line-height:1.6}
-.captain-card-dialog>a{display:flex;min-height:44px;margin-top:10px;align-items:center;justify-content:center;border-radius:11px;background:#0875a2;color:#fff;text-decoration:none;font-weight:900}
-
-#characterGrid .char-card[data-char="ukiwa"] .char-visual{background:#063d60!important}
-#characterGrid .char-card[data-char="ukiwa"].ukiwa-card-mode .char-visual img{object-fit:contain!important;object-position:center!important}
-.ukiwa-card-switch{width:100%;grid-column:1/-1!important;background:linear-gradient(135deg,#fff7d8,#e6faff)!important;border-color:#e0c66e!important;color:#7c5b0b!important}
-
-@keyframes ringBob{0%,100%{transform:translate(-50%,-50%) translateY(0) rotate(-.5deg)}50%{transform:translate(-50%,-50%) translateY(-5px) rotate(.5deg)}}
-
-@media(max-width:760px){
-  #home .hero-grid{min-height:500px!important}
-  .ocean-command-center{border-radius:22px;padding:30px 8px 34px!important}
-  .ocean-ring-shell{height:470px}
-  .lifebuoy-ring{width:230px;height:230px}
-  .lifebuoy-ring:after{inset:49px}
-  .captain-card{width:112px}
-  .orbit-item{width:126px;min-height:80px;transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-166px) rotate(calc(var(--angle)*-1)) scale(var(--scale,.78));padding:9px}
-  .orbit-item b{font-size:11px}.orbit-item small{font-size:8px}.orbit-arrow.prev{left:2px}.orbit-arrow.next{right:2px}
-}
-@media(max-width:430px){
-  #home .hero-grid{min-height:455px!important}
-  #home .hero-copy h1{font-size:38px!important}
-  .ocean-ring-shell{height:430px}
-  .lifebuoy-ring{width:198px;height:198px}
-  .lifebuoy-ring:after{inset:43px}
-  .captain-card{width:96px}
-  .orbit-item{width:112px;min-height:72px;transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-145px) rotate(calc(var(--angle)*-1)) scale(var(--scale,.74));border-radius:15px}
-  .orbit-item small{display:none}
-  .orbit-icon{font-size:17px}
-  .route-panel{margin-top:-5px}
-}
-@media(prefers-reduced-motion:reduce){
-  .lifebuoy-ring{animation:none!important}
-  .orbit-item{transition:none!important}
-}
-</style><link rel="icon" href="./favicon.svg" type="image/svg+xml">
-<link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#0b78a8">
-
-
+</style><link href="./favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="./favicon.svg" rel="shortcut icon" type="image/svg+xml"/>
+<meta content="#0b78a8" name="theme-color"/>
 <style id="v16-floating-card-hero">
 /* v16 — Ukiwa collector card rising from the sea */
 #home{
@@ -1274,15 +1121,223 @@ body{background:linear-gradient(180deg,#f5fbff 0,#eef8fd 52%,#f8fbff 100%)}
   #home .hero-art img,#home .hero-art:before,#home .hero-art .hero-bubble{animation:none!important}
 }
 </style>
-
-</head>
+<style id="ocean-ring-v17-style">
+/* =========================================================
+   v17 — 3D Ukiwa ring menu
+   ========================================================= */
+.ocean-ring-shell{
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --ring-scale: 1;
+  position:relative;
+  width:min(860px,100%);
+  height:540px;
+  margin:0 auto;
+  outline:none;
+  touch-action:pan-y;
+  perspective:1200px;
+  transform-style:preserve-3d;
+}
+.ocean-ring-shell:focus-visible{
+  box-shadow:0 0 0 4px rgba(13,119,164,.25);
+  border-radius:30px;
+}
+.ocean-surface{
+  position:absolute;
+  left:50%;
+  bottom:34px;
+  width:74%;
+  height:150px;
+  transform:translateX(-50%) translateZ(-80px);
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse,rgba(255,255,255,.62) 0 12%,rgba(62,197,222,.28) 28%,rgba(0,84,122,.10) 52%,transparent 70%);
+  filter:blur(2px);
+  opacity:.9;
+}
+.ocean-surface:after{
+  content:"";
+  position:absolute;
+  inset:24% 10%;
+  border-radius:50%;
+  border:1.5px solid rgba(235,253,255,.7);
+  box-shadow:0 0 0 12px rgba(190,247,255,.12),0 0 0 27px rgba(190,247,255,.06);
+}
+.lifebuoy-ring{
+  position:absolute;
+  left:50%;
+  top:49%;
+  width:330px;
+  height:330px;
+  transform:
+    translate(-50%,-50%)
+    rotateX(calc(16deg + var(--tilt-x)))
+    rotateY(var(--tilt-y))
+    scale(var(--ring-scale));
+  transform-style:preserve-3d;
+  z-index:3;
+  pointer-events:none;
+  background:none!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  transition:transform .28s ease-out,filter .28s ease-out;
+  filter:
+    drop-shadow(0 28px 22px rgba(0,43,68,.28))
+    drop-shadow(0 0 18px rgba(164,236,249,.22));
+  animation:ringFloat3d 5.6s ease-in-out infinite;
+}
+.lifebuoy-ring:after{display:none!important}
+.lifebuoy-3d-img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.captain-card{
+  position:absolute;
+  left:50%;
+  top:49%;
+  z-index:8;
+  width:134px;
+  transform:
+    translate(-50%,-50%)
+    translateZ(95px)
+    rotateX(calc(var(--tilt-x) * .22))
+    rotateY(calc(var(--tilt-y) * .22))
+    rotate(-1deg);
+  padding:0;
+  border:0;
+  border-radius:18px;
+  background:#063e61;
+  cursor:pointer;
+  box-shadow:0 20px 38px rgba(0,39,64,.34),0 0 0 3px rgba(233,196,98,.75);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.captain-card:hover,.captain-card:focus-visible{
+  transform:
+    translate(-50%,-53%)
+    translateZ(110px)
+    rotateX(calc(var(--tilt-x) * .22))
+    rotateY(calc(var(--tilt-y) * .22))
+    scale(1.045);
+}
+.orbit-track{
+  position:absolute;
+  inset:0;
+  z-index:7;
+  transform-style:preserve-3d;
+}
+.orbit-item{
+  --angle:0deg;
+  --depth:0px;
+  --scale:.78;
+  --opacity:.55;
+  position:absolute;
+  left:50%;
+  top:49%;
+  width:150px;
+  min-height:92px;
+  padding:11px 12px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.84);
+  background:rgba(255,255,255,.88);
+  color:#123b53;
+  text-align:left;
+  cursor:pointer;
+  transform:
+    translate(-50%,-50%)
+    rotateY(var(--angle))
+    translateZ(270px)
+    rotateY(calc(var(--angle) * -1))
+    translateZ(var(--depth))
+    scale(var(--scale));
+  opacity:var(--opacity);
+  box-shadow:0 10px 22px rgba(0,67,98,.14);
+  backdrop-filter:blur(9px);
+  transform-style:preserve-3d;
+  transition:
+    transform .58s cubic-bezier(.22,.8,.22,1),
+    opacity .45s ease,
+    filter .45s ease,
+    box-shadow .35s ease;
+  will-change:transform,opacity;
+}
+.orbit-item.is-selected{
+  --scale:1.07;
+  --opacity:1;
+  --depth:22px;
+  background:#fff;
+  box-shadow:0 18px 38px rgba(0,56,90,.25),0 0 0 2px rgba(255,205,94,.65);
+  filter:brightness(1.04);
+}
+.orbit-item.is-back{
+  filter:brightness(.72) saturate(.72);
+}
+.orbit-item b{display:block;font-size:13px;margin-top:3px}
+.orbit-item small{display:block;font-size:9px;color:#63808f;line-height:1.4}
+.orbit-icon{font-size:20px}
+.route-panel{
+  position:relative;
+  z-index:10;
+  width:min(520px,calc(100% - 28px));
+  margin:-10px auto 0;
+}
+@keyframes ringFloat3d{
+  0%,100%{
+    transform:translate(-50%,-50%) rotateX(calc(16deg + var(--tilt-x))) rotateY(var(--tilt-y)) translateY(0) scale(var(--ring-scale));
+  }
+  50%{
+    transform:translate(-50%,-50%) rotateX(calc(17.5deg + var(--tilt-x))) rotateY(var(--tilt-y)) translateY(-5px) scale(var(--ring-scale));
+  }
+}
+@media(max-width:760px){
+  .ocean-ring-shell{height:490px}
+  .lifebuoy-ring{width:255px;height:255px}
+  .captain-card{width:108px}
+  .orbit-item{
+    width:126px;
+    min-height:80px;
+    transform:
+      translate(-50%,-50%)
+      rotateY(var(--angle))
+      translateZ(205px)
+      rotateY(calc(var(--angle) * -1))
+      translateZ(var(--depth))
+      scale(var(--scale));
+  }
+}
+@media(max-width:430px){
+  .ocean-ring-shell{height:450px}
+  .lifebuoy-ring{width:218px;height:218px}
+  .captain-card{width:94px}
+  .orbit-item{
+    width:112px;
+    min-height:72px;
+    padding:9px;
+    transform:
+      translate(-50%,-50%)
+      rotateY(var(--angle))
+      translateZ(175px)
+      rotateY(calc(var(--angle) * -1))
+      translateZ(var(--depth))
+      scale(var(--scale));
+  }
+  .orbit-item small{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .lifebuoy-ring{animation:none!important}
+  .orbit-item,.lifebuoy-ring,.captain-card{transition:none!important}
+}
+</style></head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
 <header class="topbar">
 <div class="shell topbar-inner"><a class="brand" href="#home"><img alt="" src="data:image/webp;base64,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"/><span><b>ぷかぷかうきわメモ</b><small>電気保安を、海の冒険に。</small></span></a><nav class="desktop-nav"><a class="nav-link" href="#ui-command-center">🧭 <span>学び方</span><em>START</em></a><a class="nav-link" href="#electricity-basics">💧 <span>水で基礎</span><em>BASICS</em></a><a class="nav-link" href="#map">🗺️ <span>海のマップ</span><em>MAP</em></a><a class="nav-link" href="#characters">🎭 <span>図鑑</span><em>CHARACTER</em></a><a class="nav-link" href="#articles">📄 <span>記事</span><em>ARTICLES</em></a><a class="nav-link" href="./ac-withstand-test-simulator.html#calc">🧪 <span>計算</span><em>SIMULATOR</em></a></nav><div class="top-actions"><form action="#articles" class="search-box desktop-only" onsubmit="event.preventDefault();document.getElementById('articleSearch').focus();document.getElementById('articles').scrollIntoView({behavior:'smooth'});"><input aria-label="記事を検索" onclick="document.getElementById('articles').scrollIntoView({behavior:'smooth'});setTimeout(()=&gt;document.getElementById('articleSearch').focus(),200)" placeholder="記事を検索" type="search"/><button type="submit">🔎</button></form><button class="theme-pill" id="themeToggle" type="button">ダークモード <span class="theme-knob">☀️</span></button><button class="icon-btn mobile-menu" id="mobileChat" type="button">💬</button></div></div>
 </header><div aria-hidden="true" id="pageProgress"><span></span></div><div class="desktop-layout shell"><div class="desktop-main-column"><section class="hero" id="home">
 <div class="hero-grid">
-<div class="hero-art"><span class="hero-card-glow" aria-hidden="true"></span><span class="hero-bubble b1" aria-hidden="true"></span><span class="hero-bubble b2" aria-hidden="true"></span><span class="hero-bubble b3" aria-hidden="true"></span><img alt="青い髪、白と水色の衣装、浮き輪を身につけた案内役うきわちゃん" decoding="async" fetchpriority="high" loading="eager" src="./ukiwa-card.png"/></div>
+<div class="hero-art"><span aria-hidden="true" class="hero-card-glow"></span><span aria-hidden="true" class="hero-bubble b1"></span><span aria-hidden="true" class="hero-bubble b2"></span><span aria-hidden="true" class="hero-bubble b3"></span><img alt="青い髪、白と水色の衣装、浮き輪を身につけた案内役うきわちゃん" decoding="async" fetchpriority="high" loading="eager" src="./ukiwa-card.png"/></div>
 <div class="hero-copy">
 <span class="eyebrow">🌊 海上保安群島《オーシャン・リング》</span>
 <h1>電気保安を、<br/>海の冒険に。</h1>
@@ -1314,9 +1369,7 @@ body{background:linear-gradient(180deg,#f5fbff 0,#eef8fd 52%,#f8fbff 100%)}
 </div>
 <div aria-label="うきわ円環メニュー。左右キーまたはスワイプで選択できます" class="ocean-ring-shell" id="oceanRing" tabindex="0">
 <div aria-hidden="true" class="ocean-surface"></div>
-<div aria-hidden="true" class="lifebuoy-ring">
-<span class="ring-seg s1"></span><span class="ring-seg s2"></span><span class="ring-seg s3"></span><span class="ring-seg s4"></span>
-</div>
+<div aria-hidden="true" class="lifebuoy-ring"><img alt="" aria-hidden="true" class="lifebuoy-3d-img" src="./ukiwa-ring-3d.png"/></div>
 <button aria-label="うきわちゃんURカードを拡大表示" class="captain-card" id="openCaptainCard" type="button">
 <img alt="うきわちゃんURカード" fetchpriority="high" loading="eager" src="ukiwa-card.png"/>
 <span>CAPTAIN CARD</span>
@@ -1792,7 +1845,7 @@ body{background:linear-gradient(180deg,#f5fbff 0,#eef8fd 52%,#f8fbff 100%)}
 <div><strong>学ぶ</strong><p><a href="#articles">記事</a><br/><a href="#characters">機器図鑑</a><br/><a href="./ac-withstand-test-simulator.html#flow">シミュレータ</a></p></div>
 <div><strong>安全</strong><p><a href="#safety">安全第一</a><br/><a href="./ovgr-rpr-test-manual-rev10.pdf" rel="noopener" target="_blank">参考PDF</a></p></div>
 </div>
-<div class="footer-version"><b>海洋円環カード完成版 v16</b><span>公開版を基準に、うきわちゃんURカード＋専用浮き輪円環メニューを統合</span></div>
+<div class="footer-version"><b>3Dうきわ円環完成版 v17</b><span>生成した3D浮き輪を実素材として使用／カードは3D軌道を回転／指・マウスで円環がわずかに傾く</span></div>
 </footer>
 <nav aria-label="スマホ用メニュー" class="bottom-nav"><a href="#home"><span><b>🏠</b>ホーム</span></a><a href="#electricity-basics"><span><b>💧</b>基礎</span></a><a href="#map"><span><b>🗺️</b>マップ</span></a><a href="#characters"><span><b>🎭</b>図鑑</span></a><button class="open-chat" type="button"><span><b>💬</b>用語</span></button></nav>
 <button aria-label="チャッピ～に質問" class="chat-fab open-chat">💬</button>
@@ -2460,7 +2513,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();close
 <small>カード内の数値やランクは学習世界の演出であり、実設備の定格・性能・整定値ではありません。</small>
 <a data-close-captain="" href="#characters">図鑑で詳しく見る</a>
 </div>
-</div><script id="ocean-ring-v13-script">
+</div><script id="ocean-ring-v17-script">
 (() => {
   const routes = [
     {title:'海のマップ',desc:'6つの修行島から、いま必要なテーマを選びます。',href:'#map'},
@@ -2470,6 +2523,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();close
     {title:'現場の記事',desc:'試験・実機・復旧・判断の記事へ進みます。',href:'#articles'},
     {title:'耐圧シミュレータ',desc:'耐圧試験と充電電流を単位付きで確認します。',href:'./ac-withstand-test-simulator.html#calc'}
   ];
+
   const shell=document.getElementById('oceanRing');
   const items=[...document.querySelectorAll('.orbit-item')];
   const title=document.getElementById('selectedRouteTitle');
@@ -2477,86 +2531,119 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();close
   const link=document.getElementById('selectedRouteLink');
   let selected=0;
   let startX=null;
+  let dragStart=null;
+  let lastMove=0;
+
+  function normDelta(i){
+    const n=items.length;
+    let d=(i-selected+n)%n;
+    if(d>n/2)d-=n;
+    return d;
+  }
 
   function render(){
-    const n=items.length;
     items.forEach((el,i)=>{
-      let d=(i-selected+n)%n;
-      if(d>n/2)d-=n;
+      const d=normDelta(i);
       const angle=d*60;
-      el.style.setProperty('--angle',angle+'deg');
-      el.classList.toggle('is-selected',i===selected);
-      el.style.zIndex=String(20-Math.abs(d));
+      el.style.setProperty('--angle', angle+'deg');
+
+      const depth = Math.cos(angle*Math.PI/180);
+      const scale = i===selected ? 1.07 : (0.78 + Math.max(0,depth)*0.08);
+      const opacity = i===selected ? 1 : (0.34 + Math.max(0,depth)*0.40);
+
+      el.style.setProperty('--scale', scale);
+      el.style.setProperty('--opacity', opacity);
+      el.classList.toggle('is-selected', i===selected);
+      el.classList.toggle('is-back', Math.abs(d)>=2);
+      el.style.zIndex=String(30 + Math.round(depth*20));
       el.setAttribute('aria-pressed',String(i===selected));
     });
+
     title.textContent=routes[selected].title;
     desc.textContent=routes[selected].desc;
     link.href=routes[selected].href;
     link.textContent=selected===5?'シミュレータへ進む':'この島へ進む';
   }
-  function move(delta){selected=(selected+delta+items.length)%items.length;render()}
+
+  function move(delta){
+    selected=(selected+delta+items.length)%items.length;
+    render();
+  }
 
   document.getElementById('orbitPrev')?.addEventListener('click',()=>move(-1));
   document.getElementById('orbitNext')?.addEventListener('click',()=>move(1));
+
   items.forEach((el,i)=>el.addEventListener('click',()=>{
-    if(i===selected){location.href=routes[i].href}else{selected=i;render()}
+    if(i===selected) location.href=routes[i].href;
+    else {selected=i;render();}
   }));
+
   shell?.addEventListener('keydown',e=>{
     if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}
     if(e.key==='ArrowRight'){e.preventDefault();move(1)}
     if(e.key==='Enter'){location.href=routes[selected].href}
   });
+
   shell?.addEventListener('wheel',e=>{
     if(Math.abs(e.deltaY)<8 && Math.abs(e.deltaX)<8)return;
-    e.preventDefault();move(e.deltaY>0||e.deltaX>0?1:-1);
+    e.preventDefault();
+    const now=performance.now();
+    if(now-lastMove<180)return;
+    lastMove=now;
+    move(e.deltaY>0||e.deltaX>0?1:-1);
   },{passive:false});
-  shell?.addEventListener('pointerdown',e=>{startX=e.clientX});
-  shell?.addEventListener('pointerup',e=>{
-    if(startX==null)return;
-    const dx=e.clientX-startX;startX=null;
-    if(Math.abs(dx)>35)move(dx<0?1:-1);
+
+  shell?.addEventListener('pointerdown',e=>{
+    startX=e.clientX;
+    dragStart={x:e.clientX,y:e.clientY};
+    shell.setPointerCapture?.(e.pointerId);
   });
+
+  shell?.addEventListener('pointermove',e=>{
+    if(!dragStart)return;
+    const rect=shell.getBoundingClientRect();
+    const dx=(e.clientX-dragStart.x)/rect.width;
+    const dy=(e.clientY-dragStart.y)/rect.height;
+    const tiltY=Math.max(-7,Math.min(7,dx*18));
+    const tiltX=Math.max(-4,Math.min(4,-dy*12));
+    shell.style.setProperty('--tilt-y',tiltY+'deg');
+    shell.style.setProperty('--tilt-x',tiltX+'deg');
+  });
+
+  shell?.addEventListener('pointerup',e=>{
+    if(startX!=null){
+      const dx=e.clientX-startX;
+      if(Math.abs(dx)>35)move(dx<0?1:-1);
+    }
+    startX=null;
+    dragStart=null;
+    shell.style.setProperty('--tilt-y','0deg');
+    shell.style.setProperty('--tilt-x','0deg');
+  });
+
+  shell?.addEventListener('pointercancel',()=>{
+    startX=null;
+    dragStart=null;
+    shell.style.setProperty('--tilt-y','0deg');
+    shell.style.setProperty('--tilt-x','0deg');
+  });
+
+  // Subtle parallax on mouse hover without dragging.
+  shell?.addEventListener('mousemove',e=>{
+    if(dragStart)return;
+    const r=shell.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    shell.style.setProperty('--tilt-y',(x*6).toFixed(2)+'deg');
+    shell.style.setProperty('--tilt-x',(-y*3).toFixed(2)+'deg');
+  });
+  shell?.addEventListener('mouseleave',()=>{
+    if(!dragStart){
+      shell.style.setProperty('--tilt-y','0deg');
+      shell.style.setProperty('--tilt-x','0deg');
+    }
+  });
+
   render();
-
-  // Card modal
-  const modal=document.getElementById('captainCardModal');
-  const open=document.getElementById('openCaptainCard');
-  const close=()=>{modal.hidden=true;document.body.style.overflow=''};
-  open?.addEventListener('click',()=>{modal.hidden=false;document.body.style.overflow='hidden';modal.querySelector('[data-close-captain]')?.focus()});
-  modal?.querySelectorAll('[data-close-captain]').forEach(x=>x.addEventListener('click',close));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.hidden)close()});
-
-  // Use the actual collector card in Ukiwa-chan's encyclopedia card.
-  function enhanceUkiwa(){
-    const card=document.querySelector('#characterGrid .char-card[data-char="ukiwa"]');
-    if(!card || card.dataset.urReady==='1') return;
-    const img=card.querySelector('.char-visual img');
-    const actions=card.querySelector('.char-actions');
-    if(!img || !actions) return;
-    const original=img.src;
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='mini-btn ukiwa-card-switch';
-    btn.textContent='URカード表示';
-    let on=false;
-    btn.addEventListener('click',()=>{
-      on=!on;
-      card.classList.toggle('ukiwa-card-mode',on);
-      if(on){
-        img.src=window.UKIWA_CARD_PATH;
-        img.alt='うきわちゃんURカード';
-        btn.textContent='通常キャラへ戻す';
-      }else{
-        img.src=original;
-        img.alt='うきわちゃん';
-        btn.textContent='URカード表示';
-      }
-    });
-    actions.appendChild(btn);
-    card.dataset.urReady='1';
-  }
-  const grid=document.getElementById('characterGrid');
-  if(grid)new MutationObserver(enhanceUkiwa).observe(grid,{childList:true});
-  setTimeout(enhanceUkiwa,350);
 })();
 </script></body></html>
