@@ -300,6 +300,38 @@ body.dark .route-section{background:linear-gradient(#082f49,#0a5978)}
 body.dark .route-head h2,.dark .route-head p{color:#eafcff}
 body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;border-color:#1b5c78}
 </style>
+
+<style id="v20-card-swipe">
+.hero-card{
+  touch-action:pan-y;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.hero-card:active{cursor:grabbing}
+.card-stage:after{
+  content:"← スワイプでカード裏面 →";
+  position:absolute;
+  z-index:6;
+  left:50%;
+  bottom:8px;
+  transform:translateX(-50%);
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.82);
+  color:#0a679d;
+  border:1px solid rgba(255,255,255,.95);
+  font-size:9px;
+  font-weight:1000;
+  letter-spacing:.04em;
+  box-shadow:0 6px 14px rgba(0,73,112,.10);
+  pointer-events:none;
+}
+@media(max-width:520px){
+  .card-stage:after{bottom:2px;font-size:8px}
+}
+</style>
+
 </head>
 <body>
 <header class="site-header">
@@ -317,7 +349,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 <section class="hero" id="home">
   <div class="hero-grid">
     <div class="card-stage">
-      <button class="hero-card" id="heroCard" type="button" aria-label="うきわちゃんカードを裏返す" aria-pressed="false">
+      <div class="hero-card" id="heroCard" role="group" tabindex="0" aria-label="うきわちゃんカード。左へスワイプすると裏面、右へスワイプすると表面に戻ります">
         <span class="hero-card-inner">
           <span class="hero-card-face hero-card-front"><img src="./ukiwa-card.png" alt="うきわちゃんURカード" fetchpriority="high"></span>
           <span class="hero-card-face hero-card-back">
@@ -331,7 +363,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
             <small>カードのゲーム表現や数値は、実機の定格・性能・整定値を表すものではありません。</small>
           </span>
         </span>
-      </button>
+      </div>
       <span class="card-water" aria-hidden="true"></span>
     </div>
     <div class="hero-copy">
@@ -421,12 +453,59 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 
 <script>
 (() => {
-  // Hero card flip
+  // Hero card: swipe/drag to flip. Tap/click does nothing.
   const heroCard = document.getElementById('heroCard');
-  heroCard.addEventListener('click', () => {
-    const on = heroCard.classList.toggle('is-flipped');
-    heroCard.setAttribute('aria-pressed', String(on));
-    heroCard.setAttribute('aria-label', on ? 'うきわちゃんカードを表面に戻す' : 'うきわちゃんカードを裏返す');
+  let cardStartX = null;
+  let cardStartY = null;
+  let cardDragging = false;
+
+  function setCardSide(back){
+    heroCard.classList.toggle('is-flipped', back);
+    heroCard.setAttribute(
+      'aria-label',
+      back
+        ? 'うきわちゃんカード裏面。右へスワイプすると表面に戻ります'
+        : 'うきわちゃんカード表面。左へスワイプすると裏面を表示します'
+    );
+  }
+
+  heroCard.addEventListener('pointerdown', e => {
+    cardStartX = e.clientX;
+    cardStartY = e.clientY;
+    cardDragging = true;
+    heroCard.setPointerCapture?.(e.pointerId);
+  });
+
+  heroCard.addEventListener('pointerup', e => {
+    if(!cardDragging || cardStartX == null || cardStartY == null) return;
+    const dx = e.clientX - cardStartX;
+    const dy = e.clientY - cardStartY;
+    cardDragging = false;
+    cardStartX = null;
+    cardStartY = null;
+
+    // Horizontal swipe only. Normal taps remain on the current face.
+    if(Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy) * 1.15) return;
+    if(dx < 0) setCardSide(true);   // swipe left -> back
+    if(dx > 0) setCardSide(false);  // swipe right -> front
+  });
+
+  heroCard.addEventListener('pointercancel', () => {
+    cardDragging = false;
+    cardStartX = null;
+    cardStartY = null;
+  });
+
+  // Keyboard fallback for accessibility.
+  heroCard.addEventListener('keydown', e => {
+    if(e.key === 'ArrowLeft'){
+      e.preventDefault();
+      setCardSide(true);
+    }
+    if(e.key === 'ArrowRight'){
+      e.preventDefault();
+      setCardSide(false);
+    }
   });
 
   // Dark mode

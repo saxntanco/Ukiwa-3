@@ -1,22 +1,10 @@
 {
-  "version": "v19-reference-match",
-  "reference": "9045.png",
-  "files": [
-    "index.html",
-    "ukiwa-card.png",
-    "ukiwa-ring-3d.png",
-    "ocean-map-art.jpg",
-    "favicon.svg",
-    "ac-withstand-test-simulator.html"
-  ],
-  "hero_card_flip": true,
-  "ring_3d_carousel": true,
-  "swipe_drag_wheel_keyboard": true,
-  "bottom_nav": true,
-  "dark_mode": true,
-  "other_characters_not_on_home": true,
+  "version": "v20-swipe-flip",
+  "hero_card_tap_flip": false,
+  "hero_card_swipe_left_to_back": true,
+  "hero_card_swipe_right_to_front": true,
+  "keyboard_left_right_fallback": true,
   "js_syntax_ok": true,
   "duplicate_ids": [],
-  "broken_internal_anchors": [],
-  "notes": "Map artwork is a component crop from the supplied design reference; the full screenshot is not used as a page background."
+  "broken_internal_anchors": []
 }
