@@ -424,34 +424,187 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
   .feature-image-wrap{aspect-ratio:1/1}
   .feature-copy>p{font-size:10.5px}
 }
-</style><style id="v36-relay-island-style">
-.relay-island-shell{width:min(1200px,calc(100% - 14px));margin:10px auto 14px;padding:12px;border-radius:24px;background:linear-gradient(180deg,#f7fdff,#eaf9ff);border:1px solid #c8e6ef;box-shadow:0 14px 34px rgba(0,68,98,.10)}
-.relay-island-topbar{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:5px 6px 10px}
-.relay-island-kicker{display:block;font-size:8px;letter-spacing:.18em;color:#1482ad;font-weight:1000}
-.relay-island-topbar h1{margin:3px 0 4px;font-size:clamp(26px,4vw,40px);line-height:1.05;color:#12395e}
-.relay-island-topbar p{margin:0;font-size:11px;color:#5b788a}
-.relay-help-btn{min-height:44px;padding:0 13px;border-radius:12px;border:1px solid #c3e2ed;background:#fff;color:#0b678f;font-size:10px;font-weight:1000}
-.relay-island-viewport{position:relative;width:100%;overflow:hidden;border-radius:19px;background:#8ddcf3;touch-action:pan-y}
-.relay-island-canvas{position:relative;width:100%;aspect-ratio:3/2;min-height:460px}
-.relay-island-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
-.island-hotspot,.island-node{position:absolute;z-index:4;border:1px solid rgba(255,255,255,.85);box-shadow:0 7px 18px rgba(0,65,95,.20);backdrop-filter:blur(8px)}
-.island-hotspot{min-height:48px;padding:7px 12px;border-radius:15px;background:rgba(255,255,255,.90);color:#123d5d;text-align:left}
-.hotspot-title{display:block;font-size:11px;font-weight:1000}.hotspot-sub{display:block;margin-top:2px;font-size:7.5px;color:#55788c}
-.island-node{min-width:52px;min-height:42px;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.91);color:#12395e;font-size:11px;font-weight:1000}
-.hotspot-maker{left:4.5%;bottom:27%}.hotspot-omron{left:8%;top:24%}.hotspot-function{left:39%;top:25%}.hotspot-test{right:4%;bottom:26%}.hotspot-lab{right:5%;top:17%}
-.node-ocr{left:35%;top:39%}.node-gr{left:55%;top:39%}.node-dgr{left:31%;top:55%}.node-ovgr{left:58%;top:53%}.node-rpr{left:44%;top:65%}
-.relay-island-mobile-nav{display:none;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:9px}
-.relay-island-mobile-nav button{min-height:44px;border:1px solid #c7e4ed;border-radius:12px;background:#fff;color:#0b668e;font-size:9px;font-weight:1000}
-.relay-island-guide{margin-top:9px;padding:11px 12px;border-radius:13px;background:#fff;border:1px solid #d3e9f0;color:#456d83;font-size:10px;line-height:1.6}
+</style><style id="v39-relay-left-ui-style">
+html,body{overflow-x:hidden}
+.relay-landing{
+  width:min(760px,calc(100% - 14px));
+  margin:12px auto 14px;
+}
+.relay-landing-head{
+  text-align:center;
+  padding:8px 10px 12px;
+}
+.relay-kicker{
+  display:block;
+  font-size:8px;
+  letter-spacing:.18em;
+  font-weight:1000;
+  color:#2687aa;
+}
+.relay-landing-head h1{
+  margin:4px 0 5px;
+  font-size:clamp(30px,7vw,46px);
+  line-height:1.08;
+  color:#113f62;
+}
+.relay-landing-head p{
+  margin:0;
+  font-size:11px;
+  color:#5f7a8a;
+}
+
+.relay-map-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:26px;
+  border:1px solid #c9e6ef;
+  background:#dff6ff;
+  box-shadow:0 18px 38px rgba(0,78,109,.13);
+}
+.relay-map-card>img{
+  display:block;
+  width:100%;
+  height:auto;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.relay-node{
+  position:absolute;
+  z-index:3;
+  min-width:66px;
+  min-height:62px;
+  padding:8px 10px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.95);
+  background:rgba(255,255,255,.92);
+  color:#153f5d;
+  text-decoration:none;
+  box-shadow:0 8px 18px rgba(0,58,83,.16);
+  backdrop-filter:blur(7px);
+}
+.relay-node b{font-size:12px;line-height:1}
+.relay-node small{margin-top:4px;font-size:7px;color:#68808e;white-space:nowrap}
+.rn-ocr{left:8%;top:39%}
+.rn-gr{right:9%;top:40%}
+.rn-dgr{left:6%;top:57%}
+.rn-ovgr{right:8%;top:57%}
+.rn-rpr{left:42%;top:67%}
+.relay-node:hover,.relay-node:focus-visible{transform:translateY(-2px)}
+
+.relay-entry-section{
+  margin-top:14px;
+}
+.relay-section-title{
+  text-align:center;
+  margin-bottom:9px;
+}
+.relay-section-title>span{
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#2788aa;
+  font-weight:1000;
+}
+.relay-section-title h2{
+  margin:3px 0 0;
+  font-size:23px;
+  color:#123f5f;
+}
+.relay-entry-grid{
+  display:grid;
+  gap:8px;
+}
+.relay-entry-card{
+  width:100%;
+  min-height:84px;
+  display:grid;
+  grid-template-columns:52px 1fr 36px;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  border-radius:18px;
+  border:1px solid #cfe6ee;
+  background:#fff;
+  color:#123f5f;
+  text-align:left;
+  box-shadow:0 7px 18px rgba(0,77,104,.07);
+}
+.relay-entry-card.maker{background:linear-gradient(145deg,#f8fdff,#e9f9ff)}
+.entry-icon{
+  width:48px;height:48px;
+  display:grid;place-items:center;
+  border-radius:14px;
+  background:#eef9fd;
+  font-size:25px;
+}
+.entry-copy b{display:block;font-size:15px}
+.entry-copy small{display:block;margin-top:5px;font-size:9px;line-height:1.45;color:#6c818e}
+.entry-arrow{
+  width:34px;height:34px;display:grid;place-items:center;
+  border-radius:50%;
+  background:#ddecf3;
+  color:#216c8f;
+  font-size:22px;
+}
+.relay-entry-card:hover,.relay-entry-card:focus-visible{
+  border-color:#86c9dd;
+  box-shadow:0 10px 24px rgba(0,77,104,.12);
+}
+
+/* Featured lesson immediately follows as the single highlighted content */
+.featured-training{
+  width:min(760px,calc(100% - 14px)) !important;
+  margin:16px auto !important;
+  border-radius:22px !important;
+}
+.featured-head{
+  align-items:flex-start !important;
+}
+.featured-head:before{
+  content:"注目の学習ルート";
+  display:block;
+  position:absolute;
+  transform:translateY(-4px);
+  font-size:8px;
+  font-weight:1000;
+  color:#1382ad;
+  letter-spacing:.08em;
+}
+.featured-head>div{padding-top:15px}
+
+/* Existing detailed library remains below, visually quieter */
+.content{
+  width:min(760px,calc(100% - 14px)) !important;
+  margin-inline:auto !important;
+}
+.side,.main{
+  border-radius:18px !important;
+}
+
 @media(max-width:700px){
-  .relay-island-shell{width:calc(100% - 8px);padding:8px;border-radius:18px}
-  .relay-island-topbar{align-items:flex-start}
-  .relay-island-topbar p{font-size:10px}
-  .relay-island-viewport{overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none}
-  .relay-island-viewport::-webkit-scrollbar{display:none}
-  .relay-island-canvas{width:980px;aspect-ratio:3/2;min-height:653px}
-  .relay-island-mobile-nav{display:grid}
-  .island-hotspot{min-width:145px}
+  .relay-landing{width:calc(100% - 12px);margin-top:8px}
+  .relay-landing-head{text-align:left;padding-inline:8px}
+  .relay-map-card{border-radius:20px}
+  .relay-node{
+    min-width:58px;min-height:56px;padding:7px 8px;border-radius:14px;
+  }
+  .relay-node b{font-size:11px}
+  .relay-node small{display:none}
+  .relay-entry-card{min-height:78px}
+  .entry-copy b{font-size:14px}
+  .featured-training{width:calc(100% - 12px)!important}
+  .content{width:calc(100% - 12px)!important}
+}
+@media(max-width:390px){
+  .relay-node{min-width:54px;min-height:52px}
+  .rn-ocr{left:7%}.rn-gr{right:8%}.rn-dgr{left:5%}.rn-ovgr{right:7%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .relay-node,.relay-entry-card{transition:none!important}
 }
 </style></head>
 <body>
@@ -459,67 +612,53 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
 <a class="brand" href="./index.html"><img alt="" src="./icon-192.png"/><span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span></a>
 <a class="home-btn" href="./index.html">← ホーム</a>
 </header>
-<section aria-labelledby="relayIslandTitle" class="relay-island-shell">
-<div class="relay-island-topbar">
-<div>
-<span class="relay-island-kicker">PROTECTIVE RELAY ISLAND</span>
-<h1 id="relayIslandTitle">保護継電器の島</h1>
-<p>島を探索して、メーカー・保護要素・試験の3方向から学べます。</p>
+<section aria-labelledby="relayLandingTitle" class="relay-landing">
+<div class="relay-landing-head">
+<span class="relay-kicker">PROTECTIVE RELAY ISLAND</span>
+<h1 id="relayLandingTitle">保護継電器の島</h1>
+<p>継電器を選んで、役割・原理・試験を学ぼう。</p>
 </div>
-<button class="relay-help-btn" id="relayHelpBtn" type="button">使い方</button>
+<div class="relay-map-card">
+<img alt="OCR・GR・DGR・OVGR・RPRを学べる保護継電器の島" src="./protective-relay-island.png"/>
+<a aria-label="OCR 過電流継電器を学ぶ" class="relay-node rn-ocr" data-relay-function="OCR" href="#relay-library">
+<b>OCR</b><small>過電流</small>
+</a>
+<a aria-label="GR 地絡継電器を学ぶ" class="relay-node rn-gr" data-relay-function="GR" href="#relay-library">
+<b>GR</b><small>地絡</small>
+</a>
+<a aria-label="DGR 方向性地絡継電器を学ぶ" class="relay-node rn-dgr" data-relay-function="DGR" href="#relay-library">
+<b>DGR</b><small>方向性地絡</small>
+</a>
+<a aria-label="OVGR 地絡過電圧継電器を学ぶ" class="relay-node rn-ovgr" data-relay-function="OVGR" href="#relay-library">
+<b>OVGR</b><small>地絡過電圧</small>
+</a>
+<a aria-label="RPR 逆電力継電器を学ぶ" class="relay-node rn-rpr" data-relay-function="RPR" href="#relay-library">
+<b>RPR</b><small>逆電力</small>
+</a>
 </div>
-<div class="relay-island-viewport" id="relayIslandViewport">
-<div class="relay-island-canvas" id="relayIslandCanvas">
-<img alt="保護継電器の島" class="relay-island-image" src="./protective-relay-island.png"/>
-<button class="island-hotspot hotspot-maker" data-island-action="manufacturer" type="button">
-<span class="hotspot-title">メーカーから探す</span><span class="hotspot-sub">メーカー・型式から</span>
-</button>
-<button class="island-hotspot hotspot-omron" data-island-action="omron" type="button">
-<span class="hotspot-title">OMRON</span><span class="hotspot-sub">公開中</span>
-</button>
-<button class="island-hotspot hotspot-function" data-island-action="function" type="button">
-<span class="hotspot-title">保護要素から探す</span><span class="hotspot-sub">OCR・GR・DGR・OVGR・RPR</span>
-</button>
-<button class="island-hotspot hotspot-test" data-island-action="test" type="button">
-<span class="hotspot-title">試験から学ぶ</span><span class="hotspot-sub">最小動作・時間・位相・復帰</span>
-</button>
-<button class="island-hotspot hotspot-lab" data-island-action="featured" type="button">
-<span class="hotspot-title">OVGR・RPR 試験ラボ</span><span class="hotspot-sub">KP-PRRV-CPC｜5ステップ</span>
-</button>
-<button class="island-node node-ocr" data-relay-function="OCR" type="button">OCR</button>
-<button class="island-node node-gr" data-relay-function="GR" type="button">GR</button>
-<button class="island-node node-dgr" data-relay-function="DGR" type="button">DGR</button>
-<button class="island-node node-ovgr" data-relay-function="OVGR" type="button">OVGR</button>
-<button class="island-node node-rpr" data-relay-function="RPR" type="button">RPR</button>
+<section aria-labelledby="relayEntryTitle" class="relay-entry-section" id="relay-library">
+<div class="relay-section-title">
+<span>3つの入口から探す</span>
+<h2 id="relayEntryTitle">保護継電器を探す</h2>
 </div>
-</div>
-<div class="relay-island-mobile-nav">
-<button data-pan="left" type="button">← メーカー</button>
-<button data-pan="center" type="button">中央</button>
-<button data-pan="right" type="button">試験 →</button>
-</div>
-<div class="relay-island-guide" hidden="" id="relayIslandGuide">
-<strong>この島の使い方</strong>
-<p>左はメーカー、中央は保護要素、右は試験。右上のラボではKP-PRRV-CPCのOVGR・RPR試験を5ステップで学べます。</p>
+<div class="relay-entry-grid">
+<button class="relay-entry-card maker" data-mode="manufacturer" type="button">
+<span class="entry-icon">🏭</span>
+<span class="entry-copy"><b>メーカーから探す</b><small>メーカー → 型式 → 保護要素 → 原理・試験</small></span>
+<span class="entry-arrow">›</span>
+</button>
+<button class="relay-entry-card func" data-mode="function" type="button">
+<span class="entry-icon">🛡️</span>
+<span class="entry-copy"><b>保護要素から探す</b><small>OCR / GR / DGR / OVGR / RPR など</small></span>
+<span class="entry-arrow">›</span>
+</button>
+<button class="relay-entry-card test" data-mode="test" type="button">
+<span class="entry-icon">🧪</span>
+<span class="entry-copy"><b>試験から学ぶ</b><small>最小動作・動作時間・位相・復帰確認</small></span>
+<span class="entry-arrow">›</span>
+</button>
 </div>
 </section>
-
-
-
-<div aria-label="KP-PRRV-CPC 元資料" aria-modal="true" class="source-modal" hidden="" id="sourceModal" role="dialog">
-<div class="source-modal-backdrop" data-close-source=""></div>
-<div class="source-modal-dialog">
-<button aria-label="閉じる" class="source-modal-close" data-close-source="" type="button">×</button>
-<img alt="KP-PRRV-CPC OVGR・RPR試験資料 全体" src="./kp-prrv-cpc-full.png"/>
-</div>
-</div>
-<section class="entry-wrap">
-<h2 class="entry-title">保護継電器を探す</h2>
-<div class="entry-grid">
-<button class="entry active" data-mode="manufacturer" type="button"><span class="icon">🏭</span><strong>メーカーから探す</strong><small>メーカー → 型式 → 保護要素 → 原理・試験</small></button>
-<button class="entry" data-mode="function" type="button"><span class="icon">🛡️</span><strong>保護要素から探す</strong><small>OCR / GR / DGR / OVGR / RPR など</small></button>
-<button class="entry" data-mode="test" type="button"><span class="icon">🧪</span><strong>試験から学ぶ</strong><small>最小動作・動作時間・位相・復帰確認</small></button>
-</div>
 </section><section aria-labelledby="featuredTitle" class="featured-training" id="featuredTraining">
 <div class="featured-head">
 <div>
@@ -558,6 +697,16 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
 <div aria-label="現在のステップ" class="feature-dots" id="featureDots"></div>
 </div>
 </section>
+
+
+<div aria-label="KP-PRRV-CPC 元資料" aria-modal="true" class="source-modal" hidden="" id="sourceModal" role="dialog">
+<div class="source-modal-backdrop" data-close-source=""></div>
+<div class="source-modal-dialog">
+<button aria-label="閉じる" class="source-modal-close" data-close-source="" type="button">×</button>
+<img alt="KP-PRRV-CPC OVGR・RPR試験資料 全体" src="./kp-prrv-cpc-full.png"/>
+</div>
+</div>
+
 <div class="toolbar">
 <button class="search-toggle" id="searchToggle" type="button">🔎 検索</button>
 <div class="searchbox" hidden="" id="searchBox">
@@ -569,7 +718,7 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
 <h2>メーカー</h2>
 <div class="side-list" id="manufacturerSide"></div>
 </aside>
-<section class="content">
+<section class="content" id="relayContent">
 <div class="panel" id="listPanel">
 <h2 id="panelTitle">メーカーから探す</h2>
 <p id="panelLead">公開中メーカーを選択してください。</p>
@@ -1233,59 +1382,36 @@ footer{text-align:center;font-size:9px;color:#78909b;padding:16px 0}
 
   setStep(0);
 })();
-</script><script id="v36-relay-island-script">
+</script><script id="v39-relay-left-ui-script">
 (() => {
-  const viewport=document.getElementById('relayIslandViewport');
-  const canvas=document.getElementById('relayIslandCanvas');
-  const guide=document.getElementById('relayIslandGuide');
+  const content=document.getElementById('relayContent') || document.querySelector('.content');
 
-  function scrollToLibrary(){document.querySelector('.entry-wrap')?.scrollIntoView({behavior:'smooth',block:'start'});}
-  function chooseMode(mode){document.querySelector(`[data-mode="${mode}"]`)?.click();scrollToLibrary();}
+  function activateMode(mode){
+    const candidates=[...document.querySelectorAll(`[data-mode="${mode}"]`)];
+    // Prefer the pre-existing library control, not this landing card.
+    const existing=candidates.find(x=>!x.classList.contains('relay-entry-card'));
+    existing?.click();
+    setTimeout(()=>content?.scrollIntoView({behavior:'smooth',block:'start'}),40);
+  }
 
-  document.querySelectorAll('[data-island-action]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const a=btn.dataset.islandAction;
-      if(a==='manufacturer') chooseMode('manufacturer');
-      if(a==='function') chooseMode('function');
-      if(a==='test') chooseMode('test');
-      if(a==='omron'){
-        document.querySelector('[data-mode="manufacturer"]')?.click();
-        setTimeout(()=>{
-          const omron=[...document.querySelectorAll('#manufacturerSide button')].find(x=>x.textContent.includes('オムロン'));
-          omron?.click(); scrollToLibrary();
-        },30);
-      }
-      if(a==='featured') document.getElementById('featuredTraining')?.scrollIntoView({behavior:'smooth',block:'start'});
-    });
+  document.querySelectorAll('.relay-entry-card[data-mode]').forEach(btn=>{
+    btn.addEventListener('click',()=>activateMode(btn.dataset.mode));
   });
 
-  document.querySelectorAll('[data-relay-function]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const f=btn.dataset.relayFunction;
-      document.querySelector('[data-mode="function"]')?.click();
+  document.querySelectorAll('.relay-node[data-relay-function]').forEach(node=>{
+    node.addEventListener('click',e=>{
+      e.preventDefault();
+      const f=node.dataset.relayFunction;
+      const modeBtn=[...document.querySelectorAll('[data-mode="function"]')]
+        .find(x=>!x.classList.contains('relay-entry-card'));
+      modeBtn?.click();
       setTimeout(()=>{
-        [...document.querySelectorAll('[data-function]')].find(x=>x.dataset.function===f)?.click();
-        document.querySelector('.content')?.scrollIntoView({behavior:'smooth',block:'start'});
-      },50);
+        const target=[...document.querySelectorAll('[data-function]')].find(x=>x.dataset.function===f);
+        target?.click();
+        content?.scrollIntoView({behavior:'smooth',block:'start'});
+      },70);
     });
   });
-
-  document.querySelectorAll('[data-pan]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const max=canvas.scrollWidth-viewport.clientWidth;
-      const left=btn.dataset.pan==='left'?0:btn.dataset.pan==='right'?max:max/2;
-      viewport.scrollTo({left,behavior:'smooth'});
-    });
-  });
-
-  document.getElementById('relayHelpBtn')?.addEventListener('click',()=>guide.hidden=!guide.hidden);
-
-  window.addEventListener('load',()=>{
-    if(window.innerWidth<=700){
-      const max=canvas.scrollWidth-viewport.clientWidth;
-      viewport.scrollLeft=Math.max(0,max/2);
-    }
-  },{once:true});
 })();
 </script></body>
 </html>

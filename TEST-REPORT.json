@@ -1,20 +1,21 @@
 {
-  "version": "v38-island-home",
-  "home_structure": [
-    "header",
-    "electrical safety archipelago menu",
-    "mobile island buttons",
-    "quick start",
-    "bottom nav"
+  "version": "v39-relay-left-ui",
+  "design": "left concept",
+  "island_map": "protective-relay-island.png",
+  "map_overlay_buttons": [
+    "OCR",
+    "GR",
+    "DGR",
+    "OVGR",
+    "RPR"
   ],
-  "removed_from_home": [
-    "UR card",
-    "3D ring menu",
-    "old ocean adventure map"
+  "entry_cards": [
+    "メーカーから探す",
+    "保護要素から探す",
+    "試験から学ぶ"
   ],
-  "card_moved_to": "zukan.html",
-  "protective_relay_link": "protective-relay.html",
-  "simulator_link": "ac-withstand-test-simulator.html#calc",
+  "featured_training_preserved": true,
+  "manufacturer_library_preserved": true,
   "js_syntax_ok": true,
   "missing_local_references": []
 }
