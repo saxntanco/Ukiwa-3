@@ -1,10 +1,26 @@
 {
-  "version": "v34",
-  "swipe_front_back": "fixed; left or right swipe toggles",
-  "awakening_total_seconds": 3.0,
-  "hold_seconds": 1.2,
-  "awakening_effect_seconds": 1.8,
-  "another_ocean_image_mode": "contain + blurred background fill",
-  "javascript_syntax_ok": true,
-  "javascript_errors": []
+  "version": "v36-relay-island",
+  "island_image": "protective-relay-island.png",
+  "mobile_pan": true,
+  "existing_library_preserved": true,
+  "featured_training_preserved": true,
+  "js_syntax_ok": true,
+  "missing_local_references": [
+    {
+      "html": "index.html",
+      "ref": "manifest.webmanifest"
+    },
+    {
+      "html": "index.html",
+      "ref": "favicon.svg"
+    },
+    {
+      "html": "index.html",
+      "ref": "favicon.svg"
+    },
+    {
+      "html": "protective-relay.html",
+      "ref": "kp-prrv-step01.webp"
+    }
+  ]
 }
