@@ -1,13 +1,10 @@
 {
-  "version": "v33-minimal",
-  "hold_confirmation_ms": 2000,
-  "awakening_animation_ms": 3000,
-  "total_to_another_ocean_ms": 5000,
-  "another_ocean_image_fit": "contain",
-  "blurred_background_fill": true,
-  "js_syntax_ok": true,
-  "files": [
-    "index.html",
-    "another-ocean.png"
-  ]
+  "version": "v34",
+  "swipe_front_back": "fixed; left or right swipe toggles",
+  "awakening_total_seconds": 3.0,
+  "hold_seconds": 1.2,
+  "awakening_effect_seconds": 1.8,
+  "another_ocean_image_mode": "contain + blurred background fill",
+  "javascript_syntax_ok": true,
+  "javascript_errors": []
 }

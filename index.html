@@ -310,12 +310,12 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   content:"";position:absolute;inset:-12px;border-radius:28px;
   border:2px solid rgba(118,225,255,.78);
   box-shadow:0 0 16px rgba(84,210,255,.68),0 0 34px rgba(224,185,78,.3);
-  z-index:9;pointer-events:none;animation:awakenRing 3s ease-in-out forwards
+  z-index:9;pointer-events:none;animation:awakenRing 1.8s ease-in-out forwards
 }
 .hero-card.is-awakening::after{
   content:"";position:absolute;left:50%;top:50%;width:120%;aspect-ratio:1;border-radius:50%;
   border:2px solid rgba(130,227,255,.5);transform:translate(-50%,-50%) scale(.35);
-  opacity:0;z-index:-1;pointer-events:none;animation:awakenRipple 3s ease-out forwards
+  opacity:0;z-index:-1;pointer-events:none;animation:awakenRipple 1.8s ease-out forwards
 }
 @keyframes cardAwaken{
   0%{transform:translateY(1px) rotate(-.45deg) scale(.994)}
@@ -901,14 +901,15 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   const anotherOcean = document.getElementById('anotherOcean');
   const anotherOceanClose = document.getElementById('anotherOceanClose');
   let holdTimer = null, revealTimer = null, holdTriggered = false, holdPointerId = null;
-  const HOLD_MS = 2000, REVEAL_MS = 3000, MOVE_CANCEL = 14;
+  let holdCancelledByMove = false;
+  const HOLD_MS = 1200, REVEAL_MS = 1800, MOVE_CANCEL = 14, SWIPE_THRESHOLD = 48;
 
   function cancelHold(){
     clearTimeout(holdTimer); holdTimer=null;
     if(!holdTriggered) heroCard.classList.remove('is-awakening');
   }
   function startAwakening(){
-    if(!cardDragging || holdTriggered) return;
+    if(!cardDragging || holdTriggered || holdCancelledByMove) return;
     holdTriggered=true;
     cardDragging=false;
     clearTimeout(holdTimer); holdTimer=null;
@@ -929,29 +930,35 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   }
   heroCard.addEventListener('contextmenu', e => e.preventDefault());
   heroCard.addEventListener('pointerdown', e => {
-    cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdPointerId=e.pointerId;
+    cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdCancelledByMove=false; holdPointerId=e.pointerId;
     heroCard.setPointerCapture?.(e.pointerId);
     clearTimeout(revealTimer); revealTimer=null;
     holdTimer=setTimeout(startAwakening, HOLD_MS);
   });
   heroCard.addEventListener('pointermove', e => {
     if(!cardDragging || cardStartX==null || holdTriggered) return;
-    if(Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY)>MOVE_CANCEL){
-      cancelHold(); cardDragging=false;
+    const distance=Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY);
+    if(distance>MOVE_CANCEL && !holdCancelledByMove){
+      holdCancelledByMove=true;
+      cancelHold();
     }
   });
   heroCard.addEventListener('pointerup', e => {
-    if(holdTriggered){ cardStartX=null; cardStartY=null; return; }
+    if(holdTriggered){
+      cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+      return;
+    }
     cancelHold();
     if(!cardDragging || cardStartX==null || cardStartY==null) return;
     const dx=e.clientX-cardStartX, dy=e.clientY-cardStartY;
-    cardDragging=false; cardStartX=null; cardStartY=null;
-    if(Math.abs(dx)<48 || Math.abs(dx)<=Math.abs(dy)*1.15) return;
+    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+    if(Math.abs(dx)<SWIPE_THRESHOLD || Math.abs(dx)<=Math.abs(dy)*1.15) return;
+    // Both left and right swipes toggle front/back.
     setCardSide(!heroCard.classList.contains('is-flipped'));
   });
   heroCard.addEventListener('pointercancel',()=>{
     if(!holdTriggered) cancelHold();
-    cardDragging=false; cardStartX=null; cardStartY=null;
+    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
   });
   anotherOcean.addEventListener('click',e=>{ if(e.target!==anotherOceanClose) closeAnotherOcean(); });
   anotherOceanClose.addEventListener('click',e=>{ e.stopPropagation(); closeAnotherOcean(); });
