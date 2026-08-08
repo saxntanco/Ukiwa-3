@@ -301,19 +301,64 @@ body.dark .route-head h2,.dark .route-head p{color:#eafcff}
 body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;border-color:#1b5c78}
 
 /* v32: UR card long-press awakening / ANOTHER OCEAN */
-.hero-card.is-awakening{animation:cardAwaken .16s ease-in-out infinite alternate;filter:drop-shadow(0 0 18px rgba(116,225,255,.8))}
-.hero-card.is-awakening::before{content:"";position:absolute;inset:-12px;border-radius:28px;border:2px solid rgba(118,225,255,.8);box-shadow:0 0 18px rgba(84,210,255,.8),0 0 35px rgba(224,185,78,.35);z-index:9;pointer-events:none;animation:awakenRing .75s linear forwards}
-@keyframes cardAwaken{from{transform:translateY(1px) rotate(-.7deg) scale(.992)}to{transform:translateY(3px) rotate(.7deg) scale(.988)}}
-@keyframes awakenRing{0%{opacity:.25;transform:scale(.97)}70%{opacity:1;transform:scale(1.025)}100%{opacity:0;transform:scale(1.07)}}
-.another-ocean{position:fixed;inset:0;z-index:9999;background:#03163b;display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .58s ease,visibility .58s;overflow:hidden}
+.hero-card.is-awakening{
+  animation:cardAwaken 1.05s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 14px rgba(116,225,255,.62));
+  transition:filter .6s ease,transform .6s ease
+}
+.hero-card.is-awakening::before{
+  content:"";position:absolute;inset:-12px;border-radius:28px;
+  border:2px solid rgba(118,225,255,.78);
+  box-shadow:0 0 16px rgba(84,210,255,.68),0 0 34px rgba(224,185,78,.3);
+  z-index:9;pointer-events:none;animation:awakenRing 3s ease-in-out forwards
+}
+.hero-card.is-awakening::after{
+  content:"";position:absolute;left:50%;top:50%;width:120%;aspect-ratio:1;border-radius:50%;
+  border:2px solid rgba(130,227,255,.5);transform:translate(-50%,-50%) scale(.35);
+  opacity:0;z-index:-1;pointer-events:none;animation:awakenRipple 3s ease-out forwards
+}
+@keyframes cardAwaken{
+  0%{transform:translateY(1px) rotate(-.45deg) scale(.994)}
+  50%{transform:translateY(3px) rotate(.55deg) scale(.989)}
+  100%{transform:translateY(2px) rotate(-.2deg) scale(.991)}
+}
+@keyframes awakenRing{
+  0%{opacity:.2;transform:scale(.985);box-shadow:0 0 10px rgba(84,210,255,.4)}
+  45%{opacity:1;transform:scale(1.015);box-shadow:0 0 24px rgba(84,210,255,.82),0 0 40px rgba(224,185,78,.28)}
+  80%{opacity:.8;transform:scale(1.04)}
+  100%{opacity:0;transform:scale(1.075)}
+}
+@keyframes awakenRipple{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}
+  25%{opacity:.48}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}
+}
+.another-ocean{
+  position:fixed;inset:0;z-index:9999;background:#03163b;display:grid;place-items:center;
+  opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;overflow:hidden
+}
+.another-ocean::before{
+  content:"";position:absolute;inset:-42px;background:url('./another-ocean.png') center/cover no-repeat;
+  filter:blur(30px) saturate(.9) brightness(.66);transform:scale(1.08);opacity:.82
+}
 .another-ocean.is-open{opacity:1;visibility:visible}
-.another-ocean__art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform .9s cubic-bezier(.2,.75,.2,1);user-select:none;-webkit-user-drag:none}
+.another-ocean__art{
+  position:relative;z-index:1;width:100%;height:100%;object-fit:contain;object-position:center;
+  transform:scale(.965);transition:transform 1.25s cubic-bezier(.18,.72,.18,1);
+  user-select:none;-webkit-user-drag:none
+}
 .another-ocean.is-open .another-ocean__art{transform:scale(1)}
-.another-ocean__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,12,40,.08),transparent 55%,rgba(0,10,35,.28));pointer-events:none}
-.another-ocean__close{position:absolute;right:18px;top:max(18px,env(safe-area-inset-top));width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(4,32,77,.48);backdrop-filter:blur(12px);color:white;font-size:28px;line-height:1;z-index:3}
-.another-ocean__hint{position:absolute;left:50%;bottom:max(24px,calc(env(safe-area-inset-bottom) + 14px));transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(3,28,68,.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;letter-spacing:.08em;z-index:3;white-space:nowrap}
-@media(max-width:600px){.another-ocean__art{object-position:42% center}.another-ocean__close{right:12px}.another-ocean__hint{bottom:90px}}
-@media(prefers-reduced-motion:reduce){.hero-card.is-awakening{animation:none}.another-ocean,.another-ocean__art{transition:none!important}}
+.another-ocean__shade{position:absolute;z-index:2;inset:0;background:linear-gradient(180deg,rgba(0,12,40,.04),transparent 55%,rgba(0,10,35,.16));pointer-events:none}
+.another-ocean__close{position:absolute;right:18px;top:max(18px,env(safe-area-inset-top));width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(4,32,77,.48);backdrop-filter:blur(12px);color:white;font-size:28px;line-height:1;z-index:4}
+.another-ocean__hint{position:absolute;left:50%;bottom:max(24px,calc(env(safe-area-inset-bottom) + 14px));transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(3,28,68,.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;letter-spacing:.08em;z-index:4;white-space:nowrap}
+@media(max-width:600px){
+  .another-ocean__art{width:100vw;height:100dvh;object-fit:contain;object-position:center}
+  .another-ocean__close{right:12px}.another-ocean__hint{bottom:max(78px,calc(env(safe-area-inset-bottom) + 18px))}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-card.is-awakening{animation:none}.hero-card.is-awakening::before,.hero-card.is-awakening::after{animation:none}
+  .another-ocean,.another-ocean__art{transition:none!important}
+}
 
 </style>
 <link href="./icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
@@ -855,38 +900,59 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 
   const anotherOcean = document.getElementById('anotherOcean');
   const anotherOceanClose = document.getElementById('anotherOceanClose');
-  let holdTimer = null, holdTriggered = false, holdPointerId = null;
-  const HOLD_MS = 760, MOVE_CANCEL = 14;
-  function cancelHold(){ clearTimeout(holdTimer); holdTimer=null; heroCard.classList.remove('is-awakening'); }
+  let holdTimer = null, revealTimer = null, holdTriggered = false, holdPointerId = null;
+  const HOLD_MS = 2000, REVEAL_MS = 3000, MOVE_CANCEL = 14;
+
+  function cancelHold(){
+    clearTimeout(holdTimer); holdTimer=null;
+    if(!holdTriggered) heroCard.classList.remove('is-awakening');
+  }
+  function startAwakening(){
+    if(!cardDragging || holdTriggered) return;
+    holdTriggered=true;
+    cardDragging=false;
+    clearTimeout(holdTimer); holdTimer=null;
+    heroCard.classList.add('is-awakening');
+    revealTimer=setTimeout(openAnotherOcean, REVEAL_MS);
+  }
   function openAnotherOcean(){
-    holdTriggered=true; cardDragging=false; cancelHold();
+    clearTimeout(revealTimer); revealTimer=null;
+    heroCard.classList.remove('is-awakening');
     anotherOcean.classList.add('is-open'); anotherOcean.setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden'; setTimeout(()=>anotherOceanClose.focus(),120);
+    document.body.style.overflow='hidden'; setTimeout(()=>anotherOceanClose.focus(),220);
   }
   function closeAnotherOcean(){
+    clearTimeout(revealTimer); revealTimer=null;
+    heroCard.classList.remove('is-awakening');
     anotherOcean.classList.remove('is-open'); anotherOcean.setAttribute('aria-hidden','true');
-    document.body.style.overflow=''; setTimeout(()=>heroCard.focus(),80);
+    document.body.style.overflow=''; holdTriggered=false; setTimeout(()=>heroCard.focus(),100);
   }
   heroCard.addEventListener('contextmenu', e => e.preventDefault());
   heroCard.addEventListener('pointerdown', e => {
     cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdPointerId=e.pointerId;
     heroCard.setPointerCapture?.(e.pointerId);
-    holdTimer=setTimeout(()=>{ if(cardDragging){ heroCard.classList.add('is-awakening'); setTimeout(openAnotherOcean,150); } }, HOLD_MS-150);
+    clearTimeout(revealTimer); revealTimer=null;
+    holdTimer=setTimeout(startAwakening, HOLD_MS);
   });
   heroCard.addEventListener('pointermove', e => {
-    if(!cardDragging || cardStartX==null) return;
-    if(Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY)>MOVE_CANCEL) cancelHold();
+    if(!cardDragging || cardStartX==null || holdTriggered) return;
+    if(Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY)>MOVE_CANCEL){
+      cancelHold(); cardDragging=false;
+    }
   });
   heroCard.addEventListener('pointerup', e => {
+    if(holdTriggered){ cardStartX=null; cardStartY=null; return; }
     cancelHold();
-    if(holdTriggered){ holdTriggered=false; return; }
     if(!cardDragging || cardStartX==null || cardStartY==null) return;
     const dx=e.clientX-cardStartX, dy=e.clientY-cardStartY;
     cardDragging=false; cardStartX=null; cardStartY=null;
     if(Math.abs(dx)<48 || Math.abs(dx)<=Math.abs(dy)*1.15) return;
     setCardSide(!heroCard.classList.contains('is-flipped'));
   });
-  heroCard.addEventListener('pointercancel',()=>{ cancelHold(); cardDragging=false; cardStartX=null; cardStartY=null; });
+  heroCard.addEventListener('pointercancel',()=>{
+    if(!holdTriggered) cancelHold();
+    cardDragging=false; cardStartX=null; cardStartY=null;
+  });
   anotherOcean.addEventListener('click',e=>{ if(e.target!==anotherOceanClose) closeAnotherOcean(); });
   anotherOceanClose.addEventListener('click',e=>{ e.stopPropagation(); closeAnotherOcean(); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape' && anotherOcean.classList.contains('is-open')) closeAnotherOcean(); });
