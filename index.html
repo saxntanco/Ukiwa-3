@@ -299,6 +299,22 @@ body.dark .brand small,.dark .bottom-nav a{color:#d5eff8}
 body.dark .route-section{background:linear-gradient(#082f49,#0a5978)}
 body.dark .route-head h2,.dark .route-head p{color:#eafcff}
 body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;border-color:#1b5c78}
+
+/* v32: UR card long-press awakening / ANOTHER OCEAN */
+.hero-card.is-awakening{animation:cardAwaken .16s ease-in-out infinite alternate;filter:drop-shadow(0 0 18px rgba(116,225,255,.8))}
+.hero-card.is-awakening::before{content:"";position:absolute;inset:-12px;border-radius:28px;border:2px solid rgba(118,225,255,.8);box-shadow:0 0 18px rgba(84,210,255,.8),0 0 35px rgba(224,185,78,.35);z-index:9;pointer-events:none;animation:awakenRing .75s linear forwards}
+@keyframes cardAwaken{from{transform:translateY(1px) rotate(-.7deg) scale(.992)}to{transform:translateY(3px) rotate(.7deg) scale(.988)}}
+@keyframes awakenRing{0%{opacity:.25;transform:scale(.97)}70%{opacity:1;transform:scale(1.025)}100%{opacity:0;transform:scale(1.07)}}
+.another-ocean{position:fixed;inset:0;z-index:9999;background:#03163b;display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .58s ease,visibility .58s;overflow:hidden}
+.another-ocean.is-open{opacity:1;visibility:visible}
+.another-ocean__art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform .9s cubic-bezier(.2,.75,.2,1);user-select:none;-webkit-user-drag:none}
+.another-ocean.is-open .another-ocean__art{transform:scale(1)}
+.another-ocean__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,12,40,.08),transparent 55%,rgba(0,10,35,.28));pointer-events:none}
+.another-ocean__close{position:absolute;right:18px;top:max(18px,env(safe-area-inset-top));width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(4,32,77,.48);backdrop-filter:blur(12px);color:white;font-size:28px;line-height:1;z-index:3}
+.another-ocean__hint{position:absolute;left:50%;bottom:max(24px,calc(env(safe-area-inset-bottom) + 14px));transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(3,28,68,.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;letter-spacing:.08em;z-index:3;white-space:nowrap}
+@media(max-width:600px){.another-ocean__art{object-position:42% center}.another-ocean__close{right:12px}.another-ocean__hint{bottom:90px}}
+@media(prefers-reduced-motion:reduce){.hero-card.is-awakening{animation:none}.another-ocean,.another-ocean__art{transition:none!important}}
+
 </style>
 <link href="./icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
 <link href="./apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
@@ -688,6 +704,13 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 <button aria-label="メニュー" class="menu-btn" type="button">≡</button>
 </div>
 </header>
+
+<div class="another-ocean" id="anotherOcean" aria-hidden="true" role="dialog" aria-label="ANOTHER OCEAN 別世界ビジュアル">
+  <img class="another-ocean__art" src="./another-ocean.png" alt="夜の電気保安の海を旅するうきわちゃん。灯台や島、海上設備と青白い回路光が広がる世界" draggable="false">
+  <div class="another-ocean__shade"></div>
+  <button class="another-ocean__close" id="anotherOceanClose" type="button" aria-label="別世界を閉じる">×</button>
+  <div class="another-ocean__hint">画面をタップして戻る</div>
+</div>
 <main>
 <section class="hero" id="home">
 <div class="hero-grid">
@@ -830,32 +853,43 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
     );
   }
 
+  const anotherOcean = document.getElementById('anotherOcean');
+  const anotherOceanClose = document.getElementById('anotherOceanClose');
+  let holdTimer = null, holdTriggered = false, holdPointerId = null;
+  const HOLD_MS = 760, MOVE_CANCEL = 14;
+  function cancelHold(){ clearTimeout(holdTimer); holdTimer=null; heroCard.classList.remove('is-awakening'); }
+  function openAnotherOcean(){
+    holdTriggered=true; cardDragging=false; cancelHold();
+    anotherOcean.classList.add('is-open'); anotherOcean.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden'; setTimeout(()=>anotherOceanClose.focus(),120);
+  }
+  function closeAnotherOcean(){
+    anotherOcean.classList.remove('is-open'); anotherOcean.setAttribute('aria-hidden','true');
+    document.body.style.overflow=''; setTimeout(()=>heroCard.focus(),80);
+  }
+  heroCard.addEventListener('contextmenu', e => e.preventDefault());
   heroCard.addEventListener('pointerdown', e => {
-    cardStartX = e.clientX;
-    cardStartY = e.clientY;
-    cardDragging = true;
+    cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdPointerId=e.pointerId;
     heroCard.setPointerCapture?.(e.pointerId);
+    holdTimer=setTimeout(()=>{ if(cardDragging){ heroCard.classList.add('is-awakening'); setTimeout(openAnotherOcean,150); } }, HOLD_MS-150);
   });
-
+  heroCard.addEventListener('pointermove', e => {
+    if(!cardDragging || cardStartX==null) return;
+    if(Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY)>MOVE_CANCEL) cancelHold();
+  });
   heroCard.addEventListener('pointerup', e => {
-    if(!cardDragging || cardStartX == null || cardStartY == null) return;
-    const dx = e.clientX - cardStartX;
-    const dy = e.clientY - cardStartY;
-    cardDragging = false;
-    cardStartX = null;
-    cardStartY = null;
-
-    // Horizontal swipe only. Direction does not matter:
-    // either left or right swipe toggles front/back.
-    if(Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy) * 1.15) return;
+    cancelHold();
+    if(holdTriggered){ holdTriggered=false; return; }
+    if(!cardDragging || cardStartX==null || cardStartY==null) return;
+    const dx=e.clientX-cardStartX, dy=e.clientY-cardStartY;
+    cardDragging=false; cardStartX=null; cardStartY=null;
+    if(Math.abs(dx)<48 || Math.abs(dx)<=Math.abs(dy)*1.15) return;
     setCardSide(!heroCard.classList.contains('is-flipped'));
   });
-
-  heroCard.addEventListener('pointercancel', () => {
-    cardDragging = false;
-    cardStartX = null;
-    cardStartY = null;
-  });
+  heroCard.addEventListener('pointercancel',()=>{ cancelHold(); cardDragging=false; cardStartX=null; cardStartY=null; });
+  anotherOcean.addEventListener('click',e=>{ if(e.target!==anotherOceanClose) closeAnotherOcean(); });
+  anotherOceanClose.addEventListener('click',e=>{ e.stopPropagation(); closeAnotherOcean(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && anotherOcean.classList.contains('is-open')) closeAnotherOcean(); });
 
   // Keyboard fallback for accessibility.
   heroCard.addEventListener('keydown', e => {
