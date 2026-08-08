@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ja"><head>
+
+<html lang="ja">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#078bca" name="theme-color"/>
@@ -856,118 +858,14 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 @media(prefers-reduced-motion:reduce){
   .archipelago-jump{transition:none}
 }
-</style><style id="v38-island-home-style">
-html,body{overflow-x:hidden}
-body{padding-bottom:76px;background:#eaf9ff}
-.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(14px)}
-.island-home{min-height:calc(100svh - 72px)}
-.world-hero{
-  position:relative;
-  min-height:calc(100svh - 72px);
-  padding:18px 14px 26px;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(255,255,255,.78),transparent 34%),
-    linear-gradient(180deg,#dff7ff 0,#eafaff 36%,#d9f5fb 100%);
-}
-.world-intro{width:min(1100px,100%);margin:0 auto 12px;text-align:center;color:#0d4267}
-.world-eyebrow{display:block;font-size:9px;font-weight:1000;letter-spacing:.16em;color:#2d86aa}
-.world-intro h1{margin:4px 0 5px;font-size:clamp(32px,6vw,58px);line-height:1.08}
-.world-intro p{margin:0;font-size:14px;font-weight:800;color:#4f778b}
-
-.world-map{
-  position:relative;
-  width:min(1180px,100%);
-  margin:0 auto;
-  border-radius:28px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.9);
-  box-shadow:0 24px 60px rgba(0,84,120,.18);
-  background:#79d5f3;
-}
-.world-map>img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
-.world-hotspot{
-  position:absolute;z-index:3;
-  min-height:44px;padding:7px 10px;
-  display:flex;align-items:center;gap:6px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.86);
-  background:rgba(255,255,255,.88);
-  color:#103f61;text-decoration:none;
-  font-size:10px;font-weight:1000;
-  box-shadow:0 8px 22px rgba(0,58,89,.16);
-  backdrop-filter:blur(8px);
-  transition:transform .16s ease,box-shadow .16s ease;
-}
-.world-hotspot:hover,.world-hotspot:focus-visible{transform:translateY(-2px);box-shadow:0 11px 28px rgba(0,58,89,.23)}
-.world-hotspot span{font-size:16px}
-.hs-basics{left:14%;top:25%}
-.hs-relay{left:39%;top:17%}
-.hs-test{left:61%;top:26%}
-.hs-highvoltage{right:5%;top:36%}
-.hs-sequence{left:5%;top:44%}
-.hs-generator{left:7%;bottom:24%}
-.hs-ctvt{right:18%;top:48%}
-.hs-trouble{right:4%;bottom:19%}
-
-.mobile-island-menu{display:none}
-.continue-card{
-  width:min(720px,calc(100% - 14px));margin:14px auto 0;
-  display:grid;grid-template-columns:auto 1fr 48px;align-items:center;gap:10px;
-  padding:11px 12px;border-radius:18px;background:rgba(255,255,255,.90);
-  border:1px solid #cfe8f0;box-shadow:0 10px 24px rgba(0,75,103,.08);
-}
-.continue-card>span{font-size:8px;letter-spacing:.12em;font-weight:1000;color:#2e88aa}
-.continue-card div b,.continue-card div small{display:block}
-.continue-card div b{font-size:12px;color:#123e5e}
-.continue-card div small{margin-top:2px;font-size:9px;color:#65808f}
-.continue-card>a{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#168fca;color:white;text-decoration:none;font-size:20px}
-
-.construction-modal[hidden]{display:none!important}
-.construction-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px}
-.construction-backdrop{position:absolute;inset:0;background:rgba(1,30,45,.55);backdrop-filter:blur(7px)}
-.construction-dialog{position:relative;z-index:1;width:min(360px,100%);padding:26px;border-radius:22px;background:#fff;text-align:center;box-shadow:0 28px 70px rgba(0,0,0,.24)}
-.construction-dialog>span{font-size:9px;letter-spacing:.16em;color:#2b88ac;font-weight:1000}
-.construction-dialog h2{margin:6px 0;font-size:27px;color:#123f60}
-.construction-dialog p{margin:0;color:#647f8f;font-size:12px}
-.construction-close{position:absolute;right:9px;top:9px;width:44px;height:44px;border-radius:50%;border:1px solid #d5e8ef;background:white;font-size:22px;color:#1a688b}
-
-.island-bottom-nav{z-index:200}
-
-@media(max-width:700px){
-  .world-hero{padding:10px 8px 18px;min-height:auto}
-  .world-intro{padding:0 8px;text-align:left}
-  .world-eyebrow{font-size:7px}
-  .world-intro h1{font-size:32px}
-  .world-intro p{font-size:12px}
-  .world-map{border-radius:20px}
-  .world-hotspot{display:none}
-  .mobile-island-menu{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin:10px auto 0;
-  }
-  .mobile-island-menu a{
-    min-height:72px;padding:10px;
-    display:grid;grid-template-columns:30px 1fr;grid-template-rows:auto auto;
-    column-gap:6px;align-items:center;
-    border-radius:17px;border:1px solid #cfe8f0;
-    background:rgba(255,255,255,.94);text-decoration:none;color:#123f5f;
-    box-shadow:0 8px 20px rgba(0,76,104,.08)
-  }
-  .mobile-island-menu a>span{grid-row:1/3;font-size:22px}
-  .mobile-island-menu b{font-size:11px}
-  .mobile-island-menu small{font-size:8px;color:#69808e}
-  .continue-card{margin-top:9px}
-}
-@media(max-width:390px){
-  .world-intro h1{font-size:29px}
-  .mobile-island-menu a{min-height:66px}
-}
-@media(prefers-reduced-motion:reduce){
-  .world-hotspot{transition:none}
-}
-</style></head><body><header class="site-header">
+</style><style id="v38-zukan-style">
+.hero{min-height:calc(100svh - 72px);display:flex;align-items:center;padding-bottom:92px}
+.hero-grid{width:min(1000px,100%);margin:auto}
+.hero-copy{background:rgba(4,75,111,.52)}
+@media(max-width:760px){.hero-grid{padding-top:12px}.hero-copy{margin-top:12px}}
+</style></head>
+<body>
+<header class="site-header">
 <a aria-label="ぷかぷかうきわメモ ホーム" class="brand" href="./index.html">
 <img alt="" src="./favicon.svg"/>
 <span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span>
@@ -977,96 +875,561 @@ body{padding-bottom:76px;background:#eaf9ff}
 <button aria-label="メニュー" class="menu-btn" type="button">≡</button>
 </div>
 </header>
-<main class="island-home" id="home">
-<section aria-labelledby="worldTitle" class="world-hero">
-<div class="world-intro">
-<span class="world-eyebrow">PUKA PUKA ELECTRICAL SAFETY ARCHIPELAGO</span>
-<h1 id="worldTitle">電気保安を、<br/>海の冒険に。</h1>
-<p>今日は、どの島へ行く？</p>
+<div aria-hidden="true" aria-label="ANOTHER OCEAN 別世界ビジュアル" class="another-ocean" id="anotherOcean" role="dialog">
+<img alt="夜の電気保安の海を旅するうきわちゃん。灯台や島、海上設備と青白い回路光が広がる世界" class="another-ocean__art" draggable="false" src="./another-ocean.png"/>
+<div class="another-ocean__shade"></div>
+<button aria-label="別世界を閉じる" class="another-ocean__close" id="anotherOceanClose" type="button">×</button>
+<div class="another-ocean__hint">画面をタップして戻る</div>
 </div>
-<div class="world-map" id="worldMap">
-<img alt="保護継電器、耐圧試験、基礎、シーケンス、高圧機器、CT・VTなどの学習島が浮かぶ電気保安アイランド" fetchpriority="high" src="./home-archipelago.png"/>
-<a aria-label="電気の基礎島へ" class="world-hotspot hs-basics" data-construction="電気の基礎" href="#construction">
-<span>💧</span><b>基礎</b>
-</a>
-<a aria-label="保護継電器島へ" class="world-hotspot hs-relay" href="./protective-relay.html">
-<span>🛡️</span><b>保護継電器</b>
-</a>
-<a aria-label="充電電流・耐圧試験島へ" class="world-hotspot hs-test" href="./ac-withstand-test-simulator.html#calc">
-<span>⚡</span><b>試験・測定</b>
-</a>
-<a aria-label="高圧機器島へ" class="world-hotspot hs-highvoltage" data-construction="高圧機器" href="#construction">
-<span>🏭</span><b>高圧機器</b>
-</a>
-<a aria-label="シーケンス島へ" class="world-hotspot hs-sequence" data-construction="シーケンス" href="#construction">
-<span>🔁</span><b>シーケンス</b>
-</a>
-<a aria-label="CT・VT島へ" class="world-hotspot hs-ctvt" data-construction="CT・VT" href="#construction">
-<span>🔍</span><b>CT・VT</b>
-</a>
-<a aria-label="発電機島へ" class="world-hotspot hs-generator" data-construction="発電機" href="#construction">
-<span>⚙️</span><b>発電機</b>
-</a>
-<a aria-label="事故・トラブル島へ" class="world-hotspot hs-trouble" data-construction="事故・トラブル" href="#construction">
-<span>⚠️</span><b>事故・トラブル</b>
-</a>
+<main>
+<section class="hero" id="home">
+<div class="hero-grid">
+<div class="card-stage">
+<div aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります" class="hero-card" id="heroCard" role="group" tabindex="0">
+<span class="hero-card-inner">
+<span class="hero-card-face hero-card-front"><img alt="うきわちゃんURカード" fetchpriority="high" src="./ukiwa-card.png"/></span>
+<span class="hero-card-face hero-card-back">
+<span aria-hidden="true" class="nav-card-grid"></span>
+<div class="nav-card-brand">
+<span class="nav-card-kicker">PUKA PUKA UKIWA MEMO</span>
+<h2>電気保安を、<br/>海の冒険に。</h2>
+<span class="nav-card-sub">OCEAN SAFETY LEARNING GUIDE</span>
 </div>
-<div aria-label="島を選ぶ" class="mobile-island-menu">
-<a href="./protective-relay.html"><span>🛡️</span><b>保護継電器</b><small>OCR・DGR・OVGR・RPR</small></a>
-<a href="./ac-withstand-test-simulator.html#calc"><span>⚡</span><b>試験・測定</b><small>充電電流・耐圧試験</small></a>
-<a data-construction="電気の基礎" href="#construction"><span>💧</span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></a>
-<a data-construction="シーケンス" href="#construction"><span>🔁</span><b>シーケンス</b><small>接点・自己保持</small></a>
+<div aria-hidden="true" class="nav-card-emblem">
+<span class="nav-card-ripple r1"></span>
+<span class="nav-card-ripple r2"></span>
+<img alt="" src="./favicon.svg"/>
 </div>
-<div class="continue-card">
-<span>QUICK START</span>
-<div><b>迷ったらここから</b><small>保護継電器の島を見てみる</small></div>
-<a aria-label="保護継電器の島へ進む" href="./protective-relay.html">→</a>
+<p class="nav-card-summary">
+  高圧受変電設備や保護継電器、試験・測定、電気の原理を、
+  キャラクターと海の冒険を通して学ぶ電気保安学習サイト。
+</p>
+<div aria-label="この海で学べること" class="nav-card-domains">
+<span><b>受変電設備</b><small>高圧機器・変圧器</small></span>
+<span><b>保護継電器</b><small>OCR・GR・DGR</small></span>
+<span><b>試験・測定</b><small>耐圧・絶縁・接地</small></span>
+<span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></span>
+<span><b>シーケンス</b><small>接点・自己保持</small></span>
+<span><b>安全・事故</b><small>停復電・原因分析</small></span>
+</div>
+<div class="nav-card-route">
+<div class="nav-card-route-head">
+<span>YOUR FIRST ROUTE</span>
+<strong>最初の航路を選ぼう</strong>
+</div>
+<div class="nav-card-route-links">
+<a data-back-route="basics" data-home-construction="電気の基礎" data-route-modal="basics" href="#"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
+<a data-back-route="guide" href="./protective-relay.html"><b>目的から探す</b><small>機器・試験・用語</small></a>
+<a data-back-route="map" href="#map"><b>海のマップへ</b><small>6つの修行島</small></a>
+</div>
+</div>
+<div class="nav-card-quote">
+<span>「分からないまま進む方が、こわいよ。<br/>一緒に、ひとつずつ確かめよう。」</span>
+</div>
+<div class="nav-card-footer">
+<span>UKW-001</span>
+<span>PUKA PUKA UKIWA MEMO</span>
+<span>SAFETY NAVIGATION CARD ⚓</span>
+</div>
+</span>
+</span>
+</div>
+<span aria-hidden="true" class="card-water"></span>
+</div>
+<div class="hero-copy">
+<span class="world-badge">CHARACTER COLLECTION</span>
+<h1>うきわちゃん<br/>カード図鑑</h1>
+<p>左右スワイプで裏面。<br/>長押しでANOTHER OCEAN。</p>
+<a class="hero-cta" href="./index.html">← 島のホームへ戻る</a>
+</div>
 </div>
 </section>
+<section class="route-section" id="routes" style="display:none">
+<div aria-hidden="true" class="world-transition">
+<span class="world-transition-line"></span>
+<span>ISLAND ROUTES</span>
+<span class="world-transition-line"></span>
+</div>
+<div class="route-head">
+<span class="eyebrow">CHOOSE YOUR ROUTE</span>
+<h2>今日の目的を選ぼう！</h2>
+</div>
+<div aria-label="浮き輪メニュー。左右スワイプまたは左右キーで選択" class="route-ring" id="routeRing" tabindex="0">
+<div aria-hidden="true" class="ring-water"></div>
+<div aria-hidden="true" class="ring-prop"><img alt="" src="./ukiwa-ring-3d.png"/></div>
+<div class="ring-hole-message">カードをタップで<br/>くわしく見る 👆</div>
+<div class="orbit" id="orbit"><button class="route-card" data-href="./ac-withstand-test-simulator.html#calc" data-kind="calc" data-title="充電電流計算" type="button">
+<span class="route-num">01</span><span class="icon">⚡</span>
+<strong>充電電流計算</strong><small>耐圧試験時の充電電流を計算</small></button><button class="route-card" data-href="./protective-relay.html" data-kind="relay-page" data-title="保護継電器" type="button">
+<span class="route-num">02</span><span class="icon">🛡️</span>
+<strong>保護継電器</strong><small>OCR・GR・DGR・OVGR・RPR</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="受変電設備" type="button">
+<span class="route-num">03</span><span class="icon">🏭</span>
+<strong>受変電設備</strong><small>高圧機器・変圧器</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="電気の基礎" type="button">
+<span class="route-num">04</span><span class="icon">💧</span>
+<strong>電気の基礎</strong><small>RLC・ベクトル・公式</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="シーケンス" type="button">
+<span class="route-num">05</span><span class="icon">🔁</span>
+<strong>シーケンス</strong><small>接点・自己保持・インターロック</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="安全・事故" type="button">
+<span class="route-num">06</span><span class="icon">⚠️</span>
+<strong>安全・事故</strong><small>停復電・事故原因・安全確認</small></button></div>
+<button aria-label="前のメニュー" class="ring-arrow prev" id="prevRoute" type="button">‹</button>
+<button aria-label="次のメニュー" class="ring-arrow next" id="nextRoute" type="button">›</button>
+</div>
+<div aria-label="ルート位置" class="pager" id="pager"></div>
+<div aria-live="polite" class="route-selected">
+<h3 id="selectedTitle">耐圧シミュレータ</h3>
+<p id="selectedDesc">ケーブル耐圧試験をシミュレーション</p>
+<a href="./ac-withstand-test-simulator.html#calc" id="selectedLink">このルートへ進む →</a>
+</div>
+<section class="map-panel" id="map" style="display:none">
+<div class="map-copy">
+<h2>海の冒険マップ</h2>
+<p>目的地を選ぶと、あなたのルートが光るよ！</p>
+<a href="#map">マップを見る <i>→</i></a>
+</div>
+<div class="map-art">
+<img alt="海に浮かぶ学習アイランドのマップ" loading="lazy" src="./ocean-map-art.jpg"/>
+<span class="map-label ml1">基礎の入り江</span>
+<span class="map-label ml2">試験の灯台島</span>
+<span class="map-label ml3">保護の聖堂島</span>
+<span class="map-label ml4">トラブルの暗礁域</span>
+</div>
+</section>
+</section>
+<!-- ホームは選択に徹し、詳細は必要なときだけ開く -->
 </main>
-<div aria-labelledby="constructionTitle" aria-modal="true" class="construction-modal" hidden="" id="constructionModal" role="dialog">
-<div class="construction-backdrop" data-close-construction=""></div>
-<div class="construction-dialog">
-<button aria-label="閉じる" class="construction-close" data-close-construction="" type="button">×</button>
-<span>COMING SOON</span>
-<h2 id="constructionTitle">工事中</h2>
-<p id="constructionText">この島は準備中です。</p>
-</div>
-</div>
-<nav aria-label="メインナビゲーション" class="bottom-nav island-bottom-nav">
-<a class="active" href="./index.html"><span><b>🏠</b>ホーム</span></a>
-<a data-construction="電気の基礎" href="#construction"><span><b>💧</b>基礎</span></a>
-<a href="./index.html#worldMap"><span><b>🗺️</b>島</span></a>
-<a href="./zukan.html"><span><b>🎭</b>図鑑</span></a>
-<a data-construction="用語・公式集" href="#construction"><span><b>💬</b>用語</span></a>
+<button aria-label="質問を開く" class="chat-bubble" type="button">💬</button>
+<nav aria-label="メインナビゲーション" class="bottom-nav">
+<a href="./index.html"><span><b>🏠</b>ホーム</span></a>
+<a href="./index.html#construction"><span><b>💧</b>基礎</span></a>
+<a href="./index.html#worldMap"><span><b>🗺️</b>マップ</span></a>
+<a class="active" href="./zukan.html"><span><b>🎭</b>図鑑</span></a>
+<a href="./index.html#construction"><span><b>💬</b>用語</span></a>
 </nav>
-<script id="v38-home-script">
+<script>
 (() => {
-  const body=document.body;
-  const theme=document.getElementById('themeToggle');
-  const saved=localStorage.getItem('ukiwa-theme');
-  if(saved==='dark'){body.classList.add('dark'); if(theme) theme.textContent='🌙 ライトモード';}
-  theme?.addEventListener('click',()=>{
-    body.classList.toggle('dark');
-    const dark=body.classList.contains('dark');
-    localStorage.setItem('ukiwa-theme',dark?'dark':'light');
-    theme.textContent=dark?'🌙 ライトモード':'☀️ ダークモード';
+  // Hero card: swipe/drag to flip. Tap/click does nothing.
+  const heroCard = document.getElementById('heroCard');
+  let cardStartX = null;
+  let cardStartY = null;
+  let cardDragging = false;
+
+  function setCardSide(back){
+    heroCard.classList.remove('is-flipping');
+    void heroCard.offsetWidth;
+    heroCard.classList.add('is-flipping');
+    setTimeout(()=>heroCard.classList.remove('is-flipping'), 620);
+    heroCard.classList.toggle('is-flipped', back);
+    heroCard.setAttribute(
+      'aria-label',
+      back
+        ? 'うきわちゃんカード裏面。左右どちらかへスワイプすると表面に戻ります'
+        : 'うきわちゃんカード表面。左右どちらかへスワイプすると裏面を表示します'
+    );
+  }
+
+  const anotherOcean = document.getElementById('anotherOcean');
+  const anotherOceanClose = document.getElementById('anotherOceanClose');
+  let holdTimer = null, revealTimer = null, holdTriggered = false, holdPointerId = null;
+  let holdCancelledByMove = false;
+  const HOLD_MS = 1200, REVEAL_MS = 1800, MOVE_CANCEL = 14, SWIPE_THRESHOLD = 48;
+
+  function cancelHold(){
+    clearTimeout(holdTimer); holdTimer=null;
+    if(!holdTriggered) heroCard.classList.remove('is-awakening');
+  }
+  function startAwakening(){
+    if(!cardDragging || holdTriggered || holdCancelledByMove) return;
+    holdTriggered=true;
+    cardDragging=false;
+    clearTimeout(holdTimer); holdTimer=null;
+    heroCard.classList.add('is-awakening');
+    revealTimer=setTimeout(openAnotherOcean, REVEAL_MS);
+  }
+  function openAnotherOcean(){
+    clearTimeout(revealTimer); revealTimer=null;
+    heroCard.classList.remove('is-awakening');
+    anotherOcean.classList.add('is-open'); anotherOcean.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden'; setTimeout(()=>anotherOceanClose.focus(),220);
+  }
+  function closeAnotherOcean(){
+    clearTimeout(revealTimer); revealTimer=null;
+    heroCard.classList.remove('is-awakening');
+    anotherOcean.classList.remove('is-open'); anotherOcean.setAttribute('aria-hidden','true');
+    document.body.style.overflow=''; holdTriggered=false; setTimeout(()=>heroCard.focus(),100);
+  }
+  heroCard.addEventListener('contextmenu', e => e.preventDefault());
+  heroCard.addEventListener('pointerdown', e => {
+    cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdCancelledByMove=false; holdPointerId=e.pointerId;
+    heroCard.setPointerCapture?.(e.pointerId);
+    clearTimeout(revealTimer); revealTimer=null;
+    holdTimer=setTimeout(startAwakening, HOLD_MS);
+  });
+  heroCard.addEventListener('pointermove', e => {
+    if(!cardDragging || cardStartX==null || holdTriggered) return;
+    const distance=Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY);
+    if(distance>MOVE_CANCEL && !holdCancelledByMove){
+      holdCancelledByMove=true;
+      cancelHold();
+    }
+  });
+  heroCard.addEventListener('pointerup', e => {
+    if(holdTriggered){
+      cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+      return;
+    }
+    cancelHold();
+    if(!cardDragging || cardStartX==null || cardStartY==null) return;
+    const dx=e.clientX-cardStartX, dy=e.clientY-cardStartY;
+    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+    if(Math.abs(dx)<SWIPE_THRESHOLD || Math.abs(dx)<=Math.abs(dy)*1.15) return;
+    // Both left and right swipes toggle front/back.
+    setCardSide(!heroCard.classList.contains('is-flipped'));
+  });
+  heroCard.addEventListener('pointercancel',()=>{
+    if(!holdTriggered) cancelHold();
+    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+  });
+  anotherOcean.addEventListener('click',e=>{ if(e.target!==anotherOceanClose) closeAnotherOcean(); });
+  anotherOceanClose.addEventListener('click',e=>{ e.stopPropagation(); closeAnotherOcean(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && anotherOcean.classList.contains('is-open')) closeAnotherOcean(); });
+
+  // Keyboard fallback for accessibility.
+  heroCard.addEventListener('keydown', e => {
+    if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+      e.preventDefault();
+      setCardSide(!heroCard.classList.contains('is-flipped'));
+    }
   });
 
-  const modal=document.getElementById('constructionModal');
-  const text=document.getElementById('constructionText');
-  document.querySelectorAll('[data-construction]').forEach(a=>{
-    a.addEventListener('click',e=>{
-      e.preventDefault();
-      const name=a.dataset.construction||'この島';
-      text.textContent=`「${name}」は現在準備中です。完成した島から順番に公開します。`;
-      modal.hidden=false;
-      document.body.style.overflow='hidden';
-      modal.querySelector('.construction-close')?.focus();
-    });
+  // Dark mode
+  const theme = document.getElementById('themeToggle');
+  theme.addEventListener('click', () => {
+    const on = document.body.classList.toggle('dark');
+    theme.textContent = on ? '🌙 ライトモード' : '☀️ ダークモード';
   });
-  function closeModal(){modal.hidden=true;document.body.style.overflow='';}
-  modal?.querySelectorAll('[data-close-construction]').forEach(x=>x.addEventListener('click',closeModal));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.hidden)closeModal();});
+
+  // Ring carousel
+  const routes = [
+    ['耐圧シミュレータ','ケーブル耐圧試験をシミュレーション','./ac-withstand-test-simulator.html#calc'],
+    ['現場の記事','実務に役立つ現場の知識','#'],
+    ['RLC・タンス図','原理とシーケンスをやさしく解説','#'],
+    ['キャラクター図鑑','うきわちゃんと見て学ぶ','#'],
+    ['用語・公式集','基礎から応用まですぐに調べられる','#'],
+    ['海のマップ','6つの修行島から学ぶ','#map']
+  ];
+  const shell = document.getElementById('routeRing');
+  const cards = [...document.querySelectorAll('.route-card')];
+  const ringProp = document.querySelector('.ring-prop');
+  const pager = document.getElementById('pager');
+  const title = document.getElementById('selectedTitle');
+  const desc = document.getElementById('selectedDesc');
+  const link = document.getElementById('selectedLink');
+  let selected = 0;
+  let downX = null;
+  let dragging = false;
+  let lastWheel = 0;
+
+  routes.forEach((_,i) => {
+    const b=document.createElement('button');
+    b.type='button';
+    b.setAttribute('aria-label',`${i+1}番目のルートへ`);
+    b.addEventListener('click',()=>{selected=i;render()});
+    pager.appendChild(b);
+  });
+
+  function delta(i){
+    let d=(i-selected+cards.length)%cards.length;
+    if(d>cards.length/2)d-=cards.length;
+    return d;
+  }
+  function render(){
+    cards.forEach((card,i)=>{
+      const d=delta(i);
+      const angle=d*60;
+      const front=Math.cos(angle*Math.PI/180);
+      card.style.setProperty('--angle',angle+'deg');
+      card.style.setProperty('--scale',i===selected?1:(.63+Math.max(0,front)*.16));
+      card.style.setProperty('--opacity',i===selected?1:(.22+Math.max(0,front)*.50));
+      card.classList.toggle('is-selected',i===selected);
+      card.classList.toggle('is-back',Math.abs(d)>=2);
+      card.style.zIndex=String(30+Math.round(front*22));
+      card.setAttribute('aria-pressed',String(i===selected));
+    });
+    [...pager.children].forEach((b,i)=>b.classList.toggle('active',i===selected));
+    title.textContent=routes[selected][0];
+    desc.textContent=routes[selected][1];
+    link.href=routes[selected][2];
+  }
+  function move(d){selected=(selected+d+cards.length)%cards.length;render()}
+
+
+  const routeModal=document.getElementById('routeInfoModal');
+  const routeModalTitle=document.getElementById('routeInfoTitle');
+  const routeModalText=document.getElementById('routeInfoText');
+  const routeModalTags=document.getElementById('routeInfoTags');
+  const routeInfo={
+    articles:{
+      title:'📚 現場の記事',
+      text:'保護継電器、交流耐圧、充電電流、復旧確認など、現場で必要になるテーマを記事から探します。',
+      tags:['保護継電器','耐圧試験','復旧確認','現場判断']
+    },
+    basics:{
+      title:'⚙️ 電気の基礎・RLC',
+      text:'水のイメージからV・I・Rをつかみ、RLC、リアクタンス、サセプタンス、インピーダンスへ進みます。',
+      tags:['V・I・R','RLC','リアクタンス','インピーダンス']
+    },
+    guide:{
+      title:'📖 キャラクター図鑑',
+      text:'機器や保護継電器の役割をキャラクターから覚え、必要なときに実機・原理へ進みます。',
+      tags:['保護継電器','高圧機器','CT・VT','試験']
+    },
+    glossary:{
+      title:'⚡ 用語・公式集',
+      text:'記号、単位、公式、一次値・二次値を必要なときに素早く確認するための入口です。',
+      tags:['公式','単位','一次値・二次値','用語']
+    }
+  };
+  function openRouteModal(key){
+    const d=routeInfo[key];
+    if(!d||!routeModal)return;
+    routeModalTitle.textContent=d.title;
+    routeModalText.textContent=d.text;
+    routeModalTags.replaceChildren(...d.tags.map(t=>{
+      const s=document.createElement('span');s.textContent=t;return s;
+    }));
+    routeModal.hidden=false;
+    document.body.style.overflow='hidden';
+    routeModal.querySelector('.route-info-close')?.focus();
+  }
+  function closeRouteModal(){
+    routeModal.hidden=true;
+    document.body.style.overflow='';
+  }
+  routeModal?.querySelectorAll('[data-close-route-modal]').forEach(el=>el.addEventListener('click',closeRouteModal));
+  document.querySelectorAll('[data-route-modal]').forEach(el=>el.addEventListener('click',e=>{
+    e.preventDefault();openRouteModal(el.dataset.routeModal);
+  }));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&routeModal&&!routeModal.hidden)closeRouteModal();
+  });
+
+  document.getElementById('prevRoute').addEventListener('click',()=>move(-1));
+  document.getElementById('nextRoute').addEventListener('click',()=>move(1));
+  cards.forEach((card,i)=>card.addEventListener('click',()=>{
+    if(i===selected){
+      const action=card.dataset.action;
+      if(action){openRouteModal(action)}
+      else{location.href=routes[i][2]}
+    }else{
+      selected=i;render()
+    }
+  }));
+  shell.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}
+    if(e.key==='ArrowRight'){e.preventDefault();move(1)}
+    if(e.key==='Enter'){location.href=routes[selected][2]}
+  });
+  shell.addEventListener('wheel',e=>{
+    if(Math.abs(e.deltaX)<8&&Math.abs(e.deltaY)<8)return;
+    e.preventDefault();
+    const now=performance.now(); if(now-lastWheel<180)return; lastWheel=now;
+    move(e.deltaX>0||e.deltaY>0?1:-1);
+  },{passive:false});
+  shell.addEventListener('pointerdown',e=>{
+    downX=e.clientX;dragging=true;shell.setPointerCapture?.(e.pointerId)
+  });
+  shell.addEventListener('pointermove',e=>{
+    if(!dragging)return;
+    const r=shell.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    shell.style.setProperty('--tilt-y',Math.max(-7,Math.min(7,x*14))+'deg');
+    shell.style.setProperty('--tilt-x',Math.max(-4,Math.min(4,-y*8))+'deg');
+  });
+  shell.addEventListener('pointerup',e=>{
+    const dx=downX==null?0:e.clientX-downX;
+    if(Math.abs(dx)>35)move(dx<0?1:-1);
+    downX=null;dragging=false;
+    shell.style.setProperty('--tilt-x','0deg');shell.style.setProperty('--tilt-y','0deg');
+  });
+  shell.addEventListener('pointercancel',()=>{
+    downX=null;dragging=false;
+    shell.style.setProperty('--tilt-x','0deg');shell.style.setProperty('--tilt-y','0deg');
+  });
+
+  link.addEventListener('click',e=>{
+    const action=cards[selected]?.dataset.action;
+    if(action){
+      e.preventDefault();
+      openRouteModal(action);
+    }
+  });
+
+  render();
+
+  // Back-face route links: stop pointer events from becoming swipe gestures.
+  document.querySelectorAll('[data-back-route]').forEach(a=>{
+    a.addEventListener('pointerdown',e=>e.stopPropagation());
+    a.addEventListener('pointerup',e=>e.stopPropagation());
+    a.addEventListener('click',e=>e.stopPropagation());
+  });
+
 })();
-</script></body></html>
+</script>
+<div aria-labelledby="routeInfoTitle" aria-modal="true" class="route-info-modal" hidden="" id="routeInfoModal" role="dialog">
+<div class="route-info-backdrop" data-close-route-modal=""></div>
+<div class="route-info-dialog">
+<button aria-label="閉じる" class="route-info-close" data-close-route-modal="" type="button">×</button>
+<span class="route-info-kicker" id="routeInfoKicker">LEARNING ROUTE</span>
+<h2 id="routeInfoTitle"></h2>
+<p id="routeInfoText"></p>
+<div class="relay-menu" hidden="" id="relayMenu">
+<button data-relay="OCR" type="button"><b>OCR</b><strong>過電流継電器</strong><small>過電流と時限特性</small></button>
+<button data-relay="GR" type="button"><b>GR</b><strong>地絡継電器</strong><small>地絡電流の検出</small></button>
+<button data-relay="DGR" type="button"><b>DGR</b><strong>方向性地絡継電器</strong><small>地絡方向の判定</small></button>
+<button data-relay="OVGR" type="button"><b>OVGR</b><strong>地絡過電圧継電器</strong><small>零相電圧の監視</small></button>
+<button data-relay="RPR" type="button"><b>RPR</b><strong>逆電力継電器</strong><small>逆方向電力の監視</small></button>
+</div>
+<div class="construction-card" hidden="" id="constructionCard">
+<span class="construction-icon">🚧</span>
+<strong id="constructionTitle">この航路は現在、工事中です。</strong>
+<p>公開準備が整うまで、ほかのルートから学習できます。</p>
+</div>
+<button class="route-info-ok" data-close-route-modal="" type="button">閉じる</button>
+</div>
+</div><script id="v25-relay-menu-script">
+(() => {
+  const cards=[...document.querySelectorAll('.route-card')];
+  const title=document.getElementById('selectedTitle');
+  const desc=document.getElementById('selectedDesc');
+  const link=document.getElementById('selectedLink');
+  const modal=document.getElementById('routeInfoModal');
+  const modalTitle=document.getElementById('routeInfoTitle');
+  const modalText=document.getElementById('routeInfoText');
+  const modalKicker=document.getElementById('routeInfoKicker');
+  const relayMenu=document.getElementById('relayMenu');
+  const constructionCard=document.getElementById('constructionCard');
+  const constructionTitle=document.getElementById('constructionTitle');
+
+  function selectedIndex(){
+    return cards.findIndex(c=>c.classList.contains('is-selected'));
+  }
+  function openModal(){
+    modal.hidden=false;
+    document.body.style.overflow='hidden';
+    modal.querySelector('.route-info-close')?.focus();
+  }
+  function closeModal(){
+    modal.hidden=true;
+    document.body.style.overflow='';
+  }
+  function openRelay(){
+    modalKicker.textContent='PROTECTIVE RELAY';
+    modalTitle.textContent='🛡️ 保護継電器';
+    modalText.textContent='知りたい継電器を選んでください。保護の目的と動作の流れから整理します。';
+    relayMenu.hidden=false;
+    constructionCard.hidden=true;
+    openModal();
+  }
+  function openConstruction(name){
+    modalKicker.textContent='UNDER CONSTRUCTION';
+    modalTitle.textContent=name;
+    modalText.textContent='この学習ルートは現在制作中です。';
+    relayMenu.hidden=true;
+    constructionCard.hidden=false;
+    constructionTitle.textContent=`${name} は現在、工事中です。`;
+    openModal();
+  }
+
+  // capture phaseで既存クリックより先に処理
+  document.getElementById('orbit')?.addEventListener('click',e=>{
+    const card=e.target.closest('.route-card');
+    if(!card)return;
+    const i=cards.indexOf(card);
+    const current=selectedIndex();
+    if(i!==current)return; // 選択変更は既存カルーセルに任せる
+
+    const kind=card.dataset.kind;
+    if(kind==='calc'){
+      e.stopImmediatePropagation();
+      location.href='./ac-withstand-test-simulator.html#calc';
+    }else if(kind==='relay-page'){
+      e.preventDefault();e.stopImmediatePropagation();location.href='./protective-relay.html';
+    }else if(kind==='construction'){
+      e.preventDefault();e.stopImmediatePropagation();openConstruction(card.dataset.title);
+    }
+  },true);
+
+  link?.addEventListener('click',e=>{
+    const i=selectedIndex();
+    if(i<0)return;
+    const card=cards[i];
+    const kind=card.dataset.kind;
+    if(kind==='calc'){
+      e.preventDefault();location.href='./ac-withstand-test-simulator.html#calc';
+    }else if(kind==='relay-page'){
+      e.preventDefault();location.href='./protective-relay.html';
+    }else{
+      e.preventDefault();openConstruction(card.dataset.title);
+    }
+  },true);
+
+  modal?.querySelectorAll('[data-close-route-modal]').forEach(x=>x.addEventListener('click',closeModal));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)closeModal()});
+
+  document.querySelectorAll('[data-relay]').forEach(btn=>btn.addEventListener('click',()=>{
+    const name=btn.querySelector('strong').textContent;
+    modalKicker.textContent='PROTECTIVE RELAY';
+    modalTitle.textContent=`${btn.dataset.relay}｜${name}`;
+    modalText.textContent='この継電器の個別学習ページは現在制作中です。';
+    relayMenu.hidden=true;
+    constructionCard.hidden=false;
+    constructionTitle.textContent=`${btn.dataset.relay} の学習ページは工事中です。`;
+  }));
+
+  // 表示名を現行メニューに同期
+  const labels=[
+    ['充電電流計算','耐圧試験時の充電電流を計算'],
+    ['保護継電器','OCR・GR・DGR・OVGR・RPR'],
+    ['受変電設備','高圧機器・変圧器'],
+    ['電気の基礎','RLC・ベクトル・公式'],
+    ['シーケンス','接点・自己保持・インターロック'],
+    ['安全・事故','停復電・事故原因・安全確認']
+  ];
+  const observer=new MutationObserver(()=>{
+    const i=selectedIndex();if(i<0)return;
+    title.textContent=labels[i][0];
+    desc.textContent=labels[i][1];
+    link.textContent=cards[i].dataset.kind==='construction'?'工事中':(cards[i].dataset.kind==='relay'?'継電器を選ぶ →':'計算する →');
+  });
+  cards.forEach(c=>observer.observe(c,{attributes:true,attributeFilter:['class']}));
+  setTimeout(()=>{const i=selectedIndex();if(i>=0){title.textContent=labels[i][0];desc.textContent=labels[i][1]}},0);
+})();
+</script><script id="v25-back-route-script">
+(() => {
+  document.querySelectorAll('[data-home-relay]').forEach(a=>a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector('.route-card[data-kind="relay"]')?.click();
+  }));
+  document.querySelectorAll('[data-home-construction]').forEach(a=>a.addEventListener('click',e=>{
+    e.preventDefault();
+    const name=a.dataset.homeConstruction;
+    const card=[...document.querySelectorAll('.route-card[data-kind="construction"]')].find(c=>c.dataset.title===name);
+    if(card) card.click();
+  }));
+})();
+</script><script id="v37-archipelago-parallax">
+(() => {
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let ticking=false;
+  const update=()=>{
+    const y=Math.min(1400,window.scrollY||0);
+    document.documentElement.style.setProperty('--archipelago-shift',`${Math.round(y*.018)}px`);
+    ticking=false;
+  };
+  addEventListener('scroll',()=>{
+    if(!ticking){ticking=true;requestAnimationFrame(update)}
+  },{passive:true});
+  update();
+})();
+</script></body>
+</html>
