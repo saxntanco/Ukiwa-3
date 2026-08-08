@@ -1,26 +1,13 @@
 {
-  "version": "v36-relay-island",
-  "island_image": "protective-relay-island.png",
-  "mobile_pan": true,
-  "existing_library_preserved": true,
-  "featured_training_preserved": true,
+  "version": "v37-home-archipelago",
+  "background_asset": "home-archipelago.png",
+  "hero_card_preserved": true,
+  "swipe_back_preserved": true,
+  "another_ocean_preserved": true,
+  "route_ring_preserved": true,
+  "protective_relay_link": "./protective-relay.html",
+  "simulator_link": "./ac-withstand-test-simulator.html#calc",
+  "weak_parallax": true,
   "js_syntax_ok": true,
-  "missing_local_references": [
-    {
-      "html": "index.html",
-      "ref": "manifest.webmanifest"
-    },
-    {
-      "html": "index.html",
-      "ref": "favicon.svg"
-    },
-    {
-      "html": "index.html",
-      "ref": "favicon.svg"
-    },
-    {
-      "html": "protective-relay.html",
-      "ref": "kp-prrv-step01.webp"
-    }
-  ]
+  "missing_local_references": []
 }
