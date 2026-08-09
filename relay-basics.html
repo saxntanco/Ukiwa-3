@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0878b8">
+<title>まず覚える4つ｜OCR・DGR・OVGR・RPR｜ぷかぷかうきわメモ</title>
+<meta name="description" content="高圧受変電設備でまず覚えたいOCR・DGR・OVGR・RPRを、原理→回路→接点→試験の意味→故障時の順に初心者から実務者向けまで解説。">
+<style>
+:root{--bg:#f5fbfd;--ink:#153d55;--muted:#668493;--blue:#0878b8;--line:#cfe6ee;--soft:#eaf7fb;--warn:#fff7df;--good:#eaf8ef;--bad:#fff0ec}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f9fdff,#f2fafc);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;line-height:1.72}.top{position:sticky;top:0;z-index:20;background:rgba(250,254,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.topin{max-width:1050px;margin:auto;padding:9px 12px;display:flex;align-items:center;gap:9px}.back{padding:8px 10px;border:1px solid #cce4ec;border-radius:11px;background:#fff;color:#176888;text-decoration:none;font-size:11px;font-weight:900}.top b{font-size:12px}.top small{margin-left:auto;color:#76909b;font-size:8px}.hero,.wrap{max-width:1050px;margin:auto;padding-left:12px;padding-right:12px}.hero{padding-top:20px}.eyebrow{font-size:9px;font-weight:1000;letter-spacing:.14em;color:#1882aa}.hero h1{font-size:clamp(25px,5vw,42px);line-height:1.2;margin:5px 0 7px}.hero p{font-size:12px;color:#5c7a89;margin:0;max-width:780px}.safe{margin-top:13px;padding:11px 13px;border:1px solid #ead8a4;border-radius:14px;background:var(--warn);font-size:10px;color:#66542d}.safe b{color:#805b08}.four{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}.four a{padding:12px;border:1px solid var(--line);border-radius:15px;background:#fff;text-decoration:none;color:var(--ink);box-shadow:0 5px 15px rgba(0,71,102,.045)}.four strong{font-size:18px}.four span{display:block;color:#618191;font-size:9px;font-weight:800}.four em{float:right;font-style:normal;font-size:9px;font-weight:1000;color:#0774a6;background:#eaf7fb;padding:4px 6px;border-radius:7px}.section{scroll-margin-top:72px;margin:14px 0 22px;padding:16px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 8px 24px rgba(0,65,92,.045)}.head{display:flex;align-items:flex-start;gap:10px}.icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:#eaf7fb;color:#0874a8;font-weight:1000}.head h2{margin:0;font-size:22px}.head p{margin:2px 0 0;color:#698693;font-size:10px}.num{margin-left:auto;background:#f0f8fb;border:1px solid #d3e8ef;border-radius:10px;padding:6px 8px;text-align:center;color:#0a6d99;font-size:9px;font-weight:1000}.thirty{margin:13px 0;padding:12px 14px;border-radius:15px;background:linear-gradient(135deg,#edf9fd,#f9fdff);border:1px solid #cce8f1}.thirty b{display:block;color:#0676aa;font-size:10px}.thirty strong{font-size:17px}.flow{margin:12px 0;padding:12px;border:1px solid #dbeaf0;border-radius:14px;background:#fbfeff;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;line-height:1.8;white-space:pre-wrap;color:#315c70}.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}.box{padding:11px;border:1px solid #d7e8ee;border-radius:13px;background:#fbfeff;font-size:10px}.box b{display:block;margin-bottom:4px}.ok{background:var(--good);border-color:#c8e7d2}.caution{background:var(--warn);border-color:#e6d5a7}.unknown{background:#f5f4fb;border-color:#dad5ec}.mistake{background:var(--bad);border-color:#efcec3}.steps{counter-reset:step;display:grid;gap:6px;margin:10px 0}.step{position:relative;padding:9px 10px 9px 38px;border:1px solid #dbeaf0;border-radius:12px;background:#fff;font-size:10px}.step:before{counter-increment:step;content:counter(step);position:absolute;left:9px;top:8px;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:#e8f6fb;color:#0878aa;font-weight:1000;font-size:9px}details{border-top:1px solid #e1edf1;padding:0}details:first-of-type{margin-top:4px}summary{cursor:pointer;padding:12px 2px;font-size:12px;font-weight:1000;color:#24586f;list-style:none}summary::-webkit-details-marker{display:none}summary:after{content:"＋";float:right;color:#6e8a97}details[open] summary:after{content:"−"}.inside{padding:0 2px 13px;font-size:10px;color:#3b6174}.inside h3{font-size:12px;margin:11px 0 5px}.inside p{margin:6px 0}.pill{display:inline-block;margin:2px;padding:3px 7px;border-radius:999px;background:#edf8fc;border:1px solid #d3e9f0;color:#24708f;font-size:8px;font-weight:900}.table{overflow:auto;margin:9px 0}.table table{width:100%;border-collapse:collapse;font-size:9px;min-width:540px}.table th,.table td{border:1px solid #dbe9ee;padding:7px;text-align:left;vertical-align:top}.table th{background:#f1f9fc;color:#416b7e}.source{margin-top:10px;padding:10px;border-radius:12px;background:#f7fafb;border:1px solid #dde9ed;font-size:9px;color:#5b7784}.source a{color:#0875a7;font-weight:900;word-break:break-all}.db{display:inline-flex;margin-top:8px;padding:8px 10px;border-radius:10px;background:#0878b8;color:#fff!important;text-decoration:none;font-size:9px;font-weight:1000}.foot{max-width:1050px;margin:0 auto 30px;padding:0 12px;color:#718c98;font-size:9px}.status{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.status span{padding:4px 6px;border-radius:8px;font-size:8px;font-weight:900;border:1px solid #d8e8ee;background:#fafdfd}.status .v{background:#eaf8ef;border-color:#cbe7d4;color:#2c7447}.status .u{background:#fff7df;border-color:#ead7a1;color:#745c20}.diagram{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:5px;align-items:center;margin:11px 0}.node{padding:9px 7px;border:1px solid #cfe5ed;border-radius:11px;text-align:center;background:#fbfeff;font-size:9px;font-weight:900}.arrow{color:#6c8793;font-weight:1000}.solar{display:grid;grid-template-columns:1fr 1fr;gap:8px}.legend{font-size:8px;color:#718a96}.sources-all{margin-top:22px}.sources-all li{margin:6px 0;font-size:9px}.sources-all a{color:#0874a7;word-break:break-all}@media(max-width:650px){.four{grid-template-columns:repeat(2,1fr)}.section{padding:13px}.compare,.solar{grid-template-columns:1fr}.diagram{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.top small{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin"><a class="back" href="protective-relay.html">← 型式検索</a><b>まず覚える4つ</b><small>教育用／実設備操作票ではありません</small></div></header>
+<section class="hero">
+<div class="eyebrow">UKIWA MEMO · PROTECTION BASICS</div>
+<h1>OCR・DGR・OVGR・RPR<br>まず、この4つをつなげて理解する</h1>
+<p>暗記ではなく「何を見て、内部で何を判定し、どの外部回路へ渡すか」を電源側から追います。型式を探したい人は検索ページへ直行できます。</p>
+<div class="safe"><b>安全上の前提：</b> ここは原理教材です。実試験・停復電・整定変更・トリップ確認では、現場責任者、社内手順書、操作票、系統状態、CT/VT回路、制御電源、実機の最新版取扱説明書を優先してください。端子番号は機種ごとに確認し、このページだけを根拠に接続しないでください。</div>
+<div class="four">
+<a href="#ocr"><em>51</em><strong>OCR</strong><span>大きすぎる電流を見る</span></a>
+<a href="#dgr"><em>67G</em><strong>DGR</strong><span>地絡＋事故方向を見る</span></a>
+<a href="#ovgr"><em>64</em><strong>OVGR</strong><span>零相電圧 Vo を見る</span></a>
+<a href="#rpr"><em>67P</em><strong>RPR</strong><span>電力の逆方向を見る</span></a>
+</div>
+</section>
+<main class="wrap">
+<section class="section" id="overview">
+<div class="head"><div class="icon">4</div><div><h2>30秒で全体像</h2><p>まず「何を見ているリレーか」を分ける</p></div></div>
+<div class="flow">大電流 ─────────────→ OCR
+
+地絡 ─┬─ 零相電圧 Vo の大きさ ─→ OVGR
+       └─ Io + Vo 等で方向判定 ─→ DGR
+
+発電・分散型電源 ─ 電圧 + 電流 + 位相 ─→ RPR</div>
+<div class="table"><table><tr><th>リレー</th><th>主に見る量</th><th>目的</th><th>国内サイト基本表示</th></tr><tr><td>OCR</td><td>CTからの電流</td><td>過電流</td><td>51（瞬時要素50を持つ機種あり）</td></tr><tr><td>DGR</td><td>Io + Vo 等</td><td>地絡＋方向</td><td>67G</td></tr><tr><td>OVGR</td><td>Vo</td><td>零相電圧上昇</td><td>64</td></tr><tr><td>RPR</td><td>電圧＋電流＋位相</td><td>逆電力</td><td>67P</td></tr></table></div>
+</section>
+
+<section class="section" id="ocr">
+<div class="head"><div class="icon">OCR</div><div><h2>過電流継電器</h2><p>Over Current Relay</p></div><div class="num">器具No.<br>51</div></div>
+<div class="thirty"><b>30秒で分かる</b><strong>CTで見た電流が大きすぎると判定し、外部の引外し回路へ命令を渡す。</strong></div>
+<div class="diagram"><div class="node">一次主回路</div><div class="arrow">→</div><div class="node">CT → OCR</div><div class="arrow">→</div><div class="node">接点 / 引外し回路 → VCB</div></div>
+<div class="steps"><div class="step"><b>通常時</b>：CT二次電流は整定値未満。OCRは非動作。</div><div class="step"><b>事故</b>：一次電流が増え、CT二次電流も増える。</div><div class="step"><b>判定</b>：限時要素は時間特性に従い、瞬時要素は設定条件を満たすと速く動作。</div><div class="step"><b>接点・出力</b>：OCRのトリップ出力が外部回路を成立させる。</div><div class="step"><b>遮断</b>：VCB側の引外し機構へ必要なエネルギーが与えられ、遮断器が開く。</div><div class="step"><b>復帰</b>：リレー接点、動作表示、VCBの復帰条件は機種・回路ごとに確認。</div><div class="step"><b>故障時</b>：CT回路、OCR本体、トリップ回路のどこが失われたかを分けて考える。</div></div>
+<details open><summary>3端子・4端子は、まず「引外し方式」から考える</summary><div class="inside">
+<div class="compare"><div class="box ok"><b>一次資料で確認できたこと</b>ムサシインテックは公式に「3端子OCR」と「電流引外し式CB」の連動試験を同じ文脈で扱っています。オムロン現行K2OCも、K2OC-ACNを「変流器2次電流引きはずし」、K2OC-AVNを「電圧・無電圧・直流引きはずし」と明確に分けています。</div><div class="box caution"><b>端子数だけで決めない</b>「4端子なら必ずこの内部回路」という全メーカー共通定義は、今回確認した一次資料だけでは固定できません。端子の名称・共通点・トリップ出力の分離は実機の内部接続図で確認します。</div></div>
+<h3>現場での考え方</h3><p><b>端子数を暗記する前に、VCBを何で引き外す方式か</b>を確認します。三菱電機は、OCR・GRには電流引外し方式と電圧引外し方式があり、VCBと保護リレーは同じ引外し方式で組み合わせると説明しています。</p>
+<div class="flow">事故を見つける部分：CT → OCR
+
+VCBを開かせる部分：
+  A. CT側の電流を利用する電流引外し
+  B. 別のトリップ電源を使う電圧引外し
+  C. コンデンサ引外し電源を使う構成（電圧引外し側）</div>
+<p>つまり、<b>「OCRが検出すること」と「VCBを開かせるエネルギー源」は別の話</b>です。</p>
+</div></details>
+<details><summary>限時51と瞬時50</summary><div class="inside"><p>OCRという箱の中に限時要素51と瞬時要素50を併せ持つ機種があります。たとえばオムロンK2OCは動作電流、動作時間に加えて瞬時電流整定を持っています。したがって「OCR＝51だけ」とは決めません。</p></div></details>
+<details><summary>よくある勘違い</summary><div class="inside"><div class="box mistake"><b>× OCR自身がVCBを機械的に開く</b>一般にはOCRの出力がトリップ回路へ命令を渡し、VCB側の引外し機構が動きます。</div></div></details>
+<a class="db" href="protective-relay.html?q=OCR">実際のOCR型式を検索 →</a>
+<div class="source"><b>一次資料：</b><br>オムロン K2OC 形式/種類・定格/性能（確認 2026-08-09）<br><a href="https://www.fa.omron.co.jp/products/family/3660/lineup/" target="_blank" rel="noopener">公式ページ</a><br>三菱電機 FAQ「保護リレーからVCBの引外し方式の確認」FAQ 13096（公開 2012-03-14）<br><a href="https://fa-faq.mitsubishielectric.co.jp/faq/show/13096?site_domain=default" target="_blank" rel="noopener">公式FAQ</a><br>ムサシインテック リレー試験器ページ（3端子OCR＋電流引外し式CBの記載、確認 2026-08-09）<br><a href="https://www.musashi-in.co.jp/cat-3/cat-3.html" target="_blank" rel="noopener">公式ページ</a></div>
+</section>
+
+<section class="section" id="dgr">
+<div class="head"><div class="icon">DGR</div><div><h2>地絡方向継電器</h2><p>Directional Ground Relay</p></div><div class="num">器具No.<br>67G</div></div>
+<div class="thirty"><b>30秒で分かる</b><strong>「地絡がある」だけでなく、基準量との位相関係から“動作すべき方向”かを判定する。</strong></div>
+<div class="flow">主回路 → ZCT → Io ┐
+                       ├→ DGR → 方向判定 → 出力
+系統   → ZPD/ZVT → Vo ┘</div>
+<div class="steps"><div class="step"><b>通常時</b>：Io・Voは動作条件を満たさない。</div><div class="step"><b>地絡発生</b>：ZCTが零相電流Io、ZPD/ZVT等が零相電圧Voを与える。</div><div class="step"><b>方向判定</b>：大きさだけでなくIoとVo等の位相関係を確認。</div><div class="step"><b>接点</b>：電流・電圧・位相・時限の条件を満たすと出力接点が動く。</div><div class="step"><b>遮断・警報</b>：設備側の外部シーケンスに応じてVCB/PAS等のトリップや警報へつながる。</div><div class="step"><b>復帰</b>：自動/手動復帰は型式・設定で確認。</div><div class="step"><b>故障時</b>：Io入力、Vo入力、制御電源、共通信号を分けて診断する。</div></div>
+<details open><summary>M・N端子って何？ — 三菱旧MELPRO-Aの具体例</summary><div class="inside">
+<div class="status"><span class="v">✓ メーカー一次資料で確認</span><span>MDG-A1 / A2 + MPD-3</span></div>
+<p>三菱電機の公式FAQでは、MPD-3形ZVTに直接接続できるリレーは<b>5台まで</b>。6台以上の場合は、MPD-3につながっているリレーの<b>「Vo拡張端子（M-N）」</b>を利用し、そのM-Nからさらに20台まで接続できると明記されています。</p>
+<div class="flow">MPD-3（Vo検出）
+   ├─ MDG 1
+   ├─ MDG 2
+   ├─ MDG 3
+   ├─ MDG 4
+   └─ MDG 5 ── M-N（Vo拡張） ──→ 追加DGR群（最大20台：当該FAQの構成）</div>
+<div class="box caution"><b>重要</b>M・NはDGR一般に共通する“親子端子名”ではありません。上記は三菱MDG-A1/A2世代で公式確認できた具体例です。別メーカー・別世代では結線図を個別確認します。</div>
+</div></details>
+<details open><summary>「親機・子機」って何？</summary><div class="inside">
+<p>まずメーカー正式名称を探します。今回確認した三菱資料では、正式な説明は<b>「Vo拡張端子（M-N）」</b>です。「親機・子機」という語を聞いたときは、<b>“Voの元へ直接つながる側と、拡張されたVoを受ける側の話か？”</b>を図面で確認するのが安全です。</p>
+<div class="box unknown"><b>未確認を残す</b>「親機」「子機」を全メーカー共通の正式分類として定義できる一次資料は、今回の調査では確認できていません。現場用語とメーカー用語を混ぜないようにします。</div>
+<h3>故障時に考える順</h3><p>① Voの元になる検出器 → ② 直接接続側 → ③ M-N等の拡張線 → ④ 下流側リレー、の順に「どこまで同じ信号を共有しているか」を結線図で追います。</p>
+</div></details>
+<details><summary>Vo＋Io以外に「電流＋電流」のDGRはある？</summary><div class="inside">
+<div class="status"><span class="v">✓ 存在まで確認</span><span class="u">△ 原理・代表型式は調査中</span></div>
+<p>ムサシインテックの公式試験器ページでは、特別高圧設備向けに<b>「電流抑制タイプの地絡方向継電器」</b>が存在することまでは確認できます。</p>
+<p>一方で、「どの2つの電流を使うのか」「現場でいう“電流・電流タイプ”と同一概念なのか」「代表リレー型式は何か」は、今回のメーカー一次資料ではまだ確定していません。</p>
+<div class="box caution"><b>したがって今は断定しない</b>一般的な高圧受電用DGRのIo＋Vo方式と、電流抑制タイプを同じ回路として描きません。型式とメーカー資料が固まってから別教材にします。</div>
+</div></details>
+<details><summary>VoとIo・位相をどう考える？</summary><div class="inside"><p>オムロンK2DGは、零相電流と零相電圧の整定に加えて<b>動作位相整定</b>を持つ現行DGRです。「Ioが大きい」だけではなく、VoとIoの関係が動作条件に入ります。最大感度角や動作領域は機種ごとに違うため、教材の概念図と実機の位相特性図を分けます。</p></div></details>
+<details><summary>よくある勘違い</summary><div class="inside"><div class="box mistake"><b>× 地絡電流が大きければ必ずDGRが動く</b>DGRは方向判定条件も持ちます。Vo入力断線、ZCT極性、ZPD/ZVT異常、共有信号断線などでは「何の情報を失ったか」を分けて考えます。</div></div></details>
+<a class="db" href="protective-relay.html?q=DGR">実際のDGR型式を検索 →</a>
+<div class="source"><b>一次資料：</b><br>三菱電機 FAQ 13142「組合せ変成器について」（M-N＝Vo拡張端子、公開 2012-02-24）<br><a href="https://fa-faq.mitsubishielectric.co.jp/faq/show/13142?site_domain=default" target="_blank" rel="noopener">公式FAQ</a><br>三菱電機 MDG-A3 マニュアル JEP0-IL2122-D、Ver.D、2022年10月<br><a href="https://www.mitsubishielectric.co.jp/fa/products/faspec/download.page?category=ex&formNm=MDG-A3&id=spec&kisyu=%2Fpror&sub=manual" target="_blank" rel="noopener">公式マニュアル一覧</a><br>オムロン K2DG 定格/性能（Io・Vo・動作位相、確認 2026-08-09）<br><a href="https://www.fa.omron.co.jp/products/family/3661/specification/" target="_blank" rel="noopener">公式ページ</a><br>ムサシインテック DGR試験器（「電流抑制タイプ」の存在、確認 2026-08-09）<br><a href="https://www.musashi-in.co.jp/cat-3/cat-3.html" target="_blank" rel="noopener">公式ページ</a></div>
+</section>
+
+<section class="section" id="ovgr">
+<div class="head"><div class="icon">OVGR</div><div><h2>地絡過電圧継電器</h2><p>Over Voltage Ground Relay</p></div><div class="num">器具No.<br>64</div></div>
+<div class="thirty"><b>30秒で分かる</b><strong>ZPD・EVT・GPT等から得る零相電圧 Vo が設定値を超えたかを見る。</strong></div>
+<div class="flow">系統 → ZPD / EVT / GPT 等 → Vo → OVGR → 接点 → 警報 / 遮断シーケンス</div>
+<div class="compare"><div class="box"><b>OVGR</b>基本はVoの大きさを判定。</div><div class="box"><b>DGR</b>Io＋Vo等から地絡の方向まで判定。</div></div>
+<details open><summary>太陽光発電設備では何のため？</summary><div class="inside"><p>高圧の自家消費型太陽光でOVGRとRPRが一体化した製品は実際にあります。オムロンK2ZC-K2RVは公式に<b>OVGR（64）＋RPR（67P）</b>を自家消費型太陽光発電用として掲載しています。</p><div class="box caution"><b>ただし「太陽光＝必ずOVGR＋RPR」ではない</b>逆潮流の可否、連系方式、PCS内蔵保護、一般送配電事業者との協議条件で構成は変わります。売電/自家消費という言葉だけで外付けリレー構成を断定しません。</div></div></details>
+<details><summary>通常時 → 動作 → 復帰</summary><div class="inside"><p>通常時はVoが整定以下。地絡等によりVoが上昇し、整定値と時限条件を満たすと出力接点が動作。外部シーケンスにより警報・遮断へつながります。復帰方式は機種の自動/手動設定を確認します。</p></div></details>
+<a class="db" href="protective-relay.html?q=OVGR">実際のOVGR型式を検索 →</a>
+<div class="source"><b>一次資料：</b> オムロン K2ZC-K2RV 形式/種類・定格/性能（OVGR 64、確認 2026-08-09）<br><a href="https://www.fa.omron.co.jp/products/family/3832/specification/" target="_blank" rel="noopener">公式ページ</a></div>
+</section>
+
+<section class="section" id="rpr">
+<div class="head"><div class="icon">RPR</div><div><h2>逆電力継電器</h2><p>Reverse Power Relay</p></div><div class="num">国内基本表示<br>67P</div></div>
+<div class="thirty"><b>30秒で分かる</b><strong>電流の向きだけでなく、電圧・電流・位相から有効電力の方向を判断する。</strong></div>
+<div class="diagram"><div class="node">電圧入力</div><div class="arrow">＋</div><div class="node">電流入力・位相</div><div class="arrow">→</div><div class="node">有効電力の方向 → RPR</div></div>
+<div class="steps"><div class="step"><b>通常時</b>：受電点の有効電力方向が許容側。</div><div class="step"><b>逆方向の電力</b>：発電量と負荷の関係などで、監視点の電力方向が反転。</div><div class="step"><b>判定</b>：電圧・電流・位相から逆電力を算出し、整定値・時限を判定。</div><div class="step"><b>出力</b>：RPR接点が外部の連系・遮断シーケンスへ命令を渡す。</div><div class="step"><b>復帰</b>：逆電力が復帰条件を満たした後の接点復帰は型式仕様に従う。</div></div>
+<details open><summary>67Pと32 / 32Rはどう整理する？</summary><div class="inside"><div class="compare"><div class="box ok"><b>日本の現場表示</b>国内メーカー製品ではRPRを<b>67P</b>と表示する例があります。うきわメモの基本表示も67Pにします。</div><div class="box"><b>海外資料</b>IEEE/ANSI系の資料ではReverse Powerに32/32Rを使う例があります。番号体系を混ぜず、別フィールドで扱います。</div></div><p>したがって「67P＝ANSI番号」とは書かず、<b>国内器具番号67P / 海外IEEE・ANSI系32等</b>と分けます。</p></div></details>
+<details open><summary>太陽光：受電と逆潮流を絵で見る</summary><div class="inside">
+<div class="solar"><div class="box"><b>発電量 ＜ 構内負荷</b>電力会社 → 受電点 → 負荷<br>不足分を系統から受ける。</div><div class="box"><b>発電量 ＞ 構内負荷</b>PCS → 受電点 → 系統側へ電力が向かう可能性。逆潮流を許す/許さない条件は設備ごとに確認。</div></div>
+<div class="flow">電力会社 ─── 受電点 ─── 構内負荷
+                 │
+                 └──── PCS ← 太陽光</div>
+<p>自家消費・逆潮流なしの保護構成では、受電点側へ逆方向の有効電力が出たことをRPRで検出する製品例があります。一方、逆潮流を許容する連系では「逆に流れたら即トリップ」という単純な説明は成立しません。</p>
+</div></details>
+<details><summary>発電機のRPRとは目的が同じ？</summary><div class="inside"><p>同じ「逆電力」を見る機能でも、発電機では原動機出力を失った発電機が系統から電力を受けてモータリングすることの保護など、目的が異なります。太陽光の逆潮流対策と発電機保護は章を分けます。</p></div></details>
+<a class="db" href="protective-relay.html?q=RPR">実際のRPR型式を検索 →</a>
+<div class="source"><b>一次資料：</b> オムロン K2ZC-K2RV 自家消費型太陽光発電用保護継電器。公式仕様でOVGR（64）、RPR（67P）、電圧入力・電流入力・位相特性を確認（2026-08-09）。<br><a href="https://www.fa.omron.co.jp/products/family/3832/specification/" target="_blank" rel="noopener">公式仕様</a></div>
+</section>
+
+<section class="section" id="check">
+<div class="head"><div class="icon">✓</div><div><h2>新人セルフチェック</h2><p>答えられなければ、該当章だけ戻る</p></div></div>
+<div class="steps"><div class="step">OCRが事故を見つける部分と、VCBを開かせるエネルギー源を分けて説明できる？</div><div class="step">「3端子だから○○」と端子数だけで決めず、引外し方式と内部接続図を確認する理由を説明できる？</div><div class="step">DGRがIoだけでなくVo等の基準量を使う理由を説明できる？</div><div class="step">三菱MDG-A1/A2のM-Nが何のための端子か説明できる？</div><div class="step">「親機・子機」がメーカー正式用語とは限らない理由を説明できる？</div><div class="step">電流抑制タイプDGRについて、確認済みと未確認を区別できる？</div><div class="step">OVGRとDGRの違いを一言で説明できる？</div><div class="step">RPRが電流だけではなく電圧・位相も必要な理由を説明できる？</div><div class="step">RPRの67Pと海外32/32Rを同じ規格番号として混ぜない？</div><div class="step">太陽光設備のOVGR/RPR構成を、売電/自家消費だけで断定しない理由を説明できる？</div></div>
+</section>
+
+<section class="section sources-all" id="sources">
+<div class="head"><div class="icon">文</div><div><h2>一次資料と確認状態</h2><p>教材の事実と、まだ調査中の部分を分ける</p></div></div>
+<ul>
+<li>三菱電機：MDG-A1/A2のM-Nを「Vo拡張端子」と公式確認。MPD-3直接接続5台、M-Nから追加20台の条件はFAQ 13142の当該構成。<br><a href="https://fa-faq.mitsubishielectric.co.jp/faq/show/13142?site_domain=default">https://fa-faq.mitsubishielectric.co.jp/faq/show/13142?site_domain=default</a></li>
+<li>三菱電機：MDG-A3取説 JEP0-IL2122-D、Ver.D、更新2022年10月。<br><a href="https://www.mitsubishielectric.co.jp/fa/products/faspec/download.page?category=ex&formNm=MDG-A3&id=spec&kisyu=%2Fpror&sub=manual">公式マニュアルページ</a></li>
+<li>三菱電機：OCR/GRの電流引外し・電圧引外し、DGRの引外し方式、コンデンサ引外し電源について FAQ 13096。<br><a href="https://fa-faq.mitsubishielectric.co.jp/faq/show/13096?site_domain=default">公式FAQ</a></li>
+<li>オムロン：K2OC-AVN（電圧・無電圧・直流引外し）/ K2OC-ACN（CT二次電流引外し）。<br><a href="https://www.fa.omron.co.jp/products/family/3660/lineup/">公式K2OC</a></li>
+<li>オムロン：K2DGはIo、Vo、動作位相整定を持つ現行DGR。<br><a href="https://www.fa.omron.co.jp/products/family/3661/specification/">公式K2DG</a></li>
+<li>オムロン：K2ZC-K2RVは自家消費型太陽光発電用のOVGR（64）＋RPR（67P）。<br><a href="https://www.fa.omron.co.jp/products/family/3832/specification/">公式K2ZC-K2RV</a></li>
+<li>ムサシインテック：「3端子OCR＋電流引外し式CB」「電流抑制タイプDGR」の存在を公式製品説明で確認。<br><a href="https://www.musashi-in.co.jp/cat-3/cat-3.html">公式リレー試験器</a></li>
+</ul>
+<div class="box unknown"><b>未確認・次回深掘り</b>「電流＋電流方式DGR」の具体的な原理・代表型式・正式名称、および「4端子OCR」を全メーカー共通に定義できる一次資料は、現時点で未確定。推測で埋めず、型式別取説を追加調査する。</div>
+</section>
+</main>
+<footer class="foot">うきわメモ v12｜技術確認日 2026-08-09<br>教育用。実設備では完全型式・最新版取扱説明書・単線結線図・展開接続図・現場手順を確認してください。</footer>
+</body>
+</html>
