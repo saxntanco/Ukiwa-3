@@ -1,16 +1,18 @@
 {
-  "version": "v49-island-plus-transparent-ring",
-  "top_island_restored": true,
-  "ring_links": "transparent hotspots over the text already printed in the ring image",
-  "visible_overlay_labels": false,
-  "targets": {
-    "発電機": "generator-rescue-island.html",
-    "保護継電器": "protective-relay.html",
-    "試験・測定": "test-measurement.html",
-    "充電電流計算": "ac-withstand-test-simulator.html#calc",
-    "電気の基礎": "工事中",
-    "シーケンス": "工事中"
+  "version": "v50-restore-content-keep-island-ring",
+  "base": "v47 last-known-good content",
+  "subpages_untouched": {
+    "protective-relay.html": true,
+    "generator-rescue-island.html": true,
+    "ac-withstand-test-simulator.html": true,
+    "relay-test-flow.html": true
   },
+  "top_changes_only": [
+    "restored home archipelago image",
+    "kept ring menu",
+    "made only baked-in ring text positions transparent clickable"
+  ],
+  "test_measurement": "restored to prior state (construction link; no invented hub page)",
   "js_syntax_ok": true,
   "missing_local_references": []
 }
