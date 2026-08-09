@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#078bca" name="theme-color"/>
+<title>ぷかぷかうきわメモ｜電気保安を、海の冒険に。</title>
+<meta content="高圧受変電設備、保護継電器、試験・測定を海の冒険世界で学ぶ電気保安学習サイト。" name="description"/>
+<style>
+:root{
+  --deep:#073b71;
+  --blue:#087cd0;
+  --blue2:#0ca6db;
+  --cyan:#72def4;
+  --ice:#eafcff;
+  --white:#fff;
+  --gold:#e5bd63;
+  --ink:#123b69;
+  --muted:#567b9b;
+  --nav-h:70px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+  background:#d9f7ff;
+  overflow-x:hidden;
+  padding-bottom:var(--nav-h);
+}
+a,button{font:inherit}
+button{cursor:pointer}
+img{max-width:100%}
+:focus-visible{outline:3px solid #ffe488;outline-offset:3px}
+
+/* Header */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:92px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px clamp(18px,3vw,34px);
+  background:linear-gradient(90deg,rgba(255,255,255,.96),rgba(255,255,255,.84));
+  border-bottom:1px solid rgba(255,255,255,.75);
+  box-shadow:0 6px 20px rgba(0,79,123,.08);
+  backdrop-filter:blur(15px);
+}
+.brand{
+  display:flex;align-items:center;gap:13px;text-decoration:none;color:#0873b4;
+}
+.brand img{width:55px;height:55px}
+.brand strong{display:block;font-size:24px;letter-spacing:.02em}
+.brand small{display:block;color:#123b69;font-size:14px;font-weight:800;margin-top:2px}
+.header-actions{display:flex;align-items:center;gap:14px}
+.theme-btn{
+  min-height:56px;padding:0 19px;border:0;border-radius:22px;
+  background:rgba(255,255,255,.87);color:#173c68;font-size:18px;font-weight:900;
+  box-shadow:0 8px 18px rgba(0,72,116,.10);
+}
+.menu-btn{
+  width:56px;height:56px;border-radius:50%;
+  border:4px solid #fff;background:#1186c8;color:white;font-size:27px;font-weight:1000;
+  box-shadow:0 8px 20px rgba(0,72,116,.17)
+}
+
+/* HERO */
+.hero{
+  min-height:760px;
+  padding:122px clamp(20px,4vw,55px) 28px;
+  position:relative;overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(circle at 15% 5%,rgba(255,255,255,.98) 0 2%,rgba(255,255,255,.28) 13%,transparent 30%),
+    radial-gradient(circle at 90% 14%,rgba(255,255,255,.62),transparent 20%),
+    linear-gradient(180deg,#63d4f2 0%,#1daadd 44%,#078cc8 57%,#0879c2 100%);
+}
+.hero:before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    linear-gradient(180deg,transparent 0 53%,rgba(0,104,175,.07) 53% 100%),
+    repeating-radial-gradient(ellipse at 50% 105%,rgba(255,255,255,.22) 0 2px,transparent 4px 26px);
+  opacity:.75
+}
+.hero:after{
+  content:"";position:absolute;left:0;right:0;top:53%;height:2px;background:rgba(255,255,255,.47);
+  box-shadow:0 16px 30px rgba(255,255,255,.16)
+}
+.hero-grid{
+  width:min(1180px,100%);margin:auto;
+  min-height:600px;
+  display:grid;grid-template-columns:minmax(350px,.94fr) minmax(410px,1.06fr);
+  align-items:center;gap:52px;
+}
+.card-stage{
+  position:relative;min-height:620px;display:grid;place-items:center;perspective:1600px
+}
+.hero-card{
+  position:relative;z-index:4;width:min(430px,92%);aspect-ratio:1024/1450;
+  padding:0;border:0;background:none;perspective:1600px
+}
+.hero-card-inner{
+  position:absolute;inset:0;display:block;transform-style:preserve-3d;
+  transition:transform .82s cubic-bezier(.2,.78,.2,1)
+}
+.hero-card.is-flipped .hero-card-inner{transform:rotateY(180deg)}
+.hero-card-face{
+  position:absolute;inset:0;border-radius:28px;overflow:hidden;display:block;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  box-shadow:0 30px 48px rgba(0,46,90,.33),0 0 0 2px rgba(255,221,127,.78)
+}
+.hero-card-front img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-card-back{
+  transform:rotateY(180deg);
+  padding:34px;
+  background:
+    radial-gradient(circle at 50% 26%,rgba(94,220,246,.26),transparent 34%),
+    linear-gradient(160deg,#07538a,#07345e 62%,#051f43);
+  border:3px solid var(--gold);color:white;text-align:left;
+  display:flex;flex-direction:column;justify-content:center
+}
+.hero-card-back:before{
+  content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.24);border-radius:20px;pointer-events:none
+}
+.hero-card-back .back-kicker{font-size:10px;letter-spacing:.16em;font-weight:1000;color:#82e9f7}
+.hero-card-back h2{font-size:34px;line-height:1.2;margin:13px 0}
+.hero-card-back p{font-size:13px;line-height:1.9;color:#d7f7ff}
+.hero-card-back ul{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 18px;padding:0;list-style:none}
+.hero-card-back li{padding:9px 10px;border-radius:12px;background:rgba(255,255,255,.09);font-size:11px;font-weight:900}
+.hero-card-back .skill{padding:13px;border-radius:14px;background:rgba(87,213,240,.13);border:1px solid rgba(121,232,250,.26);font-weight:1000}
+.hero-card-back small{margin-top:14px;color:#bcdce8;line-height:1.55}
+.card-water{
+  position:absolute;z-index:1;left:50%;bottom:45px;width:88%;height:110px;transform:translateX(-50%);
+  border-radius:50%;border:2px solid rgba(234,254,255,.72);
+  box-shadow:0 0 0 13px rgba(185,244,255,.11),0 0 0 32px rgba(185,244,255,.05)
+}
+.card-water:after{
+  content:"";position:absolute;left:50%;top:50%;width:66%;height:44%;transform:translate(-50%,-50%);
+  border-radius:50%;background:rgba(0,70,111,.22);filter:blur(12px)
+}
+.hero-copy{position:relative;z-index:3;max-width:620px;color:white}
+.world-badge{
+  display:inline-flex;align-items:center;gap:8px;padding:9px 17px;border-radius:999px;
+  background:linear-gradient(135deg,#1494df,#0870c8);border:1px solid rgba(255,255,255,.62);
+  font-size:13px;font-weight:1000;box-shadow:0 8px 18px rgba(0,75,131,.16)
+}
+.hero-copy h1{
+  margin:28px 0 22px;
+  font-size:clamp(54px,6.1vw,84px);line-height:1.08;letter-spacing:-.045em;
+  text-shadow:0 4px 18px rgba(0,76,124,.18)
+}
+.hero-copy p{font-size:20px;line-height:1.82;font-weight:800;text-shadow:0 2px 8px rgba(0,73,118,.16)}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:20px;min-height:66px;margin-top:28px;padding:0 25px;
+  border-radius:22px;background:linear-gradient(180deg,#168ce2,#0861c0);border:2px solid rgba(255,255,255,.82);
+  color:white;text-decoration:none;font-size:17px;font-weight:1000;
+  box-shadow:0 14px 28px rgba(0,66,128,.28),inset 0 1px 0 rgba(255,255,255,.4)
+}
+.hero-cta i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#f2fbff;color:#0970c4;font-style:normal}
+.hero-scroll{display:block;margin-top:19px;font-size:11px;color:#e5fbff;font-weight:900;text-align:center;max-width:365px}
+.hero-scroll span{display:block;font-size:25px;line-height:.9}
+
+/* Route */
+.route-section{
+  position:relative;padding:38px 18px 36px;text-align:center;
+  background:
+    radial-gradient(circle at 13% 34%,rgba(255,255,255,.9) 0 2px,transparent 3px),
+    radial-gradient(circle at 90% 40%,rgba(255,255,255,.8) 0 3px,transparent 4px),
+    linear-gradient(180deg,#d9f4ff 0%,#9ee5f6 49%,#58c9ed 100%);
+  overflow:hidden
+}
+.route-section:after{
+  content:"";position:absolute;inset:auto -5% 0;height:65%;background:repeating-radial-gradient(ellipse at 50% 100%,rgba(255,255,255,.32) 0 2px,transparent 4px 24px);opacity:.58;pointer-events:none
+}
+.route-head{position:relative;z-index:3}
+.route-head .eyebrow{font-size:12px;letter-spacing:.2em;font-weight:1000;color:#267bad}
+.route-head h2{margin:4px 0 2px;font-size:clamp(31px,4vw,49px);color:#0c3c73}
+.route-ring{
+  --tilt-x:0deg;--tilt-y:0deg;
+  position:relative;z-index:3;width:min(930px,100%);height:560px;margin:4px auto 0;
+  perspective:1400px;transform-style:preserve-3d;touch-action:pan-y;outline:none
+}
+.ring-water{
+  position:absolute;left:50%;bottom:29px;width:80%;height:170px;transform:translateX(-50%);
+  border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.75),rgba(70,194,225,.25) 40%,transparent 70%);
+  border:1px solid rgba(255,255,255,.4);box-shadow:0 0 0 20px rgba(255,255,255,.06)
+}
+.ring-prop{
+  position:absolute;left:50%;top:49%;z-index:3;width:440px;height:440px;
+  transform:translate(-50%,-50%) rotateX(calc(12deg + var(--tilt-x))) rotateY(var(--tilt-y));
+  filter:drop-shadow(0 30px 24px rgba(0,61,100,.28)) drop-shadow(0 0 16px rgba(197,247,255,.4));
+  transition:transform .2s ease-out;pointer-events:none
+}
+.ring-prop img{width:100%;height:100%;object-fit:contain}
+.ring-hole-message{
+  position:absolute;left:50%;top:50%;z-index:4;transform:translate(-50%,-50%) rotateX(8deg);
+  color:#fff;font-size:15px;line-height:1.5;font-weight:1000;text-shadow:0 2px 8px rgba(0,85,130,.4);pointer-events:none
+}
+.orbit{position:absolute;inset:0;z-index:5;transform-style:preserve-3d}
+.route-card{
+  --angle:0deg;--scale:.68;--opacity:.34;
+  position:absolute;left:50%;top:49%;width:178px;min-height:116px;padding:14px 15px;
+  text-align:left;border-radius:18px;border:2px solid rgba(224,187,95,.9);background:rgba(255,255,255,.94);color:#123e70;
+  box-shadow:0 14px 30px rgba(0,73,105,.18);
+  transform:
+    translate(-50%,-50%)
+    rotateY(var(--angle))
+    translateZ(320px)
+    rotateY(calc(var(--angle)*-1))
+    scale(var(--scale));
+  opacity:var(--opacity);
+  transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .42s ease,filter .42s ease,box-shadow .42s ease;
+  will-change:transform,opacity
+}
+.route-card.is-selected{--scale:1;--opacity:1;box-shadow:0 18px 38px rgba(0,62,99,.28),0 0 0 3px rgba(255,222,126,.35)}
+.route-card.is-back{filter:brightness(.78) saturate(.76) blur(.2px)}
+.route-num{font-size:10px;color:#76badd;font-weight:1000}.route-card .icon{font-size:22px;display:block}.route-card strong{display:block;font-size:15px;margin-top:3px}.route-card small{display:block;font-size:10px;line-height:1.5;color:#587791;margin-top:4px}
+.ring-arrow{
+  position:absolute;top:49%;z-index:9;width:54px;height:54px;transform:translateY(-50%);
+  border-radius:50%;border:3px solid white;background:#dff8ff;color:#0873c0;font-size:30px;box-shadow:0 10px 20px rgba(0,77,115,.17)
+}
+.ring-arrow.prev{left:0}.ring-arrow.next{right:0}
+.pager{position:relative;z-index:6;display:flex;justify-content:center;gap:8px;margin-top:-34px}
+.pager button{width:11px;height:11px;padding:0;border:0;border-radius:50%;background:#c2dfeb}
+.pager button.active{background:#ffc93e;box-shadow:0 0 10px rgba(255,201,62,.9)}
+.route-selected{position:relative;z-index:5;width:min(510px,calc(100% - 28px));margin:13px auto 0;padding:13px 16px;border-radius:16px;background:rgba(7,75,127,.92);color:white;box-shadow:0 12px 25px rgba(0,64,98,.18)}
+.route-selected h3{margin:2px 0;font-size:19px}.route-selected p{margin:0 0 8px;font-size:10px;color:#dff8ff}.route-selected a{display:inline-flex;min-height:40px;align-items:center;padding:0 14px;border-radius:11px;background:white;color:#0870a8;text-decoration:none;font-size:10px;font-weight:1000}
+
+/* Map */
+.map-panel{
+  position:relative;z-index:4;width:min(1180px,calc(100% - 34px));min-height:285px;margin:0 auto 34px;
+  display:grid;grid-template-columns:.68fr 1.32fr;overflow:hidden;border-radius:28px;
+  background:linear-gradient(135deg,#f9feff,#dff4fb);
+  border:3px solid rgba(255,255,255,.88);box-shadow:0 18px 38px rgba(0,68,103,.16)
+}
+.map-copy{padding:39px 38px;align-self:center;text-align:left}
+.map-copy h2{font-size:34px;margin:0 0 9px;color:#123f75}.map-copy p{font-size:13px;font-weight:800;color:#456d8f}.map-copy a{display:inline-flex;align-items:center;gap:20px;min-height:55px;padding:0 21px;margin-top:9px;border-radius:18px;background:linear-gradient(#148de0,#0864c4);color:white;text-decoration:none;font-weight:1000;box-shadow:0 12px 22px rgba(0,79,150,.22)}
+.map-copy a i{font-style:normal;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#effaff;color:#086ac0}
+.map-art{position:relative;min-height:285px;background:#53bde6}
+.map-art img{width:100%;height:100%;object-fit:cover}
+.map-label{
+  position:absolute;padding:5px 10px;border-radius:999px;background:rgba(5,61,101,.88);color:white;font-size:10px;font-weight:900;box-shadow:0 3px 8px rgba(0,42,70,.16)
+}
+.ml1{left:10%;top:47%}.ml2{left:42%;top:11%}.ml3{right:8%;top:28%}.ml4{right:11%;bottom:7%}
+
+/* Bottom nav */
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:110;height:var(--nav-h);
+  padding-bottom:env(safe-area-inset-bottom);
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:rgba(255,255,255,.96);border-top:1px solid #cce7f0;box-shadow:0 -6px 18px rgba(0,64,100,.09);backdrop-filter:blur(12px)
+}
+.bottom-nav a{display:grid;place-items:center;text-decoration:none;color:#173e68;font-size:11px;font-weight:900;min-width:0}
+.bottom-nav a span{display:block;text-align:center}.bottom-nav b{display:block;font-size:24px;line-height:1.05}
+.bottom-nav a.active{background:linear-gradient(#fff,#eefaff);color:#0871b8}
+
+/* Floating chat */
+.chat-bubble{
+  position:fixed;right:20px;bottom:calc(var(--nav-h) + 18px);z-index:120;width:62px;height:62px;border-radius:50%;
+  display:grid;place-items:center;border:0;background:linear-gradient(145deg,#45b7f5,#1171e6);box-shadow:0 14px 25px rgba(0,73,145,.27);font-size:28px
+}
+
+/* tiny anchor destinations, hidden from visual load */
+.destination{scroll-margin-top:110px}
+.destination-card{width:min(900px,calc(100% - 30px));margin:24px auto;padding:20px;border-radius:20px;background:white;border:1px solid #cbe7ef}
+.destination-card h2{margin:0 0 8px}.destination-card p{color:#58758a;line-height:1.7}
+
+@media(max-width:820px){
+  .site-header{height:76px;padding:9px 13px}.brand img{width:44px;height:44px}.brand strong{font-size:18px}.brand small{font-size:10px}.theme-btn{min-height:48px;padding:0 13px;font-size:14px}.menu-btn{width:48px;height:48px}
+  .hero{padding:94px 14px 30px;min-height:860px}
+  .hero-grid{grid-template-columns:1fr;gap:4px;min-height:auto}
+  .card-stage{min-height:510px}.hero-card{width:min(330px,77vw)}
+  .hero-copy{text-align:center;margin:auto}.hero-copy h1{font-size:52px;margin:12px 0}.hero-copy p{font-size:16px}.world-badge{font-size:10px}.hero-cta{min-height:56px;font-size:14px;margin-top:16px}.hero-scroll{margin:13px auto 0}
+  .route-ring{height:520px}.ring-prop{width:330px;height:330px}
+  .route-card{width:147px;min-height:96px;transform:translate(-50%,-50%) rotateY(var(--angle)) translateZ(245px) rotateY(calc(var(--angle)*-1)) scale(var(--scale))}
+  .map-panel{grid-template-columns:1fr}.map-copy{padding:25px 26px}.map-art{min-height:250px}
+}
+@media(max-width:520px){
+  :root{--nav-h:66px}
+  .site-header{height:68px}.brand{gap:8px}.brand img{width:39px;height:39px}.brand strong{font-size:16px}.brand small{font-size:9px}.theme-btn{min-height:44px;padding:0 10px;font-size:12px}.menu-btn{width:44px;height:44px;font-size:21px}
+  .hero{padding:80px 10px 26px;min-height:760px}
+  .card-stage{min-height:405px}.hero-card{width:min(300px,80vw)}.card-water{bottom:25px}
+  .hero-copy h1{font-size:40px}.hero-copy p{font-size:14px;line-height:1.65}.hero-cta{min-height:52px;padding:0 17px;gap:12px}
+  .route-section{padding:32px 7px 28px}.route-head h2{font-size:33px}.route-head .eyebrow{font-size:9px}
+  .route-ring{height:450px}.ring-prop{width:255px;height:255px}
+  .route-card{width:120px;min-height:80px;padding:9px 10px;transform:translate(-50%,-50%) rotateY(var(--angle)) translateZ(184px) rotateY(calc(var(--angle)*-1)) scale(var(--scale))}
+  .route-card small{display:none}.route-card strong{font-size:12px}.route-card .icon{font-size:18px}.ring-hole-message{font-size:12px}.ring-arrow{width:44px;height:44px}.ring-arrow.prev{left:1px}.ring-arrow.next{right:1px}.pager{margin-top:-25px}
+  .map-panel{width:calc(100% - 14px);border-radius:19px}.map-copy{padding:22px}.map-copy h2{font-size:28px}.map-copy p{font-size:11px}.map-art{min-height:220px}
+  .bottom-nav a{font-size:10px}.bottom-nav b{font-size:21px}.chat-bubble{right:12px;width:54px;height:54px;font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+  .hero-card-inner,.route-card,.ring-prop{transition:none!important}
+}
+body.dark{
+  background:#062a43;color:#e9fbff
+}
+body.dark .site-header,.dark .bottom-nav{background:rgba(4,31,49,.94);border-color:#174c68}
+body.dark .brand small,.dark .bottom-nav a{color:#d5eff8}
+body.dark .route-section{background:linear-gradient(#082f49,#0a5978)}
+body.dark .route-head h2,.dark .route-head p{color:#eafcff}
+body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;border-color:#1b5c78}
+
+/* v32: UR card long-press awakening / ANOTHER OCEAN */
+.hero-card.is-awakening{
+  animation:cardAwaken 1.05s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 14px rgba(116,225,255,.62));
+  transition:filter .6s ease,transform .6s ease
+}
+.hero-card.is-awakening::before{
+  content:"";position:absolute;inset:-12px;border-radius:28px;
+  border:2px solid rgba(118,225,255,.78);
+  box-shadow:0 0 16px rgba(84,210,255,.68),0 0 34px rgba(224,185,78,.3);
+  z-index:9;pointer-events:none;animation:awakenRing 1.8s ease-in-out forwards
+}
+.hero-card.is-awakening::after{
+  content:"";position:absolute;left:50%;top:50%;width:120%;aspect-ratio:1;border-radius:50%;
+  border:2px solid rgba(130,227,255,.5);transform:translate(-50%,-50%) scale(.35);
+  opacity:0;z-index:-1;pointer-events:none;animation:awakenRipple 1.8s ease-out forwards
+}
+@keyframes cardAwaken{
+  0%{transform:translateY(1px) rotate(-.45deg) scale(.994)}
+  50%{transform:translateY(3px) rotate(.55deg) scale(.989)}
+  100%{transform:translateY(2px) rotate(-.2deg) scale(.991)}
+}
+@keyframes awakenRing{
+  0%{opacity:.2;transform:scale(.985);box-shadow:0 0 10px rgba(84,210,255,.4)}
+  45%{opacity:1;transform:scale(1.015);box-shadow:0 0 24px rgba(84,210,255,.82),0 0 40px rgba(224,185,78,.28)}
+  80%{opacity:.8;transform:scale(1.04)}
+  100%{opacity:0;transform:scale(1.075)}
+}
+@keyframes awakenRipple{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}
+  25%{opacity:.48}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}
+}
+.another-ocean{
+  position:fixed;inset:0;z-index:9999;background:#03163b;display:grid;place-items:center;
+  opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;overflow:hidden
+}
+.another-ocean::before{
+  content:"";position:absolute;inset:-42px;background:url('./another-ocean.png') center/cover no-repeat;
+  filter:blur(30px) saturate(.9) brightness(.66);transform:scale(1.08);opacity:.82
+}
+.another-ocean.is-open{opacity:1;visibility:visible}
+.another-ocean__art{
+  position:relative;z-index:1;width:100%;height:100%;object-fit:contain;object-position:center;
+  transform:scale(.965);transition:transform 1.25s cubic-bezier(.18,.72,.18,1);
+  user-select:none;-webkit-user-drag:none
+}
+.another-ocean.is-open .another-ocean__art{transform:scale(1)}
+.another-ocean__shade{position:absolute;z-index:2;inset:0;background:linear-gradient(180deg,rgba(0,12,40,.04),transparent 55%,rgba(0,10,35,.16));pointer-events:none}
+.another-ocean__close{position:absolute;right:18px;top:max(18px,env(safe-area-inset-top));width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(4,32,77,.48);backdrop-filter:blur(12px);color:white;font-size:28px;line-height:1;z-index:4}
+.another-ocean__hint{position:absolute;left:50%;bottom:max(24px,calc(env(safe-area-inset-bottom) + 14px));transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(3,28,68,.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;letter-spacing:.08em;z-index:4;white-space:nowrap}
+@media(max-width:600px){
+  .another-ocean__art{width:100vw;height:100dvh;object-fit:contain;object-position:center}
+  .another-ocean__close{right:12px}.another-ocean__hint{bottom:max(78px,calc(env(safe-area-inset-bottom) + 18px))}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-card.is-awakening{animation:none}.hero-card.is-awakening::before,.hero-card.is-awakening::after{animation:none}
+  .another-ocean,.another-ocean__art{transition:none!important}
+}
+
+</style>
+<link href="./icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="./apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="./manifest.webmanifest" rel="manifest"/>
+<style id="v22-card-swipe">
+.hero-card{
+  touch-action:pan-y;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.hero-card:active{cursor:grabbing}
+</style>
+<style id="v23-navigation-card-back">
+/* v23 — premium navigation-card back */
+.hero-card-inner{
+  transition:transform .56s cubic-bezier(.22,.74,.18,1)!important;
+}
+.hero-card{
+  position:relative;
+}
+.hero-card::after{
+  content:"";
+  position:absolute;
+  inset:7% -18%;
+  z-index:8;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 37%,rgba(255,255,255,.0) 42%,rgba(255,255,255,.30) 49%,rgba(255,244,192,.18) 52%,rgba(255,255,255,0) 59%,transparent 64%);
+  transform:translateX(-80%) skewX(-8deg);
+  opacity:0;
+}
+.hero-card.is-flipping::after{
+  animation:v23Specular .56s cubic-bezier(.22,.74,.18,1);
+}
+@keyframes v23Specular{
+  0%{transform:translateX(-80%) skewX(-8deg);opacity:0}
+  20%{opacity:.18}
+  50%{opacity:.45}
+  82%{opacity:.14}
+  100%{transform:translateX(80%) skewX(-8deg);opacity:0}
+}
+
+.hero-card-back{
+  transform:rotateY(180deg);
+  padding:24px 22px 19px!important;
+  color:white;
+  text-align:left;
+  display:flex!important;
+  flex-direction:column;
+  justify-content:flex-start!important;
+  overflow:hidden;
+  border:3px solid #e3bd66!important;
+  background:
+    radial-gradient(circle at 50% 23%,rgba(96,224,247,.18),transparent 28%),
+    radial-gradient(circle at 85% 8%,rgba(255,255,255,.12),transparent 16%),
+    linear-gradient(160deg,#083f70 0%,#062f59 50%,#061f3f 100%)!important;
+}
+.hero-card-back:before{
+  content:"";
+  position:absolute;
+  inset:13px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    inset 0 0 34px rgba(90,208,239,.10),
+    inset 0 0 0 1px rgba(220,188,101,.10);
+  pointer-events:none;
+}
+.hero-card-back:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.08;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 24px,rgba(184,239,255,.9) 25px 26px),
+    repeating-linear-gradient(90deg,transparent 0 24px,rgba(184,239,255,.9) 25px 26px),
+    radial-gradient(circle at 17% 79%,transparent 0 25px,rgba(255,255,255,.8) 26px 27px,transparent 28px 43px,rgba(255,255,255,.5) 44px 45px,transparent 46px);
+  mix-blend-mode:screen;
+}
+
+.nav-card-grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.22;
+  background:
+    linear-gradient(38deg,transparent 46%,rgba(89,219,245,.22) 47% 48%,transparent 49%) 0 0/90px 90px,
+    linear-gradient(-29deg,transparent 46%,rgba(89,219,245,.18) 47% 48%,transparent 49%) 20px 30px/110px 110px;
+}
+.nav-card-brand{position:relative;z-index:2;text-align:center}
+.nav-card-kicker{
+  display:block;
+  font-size:8px;
+  letter-spacing:.19em;
+  font-weight:1000;
+  color:#7de5f5;
+}
+.nav-card-brand h2{
+  margin:5px 0 2px!important;
+  font-size:27px!important;
+  line-height:1.13!important;
+  letter-spacing:-.03em;
+  text-align:center;
+  color:#fff;
+  text-shadow:0 3px 12px rgba(0,0,0,.16);
+}
+.nav-card-sub{
+  display:block;
+  font-size:7px;
+  letter-spacing:.16em;
+  color:#c2eaf3;
+  font-weight:900;
+}
+
+.nav-card-emblem{
+  position:relative;
+  width:78px;height:78px;
+  margin:8px auto 6px;
+  display:grid;place-items:center;
+}
+.nav-card-emblem img{
+  position:relative;z-index:3;
+  width:48px;height:48px;
+  filter:drop-shadow(0 0 9px rgba(105,226,249,.46)) drop-shadow(0 2px 2px rgba(0,0,0,.16));
+}
+.nav-card-ripple{
+  position:absolute;left:50%;top:50%;border-radius:50%;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(122,228,247,.40);
+}
+.nav-card-ripple.r1{width:66px;height:66px;box-shadow:0 0 18px rgba(88,214,241,.18)}
+.nav-card-ripple.r2{width:82px;height:82px;border-color:rgba(225,191,100,.30)}
+
+.nav-card-summary{
+  position:relative;z-index:2;
+  margin:3px 4px 8px!important;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(143,223,241,.16);
+  color:#e2f8fd!important;
+  font-size:9.5px!important;
+  line-height:1.65!important;
+  text-align:center;
+}
+
+.nav-card-domains{
+  position:relative;z-index:2;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+.nav-card-domains>span{
+  min-width:0;
+  padding:6px 5px;
+  border-radius:9px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.09),rgba(77,178,209,.06));
+  border:1px solid rgba(137,224,241,.19);
+  text-align:center;
+}
+.nav-card-domains b{
+  display:block;
+  font-size:8.5px;
+  line-height:1.25;
+  color:#fff;
+}
+.nav-card-domains small{
+  display:block;
+  margin-top:2px;
+  font-size:6.3px;
+  line-height:1.25;
+  color:#9fd6e4;
+}
+
+.nav-card-route{
+  position:relative;z-index:4;
+  margin-top:8px;
+  padding:8px;
+  border-radius:12px;
+  background:
+    linear-gradient(135deg,rgba(222,187,92,.12),rgba(53,177,217,.09));
+  border:1px solid rgba(225,189,96,.36);
+}
+.nav-card-route-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:6px;
+}
+.nav-card-route-head span{
+  font-size:6.5px;
+  letter-spacing:.15em;
+  color:#e3c66f;
+  font-weight:1000;
+}
+.nav-card-route-head strong{
+  font-size:10px;
+  color:#fff;
+}
+.nav-card-route-links{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+.nav-card-route-links a{
+  min-height:43px;
+  padding:6px 4px;
+  border-radius:8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(255,255,255,.86);
+  color:#075682;
+  box-shadow:0 4px 9px rgba(0,17,37,.13);
+}
+.nav-card-route-links a b{
+  display:block;
+  font-size:8.5px;
+  line-height:1.25;
+}
+.nav-card-route-links a small{
+  display:block;
+  margin-top:2px;
+  font-size:6px;
+  color:#5f8497;
+}
+
+.nav-card-quote{
+  position:relative;z-index:2;
+  margin-top:7px;
+  text-align:center;
+}
+.nav-card-quote span{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(71,197,226,.09);
+  color:#d9f6fb;
+  font-size:7.2px;
+  line-height:1.45;
+  font-weight:800;
+}
+
+.nav-card-footer{
+  position:relative;z-index:2;
+  margin-top:auto;
+  padding-top:7px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:5px;
+  border-top:1px solid rgba(255,255,255,.15);
+  color:#9ed1df;
+  font-size:5.8px;
+  letter-spacing:.05em;
+  font-weight:900;
+}
+
+@media(max-width:520px){
+  .hero-card-back{padding:20px 17px 15px!important}
+  .nav-card-brand h2{font-size:23px!important}
+  .nav-card-emblem{width:68px;height:68px;margin:6px auto 4px}
+  .nav-card-emblem img{width:42px;height:42px}
+  .nav-card-ripple.r1{width:58px;height:58px}.nav-card-ripple.r2{width:70px;height:70px}
+  .nav-card-summary{font-size:8.6px!important;padding:7px 8px;margin-bottom:6px!important}
+  .nav-card-domains{gap:4px}
+  .nav-card-domains>span{padding:5px 3px}
+  .nav-card-domains b{font-size:7.6px}
+  .nav-card-domains small{font-size:5.7px}
+  .nav-card-route{margin-top:6px;padding:6px}
+  .nav-card-route-head{margin-bottom:5px}
+  .nav-card-route-links{gap:4px}
+  .nav-card-route-links a{min-height:40px;padding:5px 2px}
+  .nav-card-route-links a b{font-size:7.7px}
+  .nav-card-route-links a small{font-size:5.5px}
+  .nav-card-quote{margin-top:5px}
+  .nav-card-quote span{font-size:6.5px;padding:4px 7px}
+  .nav-card-footer{padding-top:5px;font-size:5.2px}
+}
+</style><style id="v24-clean-home-style">
+/* v24 — clean homepage: no repeated lower menu cards */
+.route-section{
+  padding-bottom:28px!important;
+}
+.map-panel{
+  margin-bottom:16px!important;
+}
+.route-info-modal[hidden]{display:none!important}
+.route-info-modal{
+  position:fixed;inset:0;z-index:1000;
+  display:grid;place-items:center;padding:18px;
+}
+.route-info-backdrop{
+  position:absolute;inset:0;
+  background:rgba(2,28,46,.72);
+  backdrop-filter:blur(8px);
+}
+.route-info-dialog{
+  position:relative;z-index:1;
+  width:min(430px,94vw);
+  padding:24px 21px 20px;
+  border-radius:24px;
+  color:#103c65;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(116,221,242,.22),transparent 26%),
+    linear-gradient(160deg,#fff,#e9faff);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 28px 70px rgba(0,35,58,.32);
+}
+.route-info-close{
+  position:absolute;right:12px;top:12px;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid #c4e2ec;background:#fff;
+  color:#0a618b;font-size:24px;
+}
+.route-info-kicker{
+  display:block;padding-right:54px;
+  font-size:9px;letter-spacing:.17em;font-weight:1000;color:#1683ad;
+}
+.route-info-dialog h2{
+  margin:5px 48px 8px 0;font-size:26px;line-height:1.3;
+}
+.route-info-dialog p{
+  margin:0;color:#55778a;font-size:13px;line-height:1.75;
+}
+.route-info-tags{
+  display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;
+}
+.route-info-tags span{
+  padding:7px 10px;border-radius:999px;
+  background:#eefaff;border:1px solid #c5e7ef;
+  color:#0b668d;font-size:10px;font-weight:900;
+}
+.route-info-ok{
+  width:100%;min-height:46px;margin-top:18px;
+  border:0;border-radius:13px;
+  background:linear-gradient(135deg,#1289d6,#0769b8);
+  color:white;font-weight:1000;
+}
+@media(max-width:520px){
+  .route-section{padding-bottom:18px!important}
+  .map-panel{margin-bottom:8px!important}
+}
+</style><style id="v25-relay-menu-style">
+.route-card{position:absolute}
+.route-card[data-kind="construction"]{background:rgba(255,255,255,.78)!important}
+.route-card[data-kind="construction"]::after{
+  content:"工事中";position:absolute;right:8px;top:8px;padding:3px 6px;border-radius:999px;
+  background:#667d8b;color:white;font-size:7px;font-weight:1000;letter-spacing:.06em
+}
+.route-card[data-kind="calc"]::after,.route-card[data-kind="relay"]::after{
+  content:"OPEN";position:absolute;right:8px;top:8px;padding:3px 6px;border-radius:999px;
+  background:#0b8bc7;color:white;font-size:7px;font-weight:1000;letter-spacing:.07em
+}
+.relay-menu[hidden],.construction-card[hidden]{display:none!important}
+.relay-menu{display:grid;gap:8px;margin-top:16px}
+.relay-menu button{
+  min-height:60px;display:grid;grid-template-columns:52px 1fr;grid-template-rows:auto auto;
+  gap:2px 10px;align-items:center;text-align:left;padding:9px 11px;border-radius:14px;
+  border:1px solid #c5e5ed;background:linear-gradient(135deg,#fff,#ebfaff);color:#103d63
+}
+.relay-menu button>b{
+  grid-row:1/3;display:grid;place-items:center;width:46px;height:42px;border-radius:10px;
+  color:#fff;background:linear-gradient(145deg,#0a76aa,#074f7c);font-size:12px
+}
+.relay-menu button>strong{font-size:13px}
+.relay-menu button>small{font-size:9px;color:#668293}
+.construction-card{
+  margin-top:17px;padding:23px 15px;border-radius:17px;text-align:center;
+  background:linear-gradient(145deg,#f7fbfc,#eaf3f6);border:1px dashed #9ab9c5
+}
+.construction-icon{display:block;font-size:32px;margin-bottom:7px}
+.construction-card strong{font-size:16px;color:#344f61}
+.construction-card p{margin:6px 0 0!important;font-size:11px!important}
+</style><style id="v37-home-archipelago-style">
+/* v37: top page becomes an electrical-safety archipelago while preserving readable content */
+:root{--archipelago-shift:0px}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    linear-gradient(90deg,rgba(4,65,98,.18),rgba(4,65,98,.04) 46%,rgba(255,255,255,.08)),
+    url("./home-archipelago.png") center calc(49% + var(--archipelago-shift))/cover no-repeat !important;
+}
+.hero::before{
+  content:"";
+  position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(circle at 50% 40%,rgba(255,255,255,.05),rgba(2,67,101,.12) 64%),
+    linear-gradient(180deg,rgba(21,160,217,.04),rgba(0,99,142,.12) 76%,rgba(5,88,124,.24));
+  pointer-events:none;
+}
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:18%;
+  z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(239,252,255,0),rgba(239,252,255,.70) 66%,#effcff);
+}
+.hero-grid{
+  position:relative;z-index:2;
+}
+.card-stage{
+  filter:drop-shadow(0 24px 24px rgba(4,55,83,.20));
+}
+.hero-copy{
+  padding:24px;
+  border:1px solid rgba(255,255,255,.46);
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(4,76,113,.50),rgba(7,112,153,.22));
+  box-shadow:0 25px 55px rgba(0,51,78,.20),inset 0 1px rgba(255,255,255,.30);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.hero-copy h1,.hero-copy p,.hero-scroll{filter:drop-shadow(0 2px 3px rgba(0,45,72,.25))}
+.world-badge{background:rgba(4,103,151,.72)!important;backdrop-filter:blur(8px)}
+
+.archipelago-jumps{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;
+  margin-top:17px;
+}
+.archipelago-jump{
+  min-height:60px;padding:8px 10px;display:flex;align-items:center;gap:8px;
+  border-radius:15px;border:1px solid rgba(255,255,255,.42);
+  background:rgba(247,253,255,.88);color:#103e5d;text-decoration:none;
+  box-shadow:0 8px 20px rgba(1,57,87,.13);
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.archipelago-jump:hover,.archipelago-jump:focus-visible{
+  transform:translateY(-2px);background:#fff;box-shadow:0 11px 25px rgba(1,57,87,.18)
+}
+.archipelago-jump-icon{
+  flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;
+  border-radius:50%;background:#e8f8fd;font-size:17px
+}
+.archipelago-jump b{display:block;font-size:10px;line-height:1.3}
+.archipelago-jump small{display:block;margin-top:2px;font-size:7.5px;color:#5b7d8f;line-height:1.3}
+
+.route-section{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:
+    linear-gradient(180deg,#effcff 0%,rgba(239,252,255,.93) 18%,rgba(225,248,255,.95) 100%) !important;
+}
+.route-section::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:url("./home-archipelago.png") center calc(78% + var(--archipelago-shift))/cover no-repeat;
+  opacity:.13;filter:saturate(1.1) blur(.15px);
+}
+.route-section::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(239,252,255,.92),rgba(232,249,255,.74) 45%,rgba(239,252,255,.94));
+}
+.world-transition{
+  position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:8px 0 2px;color:#2f86aa;font-size:8px;font-weight:1000;letter-spacing:.18em
+}
+.world-transition-line{width:48px;height:1px;background:linear-gradient(90deg,transparent,#70bdd7)}
+.world-transition-line:last-child{transform:scaleX(-1)}
+
+.route-ring,.route-selected,.map-panel{position:relative;z-index:2}
+.map-panel{
+  box-shadow:0 18px 45px rgba(4,73,101,.12)!important;
+  border:1px solid rgba(105,194,219,.36)!important;
+}
+.map-art::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.06),transparent 35%,transparent 70%,rgba(255,255,255,.08))
+}
+
+@media(max-width:760px){
+  .hero{
+    background-size:auto 100%;
+    background-position:center calc(42% + var(--archipelago-shift)) !important;
+  }
+  .hero::before{
+    background:
+      linear-gradient(180deg,rgba(2,77,112,.05),rgba(2,84,122,.10) 47%,rgba(4,89,125,.24)),
+      radial-gradient(circle at 50% 35%,rgba(255,255,255,.03),rgba(0,69,105,.12) 75%);
+  }
+  .hero-grid{gap:12px}
+  .hero-copy{
+    margin-inline:7px;padding:19px 16px;border-radius:22px;
+    background:linear-gradient(145deg,rgba(4,74,110,.58),rgba(7,109,151,.31));
+  }
+  .archipelago-jumps{
+    display:flex;overflow-x:auto;gap:7px;padding-bottom:3px;scrollbar-width:none;
+    scroll-snap-type:x proximity;
+  }
+  .archipelago-jumps::-webkit-scrollbar{display:none}
+  .archipelago-jump{flex:0 0 176px;scroll-snap-align:center}
+  .route-section::before{background-size:auto 100%;background-position:center 78%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .archipelago-jump{transition:none}
+}
+</style><style id="v38-zukan-style">
+.hero{min-height:calc(100svh - 72px);display:flex;align-items:center;padding-bottom:92px}
+.hero-grid{width:min(1000px,100%);margin:auto}
+.hero-copy{background:rgba(4,75,111,.52)}
+@media(max-width:760px){.hero-grid{padding-top:12px}.hero-copy{margin-top:12px}}
+</style></head>
+<body>
+<header class="site-header">
+<a aria-label="ぷかぷかうきわメモ ホーム" class="brand" href="./index.html">
+<img alt="" src="./favicon.svg"/>
+<span><strong>ぷかぷかうきわメモ</strong><small>電気保安を、海の冒険に。</small></span>
+</a>
+<div class="header-actions">
+<button aria-label="ダークモードを切り替える" class="theme-btn" id="themeToggle" type="button">☀️ ダークモード</button>
+<button aria-label="メニュー" class="menu-btn" type="button">≡</button>
+</div>
+</header>
+<div aria-hidden="true" aria-label="ANOTHER OCEAN 別世界ビジュアル" class="another-ocean" id="anotherOcean" role="dialog">
+<img alt="夜の電気保安の海を旅するうきわちゃん。灯台や島、海上設備と青白い回路光が広がる世界" class="another-ocean__art" draggable="false" src="./another-ocean.png"/>
+<div class="another-ocean__shade"></div>
+<button aria-label="別世界を閉じる" class="another-ocean__close" id="anotherOceanClose" type="button">×</button>
+<div class="another-ocean__hint">画面をタップして戻る</div>
+</div>
+<main>
+<section class="hero" id="home">
+<div class="hero-grid">
+<div class="card-stage">
+<div aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります" class="hero-card" id="heroCard" role="group" tabindex="0">
+<span class="hero-card-inner">
+<span class="hero-card-face hero-card-front"><img alt="うきわちゃんURカード" fetchpriority="high" src="./ukiwa-card.png"/></span>
+<span class="hero-card-face hero-card-back">
+<span aria-hidden="true" class="nav-card-grid"></span>
+<div class="nav-card-brand">
+<span class="nav-card-kicker">PUKA PUKA UKIWA MEMO</span>
+<h2>電気保安を、<br/>海の冒険に。</h2>
+<span class="nav-card-sub">OCEAN SAFETY LEARNING GUIDE</span>
+</div>
+<div aria-hidden="true" class="nav-card-emblem">
+<span class="nav-card-ripple r1"></span>
+<span class="nav-card-ripple r2"></span>
+<img alt="" src="./favicon.svg"/>
+</div>
+<p class="nav-card-summary">
+  高圧受変電設備や保護継電器、試験・測定、電気の原理を、
+  キャラクターと海の冒険を通して学ぶ電気保安学習サイト。
+</p>
+<div aria-label="この海で学べること" class="nav-card-domains">
+<span><b>受変電設備</b><small>高圧機器・変圧器</small></span>
+<span><b>保護継電器</b><small>OCR・GR・DGR</small></span>
+<span><b>試験・測定</b><small>耐圧・絶縁・接地</small></span>
+<span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></span>
+<span><b>シーケンス</b><small>接点・自己保持</small></span>
+<span><b>安全・事故</b><small>停復電・原因分析</small></span>
+</div>
+<div class="nav-card-route">
+<div class="nav-card-route-head">
+<span>YOUR FIRST ROUTE</span>
+<strong>最初の航路を選ぼう</strong>
+</div>
+<div class="nav-card-route-links">
+<a data-back-route="basics" data-home-construction="電気の基礎" data-route-modal="basics" href="#"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
+<a data-back-route="guide" href="./protective-relay.html"><b>目的から探す</b><small>機器・試験・用語</small></a>
+<a data-back-route="map" href="#map"><b>海のマップへ</b><small>6つの修行島</small></a>
+</div>
+</div>
+<div class="nav-card-quote">
+<span>「分からないまま進む方が、こわいよ。<br/>一緒に、ひとつずつ確かめよう。」</span>
+</div>
+<div class="nav-card-footer">
+<span>UKW-001</span>
+<span>PUKA PUKA UKIWA MEMO</span>
+<span>SAFETY NAVIGATION CARD ⚓</span>
+</div>
+</span>
+</span>
+</div>
+<span aria-hidden="true" class="card-water"></span>
+</div>
+<div class="hero-copy">
+<span class="world-badge">CHARACTER COLLECTION</span>
+<h1>うきわちゃん<br/>カード図鑑</h1>
+<p>左右スワイプで裏面。<br/>長押しでANOTHER OCEAN。</p>
+<a class="hero-cta" href="./index.html">← 島のホームへ戻る</a>
+</div>
+</div>
+</section>
+<section class="route-section" id="routes" style="display:none">
+<div aria-hidden="true" class="world-transition">
+<span class="world-transition-line"></span>
+<span>ISLAND ROUTES</span>
+<span class="world-transition-line"></span>
+</div>
+<div class="route-head">
+<span class="eyebrow">CHOOSE YOUR ROUTE</span>
+<h2>今日の目的を選ぼう！</h2>
+</div>
+<div aria-label="浮き輪メニュー。左右スワイプまたは左右キーで選択" class="route-ring" id="routeRing" tabindex="0">
+<div aria-hidden="true" class="ring-water"></div>
+<div aria-hidden="true" class="ring-prop"><img alt="" src="./ukiwa-ring-3d.png"/></div>
+<div class="ring-hole-message">カードをタップで<br/>くわしく見る 👆</div>
+<div class="orbit" id="orbit"><button class="route-card" data-href="./ac-withstand-test-simulator.html#calc" data-kind="calc" data-title="充電電流計算" type="button">
+<span class="route-num">01</span><span class="icon">⚡</span>
+<strong>充電電流計算</strong><small>耐圧試験時の充電電流を計算</small></button><button class="route-card" data-href="./protective-relay.html" data-kind="relay-page" data-title="保護継電器" type="button">
+<span class="route-num">02</span><span class="icon">🛡️</span>
+<strong>保護継電器</strong><small>OCR・GR・DGR・OVGR・RPR</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="受変電設備" type="button">
+<span class="route-num">03</span><span class="icon">🏭</span>
+<strong>受変電設備</strong><small>高圧機器・変圧器</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="電気の基礎" type="button">
+<span class="route-num">04</span><span class="icon">💧</span>
+<strong>電気の基礎</strong><small>RLC・ベクトル・公式</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="シーケンス" type="button">
+<span class="route-num">05</span><span class="icon">🔁</span>
+<strong>シーケンス</strong><small>接点・自己保持・インターロック</small></button><button class="route-card" data-action="construction" data-kind="construction" data-title="安全・事故" type="button">
+<span class="route-num">06</span><span class="icon">⚠️</span>
+<strong>安全・事故</strong><small>停復電・事故原因・安全確認</small></button></div>
+<button aria-label="前のメニュー" class="ring-arrow prev" id="prevRoute" type="button">‹</button>
+<button aria-label="次のメニュー" class="ring-arrow next" id="nextRoute" type="button">›</button>
+</div>
+<div aria-label="ルート位置" class="pager" id="pager"></div>
+<div aria-live="polite" class="route-selected">
+<h3 id="selectedTitle">耐圧シミュレータ</h3>
+<p id="selectedDesc">ケーブル耐圧試験をシミュレーション</p>
+<a href="./ac-withstand-test-simulator.html#calc" id="selectedLink">このルートへ進む →</a>
+</div>
+<section class="map-panel" id="map" style="display:none">
+<div class="map-copy">
+<h2>海の冒険マップ</h2>
+<p>目的地を選ぶと、あなたのルートが光るよ！</p>
+<a href="#map">マップを見る <i>→</i></a>
+</div>
+<div class="map-art">
+<img alt="海に浮かぶ学習アイランドのマップ" loading="lazy" src="./ocean-map-art.jpg"/>
+<span class="map-label ml1">基礎の入り江</span>
+<span class="map-label ml2">試験の灯台島</span>
+<span class="map-label ml3">保護の聖堂島</span>
+<span class="map-label ml4">トラブルの暗礁域</span>
+</div>
+</section>
+</section>
+<!-- ホームは選択に徹し、詳細は必要なときだけ開く -->
+</main>
+<button aria-label="質問を開く" class="chat-bubble" type="button">💬</button>
+<nav aria-label="メインナビゲーション" class="bottom-nav">
+<a href="./index.html"><span><b>🏠</b>ホーム</span></a>
+<a href="./index.html#construction"><span><b>💧</b>基礎</span></a>
+<a href="./index.html#worldMap"><span><b>🗺️</b>マップ</span></a>
+<a class="active" href="./zukan.html"><span><b>🎭</b>図鑑</span></a>
+<a href="./index.html#construction"><span><b>💬</b>用語</span></a>
+</nav>
+<script>
+(() => {
+  // Hero card: swipe/drag to flip. Tap/click does nothing.
+  const heroCard = document.getElementById('heroCard');
+  let cardStartX = null;
+  let cardStartY = null;
+  let cardDragging = false;
+
+  function setCardSide(back){
+    heroCard.classList.remove('is-flipping');
+    void heroCard.offsetWidth;
+    heroCard.classList.add('is-flipping');
+    setTimeout(()=>heroCard.classList.remove('is-flipping'), 620);
+    heroCard.classList.toggle('is-flipped', back);
+    heroCard.setAttribute(
+      'aria-label',
+      back
+        ? 'うきわちゃんカード裏面。左右どちらかへスワイプすると表面に戻ります'
+        : 'うきわちゃんカード表面。左右どちらかへスワイプすると裏面を表示します'
+    );
+  }
+
+  const anotherOcean = document.getElementById('anotherOcean');
+  const anotherOceanClose = document.getElementById('anotherOceanClose');
+  let holdTimer = null, revealTimer = null, holdTriggered = false, holdPointerId = null;
+  let holdCancelledByMove = false;
+  const HOLD_MS = 1200, REVEAL_MS = 1800, MOVE_CANCEL = 14, SWIPE_THRESHOLD = 48;
+
+  function cancelHold(){
+    clearTimeout(holdTimer); holdTimer=null;
+    if(!holdTriggered) heroCard.classList.remove('is-awakening');
+  }
+  function startAwakening(){
+    if(!cardDragging || holdTriggered || holdCancelledByMove) return;
+    holdTriggered=true;
+    cardDragging=false;
+    clearTimeout(holdTimer); holdTimer=null;
+    heroCard.classList.add('is-awakening');
+    revealTimer=setTimeout(openAnotherOcean, REVEAL_MS);
+  }
+  function openAnotherOcean(){
+    clearTimeout(revealTimer); revealTimer=null;
+    heroCard.classList.remove('is-awakening');
+    anotherOcean.classList.add('is-open'); anotherOcean.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden'; setTimeout(()=>anotherOceanClose.focus(),220);
+  }
+  function closeAnotherOcean(){
+    clearTimeout(revealTimer); revealTimer=null;
+    heroCard.classList.remove('is-awakening');
+    anotherOcean.classList.remove('is-open'); anotherOcean.setAttribute('aria-hidden','true');
+    document.body.style.overflow=''; holdTriggered=false; setTimeout(()=>heroCard.focus(),100);
+  }
+  heroCard.addEventListener('contextmenu', e => e.preventDefault());
+  heroCard.addEventListener('pointerdown', e => {
+    cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdCancelledByMove=false; holdPointerId=e.pointerId;
+    heroCard.setPointerCapture?.(e.pointerId);
+    clearTimeout(revealTimer); revealTimer=null;
+    holdTimer=setTimeout(startAwakening, HOLD_MS);
+  });
+  heroCard.addEventListener('pointermove', e => {
+    if(!cardDragging || cardStartX==null || holdTriggered) return;
+    const distance=Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY);
+    if(distance>MOVE_CANCEL && !holdCancelledByMove){
+      holdCancelledByMove=true;
+      cancelHold();
+    }
+  });
+  heroCard.addEventListener('pointerup', e => {
+    if(holdTriggered){
+      cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+      return;
+    }
+    cancelHold();
+    if(!cardDragging || cardStartX==null || cardStartY==null) return;
+    const dx=e.clientX-cardStartX, dy=e.clientY-cardStartY;
+    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+    if(Math.abs(dx)<SWIPE_THRESHOLD || Math.abs(dx)<=Math.abs(dy)*1.15) return;
+    // Both left and right swipes toggle front/back.
+    setCardSide(!heroCard.classList.contains('is-flipped'));
+  });
+  heroCard.addEventListener('pointercancel',()=>{
+    if(!holdTriggered) cancelHold();
+    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
+  });
+  anotherOcean.addEventListener('click',e=>{ if(e.target!==anotherOceanClose) closeAnotherOcean(); });
+  anotherOceanClose.addEventListener('click',e=>{ e.stopPropagation(); closeAnotherOcean(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && anotherOcean.classList.contains('is-open')) closeAnotherOcean(); });
+
+  // Keyboard fallback for accessibility.
+  heroCard.addEventListener('keydown', e => {
+    if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+      e.preventDefault();
+      setCardSide(!heroCard.classList.contains('is-flipped'));
+    }
+  });
+
+  // Dark mode
+  const theme = document.getElementById('themeToggle');
+  theme.addEventListener('click', () => {
+    const on = document.body.classList.toggle('dark');
+    theme.textContent = on ? '🌙 ライトモード' : '☀️ ダークモード';
+  });
+
+  // Ring carousel
+  const routes = [
+    ['耐圧シミュレータ','ケーブル耐圧試験をシミュレーション','./ac-withstand-test-simulator.html#calc'],
+    ['現場の記事','実務に役立つ現場の知識','#'],
+    ['RLC・タンス図','原理とシーケンスをやさしく解説','#'],
+    ['キャラクター図鑑','うきわちゃんと見て学ぶ','#'],
+    ['用語・公式集','基礎から応用まですぐに調べられる','#'],
+    ['海のマップ','6つの修行島から学ぶ','#map']
+  ];
+  const shell = document.getElementById('routeRing');
+  const cards = [...document.querySelectorAll('.route-card')];
+  const ringProp = document.querySelector('.ring-prop');
+  const pager = document.getElementById('pager');
+  const title = document.getElementById('selectedTitle');
+  const desc = document.getElementById('selectedDesc');
+  const link = document.getElementById('selectedLink');
+  let selected = 0;
+  let downX = null;
+  let dragging = false;
+  let lastWheel = 0;
+
+  routes.forEach((_,i) => {
+    const b=document.createElement('button');
+    b.type='button';
+    b.setAttribute('aria-label',`${i+1}番目のルートへ`);
+    b.addEventListener('click',()=>{selected=i;render()});
+    pager.appendChild(b);
+  });
+
+  function delta(i){
+    let d=(i-selected+cards.length)%cards.length;
+    if(d>cards.length/2)d-=cards.length;
+    return d;
+  }
+  function render(){
+    cards.forEach((card,i)=>{
+      const d=delta(i);
+      const angle=d*60;
+      const front=Math.cos(angle*Math.PI/180);
+      card.style.setProperty('--angle',angle+'deg');
+      card.style.setProperty('--scale',i===selected?1:(.63+Math.max(0,front)*.16));
+      card.style.setProperty('--opacity',i===selected?1:(.22+Math.max(0,front)*.50));
+      card.classList.toggle('is-selected',i===selected);
+      card.classList.toggle('is-back',Math.abs(d)>=2);
+      card.style.zIndex=String(30+Math.round(front*22));
+      card.setAttribute('aria-pressed',String(i===selected));
+    });
+    [...pager.children].forEach((b,i)=>b.classList.toggle('active',i===selected));
+    title.textContent=routes[selected][0];
+    desc.textContent=routes[selected][1];
+    link.href=routes[selected][2];
+  }
+  function move(d){selected=(selected+d+cards.length)%cards.length;render()}
+
+
+  const routeModal=document.getElementById('routeInfoModal');
+  const routeModalTitle=document.getElementById('routeInfoTitle');
+  const routeModalText=document.getElementById('routeInfoText');
+  const routeModalTags=document.getElementById('routeInfoTags');
+  const routeInfo={
+    articles:{
+      title:'📚 現場の記事',
+      text:'保護継電器、交流耐圧、充電電流、復旧確認など、現場で必要になるテーマを記事から探します。',
+      tags:['保護継電器','耐圧試験','復旧確認','現場判断']
+    },
+    basics:{
+      title:'⚙️ 電気の基礎・RLC',
+      text:'水のイメージからV・I・Rをつかみ、RLC、リアクタンス、サセプタンス、インピーダンスへ進みます。',
+      tags:['V・I・R','RLC','リアクタンス','インピーダンス']
+    },
+    guide:{
+      title:'📖 キャラクター図鑑',
+      text:'機器や保護継電器の役割をキャラクターから覚え、必要なときに実機・原理へ進みます。',
+      tags:['保護継電器','高圧機器','CT・VT','試験']
+    },
+    glossary:{
+      title:'⚡ 用語・公式集',
+      text:'記号、単位、公式、一次値・二次値を必要なときに素早く確認するための入口です。',
+      tags:['公式','単位','一次値・二次値','用語']
+    }
+  };
+  function openRouteModal(key){
+    const d=routeInfo[key];
+    if(!d||!routeModal)return;
+    routeModalTitle.textContent=d.title;
+    routeModalText.textContent=d.text;
+    routeModalTags.replaceChildren(...d.tags.map(t=>{
+      const s=document.createElement('span');s.textContent=t;return s;
+    }));
+    routeModal.hidden=false;
+    document.body.style.overflow='hidden';
+    routeModal.querySelector('.route-info-close')?.focus();
+  }
+  function closeRouteModal(){
+    routeModal.hidden=true;
+    document.body.style.overflow='';
+  }
+  routeModal?.querySelectorAll('[data-close-route-modal]').forEach(el=>el.addEventListener('click',closeRouteModal));
+  document.querySelectorAll('[data-route-modal]').forEach(el=>el.addEventListener('click',e=>{
+    e.preventDefault();openRouteModal(el.dataset.routeModal);
+  }));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&routeModal&&!routeModal.hidden)closeRouteModal();
+  });
+
+  document.getElementById('prevRoute').addEventListener('click',()=>move(-1));
+  document.getElementById('nextRoute').addEventListener('click',()=>move(1));
+  cards.forEach((card,i)=>card.addEventListener('click',()=>{
+    if(i===selected){
+      const action=card.dataset.action;
+      if(action){openRouteModal(action)}
+      else{location.href=routes[i][2]}
+    }else{
+      selected=i;render()
+    }
+  }));
+  shell.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}
+    if(e.key==='ArrowRight'){e.preventDefault();move(1)}
+    if(e.key==='Enter'){location.href=routes[selected][2]}
+  });
+  shell.addEventListener('wheel',e=>{
+    if(Math.abs(e.deltaX)<8&&Math.abs(e.deltaY)<8)return;
+    e.preventDefault();
+    const now=performance.now(); if(now-lastWheel<180)return; lastWheel=now;
+    move(e.deltaX>0||e.deltaY>0?1:-1);
+  },{passive:false});
+  shell.addEventListener('pointerdown',e=>{
+    downX=e.clientX;dragging=true;shell.setPointerCapture?.(e.pointerId)
+  });
+  shell.addEventListener('pointermove',e=>{
+    if(!dragging)return;
+    const r=shell.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    shell.style.setProperty('--tilt-y',Math.max(-7,Math.min(7,x*14))+'deg');
+    shell.style.setProperty('--tilt-x',Math.max(-4,Math.min(4,-y*8))+'deg');
+  });
+  shell.addEventListener('pointerup',e=>{
+    const dx=downX==null?0:e.clientX-downX;
+    if(Math.abs(dx)>35)move(dx<0?1:-1);
+    downX=null;dragging=false;
+    shell.style.setProperty('--tilt-x','0deg');shell.style.setProperty('--tilt-y','0deg');
+  });
+  shell.addEventListener('pointercancel',()=>{
+    downX=null;dragging=false;
+    shell.style.setProperty('--tilt-x','0deg');shell.style.setProperty('--tilt-y','0deg');
+  });
+
+  link.addEventListener('click',e=>{
+    const action=cards[selected]?.dataset.action;
+    if(action){
+      e.preventDefault();
+      openRouteModal(action);
+    }
+  });
+
+  render();
+
+  // Back-face route links: stop pointer events from becoming swipe gestures.
+  document.querySelectorAll('[data-back-route]').forEach(a=>{
+    a.addEventListener('pointerdown',e=>e.stopPropagation());
+    a.addEventListener('pointerup',e=>e.stopPropagation());
+    a.addEventListener('click',e=>e.stopPropagation());
+  });
+
+})();
+</script>
+<div aria-labelledby="routeInfoTitle" aria-modal="true" class="route-info-modal" hidden="" id="routeInfoModal" role="dialog">
+<div class="route-info-backdrop" data-close-route-modal=""></div>
+<div class="route-info-dialog">
+<button aria-label="閉じる" class="route-info-close" data-close-route-modal="" type="button">×</button>
+<span class="route-info-kicker" id="routeInfoKicker">LEARNING ROUTE</span>
+<h2 id="routeInfoTitle"></h2>
+<p id="routeInfoText"></p>
+<div class="relay-menu" hidden="" id="relayMenu">
+<button data-relay="OCR" type="button"><b>OCR</b><strong>過電流継電器</strong><small>過電流と時限特性</small></button>
+<button data-relay="GR" type="button"><b>GR</b><strong>地絡継電器</strong><small>地絡電流の検出</small></button>
+<button data-relay="DGR" type="button"><b>DGR</b><strong>方向性地絡継電器</strong><small>地絡方向の判定</small></button>
+<button data-relay="OVGR" type="button"><b>OVGR</b><strong>地絡過電圧継電器</strong><small>零相電圧の監視</small></button>
+<button data-relay="RPR" type="button"><b>RPR</b><strong>逆電力継電器</strong><small>逆方向電力の監視</small></button>
+</div>
+<div class="construction-card" hidden="" id="constructionCard">
+<span class="construction-icon">🚧</span>
+<strong id="constructionTitle">この航路は現在、工事中です。</strong>
+<p>公開準備が整うまで、ほかのルートから学習できます。</p>
+</div>
+<button class="route-info-ok" data-close-route-modal="" type="button">閉じる</button>
+</div>
+</div><script id="v25-relay-menu-script">
+(() => {
+  const cards=[...document.querySelectorAll('.route-card')];
+  const title=document.getElementById('selectedTitle');
+  const desc=document.getElementById('selectedDesc');
+  const link=document.getElementById('selectedLink');
+  const modal=document.getElementById('routeInfoModal');
+  const modalTitle=document.getElementById('routeInfoTitle');
+  const modalText=document.getElementById('routeInfoText');
+  const modalKicker=document.getElementById('routeInfoKicker');
+  const relayMenu=document.getElementById('relayMenu');
+  const constructionCard=document.getElementById('constructionCard');
+  const constructionTitle=document.getElementById('constructionTitle');
+
+  function selectedIndex(){
+    return cards.findIndex(c=>c.classList.contains('is-selected'));
+  }
+  function openModal(){
+    modal.hidden=false;
+    document.body.style.overflow='hidden';
+    modal.querySelector('.route-info-close')?.focus();
+  }
+  function closeModal(){
+    modal.hidden=true;
+    document.body.style.overflow='';
+  }
+  function openRelay(){
+    modalKicker.textContent='PROTECTIVE RELAY';
+    modalTitle.textContent='🛡️ 保護継電器';
+    modalText.textContent='知りたい継電器を選んでください。保護の目的と動作の流れから整理します。';
+    relayMenu.hidden=false;
+    constructionCard.hidden=true;
+    openModal();
+  }
+  function openConstruction(name){
+    modalKicker.textContent='UNDER CONSTRUCTION';
+    modalTitle.textContent=name;
+    modalText.textContent='この学習ルートは現在制作中です。';
+    relayMenu.hidden=true;
+    constructionCard.hidden=false;
+    constructionTitle.textContent=`${name} は現在、工事中です。`;
+    openModal();
+  }
+
+  // capture phaseで既存クリックより先に処理
+  document.getElementById('orbit')?.addEventListener('click',e=>{
+    const card=e.target.closest('.route-card');
+    if(!card)return;
+    const i=cards.indexOf(card);
+    const current=selectedIndex();
+    if(i!==current)return; // 選択変更は既存カルーセルに任せる
+
+    const kind=card.dataset.kind;
+    if(kind==='calc'){
+      e.stopImmediatePropagation();
+      location.href='./ac-withstand-test-simulator.html#calc';
+    }else if(kind==='relay-page'){
+      e.preventDefault();e.stopImmediatePropagation();location.href='./protective-relay.html';
+    }else if(kind==='construction'){
+      e.preventDefault();e.stopImmediatePropagation();openConstruction(card.dataset.title);
+    }
+  },true);
+
+  link?.addEventListener('click',e=>{
+    const i=selectedIndex();
+    if(i<0)return;
+    const card=cards[i];
+    const kind=card.dataset.kind;
+    if(kind==='calc'){
+      e.preventDefault();location.href='./ac-withstand-test-simulator.html#calc';
+    }else if(kind==='relay-page'){
+      e.preventDefault();location.href='./protective-relay.html';
+    }else{
+      e.preventDefault();openConstruction(card.dataset.title);
+    }
+  },true);
+
+  modal?.querySelectorAll('[data-close-route-modal]').forEach(x=>x.addEventListener('click',closeModal));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)closeModal()});
+
+  document.querySelectorAll('[data-relay]').forEach(btn=>btn.addEventListener('click',()=>{
+    const name=btn.querySelector('strong').textContent;
+    modalKicker.textContent='PROTECTIVE RELAY';
+    modalTitle.textContent=`${btn.dataset.relay}｜${name}`;
+    modalText.textContent='この継電器の個別学習ページは現在制作中です。';
+    relayMenu.hidden=true;
+    constructionCard.hidden=false;
+    constructionTitle.textContent=`${btn.dataset.relay} の学習ページは工事中です。`;
+  }));
+
+  // 表示名を現行メニューに同期
+  const labels=[
+    ['充電電流計算','耐圧試験時の充電電流を計算'],
+    ['保護継電器','OCR・GR・DGR・OVGR・RPR'],
+    ['受変電設備','高圧機器・変圧器'],
+    ['電気の基礎','RLC・ベクトル・公式'],
+    ['シーケンス','接点・自己保持・インターロック'],
+    ['安全・事故','停復電・事故原因・安全確認']
+  ];
+  const observer=new MutationObserver(()=>{
+    const i=selectedIndex();if(i<0)return;
+    title.textContent=labels[i][0];
+    desc.textContent=labels[i][1];
+    link.textContent=cards[i].dataset.kind==='construction'?'工事中':(cards[i].dataset.kind==='relay'?'継電器を選ぶ →':'計算する →');
+  });
+  cards.forEach(c=>observer.observe(c,{attributes:true,attributeFilter:['class']}));
+  setTimeout(()=>{const i=selectedIndex();if(i>=0){title.textContent=labels[i][0];desc.textContent=labels[i][1]}},0);
+})();
+</script><script id="v25-back-route-script">
+(() => {
+  document.querySelectorAll('[data-home-relay]').forEach(a=>a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector('.route-card[data-kind="relay"]')?.click();
+  }));
+  document.querySelectorAll('[data-home-construction]').forEach(a=>a.addEventListener('click',e=>{
+    e.preventDefault();
+    const name=a.dataset.homeConstruction;
+    const card=[...document.querySelectorAll('.route-card[data-kind="construction"]')].find(c=>c.dataset.title===name);
+    if(card) card.click();
+  }));
+})();
+</script><script id="v37-archipelago-parallax">
+(() => {
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let ticking=false;
+  const update=()=>{
+    const y=Math.min(1400,window.scrollY||0);
+    document.documentElement.style.setProperty('--archipelago-shift',`${Math.round(y*.018)}px`);
+    ticking=false;
+  };
+  addEventListener('scroll',()=>{
+    if(!ticking){ticking=true;requestAnimationFrame(update)}
+  },{passive:true});
+  update();
+})();
+</script></body>
+</html>

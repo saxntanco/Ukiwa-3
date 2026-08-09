@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#0b83b8" name="theme-color"/>
+<title>充電電流計算｜ぷかぷかうきわメモ</title>
+<meta content="ケーブルの静電容量・長さ・周波数・印加電圧から充電電流を計算する電気保安学習ツール。" name="description"/>
+<style>
+:root{
+  --deep:#0b4b73;--blue:#0d84bb;--cyan:#5fd4e9;--ice:#ecfbff;
+  --ink:#143d5b;--muted:#66808f;--card:#fff;--line:#cde5ee;
+  --warn-bg:#fff7e7;--warn-line:#e5c47d;--warn-ink:#6b5221;
+  --shadow:0 16px 38px rgba(0,72,102,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 85% 0%,rgba(78,207,236,.20),transparent 28rem),
+    linear-gradient(180deg,#e9fbff 0,#f6fcfe 29rem,#f7fafb 100%);
+  padding-bottom:30px;
+}
+button,input,select{font:inherit}
+a{color:inherit}
+.topbar{
+  position:sticky;top:0;z-index:20;
+  height:62px;padding:0 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid rgba(9,103,141,.10);
+  backdrop-filter:blur(14px);
+}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:1000}
+.brand img{width:36px;height:36px}
+.brand span{display:block;line-height:1.15}
+.brand small{display:block;margin-top:2px;font-size:9px;color:var(--muted);font-weight:700}
+.back{
+  min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:12px;
+  display:flex;align-items:center;background:#fff;text-decoration:none;font-size:11px;font-weight:1000;color:#17658a
+}
+main{width:min(900px,calc(100% - 18px));margin:0 auto}
+.hero{padding:28px 0 13px}
+.hero-card{
+  position:relative;overflow:hidden;
+  border-radius:26px;padding:27px;
+  color:#fff;background:linear-gradient(145deg,#086ba0,#0d9bbb 70%,#35bfd0);
+  box-shadow:var(--shadow)
+}
+.hero-card:after{
+  content:"";position:absolute;width:240px;height:240px;right:-90px;top:-125px;
+  border:42px solid rgba(255,255,255,.10);border-radius:50%
+}
+.kicker{font-size:9px;font-weight:1000;letter-spacing:.15em;opacity:.88}
+.hero h1{position:relative;z-index:1;margin:5px 0 7px;font-size:clamp(31px,7vw,52px);line-height:1.04}
+.hero p{position:relative;z-index:1;margin:0;max-width:620px;font-size:13px;line-height:1.75}
+.hero-tags{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+.hero-tags span{padding:5px 9px;border:1px solid rgba(255,255,255,.32);border-radius:999px;background:rgba(255,255,255,.13);font-size:9px;font-weight:900}
+
+.quick-note{
+  display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:start;
+  margin:11px 0;padding:11px 13px;border-radius:14px;background:var(--warn-bg);border:1px solid var(--warn-line);
+  color:var(--warn-ink);font-size:10px;line-height:1.6
+}
+.quick-note b{font-size:11px}
+
+.calculator{
+  scroll-margin-top:74px;
+  display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:12px;
+  margin-top:12px
+}
+.panel{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow)
+}
+.panel h2{margin:0;font-size:23px}
+.panel-intro{margin:4px 0 14px;color:var(--muted);font-size:10px;line-height:1.6}
+.preset-row{display:flex;gap:7px;margin-bottom:12px}
+.preset{
+  flex:1;min-height:44px;border:1px solid #bcdce8;background:#f3fbfe;color:#176b90;
+  border-radius:12px;font-size:10px;font-weight:1000;cursor:pointer
+}
+.field{margin-bottom:11px}
+.field label{display:block;margin-bottom:5px;font-size:10px;font-weight:1000;color:#365e74}
+.field input,.field select{
+  width:100%;min-height:46px;border:1px solid #bad4df;border-radius:12px;padding:9px 11px;
+  background:#fff;color:var(--ink);font-weight:800
+}
+.field-grid{display:grid;grid-template-columns:1fr 110px;gap:8px}
+.phase-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:4px 0 12px}
+.phase{
+  min-height:48px;padding:8px;border:1px solid #cbdfe7;border-radius:12px;background:#fff;display:flex;align-items:center;gap:7px;
+  font-size:10px;font-weight:900
+}
+.phase input{width:19px;height:19px}
+.calc-btn{
+  width:100%;min-height:52px;border:0;border-radius:14px;background:linear-gradient(145deg,#0b77ad,#079cba);
+  color:#fff;font-size:15px;font-weight:1000;cursor:pointer;box-shadow:0 9px 20px rgba(7,126,166,.20)
+}
+.reset-btn{
+  width:100%;min-height:44px;margin-top:7px;border:1px solid #c8dfe7;border-radius:12px;background:#fff;color:#476d80;font-weight:900;cursor:pointer
+}
+.source-note{margin-top:10px;padding:9px 10px;border-radius:11px;background:#f6fbfd;color:#637d8b;font-size:9px;line-height:1.6}
+
+.result-empty{
+  min-height:380px;display:grid;place-items:center;text-align:center;border:2px dashed #c7e1ea;border-radius:18px;
+  color:#6a8390;background:#f8fdff;padding:18px
+}
+.result-empty b{display:block;font-size:17px;color:#3c667a;margin-bottom:4px}
+
+.result-wrap[hidden]{display:none}
+.result-hero{
+  padding:17px;border-radius:18px;background:linear-gradient(145deg,#0a527f,#0a89ad);color:#fff;text-align:center
+}
+.result-hero span{display:block;font-size:9px;letter-spacing:.12em;font-weight:900;opacity:.82}
+.result-hero strong{display:block;margin:4px 0 0;font-size:clamp(42px,9vw,70px);line-height:1}
+.result-hero small{display:block;margin-top:7px;font-size:10px;opacity:.9}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+.metric{padding:11px;border:1px solid #d3e6ed;border-radius:13px;background:#f8fcfe}
+.metric span{display:block;font-size:8px;color:#6c828e;font-weight:900}
+.metric b{display:block;margin-top:2px;font-size:17px;color:#174c6c}
+.formula-card{margin-top:10px;padding:13px;border-radius:15px;background:#0b3655;color:#eaf9ff}
+.formula-card>span{font-size:8px;letter-spacing:.1em;color:#83d8ef;font-weight:1000}
+.formula-main{margin-top:5px;font-size:clamp(19px,4vw,27px);font-weight:1000}
+.trace{margin-top:10px;display:grid;gap:7px}
+.trace div{padding:9px 10px;border-radius:11px;background:#f7fbfd;border:1px solid #d9e9ee;font-size:9.5px;line-height:1.55;color:#506f80}
+.trace b{color:#12688f}
+
+.learn{margin-top:13px}
+.learn details{border:1px solid var(--line);border-radius:16px;background:#fff;margin-bottom:8px;overflow:hidden}
+.learn summary{
+  min-height:50px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  cursor:pointer;list-style:none;font-size:12px;font-weight:1000;color:#154d6d
+}
+.learn summary::-webkit-details-marker{display:none}
+.learn summary:after{content:"＋";font-size:19px;color:#1686ae}
+.learn details[open] summary:after{content:"−"}
+.learn-body{padding:0 14px 14px;font-size:10px;line-height:1.75;color:#587786}
+.formula-box{margin:7px 0;padding:11px;border-radius:12px;background:#eef9fd;color:#144f70;font-size:15px;font-weight:1000;text-align:center}
+
+footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9px}
+
+@media(max-width:700px){
+  main{width:calc(100% - 12px)}
+  .hero{padding-top:12px}
+  .hero-card{padding:21px 17px;border-radius:20px}
+  .calculator{grid-template-columns:1fr;gap:9px}
+  .panel{border-radius:18px;padding:13px}
+  .result-empty{min-height:190px}
+  .result-panel{order:2}
+  .input-panel{order:1}
+}
+@media(max-width:390px){
+  .brand small{display:none}
+  .hero h1{font-size:31px}
+  .metrics{grid-template-columns:1fr 1fr}
+}
+</style>
+<style id="v41-reactor-compare-style">
+.reactor-compare{
+  margin-top:12px;padding:14px;border:1px solid #c9e2eb;border-radius:17px;background:#f8fdff
+}
+.reactor-compare-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:9px
+}
+.reactor-compare-head h3{margin:0;font-size:17px;color:#144b6c}
+.reactor-compare-head p{margin:3px 0 0;font-size:9px;line-height:1.5;color:#68818e}
+.reactor-badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.reactor-badges span{
+  padding:5px 8px;border-radius:999px;background:#e8f6fb;border:1px solid #c6e3ed;
+  font-size:8px;font-weight:900;color:#246b8b
+}
+.reactor-best{
+  margin:9px 0;padding:12px;border-radius:14px;background:linear-gradient(145deg,#0f6fa5,#109ab6);color:#fff
+}
+.reactor-best span{display:block;font-size:8px;letter-spacing:.1em;font-weight:900;opacity:.82}
+.reactor-best b{display:block;margin-top:3px;font-size:21px}
+.reactor-best small{display:block;margin-top:4px;font-size:9px;line-height:1.5;opacity:.92}
+.reactor-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.reactor-table{width:100%;border-collapse:collapse;min-width:610px;font-size:9px}
+.reactor-table th,.reactor-table td{padding:8px 7px;border-bottom:1px solid #dcebef;text-align:right;white-space:nowrap}
+.reactor-table th{font-size:8px;color:#607e8e;background:#edf8fb}
+.reactor-table th:first-child,.reactor-table td:first-child{text-align:left}
+.reactor-table tr.best-row{background:#eaf8f0}
+.reactor-table .ok{color:#14764f;font-weight:1000}
+.reactor-table .over{color:#b65d1d;font-weight:1000}
+.reactor-note{
+  margin-top:9px;padding:9px 10px;border-radius:11px;background:#fff7e8;border:1px solid #ecd49a;
+  color:#6b5525;font-size:8.5px;line-height:1.6
+}
+@media(max-width:700px){
+  .reactor-compare{padding:11px;border-radius:14px}
+  .reactor-best b{font-size:18px}
+}
+</style><style id="v42-layout-fix-style">
+html,body{max-width:100%;overflow-x:hidden}
+.calculator{align-items:start}
+.calculator>.panel{min-width:0;width:100%}
+.result-panel{align-self:start}
+.result-wrap{width:100%;min-width:0}
+.reactor-compare{min-width:0;max-width:100%;overflow:hidden}
+.reactor-table-wrap{display:block;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.reactor-table{min-width:560px}
+#trace{min-width:0}
+.trace div{overflow-wrap:anywhere}
+.result-hero strong{overflow-wrap:anywhere}
+.cable-size-field select{font-weight:900}
+
+@media(max-width:700px){
+  .calculator{display:block}
+  .input-panel,.result-panel{width:100%;min-width:0}
+  .result-panel{margin-top:9px}
+  .reactor-table{min-width:520px}
+  .reactor-compare-head{display:block}
+  .reactor-best b{overflow-wrap:anywhere}
+  .metrics{grid-template-columns:1fr 1fr}
+}
+@media(max-width:390px){
+  .panel{padding:12px}
+  .metrics{grid-template-columns:1fr}
+  .reactor-table{min-width:500px}
+}
+</style><style id="v43-layout-fix">
+/* v43: prevent result/reactor area from breaking calculator layout */
+.calculator{
+  align-items:start!important;
+}
+.calculator > .panel{
+  min-width:0!important;
+  align-self:start!important;
+}
+.input-panel{
+  position:relative;
+}
+.result-panel{
+  min-width:0!important;
+  width:100%!important;
+  overflow:hidden;
+}
+.result-wrap{
+  min-width:0;
+  width:100%;
+}
+.trace,.reactor-compare{
+  min-width:0;
+  max-width:100%;
+}
+.reactor-table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto!important;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.reactor-table{
+  min-width:600px;
+  max-width:none;
+}
+.metrics{
+  min-width:0;
+}
+.metric{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.result-hero strong{
+  overflow-wrap:anywhere;
+}
+.cable-size-field select{
+  width:100%;
+  min-height:48px;
+  border:1px solid #bad4df;
+  border-radius:12px;
+  padding:9px 11px;
+  background:#fff;
+  color:var(--ink);
+  font-weight:800;
+}
+.cable-help{
+  margin:-5px 0 10px;
+  font-size:8.5px;
+  line-height:1.55;
+  color:#6d8390;
+}
+@media(max-width:700px){
+  .calculator{
+    display:block!important;
+  }
+  .input-panel,.result-panel{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .result-panel{
+    margin-top:9px;
+  }
+  .reactor-table{
+    min-width:560px;
+  }
+}
+</style></head>
+<body>
+<header class="topbar">
+<a aria-label="ぷかぷかうきわメモへ戻る" class="brand" href="./index.html">
+<img alt="" src="./favicon.svg"/>
+<span>ぷかぷかうきわメモ<small>CHARGING CURRENT CALCULATOR</small></span>
+</a>
+<a class="back" href="./index.html">← 島へ戻る</a>
+</header>
+<main>
+<section class="hero">
+<div class="hero-card">
+<span class="kicker">CHARGING CURRENT CALCULATOR</span>
+<h1>充電電流計算</h1>
+<p>ケーブルの静電容量・長さ・周波数・印加電圧から、充電電流をすばやく計算します。</p>
+<div class="hero-tags"><span>充電電流だけに特化</span><span>スマホ優先</span><span>計算式まで確認</span></div>
+</div>
+</section>
+<div class="quick-note">
+<div>⚠️</div>
+<div><b>安全上の前提</b><br/>
+      本ページは計算・理解補助です。実設備の試験条件、試験電圧、結線、停復電操作は、メーカー資料・社内手順書・操作票・現場責任者の指示を優先してください。
+    </div>
+</div>
+<section class="calculator" id="calc">
+<div class="panel input-panel">
+<h2>条件を入力</h2>
+<p class="panel-intro">必要な条件だけ入れて「計算する」を押します。</p>
+<div class="preset-row">
+<button class="preset" data-preset="66" type="button">6.6kV例</button>
+<button class="preset" data-preset="33" type="button">3.3kV例</button>
+</div>
+<div class="field">
+<label for="freq">周波数 f [Hz]</label>
+<select id="freq">
+<option value="50">50 Hz</option>
+<option value="60">60 Hz</option>
+</select>
+</div>
+<div class="field">
+<label for="voltage">印加電圧 V [V]</label>
+<input id="voltage" inputmode="decimal" min="0" step="1" type="number" value="10350"/>
+</div>
+<div class="field cable-size-field">
+<label for="cableSize">高圧ケーブルサイズ</label>
+<select id="cableSize"><option value="0.27">22mm²（代表値 0.27 μF/km）</option><option selected="" value="0.32">38mm²（代表値 0.32 μF/km）</option><option value="0.37">60mm²（代表値 0.37 μF/km）</option><option value="0.45">100mm²（代表値 0.45 μF/km）</option><option value="0.52">150mm²（代表値 0.52 μF/km）</option><option value="0.55">250mm²（代表値 0.55 μF/km）</option><option value="custom">その他・メーカー値を手入力</option></select>
+</div><p class="cable-help">代表値は既存の学習用データです。実務ではメーカー仕様値を優先してください。</p>
+<div class="field">
+<label for="cap">長さ当たり静電容量 c（サイズ選択で自動入力／手入力可）</label>
+<div class="field-grid">
+<input id="cap" inputmode="decimal" min="0" step="0.001" type="number" value="0.32"/>
+<select aria-label="静電容量の単位" id="capUnit">
+<option value="uFkm">μF/km</option>
+<option value="nFm">nF/m</option>
+<option value="uFm">μF/m</option>
+</select>
+</div>
+</div>
+<div class="field">
+<label for="length">ケーブル長さ ℓ</label>
+<div class="field-grid">
+<input id="length" inputmode="decimal" min="0" step="0.001" type="number" value="100"/>
+<select aria-label="長さの単位" id="lengthUnit">
+<option value="m">m</option>
+<option value="km">km</option>
+</select>
+</div>
+</div>
+<div aria-label="計算表示" class="phase-row">
+<label class="phase"><input name="phase" type="radio" value="1"/>1相分</label>
+<label class="phase"><input checked="checked" name="phase" type="radio" value="3"/>3相一括</label>
+</div>
+<button class="calc-btn" id="calcBtn" type="button">充電電流を計算する</button>
+<button class="reset-btn" id="resetBtn" type="button">入力をリセット</button>
+<div class="source-note">代表静電容量は学習用の目安です。初期値は38mm²＝0.32 μF/km、3相一括です。22 / 38 / 60 / 100 / 150 / 250mm²から選択できます。その他のケーブルは「その他・メーカー値を手入力」を選び、メーカー仕様値・設備資料・実測値を入力してください。3相一括の扱いは実際の試験結線・試験要領書を優先してください。</div>
+</div>
+<div class="panel result-panel">
+<div class="result-empty" id="resultEmpty">
+<div><b>まだ計算していません</b>左の条件を入力して「計算する」を押してください。</div>
+</div>
+<div class="result-wrap" hidden="" id="resultWrap">
+<div class="result-hero">
+<span id="resultLabel">1相分 充電電流</span>
+<strong id="currentBig">0.00 mA</strong>
+<small>Ic = 2πfCV</small>
+</div>
+<div class="metrics">
+<div class="metric"><span>全静電容量 C</span><b id="capTotal">—</b></div>
+<div class="metric"><span>容量リアクタンス Xc</span><b id="xc">—</b></div>
+<div class="metric"><span>1相分充電電流</span><b id="currentOne">—</b></div>
+<div class="metric"><span>表示対象</span><b id="modeValue">—</b></div>
+</div>
+<div class="formula-card">
+<span>FORMULA</span>
+<div class="formula-main">I<sub>c</sub> = 2π f C V</div>
+</div>
+<div class="trace" id="trace"></div>
+<section class="reactor-compare" id="reactorCompare">
+<div class="reactor-compare-head">
+<div>
+<h3>リアクトル組み合わせ比較</h3>
+<p>2kVA（DR-1220MH）と5kVA（DR-1250MH）を混在させ、充電電流に近い補償電流の候補を比較します。</p>
+</div>
+</div>
+<div class="reactor-badges">
+<span>2kVA：DR-1220MH / 200H</span>
+<span>5kVA：DR-1250MH / 80H</span>
+</div>
+<div class="reactor-best" id="reactorBest">
+<span>BEST MATCH</span>
+<b>計算後に表示</b>
+<small>入力条件から補償電流を比較します。</small>
+</div>
+<div class="reactor-table-wrap">
+<table class="reactor-table">
+<thead>
+<tr>
+<th>組み合わせ</th>
+<th>2kVA</th>
+<th>5kVA</th>
+<th>補償電流</th>
+<th>残差 |Ic−IL|</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody id="reactorRows">
+<tr><td colspan="6">充電電流を計算すると候補を表示します。</td></tr>
+</tbody>
+</table>
+</div>
+<div class="reactor-note">
+    ※ この比較は理想インダクタンス式 IL = V/(2πfL) による学習・選定補助です。
+    実機の定格、推奨組み合わせ、接続可能条件、過容量可否はメーカー取扱説明書・現場条件を優先してください。
+  </div>
+</section>
+</div>
+</div>
+</section>
+<section class="learn">
+<details>
+<summary>なぜ充電電流が流れる？</summary>
+<div class="learn-body">
+        ケーブルは導体と遮へい層・大地との間に静電容量を持つため、交流電圧を印加するとコンデンサと同じように電流が流れます。
+        <div class="formula-box">Xc = 1 / (2πfC)</div>
+        容量リアクタンス Xc を使うと、Ic = V / Xc。これに Xc を代入すると Ic = 2πfCV になります。
+      </div>
+</details>
+<details>
+<summary>単位を確認する</summary>
+<div class="learn-body">
+        μF/km を使う場合は、まずケーブル長を km にそろえて全静電容量 C [μF] を求め、その後 F に換算します。
+        <div class="formula-box">C [F] = C [μF] × 10⁻⁶</div>
+        計算結果は A で得られ、このページでは読みやすいよう mA も併記します。
+      </div>
+</details>
+<details>
+<summary>3相表示について</summary>
+<div class="learn-body">
+        「3相単純合計」は、同条件の1相分充電電流を3本分として単純加算した参考表示です。
+        実際の耐圧試験で何相をどのように一括するか、非試験相や遮へい層をどう扱うかによって条件が異なるため、
+        現場の結線図・試験要領書を優先してください。
+      </div>
+</details>
+</section>
+<footer>ぷかぷかうきわメモ｜充電電流計算</footer>
+</main>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const fmt = (n,d=3) => Number(n).toLocaleString('ja-JP',{maximumFractionDigits:d});
+
+  const freq=$('#freq'), voltage=$('#voltage'), cap=$('#cap'), capUnit=$('#capUnit');
+  const cableSize=$('#cableSize');
+  const length=$('#length'), lengthUnit=$('#lengthUnit');
+  const empty=$('#resultEmpty'), wrap=$('#resultWrap');
+
+  function capToFPerM(value, unit){
+    if(unit==='uFkm') return value*1e-6/1000;
+    if(unit==='nFm') return value*1e-9;
+    if(unit==='uFm') return value*1e-6;
+    return NaN;
+  }
+
+
+  const reactorSpecs = {
+    r2:{name:'DR-1220MH',kva:2,L:200},
+    r5:{name:'DR-1250MH',kva:5,L:80}
+  };
+
+  function reactorCurrent(V,f,L){
+    return V/(2*Math.PI*f*L);
+  }
+
+  function renderReactorComparison(Ic,V,f){
+    const rows=[];
+    const max2=4, max5=3;
+    const il2=reactorCurrent(V,f,reactorSpecs.r2.L);
+    const il5=reactorCurrent(V,f,reactorSpecs.r5.L);
+
+    for(let n2=0;n2<=max2;n2++){
+      for(let n5=0;n5<=max5;n5++){
+        if(n2===0 && n5===0) continue;
+        const IL=n2*il2+n5*il5;
+        const residual=Math.abs(Ic-IL);
+        const over=IL>Ic;
+        rows.push({n2,n5,IL,residual,over,kva:n2*2+n5*5});
+      }
+    }
+    rows.sort((a,b)=>a.residual-b.residual || a.kva-b.kva || (a.n2+a.n5)-(b.n2+b.n5));
+    const top=rows.slice(0,8);
+    const best=top[0];
+
+    const combo = r => {
+      const parts=[];
+      if(r.n2) parts.push(`2kVA×${r.n2}`);
+      if(r.n5) parts.push(`5kVA×${r.n5}`);
+      return parts.join(' ＋ ');
+    };
+
+    document.querySelector('#reactorBest').innerHTML=`
+      <span>BEST MATCH / 理想式での最小残差</span>
+      <b>${combo(best)}</b>
+      <small>補償電流 ${fmt(best.IL*1000,1)} mA ／ 充電電流との差 ${fmt(best.residual*1000,1)} mA
+      ${best.over?'（過補償側）':'（不足補償側）'}</small>
+    `;
+
+    document.querySelector('#reactorRows').innerHTML=top.map((r,i)=>`
+      <tr class="${i===0?'best-row':''}">
+        <td>${combo(r)}</td>
+        <td>${r.n2}台</td>
+        <td>${r.n5}台</td>
+        <td>${fmt(r.IL*1000,1)} mA</td>
+        <td>${fmt(r.residual*1000,1)} mA</td>
+        <td class="${r.over?'over':'ok'}">${r.over?'過補償':'不足補償'}</td>
+      </tr>
+    `).join('');
+  }
+
+  function calculate(){
+    const f=+freq.value;
+    const V=+voltage.value;
+    const c=+cap.value;
+    const len=+length.value;
+    const mode=+document.querySelector('input[name="phase"]:checked').value;
+
+    if(!(f>0 && V>0 && c>0 && len>0)){
+      alert('周波数・印加電圧・静電容量・ケーブル長さを確認してください。');
+      return;
+    }
+
+    const lengthM=lengthUnit.value==='km' ? len*1000 : len;
+    const lengthKm=lengthM/1000;
+    const cFperM=capToFPerM(c,capUnit.value);
+    const C=cFperM*lengthM;
+    const CuF=C*1e6;
+    const Xc=1/(2*Math.PI*f*C);
+    const I1=V/Xc;
+    const Ishow=mode===3?I1*3:I1;
+
+    $('#resultLabel').textContent=mode===3?'3相単純合計 充電電流':'1相分 充電電流';
+    $('#currentBig').textContent=`${fmt(Ishow*1000,2)} mA`;
+    $('#capTotal').textContent=`${fmt(CuF,6)} μF`;
+    $('#xc').textContent=`${fmt(Xc,2)} Ω`;
+    $('#currentOne').textContent=`${fmt(I1*1000,2)} mA`;
+    $('#modeValue').textContent=mode===3?'1相分 × 3':'1相分';
+
+    let capTrace='';
+    if(capUnit.value==='uFkm'){
+      capTrace=`c = ${fmt(c,6)} μF/km × ${fmt(lengthKm,6)} km → C = ${fmt(CuF,6)} μF`;
+    } else if(capUnit.value==='nFm'){
+      capTrace=`c = ${fmt(c,6)} nF/m × ${fmt(lengthM,3)} m → C = ${fmt(CuF,6)} μF`;
+    } else {
+      capTrace=`c = ${fmt(c,6)} μF/m × ${fmt(lengthM,3)} m → C = ${fmt(CuF,6)} μF`;
+    }
+
+    $('#trace').innerHTML=`
+      <div><b>① 全静電容量：</b>${capTrace}</div>
+      <div><b>② Fへ換算：</b>C = ${C.toExponential(6)} F</div>
+      <div><b>③ 容量リアクタンス：</b>Xc = 1 ÷ (2π × ${fmt(f,0)} × ${C.toExponential(6)}) = ${fmt(Xc,3)} Ω</div>
+      <div><b>④ 1相分充電電流：</b>Ic = ${fmt(V,0)} ÷ ${fmt(Xc,3)} = ${I1.toExponential(6)} A = ${fmt(I1*1000,3)} mA</div>
+      ${mode===3?`<div><b>⑤ 3相単純合計：</b>${fmt(I1*1000,3)} mA × 3 = ${fmt(Ishow*1000,3)} mA</div>`:''}
+    `;
+
+    renderReactorComparison(Ishow,V,f);
+
+    empty.hidden=true;
+    wrap.hidden=false;
+  }
+
+  function reset(){
+    freq.value='50';
+    voltage.value='10350';
+    cableSize.value='0.32';
+    cap.value='0.32';
+    cap.readOnly=true;
+    cap.setAttribute('aria-readonly','true');
+    capUnit.value='uFkm';
+    length.value='100';
+    lengthUnit.value='m';
+    document.querySelector('input[name="phase"][value="3"]').checked=true;
+    empty.hidden=false;
+    wrap.hidden=true;
+    const rr=document.querySelector('#reactorRows');
+    if(rr) rr.innerHTML='<tr><td colspan="6">充電電流を計算すると候補を表示します。</td></tr>';
+    const rb=document.querySelector('#reactorBest');
+    if(rb) rb.innerHTML='<span>BEST MATCH</span><b>計算後に表示</b><small>入力条件から補償電流を比較します。</small>';
+  }
+
+  cableSize?.addEventListener('change',()=>{
+    if(cableSize.value==='custom'){
+      cap.focus();
+      return;
+    }
+    cap.value=cableSize.value;
+    capUnit.value='uFkm';
+    if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; }
+  });
+
+  cap?.addEventListener('input',()=>{
+    const v=Number(cap.value);
+    const match=[...cableSize.options].find(o=>o.value!=='custom' && Math.abs(Number(o.value)-v)<1e-9);
+    cableSize.value=match?match.value:'custom';
+  });
+
+  document.querySelectorAll('[data-preset]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(btn.dataset.preset==='66') voltage.value='10350';
+      if(btn.dataset.preset==='33') voltage.value='5175';
+      freq.value='50';
+    });
+  });
+
+  $('#calcBtn').addEventListener('click',calculate);
+  $('#resetBtn').addEventListener('click',reset);
+
+  [freq,voltage,cap,capUnit,length,lengthUnit].forEach(el=>{
+    el.addEventListener('input',()=>{ if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; } });
+    el.addEventListener('change',()=>{ if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; } });
+  });
+  document.querySelectorAll('input[name="phase"]').forEach(el=>{
+    el.addEventListener('change',()=>{ if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; } });
+  });
+})();
+</script>
+</body>
+</html>
