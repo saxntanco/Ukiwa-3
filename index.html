@@ -968,234 +968,6 @@ body{padding-bottom:76px;background:#eaf9ff}
 @media(prefers-reduced-motion:reduce){
   .world-hotspot{transition:none}
 }
-</style><style id="v46-ring-home-style">
-html,body{overflow-x:hidden}
-body{background:#071a2a;padding-bottom:76px}
-.ring-home{min-height:calc(100svh - 64px);background:linear-gradient(180deg,#e9fbff 0,#dff7ff 100%)}
-.ring-hero{padding:18px 10px 24px}
-.ring-head{width:min(980px,100%);margin:0 auto 12px;text-align:center;color:#103f5e}
-.ring-eyebrow{display:block;font-size:8px;letter-spacing:.18em;font-weight:1000;color:#2c87aa}
-.ring-head h1{margin:4px 0 4px;font-size:clamp(34px,7vw,58px);line-height:1.07}
-.ring-head p{margin:0;font-size:13px;font-weight:900;color:#5e7888}
-
-.ring-menu-stage{
-  position:relative;width:min(900px,100%);margin:0 auto;border-radius:30px;overflow:hidden;
-  background:#07192b;box-shadow:0 24px 55px rgba(0,70,103,.20);
-}
-.ring-menu-art{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
-.ring-hit{
-  position:absolute;z-index:4;min-width:116px;min-height:62px;padding:8px 10px;
-  display:flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;
-  background:rgba(6,34,53,.34);border:1px solid rgba(255,255,255,.16);
-  color:#fff;text-decoration:none;text-align:center;backdrop-filter:blur(5px);
-  transition:transform .16s ease,background .16s ease,box-shadow .16s ease
-}
-.ring-hit span{font-size:18px}.ring-hit b{font-size:12px;text-shadow:0 2px 8px rgba(0,0,0,.45)}
-.ring-hit:hover,.ring-hit:focus-visible{
-  transform:scale(1.04);background:rgba(255,255,255,.13);box-shadow:0 0 24px rgba(87,207,255,.26)
-}
-.hit-generator{left:40%;top:17%}
-.hit-relay{left:18%;top:32%}
-.hit-test{right:13%;top:32%}
-.hit-charge{left:16%;bottom:25%}
-.hit-basic{right:14%;bottom:25%}
-.hit-seq{left:39%;bottom:14%}
-
-.ring-center-copy{
-  position:absolute;z-index:3;left:50%;top:53%;transform:translate(-50%,-50%);
-  width:26%;text-align:center;color:#eef9ff;text-shadow:0 2px 12px rgba(0,0,0,.5)
-}
-.ring-center-copy strong{display:block;font-size:clamp(15px,2.4vw,27px);line-height:1.45}
-.ring-center-copy span{display:block;margin-top:9px;font-size:clamp(8px,1.2vw,12px);opacity:.85}
-
-.ring-menu-mobile{display:none}
-.ring-quick{
-  width:min(720px,calc(100% - 6px));margin:13px auto 0;padding:12px 14px;display:grid;
-  grid-template-columns:auto 1fr 48px;align-items:center;gap:10px;border-radius:20px;background:#fff;
-  border:1px solid #cde6ee;text-decoration:none;color:#123f5e;box-shadow:0 10px 24px rgba(0,76,104,.09)
-}
-.ring-quick-kicker{font-size:8px;letter-spacing:.12em;font-weight:1000;color:#2b89ab}
-.ring-quick-copy b,.ring-quick-copy small{display:block}
-.ring-quick-copy b{font-size:13px}.ring-quick-copy small{font-size:9px;color:#718591;margin-top:2px}
-.ring-quick-arrow{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#0b92c8;color:#fff;font-size:20px}
-
-.construction-modal[hidden]{display:none!important}
-.construction-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px}
-.construction-backdrop{position:absolute;inset:0;background:rgba(1,27,42,.62);backdrop-filter:blur(8px)}
-.construction-dialog{position:relative;z-index:1;width:min(360px,100%);padding:25px;border-radius:22px;background:#fff;text-align:center}
-.construction-dialog>span{font-size:9px;letter-spacing:.15em;color:#2a88aa;font-weight:1000}
-.construction-dialog h2{margin:5px 0;font-size:27px;color:#123f60}
-.construction-dialog p{margin:0;color:#657d8b;font-size:11px}
-.construction-close{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:1px solid #d4e8ef;background:#fff;font-size:21px}
-
-@media(max-width:700px){
-  .ring-hero{padding:10px 7px 18px}
-  .ring-head{text-align:left;padding:0 7px}
-  .ring-head h1{font-size:34px}
-  .ring-menu-stage{border-radius:21px}
-  .ring-hit{display:none}
-  .ring-center-copy{width:34%}
-  .ring-center-copy strong{font-size:14px}
-  .ring-center-copy span{font-size:7px;margin-top:5px}
-  .ring-menu-mobile{
-    display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px auto 0;width:100%
-  }
-  .ring-menu-mobile a{
-    min-height:70px;padding:10px;display:grid;grid-template-columns:30px 1fr;grid-template-rows:auto auto;
-    column-gap:7px;align-items:center;border-radius:17px;border:1px solid #cfe6ee;background:#fff;
-    text-decoration:none;color:#123f5e;box-shadow:0 8px 18px rgba(0,76,104,.07)
-  }
-  .ring-menu-mobile a>span{grid-row:1/3;font-size:22px}
-  .ring-menu-mobile b{font-size:11px}.ring-menu-mobile small{font-size:8px;color:#718591}
-}
-@media(max-width:390px){
-  .ring-head h1{font-size:31px}
-  .ring-menu-mobile a{min-height:66px}
-}
-@media(prefers-reduced-motion:reduce){.ring-hit{transition:none}}
-</style><style id="v47-clickable-ring-labels-style">
-/* v47: visible ring labels themselves are the actual links */
-.ring-sector-link{
-  position:absolute;
-  z-index:8;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  min-height:72px;
-  padding:10px 14px;
-  border-radius:22px;
-  text-decoration:none;
-  color:#fff;
-  text-align:left;
-  background:rgba(2,31,51,.28);
-  border:1px solid rgba(255,255,255,.20);
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-  box-shadow:0 6px 20px rgba(0,0,0,.16);
-  transform:translate(-50%,-50%);
-  transition:transform .16s ease, background .16s ease, box-shadow .16s ease;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:rgba(79,201,255,.22);
-}
-.ring-sector-link:hover,
-.ring-sector-link:focus-visible,
-.ring-sector-link:active{
-  transform:translate(-50%,-50%) scale(1.05);
-  background:rgba(255,255,255,.15);
-  box-shadow:0 0 28px rgba(84,211,255,.32);
-  outline:none;
-}
-.sector-icon{
-  flex:0 0 auto;
-  font-size:24px;
-  filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));
-}
-.sector-copy b{
-  display:block;
-  font-size:clamp(13px,1.8vw,20px);
-  line-height:1.15;
-  text-shadow:0 2px 8px rgba(0,0,0,.55);
-}
-.sector-copy small{
-  display:block;
-  margin-top:4px;
-  font-size:clamp(7px,.9vw,10px);
-  line-height:1.3;
-  color:rgba(255,255,255,.88);
-  text-shadow:0 1px 5px rgba(0,0,0,.55);
-}
-
-/* Positioned to sit directly over the six labels in the generated ring artwork */
-.sector-generator{left:50%;top:20%;width:30%}
-.sector-relay{left:28%;top:35%;width:27%}
-.sector-test{left:73%;top:36%;width:28%}
-.sector-charge{left:26%;top:67%;width:30%}
-.sector-basic{left:74%;top:67%;width:28%}
-.sector-seq{left:50%;top:80%;width:31%}
-
-/* Hide obsolete desktop hotspot presentation from v46 if still present */
-.ring-hit{display:none!important}
-
-/* On phone, the ring labels stay clickable too.
-   The 3x2 cards remain as an accessibility/readability fallback below. */
-@media(max-width:700px){
-  .ring-sector-link{
-    display:flex!important;
-    min-height:48px;
-    padding:5px 7px;
-    gap:4px;
-    border-radius:15px;
-    background:rgba(2,31,51,.36);
-  }
-  .sector-icon{font-size:15px}
-  .sector-copy b{font-size:9px}
-  .sector-copy small{display:none}
-  .sector-generator{left:50%;top:20%;width:28%}
-  .sector-relay{left:28%;top:35%;width:27%}
-  .sector-test{left:73%;top:36%;width:27%}
-  .sector-charge{left:26%;top:67%;width:29%}
-  .sector-basic{left:74%;top:67%;width:27%}
-  .sector-seq{left:50%;top:80%;width:29%}
-}
-@media(max-width:390px){
-  .ring-sector-link{min-height:44px;padding:4px 6px}
-  .sector-copy b{font-size:8.5px}
-}
-</style><style id="v50-home-restore-style">
-html,body{overflow-x:hidden}
-body{background:#eafaff;padding-bottom:76px}
-.home-v50{background:linear-gradient(180deg,#e9fbff 0,#dff7ff 52%,#eafaff 100%)}
-
-.island-hero,.ring-section{padding:16px 10px 20px}
-.island-head,.ring-section-head{
-  width:min(980px,100%);margin:0 auto 12px;text-align:center;color:#103f5e
-}
-.island-head>span,.ring-section-head>span{
-  display:block;font-size:8px;letter-spacing:.17em;font-weight:1000;color:#2d87aa
-}
-.island-head h1{margin:4px 0 5px;font-size:clamp(34px,7vw,58px);line-height:1.07}
-.island-head p,.ring-section-head p{margin:0;font-size:12px;font-weight:800;color:#5e7988}
-.ring-section-head h2{margin:4px 0 3px;font-size:clamp(27px,6vw,42px)}
-
-.island-art-wrap,.ring-menu-stage{
-  position:relative;width:min(980px,100%);margin:0 auto;overflow:hidden;
-  border-radius:28px;box-shadow:0 20px 50px rgba(0,77,105,.15)
-}
-.island-art-wrap img,.ring-menu-art{
-  display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none
-}
-.island-go{
-  position:absolute;left:50%;bottom:14px;transform:translateX(-50%);
-  min-height:44px;padding:10px 16px;display:flex;align-items:center;justify-content:center;
-  border-radius:999px;background:rgba(255,255,255,.92);color:#125173;text-decoration:none;
-  font-size:10px;font-weight:1000;box-shadow:0 8px 18px rgba(0,61,89,.15)
-}
-.ring-menu-stage{background:#061a2b}
-
-/* Transparent tap areas over text already baked into the image */
-.ring-hotzone{
-  position:absolute;z-index:10;display:block;background:transparent;border:0;
-  border-radius:22px;cursor:pointer;touch-action:manipulation;
-  -webkit-tap-highlight-color:rgba(61,202,255,.20)
-}
-.ring-hotzone:focus-visible{
-  outline:3px solid #5cd8ff;outline-offset:2px;background:rgba(64,204,255,.10)
-}
-.zone-generator{left:37%;top:13%;width:27%;height:16%}
-.zone-relay{left:10%;top:27%;width:31%;height:22%}
-.zone-test{right:7%;top:27%;width:31%;height:22%}
-.zone-charge{left:8%;bottom:18%;width:33%;height:23%}
-.zone-basic{right:8%;bottom:18%;width:32%;height:23%}
-.zone-seq{left:35%;bottom:5%;width:31%;height:20%}
-
-@media(max-width:700px){
-  .island-hero,.ring-section{padding:10px 7px 16px}
-  .island-head,.ring-section-head{text-align:left;padding:0 7px}
-  .island-head h1{font-size:33px}
-  .island-art-wrap,.ring-menu-stage{border-radius:20px}
-  .island-go{bottom:8px;padding:8px 12px;font-size:9px}
-}
 </style></head><body><header class="site-header">
 <a aria-label="ぷかぷかうきわメモ ホーム" class="brand" href="./index.html">
 <img alt="" src="./favicon.svg"/>
@@ -1206,33 +978,51 @@ body{background:#eafaff;padding-bottom:76px}
 <button aria-label="メニュー" class="menu-btn" type="button">≡</button>
 </div>
 </header>
-<main class="home-v50" id="home">
-<section aria-labelledby="islandTitle" class="island-hero">
-<div class="island-head">
-<span>PUKA PUKA ELECTRICAL SAFETY ARCHIPELAGO</span>
-<h1 id="islandTitle">電気保安を、<br/>海の冒険に。</h1>
-<p>うきわちゃんの電気保安アイランド。</p>
+<main class="island-home" id="home">
+<section aria-labelledby="worldTitle" class="world-hero">
+<div class="world-intro">
+<span class="world-eyebrow">PUKA PUKA ELECTRICAL SAFETY ARCHIPELAGO</span>
+<h1 id="worldTitle">電気保安を、<br/>海の冒険に。</h1>
+<p>今日は、どの島へ行く？</p>
 </div>
-<div class="island-art-wrap">
-<img alt="電気保安の学習島が広がるうきわちゃんのアイランド" src="./home-archipelago.png"/>
-<a class="island-go" href="#ringMenuStage">メニューへ ↓</a>
+<div class="world-map" id="worldMap">
+<img alt="保護継電器、充電電流計算、基礎、シーケンス、高圧機器、CT・VTなどの学習島が浮かぶ電気保安アイランド" fetchpriority="high" src="./home-archipelago.png"/>
+<a aria-label="電気の基礎島へ" class="world-hotspot hs-basics" data-construction="電気の基礎" href="#construction">
+<span>💧</span><b>基礎</b>
+</a>
+<a aria-label="保護継電器島へ" class="world-hotspot hs-relay" href="./protective-relay.html">
+<span>🛡️</span><b>保護継電器</b>
+</a>
+<a aria-label="充電電流計算へ" class="world-hotspot hs-test" href="./ac-withstand-test-simulator.html#calc">
+<span>⚡</span><b>充電電流計算</b>
+</a>
+<a aria-label="高圧機器島へ" class="world-hotspot hs-highvoltage" data-construction="高圧機器" href="#construction">
+<span>🏭</span><b>高圧機器</b>
+</a>
+<a aria-label="シーケンス島へ" class="world-hotspot hs-sequence" data-construction="シーケンス" href="#construction">
+<span>🔁</span><b>シーケンス</b>
+</a>
+<a aria-label="CT・VT島へ" class="world-hotspot hs-ctvt" data-construction="CT・VT" href="#construction">
+<span>🔍</span><b>CT・VT</b>
+</a>
+<a aria-label="発電機の島へ" class="world-hotspot hs-generator" href="./generator-rescue-island.html">
+<span>⚙️</span><b>発電機</b>
+</a>
+<a aria-label="事故・トラブル島へ" class="world-hotspot hs-trouble" data-construction="事故・トラブル" href="#construction">
+<span>⚠️</span><b>事故・トラブル</b>
+</a>
 </div>
-</section>
-<section aria-labelledby="ringTitle" class="ring-section">
-<div class="ring-section-head">
-<span>CHOOSE YOUR ROUTE</span>
-<h2 id="ringTitle">今日は、どこを学ぶ？</h2>
-<p>うきわに書かれた文字をそのままタップ。</p>
+<div aria-label="島を選ぶ" class="mobile-island-menu">
+<a href="./protective-relay.html"><span>🛡️</span><b>保護継電器</b><small>OCR・DGR・OVGR・RPR</small></a>
+<a aria-label="充電電流計算へ" href="./ac-withstand-test-simulator.html#calc"><span>⚡</span><b>充電電流計算</b><small>ケーブルの充電電流をすぐ計算</small></a>
+<a data-construction="電気の基礎" href="#construction"><span>💧</span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></a>
+<a data-construction="シーケンス" href="#construction"><span>🔁</span><b>シーケンス</b><small>接点・自己保持</small></a>
+<a aria-label="発電機の島へ" href="./generator-rescue-island.html"><span>⚙️</span><b>発電機</b><small>自動始動・停止／保護装置連動</small></a>
 </div>
-<div class="ring-menu-stage" id="ringMenuStage">
-<img alt="6つの学習メニューが描かれたうきわ型円環" class="ring-menu-art" src="./home-ring-menu.png"/>
-<!-- 画像内の文字位置だけに透明リンク -->
-<a aria-label="発電機" class="ring-hotzone zone-generator" href="./generator-rescue-island.html"></a>
-<a aria-label="保護継電器" class="ring-hotzone zone-relay" href="./protective-relay.html"></a>
-<a aria-label="試験・測定" class="ring-hotzone zone-test" data-construction="試験・測定" href="#construction"></a>
-<a aria-label="充電電流計算" class="ring-hotzone zone-charge" href="./ac-withstand-test-simulator.html#calc"></a>
-<a aria-label="電気の基礎" class="ring-hotzone zone-basic" data-construction="電気の基礎" href="#construction"></a>
-<a aria-label="シーケンス" class="ring-hotzone zone-seq" data-construction="シーケンス" href="#construction"></a>
+<div class="continue-card">
+<span>QUICK START</span>
+<div><b>迷ったらここから</b><small>保護継電器の島を見てみる</small></div>
+<a aria-label="保護継電器の島へ進む" href="./protective-relay.html">→</a>
 </div>
 </section>
 </main>
@@ -1248,7 +1038,7 @@ body{background:#eafaff;padding-bottom:76px}
 <nav aria-label="メインナビゲーション" class="bottom-nav island-bottom-nav">
 <a class="active" href="./index.html"><span><b>🏠</b>ホーム</span></a>
 <a data-construction="電気の基礎" href="#construction"><span><b>💧</b>基礎</span></a>
-<a href="./index.html#ringMenuStage"><span><b>🗺️</b>島</span></a>
+<a href="./index.html#worldMap"><span><b>🗺️</b>島</span></a>
 <a href="./zukan.html"><span><b>🎭</b>図鑑</span></a>
 <a data-construction="用語・公式集" href="#construction"><span><b>💬</b>用語</span></a>
 </nav>
@@ -1280,51 +1070,5 @@ body{background:#eafaff;padding-bottom:76px}
   function closeModal(){modal.hidden=true;document.body.style.overflow='';}
   modal?.querySelectorAll('[data-close-construction]').forEach(x=>x.addEventListener('click',closeModal));
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.hidden)closeModal();});
-})();
-</script><script id="v46-ring-home-script">
-(() => {
-  const modal=document.getElementById('constructionModal');
-  const text=document.getElementById('constructionText');
-  document.querySelectorAll('[data-construction]').forEach(a=>{
-    a.addEventListener('click',e=>{
-      e.preventDefault();
-      text.textContent=`「${a.dataset.construction}」は現在準備中です。`;
-      modal.hidden=false;
-      document.body.style.overflow='hidden';
-      modal.querySelector('.construction-close')?.focus();
-    });
-  });
-  const close=()=>{modal.hidden=true;document.body.style.overflow='';};
-  modal?.querySelectorAll('[data-close-construction]').forEach(x=>x.addEventListener('click',close));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.hidden)close();});
-})();
-</script><script id="v47-ring-link-script">
-(() => {
-  // Use delegated handling so ring links added/changed later still work.
-  document.addEventListener('click', e => {
-    const a=e.target.closest('.ring-sector-link[data-construction]');
-    if(!a) return;
-    e.preventDefault();
-    const modal=document.getElementById('constructionModal');
-    const text=document.getElementById('constructionText');
-    if(!modal || !text) return;
-    text.textContent=`「${a.dataset.construction}」は現在準備中です。`;
-    modal.hidden=false;
-    document.body.style.overflow='hidden';
-  });
-})();
-</script><script id="v50-home-hotzone-script">
-(() => {
-  document.addEventListener('click', e => {
-    const a=e.target.closest('.ring-hotzone[data-construction]');
-    if(!a) return;
-    e.preventDefault();
-    const modal=document.getElementById('constructionModal');
-    const text=document.getElementById('constructionText');
-    if(!modal || !text) return;
-    text.textContent=`「${a.dataset.construction}」は現在準備中です。`;
-    modal.hidden=false;
-    document.body.style.overflow='hidden';
-  });
 })();
 </script></body></html>

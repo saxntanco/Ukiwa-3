@@ -1,18 +1,24 @@
 {
-  "version": "v50-restore-content-keep-island-ring",
-  "base": "v47 last-known-good content",
-  "subpages_untouched": {
-    "protective-relay.html": true,
-    "generator-rescue-island.html": true,
-    "ac-withstand-test-simulator.html": true,
-    "relay-test-flow.html": true
-  },
-  "top_changes_only": [
-    "restored home archipelago image",
-    "kept ring menu",
-    "made only baked-in ring text positions transparent clickable"
+  "version": "v43-charge-current-cable-select",
+  "default_cable": "38mm²",
+  "default_capacitance": "0.32 μF/km (existing representative learning value)",
+  "default_phase": "3相一括",
+  "cable_presets": [
+    "22mm² / 0.27 μF/km",
+    "38mm² / 0.32 μF/km",
+    "60mm² / 0.37 μF/km",
+    "100mm² / 0.45 μF/km",
+    "150mm² / 0.52 μF/km",
+    "250mm² / 0.55 μF/km",
+    "その他・メーカー値手入力"
   ],
-  "test_measurement": "restored to prior state (construction link; no invented hub page)",
+  "layout_fixes": [
+    "calculator panels align-start",
+    "result panel min-width:0 and overflow contained",
+    "reactor table scrolls inside its own wrapper",
+    "mobile calculator forced to single column",
+    "removed automatic result scroll jump"
+  ],
   "js_syntax_ok": true,
   "missing_local_references": []
 }
