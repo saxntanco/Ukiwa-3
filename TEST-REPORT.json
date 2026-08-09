@@ -1,17 +1,17 @@
 {
-  "version": "v41-charge-current-reactor-mix",
-  "page_focus": "充電電流計算 + 必要なリアクトル組み合わせ比較",
-  "reactors": {
-    "2kVA": {
-      "model": "DR-1220MH",
-      "L_H": 200
-    },
-    "5kVA": {
-      "model": "DR-1250MH",
-      "L_H": 80
-    }
+  "version": "v48-fix-test-generator-links",
+  "fixed": {
+    "試験・測定": "test-measurement.html",
+    "発電機": "generator-rescue-island.html"
   },
-  "combination_search": "2kVA 0-4台 × 5kVA 0-3台を総当たりし、|Ic-IL|の小さい順に上位8件",
+  "minimal_zip_includes": [
+    "index.html",
+    "home-ring-menu.png",
+    "test-measurement.html",
+    "generator-rescue-island.html",
+    "ac-withstand-test-simulator.html",
+    "TEST-REPORT.json"
+  ],
   "js_syntax_ok": true,
   "missing_local_references": []
 }

@@ -1053,6 +1053,95 @@ body{background:#071a2a;padding-bottom:76px}
   .ring-menu-mobile a{min-height:66px}
 }
 @media(prefers-reduced-motion:reduce){.ring-hit{transition:none}}
+</style><style id="v47-clickable-ring-labels-style">
+/* v47: visible ring labels themselves are the actual links */
+.ring-sector-link{
+  position:absolute;
+  z-index:8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:72px;
+  padding:10px 14px;
+  border-radius:22px;
+  text-decoration:none;
+  color:#fff;
+  text-align:left;
+  background:rgba(2,31,51,.28);
+  border:1px solid rgba(255,255,255,.20);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  box-shadow:0 6px 20px rgba(0,0,0,.16);
+  transform:translate(-50%,-50%);
+  transition:transform .16s ease, background .16s ease, box-shadow .16s ease;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(79,201,255,.22);
+}
+.ring-sector-link:hover,
+.ring-sector-link:focus-visible,
+.ring-sector-link:active{
+  transform:translate(-50%,-50%) scale(1.05);
+  background:rgba(255,255,255,.15);
+  box-shadow:0 0 28px rgba(84,211,255,.32);
+  outline:none;
+}
+.sector-icon{
+  flex:0 0 auto;
+  font-size:24px;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));
+}
+.sector-copy b{
+  display:block;
+  font-size:clamp(13px,1.8vw,20px);
+  line-height:1.15;
+  text-shadow:0 2px 8px rgba(0,0,0,.55);
+}
+.sector-copy small{
+  display:block;
+  margin-top:4px;
+  font-size:clamp(7px,.9vw,10px);
+  line-height:1.3;
+  color:rgba(255,255,255,.88);
+  text-shadow:0 1px 5px rgba(0,0,0,.55);
+}
+
+/* Positioned to sit directly over the six labels in the generated ring artwork */
+.sector-generator{left:50%;top:20%;width:30%}
+.sector-relay{left:28%;top:35%;width:27%}
+.sector-test{left:73%;top:36%;width:28%}
+.sector-charge{left:26%;top:67%;width:30%}
+.sector-basic{left:74%;top:67%;width:28%}
+.sector-seq{left:50%;top:80%;width:31%}
+
+/* Hide obsolete desktop hotspot presentation from v46 if still present */
+.ring-hit{display:none!important}
+
+/* On phone, the ring labels stay clickable too.
+   The 3x2 cards remain as an accessibility/readability fallback below. */
+@media(max-width:700px){
+  .ring-sector-link{
+    display:flex!important;
+    min-height:48px;
+    padding:5px 7px;
+    gap:4px;
+    border-radius:15px;
+    background:rgba(2,31,51,.36);
+  }
+  .sector-icon{font-size:15px}
+  .sector-copy b{font-size:9px}
+  .sector-copy small{display:none}
+  .sector-generator{left:50%;top:20%;width:28%}
+  .sector-relay{left:28%;top:35%;width:27%}
+  .sector-test{left:73%;top:36%;width:27%}
+  .sector-charge{left:26%;top:67%;width:29%}
+  .sector-basic{left:74%;top:67%;width:27%}
+  .sector-seq{left:50%;top:80%;width:29%}
+}
+@media(max-width:390px){
+  .ring-sector-link{min-height:44px;padding:4px 6px}
+  .sector-copy b{font-size:8.5px}
+}
 </style></head><body><header class="site-header">
 <a aria-label="ぷかぷかうきわメモ ホーム" class="brand" href="./index.html">
 <img alt="" src="./favicon.svg"/>
@@ -1072,36 +1161,18 @@ body{background:#071a2a;padding-bottom:76px}
 </div>
 <div class="ring-menu-stage" id="ringMenuStage">
 <img alt="6つの学習分野を選べるうきわ型円環メニュー" class="ring-menu-art" src="./home-ring-menu.png"/>
-<a aria-label="発電機" class="ring-hit hit-generator" href="./generator-rescue-island.html">
-<span>⚙️</span><b>発電機</b>
-</a>
-<a aria-label="保護継電器" class="ring-hit hit-relay" href="./protective-relay.html">
-<span>🛡️</span><b>保護継電器</b>
-</a>
-<a aria-label="試験・測定" class="ring-hit hit-test" data-construction="試験・測定" href="#construction">
-<span>🔎</span><b>試験・測定</b>
-</a>
-<a aria-label="充電電流計算" class="ring-hit hit-charge" href="./ac-withstand-test-simulator.html#calc">
-<span>⚡</span><b>充電電流計算</b>
-</a>
-<a aria-label="電気の基礎" class="ring-hit hit-basic" data-construction="電気の基礎" href="#construction">
-<span>💧</span><b>電気の基礎</b>
-</a>
-<a aria-label="シーケンス" class="ring-hit hit-seq" data-construction="シーケンス" href="#construction">
-<span>🔁</span><b>シーケンス</b>
-</a>
 <div aria-hidden="true" class="ring-center-copy">
 <strong>今日は、<br/>どこを学ぶ？</strong>
 <span>うきわをタップして選択</span>
 </div>
-</div>
+<a aria-label="発電機の島へ" class="ring-sector-link sector-generator" href="./generator-rescue-island.html"><span class="sector-icon">⚙️</span><span class="sector-copy"><b>発電機</b><small>自動始動・停止／保護装置連動</small></span></a><a aria-label="保護継電器へ" class="ring-sector-link sector-relay" href="./protective-relay.html"><span class="sector-icon">🛡️</span><span class="sector-copy"><b>保護継電器</b><small>OCR・DGR・OVGR・RPR</small></span></a><a aria-label="試験・測定へ" class="ring-sector-link sector-test" href="./test-measurement.html"><span class="sector-icon">🔎</span><span class="sector-copy"><b>試験・測定</b><small>DI-05N・IR4052・ET-5</small></span></a><a aria-label="充電電流計算へ" class="ring-sector-link sector-charge" href="./ac-withstand-test-simulator.html#calc"><span class="sector-icon">⚡</span><span class="sector-copy"><b>充電電流計算</b><small>ケーブルの充電電流</small></span></a><a aria-label="電気の基礎へ" class="ring-sector-link sector-basic" data-construction="電気の基礎" href="#construction"><span class="sector-icon">💧</span><span class="sector-copy"><b>電気の基礎</b><small>RLC・ベクトル・公式</small></span></a><a aria-label="シーケンスへ" class="ring-sector-link sector-seq" data-construction="シーケンス" href="#construction"><span class="sector-icon">🔁</span><span class="sector-copy"><b>シーケンス</b><small>接点・自己保持</small></span></a></div>
 <div aria-label="学習メニュー" class="ring-menu-mobile">
 <a href="./protective-relay.html"><span>🛡️</span><b>保護継電器</b><small>OCR・DGR・OVGR・RPR</small></a>
-<a data-construction="試験・測定" href="#construction"><span>🔎</span><b>試験・測定</b><small>DI-05N・IR4052・ET-5</small></a>
+<a aria-label="試験・測定へ" href="./test-measurement.html"><span>🔎</span><b>試験・測定</b><small>DI-05N・IR4052・ET-5</small></a>
 <a href="./ac-withstand-test-simulator.html#calc"><span>⚡</span><b>充電電流計算</b><small>ケーブルの充電電流</small></a>
 <a data-construction="電気の基礎" href="#construction"><span>💧</span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></a>
 <a data-construction="シーケンス" href="#construction"><span>🔁</span><b>シーケンス</b><small>接点・自己保持</small></a>
-<a href="./generator-rescue-island.html"><span>⚙️</span><b>発電機</b><small>自動始動・停止／保護装置連動</small></a>
+<a aria-label="発電機の島へ" href="./generator-rescue-island.html"><span>⚙️</span><b>発電機</b><small>自動始動・停止／保護装置連動</small></a>
 </div>
 <a class="ring-quick" href="./protective-relay.html">
 <span class="ring-quick-kicker">QUICK START</span>
@@ -1171,5 +1242,20 @@ body{background:#071a2a;padding-bottom:76px}
   const close=()=>{modal.hidden=true;document.body.style.overflow='';};
   modal?.querySelectorAll('[data-close-construction]').forEach(x=>x.addEventListener('click',close));
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.hidden)close();});
+})();
+</script><script id="v47-ring-link-script">
+(() => {
+  // Use delegated handling so ring links added/changed later still work.
+  document.addEventListener('click', e => {
+    const a=e.target.closest('.ring-sector-link[data-construction]');
+    if(!a) return;
+    e.preventDefault();
+    const modal=document.getElementById('constructionModal');
+    const text=document.getElementById('constructionText');
+    if(!modal || !text) return;
+    text.textContent=`「${a.dataset.construction}」は現在準備中です。`;
+    modal.hidden=false;
+    document.body.style.overflow='hidden';
+  });
 })();
 </script></body></html>
