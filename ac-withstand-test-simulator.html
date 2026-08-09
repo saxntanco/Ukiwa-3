@@ -195,6 +195,111 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
   .reactor-compare{padding:11px;border-radius:14px}
   .reactor-best b{font-size:18px}
 }
+</style><style id="v42-layout-fix-style">
+html,body{max-width:100%;overflow-x:hidden}
+.calculator{align-items:start}
+.calculator>.panel{min-width:0;width:100%}
+.result-panel{align-self:start}
+.result-wrap{width:100%;min-width:0}
+.reactor-compare{min-width:0;max-width:100%;overflow:hidden}
+.reactor-table-wrap{display:block;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.reactor-table{min-width:560px}
+#trace{min-width:0}
+.trace div{overflow-wrap:anywhere}
+.result-hero strong{overflow-wrap:anywhere}
+.cable-size-field select{font-weight:900}
+
+@media(max-width:700px){
+  .calculator{display:block}
+  .input-panel,.result-panel{width:100%;min-width:0}
+  .result-panel{margin-top:9px}
+  .reactor-table{min-width:520px}
+  .reactor-compare-head{display:block}
+  .reactor-best b{overflow-wrap:anywhere}
+  .metrics{grid-template-columns:1fr 1fr}
+}
+@media(max-width:390px){
+  .panel{padding:12px}
+  .metrics{grid-template-columns:1fr}
+  .reactor-table{min-width:500px}
+}
+</style><style id="v43-layout-fix">
+/* v43: prevent result/reactor area from breaking calculator layout */
+.calculator{
+  align-items:start!important;
+}
+.calculator > .panel{
+  min-width:0!important;
+  align-self:start!important;
+}
+.input-panel{
+  position:relative;
+}
+.result-panel{
+  min-width:0!important;
+  width:100%!important;
+  overflow:hidden;
+}
+.result-wrap{
+  min-width:0;
+  width:100%;
+}
+.trace,.reactor-compare{
+  min-width:0;
+  max-width:100%;
+}
+.reactor-table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto!important;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.reactor-table{
+  min-width:600px;
+  max-width:none;
+}
+.metrics{
+  min-width:0;
+}
+.metric{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.result-hero strong{
+  overflow-wrap:anywhere;
+}
+.cable-size-field select{
+  width:100%;
+  min-height:48px;
+  border:1px solid #bad4df;
+  border-radius:12px;
+  padding:9px 11px;
+  background:#fff;
+  color:var(--ink);
+  font-weight:800;
+}
+.cable-help{
+  margin:-5px 0 10px;
+  font-size:8.5px;
+  line-height:1.55;
+  color:#6d8390;
+}
+@media(max-width:700px){
+  .calculator{
+    display:block!important;
+  }
+  .input-panel,.result-panel{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .result-panel{
+    margin-top:9px;
+  }
+  .reactor-table{
+    min-width:560px;
+  }
+}
 </style></head>
 <body>
 <header class="topbar">
@@ -238,8 +343,12 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
 <label for="voltage">印加電圧 V [V]</label>
 <input id="voltage" inputmode="decimal" min="0" step="1" type="number" value="10350"/>
 </div>
+<div class="field cable-size-field">
+<label for="cableSize">高圧ケーブルサイズ</label>
+<select id="cableSize"><option value="0.27">22mm²（代表値 0.27 μF/km）</option><option selected="" value="0.32">38mm²（代表値 0.32 μF/km）</option><option value="0.37">60mm²（代表値 0.37 μF/km）</option><option value="0.45">100mm²（代表値 0.45 μF/km）</option><option value="0.52">150mm²（代表値 0.52 μF/km）</option><option value="0.55">250mm²（代表値 0.55 μF/km）</option><option value="custom">その他・メーカー値を手入力</option></select>
+</div><p class="cable-help">代表値は既存の学習用データです。実務ではメーカー仕様値を優先してください。</p>
 <div class="field">
-<label for="cap">長さ当たり静電容量 c</label>
+<label for="cap">長さ当たり静電容量 c（サイズ選択で自動入力／手入力可）</label>
 <div class="field-grid">
 <input id="cap" inputmode="decimal" min="0" step="0.001" type="number" value="0.32"/>
 <select aria-label="静電容量の単位" id="capUnit">
@@ -260,15 +369,12 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
 </div>
 </div>
 <div aria-label="計算表示" class="phase-row">
-<label class="phase"><input checked="" name="phase" type="radio" value="1"/>1相分</label>
-<label class="phase"><input name="phase" type="radio" value="3"/>3相単純合計</label>
+<label class="phase"><input name="phase" type="radio" value="1"/>1相分</label>
+<label class="phase"><input checked="checked" name="phase" type="radio" value="3"/>3相一括</label>
 </div>
 <button class="calc-btn" id="calcBtn" type="button">充電電流を計算する</button>
 <button class="reset-btn" id="resetBtn" type="button">入力をリセット</button>
-<div class="source-note">
-        静電容量は、実務では対象ケーブルのメーカー仕様値・設備資料・実測値を入力してください。
-        「3相単純合計」は1相分×3の参考表示であり、実際の試験結線に常に適用できるとは限りません。
-      </div>
+<div class="source-note">代表静電容量は学習用の目安です。初期値は38mm²＝0.32 μF/km、3相一括です。22 / 38 / 60 / 100 / 150 / 250mm²から選択できます。その他のケーブルは「その他・メーカー値を手入力」を選び、メーカー仕様値・設備資料・実測値を入力してください。3相一括の扱いは実際の試験結線・試験要領書を優先してください。</div>
 </div>
 <div class="panel result-panel">
 <div class="result-empty" id="resultEmpty">
@@ -329,7 +435,6 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
     実機の定格、推奨組み合わせ、接続可能条件、過容量可否はメーカー取扱説明書・現場条件を優先してください。
   </div>
 </section>
-
 </div>
 </div>
 </section>
@@ -367,6 +472,7 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
   const fmt = (n,d=3) => Number(n).toLocaleString('ja-JP',{maximumFractionDigits:d});
 
   const freq=$('#freq'), voltage=$('#voltage'), cap=$('#cap'), capUnit=$('#capUnit');
+  const cableSize=$('#cableSize');
   const length=$('#length'), lengthUnit=$('#lengthUnit');
   const empty=$('#resultEmpty'), wrap=$('#resultWrap');
 
@@ -481,17 +587,19 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
 
     empty.hidden=true;
     wrap.hidden=false;
-    wrap.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
   function reset(){
     freq.value='50';
     voltage.value='10350';
+    cableSize.value='0.32';
     cap.value='0.32';
+    cap.readOnly=true;
+    cap.setAttribute('aria-readonly','true');
     capUnit.value='uFkm';
     length.value='100';
     lengthUnit.value='m';
-    document.querySelector('input[name="phase"][value="1"]').checked=true;
+    document.querySelector('input[name="phase"][value="3"]').checked=true;
     empty.hidden=false;
     wrap.hidden=true;
     const rr=document.querySelector('#reactorRows');
@@ -499,6 +607,22 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
     const rb=document.querySelector('#reactorBest');
     if(rb) rb.innerHTML='<span>BEST MATCH</span><b>計算後に表示</b><small>入力条件から補償電流を比較します。</small>';
   }
+
+  cableSize?.addEventListener('change',()=>{
+    if(cableSize.value==='custom'){
+      cap.focus();
+      return;
+    }
+    cap.value=cableSize.value;
+    capUnit.value='uFkm';
+    if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; }
+  });
+
+  cap?.addEventListener('input',()=>{
+    const v=Number(cap.value);
+    const match=[...cableSize.options].find(o=>o.value!=='custom' && Math.abs(Number(o.value)-v)<1e-9);
+    cableSize.value=match?match.value:'custom';
+  });
 
   document.querySelectorAll('[data-preset]').forEach(btn=>{
     btn.addEventListener('click',()=>{
