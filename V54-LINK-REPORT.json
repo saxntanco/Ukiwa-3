@@ -1,0 +1,14 @@
+{
+  "internal_refs_checked": 93,
+  "missing_internal_refs": [],
+  "core_targets": {
+    "保護継電器": true,
+    "試験・測定": true,
+    "耐圧・高電圧": true,
+    "非常用発電機": true,
+    "OVGR/RPR": true,
+    "継電器試験フロー": true,
+    "絶縁監視": true,
+    "基礎教材": true
+  }
+}
