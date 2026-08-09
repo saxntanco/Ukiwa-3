@@ -1142,6 +1142,35 @@ body{background:#071a2a;padding-bottom:76px}
   .ring-sector-link{min-height:44px;padding:4px 6px}
   .sector-copy b{font-size:8.5px}
 }
+</style><style id="v49-island-ring-style">
+html,body{overflow-x:hidden}
+body{background:#eafaff;padding-bottom:76px}
+.home-v49{background:linear-gradient(180deg,#e9fbff 0,#dff7ff 52%,#eafaff 100%)}
+.island-hero,.ring-section{padding:16px 10px 20px}
+.island-head,.ring-section-head{width:min(980px,100%);margin:0 auto 12px;text-align:center;color:#103f5e}
+.island-head>span,.ring-section-head>span{display:block;font-size:8px;letter-spacing:.17em;font-weight:1000;color:#2d87aa}
+.island-head h1{margin:4px 0 5px;font-size:clamp(34px,7vw,58px);line-height:1.07}
+.island-head p,.ring-section-head p{margin:0;font-size:12px;font-weight:800;color:#5e7988}
+.island-art-wrap,.ring-menu-stage{position:relative;width:min(980px,100%);margin:0 auto;overflow:hidden;border-radius:28px;box-shadow:0 20px 50px rgba(0,77,105,.15)}
+.island-art-wrap img,.ring-menu-art{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.island-go{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);min-height:44px;padding:10px 16px;display:flex;align-items:center;justify-content:center;border-radius:999px;background:rgba(255,255,255,.92);color:#125173;text-decoration:none;font-size:10px;font-weight:1000;box-shadow:0 8px 18px rgba(0,61,89,.15)}
+.ring-section-head h2{margin:4px 0 3px;font-size:clamp(27px,6vw,42px)}
+.ring-menu-stage{background:#061a2b}
+.ring-hotzone{position:absolute;z-index:10;display:block;background:transparent;border:0;border-radius:22px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:rgba(61,202,255,.20)}
+.ring-hotzone:focus-visible{outline:3px solid #5cd8ff;outline-offset:2px;background:rgba(64,204,255,.10)}
+.zone-generator{left:37%;top:13%;width:27%;height:16%}
+.zone-relay{left:10%;top:27%;width:31%;height:22%}
+.zone-test{right:7%;top:27%;width:31%;height:22%}
+.zone-charge{left:8%;bottom:18%;width:33%;height:23%}
+.zone-basic{right:8%;bottom:18%;width:32%;height:23%}
+.zone-seq{left:35%;bottom:5%;width:31%;height:20%}
+@media(max-width:700px){
+ .island-hero,.ring-section{padding:10px 7px 16px}
+ .island-head,.ring-section-head{text-align:left;padding:0 7px}
+ .island-head h1{font-size:33px}
+ .island-art-wrap,.ring-menu-stage{border-radius:20px}
+ .island-go{bottom:8px;padding:8px 12px;font-size:9px}
+}
 </style></head><body><header class="site-header">
 <a aria-label="ぷかぷかうきわメモ ホーム" class="brand" href="./index.html">
 <img alt="" src="./favicon.svg"/>
@@ -1152,33 +1181,33 @@ body{background:#071a2a;padding-bottom:76px}
 <button aria-label="メニュー" class="menu-btn" type="button">≡</button>
 </div>
 </header>
-<main class="ring-home" id="home">
-<section aria-labelledby="ringHeroTitle" class="ring-hero">
-<div class="ring-head">
-<span class="ring-eyebrow">PUKA PUKA UKIWA MEMO</span>
-<h1 id="ringHeroTitle">電気保安を、<br/>海の冒険に。</h1>
-<p>今日は、どこを学ぶ？</p>
+<main class="home-v49" id="home">
+<section aria-labelledby="islandTitle" class="island-hero">
+<div class="island-head">
+<span>PUKA PUKA ELECTRICAL SAFETY ARCHIPELAGO</span>
+<h1 id="islandTitle">電気保安を、<br/>海の冒険に。</h1>
+<p>まずは、うきわちゃんの電気保安アイランドへ。</p>
+</div>
+<div class="island-art-wrap">
+<img alt="うきわちゃんと電気保安の島々が広がるトップアイランド" src="./home-archipelago.png"/>
+<a class="island-go" href="#ringMenuStage">円環メニューを見る ↓</a>
+</div>
+</section>
+<section aria-labelledby="ringTitle" class="ring-section">
+<div class="ring-section-head">
+<span>CHOOSE YOUR ROUTE</span>
+<h2 id="ringTitle">今日は、どこを学ぶ？</h2>
+<p>うきわに書かれた項目をタップしてください。</p>
 </div>
 <div class="ring-menu-stage" id="ringMenuStage">
-<img alt="6つの学習分野を選べるうきわ型円環メニュー" class="ring-menu-art" src="./home-ring-menu.png"/>
-<div aria-hidden="true" class="ring-center-copy">
-<strong>今日は、<br/>どこを学ぶ？</strong>
-<span>うきわをタップして選択</span>
+<img alt="6つの学習分野が書かれたうきわ型円環メニュー" class="ring-menu-art" src="./home-ring-menu.png"/>
+<a aria-label="発電機" class="ring-hotzone zone-generator" href="./generator-rescue-island.html"></a>
+<a aria-label="保護継電器" class="ring-hotzone zone-relay" href="./protective-relay.html"></a>
+<a aria-label="試験・測定" class="ring-hotzone zone-test" href="./test-measurement.html"></a>
+<a aria-label="充電電流計算" class="ring-hotzone zone-charge" href="./ac-withstand-test-simulator.html#calc"></a>
+<a aria-label="電気の基礎" class="ring-hotzone zone-basic" data-construction="電気の基礎" href="#construction"></a>
+<a aria-label="シーケンス" class="ring-hotzone zone-seq" data-construction="シーケンス" href="#construction"></a>
 </div>
-<a aria-label="発電機の島へ" class="ring-sector-link sector-generator" href="./generator-rescue-island.html"><span class="sector-icon">⚙️</span><span class="sector-copy"><b>発電機</b><small>自動始動・停止／保護装置連動</small></span></a><a aria-label="保護継電器へ" class="ring-sector-link sector-relay" href="./protective-relay.html"><span class="sector-icon">🛡️</span><span class="sector-copy"><b>保護継電器</b><small>OCR・DGR・OVGR・RPR</small></span></a><a aria-label="試験・測定へ" class="ring-sector-link sector-test" href="./test-measurement.html"><span class="sector-icon">🔎</span><span class="sector-copy"><b>試験・測定</b><small>DI-05N・IR4052・ET-5</small></span></a><a aria-label="充電電流計算へ" class="ring-sector-link sector-charge" href="./ac-withstand-test-simulator.html#calc"><span class="sector-icon">⚡</span><span class="sector-copy"><b>充電電流計算</b><small>ケーブルの充電電流</small></span></a><a aria-label="電気の基礎へ" class="ring-sector-link sector-basic" data-construction="電気の基礎" href="#construction"><span class="sector-icon">💧</span><span class="sector-copy"><b>電気の基礎</b><small>RLC・ベクトル・公式</small></span></a><a aria-label="シーケンスへ" class="ring-sector-link sector-seq" data-construction="シーケンス" href="#construction"><span class="sector-icon">🔁</span><span class="sector-copy"><b>シーケンス</b><small>接点・自己保持</small></span></a></div>
-<div aria-label="学習メニュー" class="ring-menu-mobile">
-<a href="./protective-relay.html"><span>🛡️</span><b>保護継電器</b><small>OCR・DGR・OVGR・RPR</small></a>
-<a aria-label="試験・測定へ" href="./test-measurement.html"><span>🔎</span><b>試験・測定</b><small>DI-05N・IR4052・ET-5</small></a>
-<a href="./ac-withstand-test-simulator.html#calc"><span>⚡</span><b>充電電流計算</b><small>ケーブルの充電電流</small></a>
-<a data-construction="電気の基礎" href="#construction"><span>💧</span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></a>
-<a data-construction="シーケンス" href="#construction"><span>🔁</span><b>シーケンス</b><small>接点・自己保持</small></a>
-<a aria-label="発電機の島へ" href="./generator-rescue-island.html"><span>⚙️</span><b>発電機</b><small>自動始動・停止／保護装置連動</small></a>
-</div>
-<a class="ring-quick" href="./protective-relay.html">
-<span class="ring-quick-kicker">QUICK START</span>
-<span class="ring-quick-copy"><b>迷ったらここから</b><small>保護継電器の島を見てみる</small></span>
-<span class="ring-quick-arrow">→</span>
-</a>
 </section>
 </main>
 <div aria-labelledby="constructionTitle" aria-modal="true" class="construction-modal" hidden="" id="constructionModal" role="dialog">
@@ -1248,6 +1277,20 @@ body{background:#071a2a;padding-bottom:76px}
   // Use delegated handling so ring links added/changed later still work.
   document.addEventListener('click', e => {
     const a=e.target.closest('.ring-sector-link[data-construction]');
+    if(!a) return;
+    e.preventDefault();
+    const modal=document.getElementById('constructionModal');
+    const text=document.getElementById('constructionText');
+    if(!modal || !text) return;
+    text.textContent=`「${a.dataset.construction}」は現在準備中です。`;
+    modal.hidden=false;
+    document.body.style.overflow='hidden';
+  });
+})();
+</script><script id="v49-hotzone-script">
+(() => {
+  document.addEventListener('click', e => {
+    const a=e.target.closest('.ring-hotzone[data-construction]');
     if(!a) return;
     e.preventDefault();
     const modal=document.getElementById('constructionModal');

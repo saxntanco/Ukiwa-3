@@ -1,17 +1,16 @@
 {
-  "version": "v48-fix-test-generator-links",
-  "fixed": {
+  "version": "v49-island-plus-transparent-ring",
+  "top_island_restored": true,
+  "ring_links": "transparent hotspots over the text already printed in the ring image",
+  "visible_overlay_labels": false,
+  "targets": {
+    "発電機": "generator-rescue-island.html",
+    "保護継電器": "protective-relay.html",
     "試験・測定": "test-measurement.html",
-    "発電機": "generator-rescue-island.html"
+    "充電電流計算": "ac-withstand-test-simulator.html#calc",
+    "電気の基礎": "工事中",
+    "シーケンス": "工事中"
   },
-  "minimal_zip_includes": [
-    "index.html",
-    "home-ring-menu.png",
-    "test-measurement.html",
-    "generator-rescue-island.html",
-    "ac-withstand-test-simulator.html",
-    "TEST-REPORT.json"
-  ],
   "js_syntax_ok": true,
   "missing_local_references": []
 }
