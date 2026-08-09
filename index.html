@@ -968,6 +968,91 @@ body{padding-bottom:76px;background:#eaf9ff}
 @media(prefers-reduced-motion:reduce){
   .world-hotspot{transition:none}
 }
+</style><style id="v46-ring-home-style">
+html,body{overflow-x:hidden}
+body{background:#071a2a;padding-bottom:76px}
+.ring-home{min-height:calc(100svh - 64px);background:linear-gradient(180deg,#e9fbff 0,#dff7ff 100%)}
+.ring-hero{padding:18px 10px 24px}
+.ring-head{width:min(980px,100%);margin:0 auto 12px;text-align:center;color:#103f5e}
+.ring-eyebrow{display:block;font-size:8px;letter-spacing:.18em;font-weight:1000;color:#2c87aa}
+.ring-head h1{margin:4px 0 4px;font-size:clamp(34px,7vw,58px);line-height:1.07}
+.ring-head p{margin:0;font-size:13px;font-weight:900;color:#5e7888}
+
+.ring-menu-stage{
+  position:relative;width:min(900px,100%);margin:0 auto;border-radius:30px;overflow:hidden;
+  background:#07192b;box-shadow:0 24px 55px rgba(0,70,103,.20);
+}
+.ring-menu-art{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.ring-hit{
+  position:absolute;z-index:4;min-width:116px;min-height:62px;padding:8px 10px;
+  display:flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;
+  background:rgba(6,34,53,.34);border:1px solid rgba(255,255,255,.16);
+  color:#fff;text-decoration:none;text-align:center;backdrop-filter:blur(5px);
+  transition:transform .16s ease,background .16s ease,box-shadow .16s ease
+}
+.ring-hit span{font-size:18px}.ring-hit b{font-size:12px;text-shadow:0 2px 8px rgba(0,0,0,.45)}
+.ring-hit:hover,.ring-hit:focus-visible{
+  transform:scale(1.04);background:rgba(255,255,255,.13);box-shadow:0 0 24px rgba(87,207,255,.26)
+}
+.hit-generator{left:40%;top:17%}
+.hit-relay{left:18%;top:32%}
+.hit-test{right:13%;top:32%}
+.hit-charge{left:16%;bottom:25%}
+.hit-basic{right:14%;bottom:25%}
+.hit-seq{left:39%;bottom:14%}
+
+.ring-center-copy{
+  position:absolute;z-index:3;left:50%;top:53%;transform:translate(-50%,-50%);
+  width:26%;text-align:center;color:#eef9ff;text-shadow:0 2px 12px rgba(0,0,0,.5)
+}
+.ring-center-copy strong{display:block;font-size:clamp(15px,2.4vw,27px);line-height:1.45}
+.ring-center-copy span{display:block;margin-top:9px;font-size:clamp(8px,1.2vw,12px);opacity:.85}
+
+.ring-menu-mobile{display:none}
+.ring-quick{
+  width:min(720px,calc(100% - 6px));margin:13px auto 0;padding:12px 14px;display:grid;
+  grid-template-columns:auto 1fr 48px;align-items:center;gap:10px;border-radius:20px;background:#fff;
+  border:1px solid #cde6ee;text-decoration:none;color:#123f5e;box-shadow:0 10px 24px rgba(0,76,104,.09)
+}
+.ring-quick-kicker{font-size:8px;letter-spacing:.12em;font-weight:1000;color:#2b89ab}
+.ring-quick-copy b,.ring-quick-copy small{display:block}
+.ring-quick-copy b{font-size:13px}.ring-quick-copy small{font-size:9px;color:#718591;margin-top:2px}
+.ring-quick-arrow{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#0b92c8;color:#fff;font-size:20px}
+
+.construction-modal[hidden]{display:none!important}
+.construction-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px}
+.construction-backdrop{position:absolute;inset:0;background:rgba(1,27,42,.62);backdrop-filter:blur(8px)}
+.construction-dialog{position:relative;z-index:1;width:min(360px,100%);padding:25px;border-radius:22px;background:#fff;text-align:center}
+.construction-dialog>span{font-size:9px;letter-spacing:.15em;color:#2a88aa;font-weight:1000}
+.construction-dialog h2{margin:5px 0;font-size:27px;color:#123f60}
+.construction-dialog p{margin:0;color:#657d8b;font-size:11px}
+.construction-close{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:1px solid #d4e8ef;background:#fff;font-size:21px}
+
+@media(max-width:700px){
+  .ring-hero{padding:10px 7px 18px}
+  .ring-head{text-align:left;padding:0 7px}
+  .ring-head h1{font-size:34px}
+  .ring-menu-stage{border-radius:21px}
+  .ring-hit{display:none}
+  .ring-center-copy{width:34%}
+  .ring-center-copy strong{font-size:14px}
+  .ring-center-copy span{font-size:7px;margin-top:5px}
+  .ring-menu-mobile{
+    display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px auto 0;width:100%
+  }
+  .ring-menu-mobile a{
+    min-height:70px;padding:10px;display:grid;grid-template-columns:30px 1fr;grid-template-rows:auto auto;
+    column-gap:7px;align-items:center;border-radius:17px;border:1px solid #cfe6ee;background:#fff;
+    text-decoration:none;color:#123f5e;box-shadow:0 8px 18px rgba(0,76,104,.07)
+  }
+  .ring-menu-mobile a>span{grid-row:1/3;font-size:22px}
+  .ring-menu-mobile b{font-size:11px}.ring-menu-mobile small{font-size:8px;color:#718591}
+}
+@media(max-width:390px){
+  .ring-head h1{font-size:31px}
+  .ring-menu-mobile a{min-height:66px}
+}
+@media(prefers-reduced-motion:reduce){.ring-hit{transition:none}}
 </style></head><body><header class="site-header">
 <a aria-label="ぷかぷかうきわメモ ホーム" class="brand" href="./index.html">
 <img alt="" src="./favicon.svg"/>
@@ -978,52 +1063,51 @@ body{padding-bottom:76px;background:#eaf9ff}
 <button aria-label="メニュー" class="menu-btn" type="button">≡</button>
 </div>
 </header>
-<main class="island-home" id="home">
-<section aria-labelledby="worldTitle" class="world-hero">
-<div class="world-intro">
-<span class="world-eyebrow">PUKA PUKA ELECTRICAL SAFETY ARCHIPELAGO</span>
-<h1 id="worldTitle">電気保安を、<br/>海の冒険に。</h1>
-<p>今日は、どの島へ行く？</p>
+<main class="ring-home" id="home">
+<section aria-labelledby="ringHeroTitle" class="ring-hero">
+<div class="ring-head">
+<span class="ring-eyebrow">PUKA PUKA UKIWA MEMO</span>
+<h1 id="ringHeroTitle">電気保安を、<br/>海の冒険に。</h1>
+<p>今日は、どこを学ぶ？</p>
 </div>
-<div class="world-map" id="worldMap">
-<img alt="保護継電器、試験・測定、充電電流計算、基礎、シーケンス、高圧機器、CT・VTなどの学習島が浮かぶ電気保安アイランド" fetchpriority="high" src="./home-archipelago.png"/>
-<a aria-label="電気の基礎島へ" class="world-hotspot hs-basics" data-construction="電気の基礎" href="#construction">
-<span>💧</span><b>基礎</b>
-</a>
-<a aria-label="保護継電器島へ" class="world-hotspot hs-relay" href="./protective-relay.html">
-<span>🛡️</span><b>保護継電器</b>
-</a>
-<a aria-label="各種測定器具・試験器の島へ" class="world-hotspot hs-test" href="./measuring-instruments.html">
-<span>⌕</span><b>試験・測定</b>
-</a>
-<a aria-label="高圧機器島へ" class="world-hotspot hs-highvoltage" data-construction="高圧機器" href="#construction">
-<span>🏭</span><b>高圧機器</b>
-</a>
-<a aria-label="シーケンス島へ" class="world-hotspot hs-sequence" data-construction="シーケンス" href="#construction">
-<span>🔁</span><b>シーケンス</b>
-</a>
-<a aria-label="CT・VT島へ" class="world-hotspot hs-ctvt" data-construction="CT・VT" href="#construction">
-<span>🔍</span><b>CT・VT</b>
-</a>
-<a aria-label="発電機島へ" class="world-hotspot hs-generator" data-construction="発電機" href="#construction">
+<div class="ring-menu-stage" id="ringMenuStage">
+<img alt="6つの学習分野を選べるうきわ型円環メニュー" class="ring-menu-art" src="./home-ring-menu.png"/>
+<a aria-label="発電機" class="ring-hit hit-generator" href="./generator-rescue-island.html">
 <span>⚙️</span><b>発電機</b>
 </a>
-<a aria-label="事故・トラブル島へ" class="world-hotspot hs-trouble" data-construction="事故・トラブル" href="#construction">
-<span>⚠️</span><b>事故・トラブル</b>
+<a aria-label="保護継電器" class="ring-hit hit-relay" href="./protective-relay.html">
+<span>🛡️</span><b>保護継電器</b>
 </a>
+<a aria-label="試験・測定" class="ring-hit hit-test" data-construction="試験・測定" href="#construction">
+<span>🔎</span><b>試験・測定</b>
+</a>
+<a aria-label="充電電流計算" class="ring-hit hit-charge" href="./ac-withstand-test-simulator.html#calc">
+<span>⚡</span><b>充電電流計算</b>
+</a>
+<a aria-label="電気の基礎" class="ring-hit hit-basic" data-construction="電気の基礎" href="#construction">
+<span>💧</span><b>電気の基礎</b>
+</a>
+<a aria-label="シーケンス" class="ring-hit hit-seq" data-construction="シーケンス" href="#construction">
+<span>🔁</span><b>シーケンス</b>
+</a>
+<div aria-hidden="true" class="ring-center-copy">
+<strong>今日は、<br/>どこを学ぶ？</strong>
+<span>うきわをタップして選択</span>
 </div>
-<div aria-label="島を選ぶ" class="mobile-island-menu">
+</div>
+<div aria-label="学習メニュー" class="ring-menu-mobile">
 <a href="./protective-relay.html"><span>🛡️</span><b>保護継電器</b><small>OCR・DGR・OVGR・RPR</small></a>
-<a href="./measuring-instruments.html"><span>⌕</span><b>試験・測定</b><small>DI-05N・IR4052・ET-5</small></a>
-<a aria-label="充電電流計算へ" href="./ac-withstand-test-simulator.html#calc"><span>⚡</span><b>充電電流計算</b><small>ケーブルの充電電流をすぐ計算</small></a>
+<a data-construction="試験・測定" href="#construction"><span>🔎</span><b>試験・測定</b><small>DI-05N・IR4052・ET-5</small></a>
+<a href="./ac-withstand-test-simulator.html#calc"><span>⚡</span><b>充電電流計算</b><small>ケーブルの充電電流</small></a>
 <a data-construction="電気の基礎" href="#construction"><span>💧</span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></a>
 <a data-construction="シーケンス" href="#construction"><span>🔁</span><b>シーケンス</b><small>接点・自己保持</small></a>
+<a href="./generator-rescue-island.html"><span>⚙️</span><b>発電機</b><small>自動始動・停止／保護装置連動</small></a>
 </div>
-<div class="continue-card">
-<span>QUICK START</span>
-<div><b>迷ったらここから</b><small>保護継電器の島を見てみる</small></div>
-<a aria-label="保護継電器の島へ進む" href="./protective-relay.html">→</a>
-</div>
+<a class="ring-quick" href="./protective-relay.html">
+<span class="ring-quick-kicker">QUICK START</span>
+<span class="ring-quick-copy"><b>迷ったらここから</b><small>保護継電器の島を見てみる</small></span>
+<span class="ring-quick-arrow">→</span>
+</a>
 </section>
 </main>
 <div aria-labelledby="constructionTitle" aria-modal="true" class="construction-modal" hidden="" id="constructionModal" role="dialog">
@@ -1038,7 +1122,7 @@ body{padding-bottom:76px;background:#eaf9ff}
 <nav aria-label="メインナビゲーション" class="bottom-nav island-bottom-nav">
 <a class="active" href="./index.html"><span><b>🏠</b>ホーム</span></a>
 <a data-construction="電気の基礎" href="#construction"><span><b>💧</b>基礎</span></a>
-<a href="./index.html#worldMap"><span><b>🗺️</b>島</span></a>
+<a href="./index.html#ringMenuStage"><span><b>🗺️</b>島</span></a>
 <a href="./zukan.html"><span><b>🎭</b>図鑑</span></a>
 <a data-construction="用語・公式集" href="#construction"><span><b>💬</b>用語</span></a>
 </nav>
@@ -1070,5 +1154,22 @@ body{padding-bottom:76px;background:#eaf9ff}
   function closeModal(){modal.hidden=true;document.body.style.overflow='';}
   modal?.querySelectorAll('[data-close-construction]').forEach(x=>x.addEventListener('click',closeModal));
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.hidden)closeModal();});
+})();
+</script><script id="v46-ring-home-script">
+(() => {
+  const modal=document.getElementById('constructionModal');
+  const text=document.getElementById('constructionText');
+  document.querySelectorAll('[data-construction]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      text.textContent=`「${a.dataset.construction}」は現在準備中です。`;
+      modal.hidden=false;
+      document.body.style.overflow='hidden';
+      modal.querySelector('.construction-close')?.focus();
+    });
+  });
+  const close=()=>{modal.hidden=true;document.body.style.overflow='';};
+  modal?.querySelectorAll('[data-close-construction]').forEach(x=>x.addEventListener('click',close));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal&&!modal.hidden)close();});
 })();
 </script></body></html>
