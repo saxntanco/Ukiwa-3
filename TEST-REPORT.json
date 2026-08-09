@@ -1,24 +1,13 @@
 {
-  "version": "v43-charge-current-cable-select",
-  "default_cable": "38mm²",
-  "default_capacitance": "0.32 μF/km (existing representative learning value)",
-  "default_phase": "3相一括",
-  "cable_presets": [
-    "22mm² / 0.27 μF/km",
-    "38mm² / 0.32 μF/km",
-    "60mm² / 0.37 μF/km",
-    "100mm² / 0.45 μF/km",
-    "150mm² / 0.52 μF/km",
-    "250mm² / 0.55 μF/km",
-    "その他・メーカー値手入力"
-  ],
-  "layout_fixes": [
-    "calculator panels align-start",
-    "result panel min-width:0 and overflow contained",
-    "reactor table scrolls inside its own wrapper",
-    "mobile calculator forced to single column",
-    "removed automatic result scroll jump"
-  ],
+  "version": "v51-test-measurement-restored",
+  "change": "試験・測定の円環リンクだけ test-measurement.html へ復元",
+  "test_measurement_category": "available",
+  "subpages_untouched": {
+    "protective-relay.html": true,
+    "generator-rescue-island.html": true,
+    "ac-withstand-test-simulator.html": true,
+    "relay-test-flow.html": true
+  },
   "js_syntax_ok": true,
   "missing_local_references": []
 }
