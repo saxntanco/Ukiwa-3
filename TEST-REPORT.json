@@ -1,21 +1,17 @@
 {
-  "version": "v39-relay-left-ui",
-  "design": "left concept",
-  "island_map": "protective-relay-island.png",
-  "map_overlay_buttons": [
-    "OCR",
-    "GR",
-    "DGR",
-    "OVGR",
-    "RPR"
-  ],
-  "entry_cards": [
-    "メーカーから探す",
-    "保護要素から探す",
-    "試験から学ぶ"
-  ],
-  "featured_training_preserved": true,
-  "manufacturer_library_preserved": true,
+  "version": "v41-charge-current-reactor-mix",
+  "page_focus": "充電電流計算 + 必要なリアクトル組み合わせ比較",
+  "reactors": {
+    "2kVA": {
+      "model": "DR-1220MH",
+      "L_H": 200
+    },
+    "5kVA": {
+      "model": "DR-1250MH",
+      "L_H": 80
+    }
+  },
+  "combination_search": "2kVA 0-4台 × 5kVA 0-3台を総当たりし、|Ic-IL|の小さい順に上位8件",
   "js_syntax_ok": true,
   "missing_local_references": []
 }
