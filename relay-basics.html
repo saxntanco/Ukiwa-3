@@ -42,16 +42,30 @@
 <div class="thirty"><b>30秒で分かる</b><strong>CTで見た電流が大きすぎると判定し、外部の引外し回路へ命令を渡す。</strong></div>
 <div class="diagram"><div class="node">一次主回路</div><div class="arrow">→</div><div class="node">CT → OCR</div><div class="arrow">→</div><div class="node">接点 / 引外し回路 → VCB</div></div>
 <div class="steps"><div class="step"><b>通常時</b>：CT二次電流は整定値未満。OCRは非動作。</div><div class="step"><b>事故</b>：一次電流が増え、CT二次電流も増える。</div><div class="step"><b>判定</b>：限時要素は時間特性に従い、瞬時要素は設定条件を満たすと速く動作。</div><div class="step"><b>接点・出力</b>：OCRのトリップ出力が外部回路を成立させる。</div><div class="step"><b>遮断</b>：VCB側の引外し機構へ必要なエネルギーが与えられ、遮断器が開く。</div><div class="step"><b>復帰</b>：リレー接点、動作表示、VCBの復帰条件は機種・回路ごとに確認。</div><div class="step"><b>故障時</b>：CT回路、OCR本体、トリップ回路のどこが失われたかを分けて考える。</div></div>
-<details open><summary>3端子・4端子は、まず「引外し方式」から考える</summary><div class="inside">
-<div class="compare"><div class="box ok"><b>一次資料で確認できたこと</b>ムサシインテックは公式に「3端子OCR」と「電流引外し式CB」の連動試験を同じ文脈で扱っています。オムロン現行K2OCも、K2OC-ACNを「変流器2次電流引きはずし」、K2OC-AVNを「電圧・無電圧・直流引きはずし」と明確に分けています。</div><div class="box caution"><b>端子数だけで決めない</b>「4端子なら必ずこの内部回路」という全メーカー共通定義は、今回確認した一次資料だけでは固定できません。端子の名称・共通点・トリップ出力の分離は実機の内部接続図で確認します。</div></div>
-<h3>現場での考え方</h3><p><b>端子数を暗記する前に、VCBを何で引き外す方式か</b>を確認します。三菱電機は、OCR・GRには電流引外し方式と電圧引外し方式があり、VCBと保護リレーは同じ引外し方式で組み合わせると説明しています。</p>
-<div class="flow">事故を見つける部分：CT → OCR
+<details open><summary>3端子・4端子 ― 「見る回路」と「切る回路」の違い</summary><div class="inside">
+<div class="compare"><div class="box ok"><b>まず覚える</b><strong>3端子形の代表例（電流引外し）</strong>では、CT二次の電流検出回路とCBを引き外すための電流回路が一体になっています。<br><br><strong>4端子形の代表例（電圧引外し等）</strong>では、CTから電流を受ける検出回路と、CBをトリップさせる接点・外部電源側の回路が分離しています。</div><div class="box caution"><b>端子数だけで断定しない</b>これは代表的な理解です。メーカー・型式・年代で端子構成は異なるため、最終判断はOCR本体の内部接続図、盤の展開接続図、CBの引外し方式で確認します。</div></div>
+<h3>3端子形のイメージ ― 電流引外し</h3>
+<div class="flow">CT二次電流
+   ↓
+OCR（過電流を検出）
+   ↓
+OCR内部の電流引外し用接点
+   ↓
+CBの電流引外しコイル
+   ↓
+CT二次回路へ戻る</div>
+<p><b>「事故を見るためのCT二次電流」と「CBを切るために利用する電流」が同じ系統につながっている</b>のが理解のポイントです。初心者向けには「見る電流と、切るために使う電流がつながっている」と覚えると整理しやすくなります。</p>
+<h3>4端子形の代表的なイメージ ― 検出とトリップを分離</h3>
+<div class="flow">【検出側】
+CT二次 → OCR電流入力 → CT二次へ戻る
 
-VCBを開かせる部分：
-  A. CT側の電流を利用する電流引外し
-  B. 別のトリップ電源を使う電圧引外し
-  C. コンデンサ引外し電源を使う構成（電圧引外し側）</div>
-<p>つまり、<b>「OCRが検出すること」と「VCBを開かせるエネルギー源」は別の話</b>です。</p>
+【トリップ側】
+別のトリップ電源 → OCRトリップ接点 → CBトリップコイル → 電源へ戻る</div>
+<p>こちらは<b>「事故を見る回路」と「CBを切る回路」が分かれている</b>と考えます。トリップ側端子は単なる「トリップの入口」ではなく、外部トリップ電源を開閉する接点出力として構成される機種があります。</p>
+<div class="compare"><div class="box ok"><b>3端子：一言で</b>見る電流と、切るために使う電流がつながっている。</div><div class="box ok"><b>4端子：一言で</b>見る回路と、切る回路が分かれている。</div></div>
+<h3>通常時 → 事故時の流れ（3端子・電流引外しの代表例）</h3>
+<div class="steps"><div class="step"><b>通常時</b>：CT二次電流はOCRを流れるが、動作条件未満なので引外し動作しない。</div><div class="step"><b>事故発生</b>：一次過電流に応じてCT二次電流が増加する。</div><div class="step"><b>接点</b>：OCRが整定条件を満たすと、電流引外し用の内部接点が動作する。</div><div class="step"><b>コイル</b>：CT二次側の電流を利用してCBの電流引外しコイルを励磁する。</div><div class="step"><b>遮断</b>：CBの引外し機構が動作して主回路を開放する。</div><div class="step"><b>復帰</b>：事故電流消失後のOCR表示・接点・CBの復帰方法は機種ごとに確認する。</div><div class="step"><b>故障時</b>：CT回路、OCR接点、引外しコイル、配線の抵抗増加・断線などにより必要な引外しエネルギーが得られない可能性がある。</div></div>
+<div class="box caution"><b>重要</b>「3端子＝必ず電流引外し」「4端子＝必ず電圧引外し」という端子数だけの判定はしません。実機では、端子記号・内部接続図・CB引外し方式・トリップ電源の有無をセットで確認します。</div>
 </div></details>
 <details><summary>限時51と瞬時50</summary><div class="inside"><p>OCRという箱の中に限時要素51と瞬時要素50を併せ持つ機種があります。たとえばオムロンK2OCは動作電流、動作時間に加えて瞬時電流整定を持っています。したがって「OCR＝51だけ」とは決めません。</p></div></details>
 <details><summary>よくある勘違い</summary><div class="inside"><div class="box mistake"><b>× OCR自身がVCBを機械的に開く</b>一般にはOCRの出力がトリップ回路へ命令を渡し、VCB側の引外し機構が動きます。</div></div></details>
