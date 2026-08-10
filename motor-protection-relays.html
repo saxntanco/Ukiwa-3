@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0878b8">
+<title>1E・2E・3E モータ保護リレー｜ぷかぷかうきわメモ</title>
+<meta name="description" content="1E・2E・3Eモータ保護リレーを、保護要素、主回路、制御回路、接点動作、復帰条件、試験項目、公式資料から学ぶ現場教材。">
+<link rel="icon" href="./icon-192.png" type="image/png">
+<style>
+:root{--ink:#123954;--blue:#0878b8;--deep:#063c63;--ice:#eefaff;--line:#c8e5ee;--muted:#668391;--green:#177353;--amber:#8b5d0b;--red:#a33d39;--purple:#674da1;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;background:radial-gradient(circle at 92% 3%,#d8f8ff 0,transparent 25%),linear-gradient(#f7fdff,#e3f6fc);line-height:1.72}button,select,a{font:inherit}:focus-visible{outline:3px solid #ffd45f;outline-offset:3px}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;background:#fffffff2;border-bottom:1px solid #d7eaf0;backdrop-filter:blur(12px)}.top a{display:inline-flex;align-items:center;min-height:40px;padding:0 11px;border:1px solid #c9e4ed;border-radius:12px;background:#fff;color:#0a668e;text-decoration:none;font-size:11px;font-weight:900}
+.wrap{width:min(1050px,calc(100% - 20px));margin:14px auto 45px}.hero,.box{background:#fff;border:1px solid var(--line);box-shadow:0 9px 24px #075b7a0c}.hero{padding:clamp(18px,4vw,30px);border-radius:25px;background:linear-gradient(145deg,#fff,#eaf9fe);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:210px;height:210px;border:24px solid #14a4cf10;border-radius:50%;right:-70px;top:-110px}.eyebrow{font-size:10px;letter-spacing:.15em;color:#1683ad;font-weight:1000}.hero h1{position:relative;margin:5px 0 8px;font-size:clamp(27px,6vw,46px);line-height:1.18}.hero p{position:relative;margin:0;max-width:800px;color:#577687;font-size:13px}.formula{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.e-pill{padding:7px 10px;border-radius:999px;font-size:10px;font-weight:1000;border:1px solid}.e1{background:#edf8ff;border-color:#bce2ef;color:#096990}.e2{background:#fff6dc;border-color:#ead495;color:#78570c}.e3{background:#f3efff;border-color:#dcd1f4;color:#60458f}
+.alert{margin-top:12px;padding:12px 14px;border:1px solid #ead6a1;border-radius:15px;background:#fff8e7;color:#69562c;font-size:10px}.alert strong{color:#7c4f00}.critical{border-color:#e5b8b4;background:#fff1ef;color:#743c38}
+.nav{display:flex;gap:6px;overflow-x:auto;margin:11px 0;padding:3px 0;scrollbar-width:none}.nav a{flex:0 0 auto;padding:8px 10px;border:1px solid #cce4ec;border-radius:999px;background:#fff;color:#176887;text-decoration:none;font-size:9px;font-weight:1000}
+.box{margin-top:11px;padding:17px;border-radius:20px}.box h2{margin:0 0 10px;font-size:19px}.box h3{margin:15px 0 7px;font-size:14px}.lead{margin:0 0 11px;color:#607f8e;font-size:11px}.truth{padding:12px;border-left:5px solid #0a80b8;border-radius:10px;background:#effaff;font-size:12px;font-weight:900}.truth small{display:block;margin-top:4px;color:#5d7d8d;font-weight:600}
+.selector{display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:end}.selector label{display:block;font-size:9px;font-weight:1000;color:#5e7d8d}.selector select{width:100%;min-height:43px;margin-top:4px;padding:0 10px;border:1px solid #bcdde7;border-radius:11px;background:#fff;color:var(--ink);font-weight:900}.selected-name{padding:11px 13px;border-radius:12px;background:#eff9fd;border:1px solid #cce8f0}.selected-name b{display:block;font-size:18px}.selected-name span{font-size:10px;color:var(--muted)}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}.badge{padding:4px 7px;border-radius:999px;background:#eaf7fb;border:1px solid #cce8f0;color:#09678f;font-size:8px;font-weight:1000}.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid #d4e8ee;border-radius:14px;overflow:hidden}.kv{display:grid;grid-template-columns:120px 1fr;min-width:0}.kv div{padding:8px 10px;border-bottom:1px solid #e0eef2;font-size:9px}.kv .k{background:#f3fafc;color:#567586;font-weight:1000}.kv .v{background:#fff;overflow-wrap:anywhere}.profile-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 12px;border:1px solid #bddde7;border-radius:11px;background:#fff;color:#09678f;text-decoration:none;font-size:9px;font-weight:1000}.btn.primary{background:#0878b8;border-color:#0878b8;color:#fff}
+.table-wrap{overflow-x:auto;border:1px solid #d1e7ed;border-radius:14px}table{width:100%;border-collapse:collapse;min-width:690px;background:#fff}th,td{padding:10px;border-bottom:1px solid #dfedf1;border-right:1px solid #e7f1f4;text-align:left;vertical-align:top;font-size:10px}th{background:#eff9fc;color:#315c72;font-weight:1000}td:first-child{font-weight:1000;color:#174e69}.yes{color:var(--green);font-weight:1000}.no{color:#7b8e97}.choose{color:var(--purple);font-weight:1000}
+.diagram-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.diagram{padding:10px;border:1px solid #cee5ec;border-radius:15px;background:#fbfeff}.diagram h3{margin:0 0 5px}.diagram p{margin:0 0 7px;color:var(--muted);font-size:9px}.diagram svg{display:block;width:100%;height:auto;background:#fff;border:1px solid #dcecf1;border-radius:12px}.wire{stroke:#24789d;stroke-width:4;fill:none;stroke-linecap:round}.wire.hot{stroke:#e05a49}.wire.off{stroke:#aab9c0;stroke-dasharray:8 7}.device{fill:#eff9fc;stroke:#2b7999;stroke-width:2}.device.trip{fill:#fff1ef;stroke:#c65348}.device.off{fill:#f3f5f6;stroke:#a8b6bd}.label{font-size:13px;fill:#153e56;font-weight:800}.small-svg{font-size:10px;fill:#627f8e}.motor{fill:#eaf8f1;stroke:#248160;stroke-width:3}.motor.off{fill:#f3f5f6;stroke:#9caeb6}.coil{fill:#eef2ff;stroke:#6650a1;stroke-width:2}.coil.off{fill:#f3f5f6;stroke:#a8b6bd}
+.state-controls{display:flex;gap:7px;margin:9px 0}.state-btn{min-height:39px;padding:0 13px;border:1px solid #bcdde7;border-radius:11px;background:#fff;color:#176887;font-size:10px;font-weight:1000;cursor:pointer}.state-btn.active{background:#0878b8;border-color:#0878b8;color:#fff}.state-note{padding:10px 12px;border-radius:12px;background:#f0f9fc;color:#476c7e;font-size:10px}
+.sequence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.step{padding:12px;border:1px solid #d2e7ed;border-radius:13px;background:#fbfeff}.step b{display:block;color:#0b678f;font-size:11px}.step span{display:block;margin-top:4px;color:#5e7c8b;font-size:10px}.step.danger b{color:#a3423d}
+.contact-base{margin-bottom:9px;padding:10px 12px;border-radius:11px;background:#fff8e7;color:#6f592c;font-size:10px}.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.check{padding:11px;border:1px solid #d3e8ee;border-radius:12px;background:#fbfeff}.check b{display:block;font-size:10px}.check span{font-size:9px;color:#647f8d}
+.source-list{display:grid;gap:7px}.source{display:block;padding:11px 12px;border:1px solid #d0e6ed;border-radius:12px;background:#fbfeff;color:#09678f;text-decoration:none;font-size:10px;font-weight:900}.source small{display:block;color:#718995;font-weight:600}
+.legend{margin-top:8px;color:#6a8592;font-size:9px}.status-row{display:flex;gap:6px;flex-wrap:wrap}.status{padding:5px 8px;border-radius:999px;font-size:8px;font-weight:1000}.green{background:#e8f7f0;color:#17664b}.yellow{background:#fff5d9;color:#795b10}.red{background:#fff0ee;color:#963f39}.mt9{margin-top:9px}.mt10{margin-top:10px}
+footer{text-align:center;padding:5px 12px 28px;color:#748d98;font-size:9px}
+@media(max-width:760px){.selector,.diagram-grid{grid-template-columns:1fr}.profile-grid{grid-template-columns:1fr}.sequence,.check-grid{grid-template-columns:1fr}.kv{grid-template-columns:105px 1fr}.box{padding:14px}.wrap{width:min(100% - 14px,1050px)}}
+</style>
+</head>
+<body>
+<header class="top"><a href="./protective-relay.html">← 保護継電器DB</a><a href="./index.html">⌂ ホーム</a></header>
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">MOTOR PROTECTION RELAY FIELD NOTE</div>
+    <h1>1E・2E・3E モータ保護リレー</h1>
+    <p>「Eの数字＝検出素子数」ではありません。何を保護できるかを表す区分として理解し、完全型式・整定・復帰方式・制御回路を実機と公式資料で照合します。</p>
+    <div class="formula"><span class="e-pill e1">1E｜過負荷・拘束</span><span class="e-pill e2">2E｜1E＋欠相</span><span class="e-pill e3">3E｜2E＋反相</span></div>
+    <div class="alert"><strong>安全上の前提：</strong>このページは教育・配線確認用です。活線で相を入れ替える、欠相を発生させる、主回路へ試験電流を流すなどの操作を指示するものではありません。現場責任者、社内手順書、無電圧確認、モータ停止、誤始動防止、メーカー指定試験方法を優先してください。</div>
+  </section>
+
+  <nav class="nav" aria-label="ページ内メニュー">
+    <a href="#difference">1E・2E・3E比較</a><a href="#model">型式詳細</a><a href="#circuit">主回路・制御回路</a><a href="#sequence">動作順序</a><a href="#contacts">接点動作</a><a href="#tests">試験項目</a><a href="#failure">故障影響</a><a href="#sources">根拠資料</a>
+  </nav>
+
+  <section class="box" id="difference">
+    <h2>まずここ：Eの数字と素子数は別</h2>
+    <div class="truth">3素子のサーマルリレーでも、欠相までを保護する製品は「2E」です。<small>Eは保護要素の区分、素子数は電流を検出する構造上の数です。</small></div>
+    <div class="table-wrap mt10">
+      <table>
+        <thead><tr><th>区分</th><th>過負荷・拘束</th><th>欠相</th><th>反相</th><th>代表的な装置</th><th>DB代表型式</th></tr></thead>
+        <tbody>
+          <tr><td>1E</td><td class="yes">あり</td><td class="no">なし</td><td class="no">なし</td><td>サーマル／電子式</td><td>TH-T18</td></tr>
+          <tr><td>2E</td><td class="yes">あり</td><td class="yes">あり</td><td class="no">なし</td><td>3素子欠相保護サーマル／電子式</td><td>TH-T18KP、TR18XK</td></tr>
+          <tr><td>3E</td><td class="yes">あり</td><td class="yes">あり</td><td class="yes">あり</td><td>電子式モータ保護リレー</td><td>ET-N60 8A、K2CM-1LS（選択形）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="box" id="model">
+    <h2>公式確認済み代表型式</h2>
+    <p class="lead">型式を切り替えると、DBに登録した確認済み情報だけを表示します。端子番号を確認できていないものは推測表示しません。</p>
+    <div class="selector">
+      <label>代表型式<select id="modelSelect"></select></label>
+      <div class="selected-name"><b id="selectedModel">—</b><span id="selectedTitle">—</span></div>
+    </div>
+    <div class="badges" id="selectedBadges"></div>
+    <div class="profile-grid" id="profileGrid"></div>
+    <div class="alert" id="profileNote"></div>
+    <div class="profile-actions" id="profileActions"></div>
+    <div class="status-row mt10"><span class="status green">型式・保護要素：公式確認</span><span class="status yellow">端子・常設配線：完全形式照合が必要</span><span class="status red">試験値・社内管理値：未登録</span></div>
+  </section>
+
+  <section class="box" id="circuit">
+    <h2>主回路と制御回路の関係</h2>
+    <p class="lead">下図は動作原理を学ぶための代表回路です。特定型式の端子図ではありません。設備図面とメーカー取扱要項を優先してください。</p>
+    <div class="state-controls"><button class="state-btn active" type="button" data-state="normal">通常時</button><button class="state-btn" type="button" data-state="trip">保護動作時</button></div>
+    <div class="state-note" id="stateNote">通常時：保護停止接点は導通側、MCコイルは励磁、MC主接点は閉、モータは運転中として示します。</div>
+    <div class="diagram-grid mt9">
+      <div class="diagram">
+        <h3>主回路の代表模式図</h3>
+        <p>電源からモータまで。保護リレーが電流状態を監視します。</p>
+        <svg viewBox="0 0 520 300" role="img" aria-label="モータ主回路代表模式図">
+          <text x="24" y="34" class="label">三相電源</text>
+          <line x1="55" y1="58" x2="55" y2="245" class="wire main-wire"/>
+          <line x1="90" y1="58" x2="90" y2="245" class="wire main-wire"/>
+          <line x1="125" y1="58" x2="125" y2="245" class="wire main-wire"/>
+          <rect x="155" y="62" width="95" height="62" rx="10" class="device mc-main"/>
+          <text x="178" y="88" class="label">MC主接点</text><text x="171" y="108" class="small-svg">電磁接触器</text>
+          <line x1="125" y1="88" x2="155" y2="88" class="wire main-wire"/><line x1="250" y1="88" x2="282" y2="88" class="wire main-wire"/>
+          <rect x="282" y="62" width="105" height="62" rx="10" class="device relay-device"/>
+          <text x="300" y="88" class="label">1E/2E/3E</text><text x="303" y="108" class="small-svg">電流状態を監視</text>
+          <line x1="387" y1="88" x2="420" y2="88" class="wire main-wire"/>
+          <circle cx="458" cy="88" r="34" class="motor motor-device"/><text x="446" y="94" class="label">M</text>
+          <text x="424" y="145" class="small-svg">三相モータ</text>
+          <path d="M335 132 V205 H202 V132" class="wire off signal-wire"/>
+          <text x="230" y="229" class="small-svg">保護出力 → 制御回路へ</text>
+          <text x="23" y="275" class="small-svg">※実際の主回路貫通方式・外部CT方式・取付位置は型式により異なります。</text>
+        </svg>
+      </div>
+      <div class="diagram">
+        <h3>制御回路の代表模式図</h3>
+        <p>電源側からMCコイルまで。a/bは無操作・正常復帰状態を基準に表します。</p>
+        <svg viewBox="0 0 520 300" role="img" aria-label="電磁接触器制御回路代表模式図">
+          <text x="18" y="31" class="label">制御電源 L</text><text x="435" y="31" class="label">N</text>
+          <line x1="45" y1="55" x2="45" y2="252" class="wire control-wire"/><line x1="468" y1="55" x2="468" y2="252" class="wire control-wire"/>
+          <line x1="45" y1="92" x2="92" y2="92" class="wire control-wire"/>
+          <rect x="92" y="67" width="110" height="50" rx="9" class="device stop-contact"/>
+          <text x="105" y="88" class="label">保護停止接点</text><text x="111" y="105" class="small-svg">正常時導通側</text>
+          <line x1="202" y1="92" x2="245" y2="92" class="wire control-wire after-trip"/>
+          <rect x="245" y="67" width="82" height="50" rx="9" class="device"/>
+          <text x="261" y="88" class="label">停止PB</text><text x="263" y="105" class="small-svg">b接点</text>
+          <line x1="327" y1="92" x2="360" y2="92" class="wire control-wire after-trip"/>
+          <rect x="360" y="67" width="78" height="50" rx="9" class="coil mc-coil"/>
+          <text x="377" y="88" class="label">MC</text><text x="367" y="105" class="small-svg">操作コイル</text>
+          <line x1="438" y1="92" x2="468" y2="92" class="wire control-wire after-trip"/>
+          <path d="M327 92 V170 H245" class="wire after-trip"/><rect x="158" y="145" width="87" height="50" rx="9" class="device"/><text x="174" y="166" class="label">始動PB</text><text x="178" y="183" class="small-svg">a接点</text><line x1="45" y1="170" x2="158" y2="170" class="wire after-trip"/>
+          <path d="M158 170 H112 V226 H327 V170" class="wire after-trip"/><rect x="174" y="201" width="96" height="48" rx="9" class="device mc-a"/><text x="197" y="222" class="label">MC-a</text><text x="182" y="239" class="small-svg">自己保持接点</text>
+          <text x="20" y="281" class="small-svg">※端子番号、停止接点の構成、PLC経由、外部自己保持の有無は設備ごとに確認。</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="box" id="sequence">
+    <h2>動作を順番に追う</h2>
+    <div class="sequence">
+      <div class="step"><b>1. 通常時</b><span>モータ電流が正常範囲で、保護リレーは復帰状態。代表回路では保護停止接点の導通が保たれます。</span></div>
+      <div class="step danger"><b>2. 過負荷・欠相・反相</b><span>搭載・選択されている保護要素が異常を判定します。1E・2E・3Eで監視できる範囲が違います。</span></div>
+      <div class="step danger"><b>3. 出力接点が切り替わる</b><span>代表回路ではMCコイル直列の停止接点が開きます。a接点・b接点と端子番号は型式資料を優先します。</span></div>
+      <div class="step danger"><b>4. MCコイルが消磁</b><span>電磁接触器MCの操作コイルが無励磁となり、自己保持も解除されます。</span></div>
+      <div class="step danger"><b>5. 主接点が開く</b><span>MC主接点が開き、モータ主回路を遮断してモータが停止します。</span></div>
+      <div class="step"><b>6. 復帰条件</b><span>原因除去、冷却、手動RESET、自動復帰、電源再投入など、完全型式の復帰方式を確認します。</span></div>
+      <div class="step danger"><b>7. 故障した場合</b><span>停止接点不良、整定誤り、検出不良では保護不能または不要停止が起こり得ます。実制御回路で影響を確認します。</span></div>
+    </div>
+  </section>
+
+  <section class="box" id="contacts">
+    <h2>接点動作表</h2>
+    <div class="contact-base"><b>この表の基準状態：</b>保護リレーが正常復帰、異常入力なし、制御電源が必要な機種は電源印加済み。特定型式の端子番号は示していません。</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>状態</th><th>保護停止側接点</th><th>警報側接点</th><th>MCコイル</th><th>MC主接点</th><th>モータ</th></tr></thead>
+        <tbody>
+          <tr><td>通常時</td><td>代表回路では導通</td><td>代表回路では非導通</td><td class="yes">励磁</td><td class="yes">閉</td><td class="yes">運転</td></tr>
+          <tr><td>保護動作時</td><td>代表回路では開放</td><td>搭載・使用時は導通側へ</td><td class="no">消磁</td><td class="no">開</td><td class="no">停止</td></tr>
+          <tr><td>復帰後</td><td>復帰方式に従い正常側へ</td><td>復帰方式に従い正常側へ</td><td>再始動条件成立後</td><td>再投入後に閉</td><td>再始動後に運転</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="legend">自動復帰形でも、外部回路に自己保持やPLCラッチがある場合は自動再始動しない構成があります。反対に自動再始動する回路もあるため、実設備図面を確認してください。</p>
+  </section>
+
+  <section class="box" id="tests">
+    <h2>試験項目</h2>
+    <p class="lead">ここでは「何を確認するか」だけを示します。具体的な印加方法・相入替え・欠相生成は、メーカー指定方法と社内手順書に従ってください。</p>
+    <div class="check-grid">
+      <div class="check"><b>過負荷動作</b><span>整定電流と実測動作値を区別。モータ定格と整定根拠を確認。</span></div>
+      <div class="check"><b>動作時間</b><span>電流倍率、冷態・温態、トリップクラス、反限時・瞬時を区別。</span></div>
+      <div class="check"><b>欠相動作</b><span>2E・3Eのみ。判定方式とメーカー指定試験条件を確認。</span></div>
+      <div class="check"><b>反相動作</b><span>3Eのみ。電流反相・電圧反相と検出位置を確認。</span></div>
+      <div class="check"><b>出力接点</b><span>基準状態、a/b接点、導通、接触不良、外部回路との対応を確認。</span></div>
+      <div class="check"><b>復帰</b><span>手動・自動・冷却待ち・電源再投入・外部RESETを区別。</span></div>
+      <div class="check"><b>MC連動</b><span>実停止を伴う確認は系統状態、誤始動防止、操作票を優先。</span></div>
+      <div class="check"><b>表示・記録</b><span>過負荷・欠相・反相表示、整定、試験前後の復旧状態を記録。</span></div>
+    </div>
+  </section>
+
+  <section class="box" id="failure">
+    <h2>故障時の影響</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>故障・誤設定</th><th>起こり得ること</th><th>現場で確認するもの</th></tr></thead>
+        <tbody>
+          <tr><td>停止接点の接触不良</td><td>MCコイルが保持できず不要停止、または接点構成によっては停止不能</td><td>接点基準状態、導通、制御回路</td></tr>
+          <tr><td>電流整定が高すぎる</td><td>過負荷を検出できずモータ焼損に至る可能性</td><td>モータ定格、整定根拠、負荷特性</td></tr>
+          <tr><td>電流整定が低すぎる</td><td>正常始動や通常負荷で不要動作</td><td>始動電流、始動時間、トリップクラス</td></tr>
+          <tr><td>2E・3E設定の誤り</td><td>欠相・反相を保護できない、または意図しない停止</td><td>保護モード、相順、対象設備</td></tr>
+          <tr><td>制御電源喪失</td><td>電子式リレーが監視不能。出力接点のフェイル動作は機種・回路による</td><td>制御電源定格、電源喪失時接点、警報</td></tr>
+          <tr><td>自動復帰設定</td><td>外部回路によっては原因残存中の再始動リスク</td><td>自己保持、PLC、再始動条件、誤始動防止</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="box" id="sources">
+    <h2>根拠資料</h2>
+    <p class="lead">確認日：2026-08-10。端子番号・試験条件・管理値は完全型式の取扱要項を追加確認します。</p>
+    <div class="source-list">
+      <a class="source" href="https://fa-faq.mitsubishielectric.co.jp/faq/show/15036?site_domain=default" target="_blank" rel="noopener">三菱電機｜1E・2E・3Eの定義<small>1E＝過負荷・拘束、2E＝1E＋欠相、3E＝2E＋反相</small></a>
+      <a class="source" href="https://www.mitsubishielectric.co.jp/fa/products/lvd/lvsw/pmerit/thr/lineup.html" target="_blank" rel="noopener">三菱電機｜サーマルリレー形式一覧<small>TH-T18、TH-T18KP、3素子（2E）表記を確認</small></a>
+      <a class="source" href="https://www.mitsubishielectric.co.jp/fa/products/lvd/lvsw/pmerit/comdev/phase.html" target="_blank" rel="noopener">三菱電機｜ET-N製品特長<small>保護モード、動作時間、反相検出位置を確認</small></a>
+      <a class="source" href="https://www.mitsubishielectric.co.jp/oshirase/2023/fsg/index.html" target="_blank" rel="noopener">三菱電機｜ET-N重要情報（2023-01-20）<small>該当製品は対象範囲・製造番号等のメーカー照合が必要</small></a>
+      <a class="source" href="https://www.fujielectric.co.jp/products/magnetic_contactor/thermal_relay/tr18xk/" target="_blank" rel="noopener">富士電機｜TR18XK<small>3素子欠相保護（2E）、1a1b、リセット方式を確認</small></a>
+      <a class="source" href="https://www.fa.omron.co.jp/products/family/841/lineup/" target="_blank" rel="noopener">オムロン｜K2CM 形式/種類<small>1E～3E選択、電流レンジ、復帰、動作特性、制御電源を確認</small></a>
+    </div>
+  </section>
+</main>
+<footer>ぷかぷかうきわメモ｜1E・2E・3E モータ保護リレー教材 v1</footer>
+<script src="./relay-motor-data-v13.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function renderModel(model){
+  const r=MOTOR_RELAYS.find(x=>x.model===model)||MOTOR_RELAYS[0];
+  $("#selectedModel").textContent=r.model;
+  $("#selectedTitle").textContent=r.maker+"｜"+r.title;
+  $("#selectedBadges").innerHTML=r.functions.map(x=>`<span class="badge">${esc(x)}</span>`).join("");
+  const rows=[["メーカー",r.maker],["シリーズ",r.series],["状態",r.life==="current"?"現行品":"公式掲載"],...Object.entries(r.specs||{}),["最終確認",r.checkedAt]];
+  $("#profileGrid").innerHTML=rows.map(([k,v])=>`<div class="kv"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join("");
+  $("#profileNote").innerHTML="<strong>確認メモ：</strong>"+esc(r.note);
+  const links=[[r.productUrl,"メーカー製品ページ"],[r.manualUrl,"公式資料入口"],[r.evidenceUrl,"根拠資料"]];
+  const seen=new Set();
+  $("#profileActions").innerHTML=links.filter(([u])=>u&&!seen.has(u)&&seen.add(u)).map(([u,n],i)=>`<a class="btn ${i===0?"primary":""}" href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ↗</a>`).join("");
+  const p=new URLSearchParams(location.search);p.set("model",r.model);history.replaceState(null,"",location.pathname+"?"+p.toString());
+  document.title=r.model+"｜1E・2E・3E モータ保護｜ぷかぷかうきわメモ";
+}
+function setState(state){
+  const trip=state==="trip";
+  document.querySelectorAll(".state-btn").forEach(b=>b.classList.toggle("active",b.dataset.state===state));
+  document.querySelectorAll(".main-wire,.control-wire,.after-trip").forEach(x=>x.classList.toggle("off",trip));
+  document.querySelectorAll(".mc-main,.relay-device,.stop-contact").forEach(x=>x.classList.toggle("trip",trip));
+  document.querySelectorAll(".mc-coil,.motor-device").forEach(x=>x.classList.toggle("off",trip));
+  $(".signal-wire").classList.toggle("hot",trip);
+  $("#stateNote").textContent=trip
+    ?"保護動作時：代表回路では停止接点が開き、MCコイルが消磁、MC主接点が開いてモータが停止します。実際の接点構成は型式・設備図面を確認します。"
+    :"通常時：保護停止接点は導通側、MCコイルは励磁、MC主接点は閉、モータは運転中として示します。";
+}
+(function(){
+  $("#modelSelect").innerHTML=MOTOR_RELAYS.map(r=>`<option value="${esc(r.model)}">${esc(r.maker+"｜"+r.model)}</option>`).join("");
+  const requested=new URLSearchParams(location.search).get("model");
+  const selected=MOTOR_RELAYS.some(x=>x.model===requested)?requested:MOTOR_RELAYS[0].model;
+  $("#modelSelect").value=selected;renderModel(selected);
+  $("#modelSelect").addEventListener("change",e=>renderModel(e.target.value));
+  document.querySelectorAll(".state-btn").forEach(b=>b.addEventListener("click",()=>setState(b.dataset.state)));
+})();
+</script>
+</body>
+</html>
