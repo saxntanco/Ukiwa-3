@@ -31,7 +31,7 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
   <div class="safe"><b>安全上の前提：</b> 実設備の停復電、活線測定、高電圧試験、試験結線、整定変更、トリップ確認は、現場責任者・社内手順書・操作票・系統状態・無電圧確認・誤投入防止措置・最新の実機取扱説明書を優先してください。このページだけを根拠に実操作しないでください。</div>
 </section>
 
-<nav class="switch" aria-label="データベース入口"><a class="active" href="./test-measurement.html">試験方法から探す <small>工程・復旧を確認</small></a><a href="./measuring-instruments.html">器具・型式から探す <small>20型式</small></a></nav>
+<nav class="switch" aria-label="データベース入口"><a class="active" href="./test-measurement.html">試験方法から探す <small>工程・復旧を確認</small></a><a href="./measuring-instruments.html">器具・型式から探す <small id="instrumentDbCount">型式DB</small></a></nav>
 
 <section class="search" aria-label="試験方法検索"><div class="searchrow"><input id="q" type="search" placeholder="試験名・略称・目的で検索　例：3極法 / OCR / 耐圧"><button class="reset" id="reset" type="button">条件を解除</button></div><div class="chips" id="chips"></div></section>
 
@@ -53,8 +53,10 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
 <nav class="bottom" aria-label="メインナビゲーション"><a href="./index.html"><b>⌂</b>ホーム</a><a class="active" href="./test-measurement.html"><b>✓</b>試験方法</a><a href="./measuring-instruments.html"><b>⌕</b>測定器具</a><a href="./protective-relay.html"><b>51</b>継電器</a><a href="./zukan.html"><b>図</b>図鑑</a></nav>
 
 <script src="./measurement-db-v2.js"></script>
+<script src="./measurement-catalog-additions-v3.js"></script>
 <script>
 const METHODS=window.UKIWA_MEASUREMENT_METHODS||[],$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dbMeta=window.UKIWA_INSTRUMENT_CATALOG_META||{};if(dbMeta.totalCount)$('#instrumentDbCount').textContent=`${dbMeta.totalCount}型式`;
 let state={q:'',category:'すべて'};
 const categories=['すべて',...new Set(METHODS.map(m=>m.category))];
 function searchable(m){return [m.title,m.category,m.summary,m.distinction,...(m.aliases||[]),...(m.instrumentModels||[])].join(' ').toLowerCase()}

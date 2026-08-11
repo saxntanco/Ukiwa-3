@@ -97,7 +97,7 @@ async function syncDiaryUpdates(){
    index
   })).filter(x=>x.date&&x.href).sort((a,b)=>b.date.localeCompare(a.date)||a.index-b.index).slice(0,2);
   const recommended=[
-   {date:'2026/08/11',title:'🔧 試験方法・測定器具DBを統合',href:'test-measurement.html'},
+   {date:'2026/08/11',title:'🔧 測定器具DBを70型式へ拡張',href:'test-measurement.html'},
    {date:'2026/08/09',title:'保護継電器 メーカー・型式DB',href:'protective-relay.html'}
   ];
   const rows=[...diary,...recommended].slice(0,4);

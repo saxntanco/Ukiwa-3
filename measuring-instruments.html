@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0878b8">
 <title>各種測定器具・試験器ナビ｜ぷかぷかうきわメモ</title>
-<meta name="description" content="DI-05N、DI-11N、IR4052、ET-5、KEW4300など、電気保安の現場で使う測定器・試験器を型式から検索。用途、使い分け、仕様、安全確認、公式資料をまとめた現場向けナビ。">
+<meta name="description" content="DI-05N、DI-11N、IR4052、ET-5、KEW4300など、電気保安の現場で使う測定器・試験器70型式を検索。用途、使い分け、仕様、安全確認、公式資料をまとめた現場向けナビ。">
 <link rel="canonical" href="https://saxntanco.github.io/Ukiwa-3/measuring-instruments.html">
 <link rel="icon" href="./icon-192.png" type="image/png">
 <style>
@@ -61,7 +61,7 @@ dialog{width:min(760px,calc(100% - 20px));max-height:88vh;padding:0;border:0;bor
 <div class="safety"><b>安全上の前提：</b> 高電圧の絶縁測定、耐圧試験、継電器試験、活線測定は、実機の完全型式・定格・最新取扱説明書・社内手順書・操作票・系統状態・現場責任者の確認を優先します。接続前の状態確認、無電圧確認、放電、接地、誤投入防止、復旧確認を省略できる操作手順としては使用しないでください。</div>
 
 <nav class="db-switch" aria-label="データベース入口">
-  <a class="active" href="./measuring-instruments.html">器具・型式から探す <small>20型式</small></a>
+  <a class="active" href="./measuring-instruments.html">器具・型式から探す <small id="instrumentDbCount">型式DB</small></a>
   <a href="./test-measurement.html">試験方法から探す <small>工程・器具を逆引き</small></a>
 </nav>
 
@@ -90,11 +90,11 @@ dialog{width:min(760px,calc(100% - 20px));max-height:88vh;padding:0;border:0;bor
   <div class="method-context" id="methodContext" hidden></div>
   <div class="result-head"><div><h2 id="resultTitle">すべての測定器・試験器</h2><small id="resultCount"></small></div><select class="sort" id="sort" aria-label="並び順"><option value="field">現場優先順</option><option value="model">型式 A→Z</option><option value="maker">メーカー順</option></select></div>
   <div class="grid" id="grid"></div>
-  <div class="coverage-panel" id="coveragePanel" hidden><b>次に型式を確定するカテゴリ</b><div class="coverage-list"><span>高圧・低圧検電器</span><span>負荷電流クランプ</span><span>ZCT・ELR専用試験器</span><span>低抵抗・接触抵抗計</span><span>温度計・サーモカメラ</span><span>電力・高調波測定器</span></div>実際に協会で使用している完全型式や写真が確認できたものから、推測せず追加します。</div>
+  <div class="coverage-panel" id="coveragePanel" hidden><b>次に型式を確定するカテゴリ</b><div class="coverage-list"><span>高圧・低圧検電器</span><span>ZCT・ELR専用試験器</span><span>温度計・サーモカメラ</span><span>照度計・回転計</span><span>波形記録器・ロガー</span><span>放電棒・短絡接地器具・試験コード</span></div>実際に使用している完全型式や実機写真、公式資料が確認できたものから、推測せず追加します。</div>
   <div class="source-policy"><b>情報の見方：</b> 仕様値は添付資料または2026年8月11日時点のメーカー一次資料で確認した範囲です。完成度は「確認済みの項目数」ではなく、外観・端子・操作・判定・復旧・出典の確認段階を示します。社内管理値、実機写真、操作照合が不足する型式は、不足項目をそのまま表示します。</div>
 </main>
 
-<footer>測定器具・試験方法データベース v2｜最終一次資料確認日：2026-08-11<br>© ぷかぷかうきわメモ　メーカー各社の商標・製品名は各権利者に帰属します。</footer>
+<footer>測定器具・試験方法データベース v3｜70型式｜最終一次資料確認日：2026-08-11<br>© ぷかぷかうきわメモ　メーカー各社の商標・製品名は各権利者に帰属します。</footer>
 <dialog id="detail"><div class="modal-head"><div><small id="dMaker"></small><h2 id="dModel">器具詳細</h2><small id="dName"></small></div><button type="button" class="close" id="closeDetail" aria-label="閉じる">×</button></div><div class="modal-body">
   <div class="mode-toggle" aria-label="表示モード"><button type="button" id="fieldMode" class="active">現場モード</button><button type="button" id="learnMode">学習モード</button></div>
   <p class="detail-lead" id="dSummary"></p><div class="badges" id="dBadges"></div>
@@ -115,6 +115,7 @@ dialog{width:min(760px,calc(100% - 20px));max-height:88vh;padding:0;border:0;bor
 <nav class="bottom-nav" aria-label="メインナビゲーション"><a href="./index.html"><b>⌂</b>ホーム</a><a class="active" href="./measuring-instruments.html"><b>⌕</b>測定器具</a><a href="./protective-relay.html"><b>51</b>継電器</a><a href="./ac-withstand-test-simulator.html#calc"><b>Ic</b>充電電流</a><a href="./zukan.html"><b>図</b>図鑑</a></nav>
 
 <script src="./measurement-db-v2.js"></script>
+<script src="./measurement-catalog-additions-v3.js"></script>
 <script>
 const ITEMS=[
 {maker:'ムサシインテック',model:'DI-05N',name:'高電圧絶縁抵抗計',category:'絶縁抵抗',type:'測定器',status:'current',priority:1,main:true,aliases:['DI05N'],measures:['絶縁抵抗','DC 5kV'],summary:'高圧受電設備の機器・電力ケーブルを、固定5kVで測定する小型の高電圧メガー。',use:'高圧機器・CV/CVTケーブルの絶縁状態確認',specs:{'定格測定電圧':'DC 5000V','測定範囲':'1MΩ～10000MΩ（有効範囲は区分あり）','電源':'単3形乾電池 8本','質量':'約1.1kg以下（電池含まず）','主な機能':'負荷放電、ガードコード'},compare:'IR4052の1000Vより高い電圧で高圧機器・ケーブルを測る。DI-11Nのような連続可変や記録計連携を主目的とせず、5kV測定を簡潔に行う器具。',safety:'停電・無電圧・残留電荷の放電・接地状態・周辺機器の切離し条件を確認する。測定終了後も自動放電表示だけに頼らず、規定の放電と無電圧確認を行う。',mistakes:'DI-05Nは固定5kV用。DI-06の6kV仕様やDI-11Nの可変出力と混同しない。ガードコードの接続により測定に含む漏れ電流経路が変わる。',related:['DI-11N','IR4052-11','IR5050'],official:'https://www.musashi-in.co.jp/item/1400/1400.html'},
@@ -138,6 +139,7 @@ const ITEMS=[
 {maker:'HIOKI',model:'PD3129-10',name:'非接触検相器',category:'相順確認',type:'測定器',status:'related',priority:30,main:false,aliases:['PD312910'],measures:['相順','正相・逆相','非接触'],summary:'被覆電線へクリップして、三相電路の相順を光と音で確認するワイドクリップ形検相器。',use:'三相回路の正相・逆相確認の現行比較器',specs:{'検出方式':'金属非接触','対応電圧':'70～1000V','測定カテゴリ':'CAT IV 600V / CAT III 1000V','対応導体':'CV 3.5～500mm²等'},compare:'現場で使用している検相器の完全型式が未確認のため、代表的な現行機として掲載。型式確認後に主力表示を更新する。',safety:'検相は無電圧確認ではない。対象電圧、電線種類、クリップ取付状態、周辺充電部への離隔を確認する。',mistakes:'正相表示は接続したR/S/Tの順序に対する判定。設備側の相名称・回転方向まで自動的に保証するものではない。',related:['PD3259-50'],official:'https://www.hioki.com/jp-ja/products/ground-testers/phase/id_5909'},
 {maker:'HIOKI',model:'IR5050',name:'高電圧絶縁抵抗計',category:'絶縁抵抗',type:'測定器',status:'related',priority:31,main:false,aliases:['IR-5050'],measures:['250V～5kV','最大10TΩ','診断指数'],summary:'250V～5kV、最大10TΩ、絶縁診断指数・データ記録に対応する現行高電圧絶縁抵抗計。',use:'DI-05Nとの現行比較、トランス・ケーブル・モータの高電圧絶縁診断',specs:{'試験電圧':'250V～5kV','最大測定':'10TΩ','機能':'PI・DAR等の絶縁診断指数、メモリ','通信':'ワイヤレス / USB'},compare:'DI-05Nは固定5kVで簡潔。IR5050は細かな電圧設定、広い抵抗範囲、診断・記録機能を持つ比較候補。',safety:'高電圧絶縁測定の立入防止、接地、放電、被試験物の切離し条件を確認する。',mistakes:'最大10TΩまで表示できることと、現場判定基準が一律に高くなることは別。過去値・温湿度・測定条件を揃えて比較する。',related:['DI-05N','DI-11N'],official:'https://www.hioki.com/jp-ja/products/insulation-testers/id_1266805'}
 ];
+ITEMS.push(...(window.UKIWA_INSTRUMENT_ADDITIONS||[]));
 
 const METHODS=window.UKIWA_MEASUREMENT_METHODS||[];
 const DETAIL_DATA=window.UKIWA_INSTRUMENT_DETAILS||{};
@@ -148,6 +150,7 @@ ITEMS.forEach(item=>Object.assign(item,DETAIL_DATA[item.model]||{
   principles:'一般原理の説明は整備中です。型式固有の回路や操作を推定では追加しません。'
 }));
 METHODS.forEach(method=>method.instrumentModels.forEach(model=>{const item=ITEMS.find(x=>x.model===model);if(item&&!item.methodIds.includes(method.id))item.methodIds.push(method.id)}));
+const dbCountNode=document.querySelector('#instrumentDbCount');if(dbCountNode)dbCountNode.textContent=`${ITEMS.length}型式`;
 
 const $=s=>document.querySelector(s), list=v=>Array.isArray(v)?v:[], esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const normalize=s=>String(s||'').toUpperCase().normalize('NFKC').replace(/[-\s_－ー―‐‑‒–—−/]/g,'');
@@ -162,7 +165,7 @@ function methodFor(id){return METHODS.find(m=>m.id===id)}
 function hay(x){const methodWords=list(x.methodIds).flatMap(id=>{const m=methodFor(id);return m?[m.title,m.summary,...list(m.aliases)]:[]});return [x.maker,x.model,x.name,x.category,x.type,x.summary,x.use,...x.aliases,...x.measures,...Object.values(x.specs),x.compare,x.mistakes,...x.related,...methodWords].join(' ')}
 function makeChips(id,values,k){const w=$(id);w.innerHTML='';['すべて',...values].forEach(v=>{const b=document.createElement('button');b.type='button';b.className='chip'+(state[k]===v?' active':'');b.textContent=v;b.onclick=()=>{state[k]=v;state.special='';state.method='';render()};w.appendChild(b)})}
 function initFilters(){makeChips('#categoryChips',[...new Set(ITEMS.map(x=>x.category))],'category');makeChips('#typeChips',[...new Set(ITEMS.map(x=>x.type))],'type');makeChips('#makerChips',[...new Set(ITEMS.map(x=>x.maker))],'maker')}
-function filtered(){const nq=normalize(state.q),fav=new Set(readStore(STORE_FAV)),recent=readStore(STORE_RECENT);let rows=ITEMS.filter(x=>(!nq||normalize(hay(x)).includes(nq))&&(state.category==='すべて'||x.category===state.category)&&(state.type==='すべて'||x.type===state.type)&&(state.maker==='すべて'||x.maker===state.maker)&&(!state.method||list(x.methodIds).includes(state.method))&&(state.special==='favorites'?fav.has(key(x)):state.special==='recent'?recent.includes(key(x)):true));const s=$('#sort').value;if(s==='model')rows.sort((a,b)=>a.model.localeCompare(b.model,'ja'));else if(s==='maker')rows.sort((a,b)=>a.maker.localeCompare(b.maker,'ja')||a.model.localeCompare(b.model,'ja'));else if(state.special==='recent')rows.sort((a,b)=>recent.indexOf(key(a))-recent.indexOf(key(b)));else rows.sort((a,b)=>a.priority-b.priority);return rows}
+function filtered(){const nq=normalize(state.q),exact=nq&&ITEMS.some(x=>normalize(x.model)===nq),fav=new Set(readStore(STORE_FAV)),recent=readStore(STORE_RECENT);let rows=ITEMS.filter(x=>(!nq||(exact?normalize(x.model)===nq:normalize(hay(x)).includes(nq)))&&(state.category==='すべて'||x.category===state.category)&&(state.type==='すべて'||x.type===state.type)&&(state.maker==='すべて'||x.maker===state.maker)&&(!state.method||list(x.methodIds).includes(state.method))&&(state.special==='favorites'?fav.has(key(x)):state.special==='recent'?recent.includes(key(x)):true));const s=$('#sort').value;if(s==='model')rows.sort((a,b)=>a.model.localeCompare(b.model,'ja'));else if(s==='maker')rows.sort((a,b)=>a.maker.localeCompare(b.maker,'ja')||a.model.localeCompare(b.model,'ja'));else if(state.special==='recent')rows.sort((a,b)=>recent.indexOf(key(a))-recent.indexOf(key(b)));else rows.sort((a,b)=>a.priority-b.priority);return rows}
 function status(x){return x.status==='legacy'?['旧型・後継あり','legacy']:x.status==='related'?['比較・関連','related']:['公式掲載','current']}
 function card(x){const i=ITEMS.indexOf(x),st=status(x),lv=x.completion?.level||1;return `<article class="card"><div class="card-top"><div><div class="maker">${esc(x.maker)}</div><h3 class="model">${esc(x.model)}</h3><div class="name">${esc(x.name)}</div></div><div class="card-tools"><button type="button" class="fav ${isFav(x)?'on':''}" aria-label="お気に入り" onclick="toggleFav(${i},event)">${isFav(x)?'★':'☆'}</button><span class="status ${st[1]}">${st[0]}</span></div></div><p class="summary">${esc(x.summary)}</p><div class="badges"><span class="badge type">${esc(x.type)}</span><span class="badge">${esc(x.category)}</span>${x.measures.slice(0,3).map(v=>`<span class="badge">${esc(v)}</span>`).join('')}<span class="completion">完成度 <strong>L${lv}</strong></span></div><div class="use"><b>主な場面：</b>${esc(x.use)}<div class="trust ${x.confidence==='基本情報のみ'?'pending':''}">${esc(x.confidence)}｜${esc(x.checked)}</div></div><div class="actions">${x.official?`<a class="btn primary" href="${esc(x.official)}" target="_blank" rel="noopener">公式資料</a>`:''}${x.learning?`<a class="btn learn" href="${esc(x.learning)}">教材</a>`:''}<button type="button" class="btn detail-btn" onclick="openDetail(${i})">型式アンチョコ</button></div></article>`}
 function title(){if(state.special==='favorites')return '★ お気に入り';if(state.special==='recent')return '最近見た器具';if(state.method){const m=methodFor(state.method);if(m)return m.title+'で使う器具'}if(state.q)return `「${state.q}」の検索結果`;if(state.category!=='すべて')return state.category;if(state.type!=='すべて')return state.type;return 'すべての測定器・試験器'}
