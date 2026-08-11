@@ -34,6 +34,21 @@ button,input{font:inherit}
 .mascot{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(#ecfbff,#dff5ff);font-size:34px}
 .guideName{font-weight:1000;color:#0d67b6}
 .guideText{font-weight:800}
+.gdbIntro{background:linear-gradient(145deg,#eafaff,#fff);border:2px solid #9edeea;overflow:visible}
+.gdbHero{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
+.gdbHero h2{font-size:clamp(27px,5vw,42px);margin:5px 0}.gdbHero p{max-width:780px}
+.gdbTotal{min-width:150px;text-align:center;background:#073b56;color:#fff;border-radius:20px;padding:15px}.gdbTotal b{display:block;font-size:32px}.gdbTotal span{font-size:12px;font-weight:900}
+.gdbSafety{margin:16px 0;background:#fff7da;border:1px solid #e3bd42;border-left:7px solid #e3a300;border-radius:14px;padding:13px 15px;font-weight:800;line-height:1.75}
+.gdbRestore{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.gdbRestore span{background:#fff;border:1px solid #c9e3ea;border-radius:11px;padding:9px;font-size:12px;font-weight:900;text-align:center}
+.gdbTools{position:sticky;top:51px;z-index:30;background:rgba(238,251,255,.96);backdrop-filter:blur(12px);border:1px solid #b7dce6;border-radius:18px;padding:10px;box-shadow:0 10px 25px rgba(4,56,78,.12)}
+.gdbSearch{display:grid;grid-template-columns:minmax(180px,2fr) 1fr 1fr auto;gap:8px}.gdbSearch input,.gdbSearch select,.gdbSearch button{min-height:46px;border:1px solid #a9ced9;border-radius:12px;background:#fff;padding:9px 12px;color:#12304d;font:inherit;font-weight:800}.gdbSearch input{font-size:16px}.gdbSearch button{cursor:pointer}
+.gdbTabs,.gdbSavedTools{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.gdbTabs button,.gdbSavedTools button{border:1px solid #b9d7e0;background:#fff;color:#195773;border-radius:999px;padding:9px 12px;font-weight:900;cursor:pointer}.gdbTabs button.active{background:#087aa2;color:#fff;border-color:#087aa2}
+.gdbCount{margin:14px 0 8px;font-weight:1000;color:#165d76}.gdbCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.gdbCard{display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid #c8e1e8;border-radius:16px;padding:13px;box-shadow:0 4px 14px rgba(13,67,91,.07)}.gdbCard h3{font-size:19px;margin:7px 0 3px;overflow-wrap:anywhere}.gdbCard p{font-size:13px;line-height:1.6;color:#395b6a;margin:8px 0}.gdbName{font-size:12px;color:#246579}.gdbMeta,.gdbBadges{display:flex;gap:5px;flex-wrap:wrap}.gdbMeta span,.gdbBadges span{border-radius:999px;padding:4px 7px;font-size:10px;font-weight:900}.gdbMeta span{background:#e5f6fb;color:#14637d}.gdbBadges span{background:#f0f3f4;color:#4d6068}.gdbActions{display:flex;gap:6px;margin-top:auto}.gdbActions button,.gdbSaved{border:0;border-radius:10px;background:#0b789d;color:#fff;padding:9px 11px;font-weight:900;cursor:pointer}.gdbActions button:first-child{flex:1}.gdbActions .gdbFav{flex:0 0 42px;background:#edf3f5;color:#849399}.gdbActions .gdbFav.on{background:#fff0ad;color:#8a6200}.gdbSaved{margin:4px;background:#fff;color:#126680;border:1px solid #b9d9e2}.gdbEmpty{grid-column:1/-1;padding:28px;text-align:center;background:#fff;border:1px dashed #9fc5d0;border-radius:15px;font-weight:900;color:#567}
+.gdbDialog{width:min(920px,calc(100% - 20px));max-height:92vh;border:0;border-radius:22px;padding:0;box-shadow:0 30px 90px #001c}.gdbDialog::backdrop{background:rgba(0,25,38,.72)}.gdbDialogClose{position:sticky;top:8px;float:right;z-index:2;margin:8px;border:0;border-radius:999px;width:42px;height:42px;background:#123e52;color:#fff;font-size:23px;cursor:pointer}.gdbDetail{padding:22px}.gdbDetailHead{border-bottom:1px solid #d7e8ed;padding-right:45px}.gdbDetailHead h2{margin:4px 0;font-size:clamp(25px,5vw,38px)}.gdbThree{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.gdbThree>div{display:flex;flex-direction:column;gap:6px;background:#eaf8fb;border-radius:13px;padding:12px;line-height:1.6}.gdbThree .danger{background:#fff0e8;border:1px solid #f1a17c}.gdbDetailGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gdbDetailGrid section{background:#f7fafb;border:1px solid #d8e6ea;border-radius:13px;padding:12px}.gdbDetailGrid h4{margin:0 0 7px;color:#126582}.gdbDetailGrid ul{margin:0;padding-left:1.3em;line-height:1.7}.gdbTrust{margin-top:14px;background:#eef1f2;border-radius:12px;padding:13px;line-height:1.7}.gdbTrust a{color:#056e9b;font-weight:900}.gdbTrust p{margin:6px 0 0;font-weight:800}
+.gdbRelated{display:flex;gap:6px;flex-wrap:wrap}.gdbRelated button{border:1px solid #a8d2de;background:#fff;color:#12637d;border-radius:999px;padding:7px 9px;font-weight:900;cursor:pointer}
+@media(max-width:760px){.gdbHero{grid-template-columns:1fr}.gdbTotal{display:flex;justify-content:center;gap:8px;align-items:center}.gdbTotal b{font-size:25px}.gdbRestore{grid-template-columns:repeat(2,1fr)}.gdbTools{top:49px}.gdbSearch{grid-template-columns:1fr 1fr}.gdbSearch input{grid-column:1/-1}.gdbCards{grid-template-columns:repeat(2,minmax(0,1fr))}.gdbThree,.gdbDetailGrid{grid-template-columns:1fr}.gdbDetail{padding:14px}.gdbCard{padding:10px}.gdbCard h3{font-size:16px}.gdbCard p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}}
+@media(max-width:420px){.gdbSearch{grid-template-columns:1fr}.gdbSearch input{grid-column:auto}.gdbCards{grid-template-columns:1fr 1fr}.gdbMeta span,.gdbBadges span{font-size:9px}.gdbActions button:first-child{font-size:12px;padding:8px 4px}.gdbCard p{font-size:12px}}
 .section{padding:34px 0 4px}
 .section small.label{font-weight:1000;color:#257bc6;letter-spacing:.13em}
 .section h2{font-size:clamp(28px,4vw,42px);margin:.2rem 0 .3rem;line-height:1.2}
@@ -256,6 +271,21 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 </div>
 
 <main class="shell">
+<section class="section gdbIntro" id="generatorDbApp">
+  <div class="gdbHero">
+    <div><small class="label">GENERATOR FIELD DATABASE</small><h2>非常用発電機・制御・試験データベース</h2><p class="sub">型式を知らなくても、試験・警報・部品から逆引きできます。既存のシミュレーション教材は、このデータベースの下にそのまま残しています。</p></div>
+    <div class="gdbTotal"><b>161</b><span>型式・試験・警報・部品</span></div>
+  </div>
+  <div class="gdbSafety"><b>⚠ 現場の入口：</b> 試験前は、現場責任者・操作票・社内手順・系統状態を確認。現場手順で要求される場合は <b>AUTO → MANUAL</b>、遠方始動の禁止、52Gと負荷への影響を確認してから結線します。端子名やCOMの意味は機種ごとに違い、このDBの一般説明だけで短絡・開放・電圧印加を行ってはいけません。</div>
+  <div class="gdbRestore"><span>① 試験治具を撤去</span><span>② DIP・設定値を復旧</span><span>③ AUTO・遠方許可へ復帰</span><span>④ 無警報・待機状態を確認</span></div>
+  <div class="gdbTools">
+    <div class="gdbSearch"><input id="gdbSearch" type="search" placeholder="型式・メーカー・試験・63Q・AVRなど"><select id="gdbMaker"><option>メーカーすべて</option></select><select id="gdbCategory"><option>分類すべて</option></select><button id="gdbClear">解除</button></div>
+    <div class="gdbTabs"><button class="active" data-tab="models">型式・シリーズ</button><button data-tab="tests">何を試験する？</button><button data-tab="protections">警報・保護</button><button data-tab="components">部品・補機</button></div>
+    <div class="gdbSavedTools"><button id="gdbShowFav">★ お気に入り</button><button id="gdbShowRecent">↻ 最近見た</button></div>
+  </div>
+  <div class="gdbCount" id="gdbCount"></div><div class="gdbCards" id="gdbCards"></div>
+</section>
+
 <section class="section">
   <small class="label">CHOOSE TEST</small>
   <h2>まず試験を選ぶ</h2>
@@ -761,6 +791,8 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 </footer>
 </main>
 
+<dialog class="gdbDialog" id="gdbDialog"><button class="gdbDialogClose" id="gdbDialogClose" aria-label="閉じる">×</button><div class="gdbDetail" id="gdbDetail"></div></dialog>
+<script src="generator-database-v1.js"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 let mode="auto", autoTab="outage", timer=null, currentTime=0, fault="63Q", method="test", picked=[];
