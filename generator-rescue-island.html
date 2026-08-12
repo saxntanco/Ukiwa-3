@@ -34,21 +34,6 @@ button,input{font:inherit}
 .mascot{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(#ecfbff,#dff5ff);font-size:34px}
 .guideName{font-weight:1000;color:#0d67b6}
 .guideText{font-weight:800}
-.gdbIntro{background:linear-gradient(145deg,#eafaff,#fff);border:2px solid #9edeea;overflow:visible}
-.gdbHero{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
-.gdbHero h2{font-size:clamp(27px,5vw,42px);margin:5px 0}.gdbHero p{max-width:780px}
-.gdbTotal{min-width:150px;text-align:center;background:#073b56;color:#fff;border-radius:20px;padding:15px}.gdbTotal b{display:block;font-size:32px}.gdbTotal span{font-size:12px;font-weight:900}
-.gdbSafety{margin:16px 0;background:#fff7da;border:1px solid #e3bd42;border-left:7px solid #e3a300;border-radius:14px;padding:13px 15px;font-weight:800;line-height:1.75}
-.gdbRestore{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.gdbRestore span{background:#fff;border:1px solid #c9e3ea;border-radius:11px;padding:9px;font-size:12px;font-weight:900;text-align:center}
-.gdbTools{position:sticky;top:51px;z-index:30;background:rgba(238,251,255,.96);backdrop-filter:blur(12px);border:1px solid #b7dce6;border-radius:18px;padding:10px;box-shadow:0 10px 25px rgba(4,56,78,.12)}
-.gdbSearch{display:grid;grid-template-columns:minmax(180px,2fr) 1fr 1fr auto;gap:8px}.gdbSearch input,.gdbSearch select,.gdbSearch button{min-height:46px;border:1px solid #a9ced9;border-radius:12px;background:#fff;padding:9px 12px;color:#12304d;font:inherit;font-weight:800}.gdbSearch input{font-size:16px}.gdbSearch button{cursor:pointer}
-.gdbTabs,.gdbSavedTools{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.gdbTabs button,.gdbSavedTools button{border:1px solid #b9d7e0;background:#fff;color:#195773;border-radius:999px;padding:9px 12px;font-weight:900;cursor:pointer}.gdbTabs button.active{background:#087aa2;color:#fff;border-color:#087aa2}
-.gdbCount{margin:14px 0 8px;font-weight:1000;color:#165d76}.gdbCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.gdbCard{display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid #c8e1e8;border-radius:16px;padding:13px;box-shadow:0 4px 14px rgba(13,67,91,.07)}.gdbCard h3{font-size:19px;margin:7px 0 3px;overflow-wrap:anywhere}.gdbCard p{font-size:13px;line-height:1.6;color:#395b6a;margin:8px 0}.gdbName{font-size:12px;color:#246579}.gdbMeta,.gdbBadges{display:flex;gap:5px;flex-wrap:wrap}.gdbMeta span,.gdbBadges span{border-radius:999px;padding:4px 7px;font-size:10px;font-weight:900}.gdbMeta span{background:#e5f6fb;color:#14637d}.gdbBadges span{background:#f0f3f4;color:#4d6068}.gdbActions{display:flex;gap:6px;margin-top:auto}.gdbActions button,.gdbSaved{border:0;border-radius:10px;background:#0b789d;color:#fff;padding:9px 11px;font-weight:900;cursor:pointer}.gdbActions button:first-child{flex:1}.gdbActions .gdbFav{flex:0 0 42px;background:#edf3f5;color:#849399}.gdbActions .gdbFav.on{background:#fff0ad;color:#8a6200}.gdbSaved{margin:4px;background:#fff;color:#126680;border:1px solid #b9d9e2}.gdbEmpty{grid-column:1/-1;padding:28px;text-align:center;background:#fff;border:1px dashed #9fc5d0;border-radius:15px;font-weight:900;color:#567}
-.gdbDialog{width:min(920px,calc(100% - 20px));max-height:92vh;border:0;border-radius:22px;padding:0;box-shadow:0 30px 90px #001c}.gdbDialog::backdrop{background:rgba(0,25,38,.72)}.gdbDialogClose{position:sticky;top:8px;float:right;z-index:2;margin:8px;border:0;border-radius:999px;width:42px;height:42px;background:#123e52;color:#fff;font-size:23px;cursor:pointer}.gdbDetail{padding:22px}.gdbDetailHead{border-bottom:1px solid #d7e8ed;padding-right:45px}.gdbDetailHead h2{margin:4px 0;font-size:clamp(25px,5vw,38px)}.gdbThree{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.gdbThree>div{display:flex;flex-direction:column;gap:6px;background:#eaf8fb;border-radius:13px;padding:12px;line-height:1.6}.gdbThree .danger{background:#fff0e8;border:1px solid #f1a17c}.gdbDetailGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gdbDetailGrid section{background:#f7fafb;border:1px solid #d8e6ea;border-radius:13px;padding:12px}.gdbDetailGrid h4{margin:0 0 7px;color:#126582}.gdbDetailGrid ul{margin:0;padding-left:1.3em;line-height:1.7}.gdbTrust{margin-top:14px;background:#eef1f2;border-radius:12px;padding:13px;line-height:1.7}.gdbTrust a{color:#056e9b;font-weight:900}.gdbTrust p{margin:6px 0 0;font-weight:800}
-.gdbRelated{display:flex;gap:6px;flex-wrap:wrap}.gdbRelated button{border:1px solid #a8d2de;background:#fff;color:#12637d;border-radius:999px;padding:7px 9px;font-weight:900;cursor:pointer}
-@media(max-width:760px){.gdbHero{grid-template-columns:1fr}.gdbTotal{display:flex;justify-content:center;gap:8px;align-items:center}.gdbTotal b{font-size:25px}.gdbRestore{grid-template-columns:repeat(2,1fr)}.gdbTools{top:49px}.gdbSearch{grid-template-columns:1fr 1fr}.gdbSearch input{grid-column:1/-1}.gdbCards{grid-template-columns:repeat(2,minmax(0,1fr))}.gdbThree,.gdbDetailGrid{grid-template-columns:1fr}.gdbDetail{padding:14px}.gdbCard{padding:10px}.gdbCard h3{font-size:16px}.gdbCard p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}}
-@media(max-width:420px){.gdbSearch{grid-template-columns:1fr}.gdbSearch input{grid-column:auto}.gdbCards{grid-template-columns:1fr 1fr}.gdbMeta span,.gdbBadges span{font-size:9px}.gdbActions button:first-child{font-size:12px;padding:8px 4px}.gdbCard p{font-size:12px}}
 .section{padding:34px 0 4px}
 .section small.label{font-weight:1000;color:#257bc6;letter-spacing:.13em}
 .section h2{font-size:clamp(28px,4vw,42px);margin:.2rem 0 .3rem;line-height:1.2}
@@ -218,6 +203,61 @@ button,input{font:inherit}
   .material-img-wrap{padding:7px}
 }
 
+
+/* ===== Generator DB v9 navigation ===== */
+.legacy-mode-picker{display:none!important}
+.dbHero{padding:34px 0 38px}
+.dbHero h1{font-size:clamp(34px,5.2vw,62px)}
+.dbHero p{max-width:760px}
+.db-home{padding:28px 0 6px}
+.db-search-wrap{display:grid;grid-template-columns:1fr auto;gap:10px;margin:14px 0 18px}
+.db-search{width:100%;border:2px solid #cfe6f5;border-radius:16px;padding:13px 15px;background:#fff;color:#12304d;font-size:16px;outline:none}
+.db-search:focus{border-color:#4bb9ed;box-shadow:0 0 0 4px rgba(75,185,237,.12)}
+.db-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.db-card{appearance:none;border:1px solid var(--line);background:#fff;border-radius:21px;padding:16px;text-align:left;cursor:pointer;box-shadow:0 10px 28px rgba(35,103,164,.08);transition:.18s}
+.db-card:hover{transform:translateY(-2px);border-color:#6bc3ee;box-shadow:0 15px 34px rgba(35,103,164,.12)}
+.db-card .db-ico{font-size:32px;line-height:1}
+.db-card b{display:block;font-size:18px;margin:7px 0 4px;color:#0b67b8}
+.db-card span{display:block;color:#67819a;font-size:13px;line-height:1.55}
+.db-card small{display:inline-block;margin-top:8px;padding:3px 8px;border-radius:999px;background:#eef8ff;color:#2b75ae;font-weight:800}
+.db-paths{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.db-path{border:1px solid var(--line);border-radius:17px;background:#f8fcff;padding:12px}
+.db-path b{color:#0b67b8}
+.db-hitbox{display:none;margin-top:10px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:10px}
+.db-hitbox.show{display:block}
+.db-hit{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 6px;border-bottom:1px dashed #d8e9f4;cursor:pointer}
+.db-hit:last-child{border-bottom:0}
+.db-hit b{color:#1768b5}
+.db-toolbar{position:sticky;top:67px;z-index:40;background:rgba(247,252,255,.96);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:9px 10px;margin:16px 0 0;display:none;align-items:center;gap:8px;box-shadow:0 8px 22px rgba(35,103,164,.08)}
+.db-toolbar.show{display:flex}
+.db-toolbar .trail{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#496b84;font-size:13px}
+.db-back{border:1px solid var(--line);background:#fff;border-radius:11px;padding:8px 10px;color:#1768b5;font-weight:900;cursor:pointer}
+.db-content-view{display:none}
+.db-content-view.db-visible{display:block}
+.db-section-intro{display:flex;justify-content:space-between;gap:14px;align-items:flex-end}
+.db-section-intro .btn{flex:0 0 auto}
+.quick-records{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.quick-record{border:1px solid var(--line);background:#f8fcff;border-radius:15px;padding:12px;cursor:pointer}
+.quick-record b{display:block;color:#0b67b8}
+.electrical-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.electrical-card{border:1px solid var(--line);border-radius:20px;background:#fff;padding:16px}
+.electrical-card h3{margin:0 0 6px;color:#0b67b8}
+.db-mobile-nav{display:none}
+@media(max-width:900px){
+  .db-grid{grid-template-columns:1fr 1fr}
+  .db-paths{grid-template-columns:1fr}
+  .quick-records,.electrical-cards{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .db-grid{grid-template-columns:1fr}
+  .db-search-wrap{grid-template-columns:1fr}
+  .db-card{padding:14px}
+  .db-toolbar{top:65px;border-radius:0;margin-left:-14px;margin-right:-14px}
+  .db-mobile-nav{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:80;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.97);border-top:1px solid var(--line);backdrop-filter:blur(14px)}
+  .db-mobile-nav button{border:0;background:transparent;padding:8px 2px;color:#356a92;font-size:10px}
+  .db-mobile-nav b{display:block;font-size:20px}
+}
+
 footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-align:center}
 
 @media(max-width:900px){
@@ -244,9 +284,6 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 </style>
 </head>
 <body>
-<!-- GENERATOR AREA NAV -->
-<nav style="position:sticky;top:0;z-index:9998;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:9px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #cfe5ee"><a href="index.html" style="padding:7px 10px;border-radius:999px;background:#eef7fb;color:#225d76;text-decoration:none;font-weight:900;font-size:12px">⌂ ホーム</a><a href="protective-relay.html" style="padding:7px 10px;border-radius:999px;background:#eef7fb;color:#225d76;text-decoration:none;font-weight:900;font-size:12px">⚡ 保護継電器DB</a><a href="relay-test-flow.html" style="padding:7px 10px;border-radius:999px;background:#eef7fb;color:#225d76;text-decoration:none;font-weight:900;font-size:12px">🧪 継電器試験</a></nav>
-
 <header class="topbar">
   <div class="shell topin">
     <div class="brand">ぷかぷかうきわメモ<small>GENERATOR RESCUE ISLAND v3</small></div>
@@ -255,11 +292,11 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   </div>
 </header>
 
-<section class="hero">
+<section class="hero dbHero">
   <div class="shell">
-    <span class="pill">発電機の島</span>
-    <h1>「時間を見る試験」と<br>「守れるかを見る試験」を分けよう。</h1>
-    <p>自動始動・停止試験では、PAS開放から停電、始動、発電、電圧確立、負荷切替、復電、停止までをシミュレーション。保護装置連動試験では、63Q・26W・49などの異常信号を模擬して後段の連動を追います。</p>
+    <span class="pill">うきわメモ｜非常用発電機</span>
+    <h1>発電機で困ったら、<br>ここから探す。</h1>
+    <p>試験名・部品名・成績書の項目から、必要なところだけすぐ開けるように整理しました。</p>
   </div>
 </section>
 
@@ -267,26 +304,74 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   <div class="guideBox">
     <div class="mascot">🛟</div>
     <div><div class="guideName">うきわちゃん</div><div class="guideText" id="guideText">「今日はどっちの試験？ 自動試験なら“何秒で何が動いたか”、保護試験なら“異常で何が止まったか”を見るよ！」</div></div>
-  </div>
+  
+</div>
 </div>
 
 <main class="shell">
-<section class="section gdbIntro" id="generatorDbApp">
-  <div class="gdbHero">
-    <div><small class="label">GENERATOR FIELD DATABASE</small><h2>非常用発電機・制御・試験データベース</h2><p class="sub">型式を知らなくても、試験・警報・部品から逆引きできます。既存のシミュレーション教材は、このデータベースの下にそのまま残しています。</p></div>
-    <div class="gdbTotal"><b>161</b><span>型式・試験・警報・部品</span></div>
+<section class="db-home" id="dbHome">
+  <small class="label">GENERATOR DATABASE</small>
+  <h2>今日は何を確認する？</h2>
+  <p class="sub">最初から全部読まなくて大丈夫。目的に近い入口を選んでください。</p>
+
+  <div class="db-search-wrap">
+    <input id="dbSearch" class="db-search" type="search" placeholder="例：63Q、軸受、ソレノイド、15kW、60秒、絶縁…" autocomplete="off">
+    <button class="btn blue" id="dbSearchClear">クリア</button>
   </div>
-  <div class="gdbSafety"><b>⚠ 現場の入口：</b> 試験前は、現場責任者・操作票・社内手順・系統状態を確認。現場手順で要求される場合は <b>AUTO → MANUAL</b>、遠方始動の禁止、52Gと負荷への影響を確認してから結線します。端子名やCOMの意味は機種ごとに違い、このDBの一般説明だけで短絡・開放・電圧印加を行ってはいけません。</div>
-  <div class="gdbRestore"><span>① 試験治具を撤去</span><span>② DIP・設定値を復旧</span><span>③ AUTO・遠方許可へ復帰</span><span>④ 無警報・待機状態を確認</span></div>
-  <div class="gdbTools">
-    <div class="gdbSearch"><input id="gdbSearch" type="search" placeholder="型式・メーカー・試験・63Q・AVRなど"><select id="gdbMaker"><option>メーカーすべて</option></select><select id="gdbCategory"><option>分類すべて</option></select><button id="gdbClear">解除</button></div>
-    <div class="gdbTabs"><button class="active" data-tab="models">型式・シリーズ</button><button data-tab="tests">何を試験する？</button><button data-tab="protections">警報・保護</button><button data-tab="components">部品・補機</button></div>
-    <div class="gdbSavedTools"><button id="gdbShowFav">★ お気に入り</button><button id="gdbShowRecent">↻ 最近見た</button></div>
+  <div id="dbHits" class="db-hitbox"></div>
+
+  <div class="db-grid">
+    <button class="db-card" data-open-view="auto" data-search="自動試験 自動始動 自動停止 停電 復電 電源切替 60秒 120秒 PAS">
+      <div class="db-ico">⚡</div><b>自動試験</b>
+      <span>停電 → 始動 → 電圧確立 → 電源切替。復電後の停止まで。</span><small>時間と順序を見る</small>
+    </button>
+    <button class="db-card" data-open-view="protection" data-search="保護装置 63Q 26W 49 非常停止 始動渋滞 油圧 水温 警報">
+      <div class="db-ico">🛡️</div><b>保護装置試験</b>
+      <span>異常入力から、停止・遮断・警報・表示までを追う。</span><small>守れるかを見る</small>
+    </button>
+    <button class="db-card" data-open-view="anatomy-load" data-search="負荷試験 乾式抵抗器 ドライダミー 15kW 207V 42A 50Hz">
+      <div class="db-ico">🔥</div><b>乾式抵抗器・負荷試験</b>
+      <span>15 kWをかけたとき、発電機がどう働くかを見る。</span><small>電圧・電流・出力</small>
+    </button>
+    <button class="db-card" data-open-view="anatomy-temp" data-search="温度測定 軸受 本体表面 吸気 排気 潤滑油 冷却水 入口 出口">
+      <div class="db-ico">🌡️</div><b>温度測定</b>
+      <span>成績書の「軸受温度」「冷却水入口」などを逆引き。</span><small>どこを測る？</small>
+    </button>
+    <button class="db-card" data-open-view="governor" data-search="調速機 ガバナ 周波数 回転数 負荷遮断 再投入 50Hz">
+      <div class="db-ico">🎚️</div><b>調速機・ガバナ</b>
+      <span>負荷変動で回転数・周波数がどう変わるか。</span><small>回転を安定させる</small>
+    </button>
+    <button class="db-card" data-open-view="starter" data-search="始動 蓄電池 バッテリー セル スタータ 電圧降下">
+      <div class="db-ico">🔋</div><b>始動・蓄電池</b>
+      <span>バッテリー → スタータ → クランキング → 自力運転。</span><small>始動できる？</small>
+    </button>
+    <button class="db-card" data-open-view="electrical" data-search="絶縁 接地 絶縁抵抗 接地抵抗 一括-E D種 50MΩ 0.6Ω">
+      <div class="db-ico">⚡</div><b>絶縁・接地</b>
+      <span>発電機本体の電気的な健全性を確認する。</span><small>漏れにくさ・接地</small>
+    </button>
+    <button class="db-card" data-open-view="anatomy-parts" data-search="発電機 しくみ 部品 AVR ソレノイド スタータ ガバナ 軸受 冷却">
+      <div class="db-ico">🔧</div><b>発電機のしくみ</b>
+      <span>部品をタップして、役割と試験とのつながりを見る。</span><small>部品から探す</small>
+    </button>
+    <button class="db-card" data-open-view="records" data-search="成績書 記録 前電圧 後電圧 軸受温度 電源切替 63Q 15kW">
+      <div class="db-ico">📋</div><b>成績書から探す</b>
+      <span>「この欄なんだっけ？」から目的の教材へ逆引き。</span><small>記入項目から探す</small>
+    </button>
   </div>
-  <div class="gdbCount" id="gdbCount"></div><div class="gdbCards" id="gdbCards"></div>
+
+  <div class="db-paths">
+    <div class="db-path"><b>🧪 試験から探す</b><br><small>自動・保護・負荷・調速・絶縁</small></div>
+    <div class="db-path"><b>🔧 部品から探す</b><br><small>ソレノイド、軸受、ガバナ、AVR…</small></div>
+    <div class="db-path"><b>📋 成績書から探す</b><br><small>記録欄の名前から逆引き</small></div>
+  </div>
 </section>
 
-<section class="section">
+<div class="db-toolbar" id="dbToolbar">
+  <button class="db-back" id="dbBack">← メニュー</button>
+  <div class="trail" id="dbTrail">非常用発電機</div>
+</div>
+
+<section class="section legacy-mode-picker">
   <small class="label">CHOOSE TEST</small>
   <h2>まず試験を選ぶ</h2>
   <p class="sub">選んだ項目に応じて、教材そのものが切り替わります。</p>
@@ -302,7 +387,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   </div>
 </section>
 
-<section class="section" id="autoSection">
+<section class="section db-content-view" data-db-view="auto" id="autoSection">
   <small class="label">AUTO START / STOP TEST</small>
   <h2>自動始動・停止シミュレーション</h2>
   <p class="sub">PAS開放を起点に、停電から負荷切替までをアニメーションで追います。</p>
@@ -403,7 +488,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 
 
 
-<section class="section" id="generatorAnatomy">
+<section class="section db-content-view" data-db-view="anatomy" id="generatorAnatomy">
   <small class="label">TOUCHABLE GENERATOR</small>
   <h2>発電機まるごと解剖図</h2>
   <p class="sub">部品名をタップすると、「どこ？ → 役割 → 試験との関係 → 成績書のどこ？」までつながります。位置を実資料だけで確定できないものは、候補位置として表示します。</p>
@@ -557,7 +642,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   </div>
 </section>
 
-<section class="section" id="fieldReference">
+<section class="section db-content-view" data-db-view="reference" id="fieldReference">
   <small class="label">FIELD REFERENCE</small>
   <h2>現場で使っている検査表も一緒に見る</h2>
   <p class="sub">この画像を教材の「元資料」として残します。自動試験と保護装置試験で見る場所を分けて使います。</p>
@@ -589,7 +674,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   </div>
 </section>
 
-<section class="section" id="generatorParts">
+<section class="section db-content-view" data-db-view="parts" id="generatorParts">
   <small class="label">STOP SOLENOID</small>
   <h2>停止ソレノイドの役割</h2>
   <p class="sub">自動試験の「エンジン停止 → ソレノイド復帰」が何を意味するのかを、ここで詳しく見ます。</p>
@@ -663,7 +748,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 </section>
 
 
-<section class="section" id="autoMaterials">
+<section class="section db-content-view" data-db-view="auto" id="autoMaterials">
   <small class="label">AUTO TEST VISUAL GUIDE</small>
   <h2>自動起動・自動停止を「絵」と「実資料」でつなぐ</h2>
   <p class="sub">シミュレーションで動きを見たあと、プロ向けに描き直した教材図と、実際の社内資料を見比べて理解を固めます。</p>
@@ -745,7 +830,44 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   </div>
 </section>
 
-<section class="section hidden" id="protectionSection">
+
+<section class="section db-content-view" data-db-view="records" id="recordsSection">
+  <small class="label">RECORD SHEET INDEX</small>
+  <h2>成績書の項目から逆引き</h2>
+  <p class="sub">項目名を押すと、その説明へ移動します。</p>
+  <div class="quick-records">
+    <button class="quick-record" data-record-action="auto"><b>停電 / 起動 / 電圧確立 / 電源切替</b><span>→ 自動試験</span></button>
+    <button class="quick-record" data-record-action="battery"><b>前電圧 / 後電圧 / 電圧降下</b><span>→ 始動・蓄電池</span></button>
+    <button class="quick-record" data-record-action="bearing"><b>軸受温度</b><span>→ 温度測定</span></button>
+    <button class="quick-record" data-record-action="cooling"><b>冷却水温度 / 入口 / 出口</b><span>→ 温度測定</span></button>
+    <button class="quick-record" data-record-action="exhaust"><b>排気温度 / 排気温度出口</b><span>→ 温度測定</span></button>
+    <button class="quick-record" data-record-action="protection"><b>潤滑油圧力低下 / 水温上昇 / 始動渋滞</b><span>→ 保護装置試験</span></button>
+    <button class="quick-record" data-record-action="load"><b>電圧 / R・S・T電流 / 出力 / 周波数</b><span>→ 負荷試験</span></button>
+    <button class="quick-record" data-record-action="electrical"><b>絶縁抵抗 / 接地抵抗</b><span>→ 絶縁・接地</span></button>
+  </div>
+</section>
+
+<section class="section db-content-view" data-db-view="electrical" id="electricalSection">
+  <small class="label">ELECTRICAL HEALTH CHECK</small>
+  <h2>絶縁・接地</h2>
+  <p class="sub">今回の実資料に出ている測定項目を、役割で分けて整理します。</p>
+  <div class="electrical-cards">
+    <div class="electrical-card">
+      <h3>絶縁抵抗</h3>
+      <p><b>見るもの：</b>巻線などの充電部とフレーム・大地側の間が、電気的に漏れにくいか。</p>
+      <div class="good"><b>今回の記録例：</b> 一括－E 50 MΩ</div>
+      <p class="sub">※測定電圧・切離し条件・対象回路は実機試験要領を確認。</p>
+    </div>
+    <div class="electrical-card">
+      <h3>接地抵抗</h3>
+      <p><b>見るもの：</b>発電機フレームから接地極・大地へ至る接地経路の抵抗。</p>
+      <div class="good"><b>今回の記録例：</b> D種 0.6 Ω</div>
+      <p class="sub">※一般的な合否値としてではなく、今回資料の実測記録として表示。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section db-content-view hidden" data-db-view="protection" id="protectionSection">
   <small class="label">PROTECTION INTERLOCK TEST</small>
   <h2>保護装置連動試験</h2>
   <p class="sub">こっちは時間より、「異常入力が入ったあと、何が動くか」を見る。</p>
@@ -786,13 +908,20 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   </div>
 </section>
 
+
+<nav class="db-mobile-nav" aria-label="発電機メニュー">
+  <button data-open-view="home"><b>🏠</b>メニュー</button>
+  <button data-open-view="auto"><b>⚡</b>自動</button>
+  <button data-open-view="protection"><b>🛡️</b>保護</button>
+  <button data-open-view="anatomy-load"><b>🔥</b>負荷</button>
+  <button data-open-view="records"><b>📋</b>成績書</button>
+</nav>
+
 <footer>
   <div class="shell">ぷかぷかうきわメモ｜発電機レスキュー島 v3<br><small>自動試験は時間と順序。保護試験は異常入力からの連動。</small></div>
 </footer>
 </main>
 
-<dialog class="gdbDialog" id="gdbDialog"><button class="gdbDialogClose" id="gdbDialogClose" aria-label="閉じる">×</button><div class="gdbDetail" id="gdbDetail"></div></dialog>
-<script src="generator-database-v1.js"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 let mode="auto", autoTab="outage", timer=null, currentTime=0, fault="63Q", method="test", picked=[];
@@ -1247,6 +1376,122 @@ if(autoLb){
     }
   });
 }
+
+
+// ===== Generator DB v9 view manager =====
+const dbHome=document.getElementById("dbHome");
+const dbToolbar=document.getElementById("dbToolbar");
+const dbTrail=document.getElementById("dbTrail");
+
+const dbLabels={
+  auto:"自動始動・停止試験",
+  protection:"保護装置試験",
+  anatomy:"発電機のしくみ",
+  reference:"現場資料",
+  parts:"停止ソレノイド",
+  records:"成績書から探す",
+  electrical:"絶縁・接地"
+};
+
+function hideDbViews(){
+  document.querySelectorAll(".db-content-view").forEach(s=>s.classList.remove("db-visible"));
+}
+function scrollDbTop(){
+  const y=(dbToolbar?.offsetTop||0)-80;
+  window.scrollTo({top:Math.max(0,y),behavior:"smooth"});
+}
+function openDbView(key, opts={}){
+  if(key==="home"){
+    hideDbViews();
+    dbHome.style.display="";
+    dbToolbar.classList.remove("show");
+    window.scrollTo({top:Math.max(0,dbHome.offsetTop-75),behavior:"smooth"});
+    return;
+  }
+  dbHome.style.display="none";
+  hideDbViews();
+  dbToolbar.classList.add("show");
+
+  let targetView=key;
+  if(["anatomy-load","anatomy-temp","anatomy-parts","governor","starter"].includes(key)) targetView="anatomy";
+  document.querySelectorAll(`.db-content-view[data-db-view="${targetView}"]`).forEach(s=>s.classList.add("db-visible"));
+
+  if(key==="auto"){
+    if(typeof setMode==="function") setMode("auto");
+    dbTrail.textContent="非常用発電機 › 自動試験";
+  }else if(key==="protection"){
+    if(typeof setMode==="function") setMode("protection");
+    const p=document.getElementById("protectionSection");
+    p?.classList.remove("hidden");
+    dbTrail.textContent="非常用発電機 › 保護装置試験";
+  }else if(key==="anatomy-load"){
+    if(typeof setAnatomyMode==="function") setAnatomyMode("load");
+    dbTrail.textContent="非常用発電機 › 乾式抵抗器・負荷試験";
+  }else if(key==="anatomy-temp"){
+    if(typeof setAnatomyMode==="function") setAnatomyMode("temp");
+    dbTrail.textContent="非常用発電機 › 温度測定";
+  }else if(key==="anatomy-parts"){
+    if(typeof setAnatomyMode==="function") setAnatomyMode("parts");
+    dbTrail.textContent="非常用発電機 › 発電機のしくみ";
+  }else if(key==="governor"){
+    if(typeof setAnatomyMode==="function") setAnatomyMode("parts");
+    if(typeof setPart==="function") setPart("governor");
+    dbTrail.textContent="非常用発電機 › 調速機・ガバナ";
+  }else if(key==="starter"){
+    if(typeof setAnatomyMode==="function") setAnatomyMode("parts");
+    if(typeof setPart==="function") setPart("battery");
+    dbTrail.textContent="非常用発電機 › 始動・蓄電池";
+  }else{
+    dbTrail.textContent="非常用発電機 › "+(dbLabels[key]||key);
+  }
+  setTimeout(scrollDbTop,50);
+}
+document.querySelectorAll("[data-open-view]").forEach(b=>b.addEventListener("click",()=>openDbView(b.dataset.openView)));
+document.getElementById("dbBack")?.addEventListener("click",()=>openDbView("home"));
+
+// Search over dashboard + direct terms
+const dbSearch=document.getElementById("dbSearch");
+const dbHits=document.getElementById("dbHits");
+const searchRoutes=[
+  ["63Q","潤滑油圧力低下","protection"],["26W","冷却水温度上昇","protection"],
+  ["非常停止","緊急停止","protection"],["始動渋滞","起動渋滞","protection"],
+  ["軸受","軸受温度","anatomy-temp"],["冷却水入口","冷却水出口","anatomy-temp"],
+  ["排気温度","anatomy-temp"],["ソレノイド","停止ソレノイド","anatomy-parts"],
+  ["ガバナ","調速機","governor"],["15kW","乾式抵抗器","anatomy-load"],
+  ["207V","42A","anatomy-load"],["60秒","120秒","auto"],["停電","復電","auto"],
+  ["絶縁","絶縁抵抗","electrical"],["接地","接地抵抗","electrical"],["成績書","records"]
+];
+function runDbSearch(){
+  const q=(dbSearch.value||"").trim().toLowerCase();
+  document.querySelectorAll(".db-card").forEach(c=>{
+    const text=(c.textContent+" "+(c.dataset.search||"")).toLowerCase();
+    c.style.display=!q||text.includes(q)?"":"none";
+  });
+  if(!q){dbHits.classList.remove("show");dbHits.innerHTML="";return;}
+  const hits=searchRoutes.filter(r=>r.slice(0,2).join(" ").toLowerCase().includes(q)).slice(0,8);
+  dbHits.innerHTML=hits.map((r,i)=>`<div class="db-hit" data-hit-view="${r[2]}"><div><b>${r[0]}</b><br><small>${r[1]}</small></div><span>開く →</span></div>`).join("");
+  dbHits.classList.toggle("show",hits.length>0);
+  dbHits.querySelectorAll(".db-hit").forEach(h=>h.addEventListener("click",()=>openDbView(h.dataset.hitView)));
+}
+dbSearch?.addEventListener("input",runDbSearch);
+document.getElementById("dbSearchClear")?.addEventListener("click",()=>{dbSearch.value="";runDbSearch();dbSearch.focus();});
+
+// Record reverse lookup
+document.querySelectorAll("[data-record-action]").forEach(b=>b.addEventListener("click",()=>{
+  const a=b.dataset.recordAction;
+  if(a==="auto")openDbView("auto");
+  if(a==="battery")openDbView("starter");
+  if(a==="bearing"){openDbView("anatomy-temp");setTimeout(()=>typeof setPart==="function"&&setPart("bearing"),100)}
+  if(a==="cooling"){openDbView("anatomy-temp");setTimeout(()=>typeof setPart==="function"&&setPart("cooling"),100)}
+  if(a==="exhaust"){openDbView("anatomy-temp");setTimeout(()=>typeof setPart==="function"&&setPart("exhaust"),100)}
+  if(a==="protection")openDbView("protection");
+  if(a==="load")openDbView("anatomy-load");
+  if(a==="electrical")openDbView("electrical");
+}));
+
+// Start at the menu, not at all content
+hideDbViews();
+dbToolbar?.classList.remove("show");
 
 </script>
 
