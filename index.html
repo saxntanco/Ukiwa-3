@@ -58,70 +58,8 @@ html[data-theme="dark"] .characterFrame{background:linear-gradient(180deg,rgba(4
 html[data-theme="dark"] .construction{border-color:#6a5a2b;background:#2a2614;color:#f3d77b}
 @media(prefers-reduced-motion:reduce){html[data-theme="dark"] .stars{animation:none}*{scroll-behavior:auto!important;transition:none!important}}
 </style>
-
-<style id="ukiwaIslandV2">
-.ukiwaIslandGate{--ig-bg:#e7f8ff;--ig-panel:rgba(255,255,255,.93);--ig-text:#153b56;--ig-muted:#5d7c90;--ig-line:#b9dfef;position:relative;padding:22px max(14px,calc((100vw - 1440px)/2));background:linear-gradient(#c9f2ff,#effcff 70%,#dff5f8);color:var(--ig-text);border-bottom:1px solid var(--ig-line)}
-.ukiwaIslandTopbar{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:12px}.ukiwaEyebrow{font-size:11px;font-weight:1000;letter-spacing:.16em;color:#147fb8}.ukiwaIslandTopbar h1{margin:3px 0 3px;font-size:clamp(25px,3.5vw,47px);line-height:1.08}.ukiwaIslandTopbar p{margin:0;color:var(--ig-muted);font-size:12px;font-weight:800}
-.ukiwaThemeToggle{min-width:116px;border:1px solid var(--ig-line);border-radius:999px;background:var(--ig-panel);color:var(--ig-text);padding:12px 15px;font-weight:1000;box-shadow:0 8px 22px rgba(26,102,137,.12)}
-.ukiwaFastSearch{display:grid;grid-template-columns:minmax(0,1fr) auto;max-width:850px;margin:13px 0 15px;background:white;border:1px solid var(--ig-line);border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(26,102,137,.13)}.ukiwaFastSearch input{min-width:0;border:0;outline:0;padding:15px 17px;color:#173d56;font-size:16px}.ukiwaFastSearch button{border:0;background:#158bd1;color:white;padding:0 20px;font-weight:1000}
-.ukiwaMapWrap{position:relative;overflow:hidden;border-radius:26px;border:2px solid rgba(255,255,255,.9);box-shadow:0 24px 58px rgba(20,94,128,.2);background:#55c5e9}.ukiwaMapWrap>img{display:block;width:100%;height:auto;transition:filter .3s ease}
-.ukiwaSpot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;min-width:130px;padding:8px 11px;border:1px solid rgba(255,255,255,.96);border-radius:14px;background:rgba(255,255,255,.91);box-shadow:0 8px 20px rgba(0,59,86,.2);backdrop-filter:blur(8px);font-size:11px;line-height:1.25}.ukiwaSpot:hover{transform:translate(-50%,-54%)}.ukiwaSpot small{margin-top:2px;color:#55798d;font-size:8px;font-weight:800}.ukiwaSpot.relay{left:30%;top:34%}.ukiwaSpot.sequence{left:49%;top:20%}.ukiwaSpot.library{left:61%;top:33%}.ukiwaSpot.tools{left:74%;top:49%}.ukiwaSpot.generator{left:53%;top:81%}.ukiwaSpot.diary{left:28%;top:69%}.ukiwaSpot.near{left:69%;top:69%}.ukiwaSpot.field{left:16%;top:51%}
-.ukiwaMobileFacilities{display:none}.ukiwaStoryBar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.ukiwaStoryBar a{padding:12px 13px;border:1px solid var(--ig-line);border-radius:15px;background:var(--ig-panel);box-shadow:0 7px 18px rgba(26,102,137,.08)}.ukiwaStoryBar b{display:block;font-size:11px}.ukiwaStoryBar small{display:block;margin-top:2px;color:var(--ig-muted);font-size:9px}.ukiwaKeepNote{text-align:center;margin-top:13px;color:var(--ig-muted);font-size:10px;font-weight:900}
-body.ukiwa-light{background:#edfaff;color:#173d56}body.ukiwa-light:before{opacity:0}body.ukiwa-light .top{background:rgba(248,253,255,.95);border-bottom-color:#c5e3ef}body.ukiwa-light .top .brand span,body.ukiwa-light .top .nav a{color:#173d56}body.ukiwa-light .hero:before{filter:brightness(1.9) saturate(.55);opacity:.35}body.ukiwa-light .hero,body.ukiwa-light .main,body.ukiwa-light .footer{color:#173d56}body.ukiwa-light .card,body.ukiwa-light .panel,body.ukiwa-light .islandCard{background:#fff;color:#173d56;border-color:#c4e0ec;box-shadow:0 10px 25px rgba(35,104,135,.1)}body.ukiwa-light .card p,body.ukiwa-light .panel p,body.ukiwa-light .islandHead p,body.ukiwa-light .footer{color:#668396}body.ukiwa-light .quick button,body.ukiwa-light .shortcuts a,body.ukiwa-light .zukan,body.ukiwa-light .diaryLink,body.ukiwa-light .aboutLink{background:#f7fcff;color:#173d56;border-color:#bedce9}body.ukiwa-light .search{box-shadow:0 12px 28px rgba(40,104,134,.13)}
-body.ukiwa-night .ukiwaIslandGate{--ig-bg:#071d32;--ig-panel:rgba(8,38,59,.94);--ig-text:#eefaff;--ig-muted:#a7c7d7;--ig-line:#2b5d77;background:linear-gradient(#07172d,#08243d 70%,#071c30);color:var(--ig-text)}body.ukiwa-night .ukiwaMapWrap>img{filter:brightness(.48) saturate(.83) hue-rotate(8deg)}body.ukiwa-night .ukiwaMapWrap:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(3,16,38,.12),rgba(2,17,37,.34))}body.ukiwa-night .ukiwaSpot{background:rgba(7,36,57,.92);color:#eefaff;border-color:#5e8ca4}body.ukiwa-night .ukiwaSpot small{color:#b2d0df}body.ukiwa-night .ukiwaFastSearch{background:#0b314d;border-color:#2b5d77}body.ukiwa-night .ukiwaFastSearch input{background:#0b314d;color:white}
-@media(max-width:720px){.ukiwaIslandGate{padding:14px 9px}.ukiwaIslandTopbar{align-items:flex-start}.ukiwaIslandTopbar h1{font-size:27px}.ukiwaIslandTopbar p{font-size:10px}.ukiwaThemeToggle{min-width:96px;padding:10px 11px;font-size:11px}.ukiwaFastSearch{margin:11px 0}.ukiwaFastSearch input{font-size:13px;padding:13px}.ukiwaFastSearch button{padding:0 14px}.ukiwaMapWrap{border-radius:18px}.ukiwaSpot{display:none}.ukiwaMobileFacilities{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.ukiwaMobileFacilities a{min-height:65px;padding:10px;border:1px solid var(--ig-line);border-radius:13px;background:var(--ig-panel);font-size:11px;font-weight:1000}.ukiwaMobileFacilities small{display:block;margin-top:3px;color:var(--ig-muted);font-size:8px}.ukiwaStoryBar{grid-template-columns:1fr 1fr}.ukiwaKeepNote{font-size:9px}}
-</style>
-
 </head>
 <body>
-
-<section class="ukiwaIslandGate" aria-labelledby="ukiwaIslandTitle">
-  <div class="ukiwaIslandTopbar">
-    <div>
-      <span class="ukiwaEyebrow">UKIWA ISLAND</span>
-      <h1 id="ukiwaIslandTitle">電気保安の「わからない」を探しにいく島</h1>
-      <p>島から探しても、検索から一気に現場資料へ行ってもOK。</p>
-    </div>
-    <button class="ukiwaThemeToggle" id="ukiwaThemeToggle" type="button" aria-label="ライト・ダークモード切替">☀ DAY</button>
-  </div>
-
-  <form class="ukiwaFastSearch" id="ukiwaFastSearch">
-    <input id="ukiwaFastQuery" type="search" placeholder="型式・機器を検索　例：KP-PRRV-CPC / OCR / DGR" aria-label="型式・機器を検索">
-    <button type="submit">🔎 探す</button>
-  </form>
-
-  <div class="ukiwaMapWrap">
-    <img src="ukiwa-island-day.png" alt="UKIWA ISLAND の島マップ">
-    <a class="ukiwaSpot relay" href="protective-relay.html"><b>⚡ リレー研究所</b><small>保護継電器・絶縁監視</small></a>
-    <a class="ukiwaSpot tools" href="test-measurement.html"><b>🧰 試験器工房</b><small>試験方法・測定器具</small></a>
-    <a class="ukiwaSpot generator" href="generator-rescue-island.html"><b>⚙ ジェネレーター港</b><small>非常用発電機</small></a>
-    <a class="ukiwaSpot sequence" href="sequence-basics.html"><b>🔁 シーケンス塔</b><small>接点・自己保持・インターロック</small></a>
-    <a class="ukiwaSpot library" href="measurement-principles.html"><b>📚 ぷかぷか図書館</b><small>測定原理・学習</small></a>
-    <a class="ukiwaSpot field" href="field-essentials.html"><b>🏭 変電所エリア</b><small>現場に必要なもの</small></a>
-    <a class="ukiwaSpot diary" href="pukapuka-diary.html"><b>📝 日誌小屋</b><small>ぷかぷか日誌</small></a>
-    <a class="ukiwaSpot near" href="near-miss.html"><b>⚠ ヒヤリ洞窟</b><small>ヒヤリ・失敗から学ぶ</small></a>
-  </div>
-
-  <div class="ukiwaMobileFacilities" aria-label="島の施設">
-    <a href="protective-relay.html">⚡ リレー研究所<small>保護継電器・絶縁監視</small></a>
-    <a href="test-measurement.html">🧰 試験器工房<small>試験方法・測定器具</small></a>
-    <a href="generator-rescue-island.html">⚙ ジェネレーター港<small>非常用発電機</small></a>
-    <a href="sequence-basics.html">🔁 シーケンス塔<small>リレーシーケンス</small></a>
-    <a href="measurement-principles.html">📚 ぷかぷか図書館<small>測定器の原理</small></a>
-    <a href="field-essentials.html">🏭 変電所エリア<small>現場に必要なもの</small></a>
-    <a href="pukapuka-diary.html">📝 日誌小屋<small>ぷかぷか日誌</small></a>
-    <a href="near-miss.html">⚠ ヒヤリ洞窟<small>ヒヤリ・失敗から学ぶ</small></a>
-  </div>
-
-  <div class="ukiwaStoryBar">
-    <a href="about.html"><b>📜 なぜ、このサイトをつくったのか</b><small>うきわメモの目的・考え方</small></a>
-    <a href="why-today.html"><b>💡 今日の「なんで？」</b><small>疑問から学ぶ</small></a>
-    <a href="zukan.html"><b>🎭 図鑑</b><small>キャラクター・資料</small></a>
-    <a href="#updates"><b>📣 更新NEWS</b><small>最近追加したもの</small></a>
-  </div>
-  <div class="ukiwaKeepNote">↓ ここから下は、これまでの「うきわメモ」をそのまま残しています。</div>
-</section>
-
 <header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><button class="themeToggle" id="themeToggle" type="button" aria-label="ダークモードに切り替える" aria-pressed="false"><span class="themeIcon">🌙</span><span class="themeText">ダーク</span></button></div></div></header>
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
 <div class="characterWrap" aria-label="うきわちゃん"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-hero-crop.png" alt="うきわちゃん"></div></div>
@@ -181,25 +119,4 @@ function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.toLowerCase()
 }
 document.getElementById('searchBtn').addEventListener('click',()=>jump(input.value));input.addEventListener('keydown',e=>{if(e.key==='Enter')jump(input.value)});document.querySelectorAll('.quick button').forEach(b=>b.addEventListener('click',()=>jump(b.dataset.q)));
 </script>
-
-<script id="ukiwaIslandV2Script">
-(function(){
-  const body=document.body, toggle=document.getElementById('ukiwaThemeToggle');
-  const saved=localStorage.getItem('ukiwa-theme') || 'light';
-  function setTheme(t){
-    body.classList.toggle('ukiwa-light',t==='light');
-    body.classList.toggle('ukiwa-night',t==='dark');
-    if(toggle) toggle.textContent=t==='dark'?'🌙 NIGHT':'☀ DAY';
-    localStorage.setItem('ukiwa-theme',t);
-  }
-  setTheme(saved);
-  toggle?.addEventListener('click',()=>setTheme(body.classList.contains('ukiwa-night')?'light':'dark'));
-  document.getElementById('ukiwaFastSearch')?.addEventListener('submit',function(e){
-    e.preventDefault();
-    const q=document.getElementById('ukiwaFastQuery').value.trim();
-    if(q) location.href='protective-relay.html?q='+encodeURIComponent(q);
-  });
-})();
-</script>
-
 </body></html>
