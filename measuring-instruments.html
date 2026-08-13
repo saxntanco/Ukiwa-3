@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0878b8">
 <title>各種測定器具・試験器ナビ｜ぷかぷかうきわメモ</title>
-<meta name="description" content="国内外メーカーの電気保安用測定器・試験器115型式以上を検索。用途逆引き、旧型、比較、試験方法、出典、不足資料をまとめた現場向けデータベース。">
+<meta name="description" content="国内外メーカーの電気保安用測定器・試験器135型式以上を検索。用途逆引き、旧型、比較、試験方法、出典、不足資料をまとめた現場向けデータベース。">
 <link rel="canonical" href="https://saxntanco.github.io/Ukiwa-3/measuring-instruments.html">
 <link rel="icon" href="./icon-192.png" type="image/png">
 <style>
@@ -23,7 +23,7 @@
 .hero-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.hero-meta span{padding:7px 10px;border-radius:999px;background:#eff9fc;border:1px solid #d3eaf1;color:#476e81;font-size:9px;font-weight:900}
 .safety{width:min(1180px,calc(100% - 20px));margin:10px auto;padding:13px 15px;border-left:5px solid #cf8a00;border-radius:10px;background:#fff8e6;color:#675229;font-size:10px;line-height:1.7}.safety b{color:#754d00}
 .db-switch{width:min(1180px,calc(100% - 20px));margin:10px auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.db-switch a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:9px;border:1px solid #c7e2ec;border-radius:14px;background:#fff;color:#27627d;text-decoration:none;font-size:11px;font-weight:1000}.db-switch a.active{background:#0878b8;color:#fff;border-color:#0878b8}.db-switch small{margin-left:6px;font-size:8px;opacity:.78}
-.choice{width:min(1180px,calc(100% - 20px));margin:12px auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.choice button{min-height:72px;padding:10px;border:1px solid #cde6ee;border-radius:14px;background:#fff;text-align:left;color:#174c67;box-shadow:0 7px 18px rgba(0,66,96,.05);cursor:pointer}.choice b,.choice small{display:block}.choice b{font-size:11px}.choice small{margin-top:4px;color:#6a8592;font-size:8px;line-height:1.5}.choice button:hover{border-color:#75bfd7;background:#f7fdff}
+.choice{width:min(1180px,calc(100% - 20px));margin:12px auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}.choice button{min-height:72px;padding:10px;border:1px solid #cde6ee;border-radius:14px;background:#fff;text-align:left;color:#174c67;box-shadow:0 7px 18px rgba(0,66,96,.05);cursor:pointer}.choice b,.choice small{display:block}.choice b{font-size:11px}.choice small{margin-top:4px;color:#6a8592;font-size:8px;line-height:1.5}.choice button:hover{border-color:#75bfd7;background:#f7fdff}
 .search-shell{width:min(1180px,calc(100% - 20px));margin:12px auto 0;padding:14px;border-radius:18px;border:1px solid #c9e6ef;background:rgba(255,255,255,.97);box-shadow:0 12px 28px rgba(0,67,96,.06)}
 .search-main{display:grid;grid-template-columns:1fr auto;gap:8px}.search-wrap{position:relative}.search-wrap span{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:19px}.search-wrap input{width:100%;min-height:54px;padding:0 45px 0 43px;border:2px solid #a8d8e7;border-radius:14px;background:#fbfeff;color:#173d58;font-weight:800;font-size:16px}.clear-search{position:absolute;right:8px;top:7px;width:40px;height:40px;border:0;border-radius:10px;background:transparent;color:#6b8795;font-size:20px}.reset{min-height:54px;padding:0 16px;border:1px solid #c5e1eb;border-radius:13px;background:#f6fcfe;color:#0d668e;font-weight:900;font-size:11px}.hint{margin:8px 2px 0;color:#688593;font-size:9px;line-height:1.6}
 .filters{display:grid;gap:9px;margin-top:12px}.filter-row{display:grid;grid-template-columns:76px 1fr;gap:8px;align-items:start}.filter-label{padding-top:8px;color:#557486;font-size:9px;font-weight:1000}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{min-height:34px;padding:0 10px;border-radius:999px;border:1px solid #d2e8ef;background:#f9fdff;color:#315c72;font-size:9px;font-weight:900;cursor:pointer}.chip.active{background:#0b78b2;color:white;border-color:#0b78b2}
@@ -72,11 +72,12 @@ dialog{width:min(760px,calc(100% - 20px));max-height:88vh;padding:0;border:0;bor
   <button type="button" data-search="漏れ電流"><b>活線で漏れを探す</b><small>Io測定と負荷電流測定</small></button>
   <button type="button" data-search="耐圧"><b>耐圧試験を考える</b><small>容量・充電電流・リアクトル</small></button>
   <button type="button" data-search="継電器試験"><b>継電器を試験する</b><small>OCR・GR・DGR・OVGR・RPR</small></button>
+  <button type="button" data-search="モータ保護リレー試験"><b>2E・3Eを試す</b><small>WPS-22・I2V2・欠相・反相</small></button>
 </section>
 
 <section class="search-shell" aria-label="測定器・試験器検索">
-  <div class="search-main"><div class="search-wrap"><span>⌕</span><input id="q" type="search" list="suggestions" autocomplete="off" placeholder="型式・用途を入力　例：DI-05N / KEW4300 / 接地 / DGR"><datalist id="suggestions"></datalist><button type="button" class="clear-search" id="clearQ" aria-label="検索語を消す">×</button></div><button type="button" class="reset" id="reset">条件をすべて解除</button></div>
-  <div class="hint">ハイフンなし表記、メーカー名、測定対象、試験要素でも検索できます。例：<b>DI05N</b>、<b>絶縁抵抗</b>、<b>充電電流</b>、<b>OCR</b>。</div>
+  <div class="search-main"><div class="search-wrap"><span>⌕</span><input id="q" type="search" list="suggestions" autocomplete="off" placeholder="型式・用途を入力　例：WPS-22 / I2V2 / DI-05N / DGR"><datalist id="suggestions"></datalist><button type="button" class="clear-search" id="clearQ" aria-label="検索語を消す">×</button></div><button type="button" class="reset" id="reset">条件をすべて解除</button></div>
+  <div class="hint">ハイフンなし表記、メーカー名、測定対象、試験要素、現場呼称でも検索できます。例：<b>WPS22</b>、<b>I2V2</b>、<b>絶縁抵抗</b>、<b>OCR</b>。</div>
   <div class="filters">
     <div class="filter-row"><div class="filter-label">分類</div><div class="chips" id="categoryChips"></div></div>
     <div class="filter-row"><div class="filter-label">器具種別</div><div class="chips" id="typeChips"></div></div>
@@ -119,6 +120,7 @@ dialog{width:min(760px,calc(100% - 20px));max-height:88vh;padding:0;border:0;bor
 <script src="./measurement-db-v2.js"></script>
 <script src="./measurement-catalog-additions-v3.js"></script>
 <script src="./measurement-catalog-global-v4.js"></script>
+<script src="./measurement-catalog-field-v5.js"></script>
 <script>
 const ITEMS=[
 {maker:'ムサシインテック',model:'DI-05N',name:'高電圧絶縁抵抗計',category:'絶縁抵抗',type:'測定器',status:'current',priority:1,main:true,aliases:['DI05N'],measures:['絶縁抵抗','DC 5kV'],summary:'高圧受電設備の機器・電力ケーブルを、固定5kVで測定する小型の高電圧メガー。',use:'高圧機器・CV/CVTケーブルの絶縁状態確認',specs:{'定格測定電圧':'DC 5000V','測定範囲':'1MΩ～10000MΩ（有効範囲は区分あり）','電源':'単3形乾電池 8本','質量':'約1.1kg以下（電池含まず）','主な機能':'負荷放電、ガードコード'},compare:'IR4052の1000Vより高い電圧で高圧機器・ケーブルを測る。DI-11Nのような連続可変や記録計連携を主目的とせず、5kV測定を簡潔に行う器具。',safety:'停電・無電圧・残留電荷の放電・接地状態・周辺機器の切離し条件を確認する。測定終了後も自動放電表示だけに頼らず、規定の放電と無電圧確認を行う。',mistakes:'DI-05Nは固定5kV用。DI-06の6kV仕様やDI-11Nの可変出力と混同しない。ガードコードの接続により測定に含む漏れ電流経路が変わる。',related:['DI-11N','IR4052-11','IR5050'],official:'https://www.musashi-in.co.jp/item/1400/1400.html'},

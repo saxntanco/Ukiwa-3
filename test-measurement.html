@@ -55,6 +55,7 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
 <script src="./measurement-db-v2.js"></script>
 <script src="./measurement-catalog-additions-v3.js"></script>
 <script src="./measurement-catalog-global-v4.js"></script>
+<script src="./measurement-catalog-field-v5.js"></script>
 <script>
 const METHODS=window.UKIWA_MEASUREMENT_METHODS||[],$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const dbMeta=window.UKIWA_INSTRUMENT_CATALOG_META||{};if(dbMeta.totalCount)$('#instrumentDbCount').textContent=`${dbMeta.totalCount}型式`;
