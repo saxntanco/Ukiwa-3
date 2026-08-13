@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>うきわメモ｜KP-PRRV-CPC 現場アンチョコ FINAL</title>
+<title>うきわメモ｜KP-PRRV-CPC 現場アンチョコ</title>
 <style>
 :root{
   --bg:#061522;--bg2:#0a2033;--panel:#0b2237;--panel2:#0f2c45;
@@ -21,6 +21,9 @@ body{
   line-height:1.55;
 }
 .wrap{max-width:1200px;margin:auto;padding:clamp(10px,2vw,22px)}
+.sitebar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.sitebar a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:#0d2b44;color:#d8f1ff;text-decoration:none;font-size:12px;font-weight:900}
+.sitebar a:first-child{background:#f0f9ff;color:#082039}
 .hero{padding:8px 2px 4px}
 h1{font-size:clamp(28px,5vw,44px);margin:0 0 6px}
 .lead{color:var(--muted);font-size:clamp(13px,2vw,16px)}
@@ -44,6 +47,7 @@ h1{font-size:clamp(28px,5vw,44px);margin:0 0 6px}
 }
 .tabs button.on{background:#f0f9ff;color:#082039}
 .grid{display:grid;grid-template-columns:minmax(330px,.9fr) minmax(0,1.3fr);gap:16px;align-items:start}
+.grid>*,.card{min-width:0}
 .card{
   background:var(--panel);border:1px solid var(--line);
   border-radius:19px;padding:clamp(14px,2vw,20px);margin-bottom:14px
@@ -89,6 +93,15 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
 .formula{background:#071724;border:1px solid #2d526a;border-radius:11px;padding:10px;margin-top:9px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .restore{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
 .restore div{background:#0b2942;border:1px solid #285069;border-radius:10px;padding:9px;font-size:12px}
+.testerbar{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:12px;align-items:start}
+.testerbar label{display:block;color:var(--muted);font-size:12px;font-weight:900}
+.testerbar select{display:block;width:100%;margin:5px 0 0}
+.testerprofile{display:grid;grid-template-columns:120px 1fr;border:1px solid #31546b;border-radius:11px;overflow:hidden}
+.testerprofile div{padding:8px 10px;border-bottom:1px solid #264a62;font-size:11px;overflow-wrap:anywhere}
+.testerprofile div:nth-last-child(-n+2){border-bottom:0}
+.testerprofile .key{background:#102f49;color:#9fc5da;font-weight:900}
+.testerlinks{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.testerlinks a{display:inline-flex;align-items:center;min-height:40px;padding:0 11px;border:1px solid #3d7898;border-radius:9px;color:#cceeff;text-decoration:none;font-size:11px;font-weight:900}
 .hide{display:none}
 @media(max-width:860px){
   .grid{grid-template-columns:1fr;gap:10px}
@@ -108,6 +121,8 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
   .result strong{font-size:21px;overflow-wrap:anywhere}
   .compare{grid-template-columns:1fr}
   .restore{grid-template-columns:1fr}
+  .sitebar{align-items:stretch}.sitebar a:last-child{display:none}
+  .testerbar{grid-template-columns:1fr}.testerprofile{grid-template-columns:92px 1fr}
 }
 @media(min-width:861px){
   #rpr>.grid>div:first-child,#ovgr>.grid>div:first-child{position:sticky;top:72px}
@@ -116,6 +131,10 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
 </head>
 <body>
 <div class="wrap">
+  <nav class="sitebar" aria-label="サイト内導線">
+    <a href="./protective-relay.html?model=KP-PRRV-CPC">← KP-PRRV-CPCの詳細へ戻る</a>
+    <a href="./index.html">ぷかぷかうきわメモ</a>
+  </nav>
   <div class="hero">
     <h1>🛟 KP-PRRV-CPC 現場アンチョコ</h1>
     <div class="lead">OVGR（64）＋RPR（67P）｜GCR-mini VS想定｜<b>配線 → 試験条件 → メーカー判定値</b>を最短で確認</div>
@@ -139,6 +158,23 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
   <div class="tabs">
     <button class="on" data-tab="rpr">RPR</button>
     <button data-tab="ovgr">OVGR</button>
+  </div>
+
+  <div class="card">
+    <h2>使用試験器</h2>
+    <div class="testerbar">
+      <label>試験器プロファイル
+        <select id="testerSelect" aria-label="使用試験器">
+          <option value="GCR-miniVS">GCR-miniVS</option>
+          <option value="RX47022">RX47022（I2V2）</option>
+        </select>
+      </label>
+      <div>
+        <div class="testerprofile" id="testerProfile"></div>
+        <div class="testerlinks" id="testerLinks"></div>
+      </div>
+    </div>
+    <div class="warn"><b>接続の確認範囲</b><br>ここでは試験器の能力と確認根拠を切り替えます。KP-PRRV-CPC側の端子、専用CT経由の電流入力、極性、コード色の対応は、継電器・試験器・実盤図面の三者で照合してください。</div>
   </div>
 
   <section id="rpr">
@@ -351,6 +387,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
   </div>
 </div>
 
+<script src="./relay-guide-data-v14.js"></script>
 <script>
 const rdata=[
 [0.2,1.9,0.017],[0.4,3.8,0.035],[0.6,5.7,0.052],[0.8,7.6,0.069],[1,9.5,0.087],
@@ -358,6 +395,24 @@ const rdata=[
 [6,57.2,0.520],[7,66.7,0.606],[8,76.2,0.693],[9,85.8,0.779],[10,95.3,0.866]
 ];
 const fmtA=v=>v.toFixed(3)+'A', fmtV=v=>v.toFixed(1)+'V';
+
+function renderTester(){
+  const tester=RELAY_TESTER_PROFILES.find(item=>item.model===testerSelect.value);
+  if(!tester){testerProfile.innerHTML='<div class="key">確認状態</div><div>試験器プロファイル未登録</div>';testerLinks.innerHTML='';return}
+  const alias=tester.aliases?.length?tester.aliases.join(' / '):'—';
+  testerProfile.innerHTML=`<div class="key">正式型式</div><div>${tester.model}${tester.model==='RX47022'?' （現場検索名 I2V2）':''}</div>
+    <div class="key">対応要素</div><div>${tester.targets.join(' / ')}</div>
+    <div class="key">電流出力</div><div>${tester.currentOutput}</div>
+    <div class="key">電圧出力</div><div>${tester.voltageOutput}</div>
+    <div class="key">位相・周波数</div><div>${tester.phaseOutput}</div>
+    <div class="key">接点・計時</div><div>${tester.contactInput}</div>
+    <div class="key">検索名</div><div>${alias}</div>
+    <div class="key">確認根拠</div><div>${tester.source} / ${tester.sourceDate||''}</div>`;
+  testerLinks.innerHTML=[
+    tester.publicUrl?`<a href="${tester.publicUrl}" target="_blank" rel="noopener noreferrer">公式製品情報 ↗</a>`:'',
+    tester.manualUrl?`<a href="${tester.manualUrl}" target="_blank" rel="noopener noreferrer">公式取扱説明書 ↗</a>`:''
+  ].join('');
+}
 
 function renderTable(){
   rtable.innerHTML=rdata.map(x=>`<tr data-p="${x[0]}"><td>${x[0]}</td><td>${x[1]}</td><td>${x[2].toFixed(3)}</td></tr>`).join('');
@@ -395,7 +450,8 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
   ovgr.classList.toggle('hide',b.dataset.tab!=='ovgr');
 });
 rp.onchange=rr;rt.onchange=rr;op.onchange=oo;ot.onchange=oo;
-renderTable();rr();oo();
+testerSelect.onchange=renderTester;
+renderTable();rr();oo();renderTester();
 </script>
 </body>
 </html>

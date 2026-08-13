@@ -1,14 +1,332 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0878b8"><title>現場アンチョコ v13｜うきわメモ</title><style>
-:root{--ink:#123954;--blue:#0878b8;--line:#c9e7f0;--muted:#678392;--green:#167c59;--amber:#8b5a00;--red:#a63e39}*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans JP","Yu Gothic",system-ui,sans-serif;color:var(--ink);background:linear-gradient(#f7fdff,#e7f7fc);line-height:1.7}.top{position:sticky;top:0;z-index:5;padding:10px 14px;background:#fffffff2;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.top a{text-decoration:none;color:var(--blue);font-weight:900}.wrap{width:min(860px,calc(100% - 20px));margin:14px auto 40px}.hero,.box{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 22px #075b7a0b}.hero{padding:20px}.eyebrow{font-size:10px;font-weight:1000;color:var(--blue);letter-spacing:.12em}.hero h1{margin:3px 0;font-size:clamp(26px,7vw,42px)}.sub{color:var(--muted);font-size:12px}.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.badge{padding:5px 9px;border-radius:999px;background:#eaf8f1;color:#176348;font-size:10px;font-weight:1000}.warn{margin-top:12px;padding:11px;border-radius:13px;background:#fff8e8;border:1px solid #ead8a6;color:#6c582f;font-size:10px}.box{margin-top:10px;padding:16px}.box h2{margin:0 0 9px;font-size:17px}.flow{display:grid;gap:6px}.step{padding:10px 12px;border-left:4px solid #9fd7e8;background:#f7fcfe;border-radius:8px;font-size:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cell{padding:11px;border:1px solid #d9ebf1;border-radius:12px;background:#fbfeff}.cell b{display:block;font-size:11px}.cell span{font-size:10px;color:var(--muted)}label{display:block;font-size:10px;font-weight:900;color:#547486;margin-top:8px}input,select{width:100%;min-height:42px;border:1px solid #bfdde7;border-radius:10px;padding:0 10px;background:#fff;color:var(--ink);font-size:14px}.calc{margin-top:10px;padding:12px;border-radius:12px;background:#eefaff;border:1px solid #cbe9f2;font-size:12px}.status{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.status div{text-align:center;padding:8px 4px;border-radius:10px;background:#f2f5f6;color:#71818a;font-size:8px;font-weight:900}.status .on{background:#eaf8f1;color:#176348}.source a{display:block;margin:6px 0;padding:9px 11px;border:1px solid #d2e7ee;border-radius:10px;text-decoration:none;color:#09658e;font-size:10px;font-weight:900}.red{color:var(--red)}.small{font-size:9px;color:var(--muted)}@media(max-width:600px){.grid{grid-template-columns:1fr}.status{grid-template-columns:1fr 1fr}}
-</style></head><body><div class="top"><a href="protective-relay.html">← 保護継電器DBへ戻る</a></div><main class="wrap"><section class="hero"><div class="eyebrow">UKIWA FIELD QUICK REFERENCE · v13</div><h1 id="model">保護継電器</h1><div class="sub"><span id="maker"></span>　<span id="type"></span></div><div class="badges"><span class="badge">🧰 現場アンチョコ</span><span class="badge">一次資料優先</span><span class="badge">型式完全一致で確認</span></div><div class="warn"><b>安全上の前提：</b>これは教育・確認用のアンチョコです。実設備の試験配線・停復電・整定変更をこの画面だけで決めないでください。現場責任者、社内手順書、操作票、系統状態、無電圧、CT/VT回路、トリップ回路、実機銘板、メーカー最新版取説を確認してください。</div></section>
-<section class="box"><h2>① このリレーで何を見る？</h2><div class="flow" id="flow"></div></section>
-<section class="box"><h2>② 試験前に見るもの</h2><div class="grid" id="checks"></div></section>
-<section class="box"><h2>③ 試験項目</h2><div class="grid" id="tests"></div><p class="small">表示は保護要素として一般的な確認項目です。実際に必要な試験項目・印加条件は完全型式のメーカー資料を優先します。</p></section>
-<section class="box"><h2>④ 管理値メモ・計算</h2><p class="small">メーカー値を勝手に生成しません。手元のメーカー資料・社内基準に記載された基準値と許容率を入力した場合だけ計算します。</p><div class="grid"><div><label>基準値</label><input id="base" type="number" step="any" placeholder="例：5.0"><label>単位</label><input id="unit" type="text" placeholder="A / V / s / % など"></div><div><label>下限許容率（%）</label><input id="minus" type="number" step="any" placeholder="例：25"><label>上限許容率（%）</label><input id="plus" type="number" step="any" placeholder="例：25"></div></div><div class="calc" id="result">基準値と許容率を入力すると、参考範囲を計算します。</div><p class="small red">※この計算欄は「入力された基準」の算術計算だけを行います。メーカー仕様・JEM-TR・社内管理値を自動で同一視しません。</p></section>
-<section class="box"><h2>⑤ アンチョコ完成度</h2><div class="status"><div class="on">✓ 型式DB</div><div>○ 試験配線</div><div>○ 試験条件</div><div>○ 管理値</div></div><p class="small">v13では、まず「型式からアンチョコへ入れる器」を実装しました。試験配線・試験条件・管理値は一次資料で型式ごとに確認できたものから順に緑へ変える設計です。</p></section>
-<section class="box source"><h2>⑥ 根拠資料の入口</h2><a href="https://www.jema-net.or.jp/engineering/JEM_JEM-TR/JEMTR156.html" target="_blank" rel="noopener">JEMA｜JEM-TR 156 保護継電器の保守・点検指針</a><a href="https://www.fa.omron.co.jp/products/category/power-protective-components/power-protective-relays/" target="_blank" rel="noopener">オムロン｜電力・機器用保護機器</a><a href="https://www.mitsubishielectric.co.jp/fa/products/pmng/pror/index.html" target="_blank" rel="noopener">三菱電機｜保護継電器</a><a href="https://www.hikari-gr.co.jp/" target="_blank" rel="noopener">光商工｜公式サイト</a><p class="small">JEM-TR 156はJEMA公開情報上、定期試験の点検項目・試験方法・判定基準（管理値）等を明確にする目的の技術資料。最新版表示は2008年、2023年2月17日に確認されています。本文は会員限定/販売資料のため、うきわメモでは無断転載せず根拠資料として扱います。</p></section>
-</main><script>
-const p=new URLSearchParams(location.search),model=p.get('model')||'型式未指定',maker=p.get('maker')||'',type=p.get('type')||'';document.querySelector('#model').textContent=model;document.querySelector('#maker').textContent=maker;document.querySelector('#type').textContent=type;document.title=model+' 現場アンチョコ｜うきわメモ';
-const DATA={OCR:{flow:['主回路の電流 → CT','CT二次電流 → OCR入力','整定値・時限特性と比較','出力接点 → 外部トリップ回路 → VCB等'],checks:[['完全型式','末尾記号まで確認'],['CT比','一次値 / 二次値を区別'],['整定電流・時限','現状値を試験前後で照合'],['引外し方式','電流 / 電圧 / コンデンサ等を取説で確認'],['50/51要素','瞬時・限時の有無'],['接点監視','a/b接点と基準状態を確認']],tests:[['最小動作電流','整定値との関係を確認'],['動作時間','曲線・倍率・瞬時要素を区別'],['瞬時要素','搭載機種のみ'],['外部連動','トリップ試験は操作票・系統条件を優先']]},DGR:{flow:['主回路の零相電流 → ZCT → Io','ZPD/ZVT等 → 零相電圧 Vo','IoとVo等の位相関係 → 方向判定','出力接点 → 警報 / 遮断回路'],checks:[['完全型式','同シリーズでも端子・仕様差あり'],['ZCT形式・極性','kt/lt・k/l等をメーカー図で確認'],['ZPD/ZVT形式','組合せ指定を確認'],['Io整定','一次/二次・表示単位を確認'],['Vo整定','%表示と実電圧を混同しない'],['M/N等','型式固有。名称から役割を推測しない']],tests:[['最小動作電流 Io','Vo・位相条件を固定して確認'],['最小動作電圧 Vo','Io・位相条件を固定して確認'],['位相特性','動作/不動作領域・最大感度角'],['動作時間','メーカー指定のIo・Vo・位相条件で確認']]},OVGR:{flow:['系統の零相電圧 → ZPD/ZVT/EVT/GPT等','Vo → OVGR入力','整定値・時限と比較','出力接点 → 警報 / 遮断等'],checks:[['完全型式','末尾仕様を確認'],['零相電圧検出器','ZPD/ZVT等の組合せ'],['Vo整定','% / V / 一次換算を区別'],['時限整定','現状値を記録'],['入力端子','一次側へ試験電圧を誤印加しない'],['接点・外部回路','警報か遮断かを図面で確認']],tests:[['最小動作電圧','メーカー指定入力点で確認'],['動作時間','指定倍率・ステップ条件で確認'],['復帰','必要な場合は復帰値/復帰状態'],['外部連動','実トリップは現場手順優先']]},RPR:{flow:['VT等から電圧入力','CT等から電流入力','電圧・電流・位相 → 有効電力方向を判定','逆電力条件成立 → 出力接点'],checks:[['完全型式','相数・入力方式・末尾仕様'],['VT比','一次値 / 二次値を区別'],['CT比','一次値 / 二次値を区別'],['電力整定','% / W / 一次換算を区別'],['位相・極性','VT/CT極性と試験器位相'],['用途','逆潮流防止か発電機モータリング保護か']],tests:[['最小動作電力/電流','メーカー定義に従う'],['位相特性','最大感度点・境界を確認'],['動作時間','指定電力・位相条件で確認'],['方向確認','正方向/逆方向を取り違えない']]}};
-const d=DATA[type]||{flow:['完全型式の一次資料を確認してください'],checks:[['型式','未分類']],tests:[['試験項目','一次資料確認中']]};document.querySelector('#flow').innerHTML=d.flow.map(x=>`<div class="step">${x}</div>`).join('');document.querySelector('#checks').innerHTML=d.checks.map(x=>`<div class="cell"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');document.querySelector('#tests').innerHTML=d.tests.map(x=>`<div class="cell"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');function calc(){const b=+base.value,m=+minus.value,q=+plus.value,u=unit.value||'';if(!Number.isFinite(b)||base.value===''){result.textContent='基準値と許容率を入力すると、参考範囲を計算します。';return}const lo=Number.isFinite(m)&&minus.value!==''?b*(1-m/100):null,hi=Number.isFinite(q)&&plus.value!==''?b*(1+q/100):null;result.innerHTML=`入力基準：<b>${b} ${u}</b><br>参考下限：<b>${lo===null?'未入力':lo.toFixed(4)+' '+u}</b><br>参考上限：<b>${hi===null?'未入力':hi.toFixed(4)+' '+u}</b>`}['base','minus','plus','unit'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
-</script></body></html>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0878b8">
+<title>保護継電器 試験方法アンチョコ｜うきわメモ</title>
+<meta name="description" content="保護継電器の型式と保護要素から、試験前確認、試験項目、使用試験器、接点監視、復旧確認を確認する現場学習用アンチョコ。">
+<style>
+:root{
+  --ink:#123954;--blue:#0878b8;--blue-dark:#07577e;--line:#c8e2eb;
+  --muted:#607d8c;--paper:#fff;--bg:#eef9fd;--soft:#f5fbfd;
+  --green:#167c59;--amber:#8b5a00;--red:#a63e39;--focus:#ffd560
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP","Yu Gothic",system-ui,sans-serif;line-height:1.65}
+button,input,select,a{font:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px max(12px,env(safe-area-inset-left));background:#fffffff2;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.topbar a{display:inline-flex;align-items:center;min-height:42px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--blue-dark);text-decoration:none;font-size:12px;font-weight:900}
+.top-actions{display:flex;gap:6px}
+.wrap{width:min(1040px,calc(100% - 20px));margin:14px auto 42px}
+.hero,.section{background:var(--paper);border:1px solid var(--line);border-radius:8px}
+.hero{padding:20px}
+.eyebrow{color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.1em}
+.hero h1{margin:3px 0 2px;font-size:clamp(26px,5vw,40px);line-height:1.2;overflow-wrap:anywhere}
+.subtitle{color:var(--muted);font-size:13px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.badge{padding:5px 8px;border-radius:999px;background:#eaf8f1;color:#176348;font-size:10px;font-weight:900}
+.badge.yellow{background:#fff4d6;color:#765714}
+.safety{margin-top:12px;padding:12px;border:1px solid #e1c985;border-left:5px solid #c49322;border-radius:8px;background:#fff8e8;color:#644f24;font-size:11px}
+.safety b{display:block;margin-bottom:3px;color:#5b451b}
+.method-bar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;margin-top:12px;padding:12px;border:1px solid #badce8;border-radius:8px;background:#f5fbfd}
+.method-bar label{display:block;color:#4f7181;font-size:10px;font-weight:900}
+.method-bar select{width:100%;min-height:44px;margin-top:4px;padding:0 10px;border:1px solid #a9d2e1;border-radius:7px;background:#fff;color:var(--ink);font-weight:900}
+.scope{min-width:180px;padding:8px 10px;border-radius:7px;background:#fff4d6;color:#735716;font-size:10px;font-weight:900;text-align:center}
+.section{margin-top:10px;padding:16px}
+.section-head{display:flex;align-items:start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.section h2{margin:0;font-size:18px}
+.section-lead{margin:4px 0 0;color:var(--muted);font-size:11px}
+.quick-grid,.info-grid,.test-grid,.tester-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.quick-item,.info-item,.test-item,.tester-card{min-width:0;padding:11px;border:1px solid #d6e8ee;border-radius:8px;background:var(--soft)}
+.quick-item b,.info-item b,.test-item b{display:block;color:#0c5e84;font-size:11px}
+.quick-item span,.info-item span,.test-item span{display:block;margin-top:3px;color:#526f7f;font-size:10px}
+.signal{display:flex;align-items:stretch;gap:5px;overflow-x:auto;padding:2px 0 7px;scrollbar-width:thin}
+.signal-step{position:relative;display:flex;align-items:center;justify-content:center;flex:1 0 125px;min-height:64px;padding:8px;border:1px solid #bedce7;border-radius:8px;background:#f7fcfe;text-align:center;font-size:10px;font-weight:900}
+.signal-step:not(:last-child):after{content:"→";position:absolute;right:-10px;top:50%;z-index:2;transform:translateY(-50%);width:15px;color:var(--blue);font-size:16px}
+.number-list{list-style:none;margin:0;padding:0;counter-reset:step;display:grid;gap:7px}
+.number-list li{counter-increment:step;display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:start;padding:9px;border:1px solid #d8e9ef;border-radius:8px;background:#fbfeff;font-size:11px}
+.number-list li:before{content:counter(step);display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-weight:900}
+.tester-controls{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:10px;align-items:end;margin-bottom:10px}
+.tester-controls label{font-size:10px;font-weight:900;color:#527384}
+.tester-controls select{width:100%;min-height:44px;margin-top:4px;padding:0 10px;border:1px solid #a9d2e1;border-radius:7px;background:#fff;color:var(--ink);font-weight:900}
+.tester-note{padding:9px;border-left:4px solid #d19320;background:#fff8e8;color:#674f20;font-size:10px}
+.tester-card{background:#fff}
+.tester-title{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.tester-title h3{margin:0;font-size:16px;overflow-wrap:anywhere}
+.verify{flex:0 0 auto;padding:4px 7px;border-radius:999px;background:#eaf8f1;color:var(--green);font-size:9px;font-weight:900}
+.tester-maker{color:var(--muted);font-size:9px}
+.tester-kv{display:grid;grid-template-columns:105px 1fr;margin-top:9px;border:1px solid #deebef;border-radius:7px;overflow:hidden}
+.tester-kv div{padding:7px 8px;border-bottom:1px solid #e5eff2;font-size:9px}
+.tester-kv div:nth-last-child(-n+2){border-bottom:0}
+.tester-kv .key{background:#f3fafc;color:#557383;font-weight:900}
+.tester-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.link,.share{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 11px;border:1px solid #bcdce7;border-radius:8px;background:#fff;color:#09638d;text-decoration:none;font-size:10px;font-weight:900;cursor:pointer}
+.link.primary{border-color:var(--blue);background:var(--blue);color:#fff}
+.calc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.field label{display:block;color:#537382;font-size:9px;font-weight:900}
+.field input{width:100%;min-height:42px;margin-top:3px;padding:0 9px;border:1px solid #bddbe5;border-radius:7px;color:var(--ink)}
+.calc-result{margin-top:9px;padding:10px;border:1px solid #c7e2eb;border-radius:8px;background:#eefaff;font-size:11px;font-weight:900}
+.restore-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.restore-list label{display:grid;grid-template-columns:24px 1fr;gap:7px;align-items:start;padding:9px;border:1px solid #d8e8ed;border-radius:8px;background:#fbfeff;font-size:10px;cursor:pointer}
+.restore-list input{width:20px;height:20px;margin:0;accent-color:var(--green)}
+.restore-progress{margin-top:8px;color:var(--muted);font-size:10px;font-weight:900}
+.mistakes{margin:0;padding-left:20px;color:#654b21;font-size:11px}
+.mistakes li+li{margin-top:5px}
+.sources{display:grid;gap:7px}
+.sources a{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid #d3e6ec;border-radius:8px;color:#09638d;text-decoration:none;font-size:10px;font-weight:900}
+.sources a:after{content:"↗"}
+.unknown{padding:12px;border:1px solid #efb7b2;border-radius:8px;background:#fff3f1;color:#853a34;font-size:11px}
+.unsupported{display:none}
+.unsupported.on{display:block}
+.footnote{margin:10px 2px 0;color:var(--muted);font-size:9px}
+@media(max-width:720px){
+  .topbar{align-items:stretch}.top-actions{display:none}.wrap{width:min(100% - 14px,1040px);margin-top:8px}
+  .hero,.section{padding:13px}.method-bar,.tester-controls{grid-template-columns:1fr}.scope{text-align:left}
+  .quick-grid,.info-grid,.test-grid,.tester-grid,.restore-list{grid-template-columns:1fr}
+  .calc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tester-kv{grid-template-columns:90px 1fr}
+  .signal{flex-direction:column;overflow:visible}.signal-step{flex:0 0 auto;min-height:52px}.signal-step:not(:last-child):after{content:"↓";right:auto;left:50%;top:auto;bottom:-16px;transform:translateX(-50%)}
+}
+@media(max-width:390px){.calc-grid{grid-template-columns:1fr}.hero h1{font-size:25px}.section h2{font-size:17px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a id="backLink" href="./protective-relay.html">← 保護継電器DBへ戻る</a>
+  <div class="top-actions"><a href="./index.html">ホーム</a><button class="share" id="shareBtn" type="button">URLを共有</button></div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">PROTECTIVE RELAY TEST QUICK REFERENCE</div>
+    <h1 id="modelName">型式未指定</h1>
+    <div class="subtitle"><span id="makerName"></span><span id="relayTitle"></span></div>
+    <div class="badges"><span class="badge" id="elementBadge">保護要素</span><span class="badge yellow">黄：保護要素共通</span><span class="badge">試験器を選択可能</span></div>
+    <div class="safety"><b>安全上の前提</b>これは配線確認と学習を支援するアンチョコです。実設備の停復電、CTT・VTT操作、整定変更、試験配線、トリップ連動をこの画面だけで決めないでください。現場責任者、社内手順書、操作票、系統状態、無電圧確認、CT二次開放防止、逆送防止、完全型式の最新版取扱説明書を優先してください。</div>
+    <div class="method-bar">
+      <label>試験する保護要素<select id="methodSelect" aria-label="試験する保護要素"></select></label>
+      <div class="scope">形式固有の端子・試験値：未確認</div>
+    </div>
+  </section>
+
+  <section class="section unsupported" id="unsupported">
+    <h2>この保護要素の共通アンチョコは未登録です</h2>
+    <p class="section-lead">型式名や端子を推測せず、メーカー取扱説明書と設備図で確認してください。</p>
+  </section>
+
+  <div id="content">
+    <section class="section">
+      <div class="section-head"><div><h2>現場30秒確認</h2><p class="section-lead">最初に、この6点を揃えます。</p></div></div>
+      <div class="quick-grid" id="quickGrid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>信号の流れ</h2><p class="section-lead">入力から遮断・警報までを順に追います。</p></div></div>
+      <div class="signal" id="signalFlow"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>試験前に確認</h2><p class="section-lead">未確認のまま端子へ接続しない項目です。</p></div></div>
+      <div class="info-grid" id="prechecks"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>試験項目</h2><p class="section-lead">必要項目と印加条件は完全型式のメーカー資料で確定します。</p></div></div>
+      <div class="test-grid" id="testItems"></div>
+    </section>
+
+    <section class="section" id="testerSection">
+      <div class="section-head"><div><h2>使用試験器</h2><p class="section-lead">試験器を切り替えると、能力と確認点を表示します。</p></div></div>
+      <div class="tester-controls">
+        <label>試験器<select id="testerSelect" aria-label="使用試験器"></select></label>
+        <div class="tester-note">試験器が保護要素に対応していても、この型式へそのまま接続できるとは限りません。継電器・試験器・設備図の三者を照合してください。</div>
+      </div>
+      <div class="tester-grid" id="testerProfile"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>試験の進め方</h2><p class="section-lead">具体的な操作順ではなく、確認と記録の流れです。</p></div></div>
+      <ol class="number-list" id="sequence"></ol>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>判定値メモ</h2><p class="section-lead">メーカー値・規格値・社内管理値を自動生成しません。手元資料の数値を入れた場合だけ算術計算します。</p></div></div>
+      <div class="calc-grid">
+        <div class="field"><label for="baseValue">基準値</label><input id="baseValue" type="number" step="any" inputmode="decimal" placeholder="例 5.0"></div>
+        <div class="field"><label for="unitValue">単位</label><input id="unitValue" type="text" placeholder="A / V / s / Hz"></div>
+        <div class="field"><label for="minusValue">下限許容率 %</label><input id="minusValue" type="number" step="any" inputmode="decimal" placeholder="例 25"></div>
+        <div class="field"><label for="plusValue">上限許容率 %</label><input id="plusValue" type="number" step="any" inputmode="decimal" placeholder="例 25"></div>
+      </div>
+      <div class="calc-result" id="calcResult">基準値と許容率を入力すると参考範囲を表示します。</div>
+      <p class="footnote">この欄の結果は入力値の計算結果です。メーカー許容値、JEM-TR値、社内管理値ではありません。</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>試験後の復旧確認</h2><p class="section-lead">設備固有の操作票と照合して使用します。</p></div></div>
+      <div class="restore-list" id="restoreList"></div>
+      <div class="restore-progress" id="restoreProgress"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>間違えやすい点</h2><p class="section-lead">保護要素共通で起こりやすい取り違えです。</p></div></div>
+      <ul class="mistakes" id="mistakes"></ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>根拠資料</h2><p class="section-lead">完全型式の取扱説明書が最優先です。PDFは転載せず公式ページへ案内します。</p></div></div>
+      <div class="sources" id="sources"></div>
+    </section>
+
+    <section class="section">
+      <div class="unknown"><b>不確かな点：</b>このページは保護要素共通の黄判定です。型式固有の端子番号、常設配線、試験コード色、印加値、メーカー許容値、社内管理値、外部トリップ回路は未確認のまま表示していません。</div>
+    </section>
+  </div>
+</main>
+
+<script src="./relay-guide-data-v14.js"></script>
+<script>
+const params=new URLSearchParams(location.search);
+const model=params.get('model')||'型式未指定';
+const maker=params.get('maker')||'';
+const relayTitle=params.get('title')||'';
+const manualUrl=safeHttpUrl(params.get('manual')||'');
+const TYPE_ALIASES={OCGR:'GR','1E':'MOTOR','2E':'MOTOR','3E':'MOTOR',THR:'MOTOR',EMPR:'MOTOR','モータ保護':'MOTOR'};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s);
+
+function safeHttpUrl(value){
+  if(!value)return '';
+  try{const url=new URL(value,location.href);return ['https:','http:'].includes(url.protocol)?url.href:''}catch{return ''}
+}
+function canonicalType(value){return TYPE_ALIASES[value]||value}
+function unique(values){return [...new Set(values.filter(Boolean))]}
+
+const requested=params.get('type')||'';
+const rawTypes=(params.get('types')||requested).split(',').map(v=>v.trim()).filter(Boolean);
+let availableTypes=unique(rawTypes.map(canonicalType).filter(v=>RELAY_TEST_METHODS[v]));
+if(!availableTypes.length&&RELAY_TEST_METHODS[canonicalType(requested)])availableTypes=[canonicalType(requested)];
+let currentType=availableTypes[0]||'';
+
+$('#modelName').textContent=model;
+$('#makerName').textContent=maker+(maker&&relayTitle?'｜':'');
+$('#relayTitle').textContent=relayTitle;
+$('#backLink').href='./protective-relay.html?model='+encodeURIComponent(model);
+document.title=model+' 試験方法アンチョコ｜うきわメモ';
+
+function renderMethodOptions(){
+  const select=$('#methodSelect');
+  if(!availableTypes.length){
+    select.innerHTML='<option>未登録</option>';
+    select.disabled=true;
+    $('#unsupported').classList.add('on');
+    $('#content').hidden=true;
+    return;
+  }
+  select.innerHTML=availableTypes.map(type=>`<option value="${esc(type)}">${esc(RELAY_TEST_METHODS[type].label)}</option>`).join('');
+  select.value=currentType;
+  select.disabled=availableTypes.length===1;
+}
+
+function renderMethod(){
+  const data=RELAY_TEST_METHODS[currentType];
+  if(!data)return;
+  $('#elementBadge').textContent=data.label+' / '+data.ansi;
+  $('#quickGrid').innerHTML=[
+    ['何を検出する',data.detects],
+    ['入力機器',data.signal.slice(0,2).join(' → ')],
+    ['出力先',data.signal.slice(-2).join(' → ')],
+    ['主な試験',data.tests.slice(0,3).map(v=>v[0]).join(' / ')],
+    ['配線確認状態','要素共通。型式固有端子は未確認'],
+    ['最重要注意','完全型式・取説・設備図を照合してから接続']
+  ].map(([key,value])=>`<div class="quick-item"><b>${esc(key)}</b><span>${esc(value)}</span></div>`).join('');
+  $('#signalFlow').innerHTML=data.signal.map(value=>`<div class="signal-step">${esc(value)}</div>`).join('');
+  $('#prechecks').innerHTML=data.prechecks.map(([key,value])=>`<div class="info-item"><b>${esc(key)}</b><span>${esc(value)}</span></div>`).join('');
+  $('#testItems').innerHTML=data.tests.map(([key,value])=>`<div class="test-item"><b>${esc(key)}</b><span>${esc(value)}</span></div>`).join('');
+  $('#sequence').innerHTML=data.sequence.map(value=>`<li><span>${esc(value)}</span></li>`).join('');
+  $('#mistakes').innerHTML=data.mistakes.map(value=>`<li>${esc(value)}</li>`).join('');
+  renderTesters(data);
+  renderSources(data);
+  params.set('type',currentType);
+  history.replaceState(null,'',location.pathname+'?'+params.toString());
+}
+
+function testerByModel(modelName){return RELAY_TESTER_PROFILES.find(item=>item.model===modelName)}
+function renderTesters(data){
+  const profiles=data.testers.map(testerByModel).filter(Boolean);
+  const select=$('#testerSelect');
+  select.innerHTML=profiles.map(item=>{
+    const alias=item.aliases?.includes('I2V2')?'（I2V2）':'';
+    return `<option value="${esc(item.model)}">${esc(item.model+alias)}</option>`;
+  }).join('');
+  const requestedTester=params.get('tester');
+  if(requestedTester&&profiles.some(item=>item.model===requestedTester))select.value=requestedTester;
+  renderTesterProfile(profiles.find(item=>item.model===select.value)||profiles[0]);
+}
+
+function renderTesterProfile(item){
+  if(!item){$('#testerProfile').innerHTML='<div class="unknown">対応試験器プロファイルは未登録です。</div>';return}
+  const aliases=item.aliases?.length?`<div class="key">検索名</div><div>${esc(item.aliases.join(' / '))}</div>`:'';
+  const note=item.note?`<div class="key">注意</div><div>${esc(item.note)}</div>`:'';
+  const links=[
+    item.publicUrl?`<a class="link primary" href="${esc(item.publicUrl)}" target="_blank" rel="noopener noreferrer">公式製品情報</a>`:'',
+    item.manualUrl?`<a class="link" href="${esc(item.manualUrl)}" target="_blank" rel="noopener noreferrer">公式取扱説明書</a>`:''
+  ].join('');
+  $('#testerProfile').innerHTML=`<article class="tester-card">
+    <div class="tester-title"><div><div class="tester-maker">${esc(item.maker)}</div><h3>${esc(item.model)}</h3></div><span class="verify">能力・資料確認</span></div>
+    <div class="tester-kv">
+      ${aliases}<div class="key">対象要素</div><div>${esc(item.targets.join(' / '))}</div>
+      <div class="key">電流出力</div><div>${esc(item.currentOutput)}</div>
+      <div class="key">電圧出力</div><div>${esc(item.voltageOutput)}</div>
+      <div class="key">位相・周波数</div><div>${esc(item.phaseOutput)}</div>
+      <div class="key">接点・時間</div><div>${esc(item.contactInput)}</div>
+      <div class="key">補助電源</div><div>${esc(item.auxPower)}</div>
+      <div class="key">接続確認</div><div>${esc(item.terminals)}</div>
+      <div class="key">コード色</div><div>${esc(item.colors)}</div>${note}
+      <div class="key">確認根拠</div><div>${esc(item.source)} / ${esc(item.sourceDate||'')}</div>
+    </div><div class="tester-links">${links}</div>
+  </article>`;
+  params.set('tester',item.model);
+  history.replaceState(null,'',location.pathname+'?'+params.toString());
+}
+
+function renderSources(data){
+  const rows=[...data.sourceLinks];
+  if(manualUrl)rows.unshift([model+' 公式資料',manualUrl]);
+  const seen=new Set();
+  $('#sources').innerHTML=rows.filter(([,url])=>{if(seen.has(url))return false;seen.add(url);return true}).map(([title,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`).join('');
+}
+
+function renderRestore(){
+  $('#restoreList').innerHTML=RELAY_TEST_COMMON_RESTORE.map((value,index)=>`<label><input type="checkbox" data-restore="${index}"><span>${esc(value)}</span></label>`).join('');
+  updateRestore();
+}
+function updateRestore(){
+  const boxes=[...document.querySelectorAll('[data-restore]')];
+  $('#restoreProgress').textContent=`確認 ${boxes.filter(box=>box.checked).length} / ${boxes.length}項目`;
+}
+
+function calculate(){
+  const base=parseFloat($('#baseValue').value),minus=parseFloat($('#minusValue').value),plus=parseFloat($('#plusValue').value),unit=$('#unitValue').value.trim();
+  if(!Number.isFinite(base)){$('#calcResult').textContent='基準値と許容率を入力すると参考範囲を表示します。';return}
+  const low=Number.isFinite(minus)?base*(1-minus/100):null;
+  const high=Number.isFinite(plus)?base*(1+plus/100):null;
+  $('#calcResult').textContent=`入力基準 ${base} ${unit} / 参考下限 ${low===null?'未入力':low.toFixed(4)+' '+unit} / 参考上限 ${high===null?'未入力':high.toFixed(4)+' '+unit}`;
+}
+
+$('#methodSelect').addEventListener('change',event=>{currentType=event.target.value;renderMethod()});
+$('#testerSelect').addEventListener('change',event=>renderTesterProfile(testerByModel(event.target.value)));
+$('#restoreList').addEventListener('change',updateRestore);
+['#baseValue','#unitValue','#minusValue','#plusValue'].forEach(selector=>$(selector).addEventListener('input',calculate));
+$('#shareBtn').addEventListener('click',async()=>{
+  const share={title:document.title,text:model+' 保護継電器 試験方法アンチョコ',url:location.href};
+  try{if(navigator.share)await navigator.share(share);else{await navigator.clipboard.writeText(location.href);$('#shareBtn').textContent='URLコピー済み'}}catch{}
+});
+
+renderMethodOptions();
+renderRestore();
+renderMethod();
+</script>
+</body>
+</html>
