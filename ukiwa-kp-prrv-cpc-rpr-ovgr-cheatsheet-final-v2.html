@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>うきわメモ｜KP-PRRV-CPC 現場アンチョコ FINAL</title>
+<style>
+:root{
+  --bg:#061522;--bg2:#0a2033;--panel:#0b2237;--panel2:#0f2c45;
+  --text:#edf8ff;--muted:#a9c2d2;--line:#2a526c;
+  --control:#111;--voltage:#168eea;--current:#fff;--trip:#ffd84d;
+  --green:#74e09c;--red:#ff6973;--orange:#ffb24b;--cyan:#8fdcff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:linear-gradient(180deg,var(--bg),var(--bg2));
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+  line-height:1.55;
+}
+.wrap{max-width:1200px;margin:auto;padding:clamp(10px,2vw,22px)}
+.hero{padding:8px 2px 4px}
+h1{font-size:clamp(28px,5vw,44px);margin:0 0 6px}
+.lead{color:var(--muted);font-size:clamp(13px,2vw,16px)}
+.quickchips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.chip{border:1px solid var(--line);background:#0d2b44;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900}
+.safety{background:#2a2416;border:1px solid #6e5b30;color:#ffe7a7;border-radius:14px;padding:12px 14px;font-size:12px;margin:10px 0 14px}
+.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+.legend>div{border-radius:12px;min-height:44px;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:13px}
+.control{background:var(--control);color:#fff;border:1px solid #444}
+.voltage{background:var(--voltage);color:#fff}
+.current{background:var(--current);color:#111;border:2px solid #111}
+.trip{background:var(--trip);color:#292300}
+.tabs{
+  display:flex;gap:8px;padding:6px;margin:0 0 14px;
+  position:sticky;top:4px;z-index:20;
+  border-radius:14px;background:rgba(6,21,34,.93);backdrop-filter:blur(10px)
+}
+.tabs button{
+  flex:1;min-height:44px;border:1px solid var(--line);
+  background:#0d2942;color:#c7e0ef;border-radius:999px;font-weight:950;font-size:15px
+}
+.tabs button.on{background:#f0f9ff;color:#082039}
+.grid{display:grid;grid-template-columns:minmax(330px,.9fr) minmax(0,1.3fr);gap:16px;align-items:start}
+.card{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:19px;padding:clamp(14px,2vw,20px);margin-bottom:14px
+}
+.card h2{font-size:23px;margin:0 0 7px}
+.card h3{font-size:16px;margin:16px 0 7px}
+.example{background:#0d2d48;border:1px solid #3c6680;border-radius:13px;padding:11px 12px;margin:10px 0}
+.conn{
+  display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:center;
+  padding:10px 0;border-bottom:1px solid #183b53
+}
+.conn:last-child{border-bottom:0}
+.badge{padding:7px 8px;border-radius:9px;text-align:center;font-size:12px;font-weight:950}
+.val{font-size:15px;font-weight:850}
+.small{font-size:11px;color:var(--muted);line-height:1.65}
+.danger{
+  margin:9px 0 12px;padding:12px;border-radius:12px;
+  background:#3b1519;border:2px solid var(--red);color:#ffdadd;
+  font-size:13px;font-weight:900
+}
+.danger strong{display:block;color:#ff8b92;font-size:14px;margin-bottom:3px}
+.info{background:#102a42;border-left:4px solid var(--voltage);border-radius:10px;padding:10px 11px;margin-top:9px;font-size:12px}
+.warn{background:#2a2418;border-left:4px solid var(--orange);border-radius:10px;padding:10px 11px;margin-top:9px;font-size:12px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.controls label{font-size:13px}
+select{margin-left:4px;min-height:42px;background:#061725;color:#fff;border:1px solid #38617a;border-radius:9px;padding:7px 9px;font-weight:850}
+.test{background:#081c2e;border:1px solid #28516b;border-radius:14px;padding:12px;margin-top:10px}
+.testhead{font-size:16px;font-weight:950}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:9px}
+.metric{background:#102a43;border-radius:10px;padding:9px;text-align:center;min-height:70px;display:flex;flex-direction:column;justify-content:center}
+.metric small{font-size:10px;color:#96b7ca}.metric b{font-size:19px;margin-top:2px}
+.result{margin-top:9px;padding:10px 12px;background:#112f21;border:1px solid #2f7952;border-radius:11px}
+.result strong{display:block;color:#b9ffd0;font-size:22px;margin-top:3px}
+.tablewrap{overflow:auto;margin-top:9px}
+table{border-collapse:collapse;width:100%;min-width:500px;font-size:12px}
+th,td{border:1px solid #31546b;padding:7px;text-align:center}
+th{background:#10304b}.activeRow{background:#194865;font-weight:950}
+.source{border-top:1px solid #264a62;margin-top:12px;padding-top:10px;color:#8facbf;font-size:11px}
+.explainer{background:linear-gradient(180deg,#0d2941,#0a2236)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.compare .box{background:#0b2941;border:1px solid #31566f;border-radius:12px;padding:12px}
+.compare h4{margin:0 0 6px;font-size:15px}
+.formula{background:#071724;border:1px solid #2d526a;border-radius:11px;padding:10px;margin-top:9px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.restore{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.restore div{background:#0b2942;border:1px solid #285069;border-radius:10px;padding:9px;font-size:12px}
+.hide{display:none}
+@media(max-width:860px){
+  .grid{grid-template-columns:1fr;gap:10px}
+}
+@media(max-width:620px){
+  .wrap{padding:9px}
+  h1{font-size:27px}
+  .legend{grid-template-columns:repeat(2,1fr);gap:6px}
+  .card{padding:13px;border-radius:15px}
+  .conn{grid-template-columns:84px 1fr;gap:8px}
+  .badge{min-height:40px;display:flex;align-items:center;justify-content:center}
+  .controls{display:grid;grid-template-columns:1fr 1fr}
+  .controls label{display:flex;flex-direction:column;gap:4px}
+  select{margin-left:0;width:100%;font-size:16px}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .metric b{font-size:20px}
+  .result strong{font-size:21px;overflow-wrap:anywhere}
+  .compare{grid-template-columns:1fr}
+  .restore{grid-template-columns:1fr}
+}
+@media(min-width:861px){
+  #rpr>.grid>div:first-child,#ovgr>.grid>div:first-child{position:sticky;top:72px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>🛟 KP-PRRV-CPC 現場アンチョコ</h1>
+    <div class="lead">OVGR（64）＋RPR（67P）｜GCR-mini VS想定｜<b>配線 → 試験条件 → メーカー判定値</b>を最短で確認</div>
+    <div class="quickchips">
+      <span class="chip">制御電源：AC/DC110V</span>
+      <span class="chip">RPR：1相試験値は取説表</span>
+      <span class="chip">OVGR：ZPD一次3810V基準</span>
+      <span class="chip">メーカー性能値を優先表示</span>
+    </div>
+  </div>
+
+  <div class="safety">⚠ 教育・確認用。実設備では現場責任者、社内手順、操作票、系統状態、無電圧確認、CTT/VTT状態、誤投入防止、試験後の原状復帰を優先してください。完全型式・実整定値・現物端子を必ず照合。</div>
+
+  <div class="legend">
+    <div class="control">⬛ 制御電源</div>
+    <div class="voltage">🟦 電圧</div>
+    <div class="current">⬜ 電流</div>
+    <div class="trip">🟨 TRIP</div>
+  </div>
+
+  <div class="tabs">
+    <button class="on" data-tab="rpr">RPR</button>
+    <button data-tab="ovgr">OVGR</button>
+  </div>
+
+  <section id="rpr">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>⚡ RPR｜逆電力</h2>
+          <div class="example"><b>初期表示：1% / 1.0s</b><br><span class="small">整定変更で、1相試験電流・メーカー判定範囲・±30°電流・120%時間試験電流が連動。</span></div>
+
+          <h3>まず配線</h3>
+          <div class="conn"><span class="badge control">⬛ 制御</span><div class="val">S1－S2 ｜ <b>AC/DC110V</b></div></div>
+          <div class="conn"><span class="badge voltage">🟦 電圧</span><div class="val"><b>V0 → P1・P3短絡点</b><br><b>E → P2</b><div class="small">単相試験：P1-P3を短絡し、P1-P2間へ110V</div></div></div>
+          <div class="conn"><span class="badge current">⬜ 電流</span><div class="val"><b>CTT試験器側 → 専用CTを通して注入</b></div></div>
+
+          <div class="danger">
+            <strong>⚠ KP-PRRV-CPC本体の電流入力端子へ直接注入しない</strong>
+            試験電流はCTTの試験器側から、設置されている専用CTを通して入力する。取扱説明書の試験回路・現物のCTT配線を確認。
+          </div>
+
+          <div class="conn"><span class="badge trip">🟨 TRIP</span><div class="val"><b>a3－c3</b></div></div>
+
+          <div class="warn"><b>位相：180° / 0°</b><br>取説上は逆電力方向が基準。GCR-mini VSで電流極性を反転して試験する場合は表示上0°側になることがあるため、接続・極性・逆電力方向を確認。</div>
+        </div>
+
+        <div class="card">
+          <h2>整定</h2>
+          <div class="controls">
+            <label>逆電力整定
+              <select id="rp">
+                <option>0.2</option><option>0.4</option><option>0.6</option><option>0.8</option>
+                <option selected>1</option><option>1.5</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+              </select> %
+            </label>
+            <label>動作時間
+              <select id="rt">
+                <option>0.1</option><option>0.2</option><option>0.3</option><option>0.4</option><option>0.5</option>
+                <option>0.6</option><option>0.7</option><option>0.8</option><option>0.9</option><option selected>1</option>
+                <option>1.2</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>5</option>
+              </select> s
+            </label>
+          </div>
+
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>整定%</th><th>動作電力W</th><th>1相試験A</th></tr></thead>
+              <tbody id="rtable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>試験条件</h2>
+
+        <div class="test">
+          <div class="testhead">① 最小動作電流</div>
+          <div class="metrics">
+            <div class="metric"><small>電圧</small><b>110V</b></div>
+            <div class="metric"><small>位相</small><b>180° / 0°</b></div>
+            <div class="metric"><small>電流</small><b>0 → UP</b></div>
+            <div class="metric"><small>TRIP</small><b>a3-c3</b></div>
+          </div>
+          <div class="result">
+            <span>取説基準電流</span><strong id="rbase">0.087A</strong>
+            <span id="rerr">メーカー判定：±5%</span><strong id="rrange">0.083～0.091A</strong>
+          </div>
+        </div>
+
+        <div class="test">
+          <div class="testhead">② 位相特性｜基準 180° / 0° → ±30°</div>
+          <div class="metrics">
+            <div class="metric"><small>電圧</small><b>110V</b></div>
+            <div class="metric"><small>基準電流</small><b id="rphaseBase">0.087A</b></div>
+            <div class="metric"><small>＋30°</small><b id="rphaseLead">0.100A</b></div>
+            <div class="metric"><small>－30°</small><b id="rphaseLag">0.100A</b></div>
+          </div>
+          <div class="result">
+            <span>±30°の試験電流</span>
+            <strong id="rphaseFormula">0.087A × 1.15 = 0.100A</strong>
+          </div>
+          <div class="info">
+            基準180°なら <b>150° / 210°</b><br>
+            基準0°なら <b>330° / 30°</b><br>
+            <span class="small">VSの位相反転・電流極性によりどちらを使うかが変わる。</span>
+          </div>
+        </div>
+
+        <div class="test">
+          <div class="testhead">③ 動作時間</div>
+          <div class="metrics">
+            <div class="metric"><small>電圧</small><b>110V</b></div>
+            <div class="metric"><small>電流</small><b id="r120">0.104A</b></div>
+            <div class="metric"><small>入力</small><b>120%</b></div>
+            <div class="metric"><small>時限</small><b id="rtset">1.0s</b></div>
+          </div>
+          <div class="result">
+            <span>メーカー判定</span>
+            <strong id="rtrange">0.95～1.05s</strong>
+            <span>整定値±5%（最小誤差±50ms）</span>
+          </div>
+        </div>
+
+        <div class="source">メーカー側根拠：OMRON KP-PRRV-CPC取扱説明書のRPR試験回路、1相試験電流表、位相特性例、判定基準。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <details>
+        <summary style="cursor:pointer;font-weight:950;font-size:16px;color:#cfeeff">補足｜なぜ専用CTが2個あるのに、片相試験できる？</summary>
+        <div style="margin-top:12px">
+          <div class="compare">
+            <div class="box">
+              <h4>通常運転</h4>
+              <div>専用CTを<b>2個</b>使い、R相・T相の電流情報を取り込む。</div>
+              <div class="small">P1/P2/P3の電圧情報と組み合わせ、三相不平衡回路の逆電力を監視する構成。</div>
+            </div>
+            <div class="box">
+              <h4>メーカー試験</h4>
+              <div>メーカーが<b>片相入力の試験方法</b>を用意している。</div>
+              <div class="small">通常時に2CTで三相を監視することと、試験時に片相注入することは別の話。</div>
+            </div>
+          </div>
+
+          <div class="formula">1%整定の例
+三相通常時 0.050A
+× √3
+= 片相試験 約0.087A</div>
+
+          <div class="warn"><b>補足</b><br>「CTが2個ある＝試験も必ず三相」ではない。また「片相試験だから通常時も1相しか見ていない」でもない。</div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="ovgr" class="hide">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>⚡ OVGR｜地絡過電圧</h2>
+          <div class="example"><b>初期表示：10% / 1.0s</b><br><span class="small">ZPD一次側3810V基準。取説の±25%・時間試験150%を表示。</span></div>
+
+          <h3>まず配線</h3>
+          <div class="conn"><span class="badge control">⬛ 制御</span><div class="val">S1－S2 ｜ <b>AC/DC110V</b></div></div>
+          <div class="conn"><span class="badge voltage">🟦 電圧</span><div class="val"><b>T－E</b> へ試験電圧</div></div>
+          <div class="conn"><span class="badge current">⬜ 電流</span><div class="val">使用しない</div></div>
+          <div class="conn"><span class="badge trip">🟨 TRIP</span><div class="val"><b>a1－c1-2（自動復帰）</b><br><b>a2－c1-2（手動復帰）</b></div></div>
+        </div>
+
+        <div class="card">
+          <h2>整定</h2>
+          <div class="controls">
+            <label>OVGR整定
+              <select id="op">
+                <option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option>
+                <option>5</option><option>6</option><option>7.5</option><option selected>10</option><option>12.5</option>
+                <option>15</option><option>20</option><option>25</option><option>30</option>
+              </select> %
+            </label>
+            <label>動作時間
+              <select id="ot">
+                <option>0.1</option><option>0.2</option><option>0.3</option><option>0.4</option><option>0.5</option>
+                <option>0.6</option><option>0.7</option><option>0.8</option><option>0.9</option><option selected>1</option>
+                <option>1.2</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>5</option>
+              </select> s
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>試験条件</h2>
+
+        <div class="test">
+          <div class="testhead">① 最小動作電圧</div>
+          <div class="metrics">
+            <div class="metric"><small>入力</small><b>0V → UP</b></div>
+            <div class="metric"><small>基準値</small><b id="obase">381.0V</b></div>
+            <div class="metric"><small>TRIP例</small><b>a1-c1-2</b></div>
+            <div class="metric"><small>誤差</small><b>±25%</b></div>
+          </div>
+          <div class="result"><span>メーカー判定</span><strong id="orange">285.8～476.3V</strong></div>
+        </div>
+
+        <div class="test">
+          <div class="testhead">② 動作時間</div>
+          <div class="metrics">
+            <div class="metric"><small>整定電圧</small><b id="obase2">381.0V</b></div>
+            <div class="metric"><small>印加電圧</small><b id="o150">571.5V</b></div>
+            <div class="metric"><small>入力倍率</small><b>150%</b></div>
+            <div class="metric"><small>時限</small><b id="otset">1.0s</b></div>
+          </div>
+          <div class="result"><span>メーカー判定</span><strong id="otrange">0.95～1.05s</strong><span>整定値±5%（最小誤差±50ms）</span></div>
+        </div>
+
+        <div class="info">取説代表値：5%=190.5V、10%=381.0V、15%=571.5V、30%=1143V。時間試験例では5%整定→285.8V（150%）を印加。</div>
+        <div class="source">メーカー側根拠：OMRON KP-PRRV-CPC取扱説明書のOVGRタップ値、動作時間試験、判定基準。</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="card">
+    <h2>🔁 試験後の原状復帰</h2>
+    <div class="restore">
+      <div>□ 試験器出力ゼロ</div><div>□ 試験器停止</div>
+      <div>□ P1-P3短絡線撤去</div><div>□ CTT原状復帰</div>
+      <div>□ VTT/試験端子原状復帰</div><div>□ 整定値復元・照合</div>
+      <div>□ 制御電源・配線確認</div><div>□ 別人確認 / 復旧写真</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const rdata=[
+[0.2,1.9,0.017],[0.4,3.8,0.035],[0.6,5.7,0.052],[0.8,7.6,0.069],[1,9.5,0.087],
+[1.5,14.3,0.130],[2,19.1,0.173],[3,28.6,0.260],[4,38.1,0.346],[5,47.7,0.433],
+[6,57.2,0.520],[7,66.7,0.606],[8,76.2,0.693],[9,85.8,0.779],[10,95.3,0.866]
+];
+const fmtA=v=>v.toFixed(3)+'A', fmtV=v=>v.toFixed(1)+'V';
+
+function renderTable(){
+  rtable.innerHTML=rdata.map(x=>`<tr data-p="${x[0]}"><td>${x[0]}</td><td>${x[1]}</td><td>${x[2].toFixed(3)}</td></tr>`).join('');
+}
+function rr(){
+  const p=parseFloat(rp.value), t=parseFloat(rt.value), row=rdata.find(x=>x[0]===p), I=row[2];
+  document.querySelectorAll('#rtable tr').forEach(tr=>tr.classList.toggle('activeRow',parseFloat(tr.dataset.p)===p));
+  const ep=p===0.2?10:5;
+  rbase.textContent=fmtA(I);
+  rerr.textContent=`メーカー判定：±${ep}%`;
+  rrange.textContent=`${(I*(1-ep/100)).toFixed(3)}～${(I*(1+ep/100)).toFixed(3)}A`;
+  const p30=I*1.15;
+  rphaseBase.textContent=fmtA(I);
+  rphaseLead.textContent=fmtA(p30);
+  rphaseLag.textContent=fmtA(p30);
+  rphaseFormula.textContent=`${fmtA(I)} × 1.15 = ${fmtA(p30)}`;
+  r120.textContent=fmtA(I*1.2);
+  rtset.textContent=t.toFixed(1)+'s';
+  const e=Math.max(t*.05,.05);
+  rtrange.textContent=`${(t-e).toFixed(2)}～${(t+e).toFixed(2)}s`;
+}
+function oo(){
+  const p=parseFloat(op.value),t=parseFloat(ot.value),base=3810*p/100;
+  obase.textContent=obase2.textContent=fmtV(base);
+  orange.textContent=`${(base*.75).toFixed(1)}～${(base*1.25).toFixed(1)}V`;
+  o150.textContent=fmtV(base*1.5);
+  otset.textContent=t.toFixed(1)+'s';
+  const e=Math.max(t*.05,.05);
+  otrange.textContent=`${(t-e).toFixed(2)}～${(t+e).toFixed(2)}s`;
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  rpr.classList.toggle('hide',b.dataset.tab!=='rpr');
+  ovgr.classList.toggle('hide',b.dataset.tab!=='ovgr');
+});
+rp.onchange=rr;rt.onchange=rr;op.onchange=oo;ot.onchange=oo;
+renderTable();rr();oo();
+</script>
+</body>
+</html>
