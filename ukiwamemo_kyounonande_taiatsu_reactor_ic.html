@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#082a43">
+<meta name="description" content="R-1220K、DR-1220MH、高圧ケーブルを題材に、Ic・IL・A1・A2・0端子・接地端子・アレスター・誤接地・未接地遮へい層を順番に整理する概念教材。">
+<title>今日のなんで？｜耐圧試験の電流は、どこを通って戻る？</title>
+<style>
+:root{
+  --bg:#edf7fa;--paper:#fff;--ink:#173448;--muted:#617b8a;--navy:#082a43;
+  --blue:#087aa0;--cyan:#e4f8fc;--line:#cde2e9;--yellow:#fff7d6;
+  --orange:#fff0de;--green:#e9f7ee;--red:#fff0ee;--bad:#c84d42;
+  --ic:#087fa4;--il:#b26a16;--shadow:0 12px 34px rgba(15,61,84,.10);--radius:22px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:radial-gradient(circle at 9% 5%,rgba(69,188,218,.18),transparent 24rem),radial-gradient(circle at 94% 18%,rgba(55,143,181,.12),transparent 28rem),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.82;letter-spacing:.01em}
+a{color:#067398;text-underline-offset:.18em}
+a:hover{color:#034f69}
+button,input{font:inherit}
+.wrap{width:min(1080px,calc(100% - 28px));margin:0 auto}
+.sitebar{display:flex;justify-content:space-between;align-items:center;padding:16px 0 0;gap:12px}
+.sitebar a{text-decoration:none;font-weight:900;color:#16435a}.sitebar .back{font-size:.86rem;color:var(--muted)}
+.hero{padding:20px 0 22px}
+.hero-card{position:relative;overflow:hidden;padding:34px clamp(20px,5vw,52px);border-radius:30px;background:linear-gradient(135deg,#082a43,#0b607c 72%,#11839b);box-shadow:var(--shadow);color:#fff}
+.hero-card::after{content:"";position:absolute;width:250px;height:250px;border:26px solid rgba(255,255,255,.08);border-radius:50%;right:-80px;top:-88px}
+.kicker{font-size:.84rem;font-weight:900;letter-spacing:.12em;color:#aeeaf5}
+h1{margin:.35rem 0 .55rem;font-size:clamp(1.78rem,5vw,3.15rem);line-height:1.3}
+.subtitle{max-width:820px;margin:0;color:#e0f6fa;font-size:1.04rem}
+.hero-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px}
+.badge{display:inline-block;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:.8rem;font-weight:850}
+.updated{margin-left:auto;font-size:.8rem;color:#d8f1f5}
+.notice{margin:18px 0 22px;padding:16px 18px;border:1px solid #e8c778;background:#fff9e8;border-radius:16px;color:#5b4711}
+.notice strong{color:#433300}
+.toc{display:flex;gap:8px;overflow-x:auto;padding:4px 0 18px;scrollbar-width:thin}
+.toc a{flex:0 0 auto;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:.83rem;font-weight:850;box-shadow:0 4px 14px rgba(19,58,78,.05)}
+main section{margin:0 0 22px;padding:clamp(20px,4vw,35px);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 7px 24px rgba(19,58,78,.05)}
+h2{margin:0 0 16px;font-size:clamp(1.28rem,3.2vw,1.75rem);line-height:1.48;color:var(--navy)}
+h2 .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--navy);color:#fff;margin-right:9px;font-size:.9rem;vertical-align:2px}
+h3{margin:24px 0 8px;color:#135e76;font-size:1.12rem}
+p{margin:.66em 0}.lead{font-size:1.08rem;font-weight:750}.small{font-size:.86rem;color:var(--muted)}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.quick>div{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fbfeff}
+.quick b{display:block;color:var(--blue);font-size:1.08rem;margin-bottom:4px}
+.memory{padding:18px;border-radius:18px;background:linear-gradient(135deg,#eaf9fc,#f9feff);border:2px solid #acdce8;font-size:1.05rem;font-weight:800}
+.callout{padding:16px 18px;border-radius:16px;margin:16px 0;border-left:5px solid var(--blue);background:var(--cyan)}
+.callout.warn{border-left-color:#c97913;background:#fff7e9}.callout.good{border-left-color:#29905f;background:var(--green)}.callout.red{border-left-color:var(--bad);background:var(--red)}
+.flow{display:flex;align-items:stretch;gap:9px;overflow-x:auto;padding:5px 1px 10px}
+.flow .node{flex:1 0 145px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#fbfeff;text-align:center;font-weight:800}
+.flow .arrow{align-self:center;color:#47879b;font-size:1.35rem;font-weight:900}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.panel{padding:18px;border-radius:18px;border:1px solid var(--line);background:#fbfeff}.panel h3{margin:0 0 8px}
+.mini-eq{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f2f7f9;border:1px solid var(--line);border-radius:12px;padding:12px 14px;overflow:auto;font-size:.91rem;white-space:pre-wrap}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:780px;background:#fff;font-size:.92rem}
+th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#eaf6fa;color:#164c61;font-weight:900}tr:last-child td{border-bottom:0}
+.diagram{margin:18px 0;border:1px solid var(--line);border-radius:20px;background:#f9fdff;padding:14px;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:700px;height:auto}
+.diagram text{font-family:inherit}
+.step-list{counter-reset:s;list-style:none;padding:0;margin:14px 0}.step-list li{counter-increment:s;position:relative;padding:3px 0 18px 48px}.step-list li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#12627d;color:#fff;font-weight:900}.step-list li:not(:last-child)::after{content:"";position:absolute;left:15px;top:32px;height:calc(100% - 28px);border-left:2px dotted #a9ceda}
+.terminal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.terminal{padding:15px;border:1px solid var(--line);border-radius:15px;background:#fbfeff}.terminal b{display:block;color:#0c6380;margin-bottom:4px}
+.term-name{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#e9f5f8;padding:2px 7px;border-radius:7px}
+.mode-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.mode-controls button,.pause-btn,.sim-toggle{min-height:44px;border:1px solid #b9d5df;border-radius:12px;background:#fff;color:#16455c;padding:9px 13px;font-weight:850;cursor:pointer}.mode-controls button.active{background:#0b5f79;color:#fff;border-color:#0b5f79}.pause-btn{margin-left:auto}.mode-controls button:focus-visible,.pause-btn:focus-visible,.quiz button:focus-visible,.sim-toggle:focus-visible{outline:3px solid #65b7d1;outline-offset:2px}
+.viz-status{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.step-badge{padding:5px 10px;border-radius:999px;background:#e5f5f9;color:#155f77;font-weight:900;font-size:.8rem}
+.path-viz{border:1px solid var(--line);border-radius:20px;background:#f8fcfd;padding:12px;overflow-x:auto}.path-viz svg{display:block;width:100%;min-width:700px;height:auto}.path-viz text{font-family:inherit}.path-viz .structure{fill:none;stroke:#a5bdc7;stroke-width:2}.path-viz .device{fill:#fff;stroke:#96b4c0;stroke-width:2}.path-viz .meter-box{fill:#edf7fa;stroke:#86aab9;stroke-width:2}.path-viz .meter{fill:#fff;stroke:#173448;stroke-width:2}.path-viz .needle{stroke:#173448;stroke-width:2}.path-viz .winding,.path-viz .symbol{fill:none;stroke:#173448;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.path-viz .terminal-dot{fill:#fff;stroke:#173448;stroke-width:2}.path-viz .shield{stroke:#173448;stroke-width:7;stroke-linecap:round}.path-viz .title{font-size:17px;font-weight:800;fill:#173448}.path-viz .label{font-size:15px;font-weight:750;fill:#173448}.path-viz .note{font-size:14px;fill:#607b89}.path-viz .soft{fill:#edf5f7;stroke:#c4dbe3}.path-viz .current-label{font-size:16px;font-weight:900;fill:#173448}.path-viz .ic-path{fill:none;stroke:var(--ic);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:12 10;animation:flowLine 2.8s linear infinite}.path-viz .il-path{fill:none;stroke:var(--il);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4 12;animation:flowLine 3.4s linear infinite reverse}.path-viz .bad-path{fill:none;stroke:var(--bad);stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:14 9;animation:flowLine 2.2s linear infinite}.path-viz .stray{fill:none;stroke:#7659a8;stroke-width:3;stroke-dasharray:7 6}.path-viz .current,.path-viz .conditional,.path-viz .floating-only,.path-viz .bypass-only{display:none}.path-viz[data-mode="standalone"] .standalone-current{display:block}.path-viz:not([data-mode="standalone"]) .conditional{display:block}.path-viz[data-mode="ic"] .ic-current,.path-viz[data-mode="compensation"] .ic-current,.path-viz[data-mode="bypass"] .ic-current{display:block}.path-viz[data-mode="compensation"] .il-current,.path-viz[data-mode="bypass"] .il-current{display:block}.path-viz[data-mode="bypass"] .bypass-only{display:block}.path-viz[data-mode="floating"] .floating-only{display:block}.path-viz[data-mode="floating"] .dr,.path-viz[data-mode="floating"] .a2,.path-viz[data-mode="floating"] .arrester-note{display:none}.path-viz[data-mode="floating"] .cable-ground{display:none}.path-viz.paused .ic-path,.path-viz.paused .il-path,.path-viz.paused .bad-path{animation-play-state:paused}
+.legend{display:flex;gap:15px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:.84rem}.legend span{display:inline-flex;align-items:center;gap:6px}.sw{display:inline-block;width:36px;border-top:4px solid}.sw.ic{border-color:var(--ic)}.sw.il{border-color:var(--il);border-top-style:dashed}.sw.bad{border-color:var(--bad);border-top-width:7px}
+.sim{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}.range-row{margin:13px 0}.range-head{display:flex;justify-content:space-between;gap:10px;font-weight:850}.range-row input{width:100%;accent-color:#0b7697}.meters{display:grid;grid-template-columns:1fr 1fr;gap:10px}.readout{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fbfeff;text-align:center}.readout strong{display:block;color:#0b5f79}.readout output{display:block;font-size:clamp(1.55rem,4vw,2.3rem);font-weight:950;line-height:1.3}.readout.ng{border-color:#e4a9a3;background:#fff4f2}.readout.ng strong,.readout.ng output{color:#a93f36}.calc{margin-top:12px;padding:12px;border-radius:12px;background:#edf7fa;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:center;font-weight:800}.sim-note{margin-top:10px}.sim-toggle[aria-pressed="true"]{background:#9f3e36;color:#fff;border-color:#9f3e36}
+.causal{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:18px 0}.causal div{position:relative;padding:13px 8px;border:1px solid var(--line);border-radius:13px;background:#fbfeff;text-align:center;font-weight:800;font-size:.86rem}.causal div:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:2;color:#5d8796;font-size:1.2rem}
+.quiz{display:grid;gap:12px}.question{padding:17px;border:1px solid var(--line);border-radius:16px;background:#fbfeff}.question p{font-weight:850;margin-top:0}.answers{display:flex;gap:8px;flex-wrap:wrap}.quiz button{min-height:43px;border:1px solid #b9d5df;border-radius:12px;background:#fff;color:#16455c;padding:8px 12px;cursor:pointer}.quiz-result{min-height:1.7em;margin-top:8px;font-weight:800}.quiz-result.ok{color:#19734d}.quiz-result.no{color:#a44239}
+.source-list{margin:.5rem 0 0;padding-left:1.25rem}.source-list li{margin:.55rem 0}.source-meta{color:var(--muted);font-size:.84rem}
+.final-box{padding:21px;border-radius:18px;background:linear-gradient(135deg,#082f49,#0b6e88);color:#fff;font-size:1.08rem}.final-box strong{font-size:1.24rem}
+footer{padding:16px 0 48px;color:var(--muted);font-size:.83rem;text-align:center}
+@keyframes flowLine{to{stroke-dashoffset:-44}}
+@media(max-width:800px){.quick,.compare,.terminal-grid,.sim{grid-template-columns:1fr}.causal{grid-template-columns:1fr}.causal div:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-18px;transform:translateX(-50%)}.updated{width:100%;margin-left:0}.pause-btn{margin-left:0}.hero{padding-top:12px}.hero-card{padding:26px 20px;border-radius:23px}main section{padding:20px 17px}.flow{display:grid;overflow:visible}.flow .node{min-width:0}.flow .arrow{transform:rotate(90deg);text-align:center}.meters{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.meters{grid-template-columns:1fr}.sitebar{align-items:flex-start}.sitebar .back{text-align:right}.mode-controls button,.pause-btn{flex:1 1 calc(50% - 8px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.path-viz .ic-path,.path-viz .il-path,.path-viz .bad-path{animation:none}}
+@media print{body{background:#fff}.hero-card,main section{box-shadow:none}.toc,.mode-controls,.pause-btn,.quiz{display:none}main section{break-inside:avoid}a{color:inherit;text-decoration:none}}
+</style>
+</head>
+<body>
+<div class="wrap sitebar"><a href="index.html">🌊 うきわメモ</a><a class="back" href="why-today.html">← 今日の「なんで？」へ</a></div>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-card">
+      <div class="kicker">ぷかぷかうきわメモ｜今日のなんで？</div>
+      <h1>耐圧試験の電流は、<br>どこを通って戻る？</h1>
+      <p class="subtitle">R-1220K耐圧トランス＋DR-1220MHリアクトル＋被試験高圧ケーブルを、単体時から順番に整理。Ic・IL・A1・A2・0端子・接地端子・アレスター・誤接地・未接地遮へい層まで一本につなげる。</p>
+      <div class="hero-meta">
+        <span class="badge">Ic・IL</span><span class="badge">A1・A2</span><span class="badge">0端子</span><span class="badge">接地端子</span><span class="badge">アレスター</span>
+        <time class="updated" datetime="2026-08-22T02:19:00+09:00">最終更新：2026年8月22日 02:19 JST</time>
+      </div>
+    </div>
+    <div class="notice"><strong>安全上の前提：</strong>これは電流経路を理解するための概念教材であり、実設備の結線指示書ではありません。実際の耐圧試験は、現場責任者、社内手順書・操作票、系統状態、無電圧確認、誤投入防止、試験区画、メーカー最新版取扱説明書・指定結線図、試験後の放電・残留電荷確認を優先してください。</div>
+    <nav class="toc" aria-label="記事内メニュー"><a href="#summary">30秒まとめ</a><a href="#standalone">R単体</a><a href="#reactor">DR併用</a><a href="#paths">電流の動き</a><a href="#cable">ケーブルのC</a><a href="#meters">A1・A2</a><a href="#earth">0・接地・アレスター</a><a href="#floating">未接地</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+<section id="summary">
+  <h2><span class="num">1</span>30秒でつかむ結論</h2>
+  <p class="lead">いちばん大事なのは、機器名より先に<strong>「電流が一周して電源へ戻る輪」</strong>を見ること。</p>
+  <div class="quick">
+    <div><b>ケーブルにはIcが流れる</b>芯線と接地された金属遮へい層の間に静電容量があるため。</div>
+    <div><b>リアクトルにはILが流れる</b>Icと逆向きの無効電流を作り、トランス負担を小さくする。</div>
+    <div><b>A2は帰路に置かれる</b>正常時のIcをA2へ通すことで、被試験物側の充電電流を確認する。</div>
+  </div>
+  <div class="memory" style="margin-top:15px">接地側であることと、そこから直接大地へ追加接続することは同じではない。<br>A2を迂回する帰路を作れば、Icが分流してA2は全体を測れない。</div>
+</section>
+
+<section id="standalone">
+  <h2><span class="num">2</span>まずR-1220K単体――A2はまだ出てこない</h2>
+  <div class="mini-eq">AC100V → IP-R2000（電圧調整・制御）→ R-1220K一次側 → 昇圧 → 高圧試験電圧</div>
+  <p class="small">R-1220K取説上、トランス部は入力AC0～120V、出力AC0～12000V、巻線比1:100。10350Vは取説に示される試験電圧例であり、実際の試験電圧は対象設備・適用基準・メーカー手順による。IP-R2000は実機では計器部と電源部に分かれるが、ここでは電源・制御機能としてまとめ、端子を推定して描かない。</p>
+  <p>リアクトルを接続していない段階では、DR-1220MHのメーター部そのものがないため、<strong>A2は登場しない</strong>。ここを飛ばすと「なぜ最初からA2があるの？」となる。</p>
+  <div class="flow" aria-label="R-1220K単体の充電電流帰路">
+    <div class="node">R-1220K<br>12000V</div><div class="arrow">→</div><div class="node">ケーブル芯線</div><div class="arrow">→</div><div class="node">対地静電容量</div><div class="arrow">→</div><div class="node">金属遮へい層・大地</div><div class="arrow">→</div><div class="node">A1</div><div class="arrow">→</div><div class="node">T.E → E</div>
+  </div>
+  <div class="callout"><strong>単体時のA1：</strong>R-1220K取扱説明書では「トランス部二次側の電流計」。ケーブル試験では、ケーブルの充電電流と損失分などを含む、トランス二次側の出力電流を見ている。</div>
+  <h3>R-1220Kで記事に出す端子だけ</h3>
+  <div class="terminal-grid">
+    <div class="terminal"><b><span class="term-name">12000V</span> 高圧出力端子</b>被試験物へ高圧を出力する。</div>
+    <div class="terminal"><b><span class="term-name">E</span> 端子</b>取説上の名称は「トランス部の二次側接地極」。</div>
+    <div class="terminal"><b><span class="term-name">T.E</span> 端子</b>「ティー・イー」と読む。TEコードでトランス部E端子と接続する。英語略称の正式展開は取説で確認できない。</div>
+    <div class="terminal"><b><span class="term-name">⏚</span> アース端子</b>トランス制御部にあり、取説上は「絶縁耐力試験回路の接地極」。A1のT.E側と反対側に位置する。</div>
+  </div>
+  <p class="small">120V端子、PUN、IP-R2000側の詳細端子は、この電流帰路の説明に必要な範囲だけ扱う。製品の内部回路や端子構成を推定して追加しない。</p>
+</section>
+
+<section id="reactor">
+  <h2><span class="num">3</span>DR-1220MHを高圧側へ並列追加する</h2>
+  <p>被試験ケーブルは容量性負荷C。DR-1220MHは、そのCと<strong>並列</strong>に接続して遅れ電流ILを流す。直列に入れてケーブル電流を止める機器ではない。</p>
+  <div class="mini-eq">高圧母線 ─┬─ 被試験ケーブル C ─→ Ic（進み）
+          └─ DR-1220MH  L ─→ IL（遅れ）</div>
+  <div class="compare">
+    <div class="panel"><h3>Ic：ケーブル充電電流</h3><p>ケーブルには試験電圧がそのまま印加されるため、Icは流れ続ける。</p></div>
+    <div class="panel"><h3>IL：リアクトル電流</h3><p>Icと逆向きの無効電流を作り、トランスから見た無効電流を補償する。</p></div>
+  </div>
+  <div class="callout red"><strong>禁止する言い方：</strong>「リアクトルが充電電流を消す」。<br><strong>正しい言い方：</strong>「ILによって、トランスから見た無効電流を補償する。Icはケーブルに流れ続ける」。</div>
+  <h3>ここで初めて登場するDR側端子</h3>
+  <div class="terminal-grid">
+    <div class="terminal"><b><span class="term-name">12000V</span></b>リアクトル巻線の高圧側。ケーブルと同じ高圧母線へ並列接続される。</div>
+    <div class="terminal"><b><span class="term-name">0</span> 端子（ゼロ端子）</b>リアクトル巻線の低圧側・共通点側。接地端子そのものではない。</div>
+    <div class="terminal"><b><span class="term-name">⏚</span> 接地端子</b>A種接地へ接続する保護接地側。0端子とは別端子。</div>
+    <div class="terminal"><b><span class="term-name">A2</span> 漏れ（充電）電流計</b>DRメーター部の0端子と接地端子の間へ入る。被試験物側の電流を指示する。</div>
+  </div>
+</section>
+
+<section id="paths">
+  <h2><span class="num">4</span>順番に、電流が戻る道を見る</h2>
+  <div class="mode-controls" aria-label="回路表示モード">
+    <button type="button" class="active" data-path-mode="standalone" aria-pressed="true">1 R単体</button>
+    <button type="button" data-path-mode="parallel" aria-pressed="false">2 DR並列</button>
+    <button type="button" data-path-mode="ic" aria-pressed="false">3 Icの帰路</button>
+    <button type="button" data-path-mode="compensation" aria-pressed="false">4 Ic＋IL</button>
+    <button type="button" data-path-mode="bypass" aria-pressed="false">5 誤接地</button>
+    <button type="button" data-path-mode="floating" aria-pressed="false">6 遮へい未接地</button>
+    <button type="button" class="pause-btn" id="pathPause" aria-pressed="false">一時停止</button>
+  </div>
+  <div class="viz-status" aria-live="polite"><span class="step-badge" id="pathStep">STEP 1 / 6</span><strong id="pathMessage">R-1220K単体ではA2はまだ登場しません。IcはA1を通って戻ります。</strong></div>
+  <div class="path-viz" id="pathViz" data-mode="standalone">
+    <svg viewBox="0 0 920 560" role="img" aria-labelledby="pathTitle pathDesc">
+      <title id="pathTitle">耐圧トランス、リアクトル、高圧ケーブルの電流帰路</title>
+      <desc id="pathDesc">単体、リアクトル並列、Ic、IL、A2を迂回する誤接地、遮へい層未接地を切り替えて表示する。</desc>
+      <defs>
+        <marker id="arrowIc" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3Z" fill="#087fa4"/></marker>
+        <marker id="arrowIl" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3Z" fill="#b26a16"/></marker>
+        <marker id="arrowBad" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3Z" fill="#c84d42"/></marker>
+      </defs>
+      <g><path d="M110 100H775M775 100V165M775 315V350H685M635 350H535M110 100V175" class="structure"/><path d="M110 325V450" class="structure cable-ground"/><path d="M75 450H845" class="structure"/></g>
+      <g>
+        <rect x="725" y="150" width="100" height="170" rx="18" class="device"/><path d="M763 172c-23 15-23 30 0 45s23 30 0 45s-23 30 0 45M790 172c-23 15-23 30 0 45s23 30 0 45s-23 30 0 45" class="winding"/><circle cx="775" cy="100" r="8" class="terminal-dot"/><circle cx="775" cy="350" r="8" class="terminal-dot"/><text x="775" y="132" text-anchor="middle" class="label">12000V</text><text x="775" y="374" text-anchor="middle" class="label">E</text><text x="775" y="405" text-anchor="middle" class="title">R-1220K</text><text x="775" y="428" text-anchor="middle" class="note">耐圧トランス部</text>
+      </g>
+      <g>
+        <rect x="58" y="145" width="104" height="230" rx="20" class="device"/><path d="M110 175V215M82 225H138M82 246H138M110 256V325" class="symbol"/><path d="M72 330H148" class="shield"/><text x="110" y="400" text-anchor="middle" class="title">被試験ケーブル</text><text x="110" y="422" text-anchor="middle" class="note">芯線－遮へい層間のC</text><text x="55" y="243" text-anchor="end" class="label">C</text><text x="152" y="338" class="label">金属遮へい層</text>
+      </g>
+      <g><rect x="635" y="315" width="50" height="70" rx="12" class="meter-box"/><circle cx="660" cy="350" r="17" class="meter"/><path d="M660 350L648 340" class="needle"/><text x="660" y="304" text-anchor="middle" class="title">A1</text><text x="660" y="407" text-anchor="middle" class="note">トランス出力</text></g>
+      <g class="dr conditional"><rect x="315" y="145" width="135" height="205" rx="20" class="device"/><path d="M383 100V165c-34 14-34 31 0 45s34 31 0 45s-34 31 0 45v50" class="winding"/><circle cx="383" cy="100" r="8" class="terminal-dot"/><circle cx="383" cy="350" r="8" class="terminal-dot"/><path d="M383 350H535" class="structure"/><text x="383" y="132" text-anchor="middle" class="label">12000V</text><text x="383" y="374" text-anchor="middle" class="label">0端子</text><text x="383" y="405" text-anchor="middle" class="title">DR-1220MH</text><text x="383" y="428" text-anchor="middle" class="note">リアクトル部</text></g>
+      <g class="a2 conditional"><path d="M535 350V382" class="structure"/><rect x="505" y="382" width="60" height="55" rx="12" class="meter-box"/><circle cx="535" cy="409" r="17" class="meter"/><path d="M535 409L523 399" class="needle"/><path d="M535 437V450" class="structure"/><text x="580" y="405" class="title">A2</text><text x="580" y="426" class="note">Icの帰路</text><circle cx="535" cy="350" r="7" class="terminal-dot"/><text x="550" y="344" class="label">共通点</text></g>
+      <g><path d="M110 450V470M88 470H132M94 479H126M101 488H119" class="symbol"/><text x="145" y="482" class="title">大地</text></g>
+      <g class="floating-only"><path d="M110 325V345M82 357H138M82 379H138M110 391V450" class="stray"/><path d="M158 332H250" class="structure"/><text x="260" y="326" class="title">遮へい層が浮く</text><text x="260" y="350" class="note">対地電位は0Vに固定されない</text><text x="55" y="375" text-anchor="end" class="label">浮遊C</text></g>
+      <g class="arrester-note conditional"><rect x="210" y="465" width="390" height="62" rx="14" class="soft"/><text x="405" y="490" text-anchor="middle" class="note">0端子と接地端子は別。</text><text x="405" y="514" text-anchor="middle" class="note">取説回路では、その間にA2経路と保護用アレスターがある。</text></g>
+      <g class="bypass-only"><path d="M535 350H610V450" class="bad-path" marker-end="url(#arrowBad)"/><text x="625" y="392" class="title">誤接地</text><text x="625" y="415" class="note">A2のバイパス</text><rect x="625" y="460" width="230" height="68" rx="14" class="soft"/><text x="740" y="487" text-anchor="middle" class="title">帰路が2本になる</text><text x="740" y="512" text-anchor="middle" class="note">A2はIc全体を測れない</text></g>
+      <g class="current standalone-current"><path d="M775 100H110V225M110 246V450H660V350H775" class="ic-path" marker-end="url(#arrowIc)"/><text x="205" y="88" class="current-label">Ic</text><text x="365" y="443" class="current-label">大地 → A1 → T.E → E</text></g>
+      <g class="current ic-current"><path d="M775 100H110V225M110 246V450H535V350H660V350H775" class="ic-path" marker-end="url(#arrowIc)"/><text x="205" y="88" class="current-label">Ic（実線）</text><text x="300" y="443" class="current-label">大地 → A2 → 共通点 → A1</text></g>
+      <g class="current il-current"><path d="M775 100H383V165M383 300V350H660V350H775" class="il-path" marker-end="url(#arrowIl)"/><text x="500" y="88" class="current-label">IL（破線）</text></g>
+    </svg>
+  </div>
+  <div class="legend"><span><i class="sw ic"></i>Ic：実線</span><span><i class="sw il"></i>IL：破線</span><span><i class="sw bad"></i>誤接地：太線</span></div>
+  <p class="small">この図は公開取扱説明書の外部結線と一般的な交流回路理論を整理した概念図。メーカー製品の非公開内部回路を推定したものではない。</p>
+</section>
+
+<section id="cable">
+  <h2><span class="num">5</span>なぜ、ケーブルから大地へIcが流れる？</h2>
+  <p class="lead">高圧ケーブルの主なコンデンサは、<strong>芯線と、接地された金属遮へい層</strong>の間にできる。</p>
+  <div class="diagram">
+    <svg viewBox="0 0 900 300" role="img" aria-label="高圧ケーブル断面と電荷の移動イメージ">
+      <defs><marker id="chargeArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3Z" fill="#087fa4"/></marker></defs>
+      <circle cx="245" cy="150" r="118" fill="#eaf7fa" stroke="#4b92a8" stroke-width="3"/><circle cx="245" cy="150" r="82" fill="#dff1f5" stroke="#82adba" stroke-width="2"/><circle cx="245" cy="150" r="31" fill="#bd7134" stroke="#7c3f16" stroke-width="3"/>
+      <text x="245" y="156" text-anchor="middle" font-size="18" font-weight="900" fill="#fff">芯線</text><text x="245" y="56" text-anchor="middle" font-size="17" font-weight="900" fill="#173448">金属遮へい層</text><text x="245" y="112" text-anchor="middle" font-size="16" fill="#173448">絶縁体</text>
+      <path d="M363 150H525" stroke="#173448" stroke-width="4"/><path d="M525 150V190M500 190H550M508 200H542M516 210H534" fill="none" stroke="#173448" stroke-width="3"/><text x="545" y="143" font-size="17" font-weight="900" fill="#173448">接地</text>
+      <path d="M135 115C70 78 70 222 135 185" fill="none" stroke="#087fa4" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#chargeArrow)"/><text x="45" y="155" font-size="17" font-weight="900" fill="#087fa4">電荷が交互に動く</text>
+      <rect x="610" y="54" width="230" height="188" rx="20" fill="#fff" stroke="#c1dce5" stroke-width="2"/><text x="725" y="90" text-anchor="middle" font-size="19" font-weight="900" fill="#173448">正常なIc</text><text x="635" y="125" font-size="16" fill="#173448">・電子が絶縁体を横切る：</text><text x="816" y="125" text-anchor="end" font-size="16" font-weight="900" fill="#b1463c">×</text><text x="635" y="158" font-size="16" fill="#173448">・電子が空気中を飛ぶ：</text><text x="816" y="158" text-anchor="end" font-size="16" font-weight="900" fill="#b1463c">×</text><text x="635" y="191" font-size="16" fill="#173448">・変化する電界と電荷移動：</text><text x="816" y="191" text-anchor="end" font-size="16" font-weight="900" fill="#19734d">○</text><text x="725" y="222" text-anchor="middle" font-size="15" fill="#617b8a">＝変位電流として扱う</text>
+    </svg>
+  </div>
+  <p>交流電圧が変化すると、絶縁体中の電界が変化し、芯線側と金属遮へい層側の表面電荷が交互に増減する。金属部分では電子が動くが、正常状態で電子が固体絶縁体や空気を突き抜けるわけではない。回路上は、この現象を<strong>変位電流</strong>としてコンデンサ電流Icで表す。</p>
+  <div class="mini-eq">i = C × dv/dt
+正弦波の実効値：Ic = 2πfCV
+C：静電容量[F]　f：周波数[Hz]　V：印加電圧[V]</div>
+  <div class="callout warn"><strong>別の現象：</strong>端末表面の汚損・湿潤による漏れ電流、誘電損、コロナ、部分放電、フラッシオーバは、理想的な充電電流とは分けて考える。空気が絶縁破壊した場合だけ、空気中を導電電流が流れる。</div>
+</section>
+
+<section id="meters">
+  <h2><span class="num">6</span>A1とA2を、数値で分ける</h2>
+  <div class="sim">
+    <div>
+      <div class="range-row"><div class="range-head"><label for="icRange">Ic ケーブル充電電流</label><output id="icValue">160 mA</output></div><input id="icRange" type="range" min="0" max="400" value="160" step="5"></div>
+      <div class="range-row"><div class="range-head"><label for="ilRange">IL リアクトル電流</label><output id="ilValue">140 mA</output></div><input id="ilRange" type="range" min="0" max="200" value="140" step="5"></div>
+      <button type="button" class="sim-toggle" id="bypassToggle" aria-pressed="false">誤接地の説明例を表示</button>
+      <p class="small sim-note" id="splitNote">正常時：Icの帰路をA2へ通す概念モデル。</p>
+    </div>
+    <div>
+      <div class="meters"><div class="readout" id="a2Readout"><strong>A2 被試験物側</strong><output id="a2Value">約160 mA</output><span id="a2Status">Icを確認</span></div><div class="readout"><strong>A1 トランス側</strong><output id="a1Value">約20 mA</output><span>補償後の負担</span></div></div>
+      <div class="calc" id="calcText">Ic 160 − IL 140 ＝ トランス負担 約20 mA</div>
+    </div>
+  </div>
+  <div class="callout"><strong>概念モデル：</strong>正常時は A2 ≈ Ic、A1 ≈ |Ic − IL|。実機では位相差、損失、励磁電流、機器特性などを含むため、単純な算術差と完全には一致しない。</div>
+  <p class="small">スライダー値は差し引きの見方を学ぶ説明用。DR-1220MH取説値では10350V時の電流が50Hzで165mA、60Hzで138mA、R-1220Kの定格二次電流は167mA。実際は周波数、試験電圧、ケーブル容量、リアクトル台数、各機器定格に合わせる。</p>
+  <div class="causal" aria-label="誤接地によってA2が測定できなくなる因果関係"><div>正常時は<br>帰路1本</div><div>共通点から<br>接地線を追加</div><div>帰路が<br>2本になる</div><div>Icが<br>分流する</div><div>A2通過分が<br>減る</div><div>A2では<br>全Icを測れない</div></div>
+  <div class="callout red"><strong>誤接地時の正確な表現：</strong>A2が必ず0Aになる、試験電圧が必ず出ない、ではない。A2以外の帰路ができるため、A2に全充電電流が流れず、その表示値をIc全体として信用できない。</div>
+</section>
+
+<section id="earth">
+  <h2><span class="num">7</span>0端子・接地端子・アレスターを整理</h2>
+  <div class="compare">
+    <div class="panel"><h3>0端子（ゼロ端子）</h3><p>DRリアクトル巻線の低圧側。リアクトル電流ILが出てくる<strong>回路端子</strong>で、A1側アース端子と結ぶ共通点側になる。</p></div>
+    <div class="panel"><h3>接地端子 ⏚</h3><p>大地へ確実に接続する<strong>保護接地側</strong>。DR取説ではA種接地へ接続するよう指定されている。</p></div>
+  </div>
+  <div class="mini-eq">DRの0端子 ─┬─ A2電流計経路 ─┬─ DRの接地端子 → A種接地
+             └─ 保護用アレスター ─┘</div>
+  <p>DR-1220MH取扱説明書では、0端子－接地端子間に、絶縁破壊時などの異常電圧からメーター部を守るアレスターがある。通常時はA2経路で測定し、異常時の電位差をアレスターが制限する考え方。</p>
+  <div class="callout warn"><strong>重要な訂正：</strong>0端子と接地端子を短絡すること自体が、常に禁止されているわけではない。取説は0－接地間へ「メーター部、外部電流計、または短絡線等」のいずれかを接続し、開放状態にしないよう求めている。<br>ただし短絡線がA2と並列になれば、電流は短絡線側を通り、<strong>A2によるIc測定は成立しない</strong>。</div>
+  <h3>複数リアクトルの接地は、回路上同じでも配線上同じとは限らない</h3>
+  <p>取説図では高圧端子と0端子は渡り接続される一方、各リアクトルの接地端子はそれぞれ接地記号へ枝分かれして描かれている。手書き写真のように接地端子を端子間で順送りに渡り、最後の1本だけを大地へ落とす方式は、理想回路では同電位に見えても、実配線では同一とはいえない。</p>
+  <ul>
+    <li>途中の端子や渡り線が緩むと、その先の複数台がまとめて未接地になる。</li>
+    <li>故障電流・アレスター放電電流が共通の渡り線を通る。</li>
+    <li>メーカー図が個別枝線を意図している可能性があり、写真だけでは許容結線と断定できない。</li>
+  </ul>
+  <div class="callout good"><strong>教材での描き方：</strong>共通の接地母線を一本描き、各機器の接地端子から個別に枝線を下ろす。0端子の共通線とは明確に分ける。</div>
+</section>
+
+<section id="floating">
+  <h2><span class="num">8</span>端末未処理で、金属遮へい層も未接地なら？</h2>
+  <p class="lead">ケーブルは「芯線－大地間の一つのコンデンサ」ではなく、<strong>浮いた遮へい層を挟む二つの静電容量</strong>になる。</p>
+  <div class="mini-eq">高圧芯線 ─ C1（芯線－遮へい層）─ 浮いた金属遮へい層
+                                         │
+                                         C2（外被・空気・床等による浮遊容量）
+                                         │
+                                        大地</div>
+  <p>C1とC2が直列になったように振る舞い、遮へい層の対地電位は0Vに固定されない。簡略化すると、遮へい層電位は次の容量分圧で決まる。</p>
+  <div class="mini-eq">Vshield ≈ V × C1 / (C1 + C2)</div>
+  <ul class="step-list">
+    <li><strong>浮遊容量による電流は流れ得る。</strong>完全に電流ゼロになるとは限らない。</li>
+    <li><strong>空気中を通常の電子が飛んでいるわけではない。</strong>外被・空気を誘電体とする変位電流として扱う。</li>
+    <li><strong>遮へい層が危険電位へ浮く可能性がある。</strong>触れてよい0V部分ではない。</li>
+    <li><strong>芯線－遮へい層間へ10350Vが正しく印加された保証がない。</strong>意図した耐圧試験として評価できない。</li>
+    <li><strong>未処理端では電界が集中し得る。</strong>ケーブル本体が健全でも、端部でコロナ・表面放電・フラッシオーバが起こる可能性がある。</li>
+  </ul>
+  <div class="callout red"><strong>現場判断：</strong>端末未処理・遮へい層未接地のまま印加するための手順として使わない。ケーブル形式、端末構造、遮へい層、非試験心の処理、メーカー指定試験方法を確認してから試験計画を決める。</div>
+</section>
+
+<section id="quiz">
+  <h2><span class="num">9</span>3問だけ確認</h2>
+  <div class="quiz">
+    <div class="question" data-answer="b" data-explain="A2は被試験物側の漏れ（充電）電流を確認する。"><p>1. A2は何を確認する電流計？</p><div class="answers"><button type="button" data-choice="a">A：トランス一次電流</button><button type="button" data-choice="b">B：被試験物の充電電流</button><button type="button" data-choice="c">C：リアクトル単独電流</button></div><div class="quiz-result" aria-live="polite"></div></div>
+    <div class="question" data-answer="b" data-explain="Icはケーブルに流れ続け、ILがトランスから見た無効電流を補償する。"><p>2. リアクトルを接続すると、ケーブルのIcはゼロになる？</p><div class="answers"><button type="button" data-choice="a">A：なる</button><button type="button" data-choice="b">B：ならない</button></div><div class="quiz-result" aria-live="polite"></div></div>
+    <div class="question" data-answer="b" data-explain="A2以外の帰路ができ、Icが分流するため。A2が必ず0になるという意味ではない。"><p>3. 共通点から直接大地へ追加配線すると、なぜA2が正しく測れない？</p><div class="answers"><button type="button" data-choice="a">A：高圧が完全になくなるから</button><button type="button" data-choice="b">B：A2以外の帰路へIcが分流するから</button><button type="button" data-choice="c">C：リアクトルが必ず短絡するから</button></div><div class="quiz-result" aria-live="polite"></div></div>
+  </div>
+</section>
+
+<section id="sources">
+  <h2><span class="num">10</span>根拠・確認できたこと・未確認事項</h2>
+  <h3>メーカー一次資料</h3>
+  <ul class="source-list">
+    <li><a href="https://www.musashi-in.co.jp/manual/r-1220k_01.pdf" target="_blank" rel="noopener">ムサシインテック「R-1220K 耐圧トランス 取扱説明書」</a><br><span class="source-meta">文書番号 4110-030ST001、第1版。E端子、T.E端子、A1、DR併用結線、A1/A2の指示内容、Ic計算式を確認。2026年8月22日閲覧。</span></li>
+    <li><a href="https://www.musashi-in.co.jp/manual/DR-1220MH_J06.pdf" target="_blank" rel="noopener">ムサシインテック「DR-1220MH 耐圧リアクトル 取扱説明書」</a><br><span class="source-meta">文書番号 4136-040ST006、第6版。12000V・0・接地端子、A2、アレスター、0－接地間を開放しない条件、複数台結線を確認。2026年8月22日閲覧。</span></li>
+  </ul>
+  <h3>確認できていないため断定しないこと</h3>
+  <ul>
+    <li>T.Eという略号の正式な英語展開。</li>
+    <li>公開取説に示されていないメーカー製品内部回路。</li>
+    <li>誤接地時にA2側と直接接地側へ分かれる実際の電流比率。</li>
+    <li>手書き写真の接地端子渡り配線が、対象機器・対象条件でメーカー承認されているか。</li>
+    <li>未接地遮へい層の具体的な対地電位。ケーブル構造、長さ、設置状態、周辺物によって変わる。</li>
+  </ul>
+  <p class="small">取扱説明書の発行年月日は、今回確認したPDF本文から特定できなかった。版数・文書番号と、記事側の閲覧日を記録した。</p>
+</section>
+
+<section>
+  <div class="final-box"><strong>最後に、これだけ。</strong><br>「⏚があるから、そこから直接大地へ追加接続する」と記号だけで決めない。<br>リアクトル使用時は、接地側の場所だけでなく、<strong>Icが大地からどの電流計を通って電源へ戻るか</strong>まで一周で見る。</div>
+</section>
+</main>
+
+<footer class="wrap">ぷかぷかうきわメモ｜今日の「なんで？」　概念教材・実設備の結線指示書ではありません。</footer>
+
+<script>
+(function(){
+  var pathViz=document.getElementById("pathViz");
+  var pathButtons=Array.prototype.slice.call(document.querySelectorAll("[data-path-mode]"));
+  var pathStep=document.getElementById("pathStep");
+  var pathMessage=document.getElementById("pathMessage");
+  var order=["standalone","parallel","ic","compensation","bypass","floating"];
+  var messages={
+    standalone:"R-1220K単体ではA2はまだ登場しません。IcはA1を通って戻ります。",
+    parallel:"DR-1220MHを高圧側へ並列追加すると、0端子・A2・共通点が登場します。",
+    ic:"正常結線のIcは、大地からA2を通り、共通点・A1・T.E・Eへ戻ります。",
+    compensation:"Icは流れ続けます。ILが逆向きの無効電流を作り、A1の負担を小さくします。",
+    bypass:"共通点を直接大地へ追加接続すると帰路が2本になり、A2は全Icを測れません。",
+    floating:"遮へい層が未接地だと電位が浮き、浮遊容量を介した別の回路になります。"
+  };
+  function setPathMode(mode){
+    pathViz.setAttribute("data-mode",mode);
+    pathButtons.forEach(function(button){
+      var active=button.getAttribute("data-path-mode")===mode;
+      button.classList.toggle("active",active);
+      button.setAttribute("aria-pressed",active?"true":"false");
+    });
+    pathStep.textContent="STEP "+(order.indexOf(mode)+1)+" / "+order.length;
+    pathMessage.textContent=messages[mode];
+  }
+  pathButtons.forEach(function(button){button.addEventListener("click",function(){setPathMode(button.getAttribute("data-path-mode"));});});
+  document.getElementById("pathPause").addEventListener("click",function(){
+    var paused=pathViz.classList.toggle("paused");
+    this.setAttribute("aria-pressed",paused?"true":"false");
+    this.textContent=paused?"再開":"一時停止";
+  });
+  setPathMode("standalone");
+
+  var icRange=document.getElementById("icRange");
+  var ilRange=document.getElementById("ilRange");
+  var bypassToggle=document.getElementById("bypassToggle");
+  var bypass=false;
+  function updateMeters(){
+    var ic=Number(icRange.value);
+    var il=Number(ilRange.value);
+    var a1=Math.abs(ic-il);
+    var a2=bypass?Math.round(ic*0.1):ic;
+    document.getElementById("icValue").textContent=ic+" mA";
+    document.getElementById("ilValue").textContent=il+" mA";
+    document.getElementById("a1Value").textContent="約"+a1+" mA";
+    document.getElementById("a2Value").textContent="約"+a2+" mA";
+    document.getElementById("calcText").textContent="Ic "+ic+" − IL "+il+" ＝ トランス負担 約"+a1+" mA";
+    var readout=document.getElementById("a2Readout");
+    var status=document.getElementById("a2Status");
+    var note=document.getElementById("splitNote");
+    readout.classList.toggle("ng",bypass);
+    status.textContent=bypass?"NG：Ic全体ではない":"Icを確認";
+    note.textContent=bypass?"説明用仮想値：Icの10%がA2側、90%が直接接地側。実際の比率は両経路のインピーダンスで決まり、固定ではない。":"正常時：Icの帰路をA2へ通す概念モデル。";
+  }
+  icRange.addEventListener("input",updateMeters);
+  ilRange.addEventListener("input",updateMeters);
+  bypassToggle.addEventListener("click",function(){
+    bypass=!bypass;
+    this.setAttribute("aria-pressed",bypass?"true":"false");
+    this.textContent=bypass?"正常結線へ戻す":"誤接地の説明例を表示";
+    updateMeters();
+  });
+  updateMeters();
+
+  document.querySelectorAll(".question").forEach(function(question){
+    question.querySelectorAll("button[data-choice]").forEach(function(button){
+      button.addEventListener("click",function(){
+        var correct=button.getAttribute("data-choice")===question.getAttribute("data-answer");
+        var result=question.querySelector(".quiz-result");
+        result.className="quiz-result "+(correct?"ok":"no");
+        result.textContent=(correct?"正解。":"もう一度。")+question.getAttribute("data-explain");
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
