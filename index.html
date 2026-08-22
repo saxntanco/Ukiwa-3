@@ -90,7 +90,108 @@ html[data-theme="dark"] .construction{border-color:#6a5a2b;background:#2a2614;co
 <footer class="footer">© 2026 うきわメモ <a href="protective-relay.html">保護継電器・絶縁監視</a><a href="test-measurement.html">試験方法・測定器具</a><a href="ac-withstand-test-simulator.html">充電電流</a><a href="generator-rescue-island.html">発電機 試験・シーケンス</a><a href="sequence-basics.html">シーケンス</a><a href="measurement-principles.html">測定原理</a><a href="zukan.html">図鑑</a><a href="about.html">うきわメモについて</a></footer>
 <nav class="mobileNav"><a href="index.html"><span>⌂</span>ホーム</a><a href="#search"><span>⌕</span>検索</a><a href="zukan.html"><span>📖</span>図鑑</a><a href="#field-notes"><span>📝</span>メモ</a><a href="#updates"><span>☰</span>更新</a></nav>
 
-<script src="updates-data.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  // 「今日のなんで？」以外で、トップに残しておきたい更新。
+  // ここは追加順を気にしなくてOK。表示時に日付の新しい順へ自動ソートします。
+  const BASE_UPDATES = [
+    { date: '2026-08-09', title: '保護継電器 メーカー・型式DB', href: 'protective-relay.html' },
+    { date: '2026-08-09', title: '試験方法・測定器具DB', href: 'test-measurement.html' },
+    { date: '2026-08-09', title: '非常用発電機 自動起動・自動停止教材', href: 'generator-rescue-island.html' },
+    { date: '2026-08-09', title: 'OVGR・RPR 8ステップ試験教材', href: 'ovgr-rpr-8steps.html' }
+  ];
+
+  function normalizeDate(text){
+    const m = String(text || '').match(/(20\d{2})年\s*(\d{1,2})月\s*(\d{1,2})日(?:\s*(\d{1,2}):(\d{2}))?/);
+    if(!m) return null;
+    const y = Number(m[1]), mo = Number(m[2]), d = Number(m[3]);
+    const hh = Number(m[4] || 0), mm = Number(m[5] || 0);
+    const pad = n => String(n).padStart(2,'0');
+    return {
+      date: `${y}-${pad(mo)}-${pad(d)}`,
+      sortKey: new Date(y, mo - 1, d, hh, mm, 0).getTime()
+    };
+  }
+
+  function displayDate(iso){
+    return String(iso || '').replace(/-/g,'/');
+  }
+
+  function cleanTitle(node){
+    return String(node?.textContent || '').replace(/\s+/g,' ').trim();
+  }
+
+  async function readWhyToday(){
+    try{
+      // キャッシュを避けて、why-today.html の最新カードを読む。
+      const res = await fetch(`why-today.html?v=${Date.now()}`, { cache: 'no-store' });
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      const doc = new DOMParser().parseFromString(text, 'text/html');
+
+      return [...doc.querySelectorAll('a.article')].map((a, i) => {
+        const parsed = normalizeDate(a.querySelector('.date')?.textContent);
+        if(!parsed) return null;
+        return {
+          date: parsed.date,
+          sortKey: parsed.sortKey,
+          title: cleanTitle(a.querySelector('h2')),
+          href: a.getAttribute('href') || 'why-today.html',
+          order: i
+        };
+      }).filter(Boolean);
+    }catch(err){
+      console.warn('今日の「なんで？」更新情報を取得できませんでした。', err);
+      return [];
+    }
+  }
+
+  function render(items){
+    const box = document.getElementById('updatesList');
+    if(!box) return;
+
+    box.replaceChildren();
+    items.slice(0, 5).forEach(item => {
+      const a = document.createElement('a');
+      a.href = item.href;
+
+      const time = document.createElement('time');
+      time.dateTime = item.date;
+      time.textContent = displayDate(item.date);
+
+      const b = document.createElement('b');
+      b.textContent = item.title;
+
+      a.append(time, b);
+      box.appendChild(a);
+    });
+  }
+
+  async function init(){
+    const why = await readWhyToday();
+    const base = BASE_UPDATES.map((item, i) => ({
+      ...item,
+      sortKey: new Date(`${item.date}T00:00:00`).getTime(),
+      order: 100 + i
+    }));
+
+    const merged = [...why, ...base]
+      .filter((item, idx, arr) => arr.findIndex(x => x.href === item.href) === idx)
+      .sort((a, b) => (b.sortKey - a.sortKey) || (a.order - b.order));
+
+    render(merged);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  }else{
+    init();
+  }
+})();
+
+</script>
 
 <script>
 (function(){
