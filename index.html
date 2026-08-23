@@ -76,10 +76,11 @@ html[data-theme="dark"] .construction{border-color:#6a5a2b;background:#2a2614;co
 <main class="main"><section class="contentSection"><div class="side"><section class="panel" id="updates"><h2>📣 更新・おすすめ</h2>
 <div class="updates" id="updatesList">
   <!-- JSが読めない場合のフォールバック -->
+  <a href="pukapuka-diary.html#pas-withstand-20260822"><time>2026/08/24</time><b>PAS交換工事と耐圧試験。「どこまで耐圧するか」を結線から考える。</b></a>
+  <a href="pukapuka-diary.html#seven-eleven-completion-20260821"><time>2026/08/24</time><b>初めてPASの上まで昇った。セブンイレブン竣工検査の日。</b></a>
   <a href="protective-relay.html"><time>2026/08/09</time><b>保護継電器 メーカー・型式DB</b></a>
   <a href="test-measurement.html"><time>2026/08/09</time><b>試験方法・測定器具DB</b></a>
   <a href="generator-rescue-island.html"><time>2026/08/09</time><b>非常用発電機 自動起動・自動停止教材</b></a>
-  <a href="ovgr-rpr-8steps.html"><time>2026/08/09</time><b>OVGR・RPR 8ステップ試験教材</b></a>
 </div>
 </section><section class="panel"><h2>⭐ よく使うコンテンツ</h2><div class="shortcuts"><a href="protective-relay.html">⌕ 型式検索</a><a href="relay-test-flow.html">⚡ 試験方法一覧</a><a href="test-measurement.html">🔧 試験器具一覧</a><a href="ac-withstand-test-simulator.html">⚡ 充電電流計算</a><a href="measurement-principles.html">🧭 測定原理</a><a href="sequence-basics.html">🔁 シーケンス</a><a href="generator-rescue-island.html">⏱ タイムチャート</a></div></section><a class="zukan" href="zukan.html"><div><b>📖 図鑑</b><small>うきわちゃんカード・キャラクター・用語・機器</small></div><strong>→</strong></a><a class="aboutLink" href="about.html"><div><b>🌊 うきわメモについて</b><small>なぜ、このサイトを作ったのか</small></div><strong>→</strong></a></div></section><section class="fieldNotes" id="field-notes"><div class="fieldNotesHead"><div><h2>📝 ぷかぷかフィールドノート</h2><p>現場の準備、失敗から学んだこと、ふと浮かんだ疑問、そして日々の記録。</p></div></div><div class="fieldGrid">
 <a class="fieldItem" href="pukapuka-diary.html"><span class="fieldIcon">🌊</span><b>ぷかぷか日誌</b><small>仕事・勉強・サイトづくりなど、日々の記録。</small><span class="construction">🚧 工事中</span></a>
@@ -94,8 +95,8 @@ html[data-theme="dark"] .construction{border-color:#6a5a2b;background:#2a2614;co
 (function(){
   'use strict';
 
-  // 「今日のなんで？」以外で、トップに残しておきたい更新。
-  // ここは追加順を気にしなくてOK。表示時に日付の新しい順へ自動ソートします。
+  // 固定でトップに残しておきたい更新。
+  // 「今日のなんで？」と「ぷかぷか日誌」は各ページから自動取得します。
   const BASE_UPDATES = [
     { date: '2026-08-09', title: '保護継電器 メーカー・型式DB', href: 'protective-relay.html' },
     { date: '2026-08-09', title: '試験方法・測定器具DB', href: 'test-measurement.html' },
@@ -139,11 +140,50 @@ html[data-theme="dark"] .construction{border-color:#6a5a2b;background:#2a2614;co
           sortKey: parsed.sortKey,
           title: cleanTitle(a.querySelector('h2')),
           href: a.getAttribute('href') || 'why-today.html',
-          order: i
+          order: 100 + i
         };
       }).filter(Boolean);
     }catch(err){
       console.warn('今日の「なんで？」更新情報を取得できませんでした。', err);
+      return [];
+    }
+  }
+
+  function normalizeDataUpdateDate(text){
+    const m = String(text || '').trim().match(/^(20\d{2})[\/-](\d{1,2})[\/-](\d{1,2})$/);
+    if(!m) return null;
+    const y = Number(m[1]), mo = Number(m[2]), d = Number(m[3]);
+    const pad = n => String(n).padStart(2,'0');
+    return {
+      date: `${y}-${pad(mo)}-${pad(d)}`,
+      sortKey: new Date(y, mo - 1, d, 0, 0, 0).getTime()
+    };
+  }
+
+  async function readPukapukaDiary(){
+    try{
+      // ぷかぷか日誌の data-update-date を読み、トップの更新欄へ自動反映する。
+      const res = await fetch(`pukapuka-diary.html?v=${Date.now()}`, { cache: 'no-store' });
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      const doc = new DOMParser().parseFromString(text, 'text/html');
+
+      return [...doc.querySelectorAll('article.entry[data-update-date]')].map((article, i) => {
+        const parsed = normalizeDataUpdateDate(article.getAttribute('data-update-date'));
+        const title = cleanTitle(article.querySelector('h2'));
+        if(!parsed || !title) return null;
+
+        const id = article.id ? `#${encodeURIComponent(article.id)}` : '';
+        return {
+          date: parsed.date,
+          sortKey: parsed.sortKey,
+          title,
+          href: `pukapuka-diary.html${id}`,
+          order: i
+        };
+      }).filter(Boolean);
+    }catch(err){
+      console.warn('ぷかぷか日誌の更新情報を取得できませんでした。', err);
       return [];
     }
   }
@@ -170,14 +210,19 @@ html[data-theme="dark"] .construction{border-color:#6a5a2b;background:#2a2614;co
   }
 
   async function init(){
-    const why = await readWhyToday();
+    // 「今日のなんで？」と「ぷかぷか日誌」を同時に読み込む。
+    const [why, diary] = await Promise.all([
+      readWhyToday(),
+      readPukapukaDiary()
+    ]);
+
     const base = BASE_UPDATES.map((item, i) => ({
       ...item,
       sortKey: new Date(`${item.date}T00:00:00`).getTime(),
-      order: 100 + i
+      order: 1000 + i
     }));
 
-    const merged = [...why, ...base]
+    const merged = [...diary, ...why, ...base]
       .filter((item, idx, arr) => arr.findIndex(x => x.href === item.href) === idx)
       .sort((a, b) => (b.sortKey - a.sortKey) || (a.order - b.order));
 
