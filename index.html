@@ -68,12 +68,52 @@ html[data-theme="dark"] .characterFrame{background:linear-gradient(180deg,rgba(4
 .fieldNotes{margin-top:22px;padding:20px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,var(--panel),var(--soft-bg))}.fieldNotesHead{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:14px}.fieldNotesHead h2{margin:0;font-size:22px}.fieldNotesHead p{margin:4px 0 0;color:var(--muted);font-size:11px}.fieldGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.fieldItem{display:block;padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--soft-bg-2);min-height:110px}.fieldItem:hover{border-color:var(--blue);transform:translateY(-1px)}.fieldItem .fieldIcon{font-size:24px;display:block;margin-bottom:8px}.fieldItem b{display:block;font-size:14px}.fieldItem small{display:block;color:var(--muted);margin-top:5px;line-height:1.6}.construction{display:inline-block;margin-top:9px;padding:3px 7px;border-radius:999px;border:1px solid #d1ae55;background:#fff6d7;color:#805b00;font-size:9px;font-weight:1000}@media(max-width:760px){.fieldNotes{margin-top:14px;padding:15px}.fieldNotesHead{display:block}.fieldGrid{grid-template-columns:1fr 1fr}.fieldItem{min-height:116px;padding:13px}}
 html[data-theme="dark"] .construction{border-color:#6a5a2b;background:#2a2614;color:#f3d77b}
 @media(prefers-reduced-motion:reduce){html[data-theme="dark"] .stars{animation:none}*{scroll-behavior:auto!important;transition:none!important}}
+
+/* 2026-08-24: トップのうきわちゃんを「浮き輪そのもの」のマスコットへ変更 */
+.characterFrame{
+  width:min(360px,100%);
+  height:390px;
+  overflow:visible;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.characterFrame img{
+  position:static;
+  width:350px;
+  max-width:100%;
+  max-height:100%;
+  height:auto;
+  object-fit:contain;
+  transform:none;
+  filter:drop-shadow(0 18px 28px rgba(31,98,145,.22));
+}
+.characterFrame:after{display:none}
+html[data-theme="dark"] .characterFrame{background:transparent;border:0;box-shadow:none}
+html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(0,0,0,.34))}
+@media(max-width:1020px){
+  .characterFrame{width:270px;height:305px}
+  .characterFrame img{width:265px;max-height:300px}
+}
+@media(max-width:680px){
+  .characterFrame{width:172px;height:172px;margin-right:-8px}
+  .characterFrame img{width:168px;max-height:168px}
+}
+@media(max-width:420px){
+  .characterFrame{width:148px;height:148px;margin-right:-6px}
+  .characterFrame img{width:144px;max-height:144px}
+}
+
 </style>
 </head>
 <body>
 <header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><button class="themeToggle" id="themeToggle" type="button" aria-label="ダークモードに切り替える" aria-pressed="false"><span class="themeIcon">🌙</span><span class="themeText">ダーク</span></button></div></div></header>
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
-<div class="characterWrap" aria-label="うきわちゃん"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-hero-crop.png" alt="うきわちゃん"></div></div>
+<div class="characterWrap" aria-label="うきわメモの浮き輪マスコット"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-ring-hero.png" alt="うきわメモの浮き輪マスコット"></div></div>
 <div class="core"><span class="kicker">OCEAN FIELD NOTE</span><h1 class="title">うきわ<b>メモ</b></h1><p class="lead">電気保安の「わからない」を、ここから探す。</p><span class="work">WORK MODE｜すぐ調べる</span><div class="search"><input id="siteSearch" type="search" autocomplete="off" placeholder="型式・メーカー・試験・機器を検索…" aria-label="サイト内検索"><button id="searchBtn" type="button" aria-label="検索">⌕</button></div><div class="quick"><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="DI-05N">DI-05N</button><button data-q="OCR">OCR</button><button data-q="OVGR">OVGR</button><button data-q="RPR">RPR</button><button data-q="耐圧試験">耐圧試験</button><button data-q="IR4052">IR4052</button></div></div>
 <section class="cards" id="categories" aria-label="6つの入口">
 <a class="card" href="protective-relay.html"><div class="row"><span class="n">01</span><span class="ico">⚡</span></div><h2>保護継電器・絶縁監視</h2><p>保護継電器・ELR・絶縁監視をメーカー・型式から探す。</p><div class="examples">OCR / DGR / OVGR / RPR / ELR・絶縁監視</div><span class="go">一覧を見る <b>→</b></span></a>
