@@ -328,4 +328,5 @@ function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.toLowerCase()
 }
 document.getElementById('searchBtn').addEventListener('click',()=>jump(input.value));input.addEventListener('keydown',e=>{if(e.key==='Enter')jump(input.value)});document.querySelectorAll('.quick button').forEach(b=>b.addEventListener('click',()=>jump(b.dataset.q)));
 </script>
+<script src="ukiwa-lab-entry.js"></script>
 </body></html>
