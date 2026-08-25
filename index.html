@@ -114,10 +114,10 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
 <header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><button class="themeToggle" id="themeToggle" type="button" aria-label="ダークモードに切り替える" aria-pressed="false"><span class="themeIcon">🌙</span><span class="themeText">ダーク</span></button></div></div></header>
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
 <div class="characterWrap" aria-label="うきわメモの浮き輪マスコット"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-ring-hero.png" alt="うきわメモの浮き輪マスコット"></div></div>
-<div class="core"><span class="kicker">OCEAN FIELD NOTE</span><h1 class="title">うきわ<b>メモ</b></h1><p class="lead">電気保安の「わからない」を、ここから探す。</p><span class="work">WORK MODE｜すぐ調べる</span><div class="search"><input id="siteSearch" type="search" autocomplete="off" placeholder="型式・メーカー・試験・機器を検索…" aria-label="サイト内検索"><button id="searchBtn" type="button" aria-label="検索">⌕</button></div><div class="quick"><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="DI-05N">DI-05N</button><button data-q="OCR">OCR</button><button data-q="OVGR">OVGR</button><button data-q="RPR">RPR</button><button data-q="耐圧試験">耐圧試験</button><button data-q="IR4052">IR4052</button></div></div>
+<div class="core"><span class="kicker">OCEAN FIELD NOTE</span><h1 class="title">うきわ<b>メモ</b></h1><p class="lead">電気保安の「わからない」を、ここから探す。</p><span class="work">WORK MODE｜すぐ調べる</span><div class="search"><input id="siteSearch" type="search" autocomplete="off" placeholder="型式・メーカー・試験・機器を検索…" aria-label="サイト内検索"><button id="searchBtn" type="button" aria-label="検索">⌕</button></div><div class="quick"><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="IP-1110">IP-1110</button><button data-q="DI-05N">DI-05N</button><button data-q="OCR">OCR</button><button data-q="OVGR">OVGR</button><button data-q="RPR">RPR</button><button data-q="耐圧試験">耐圧試験</button><button data-q="IR4052">IR4052</button></div></div>
 <section class="cards" id="categories" aria-label="6つの入口">
 <a class="card" href="protective-relay.html"><div class="row"><span class="n">01</span><span class="ico">⚡</span></div><h2>保護継電器・絶縁監視</h2><p>保護継電器・ELR・絶縁監視をメーカー・型式から探す。</p><div class="examples">OCR / DGR / OVGR / RPR / ELR・絶縁監視</div><span class="go">一覧を見る <b>→</b></span></a>
-<a class="card" href="test-measurement.html"><div class="row"><span class="n">02</span><span class="ico">🔧</span></div><h2>試験方法・測定器具</h2><p>継電器試験・絶縁監視・耐圧と、使用する測定器具を探す。</p><div class="examples">DI-05N / DI-11N / ET-5 / IR4052</div><span class="go">一覧を見る <b>→</b></span></a>
+<a class="card" href="test-measurement.html"><div class="row"><span class="n">02</span><span class="ico">🔧</span></div><h2>試験方法・測定器具</h2><p>継電器試験・絶縁監視・耐圧と、使用する測定器具を探す。</p><div class="examples">IP-1110 / DI-05N / ET-5 / WPS-22 / I2V2</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="ac-withstand-test-simulator.html"><div class="row"><span class="n">03</span><span class="ico">⚠</span></div><h2>充電電流計算</h2><p>ケーブルの静電容量・長さ・周波数・印加電圧から充電電流を計算する。</p><div class="examples">Ic = 2πfCV / 1相・3相 / リアクトル比較</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="generator-rescue-island.html"><div class="row"><span class="n">04</span><span class="ico">⚙</span></div><h2>非常用発電機 試験・シーケンス</h2><p>自動始動・停止と、保護装置連動試験の流れを学ぶ。</p><div class="examples">停電 / 始動 / 切替 / 復電 / 停止 / 保護連動</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="sequence-basics.html"><div class="row"><span class="n">05</span><span class="ico">🔁</span></div><h2>リレーシーケンス</h2><p>接点とコイルを電源側から追い、自己保持・インターロックを理解する。</p><div class="examples">a/b接点 / 励磁 / 自己保持 / インターロック</div><span class="go">学ぶ <b>→</b></span></a>
@@ -127,13 +127,14 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
 <main class="main"><section class="contentSection"><div class="side"><section class="panel" id="updates"><h2>📣 更新・おすすめ</h2>
 <div class="updates" id="updatesList">
   <!-- JSが読めない場合のフォールバック -->
+  <a href="measuring-instruments.html?model=IP-1110"><time>2026/08/25</time><b>測定器具DBを165型式へ拡張。IP-1110詳細・公式取説導線を追加。</b></a>
   <a href="pukapuka-diary.html#pas-withstand-20260822"><time>2026/08/24</time><b>PAS交換工事と耐圧試験。「どこまで耐圧するか」を結線から考える。</b></a>
   <a href="pukapuka-diary.html#seven-eleven-completion-20260821"><time>2026/08/24</time><b>初めてPASの上まで昇った。セブンイレブン竣工検査の日。</b></a>
   <a href="protective-relay.html"><time>2026/08/09</time><b>保護継電器 メーカー・型式DB</b></a>
   <a href="test-measurement.html"><time>2026/08/09</time><b>試験方法・測定器具DB</b></a>
   <a href="generator-rescue-island.html"><time>2026/08/09</time><b>非常用発電機 自動起動・自動停止教材</b></a>
 </div>
-</section><section class="panel"><h2>⭐ よく使うコンテンツ</h2><div class="shortcuts"><a href="protective-relay.html">⌕ 型式検索</a><a href="relay-test-flow.html">⚡ 試験方法一覧</a><a href="test-measurement.html">🔧 試験器具一覧</a><a href="ac-withstand-test-simulator.html">⚡ 充電電流計算</a><a href="measurement-principles.html">🧭 測定原理</a><a href="sequence-basics.html">🔁 シーケンス</a><a href="generator-rescue-island.html">⏱ タイムチャート</a></div></section><a class="zukan" href="zukan.html"><div><b>📖 図鑑</b><small>うきわちゃんカード・キャラクター・用語・機器</small></div><strong>→</strong></a><a class="aboutLink" href="about.html"><div><b>🌊 うきわメモについて</b><small>なぜ、このサイトを作ったのか</small></div><strong>→</strong></a></div></section><section class="fieldNotes" id="field-notes"><div class="fieldNotesHead"><div><h2>📝 ぷかぷかフィールドノート</h2><p>現場の準備、失敗から学んだこと、ふと浮かんだ疑問、そして日々の記録。</p></div></div><div class="fieldGrid">
+</section><section class="panel"><h2>⭐ よく使うコンテンツ</h2><div class="shortcuts"><a href="protective-relay.html">⌕ 型式検索</a><a href="relay-test-flow.html">⚡ 試験方法一覧</a><a href="measuring-instruments.html">🔧 測定器具一覧</a><a href="ac-withstand-test-simulator.html">⚡ 充電電流計算</a><a href="measurement-principles.html">🧭 測定原理</a><a href="sequence-basics.html">🔁 シーケンス</a><a href="generator-rescue-island.html">⏱ タイムチャート</a></div></section><a class="zukan" href="zukan.html"><div><b>📖 図鑑</b><small>うきわちゃんカード・キャラクター・用語・機器</small></div><strong>→</strong></a><a class="aboutLink" href="about.html"><div><b>🌊 うきわメモについて</b><small>なぜ、このサイトを作ったのか</small></div><strong>→</strong></a></div></section><section class="fieldNotes" id="field-notes"><div class="fieldNotesHead"><div><h2>📝 ぷかぷかフィールドノート</h2><p>現場の準備、失敗から学んだこと、ふと浮かんだ疑問、そして日々の記録。</p></div></div><div class="fieldGrid">
 <a class="fieldItem" href="pukapuka-diary.html"><span class="fieldIcon">🌊</span><b>ぷかぷか日誌</b><small>仕事・勉強・サイトづくりなど、日々の記録。</small><span class="construction">🫧 少しずつ更新中</span></a>
 <a class="fieldItem" href="field-essentials.html"><span class="fieldIcon">🧰</span><b>現場に必要なもの</b><small>工具・試験器・消耗品・持ち物を作業別に整理。</small><span class="construction">🫧 少しずつ更新中</span></a>
 <a class="fieldItem" href="near-miss.html"><span class="fieldIcon">⚠️</span><b>やらかし・ヒヤリメモ</b><small>間違えそうになったこと、復旧忘れなどを次へ残す。</small><span class="construction">🫧 少しずつ更新中</span></a>
@@ -149,6 +150,7 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
   // 固定でトップに残しておきたい更新。
   // 「今日のなんで？」と「ぷかぷか日誌」は各ページから自動取得します。
   const BASE_UPDATES = [
+    { date: '2026-08-25', title: '測定器具DB 165型式・IP-1110詳細追加', href: 'measuring-instruments.html?model=IP-1110' },
     { date: '2026-08-09', title: '保護継電器 メーカー・型式DB', href: 'protective-relay.html' },
     { date: '2026-08-09', title: '試験方法・測定器具DB', href: 'test-measurement.html' },
     { date: '2026-08-09', title: '非常用発電機 自動起動・自動停止教材', href: 'generator-rescue-island.html' },
@@ -313,13 +315,27 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
 <script>
 const input=document.getElementById('siteSearch');
 function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.toLowerCase();
+ const directInstruments=[
+  {keys:['ip-1110','ip1110'],model:'IP-1110'},
+  {keys:['di-05n','di05n','di-05','di05'],model:'DI-05N'},
+  {keys:['di-11n','di11n','di-11','di11'],model:'DI-11N'},
+  {keys:['ir4052'],model:'IR4052-11'},
+  {keys:['et-5','et5'],model:'ET-5'},
+  {keys:['kew 4300','kew4300'],model:'KEW 4300'},
+  {keys:['ip-r2000','ipr2000'],model:'IP-R2000'},
+  {keys:['wps-22','wps22'],model:'WPS-22'},
+  {keys:['i2v2','rx47022'],model:'RX47022'},
+  {keys:['bt3554'],model:'BT3554-11'}
+ ];
+ const direct=directInstruments.find(item=>item.keys.some(key=>n.includes(key)));
  const measurement=['di-05','di05','di-11','di11','ir4052','et-5','et5','kew','4300','bt3554','ip-r2000','ipr2000','gcr','測定器','試験器','接地抵抗','絶縁抵抗','バッテリ'];
  const withstand=['耐圧','充電電流','リアクトル','r-1220k','dr-1220mh','dr-1250mh'];
  const sequence=['シーケンス','自己保持','インターロック','a接点','b接点'];
  const principles=['測定原理','絶縁抵抗の原理','大地間','3極法','2極法','補助極','交流電位差計'];
  const generator=['非常用発電機','発電機','自動起動','自動停止','復電','タイムチャート','同期','並列運転'];
  const relay=['mdg','moc','mgr','k2','ocr','dgr','gr','ovgr','rpr','逆電力','uvr','ovr','ufr','ofr','地絡','過電流','不足電圧','過電圧','周波数'];
- if(sequence.some(k=>n.includes(k)))location.href='sequence-basics.html';
+ if(direct)location.href='measuring-instruments.html?model='+encodeURIComponent(direct.model);
+ else if(sequence.some(k=>n.includes(k)))location.href='sequence-basics.html';
  else if(principles.some(k=>n.includes(k)))location.href='measurement-principles.html';
  else if(generator.some(k=>n.includes(k)))location.href='generator-rescue-island.html';
  else if(withstand.some(k=>n.includes(k)))location.href='ac-withstand-test-simulator.html';
