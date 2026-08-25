@@ -1,0 +1,335 @@
+{
+  "schemaVersion": "1.0.0",
+  "title": "RX4744で行う系統連系保護継電器試験・暫定データ",
+  "updatedAt": "2026-08-25",
+  "status": "型式・端子未確定の暫定版。現場使用前に原本、端子図、整定票、RX4744実機版数を照合すること。",
+  "privacy": "事業場名、個人名、資格番号、住所、電話、印影、製造番号は公開データから除外",
+  "valueClasses": [
+    "メーカー仕様値",
+    "メーカー試験条件・メーカー許容値",
+    "社内管理値",
+    "現場の実整定値",
+    "過去の測定値",
+    "計算による理論値",
+    "写真OCRによる暫定読取値"
+  ],
+  "roleColors": {
+    "control": "黒",
+    "voltage": "青",
+    "current": "白",
+    "trip": "黄"
+  },
+  "sources": [
+    {
+      "id": "NF-PRODUCT",
+      "group": "RX4744公式",
+      "name": "RX4744 製品情報",
+      "publisher": "株式会社エヌエフ回路設計ブロック",
+      "type": "公式資料",
+      "url": "https://www.nfcorp.co.jp/pro/p-test/rx/rx4744/",
+      "checkedAt": "2026-08-25",
+      "confirms": "電圧4相・電流4相、各相絶縁、最大出力、微小電流レンジ、試験モード概要",
+      "doesNotConfirm": "今回の対象継電器端子、実機ファームウェア、盤内結線"
+    },
+    {
+      "id": "NF-DOWNLOAD",
+      "group": "RX4744公式",
+      "name": "RX4744 ダウンロード",
+      "publisher": "株式会社エヌエフ回路設計ブロック",
+      "type": "公式資料",
+      "url": "https://www.nfcorp.co.jp/support/download/rx4744/",
+      "checkedAt": "2026-08-25",
+      "confirms": "RX4744取扱説明書・インタフェース取扱説明書の提供",
+      "doesNotConfirm": "現場実機と版数が一致するか"
+    },
+    {
+      "id": "NF-FW-1700",
+      "group": "RX4744公式",
+      "name": "RX4744 ファームウェア Ver.1.7.0.0",
+      "publisher": "株式会社エヌエフ回路設計ブロック",
+      "type": "公式資料",
+      "publishedAt": "2025-04-09",
+      "url": "https://www.nfcorp.co.jp/support/download/rx4744/84/",
+      "checkedAt": "2026-08-25",
+      "confirms": "Ver.1.7.0.0の公開日と変更概要",
+      "doesNotConfirm": "実機搭載版、実行時点の最新版"
+    },
+    {
+      "id": "PHOTO-A-SONO2",
+      "group": "A",
+      "name": "系統連系保護制御装置試験成績書（その2）",
+      "publisher": "不記載／公開版では匿名化",
+      "type": "過去成績書・現場写真",
+      "file": "10123.jpg",
+      "checkedAt": "2026-08-25",
+      "confirms": "DSH、DS-UV、UF、OF、OVG、OVの過去整定・測定・管理欄の写真読取",
+      "doesNotConfirm": "完全型式、端子、現在整定、メーカー許容値、（1）～（4）"
+    },
+    {
+      "id": "PHOTO-TESTER-LIST",
+      "group": "A参考",
+      "name": "使用試験器一覧",
+      "type": "過去成績書・現場写真",
+      "file": "10124.jpg",
+      "checkedAt": "2026-08-25",
+      "confirms": "過去記録にRX4744が掲載されていること",
+      "doesNotConfirm": "現行公式仕様との表記対応、今回使用実機の構成"
+    },
+    {
+      "id": "TAIWA-SEARCH",
+      "group": "B",
+      "name": "泰和電気工業 製品検索",
+      "publisher": "泰和電気工業株式会社",
+      "type": "公式資料",
+      "url": "https://www.taiwadenki.co.jp/product/product_search.php",
+      "checkedAt": "2026-08-25",
+      "confirms": "TRG-DV40がOVGR＋RPRの別機器であることと公式資料の所在",
+      "doesNotConfirm": "資料群Aとの同一性"
+    },
+    {
+      "id": "PHOTO-B-TRGDV40",
+      "group": "B",
+      "name": "TRG-DV40 地絡過電圧・逆電力継電器 過去試験記録",
+      "type": "過去成績書・現場写真",
+      "file": "10127.jpg",
+      "checkedAt": "2026-08-25",
+      "confirms": "TRG-DV40、OVGR＋RPR、GCR-miniVSを用いた過去例",
+      "doesNotConfirm": "RX4744での配線・操作・換算角"
+    },
+    {
+      "id": "PHOTO-C-ZPD",
+      "group": "C",
+      "name": "ZPD単体 高圧絶縁抵抗・絶縁耐力試験記録",
+      "type": "別試験・現場写真",
+      "file": "10126.jpg",
+      "checkedAt": "2026-08-25",
+      "confirms": "ZPD単体の絶縁試験が別途実施された過去記録",
+      "doesNotConfirm": "RX4744による保護要素試験"
+    }
+  ],
+  "tester": {
+    "maker": "株式会社エヌエフ回路設計ブロック",
+    "model": "RX4744",
+    "officialFacts": [
+      {"name": "電圧出力", "value": "4相、各相最大250V", "class": "メーカー仕様値", "source": "NF-PRODUCT"},
+      {"name": "電流出力", "value": "4相、各相最大20A", "class": "メーカー仕様値", "source": "NF-PRODUCT"},
+      {"name": "絶縁", "value": "電圧・電流とも各相絶縁", "class": "メーカー仕様値", "source": "NF-PRODUCT"},
+      {"name": "微小電流レンジ", "value": "400mA、5mA", "class": "メーカー仕様値", "source": "NF-PRODUCT"},
+      {"name": "電流4相並列", "value": "80A（10V）", "class": "メーカー仕様値", "source": "NF-PRODUCT"},
+      {"name": "電流2相直列", "value": "20A（20V）×2", "class": "メーカー仕様値", "source": "NF-PRODUCT"},
+      {"name": "電流4相直列", "value": "20A（40V）", "class": "メーカー仕様値", "source": "NF-PRODUCT"}
+    ],
+    "officialModeNames": [
+      "ホールド急変",
+      "ノンホールド急変",
+      "95試験",
+      "通常スイープ",
+      "ベクトル直線スイープ",
+      "総合試験・急変",
+      "総合試験・過渡波形",
+      "総合試験・シーケンス（オプション）"
+    ],
+    "fieldChecks": [
+      "実機銘板がRX4744であること（RX4744A/ASでないこと）",
+      "実機ファームウェア表示と使用取扱説明書の対応",
+      "電源条件と合計出力条件",
+      "出力相、共通端子、直列・並列条件",
+      "トリップ入力の接点／電圧条件",
+      "位相角の正負方向と表示範囲",
+      "非常停止・過負荷時の復帰手順"
+    ]
+  },
+  "safety": [
+    "現場責任者、社内手順書、操作票、系統状態、試験範囲を確認",
+    "単体試験かPCS・警報・52CBまでの連動試験かを明確化",
+    "停電範囲、無電圧、検電、放電、短絡接地、誤投入防止措置を確認",
+    "VT/VTT、CT/CTT、ZPD/ZCT、制御電源、トリップ回路の状態を確認",
+    "CT二次回路を開放しない",
+    "RX4744出力零・全出力OFFを結線前に確認",
+    "対象定格と最大出力を照合",
+    "実CBトリップ等を伴う場合は影響範囲と復旧方法を確定",
+    "ロック、インターロック、通信、外部自己保持を確認",
+    "整定変更は変更前記録・承認・試験後復元・別人照合"
+  ],
+  "elements": [
+    {
+      "id": "DSH",
+      "name": "方向短絡要素",
+      "formalNameStatus": "メーカー正式名称・ANSI番号とも未確認",
+      "ansiCandidate": "67相当の可能性。確定禁止",
+      "role": "電圧と電流の位相関係を用いる方向判定と考えられるが、完全型式の取扱説明書で確定が必要",
+      "pastRecord": {
+        "setting": "30%、T=0.05sに見える",
+        "phase": "A/B/C",
+        "measured": "遅れ53.9/54.0/54.0度、進み各305度に見える",
+        "testCondition": "110V、5.2Aに見える",
+        "management": "遅れ50～60度、進み300～310度に見える",
+        "class": "写真OCRによる暫定読取値",
+        "source": "PHOTO-A-SONO2"
+      },
+      "defaultTest": {"start": "位相境界外", "end": "位相境界内", "direction": "位相スイープ", "modeCandidate": "通常スイープまたはベクトル直線スイープ。メーカー手順未確認"},
+      "wiring": [
+        {"rx4744": "V相端子未確認", "panel": "未確認・端子図必要", "relay": "未確認・端子図必要", "signal": "相電圧または線間電圧", "color": "青", "polarity": "未確認", "status": "接続禁止／図面照合前"},
+        {"rx4744": "I相端子未確認", "panel": "未確認・CTT図必要", "relay": "未確認・端子図必要", "signal": "相電流", "color": "白", "polarity": "未確認。CT二次を開放しない", "status": "接続禁止／図面照合前"},
+        {"rx4744": "トリップ入力未確認", "panel": "未確認", "relay": "出力接点未確認", "signal": "動作接点", "color": "黄", "polarity": "a/b/共通未確認", "status": "接続禁止／接点図必要"}
+      ],
+      "sequence": ["通常監視状態の電圧・電流・位相を入力", "事故方向を模擬する位相へ変化", "DSH内部方向判定（論理は未確認）", "出力接点の開閉（端子・a/b未確認）", "外部補助リレー／PCS／警報／52CB（盤図未確認）", "入力復帰後の自動／手動復帰（未確認）"],
+      "tests": ["位相特性", "動作方向／不動作方向", "A/B/C相別", "動作時間", "表示・復帰"],
+      "criticalUnknowns": ["基準電圧・基準電流", "進み／遅れの符号", "最大感度角", "電流・電圧整定の意味", "相切換条件", "出力接点"]
+    },
+    {
+      "id": "DS-UV",
+      "name": "方向短絡用不足電圧要素",
+      "formalNameStatus": "DSHロック要素か独立要素か未確認",
+      "ansiCandidate": "27相当の可能性。確定禁止",
+      "role": "方向短絡判定に関係する不足電圧要素と推定されるが内部論理は未確認",
+      "pastRecord": {
+        "setting": "88V",
+        "phase": "AB/BC/CA",
+        "measured": "87.9/88.0/87.5V",
+        "management": "整定±5%、83.6～92.4V",
+        "note": "UV-TESTで相を選択との記載",
+        "class": "過去成績書＋写真OCRによる暫定読取値",
+        "source": "PHOTO-A-SONO2"
+      },
+      "defaultTest": {"start": "正常電圧（値未確認）", "end": "整定未満", "direction": "電圧低下が原則候補。メーカー手順で確定", "modeCandidate": "通常スイープ候補"},
+      "wiring": [
+        {"rx4744": "V相端子未確認", "panel": "未確認・VTT/端子図必要", "relay": "未確認・端子図必要", "signal": "AB/BC/CA電圧", "color": "青", "polarity": "相順未確認", "status": "接続禁止／図面照合前"},
+        {"rx4744": "トリップ入力未確認", "panel": "未確認", "relay": "出力接点未確認", "signal": "動作接点", "color": "黄", "polarity": "a/b/共通未確認", "status": "接続禁止／接点図必要"}
+      ],
+      "sequence": ["正常監視電圧を入力", "選択線間電圧を低下", "DS-UV内部判定", "DSHのロック解除／起動または独立出力（未確認）", "外部連動（未確認）", "電圧復帰とUV-TESTスイッチ原状復帰"],
+      "tests": ["最小動作値", "復帰値", "AB/BC/CA相別", "ロック条件", "UV-TESTスイッチ復帰"],
+      "criticalUnknowns": ["低下／上昇試験方向", "UV-TEST実位置・基準状態", "無電圧時接点状態", "DSHとの内部論理"]
+    },
+    {
+      "id": "UF",
+      "name": "不足周波数要素",
+      "formalNameStatus": "メーカー要素名未確認",
+      "ansiCandidate": "81U候補。メーカー文書で確定",
+      "role": "系統周波数低下を検出",
+      "pastRecord": {
+        "setting": "49.3Hzに見える",
+        "phase": "AB",
+        "measured": "49.28Hz、0.997sに見える",
+        "testCondition": "50Hz→47Hz、T=1.0sに見える",
+        "management": "整定±0.05Hzだが括弧内47.95～48.05Hzに見える。相互不整合",
+        "timeManagement": "1.0s±0.02s、0.98～1.02s",
+        "class": "写真OCRによる暫定読取値",
+        "source": "PHOTO-A-SONO2",
+        "confidence": "低～中／原本確認必須"
+      },
+      "defaultTest": {"start": "定格周波数50Hzまたは60Hz", "end": "整定未満", "direction": "周波数低下", "modeCandidate": "動作値は通常スイープ、時間は急変候補"},
+      "wiring": [
+        {"rx4744": "V相端子未確認", "panel": "未確認・VTT/端子図必要", "relay": "未確認・端子図必要", "signal": "周波数基準電圧", "color": "青", "polarity": "ABか要確認", "status": "接続禁止／図面照合前"},
+        {"rx4744": "トリップ入力未確認", "panel": "未確認", "relay": "出力接点未確認", "signal": "動作接点", "color": "黄", "polarity": "a/b/共通未確認", "status": "接続禁止／接点図必要"}
+      ],
+      "sequence": ["正常周波数・規定電圧を入力", "周波数を低下", "UF内部判定と時限計時", "出力接点開閉（未確認）", "PCS／警報／52CB（盤図未確認）", "周波数復帰後の復帰方式確認"],
+      "tests": ["周波数低下動作値", "急変動作時間", "復帰周波数", "不足電圧ロック", "50/60Hz設定", "表示・復帰"],
+      "criticalUnknowns": ["49.3Hz欄と47.95～48.05Hz欄の矛盾", "入力電圧条件", "時間計測開始点", "不足電圧ロック", "出力接点"]
+    },
+    {
+      "id": "OF",
+      "name": "過周波数要素",
+      "formalNameStatus": "メーカー要素名未確認",
+      "ansiCandidate": "81O候補。メーカー文書で確定",
+      "role": "系統周波数上昇を検出",
+      "pastRecord": {
+        "setting": "50.5Hz、T=1.0s",
+        "phase": "AB",
+        "measured": "50.49Hz、1.009s",
+        "testCondition": "50Hz→51.5Hz",
+        "management": "整定±0.05Hz、50.45～50.55Hz",
+        "timeManagement": "1.0s±0.02s、0.98～1.02s",
+        "class": "過去成績書＋写真OCRによる暫定読取値",
+        "source": "PHOTO-A-SONO2"
+      },
+      "defaultTest": {"start": "定格周波数50Hzまたは60Hz", "end": "整定超過", "direction": "周波数上昇", "modeCandidate": "動作値は通常スイープ、時間は急変候補"},
+      "wiring": [
+        {"rx4744": "V相端子未確認", "panel": "未確認・VTT/端子図必要", "relay": "未確認・端子図必要", "signal": "周波数基準電圧", "color": "青", "polarity": "ABか要確認", "status": "接続禁止／図面照合前"},
+        {"rx4744": "トリップ入力未確認", "panel": "未確認", "relay": "出力接点未確認", "signal": "動作接点", "color": "黄", "polarity": "a/b/共通未確認", "status": "接続禁止／接点図必要"}
+      ],
+      "sequence": ["正常周波数・規定電圧を入力", "周波数を上昇", "OF内部判定と時限計時", "出力接点開閉（未確認）", "PCS／警報／52CB（盤図未確認）", "周波数復帰後の復帰方式確認"],
+      "tests": ["周波数上昇動作値", "急変動作時間", "復帰周波数", "入力電圧条件", "50/60Hz設定", "表示・復帰"],
+      "criticalUnknowns": ["50→51.5Hzがメーカー条件か過去社内条件か", "時間計測開始点", "出力接点"]
+    },
+    {
+      "id": "OVG",
+      "name": "地絡過電圧要素",
+      "formalNameStatus": "OVG/OVGRのメーカー呼称未確認",
+      "ansiCandidate": "64または59G候補。メーカー文書で確定",
+      "role": "零相電圧上昇を検出",
+      "pastRecord": {
+        "setting": "38V、T=1.0s",
+        "phase": "零相",
+        "measured": "39.0V、1.005s",
+        "testCondition": "0V→57V",
+        "management": "動作値は整定±25%、28.5～47.5V",
+        "timeManagement": "整定±5%に見える。印字小数点は原本確認",
+        "note": "T-Eに試験電圧入力との記載。T-Eの所属は未確認",
+        "class": "過去成績書＋写真OCRによる暫定読取値",
+        "source": "PHOTO-A-SONO2"
+      },
+      "defaultTest": {"start": "0V", "end": "整定超過", "direction": "零相電圧上昇", "modeCandidate": "動作値は通常スイープ、時間は急変候補"},
+      "wiring": [
+        {"rx4744": "V相端子未確認", "panel": "T-Eと記載。ただし盤側か本体か未確認", "relay": "未確認・端子図必要", "signal": "零相電圧試験入力", "color": "青", "polarity": "T/Eの意味未確認", "status": "接続禁止／端子図照合前"},
+        {"rx4744": "トリップ入力未確認", "panel": "未確認", "relay": "出力接点未確認", "signal": "動作接点", "color": "黄", "polarity": "a/b/共通未確認", "status": "接続禁止／接点図必要"}
+      ],
+      "sequence": ["正常零相電圧を入力", "零相電圧を上昇", "OVG内部判定と時限計時", "出力接点開閉（未確認）", "PCS／警報／52CB（盤図未確認）", "入力復帰・ターゲット復帰"],
+      "tests": ["最小動作電圧", "急変動作時間", "復帰値", "零相100%換算", "表示・復帰"],
+      "criticalUnknowns": ["T-Eの所属", "ZPD型式・出力", "完全地絡100%の基準", "継電器入力定格", "出力接点"]
+    },
+    {
+      "id": "OV",
+      "name": "過電圧要素",
+      "formalNameStatus": "メーカー要素名未確認",
+      "ansiCandidate": "59候補。メーカー文書で確定",
+      "role": "系統電圧上昇を検出",
+      "pastRecord": {
+        "setting": "132V、T=2.0s",
+        "phase": "AB",
+        "measured": "132.4V、1.989s",
+        "testCondition": "0V→158.4V",
+        "management": "整定±5%、125.4～138.6V",
+        "timeManagement": "整定±5%、1.90～2.10s",
+        "class": "過去成績書＋写真OCRによる暫定読取値",
+        "source": "PHOTO-A-SONO2"
+      },
+      "defaultTest": {"start": "正常電圧または0V（メーカー手順で確定）", "end": "整定超過", "direction": "電圧上昇", "modeCandidate": "動作値は通常スイープ、時間は急変候補"},
+      "wiring": [
+        {"rx4744": "V相端子未確認", "panel": "未確認・VTT/端子図必要", "relay": "未確認・端子図必要", "signal": "線間または相電圧", "color": "青", "polarity": "AB/BC/CA未確認", "status": "接続禁止／図面照合前"},
+        {"rx4744": "トリップ入力未確認", "panel": "未確認", "relay": "出力接点未確認", "signal": "動作接点", "color": "黄", "polarity": "a/b/共通未確認", "status": "接続禁止／接点図必要"}
+      ],
+      "sequence": ["正常監視電圧を入力", "電圧を上昇", "OV内部判定と時限計時", "出力接点開閉（未確認）", "PCS／警報／52CB（盤図未確認）", "電圧復帰後の復帰方式確認"],
+      "tests": ["最小動作電圧", "急変動作時間", "復帰値", "AB/BC/CA相別", "表示・復帰"],
+      "criticalUnknowns": ["相電圧／線間電圧", "0→158.4Vがメーカー条件か過去条件か", "VT比", "出力接点"]
+    }
+  ],
+  "inconsistencies": [
+    {"severity": "critical", "item": "UF", "detail": "整定49.3Hz・測定49.28Hzに見える一方、管理範囲は47.95～48.05Hzに見える", "action": "原本・整定票・表示写真で確認するまで合否計算禁止"},
+    {"severity": "high", "item": "RX4744電流仕様", "detail": "過去試験器一覧の『単相50A、二相4/25A×2』と現行公式の4相・各20Aの説明の関係が不明", "action": "過去システム構成、直並列条件、文書版を確認"},
+    {"severity": "high", "item": "OVG時間管理", "detail": "管理範囲の小数点が写真で不鮮明", "action": "原本またはメーカー資料を確認"},
+    {"severity": "high", "item": "T-E", "detail": "盤側試験端子か継電器本体端子か未確定", "action": "端子図・展開接続図を確認"},
+    {"severity": "medium", "item": "略号", "detail": "OVG/OVGR、UF/UFR、OF/OFR、OV/OVR、DSHとANSI要素の対応が未確定", "action": "完全型式のメーカー文書で確定"}
+  ],
+  "restoreChecklist": [
+    "RX4744出力零",
+    "全出力OFF",
+    "試験器停止",
+    "仮設短絡・仮設接地・試験コード撤去",
+    "VTT原状復帰",
+    "CTT原状復帰（CT二次開放なし）",
+    "試験端子・短絡片原状復帰",
+    "制御電源原状復帰",
+    "トリップ・警報回路原状復帰",
+    "ロック・インターロック所定状態",
+    "継電器整定値復元",
+    "DIP・選択スイッチ復元",
+    "表示・ターゲット・自己保持復帰",
+    "PCS運転条件確認",
+    "52CB・断路器・LBS・PAS状態確認",
+    "別人確認",
+    "復旧写真",
+    "操作票・成績書記録"
+  ],
+  "gatingRule": "完全型式、端子図、盤図、現在整定、接点状態、RX4744実機版数のいずれかが資料と一致しない場合は、出力ONせず作業中止・責任者確認。"
+}
