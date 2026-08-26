@@ -1,0 +1,131 @@
+(() => {
+  'use strict';
+
+  const HOLD_MS = 1500;
+  const brand = document.querySelector('.brand');
+  if (!brand) return;
+
+  let holdTimer = null;
+  let consumed = false;
+  let pointerDown = false;
+
+  brand.style.webkitUserSelect = 'none';
+  brand.style.userSelect = 'none';
+  brand.style.webkitTouchCallout = 'none';
+
+  function cancelHold() {
+    pointerDown = false;
+    if (holdTimer) {
+      clearTimeout(holdTimer);
+      holdTimer = null;
+    }
+  }
+
+  function openLab() {
+    if (!pointerDown) return;
+    consumed = true;
+    if (holdTimer) {
+      clearTimeout(holdTimer);
+      holdTimer = null;
+    }
+
+    try {
+      if (navigator.vibrate) navigator.vibrate([45, 35, 70]);
+    } catch (_) {}
+
+    const toast = document.createElement('div');
+    toast.setAttribute('role', 'status');
+    toast.textContent = '🛟 ひみつのうきわを見つけました';
+    Object.assign(toast.style, {
+      position: 'fixed',
+      left: '50%',
+      bottom: 'calc(84px + env(safe-area-inset-bottom, 0px))',
+      transform: 'translateX(-50%) translateY(12px)',
+      zIndex: '99999',
+      maxWidth: 'calc(100vw - 32px)',
+      padding: '12px 18px',
+      borderRadius: '999px',
+      background: 'rgba(4, 29, 53, .95)',
+      color: '#fff',
+      fontWeight: '900',
+      fontSize: '14px',
+      boxShadow: '0 16px 42px rgba(0,0,0,.28)',
+      opacity: '0',
+      transition: 'opacity .18s ease, transform .18s ease',
+      pointerEvents: 'none',
+      textAlign: 'center'
+    });
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+
+    setTimeout(() => {
+      location.href = 'ukiwa-lab.html';
+    }, 600);
+  }
+
+  brand.addEventListener('pointerdown', (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    pointerDown = true;
+    consumed = false;
+    if (holdTimer) clearTimeout(holdTimer);
+    holdTimer = setTimeout(openLab, HOLD_MS);
+  }, { passive: true });
+
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(type => {
+    brand.addEventListener(type, cancelHold, { passive: true });
+  });
+
+  brand.addEventListener('click', (event) => {
+    if (!consumed) return;
+    event.preventDefault();
+    event.stopPropagation();
+    consumed = false;
+  }, true);
+
+  brand.addEventListener('contextmenu', (event) => {
+    if (pointerDown || holdTimer) event.preventDefault();
+  });
+})();
+
+// 2026-08-26: トップメニューに「OCRタップ計算」を追加。
+(() => {
+  'use strict';
+
+  const cards = document.querySelector('#categories.cards');
+  if (!cards || cards.querySelector('a[href="ocr-tap-calculator.html"]')) return;
+
+  cards.setAttribute('aria-label', '7つの入口');
+
+  const card = document.createElement('a');
+  card.className = 'card ocr-tap-card';
+  card.href = 'ocr-tap-calculator.html';
+  card.innerHTML = `
+    <div class="row"><span class="n">07</span><span class="ico">🧮</span></div>
+    <h2>OCRタップ計算</h2>
+    <p>変圧器構成・CT比からTapを計算し、レバー・瞬時まで整理する。</p>
+    <div class="examples">単相/三相Tr / CT / Tap / D / 700%・1000%</div>
+    <span class="go">計算する <b>→</b></span>
+  `;
+  cards.appendChild(card);
+
+  if (!document.getElementById('ocr-tap-card-style')) {
+    const style = document.createElement('style');
+    style.id = 'ocr-tap-card-style';
+    style.textContent = `
+      .cards .ocr-tap-card{border-color:#2f6b7f}
+      .cards .ocr-tap-card .ico,.cards .ocr-tap-card .go{color:#57bfdc}
+      @media(min-width:1021px){.cards .ocr-tap-card{grid-column:2}}
+      @media(max-width:1020px) and (min-width:681px){
+        .cards .ocr-tap-card{grid-column:1/-1;width:calc(50% - 6px);justify-self:center}
+      }
+      @media(max-width:680px){
+        .cards .ocr-tap-card{grid-column:1/-1;min-height:132px}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+})();

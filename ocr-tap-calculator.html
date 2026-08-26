@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b83b8">
+<title>OCRタップ計算｜うきわメモ</title>
+<style>
+:root{
+ --blue:#0d84bb;--deep:#0b4b73;--ink:#143d5b;--muted:#6a8390;--card:#fff;--line:#cde5ee;
+ --tap:#1687bd;--time:#d48a22;--inst:#d85148;--ok:#25845e;--warn:#a66d12;--bad:#9a3831;
+ --bg:#f4fbfd;--shadow:0 15px 38px rgba(0,72,102,.10)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;font-family:"Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+ color:var(--ink);
+ background:
+  radial-gradient(circle at 90% 0%,rgba(70,205,235,.20),transparent 28rem),
+  linear-gradient(180deg,#eafaff,#f8fcfd 34rem,#f5f9fb);
+ padding-bottom:52px
+}
+button,input,select{font:inherit}
+button{touch-action:manipulation}
+.top{
+ position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);
+ border-bottom:1px solid #d7e8ee;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 14px
+}
+.brand{font-weight:1000;color:#155b7e}.brand small{display:block;font-size:9px;color:var(--muted)}
+.badge{font-size:9px;font-weight:1000;border:1px solid var(--line);border-radius:999px;padding:6px 9px;background:#fff;color:#17688c}
+main{width:min(960px,calc(100% - 14px));margin:auto}
+.hero{
+ margin-top:14px;padding:23px;border-radius:24px;background:linear-gradient(145deg,#086ba0,#0d9bbb 70%,#35bfd0);
+ color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden
+}
+.hero:after{content:"51";position:absolute;right:-10px;top:-63px;font-size:190px;font-weight:1000;color:rgba(255,255,255,.08)}
+.hero h1{position:relative;z-index:1;margin:4px 0 6px;font-size:clamp(30px,7vw,50px);line-height:1}
+.hero p{position:relative;z-index:1;margin:0;font-size:12px;line-height:1.7;max-width:740px}
+.hero small{position:relative;z-index:1;font-size:9px;font-weight:1000;letter-spacing:.13em}
+.summary{
+ position:sticky;top:68px;z-index:20;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0;
+ padding:7px;border-radius:16px;background:rgba(245,252,254,.92);backdrop-filter:blur(12px);border:1px solid #d7e8ee
+}
+.sum{
+ min-width:0;padding:10px;border-radius:12px;background:#fff;border:1px solid var(--line);text-align:center
+}
+.sum span{display:block;font-size:7px;color:var(--muted);font-weight:1000;letter-spacing:.08em}
+.sum b{display:block;font-size:clamp(19px,5vw,28px);line-height:1.05;margin:3px 0;overflow-wrap:anywhere}
+.sum small{display:block;font-size:7.5px;color:#6c8390}
+.sum.tap{border-top:4px solid var(--tap)}.sum.tap b{color:#126d9a}
+.sum.time{border-top:4px solid var(--time)}.sum.time b{color:#a9650e}
+.sum.inst{border-top:4px solid var(--inst)}.sum.inst b{color:#b83b34}
+.panel{scroll-margin-top:142px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow);margin-top:11px}
+.panel h2{margin:0;font-size:22px}.intro{margin:4px 0 12px;font-size:9.5px;color:var(--muted);line-height:1.65}
+.step{display:flex;align-items:center;gap:9px}.num{width:31px;height:31px;border-radius:10px;background:#0c7eae;color:#fff;display:grid;place-items:center;font-weight:1000}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.field{margin-bottom:9px}.field label{display:flex;justify-content:space-between;gap:8px;font-size:9px;font-weight:1000;color:#3f6679;margin-bottom:4px}
+.field input,.field select{width:100%;min-height:45px;border:1px solid #bad4df;border-radius:11px;padding:8px 10px;background:#fff;color:var(--ink);font-size:15px;font-weight:900}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 11px}.tabs.four{grid-template-columns:repeat(4,1fr)}.tabs.two{grid-template-columns:repeat(2,1fr)}
+.tabs button{
+ min-height:45px;border:1px solid #c3dce6;border-radius:11px;background:#f6fbfd;color:#17688c;
+ font-size:9px;font-weight:1000;cursor:pointer;padding:6px
+}
+.tabs button.active{background:#0c7eae;color:#fff;border-color:#0c7eae}
+.quickrow{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}
+.quickrow button{min-height:38px;border:1px solid #c7dfe8;border-radius:10px;background:#f7fcfe;color:#17688c;font-size:9px;font-weight:1000;padding:7px 10px;cursor:pointer}
+.quickrow button.active{background:#0c7eae;color:#fff;border-color:#0c7eae}
+.result{margin-top:9px;padding:15px;border-radius:17px;text-align:center;color:#fff}
+.result.tap{background:linear-gradient(145deg,#0b6393,#0b91b4)}
+.result.time{background:linear-gradient(145deg,#9b650f,#d99425)}
+.result.inst{background:linear-gradient(145deg,#9a3c36,#db5b51)}
+.result span{display:block;font-size:8px;font-weight:1000;letter-spacing:.08em}
+.result strong{display:block;font-size:clamp(34px,8vw,58px);line-height:1.05;margin:4px 0}
+.result small{display:block;font-size:9px;line-height:1.55}
+.formula{margin-top:8px;padding:11px;border-radius:13px;background:#0b3655;color:#edfaff}
+.formula small{font-size:8px;color:#87d8ee;font-weight:1000}.formula b{display:block;margin-top:4px;font-size:15px;line-height:1.5}.formula div{font-size:9px;line-height:1.7;margin-top:5px;color:#cfeef8}
+.note{margin-top:8px;padding:9px 10px;border:1px solid #d7e7ed;border-radius:11px;background:#f8fcfd;font-size:9px;line-height:1.6;color:#5b7888}
+.note.warn{background:#fff7e7;border-color:#e7ce95;color:#735720}.note.bad{background:#fff0ef;border-color:#ebb7b2;color:#7f312b}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.chip{padding:7px 9px;border:1px solid #c7dfe8;border-radius:10px;background:#f7fcfe;color:#17688c;font-size:9px;font-weight:1000}.chip.good{background:#eaf8f0;border-color:#b9dfca;color:#1e7450}.chip.near{background:#fff7e7;border-color:#e7ce95;color:#76591d}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.dualbox{padding:10px;border:1px solid #d6e7ed;border-radius:12px;background:#f9fcfd}.dualbox span{display:block;font-size:7.5px;color:#6b8390;font-weight:1000}.dualbox b{display:block;font-size:17px;margin-top:2px;color:#155d7c}
+details{margin-top:8px;border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden}
+summary{padding:10px 12px;font-size:9.5px;font-weight:1000;cursor:pointer;color:#155e7d}.dbody{padding:0 12px 12px;font-size:9px;line-height:1.7;color:#5e7b8a}
+.simgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:9px}.control{padding:11px;border:1px solid #d5e6ed;border-radius:14px;background:#f9fdff}
+.range label{display:flex;justify-content:space-between;font-size:9px;font-weight:1000}.range input{width:100%;min-height:35px;accent-color:#0d84bb}
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:8px 0}.chain div{padding:8px 4px;border:1px solid #d6e8ee;border-radius:10px;background:#edf8fc;text-align:center}.chain span{display:block;font-size:7px;color:#6a8390;font-weight:900}.chain b{display:block;font-size:14px;color:#155d7d}
+svg{width:100%;height:auto;display:block;border:1px solid #d6e6ec;border-radius:14px;background:#fbfdff}
+.compare{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:7px}.compare div{padding:8px;border:1px solid #d7e7ed;border-radius:10px;text-align:center;background:#fbfdff}.compare span{display:block;font-size:7px;color:#6a8390;font-weight:900}.compare b{font-size:15px}
+.stagebar{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:9px}.stage{min-height:46px;padding:5px;border:1px solid #d7e7ed;border-radius:9px;background:#f9fcfd;display:grid;place-items:center;text-align:center;font-size:7.5px;font-weight:1000;color:#718994}.stage.on{background:#e8f8fc;border-color:#9bd7e6;color:#0d6d91}.stage.trip{background:#fff0ef;border-color:#e8aaa5;color:#a23d36}
+.progress{height:8px;border-radius:999px;background:#e9f0f4;overflow:hidden;margin-top:7px}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#16a2c0,#e29c2b)}
+.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.actions button{min-height:40px;border-radius:10px;padding:7px 10px;font-size:8.5px;font-weight:1000;cursor:pointer}.primary{border:0;background:#0c7eae;color:#fff}.secondary{border:1px solid #c7dfe8;background:#fff;color:#17688c}
+
+.trrow{
+ display:grid;grid-template-columns:120px 120px 1fr 42px;gap:7px;align-items:end;
+ padding:10px;border:1px solid #d7e7ed;border-radius:13px;background:#f9fcfd;margin-top:7px
+}
+.trrow .field{margin:0}
+.trrow .remove{
+ min-height:45px;border:1px solid #e5c4c1;border-radius:10px;background:#fff6f5;color:#9a3b34;
+ font-size:18px;font-weight:1000;cursor:pointer
+}
+.trrow .conn.disabled select{background:#eef4f7;color:#8a9ba4}
+.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.actions button{min-height:40px;border-radius:10px;padding:7px 10px;font-size:8.5px;font-weight:1000;cursor:pointer}
+.secondary{border:1px solid #c7dfe8;background:#fff;color:#17688c}
+@media(max-width:620px){
+ .trrow{grid-template-columns:1fr 1fr}
+ .trrow .remove{grid-column:2;justify-self:end;width:46px}
+}
+footer{text-align:center;font-size:8px;color:#758995;padding:16px}
+@media(max-width:720px){
+ .summary{top:64px}
+ .grid2,.grid3,.simgrid{grid-template-columns:1fr}
+ .dual{grid-template-columns:1fr 1fr}
+}
+@media(max-width:430px){
+ .tabs,.tabs.four{grid-template-columns:1fr 1fr}
+ .chain,.compare{grid-template-columns:1fr 1fr}
+ .stagebar{grid-template-columns:1fr 1fr 1fr}
+ .summary{grid-template-columns:repeat(3,1fr);padding:5px;gap:4px}
+ .sum{padding:7px 4px}
+ .sum b{font-size:18px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+ <a class="brand" href="index.html" style="text-decoration:none">🌊 うきわメモ<small>OCR / 51 EASY SETTING</small></a>
+ <div class="badge">v5 現場＋学習</div>
+</header>
+
+<main>
+<section class="hero">
+ <small>LOAD → TAP → FAULT → M → D → INSTANT</small>
+ <h1>OCR 51 整定ナビ</h1>
+ <p>開いた瞬間は3つだけ。Tap、レバー、瞬時。必要になったときだけ「なぜ？」の計算を下へたどる。</p>
+</section>
+
+<section class="summary">
+ <div class="sum tap"><span>TAP</span><b id="sumTap">—</b><small id="sumTapSub">負荷から</small></div>
+ <div class="sum time"><span>LEVER</span><b id="sumD">—</b><small id="sumDSub">事故＋時間</small></div>
+ <div class="sum inst"><span>INSTANT</span><b id="sumInst">—</b><small id="sumInstSub">700/1000%等</small></div>
+</section>
+
+<section class="panel">
+ <h2>共通条件</h2>
+ <p class="intro">最初にここだけ。CTは「この51に実際につながっているCT」。</p>
+ <div class="grid2">
+  <div class="field"><label><span>受電電圧</span><span>kV</span></label><input id="voltage" type="number" value="6.6" min=".1" step=".1"></div>
+  <div class="field"><label><span>この51のCT</span><span>一次 / 5A</span></label><input id="ctP" type="number" value="300" min="1" step="1"></div>
+ </div>
+</section>
+
+<section class="panel" id="tap">
+ <div class="step"><div class="num">1</div><h2>Tap</h2></div>
+ <p class="intro">通常負荷を求めて、CT二次でどこにTapを置くか。</p>
+
+ <div class="tabs" id="loadTabs">
+  <button data-mode="contract" class="active">契約電力 kW</button>
+  <button data-mode="three">三相 kVA</button>
+  <button data-mode="phase">変圧器構成</button>
+ </div>
+
+ <div id="contractBox">
+  <div class="field"><label><span>契約電力</span><span>kW</span></label><input id="kw" type="number" value="1000" min="0"></div>
+  <div class="note">K2OC公式例：契約電流 → CT二次 → <b>150%近傍</b> → 実機Tap。</div>
+ </div>
+
+ <div id="threeBox" hidden>
+  <div class="field"><label><span>三相設備容量</span><span>kVA</span></label><input id="kva" type="number" value="1000" min="0"></div>
+  <div class="note">三相定格相当電流。<b>150%は自動で掛けない。</b></div>
+ </div>
+
+ <div id="phaseBox" hidden>
+  <div class="note">
+   <b>変圧器を1台ずつ登録。</b><br>
+   三相Trは容量÷3を a(RS)・b(ST)・c(TR)へ均等配分。単相Trは接続された相間へ容量を丸ごと入れます。
+  </div>
+
+  <div id="transformerList"></div>
+
+  <div class="actions">
+   <button class="secondary" type="button" id="addTransformer">＋ 変圧器を追加</button>
+   <button class="secondary" type="button" id="sampleTransformers">学習例を入れる</button>
+   <button class="secondary" type="button" id="clearTransformers">全部消す</button>
+  </div>
+
+  <div class="dual" style="margin-top:9px">
+   <div class="dualbox"><span>a = RS 合計</span><b id="sumA">0 kVA</b></div>
+   <div class="dualbox"><span>b = ST 合計</span><b id="sumB">0 kVA</b></div>
+  </div>
+  <div class="dual">
+   <div class="dualbox"><span>c = TR 合計</span><b id="sumC">0 kVA</b></div>
+   <div class="dualbox"><span>登録台数</span><b id="trCount">0台</b></div>
+  </div>
+
+  <div class="field" style="margin-top:9px"><label><span>このOCRが見るCT相</span><span id="ctPhaseBadge">K2OC標準：R/T</span></label>
+   <select id="ctPhase"><option value="RT" selected>R + T</option><option value="RST">R + S + T</option><option value="R">Rのみ</option><option value="S">Sのみ</option><option value="T">Tのみ</option></select>
+  </div>
+
+  <div class="note">
+   例：三相500kVA → a,b,cへ166.7kVAずつ。単相75kVA・RS接続 → aへ75kVA。
+  </div>
+ </div>
+
+ <div class="formula" id="tapMasterFormula">
+  <small>まず式を見る</small>
+  <b id="tapFormulaMain">—</b>
+  <div id="tapFormulaNumbers">—</div>
+ </div>
+
+ <div class="result tap"><span>TAP 計算候補</span><strong id="tapResult">—</strong><small id="tapSub">—</small></div>
+ <div class="dual">
+  <div class="dualbox"><span>6.6kV側 負荷電流</span><b id="loadPri">—</b></div>
+  <div class="dualbox"><span>CT二次負荷電流</span><b id="loadSec">—</b></div>
+ </div>
+ <div class="chips" id="tapChips"></div>
+</section>
+
+<section class="panel" id="lever">
+ <div class="step"><div class="num">2</div><h2>レバー D</h2></div>
+ <p class="intro">事故点を選ぶ → 短絡電流 → CT二次 → Tap倍率M → D。途中の数字を別で用意しなくていい。</p>
+
+ <div class="field"><label><span>使うTap</span><span>A</span></label><select id="leverTap"></select></div>
+
+ <div class="tabs" id="faultTabs">
+  <button data-fault="tr" class="active">Tr二次端<br><small>%Z</small></button>
+  <button data-fault="hv">6.6kV母線<br><small>短絡容量</small></button>
+  <button data-fault="known">事故電流既知</button>
+ </div>
+
+ <div id="trFault">
+  <div class="grid3">
+   <div class="field"><label><span>Tr容量</span><span>kVA</span></label><input id="trKva" type="number" placeholder="例 500"></div>
+   <div class="field"><label><span>Tr一次</span><span>kV</span></label><input id="trKv" type="number" value="6.6" step=".1"></div>
+   <div class="field"><label><span>Tr %Z</span><span>%</span></label><input id="trZ" type="number" placeholder="銘板値" step=".1"></div>
+  </div>
+  <div class="note warn">Tr %Zのみの簡易計算。上位電源・線路Zは未考慮。</div>
+ </div>
+
+ <div id="hvFault" hidden>
+  <div class="field"><label><span>受電点の三相短絡容量</span><span>MVA</span></label><input id="mva" type="number" placeholder="電力会社等の値"></div>
+  <div class="note warn">CBの定格遮断容量を短絡容量として入れない。</div>
+ </div>
+
+ <div id="knownFault" hidden>
+  <div class="field"><label><span>この51を流れる事故一次電流</span><span>A</span></label><input id="faultA" type="number" placeholder="一次換算A"></div>
+ </div>
+
+ <div class="dual">
+  <div class="dualbox"><span>事故一次電流</span><b id="faultPri">—</b></div>
+  <div class="dualbox"><span>事故CT二次</span><b id="faultSec">—</b></div>
+ </div>
+
+ <div class="tabs two" id="dModeTabs">
+  <button data-dmode="target" class="active">目標秒数からD</button>
+  <button data-dmode="coord">上位協調からD</button>
+ </div>
+
+ <div class="grid2">
+  <div class="field"><label><span>特性</span><span>curve</span></label>
+   <select id="curve"><option value="EI">EI</option><option value="VI">VI</option><option value="NI">NI</option><option value="DT">DT</option></select>
+  </div>
+  <div id="targetBox" class="field"><label><span>この事故で何秒にする？</span><span>s</span></label><input id="targetSec" type="number" placeholder="例 0.50" step=".01"></div>
+ </div>
+
+ <div id="coordBox" hidden>
+  <div class="grid3">
+   <div class="field"><label><span>上位 全遮断時間</span><span>s</span></label><input id="upperTime" type="number" placeholder="例 1.00" step=".01"></div>
+   <div class="field"><label><span>協調余裕</span><span>s</span></label><input id="margin" type="number" placeholder="社内基準" step=".01"></div>
+   <div class="field"><label><span>自VCB遮断時間</span><span>s</span></label><input id="cbTime" type="number" placeholder="実機値" step=".01"></div>
+  </div>
+  <div class="note">目標リレー時間 = 上位全遮断時間 − 協調余裕 − 自VCB遮断時間</div>
+ </div>
+
+ <div class="result time"><span>LEVER / D 計算候補</span><strong id="dResult">条件待ち</strong><small id="dSub">事故条件＋時間条件</small></div>
+ <div class="dual">
+  <div class="dualbox"><span>Tap倍率 M</span><b id="mBox">—</b></div>
+  <div class="dualbox"><span>目標リレー時間</span><b id="targetBoxResult">—</b></div>
+ </div>
+ <div class="formula"><small>事故 → M → D</small><b id="dFormula">—</b><div id="dTrace">—</div></div>
+ <div class="chips" id="dChips"></div>
+</section>
+
+<section class="panel" id="inst">
+ <div class="step"><div class="num">3</div><h2>瞬時</h2></div>
+ <p class="intro">まず700%・1000%をワンタップ。必要なら突入/始動まで掘る。</p>
+
+ <div class="field"><label><span>使うTap</span><span>A</span></label><select id="instTap"></select></div>
+
+ <div class="tabs four" id="instTabs">
+  <button data-inst="700" class="active">700%</button>
+  <button data-inst="1000">1000%</button>
+  <button data-inst="direct">直接A</button>
+  <button data-inst="inrush">突入/始動</button>
+ </div>
+
+ <div id="instPercentBox">
+  <div class="note">
+   <b>700% = Tapの7倍、1000% = Tapの10倍。</b><br>
+   ここでは「瞬時整定の基準として採用する倍率」。限時特性試験の700%入力とは意味を分けて表示。
+  </div>
+ </div>
+
+ <div id="instDirectBox" hidden>
+  <div class="field"><label><span>狙う瞬時二次電流</span><span>A</span></label><input id="directInst" type="number" placeholder="例 35"></div>
+ </div>
+
+ <div id="instInrushBox" hidden>
+  <div class="grid2">
+   <div class="field"><label><span>避けたい最大一次電流</span><span>A</span></label><input id="avoidA" type="number" placeholder="突入/始動"></div>
+   <div class="field"><label><span>拾いたい最小事故一次電流</span><span>A</span></label><input id="pickupA" type="number" placeholder="最小短絡"></div>
+  </div>
+ </div>
+
+ <div class="result inst"><span>INSTANT 計算基準</span><strong id="instResult">—</strong><small id="instSub">—</small></div>
+ <div class="dual">
+  <div class="dualbox"><span>二次基準</span><b id="instSecondary">—</b></div>
+  <div class="dualbox"><span>一次換算</span><b id="instPrimary">—</b></div>
+ </div>
+ <div class="formula"><small>瞬時の計算</small><b id="instFormula">—</b><div id="instTrace">—</div></div>
+ <div class="chips" id="instChips"></div>
+ <div class="note warn">K2OCの瞬時整定は独立A値：10 / 15 / 20 / 25 / 30 / 40 / 50 / 60 / 80A。35A基準なら30Aと40Aの間なので、採用側は突入・始動・事故電流・協調で判断。</div>
+</section>
+
+<section class="panel" id="sim">
+ <h2>NI / VI / EI / DT を触る</h2>
+ <p class="intro">「700%って何？」もここで確認できる。まず%ボタンを押すだけ。</p>
+
+ <div class="tabs four" id="simTabs">
+  <button data-sim="NI">NI</button><button data-sim="VI">VI</button><button data-sim="EI" class="active">EI</button><button data-sim="DT">DT</button>
+ </div>
+
+ <div class="simgrid">
+  <div class="control">
+   <div class="grid2">
+    <div class="field"><label><span>Tap</span><span>A</span></label><select id="simTap"></select></div>
+    <div class="field"><label><span>D</span><span>目盛</span></label><select id="simD"></select></div>
+   </div>
+
+   <div class="quickrow" id="pctButtons">
+    <button data-pct="200">200%</button>
+    <button data-pct="300" class="active">300%</button>
+    <button data-pct="500">500%</button>
+    <button data-pct="700">700%</button>
+    <button data-pct="1000">1000%</button>
+   </div>
+
+   <div class="range"><label><span>入力電流</span><b id="simInputLabel">15A</b></label><input id="simInput" type="range" min="0" max="100" step=".1" value="15"></div>
+
+   <div class="chain">
+    <div><span>INPUT</span><b id="sIn">15A</b></div><div><span>÷ TAP</span><b id="sTap">5A</b></div><div><span>M</span><b id="sM">3倍</b></div><div><span>%</span><b id="sPct">300%</b></div>
+   </div>
+
+   <div class="result time"><span id="simName">EI</span><strong id="simTime">—</strong><small id="simFormula">—</small></div>
+
+   <div class="actions">
+    <button class="primary" id="run" type="button">⚡ 電流を流す</button>
+    <button class="secondary" id="stop" type="button">停止</button>
+   </div>
+   <div class="stagebar">
+    <div class="stage" id="stInput">INPUT</div>
+    <div class="stage" id="stPickup">51 PICKUP</div>
+    <div class="stage" id="stTimer">TIMER</div>
+    <div class="stage" id="stTrip">TRIP</div>
+    <div class="stage" id="stVcb">VCB OPEN</div>
+   </div>
+   <div class="progress"><span id="progress"></span></div>
+   <div class="note" id="runStatus">待機中</div>
+  </div>
+
+  <div class="control">
+   <svg viewBox="0 0 700 430"><g id="grid"></g><g id="curves"></g><g id="point"></g></svg>
+   <div class="compare">
+    <div><span>NI</span><b id="tNI">—</b></div><div><span>VI</span><b id="tVI">—</b></div><div><span>EI</span><b id="tEI">—</b></div><div><span>DT</span><b id="tDT">—</b></div>
+   </div>
+  </div>
+ </div>
+
+ <details>
+  <summary>700%入力と瞬時700%は何が違う？</summary>
+  <div class="dbody">
+   <b>限時の700%入力：</b>Tapの7倍を流したとき、NI/VI/EIが何秒で動作するかを見る入力倍率。<br>
+   <b>瞬時の700%基準：</b>Tap×7を瞬時整定の目安として採用する考え方。<br>
+   同じ「700%」でも、前者は限時特性の試験点、後者は瞬時設定の基準なので、画面上で混同しないよう分離しています。
+  </div>
+ </details>
+</section>
+
+<footer>うきわメモ｜OCR 51 整定ナビ v5</footer>
+</main>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const P={taps:[3,3.5,4,4.5,5,6],d:[.25,.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,20],inst:[10,15,20,25,30,40,50,60,80]};
+const RAW={
+ EI:(M,D)=>M>1?80/(M*M-1)*D/10:Infinity,
+ VI:(M,D)=>M>1?13.5/(M-1)*D/10:Infinity,
+ NI:(M,D)=>M>1?.14/(Math.pow(M,.02)-1)*D/10:Infinity,
+ DT:(M,D)=>M>1?2*D/10:Infinity
+};
+const FORM={EI:"80/(M²−1)×D/10",VI:"13.5/(M−1)×D/10",NI:"0.14/(M^0.02−1)×D/10",DT:"2×D/10"};
+let mode="contract",fault="tr",dMode="target",instMode="700",simCurve="EI";
+let anim=null;
+function n(id,d=0){const el=$("#"+id);if(!el)return d;const v=Number(el.value);return Number.isFinite(v)?v:d}
+function nullable(id){const el=$("#"+id);if(!el||el.value.trim()==="")return null;const v=Number(el.value);return Number.isFinite(v)?v:null}
+function f(v,d=2){return Number.isFinite(v)?v.toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}):"—"}
+function upper(arr,x){return arr.find(v=>v>=x)}
+function nearest(arr,x){return arr.reduce((a,b)=>Math.abs(a-x)<=Math.abs(b-x)?a:b)}
+function fill(id,arr,sel){$("#"+id).innerHTML=arr.map(v=>`<option value="${v}" ${Number(v)===Number(sel)?"selected":""}>${v}</option>`).join("")}
+function k2time(curve,M,D){
+ if(!(M>1))return Infinity;
+ if(curve==="DT")return RAW.DT(M,D);
+ const raw=RAW[curve](M,D);
+ const floor=Math.max(.160,RAW[curve](20,D));
+ return Math.max(raw,floor);
+}
+
+let transformers=[];
+
+function newTransformer(kind="3ph",conn="RS",kva=""){
+ return {id:Math.random().toString(36).slice(2),kind,conn,kva};
+}
+function calcTransformerSums(){
+ let a=0,b=0,c=0;
+ transformers.forEach(tr=>{
+   const S=Number(tr.kva);
+   if(!(S>0))return;
+   if(tr.kind==="3ph"){
+     const each=S/3;a+=each;b+=each;c+=each;
+   }else{
+     if(tr.conn==="RS")a+=S;
+     else if(tr.conn==="ST")b+=S;
+     else if(tr.conn==="TR")c+=S;
+   }
+ });
+ return {a,b,c};
+}
+function renderTransformerRows(){
+ const box=$("#transformerList");
+ if(!box)return;
+ if(!transformers.length){
+   box.innerHTML='<div class="note">まだ変圧器がありません。「＋ 変圧器を追加」から登録。</div>';
+ }else{
+   box.innerHTML=transformers.map((tr,i)=>`
+    <div class="trrow" data-id="${tr.id}">
+      <div class="field">
+        <label><span>${i+1}台目</span><span>種別</span></label>
+        <select class="tr-kind">
+          <option value="3ph" ${tr.kind==="3ph"?"selected":""}>三相Tr</option>
+          <option value="1ph" ${tr.kind==="1ph"?"selected":""}>単相Tr</option>
+        </select>
+      </div>
+      <div class="field conn ${tr.kind==="3ph"?"disabled":""}">
+        <label><span>接続</span><span>${tr.kind==="3ph"?"3相均等":"相間"}</span></label>
+        <select class="tr-conn" ${tr.kind==="3ph"?"disabled":""}>
+          <option value="RS" ${tr.conn==="RS"?"selected":""}>RS</option>
+          <option value="ST" ${tr.conn==="ST"?"selected":""}>ST</option>
+          <option value="TR" ${tr.conn==="TR"?"selected":""}>TR</option>
+        </select>
+      </div>
+      <div class="field">
+        <label><span>容量</span><span>kVA</span></label>
+        <input class="tr-kva" type="number" min="0" step="1" value="${tr.kva}" placeholder="例 500">
+      </div>
+      <button class="remove" type="button" aria-label="削除">×</button>
+    </div>`).join("");
+ }
+
+ const sums=calcTransformerSums();
+ $("#sumA").textContent=`${f(sums.a,2)} kVA`;
+ $("#sumB").textContent=`${f(sums.b,2)} kVA`;
+ $("#sumC").textContent=`${f(sums.c,2)} kVA`;
+ $("#trCount").textContent=`${transformers.length}台`;
+
+ box.querySelectorAll(".trrow").forEach(row=>{
+   const id=row.dataset.id,tr=transformers.find(x=>x.id===id);
+   row.querySelector(".tr-kind").addEventListener("change",e=>{
+     tr.kind=e.target.value;
+     renderTransformerRows();
+     renderTap();
+   });
+   const conn=row.querySelector(".tr-conn");
+   if(conn)conn.addEventListener("change",e=>{tr.conn=e.target.value;renderTap()});
+   row.querySelector(".tr-kva").addEventListener("input",e=>{tr.kva=e.target.value;renderTransformerRowsTotalsOnly();renderTap()});
+   row.querySelector(".remove").addEventListener("click",()=>{
+     transformers=transformers.filter(x=>x.id!==id);
+     renderTransformerRows();
+     renderTap();
+   });
+ });
+}
+function renderTransformerRowsTotalsOnly(){
+ const sums=calcTransformerSums();
+ $("#sumA").textContent=`${f(sums.a,2)} kVA`;
+ $("#sumB").textContent=`${f(sums.b,2)} kVA`;
+ $("#sumC").textContent=`${f(sums.c,2)} kVA`;
+ $("#trCount").textContent=`${transformers.length}台`;
+}
+fill("leverTap",P.taps,5);fill("instTap",P.taps,5);fill("simTap",P.taps,5);fill("simD",P.d,3);
+
+function loadCalc(){
+ const V=Math.max(.001,n("voltage",6.6)),ctP=Math.max(1,n("ctP",300)),ratio=ctP/5;
+ if(mode==="contract"){
+  const Pk=n("kw"),I=Pk/(Math.sqrt(3)*V),sec=I/ratio,basis=sec*1.5,tap=upper(P.taps,basis);
+  return {I,sec,basis,tap,detail:`${f(Pk,0)}kW ÷ (√3×${f(V,1)}kV) = ${f(I,3)}A → CT二次 ${f(sec,4)}A → ×150% = ${f(basis,4)}A`};
+ }
+ if(mode==="three"){
+  const S=n("kva"),I=S/(Math.sqrt(3)*V),sec=I/ratio,tap=upper(P.taps,sec);
+  return {I,sec,basis:sec,tap,detail:`${f(S,0)}kVA ÷ (√3×${f(V,1)}kV) = ${f(I,3)}A → CT二次 ${f(sec,4)}A（150%なし）`};
+ }
+ const sums=calcTransformerSums();
+ const a=sums.a,b=sums.b,c=sums.c;
+ const cur={R:Math.sqrt(a*a+c*c+a*c)/V,S:Math.sqrt(a*a+b*b+a*b)/V,T:Math.sqrt(b*b+c*c+b*c)/V};
+ const ph=$("#ctPhase").value,keys=ph==="RT"?["R","T"]:ph==="RST"?["R","S","T"]:[ph];
+ const max=keys.map(k=>[k,cur[k]]).sort((x,y)=>y[1]-x[1])[0],I=max[1],sec=I/ratio,tap=upper(P.taps,sec);
+ return {
+   I,sec,basis:sec,tap,cur,a,b,c,
+   detail:`a(RS)=${f(a,2)}kVA / b(ST)=${f(b,2)}kVA / c(TR)=${f(c,2)}kVA → R=${f(cur.R,2)}A / S=${f(cur.S,2)}A / T=${f(cur.T,2)}A → CT監視(${keys.join("/")})最大 ${max[0]}=${f(I,2)}A → 二次 ${f(sec,4)}A`
+ };
+}
+function renderTap(){
+ const x=loadCalc();
+ if($("#ctPhaseBadge") && mode!=="phase") $("#ctPhaseBadge").textContent="K2OC標準：R/T";
+ $("#loadPri").textContent=`${f(x.I,2)} A`;
+ $("#loadSec").textContent=`${f(x.sec,4)} A`;
+ $("#tapResult").textContent=x.tap!==undefined?`${x.tap} A`:"範囲外";
+ $("#tapSub").textContent=mode==="contract"?`K2OC公式150%近傍｜計算値 ${f(x.basis,3)}A（二次）`:`負荷を下回らない最小候補｜${f(x.basis,3)}A（二次）`;
+
+ const V=Math.max(.001,n("voltage",6.6)),ctP=Math.max(1,n("ctP",300));
+ if(mode==="contract"){
+  const Pk=n("kw");
+  $("#tapFormulaMain").innerHTML=
+   `I<sub>Tap基準</sub> = P/(√3×V) × 5/CT一次 × 1.5`;
+  $("#tapFormulaNumbers").innerHTML=
+   `${f(Pk,0)}kW ÷ (√3×${f(V,1)}kV) × 5/${ctP} × 1.5 = <b>${f(x.basis,4)}A</b><br>`+
+   `途中：6.6kV側負荷 ${f(x.I,3)}A → CT二次 ${f(x.sec,4)}A → ×150%<br>`+
+   `→ 実機Tap ${P.taps.join(" / ")}A → <b>${x.tap!==undefined?x.tap+"A":"範囲外"}</b>`;
+ }else if(mode==="three"){
+  const S=n("kva");
+  $("#tapFormulaMain").innerHTML=
+   `I<sub>Tap基準</sub> = S/(√3×V) × 5/CT一次`;
+  $("#tapFormulaNumbers").innerHTML=
+   `${f(S,0)}kVA ÷ (√3×${f(V,1)}kV) × 5/${ctP} = <b>${f(x.basis,4)}A</b><br>`+
+   `途中：6.6kV側負荷 ${f(x.I,3)}A → CT二次 ${f(x.sec,4)}A（150%なし）<br>`+
+   `→ 実機Tap ${P.taps.join(" / ")}A → <b>${x.tap!==undefined?x.tap+"A":"範囲外"}</b>`;
+ }else{
+  const sums=calcTransformerSums(),a=sums.a,b=sums.b,c=sums.c;
+  const IR=Math.sqrt(a*a+c*c+a*c)/V;
+  const IS=Math.sqrt(a*a+b*b+a*b)/V;
+  const IT=Math.sqrt(b*b+c*c+b*c)/V;
+  const ph=$("#ctPhase").value;
+  const keys=ph==="RT"?["R","T"]:ph==="RST"?["R","S","T"]:[ph];
+  const vals={R:IR,S:IS,T:IT};
+  const monitored=keys.map(k=>[k,vals[k]]).sort((u,v)=>v[1]-u[1])[0];
+
+  $("#ctPhaseBadge").textContent=ph==="RT"?"K2OC標準：R/T":"選択中："+keys.join("/");
+  $("#tapFormulaMain").innerHTML=
+   `三相Tr：S/3 → a,b,cへ均等　／　単相Tr：接続相間へSをそのまま加算`;
+  $("#tapFormulaNumbers").innerHTML=
+   `集計：a(RS)=<b>${f(a,2)}kVA</b> / b(ST)=<b>${f(b,2)}kVA</b> / c(TR)=<b>${f(c,2)}kVA</b><br><br>`+
+   `I<sub>R</sub> = √(a²+c²+ac)/V = √(${f(a,2)}²+${f(c,2)}²+${f(a,2)}×${f(c,2)}) ÷ ${f(V,1)} = <b>${f(IR,2)}A</b><br>`+
+   `I<sub>S</sub> = √(a²+b²+ab)/V = √(${f(a,2)}²+${f(b,2)}²+${f(a,2)}×${f(b,2)}) ÷ ${f(V,1)} = <b>${f(IS,2)}A</b><br>`+
+   `I<sub>T</sub> = √(b²+c²+bc)/V = √(${f(b,2)}²+${f(c,2)}²+${f(b,2)}×${f(c,2)}) ÷ ${f(V,1)} = <b>${f(IT,2)}A</b><br><br>`+
+   `CT監視 ${keys.join("/")} → 最大 <b>${monitored[0]}相 ${f(monitored[1],2)}A</b><br>`+
+   `CT二次 = ${f(monitored[1],2)} × 5/${ctP} = <b>${f(x.basis,4)}A</b><br>`+
+   `→ 実機Tap ${P.taps.join(" / ")}A → <b>${x.tap!==undefined?x.tap+"A":"範囲外"}</b>`;
+ }
+
+ $("#tapChips").innerHTML=P.taps.map(v=>`<span class="chip ${v===x.tap?"good":""}">${v}A</span>`).join("");
+ $("#sumTap").textContent=x.tap!==undefined?`${x.tap}A`:"要確認";
+ $("#sumTapSub").textContent=`負荷 ${f(x.I,1)}A`;
+ if(x.tap!==undefined){
+  ["leverTap","instTap","simTap"].forEach(id=>$("#"+id).value=String(x.tap));
+  $("#simInput").value=String(Math.min(100,x.tap*3));
+ }
+ renderLever();renderInst();renderSim();
+}
+function faultCalc(){
+ const ctP=Math.max(1,n("ctP",300));
+ if(fault==="tr"){
+  const S=nullable("trKva"),V=nullable("trKv"),z=nullable("trZ");
+  if(!(S>0&&V>0&&z>0))return null;
+  const In=S/(Math.sqrt(3)*V),A=In*100/z;
+  return {A,sec:A*5/ctP,desc:`Tr一次定格 ${f(In,3)}A ×100/${f(z,2)} = ${f(A,1)}A`};
+ }
+ if(fault==="hv"){
+  const S=nullable("mva"),V=n("voltage",6.6);
+  if(!(S>0))return null;
+  const A=S/(Math.sqrt(3)*V)*1000;
+  return {A,sec:A*5/ctP,desc:`${f(S,2)}MVA ÷(√3×${f(V,1)}kV) = ${f(A/1000,3)}kA`};
+ }
+ const A=nullable("faultA");if(!(A>0))return null;
+ return {A,sec:A*5/ctP,desc:`既知事故一次 ${f(A,1)}A`};
+}
+function targetTime(){
+ if(dMode==="target")return nullable("targetSec");
+ const up=nullable("upperTime"),m=nullable("margin"),cb=nullable("cbTime");
+ if(up===null||m===null||cb===null)return null;
+ const t=up-m-cb;return t>0?t:null;
+}
+function inverseD(curve,M,t){
+ if(!(M>1&&t>0))return NaN;
+ if(curve==="DT")return t*5;
+ const base=RAW[curve](M,10);
+ return t/base*10;
+}
+function renderLever(){
+ const F=faultCalc(),tap=n("leverTap",5),curve=$("#curve").value,tgt=targetTime();
+ $("#faultPri").textContent=F?`${f(F.A,1)} A`:"—";
+ $("#faultSec").textContent=F?`${f(F.sec,3)} A`:"—";
+ if(!F||!(tgt>0)){
+  $("#dResult").textContent="条件待ち";$("#dSub").textContent="事故条件＋時間条件";
+  $("#dFormula").textContent=F?F.desc:"事故条件を入れると自動計算";
+  $("#dTrace").textContent="";$("#dChips").innerHTML="";
+  $("#mBox").textContent="—";$("#targetBoxResult").textContent=tgt?`${f(tgt,3)}s`:"—";
+  $("#sumD").textContent="—";$("#sumDSub").textContent="条件待ち";return;
+ }
+ const M=F.sec/tap;
+ $("#mBox").textContent=`${f(M,2)}倍`;
+ $("#targetBoxResult").textContent=`${f(tgt,3)} s`;
+ if(!(M>1)){
+  $("#dResult").textContent="Pickup未満";$("#dSub").textContent=`M=${f(M,2)}`;
+  $("#sumD").textContent="—";return;
+ }
+ const raw=inverseD(curve,M,tgt),near=nearest(P.d,raw);
+ $("#dResult").textContent=`D ≈ ${near}`;
+ $("#dSub").textContent=`逆算D=${f(raw,2)}｜実機の近い目盛`;
+ $("#dFormula").textContent=`${F.desc} → CT二次 ${f(F.sec,3)}A → M=${f(M,3)} → ${curve}で${f(tgt,3)}秒`;
+ $("#dTrace").textContent=`${FORM[curve]} をDについて逆算 → D=${f(raw,3)}。この事故点の候補。`;
+ $("#dChips").innerHTML=P.d.map(v=>`<span class="chip ${v===near?"good":""}">D${v}：${f(k2time(curve,M,v),3)}s</span>`).join("");
+ $("#sumD").textContent=`D${near}`;$("#sumDSub").textContent=`M ${f(M,2)}倍`;
+ if(near!==undefined)$("#simD").value=String(near);
+ renderSim();
+}
+function renderInst(){
+ const tap=n("instTap",5),ctP=Math.max(1,n("ctP",300)),ratio=ctP/5;
+ let target=null,pri=null,good=[],formula="",trace="";
+ if(instMode==="700"||instMode==="1000"){
+  const mult=instMode==="700"?7:10;
+  target=tap*mult;pri=target*ratio;
+  const above=upper(P.inst,target),below=[...P.inst].reverse().find(v=>v<=target);
+  if(above!==undefined)good=[above];
+  formula=`Tap ${tap}A × ${mult} = ${f(target,1)}A（二次）`;
+  trace=`一次換算 ${f(target,1)}×${f(ratio,1)}=${f(pri,0)}A｜下側 ${below??"—"}A / 上側 ${above??"—"}A`;
+ }else if(instMode==="direct"){
+  target=nullable("directInst");
+  if(target!==null){pri=target*ratio;const above=upper(P.inst,target);if(above!==undefined)good=[above];formula=`指定 ${f(target,1)}A（二次）`;trace=`一次換算 ${f(pri,0)}A`;}
+ }else{
+  const avoid=nullable("avoidA"),pick=nullable("pickupA");
+  if(avoid!==null&&pick!==null){
+   const aS=avoid/ratio,pS=pick/ratio;
+   good=P.inst.filter(v=>v>aS&&v<=pS);
+   formula=`${f(aS,2)}A < INST ≤ ${f(pS,2)}A（二次）`;
+   trace=`避けたい一次 ${f(avoid,0)}A / 拾いたい一次 ${f(pick,0)}A`;
+  }
+ }
+ if(instMode==="inrush"){
+  $("#instResult").textContent=good.length?`${good[0]}～${good[good.length-1]} A`:"条件待ち";
+  $("#instSub").textContent=good.length?`成立候補 ${good.join(", ")}A`:"突入/始動と最小事故を入力";
+  $("#instSecondary").textContent=good.length?`${good[0]}～${good[good.length-1]}A`:"—";
+  $("#instPrimary").textContent=good.length?`${f(good[0]*ratio,0)}～${f(good[good.length-1]*ratio,0)}A`:"—";
+  $("#sumInst").textContent=good.length?`${good[0]}A～`:"—";
+ }else{
+  $("#instResult").textContent=target!==null?`${f(target,1)} A 基準`:"条件待ち";
+  $("#instSub").textContent=good.length?`K2OC基準以上直近：${good[0]}A`:"実機候補を確認";
+  $("#instSecondary").textContent=target!==null?`${f(target,1)}A`:"—";
+  $("#instPrimary").textContent=pri!==null?`${f(pri,0)}A`:"—";
+  $("#sumInst").textContent=good.length?`${good[0]}A`:"—";
+ }
+ $("#sumInstSub").textContent=instMode==="700"?"700%基準":instMode==="1000"?"1000%基準":instMode==="direct"?"直接A":"突入/始動";
+ $("#instFormula").textContent=formula||"—";$("#instTrace").textContent=trace||"—";
+ $("#instChips").innerHTML=P.inst.map(v=>`<span class="chip ${good.includes(v)?"good":(target!==null&&Math.abs(v-target)<=5?"near":"")}">${v}A</span>`).join("");
+}
+function renderSim(){
+ const tap=n("simTap",5),D=n("simD",3),input=n("simInput",15),M=input/tap,t=k2time(simCurve,M,D);
+ $("#simInputLabel").textContent=`${f(input,1)}A`;$("#sIn").textContent=`${f(input,1)}A`;$("#sTap").textContent=`${tap}A`;$("#sM").textContent=`${f(M,2)}倍`;$("#sPct").textContent=`${f(M*100,0)}%`;
+ $("#simName").textContent=simCurve;$("#simTime").textContent=M>1?`${f(t,3)} s`:"不動作";$("#simFormula").textContent=M>1?FORM[simCurve]:"入力≤Tap";
+ ["NI","VI","EI","DT"].forEach(k=>$("#t"+k).textContent=M>1?`${f(k2time(k,M,D),3)}s`:"—");
+ $$("#pctButtons button").forEach(b=>b.classList.toggle("active",Math.abs(Number(b.dataset.pct)-M*100)<1));
+ drawGraph();
+}
+function drawGraph(){
+ const x0=65,x1=675,y0=390,y1=30,xmin=1.05,xmax=30,ymin=.04,ymax=100;
+ const lx=m=>x0+(Math.log(m/xmin)/Math.log(xmax/xmin))*(x1-x0),ly=t=>y0-(Math.log(t/ymin)/Math.log(ymax/ymin))*(y0-y1);
+ let g="";
+ [1.1,2,3,5,7,10,20,30].forEach(m=>{const x=lx(m);g+=`<line x1="${x}" y1="${y1}" x2="${x}" y2="${y0}" stroke="#e4edf1"/><text x="${x}" y="${y0+20}" text-anchor="middle" font-size="10" fill="#68818e">${m}</text>`});
+ [.05,.1,.2,.5,1,2,5,10,20,50,100].forEach(t=>{const y=ly(t);g+=`<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="#e4edf1"/><text x="${x0-7}" y="${y+4}" text-anchor="end" font-size="9" fill="#68818e">${t}</text>`});
+ g+=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y0}" stroke="#9eb5c1"/><line x1="${x0}" y1="${y1}" x2="${x0}" y2="${y0}" stroke="#9eb5c1"/>`;$("#grid").innerHTML=g;
+ const D=n("simD",3);let paths="";
+ ["NI","VI","EI","DT"].forEach(k=>{let p="";for(let i=0;i<=220;i++){const m=xmin+(xmax-xmin)*i/220,t=Math.max(ymin,Math.min(ymax,k2time(k,m,D)));p+=(i?"L":"M")+lx(m).toFixed(2)+","+ly(t).toFixed(2)+" "}paths+=`<path d="${p}" fill="none" stroke="${k===simCurve?"#0d84bb":"#a8beca"}" stroke-width="${k===simCurve?4:1.5}" opacity="${k===simCurve?1:.68}"/>`});$("#curves").innerHTML=paths;
+ const tap=n("simTap",5),input=n("simInput",15),M=input/tap;
+ if(M>1&&M<=xmax){const t=k2time(simCurve,M,D),x=lx(M),y=ly(Math.max(ymin,Math.min(ymax,t)));$("#point").innerHTML=`<circle cx="${x}" cy="${y}" r="7" fill="#f3a42c" stroke="#fff" stroke-width="3"/><text x="${Math.min(x+9,570)}" y="${Math.max(y-9,22)}" font-size="11" font-weight="1000" fill="#966112">M=${f(M,2)} / ${f(t,2)}s</text>`}else $("#point").innerHTML="";
+}
+function stopRun(){
+ if(anim){cancelAnimationFrame(anim);anim=null}
+ ["stInput","stPickup","stTimer","stTrip","stVcb"].forEach(id=>$("#"+id).className="stage");
+ $("#progress").style.width="0%";
+}
+function runRelay(){
+ stopRun();
+ const tap=n("simTap",5),D=n("simD",3),input=n("simInput",15),M=input/tap;
+ $("#stInput").classList.add("on");
+ if(!(M>1)){ $("#runStatus").textContent=`${f(input,1)}A ≤ Tap ${tap}A：限時Pickupしない`;return; }
+ const t=k2time(simCurve,M,D);
+ $("#stPickup").classList.add("on");$("#stTimer").classList.add("on");
+ const duration=Math.max(400,Math.min(5000,t*500)); // learning-speed animation
+ const start=performance.now();
+ function frame(now){
+  const p=Math.max(0,Math.min(1,(now-start)/duration));
+  $("#progress").style.width=`${p*100}%`;
+  $("#runStatus").textContent=`${simCurve} TIMER｜公称 ${f(t,3)}s｜学習表示中`;
+  if(p>=1){
+   $("#stTrip").classList.add("trip");$("#stVcb").classList.add("trip");
+   $("#runStatus").textContent=`TRIP → VCB OPEN｜リレー公称 ${f(t,3)}s`;
+   anim=null;return;
+  }
+  anim=requestAnimationFrame(frame);
+ }
+ anim=requestAnimationFrame(frame);
+}
+
+$$("#loadTabs button").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;$$("#loadTabs button").forEach(x=>x.classList.toggle("active",x===b));$("#contractBox").hidden=mode!=="contract";$("#threeBox").hidden=mode!=="three";$("#phaseBox").hidden=mode!=="phase";renderTap()});
+$$("#faultTabs button").forEach(b=>b.onclick=()=>{fault=b.dataset.fault;$$("#faultTabs button").forEach(x=>x.classList.toggle("active",x===b));$("#trFault").hidden=fault!=="tr";$("#hvFault").hidden=fault!=="hv";$("#knownFault").hidden=fault!=="known";renderLever()});
+$$("#dModeTabs button").forEach(b=>b.onclick=()=>{dMode=b.dataset.dmode;$$("#dModeTabs button").forEach(x=>x.classList.toggle("active",x===b));$("#targetBox").hidden=dMode!=="target";$("#coordBox").hidden=dMode!=="coord";renderLever()});
+$$("#instTabs button").forEach(b=>b.onclick=()=>{instMode=b.dataset.inst;$$("#instTabs button").forEach(x=>x.classList.toggle("active",x===b));$("#instPercentBox").hidden=!(instMode==="700"||instMode==="1000");$("#instDirectBox").hidden=instMode!=="direct";$("#instInrushBox").hidden=instMode!=="inrush";renderInst()});
+$$("#simTabs button").forEach(b=>b.onclick=()=>{simCurve=b.dataset.sim;$$("#simTabs button").forEach(x=>x.classList.toggle("active",x===b));renderSim()});
+$$("#pctButtons button").forEach(b=>b.onclick=()=>{const pct=Number(b.dataset.pct),tap=n("simTap",5);$("#simInput").value=String(Math.min(100,tap*pct/100));renderSim()});
+
+document.querySelectorAll("input,select").forEach(el=>el.addEventListener("input",()=>{
+ if(["leverTap","trKva","trKv","trZ","mva","faultA","curve","targetSec","upperTime","margin","cbTime"].includes(el.id))renderLever();
+ else if(["instTap","directInst","avoidA","pickupA"].includes(el.id))renderInst();
+ else if(["simTap","simD","simInput"].includes(el.id))renderSim();
+ else renderTap();
+}));
+
+$("#run").onclick=runRelay;
+$("#stop").onclick=()=>{stopRun();$("#runStatus").textContent="停止しました"};
+
+
+$("#addTransformer").addEventListener("click",()=>{
+ transformers.push(newTransformer("3ph","RS",""));
+ renderTransformerRows();
+ renderTap();
+});
+$("#sampleTransformers").addEventListener("click",()=>{
+ transformers=[
+   newTransformer("3ph","RS","500"),
+   newTransformer("1ph","RS","75"),
+   newTransformer("1ph","ST","150")
+ ];
+ renderTransformerRows();
+ renderTap();
+});
+$("#clearTransformers").addEventListener("click",()=>{
+ transformers=[];
+ renderTransformerRows();
+ renderTap();
+});
+
+transformers=[newTransformer("3ph","RS","")];
+renderTransformerRows();
+
+renderTap();
+})();
+</script>
+</body>
+</html>
