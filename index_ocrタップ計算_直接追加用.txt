@@ -1,0 +1,59 @@
+【index.html 直接追加用】
+
+1) aria-label を変更
+--------------------------------
+変更前：
+<section class="cards" id="categories" aria-label="6つの入口">
+
+変更後：
+<section class="cards" id="categories" aria-label="7つの入口">
+
+
+2) 06「測定器の原理」の直後、</section> の前にこれを追加
+--------------------------------
+<a class="card ocr-tap-card" href="ocr-tap-calculator.html">
+  <div class="row">
+    <span class="n">07</span>
+    <span class="ico">🧮</span>
+  </div>
+  <h2>OCRタップ計算</h2>
+  <p>変圧器構成・CT比からTapを求め、レバー・瞬時まで整理する。</p>
+  <div class="examples">単相/三相Tr / CT / Tap / D / 700%・1000%</div>
+  <span class="go">計算する <b>→</b></span>
+</a>
+
+
+3) CSSに07の色を追加
+--------------------------------
+既存の
+.card:nth-child(6){...}
+.card:nth-child(6) .ico,.card:nth-child(6) .go{...}
+
+の直後へ追加：
+
+.card:nth-child(7){border-color:#356a78}
+.card:nth-child(7) .ico,
+.card:nth-child(7) .go{color:#5bc7d8}
+
+
+4) スマホでは7個目を横幅いっぱいにする
+--------------------------------
+既存の @media(max-width:680px){ ... } のどこかへ追加：
+
+.cards .card:nth-child(7){
+  grid-column:1/-1;
+}
+
+
+【完成イメージ】
+
+01 保護継電器・絶縁監視
+02 試験方法・測定器具
+03 充電電流計算
+04 非常用発電機 試験・シーケンス
+05 リレーシーケンス
+06 測定器の原理
+07 OCRタップ計算  ← ocr-tap-calculator.html
+
+JavaScriptの変更は不要。
+ukiwa-lab-entry.js は今のままでOK。
