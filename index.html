@@ -48,6 +48,7 @@ html[data-theme="dark"] .stars{opacity:1;animation:starDrift 22s linear infinite
 .quick{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;max-width:850px}.quick button{border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 90%,transparent);color:var(--text);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:1000;cursor:pointer}.quick button:hover{background:var(--soft-bg-2);border-color:var(--blue)}
 .cards{grid-area:cards;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}
 .card{min-height:184px;padding:15px 16px;border:1px solid var(--line);border-radius:17px;background:var(--card-bg);box-shadow:0 12px 28px rgba(52,98,130,.14);display:flex;flex-direction:column;transition:.18s ease}.card:hover{transform:translateY(-3px);border-color:#5ba2d4}.row{display:flex;align-items:center;gap:10px}.n{font-size:11px;color:#7faece;font-weight:1000}.ico{font-size:34px}.card h2{font-size:18px;margin:6px 0 3px}.card p{margin:0;color:var(--muted);font-size:11px}.examples{margin:7px 0 11px;font-size:10px;color:var(--text);font-weight:900}.go{margin-top:auto;border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;font-weight:1000}.card:nth-child(1){border-color:#6d5c27}.card:nth-child(1) .ico,.card:nth-child(1) .go{color:#f3c651}.card:nth-child(2){border-color:#35654c}.card:nth-child(2) .ico,.card:nth-child(2) .go{color:#92d495}.card:nth-child(3){border-color:#674584}.card:nth-child(3) .ico,.card:nth-child(3) .go{color:#c69bf0}.card:nth-child(4){border-color:#7c482c}.card:nth-child(4) .ico,.card:nth-child(4) .go{color:#ff9b58}.card:nth-child(5){border-color:#315f83}.card:nth-child(5) .ico,.card:nth-child(5) .go{color:#69c5ff}.card:nth-child(6){border-color:#6a6e37}.card:nth-child(6) .ico,.card:nth-child(6) .go{color:#d8df79}
+.card:nth-child(7){border-color:#356a78}.card:nth-child(7) .ico,.card:nth-child(7) .go{color:#5bc7d8}
 
 /* Fantasy background + glass UI */
 .hero .card{background:rgba(255,255,255,.72);backdrop-filter:blur(14px) saturate(1.12);-webkit-backdrop-filter:blur(14px) saturate(1.12);box-shadow:0 14px 34px rgba(34,88,120,.18)}
@@ -108,6 +109,8 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
   .characterFrame img{width:144px;max-height:144px}
 }
 
+
+@media(max-width:680px){.cards .card:nth-child(7){grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -115,13 +118,14 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
 <div class="characterWrap" aria-label="うきわメモの浮き輪マスコット"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-ring-hero.png" alt="うきわメモの浮き輪マスコット"></div></div>
 <div class="core"><span class="kicker">OCEAN FIELD NOTE</span><h1 class="title">うきわ<b>メモ</b></h1><p class="lead">電気保安の「わからない」を、ここから探す。</p><span class="work">WORK MODE｜すぐ調べる</span><div class="search"><input id="siteSearch" type="search" autocomplete="off" placeholder="型式・メーカー・試験・機器を検索…" aria-label="サイト内検索"><button id="searchBtn" type="button" aria-label="検索">⌕</button></div><div class="quick"><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="IP-1110">IP-1110</button><button data-q="DI-05N">DI-05N</button><button data-q="OCR">OCR</button><button data-q="OVGR">OVGR</button><button data-q="RPR">RPR</button><button data-q="耐圧試験">耐圧試験</button><button data-q="IR4052">IR4052</button></div></div>
-<section class="cards" id="categories" aria-label="6つの入口">
+<section class="cards" id="categories" aria-label="7つの入口">
 <a class="card" href="protective-relay.html"><div class="row"><span class="n">01</span><span class="ico">⚡</span></div><h2>保護継電器・絶縁監視</h2><p>保護継電器・ELR・絶縁監視をメーカー・型式から探す。</p><div class="examples">OCR / DGR / OVGR / RPR / ELR・絶縁監視</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="test-measurement.html"><div class="row"><span class="n">02</span><span class="ico">🔧</span></div><h2>試験方法・測定器具</h2><p>継電器試験・絶縁監視・耐圧と、使用する測定器具を探す。</p><div class="examples">IP-1110 / DI-05N / ET-5 / WPS-22 / I2V2</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="ac-withstand-test-simulator.html"><div class="row"><span class="n">03</span><span class="ico">⚠</span></div><h2>充電電流計算</h2><p>ケーブルの静電容量・長さ・周波数・印加電圧から充電電流を計算する。</p><div class="examples">Ic = 2πfCV / 1相・3相 / リアクトル比較</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="generator-rescue-island.html"><div class="row"><span class="n">04</span><span class="ico">⚙</span></div><h2>非常用発電機 試験・シーケンス</h2><p>自動始動・停止と、保護装置連動試験の流れを学ぶ。</p><div class="examples">停電 / 始動 / 切替 / 復電 / 停止 / 保護連動</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="sequence-basics.html"><div class="row"><span class="n">05</span><span class="ico">🔁</span></div><h2>リレーシーケンス</h2><p>接点とコイルを電源側から追い、自己保持・インターロックを理解する。</p><div class="examples">a/b接点 / 励磁 / 自己保持 / インターロック</div><span class="go">学ぶ <b>→</b></span></a>
 <a class="card" href="measurement-principles.html"><div class="row"><span class="n">06</span><span class="ico">🧭</span></div><h2>測定器の原理</h2><p>絶縁抵抗・接地抵抗を「何を測っているか」から理解する。</p><div class="examples">絶縁抵抗 / ET-5 / 3極法・2極法 / 回路色分け</div><span class="go">学ぶ <b>→</b></span></a>
+<a class="card" href="ocr-tap-calculator.html"><div class="row"><span class="n">07</span><span class="ico">🧮</span></div><h2>OCRタップ計算</h2><p>変圧器構成・CT比からTapを求め、レバー・瞬時まで整理する。</p><div class="examples">単相/三相Tr / CT / Tap / D / 700%・1000%</div><span class="go">計算する <b>→</b></span></a>
 </section></div></section>
 
 <main class="main"><section class="contentSection"><div class="side"><section class="panel" id="updates"><h2>📣 更新・おすすめ</h2>
