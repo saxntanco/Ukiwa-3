@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPP1-A02D2 × NF RX4744 現場アンチョコ v2 精読版</title>
+<style>
+:root{
+ --bg:#f4f6fa; --card:#fff; --ink:#172033; --muted:#5c667a; --line:#d7deea;
+ --nav:#0b1f3a; --blue:#175cd3; --green:#067647; --yellow:#b54708; --red:#b42318;
+ --violet:#6938ef; --cyan:#026aa2; --softblue:#eff8ff; --softgreen:#ecfdf3;
+ --softyellow:#fffaeb; --softred:#fff1f0; --softviolet:#f4f3ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.67}
+main{max-width:1120px;margin:auto;padding:14px 14px 80px}
+h1{font-size:clamp(1.55rem,5vw,2.2rem);line-height:1.25;margin:.2em 0}
+h2{font-size:1.34rem;margin:1.5em 0 .6em;padding-left:.65em;border-left:6px solid var(--blue)}
+h3{font-size:1.1rem;margin:1.25em 0 .45em}
+h4{font-size:1rem;margin:1em 0 .35em}
+p{margin:.55em 0}
+a{color:var(--blue)}
+small,.muted{color:var(--muted)}
+.hero{background:linear-gradient(135deg,#0b1f3a,#154c9a);color:white;border:0}
+.hero .muted{color:#d8e7ff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px;margin:12px 0;box-shadow:0 1px 4px rgba(10,30,60,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:720px){.cols2{grid-template-columns:1fr}}
+.info{background:var(--softblue);border-left:6px solid var(--blue)}
+.ok{background:var(--softgreen);border-left:6px solid var(--green)}
+.warn{background:var(--softyellow);border-left:6px solid var(--yellow)}
+.danger{background:var(--softred);border-left:6px solid var(--red)}
+.violet{background:var(--softviolet);border-left:6px solid var(--violet)}
+.tag{display:inline-block;border-radius:999px;padding:2px 8px;margin:1px 3px 1px 0;font-weight:700;font-size:.78rem}
+.t-mfr{background:#dcfae6;color:#05603a}.t-rx{background:#dbeafe;color:#174ea6}
+.t-past{background:#eee7ff;color:#5925dc}.t-calc{background:#e0f2fe;color:#075985}
+.t-infer{background:#fef0c7;color:#93370d}.t-check{background:#fee4e2;color:#912018}
+table{width:100%;border-collapse:collapse;margin:.75em 0;background:white;font-size:.94rem}
+th,td{border:1px solid var(--line);padding:8px 9px;vertical-align:top}
+th{background:#eef2f7;text-align:left}
+.tablewrap{overflow-x:auto}
+pre{white-space:pre-wrap;overflow:auto;background:#0b1220;color:#e8edf5;border-radius:11px;padding:12px;font-family:"Cascadia Mono","SFMono-Regular",Consolas,monospace;line-height:1.55}
+code{font-family:"Cascadia Mono","SFMono-Regular",Consolas,monospace}
+strong.red,.red{color:var(--red)}
+.green{color:var(--green);font-weight:700}.amber{color:var(--yellow);font-weight:700}.blue{color:var(--blue);font-weight:700}
+.calc{font-weight:700;font-size:1.06rem}
+.step{display:flex;gap:10px;align-items:flex-start;margin:9px 0}
+.num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--nav);color:white;display:grid;place-items:center;font-weight:800}
+.checklist{list-style:none;padding-left:0}
+.checklist li{position:relative;padding-left:1.9em;margin:.42em 0}
+.checklist li:before{content:"□";position:absolute;left:0;font-size:1.25em;top:-.1em}
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,246,250,.94);backdrop-filter:blur(8px);padding:7px 0}
+.nav{display:flex;gap:6px;overflow-x:auto;padding:2px 1px 6px;scrollbar-width:thin}
+.nav a{white-space:nowrap;text-decoration:none;border:1px solid #cbd5e1;background:white;color:#172033;border-radius:999px;padding:5px 9px;font-size:.82rem}
+details{border:1px solid var(--line);border-radius:12px;background:#fff;margin:8px 0;padding:0 12px}
+summary{cursor:pointer;font-weight:800;padding:11px 0}
+details>div{padding:0 0 10px}
+hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+.kicker{font-size:.85rem;letter-spacing:.04em;font-weight:800;opacity:.9}
+.big{font-size:1.2rem;font-weight:800}
+.center{text-align:center}
+.badgebox{display:flex;flex-wrap:wrap;gap:5px;margin:.5em 0}
+.flow{display:grid;grid-template-columns:1fr;gap:5px}
+.flow div{padding:8px 10px;border-radius:10px;background:#eef2f7}
+.flow .arrow{text-align:center;background:transparent;padding:0;font-weight:900}
+.src{font-size:.83rem;color:#667085;border-top:1px dashed #cbd5e1;margin-top:10px;padding-top:7px}
+.callout{font-weight:800;padding:.55em .7em;border-radius:9px;background:#fff}
+.searchbox{position:relative;margin:9px 0 0}
+.searchbox input{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:10px 12px;font-size:1rem}
+.hiddenBySearch{display:none!important}
+@media print{
+ body{background:white;font-size:10pt}
+ main{max-width:none;padding:0}
+ .sticky,.searchbox{display:none}
+ .card,details{box-shadow:none;break-inside:avoid}
+ h2,h3{break-after:avoid}
+ .hero{background:white;color:black;border:2px solid #111}
+ .hero .muted{color:#444}
+}
+</style>
+<script>
+function filterSections(){
+ const q=(document.getElementById('q').value||'').trim().toLowerCase();
+ document.querySelectorAll('[data-search]').forEach(el=>{
+   const s=(el.innerText||'').toLowerCase();
+   el.classList.toggle('hiddenBySearch', q && !s.includes(q));
+ });
+}
+</script>
+
+<style id="ukiwa-sitebar-style">
+.ukiwa-sitebar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid #cbd5e1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+.ukiwa-sitebar a{text-decoration:none;font-weight:800;color:#175cd3}
+.ukiwa-sitebar .uk-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.ukiwa-sitebar .uk-actions a{font-size:.78rem;padding:5px 8px;border:1px solid #cbd5e1;border-radius:999px;background:#fff;color:#172033}
+@media print{.ukiwa-sitebar{display:none}}
+</style>
+
+</head>
+<body>
+<div class="ukiwa-sitebar"><a href="index.html">🌊 うきわメモ</a><div class="uk-actions"><a href="protective-relay.html">⚡ 保護継電器</a><a href="relay-test-flow.html">🧪 試験方法</a></div></div>
+
+<main>
+<section class="card hero">
+<div class="kicker">メーカー取説＋RX4744取説＋過去成績書 突合せ版</div>
+<h1>CPP1-A02D2 × NF RX4744<br>系統連系保護継電器試験 現場アンチョコ v2</h1>
+<p class="big">「どこにつなぐ → 何を設定 → 何を変える → 何を見る → 何を戻す」を最短で追える版</p>
+<p class="muted">根拠：三菱 JEP0-IL1308-AB（89頁）／NF RX4744取扱説明書（246頁）／添付過去成績書。現時点で未添付のMELPRO-D共通操作説明書・MPD-3単独取説に依存する操作は、断定せず明示。</p>
+<div class="badgebox">
+<span class="tag t-mfr">メーカー確認済</span>
+<span class="tag t-rx">RX4744確認済</span>
+<span class="tag t-past">過去成績書</span>
+<span class="tag t-calc">計算値</span>
+<span class="tag t-infer">根拠組合せ・推定</span>
+<span class="tag t-check">現物/社内基準確認</span>
+</div>
+</section>
+
+<div class="sticky">
+<div class="nav">
+<a href="#quick">30秒版</a><a href="#before">試験前</a><a href="#terminal">端子</a><a href="#rx-common">RX操作</a>
+<a href="#uv">UV</a><a href="#ds">DS全体</a><a href="#dsl">DSL</a><a href="#dsh">DSH</a><a href="#dsall">DS全相</a>
+<a href="#dsuv">DS-UV</a><a href="#uf">UF</a><a href="#of">OF</a><a href="#ovg">OVG</a><a href="#ov">OV</a>
+<a href="#rpup">RP/UP</a><a href="#restore">復帰</a><a href="#audit">不整合</a><a href="#sources">根拠</a>
+</div>
+</div>
+<div class="searchbox"><input id="q" oninput="filterSections()" placeholder="ページ内検索：例 DSH / 5.2A / A17 / 95試験"></div>
+
+<section id="quick" class="card ok" data-search>
+<h2>1. 30秒版 ― 現場でまず見る</h2>
+<div class="grid">
+<div>
+<h3>DSだけ先に覚える</h3>
+<pre>A相DS：IA  A17→A18  ＋ VBC A14→A15
+B相DS：IB  A19→A20  ＋ VCA A15→A13
+C相DS：IC  A21→A22  ＋ VAB A13→A14
+
+単相試験：DS-TEST = ON
+全相・本来ロジック：DS-TEST = OFF
+
+Lを試験 → HはLOCK
+Hを試験 → LはLOCK
+特性試験 → DS-UV = NO USE</pre>
+</div>
+<div>
+<h3>試験が動かない時の最初の4点</h3>
+<ol>
+<li><b>不要動作ロックLED</b>が点灯していないか</li>
+<li>E-01～E-03が「非連系」信号になっていないか</li>
+<li>DS/RP/UF/OF/UPなら、項目591のロック時間経過後か</li>
+<li>RXの出力相が【出力要素】と【電圧／電流】の<b>両方で有効</b>か</li>
+</ol>
+</div>
+</div>
+
+<div class="tablewrap">
+<table>
+<tr><th>要素</th><th>今回整定</th><th>動作値の目安/保証</th><th>時間入力</th><th>RX推奨モード</th></tr>
+<tr><td>UV</td><td>88V / 2.0s</td><td>83.6～92.4V</td><td>110→61.6V</td><td>値：手動/通常スイープ<br>時間：ホールド急変</td></tr>
+<tr><td>DSL</td><td>4% / 1.0s</td><td>0.200A<br>0.190～0.210A</td><td>0→0.400A</td><td>値/位相：手動または通常スイープ<br>時間：ホールド急変</td></tr>
+<tr><td>DSH</td><td>30% / 0.05s</td><td>1.500A<br>1.425～1.575A</td><td><b>メーカー式 0→3.000A</b><br>過去成績書 5.2A※</td><td>同上</td></tr>
+<tr><td>DS-UV</td><td>88V</td><td>83.6～92.4V</td><td>－</td><td>手動/通常スイープ、LED判定</td></tr>
+<tr><td>UF</td><td>49.3Hz / 1.0s</td><td><b>49.25～49.35Hz</b></td><td>5Hz/sで低下</td><td>95試験</td></tr>
+<tr><td>OF</td><td>50.5Hz / 1.0s</td><td>50.45～50.55Hz</td><td>5Hz/sで上昇</td><td>95試験</td></tr>
+<tr><td>OVG</td><td>過去T-E 38V / 1.0s</td><td>MPD-3組合せ ±25%</td><td>T-E 0→150%</td><td>値：手動/スイープ<br>時間：ホールド急変</td></tr>
+<tr><td>OV</td><td>132V / 2.0s</td><td>125.4～138.6V</td><td>0→158.4V</td><td>値：手動/スイープ<br>時間：ホールド急変</td></tr>
+</table>
+</div>
+<p class="src">三菱 p19–21, p78–84／過去成績書。※DSH 5.2Aはメーカー式と不一致。後述。</p>
+</section>
+
+<section id="before" class="card danger" data-search>
+<h2>2. 試験前 ― ここを飛ばさない</h2>
+<p><b>このアンチョコは操作票・社内手順・現場責任者の判断に優先しない。</b> 実設備では回路分離、トリップロック、CT/VT状態、系統状態を確認してから試験する。</p>
+<ul class="checklist">
+<li>対象：CPP1-A02D2、5A、50Hzを確認</li>
+<li><b>制御電源銘板</b>を確認：AC/DC100～220V共用品かDC24V品か</li>
+<li>現在整定 511～591、定格設定 901～904を写真/記録</li>
+<li>出力接点設定 800～8b0 と「自動復帰/自己保持」を確認</li>
+<li>外部トリップ回路をロック。X0～X7は実遮断器トリップ用に使わない</li>
+<li>CT二次回路を開放しない</li>
+<li>RX4744を保護接地し、出力OFFで結線</li>
+<li>MPD-3有無、T-E試験点、系統電圧設定904を確認</li>
+<li>不要動作ロック E-01～E-03 の状態を確認</li>
+<li>試験前に「復帰すべき変更値」をメモする</li>
+</ul>
+<div class="card warn">
+<b>CPPの不要動作ロック：</b><br>
+E-01～E-03に電圧あり＝「非連系」→ DS/RP/UF/OF/UPをロック、LED点灯。<br>
+E-01～E-03が無電圧＝「連系中」→ 項目591の時間経過後にロック解除。
+</div>
+<p class="src">三菱 p2–3, p30, p43–44, p78, p84。</p>
+</section>
+
+<section id="terminal" class="card" data-search>
+<h2>3. CPP1-A02D2 端子・整定番号</h2>
+<div class="cols2">
+<div>
+<h3>入力端子</h3>
+<table>
+<tr><th>信号</th><th>正方向</th><th>意味</th></tr>
+<tr><td>VAB</td><td>A13 → A14</td><td>AB線間電圧</td></tr>
+<tr><td>VBC</td><td>A14 → A15</td><td>BC線間電圧</td></tr>
+<tr><td>VCA</td><td>A15 → A13</td><td>CA線間電圧。CPP内部では VCA=-(VAB+VBC)</td></tr>
+<tr><td>IA</td><td>A17 → A18</td><td>A相CT二次入力</td></tr>
+<tr><td>IB</td><td>A19 → A20</td><td>B相CT二次入力</td></tr>
+<tr><td>IC</td><td>A21 → A22</td><td>C相CT二次入力</td></tr>
+<tr><td>V0</td><td>A11–A12</td><td>MPD-3二次。6.6kV設定100%=7V、3.3kV設定100%=3.5V</td></tr>
+<tr><td>制御電源</td><td>A01(+側) / A03</td><td>仕様は銘板で確認</td></tr>
+<tr><td>保護接地</td><td>A02</td><td>D種接地</td></tr>
+<tr><td>連系条件DI</td><td>E01–E03</td><td>電圧あり＝ロック、無電圧＝タイマ後解除</td></tr>
+</table>
+</div>
+<div>
+<h3>試験で触る主な項目番号</h3>
+<table>
+<tr><th>項目</th><th>内容</th></tr>
+<tr><td>511 / 512</td><td>OVG動作値 / 時限</td></tr>
+<tr><td>521 / 522</td><td>OV動作値 / 時限</td></tr>
+<tr><td>531 / 532 / 533</td><td>UV動作値 / 時限 / UV-TEST</td></tr>
+<tr><td>541 / 542</td><td>DS-L動作値 / 時限</td></tr>
+<tr><td>543 / 544</td><td>DS-H動作値 / 時限</td></tr>
+<tr><td>545 / 546</td><td>DS-UV / DS-TEST</td></tr>
+<tr><td>551 / 552</td><td>UF動作値 / 時限</td></tr>
+<tr><td>561 / 562</td><td>RP動作値 / 時限</td></tr>
+<tr><td>571 / 572</td><td>OF動作値 / 時限</td></tr>
+<tr><td>581 / 582 / 583</td><td>UP動作値 / 時限 / 断線検出ロック</td></tr>
+<tr><td>591</td><td>不要動作ロック時間</td></tr>
+<tr><td>901 / 902 / 903</td><td>CT一次 / VT一次 / VT二次設定</td></tr>
+<tr><td>904</td><td>系統電圧 6.6/3.3kV</td></tr>
+</table>
+<p><span class="tag t-check">注意</span> 正面キーの役割と項目番号は機種別取説で確認済みだが、項目呼出しから書込みまでの詳細キー手順は別冊JEP0-IL1242参照指定。未添付のため、ここでは「押す回数」を捏造しない。</p>
+</div>
+</div>
+
+<h3>出力接点</h3>
+<div class="tablewrap"><table>
+<tr><th>接点</th><th>端子</th><th>工場出荷時の主な割当</th><th>用途上の注意</th></tr>
+<tr><td>X0</td><td>B07-B08</td><td>OVG</td><td rowspan="8">制御用1a。RX4744の乾接点検出には使えるが、<b>遮断器トリップ回路には使用禁止</b>。</td></tr>
+<tr><td>X1</td><td>B09-B10</td><td>OV</td></tr>
+<tr><td>X2</td><td>B11-B12</td><td>UV</td></tr>
+<tr><td>X3</td><td>B13-B14</td><td>DS</td></tr>
+<tr><td>X4</td><td>C07-C08</td><td>UF</td></tr>
+<tr><td>X5</td><td>C09-C10</td><td>RP</td></tr>
+<tr><td>X6</td><td>C11-C12</td><td>OF</td></tr>
+<tr><td>X7</td><td>C13-C14</td><td>UP</td></tr>
+<tr><td>X8</td><td>B17-B18</td><td>UV</td><td>トリップ用1a</td></tr>
+<tr><td>X9</td><td>B19-B20</td><td>UP</td><td>トリップ用1a</td></tr>
+<tr><td>Xa</td><td>C17-C18</td><td>UV/UPを除く要素OR（01EA）</td><td>メーカー特性試験図で多用。非UV/UPの標準検出候補。</td></tr>
+<tr><td>Xb</td><td>C19-C20</td><td>取説表記に不整合あり</td><td><b>8b0現物確認前は決め打ちしない。</b></td></tr>
+<tr><td>Y</td><td>B05-B06</td><td>監視異常1b</td><td>正常時内部監視RY励磁→開。異常/電源喪失→閉。</td></tr>
+</table></div>
+
+<div class="card info">
+<b>a接点の基準：</b> CPP要素非動作＝開、動作＝閉。RX4744の「a接点」は開放→短絡を入力と認識。<br>
+<b>Yだけ別：</b> 監視異常はフェイルセーフ1b。正常時に内部RYが励磁されて接点開、異常/電源喪失で閉。
+</div>
+<p class="src">三菱 p9, p32–33, p39–44, p68–75。</p>
+</section>
+
+<section id="rx-common" class="card" data-search>
+<h2>4. RX4744 共通操作 ― 正式画面名で追う</h2>
+<div class="card info">
+<b>RX4744の特徴：</b> 電圧0～3相・電流0～3相は各相独立フローティング。Vは125/250V、Iは20A。I1/I0のみ400mA/5mA微小電流レンジあり。制御電源はDC +4～+112V、最大0.5A。
+</div>
+
+<h3>共通セット</h3>
+<div class="step"><div class="num">1</div><div><b>動作モード</b>キー → 試験目的に合うモードを選択 → 実行。</div></div>
+<div class="step"><div class="num">2</div><div><b>シフト＋トリップ設定</b> → 【トリップ設定】 → 入力形式「接点入力」／論理「a接点」。</div></div>
+<div class="step"><div class="num">3</div><div><b>シフト＋出力要素</b> → 【出力要素】 → 周波数モード・波形タイプ・レンジ・試験使用相を設定。</div></div>
+<div class="step"><div class="num">4</div><div><b>電圧／電流</b> → 【電圧／電流】 → 使用相をもう一度有効化して、定常/故障の振幅・位相を入力。</div></div>
+<div class="step"><div class="num">5</div><div><b>出力オン／オフ</b> → 出力。急変試験なら<b>動作指令</b>で定常→故障。</div></div>
+
+<h3>目的別モード</h3>
+<table>
+<tr><th>目的</th><th>おすすめ</th><th>理由</th></tr>
+<tr><td>動作値を手早く探す</td><td>ホールド急変の定常値をダイヤルで徐変</td><td>NFの51リレー操作例そのもの。T1表示を見ながら上下できる。</td></tr>
+<tr><td>動作値を自動取得</td><td>通常スイープ</td><td>定常→故障を自動スイープ。振幅/位相/周波数を選択可能。</td></tr>
+<tr><td>動作時間</td><td>ホールド急変 + インタバル内部</td><td>故障急変→最初のTRIP入力まで計測。</td></tr>
+<tr><td>位相境界</td><td>通常スイープ（位相のみ）</td><td>正方向＝遅れ、負方向＝進み。</td></tr>
+<tr><td>UF/OF</td><td>95試験</td><td>動作/復帰周波数と動作/復帰時間を1回で測れる。</td></tr>
+<tr><td>DS全相ロジック</td><td>ホールド急変</td><td>複数V/Iを同時に定常→故障へ切替できる。</td></tr>
+</table>
+
+<h3>動作時間のRX設定テンプレ</h3>
+<pre>動作モード：ホールド急変
+TRIP：接点入力 / a接点
+カウンタ：インタバル内部
+PSW：オルタネート（または現場方針によりモーメンタリ）
+マニュアルモード：無効
+故障継続時間：試験時限より十分長く、過大継続しない値
+プリトリガ：通常は無効
+故障待機時間：試験に合わせる
+急変開始位相：条件に応じてランダム/固定
+
+出力ON
+  ↓
+動作指令
+  ↓
+定常 → 故障
+  ↓
+CPP接点 閉
+  ↓
+RX TRIP入力
+  ↓
+カウンタ停止</pre>
+<p class="src">NF p34–65, p84–118, p125–131, p198–233。</p>
+</section>
+
+<section id="uv" class="card" data-search>
+<h2>5. UV 不足電圧 ― 88V / 2.0s</h2>
+<div class="badgebox"><span class="tag t-mfr">メーカー確認済</span><span class="tag t-past">過去実績あり</span></div>
+<h3>通常時 → 動作</h3>
+<pre>通常：VAB/VBC/VCA > 88V → UV不動作
+電圧低下
+  ↓
+選択相 ≤ 88V
+  ↓
+UV LED 点滅（時限中）
+  ↓ 2.0s
+UV出力接点 閉 / LED点灯</pre>
+<p>通常は3相OR。単相試験では項目533 UV-TESTでAB/BC/CAを選択し、他2相をロック。</p>
+
+<h3>配線</h3>
+<table>
+<tr><th>相</th><th>CPP電圧端子</th></tr>
+<tr><td>AB</td><td>A13 → A14</td></tr>
+<tr><td>BC</td><td>A14 → A15</td></tr>
+<tr><td>CA</td><td>A15 → A13</td></tr>
+</table>
+
+<h3>動作値</h3>
+<p class="calc">88V × 0.95 = 83.6V ／ 88V × 1.05 = 92.4V</p>
+<p>メーカー保証：整定値±5% → <b>83.6～92.4V</b>。</p>
+<p><span class="tag t-past">過去</span> 88.0 / 88.1 / 88.0V。</p>
+
+<h3>動作時間</h3>
+<p class="calc">故障電圧 = 88 × 70% = 61.6V</p>
+<pre>RX：ホールド急変
+定常：110V
+故障：61.6V
+TRIP：UV用接点（工場設定ならX8 B17-B18等）
+カウンタ：インタバル内部</pre>
+<p>メーカー保証：2.0s ± max(20ms,5%) = ±0.10s → <b>1.90～2.10s</b>。</p>
+<p><span class="tag t-past">過去</span> 1.992 / 1.993 / 1.994s。</p>
+<p class="callout red">終了後：UV-TEST = OFF。</p>
+<p class="src">三菱 p14, p19–20, p26–27, p32, p80。</p>
+</section>
+
+<section id="ds" class="card violet" data-search>
+<h2>6. DSの考え方 ― ここが核心</h2>
+<p class="big center">A相＝IA＋VBC　／　B相＝IB＋VCA　／　C相＝IC＋VAB</p>
+<pre>             ┌─ A相DS（IA, VBC） ─┐
+             ├─ B相DS（IB, VCA） ─┼─ 2相ANDのOR ─ DS-UV ─ 不要動作ロックNOT ─ DS出力
+             └─ C相DS（IC, VAB） ─┘
+                 ↑ L要素/H要素</pre>
+<ul>
+<li>通常運用では<b>2相AND</b>。1相だけ方向条件に入ってもDS全体は出力しない。</li>
+<li><b>DS-TEST ON</b>は単相試験用。入力した1相だけで判定できる。</li>
+<li>L/HはOR。片方を試験するとき他方をLOCK。</li>
+<li>メーカー特性試験では<b>DS-UV=NO USE</b>としてDS本体の精度を切り出す。</li>
+<li>至近端3相短絡でPT二次電圧がなくても方向判定できるよう、電圧メモリーを持つ。</li>
+</ul>
+<p class="src">三菱 p27–28, p32, p41, p83。</p>
+</section>
+
+<section id="dsl" class="card" data-search>
+<h2>7. DSL ― 4% / 1.0s</h2>
+<h3>CPP設定</h3>
+<pre>541 DSL = 4%
+542 T   = 1.0s
+543 DSH = LOCK
+545 DS-UV = NO USE
+546 DS-TEST = ON（単相試験）</pre>
+
+<h3>各相配線</h3>
+<table>
+<tr><th>試験相</th><th>電流</th><th>方向判定電圧</th></tr>
+<tr><td>A</td><td>A17→A18 (IA)</td><td>A14→A15 (VBC)</td></tr>
+<tr><td>B</td><td>A19→A20 (IB)</td><td>A15→A13 (VCA)</td></tr>
+<tr><td>C</td><td>A21→A22 (IC)</td><td>A13→A14 (VAB)</td></tr>
+</table>
+
+<h3>動作値</h3>
+<p class="calc">5A × 4% = 0.200A</p>
+<p class="calc">±5% → 0.190～0.210A</p>
+<pre>V = 定格電圧（過去試験は110V）
+V位相 = 0°
+I = 0Aから徐々に上昇
+I位相 = 0°
+接点が閉じたIを記録</pre>
+<p><span class="tag t-past">過去</span> A 0.200 / B 0.199 / C 0.201A。</p>
+
+<h3>時間</h3>
+<p class="calc">0.200 × 200% = 0.400A</p>
+<pre>RX：ホールド急変
+V：110V固定
+I：0 → 0.400A
+相対位相：0°
+カウンタ：インタバル内部</pre>
+<p>メーカー保証：1.0s ± max(20ms,5%) = <b>0.95～1.05s</b>。</p>
+<p><span class="tag t-past">過去</span> 1.016 / 1.007 / 0.997s。</p>
+
+<h3>位相</h3>
+<p>メーカー条件：V定格、I=整定×200%=0.4A、DS-UV NO USE。</p>
+<pre>遅れ側境界：55°±5° → 50～60°
+進み側境界：305°±5° → 300～310°
+
+RX位相は「＋＝遅れ」
+遅れ探索：0° → +90°側
+進み探索：0° → -90°側（= 270～360°表示でも整理可能）</pre>
+<p><span class="tag t-past">過去</span> 位相試験では4Aを使用している。メーカー条件0.4Aとは別の過去実施条件として保存する。</p>
+<p class="callout red">終了後：DS-TEST OFF、DSHとDS-UVを試験前値へ。</p>
+</section>
+
+<section id="dsh" class="card" data-search>
+<h2>8. DSH ― 30% / 0.05s</h2>
+<h3>CPP設定</h3>
+<pre>543 DSH = 30%
+544 T   = 0.05s
+541 DSL = LOCK
+545 DS-UV = NO USE
+546 DS-TEST = ON（単相試験）</pre>
+
+<h3>動作値</h3>
+<p class="calc">5A × 30% = 1.500A</p>
+<p class="calc">±5% → 1.425～1.575A</p>
+<p><span class="tag t-past">過去</span> 1.550 / 1.503 / 1.503A。</p>
+
+<h3>時間 ― メーカー条件と過去成績書を混ぜない</h3>
+<div class="cols2">
+<div class="card ok">
+<h4>メーカー式</h4>
+<p class="calc">1.500 × 200% = 3.000A</p>
+<pre>V = 定格電圧
+I = 0 → 3.000A
+相対位相 = 0°（最高感度角）
+DS-UV = NO USE</pre>
+</div>
+<div class="card warn">
+<h4>過去成績書</h4>
+<p class="calc">110V / 5.2A（200%）/ 0°</p>
+<p>5.2Aは 3.0×√3=5.196A と数学的には一致するが、<b>三菱DS試験に√3倍を要求する記述は見つからない</b>。√3記載があるのはRP/UP単相試験。</p>
+</div>
+</div>
+<p class="calc">0.05s ± max(20ms,5%) → 0.030～0.070s</p>
+<p><span class="tag t-past">過去</span> 0.0580 / 0.0512 / 0.0501s。</p>
+
+<h3>位相</h3>
+<p>メーカー：整定×200%=3.0A、V定格、境界 55°±5° / 305°±5°。</p>
+<p><span class="tag t-past">過去</span> 5.2Aを使用。A=53.9°, B=54.0°, Cは写真上64.0°に見えるのに判定「良」。<b>54.0°へ勝手に補正しない。</b></p>
+<p class="callout red">5.2Aを「CPP1-A02D2標準200%」としてアンチョコに固定しない。社内根拠が判明するまではメーカー3.0Aと過去5.2Aを併記。</p>
+</section>
+
+<section id="dsall" class="card info" data-search>
+<h2>9. DS 全相試験 ― RX4744の多相出力を活かす</h2>
+<p><span class="tag t-mfr">三菱</span> p83は「単相及び全相回路」と明記。<span class="tag t-rx">RX</span> はV/I各相独立フローティングで、多相同時出力が可能。</p>
+
+<h3>A. 本来の2相ANDロジック確認</h3>
+<pre>CPP：
+DS-TEST = OFF
+試験しないL/H = LOCK
+DS-UV = NO USE
+不要動作ロック = 解除状態
+
+期待：
+1相だけDS条件成立 → DS全体は不動作
+任意の2相DS条件成立 → DS全体は動作
+3相DS条件成立 → DS全体は動作</pre>
+<p>これはメーカー内部ロジックの機能確認。<b>単相の精度試験とは目的が違う。</b></p>
+
+<h3>B. 全相を0°感度点にそろえる配線案</h3>
+<div class="card warn">
+<p><span class="tag t-infer">根拠組合せ</span> 下記は「三菱p83の端子組合せ」「VCA=-(VAB+VBC)」「RX各相フローティング」「RXの＋位相=遅れ」から組み立てたRX4744専用配線案。三菱/NFがCPP1-A02D2専用として描いた1枚図ではないため、<b>出力OFFで結線し、印加前に電圧計/ベクトル表示で確認する。</b></p>
+</div>
+<pre>【電圧：2出力で三相線間電圧を作る】
+
+RX V1(+) ───── A14
+RX V1(-) ─┬─── A15
+           │
+RX V2(+) ─┘
+RX V2(-) ───── A13
+
+設定：
+V1 = VBC = 110V ∠0°
+V2 = VCA = 110V ∠120°（遅れ）
+
+CPP内部：
+VAB = -(VBC + VCA)
+    = 110V ∠240°
+
+【電流：3出力】
+
+RX I1 → IA A17→A18 = I_test ∠0°
+RX I2 → IB A19→A20 = I_test ∠120°
+RX I3 → IC A21→A22 = I_test ∠240°
+
+すると各DSの相対角：
+IA vs VBC = 0°
+IB vs VCA = 0°
+IC vs VAB = 0°
+→ 3相とも最高感度角</pre>
+
+<h3>C. I_test</h3>
+<table>
+<tr><th>要素</th><th>整定</th><th>メーカー200%</th></tr>
+<tr><td>DSL</td><td>0.200A</td><td>0.400A/相</td></tr>
+<tr><td>DSH</td><td>1.500A</td><td>3.000A/相</td></tr>
+</table>
+
+<p><b>重要：</b>RXの「平衡三相」は基準相から120°/240°を自動設定できるので、I1=0°を基準にI1/I2/I3を作るのに便利。ただし電圧はCPPが線間2入力＋内部演算構成なので、RXの3LS/平衡三相画面をそのまま「端子A13/A14/A15へ3本」と読み替えない。</p>
+
+<h3>D. DS-UVまで含む総合機能確認</h3>
+<div class="card violet">
+<p><span class="tag t-infer">機能確認案</span> メーカー「特性保証試験」とは別。</p>
+<pre>定常：
+三相線間電圧 > DS-UV整定
+故障電流 = 0または不動作
+
+故障急変：
+線間電圧 < DS-UV整定
+＋
+2相以上のDS方向電流を動作域へ
+↓
+電圧メモリー＋方向要素＋DS-UV＋2相ANDをまとめて確認</pre>
+<p>RX4744ホールド急変なら「定常」と「故障」のV/Iを同時に切替できるため、このロジック確認に向く。</p>
+</div>
+</section>
+
+<section id="dsuv" class="card" data-search>
+<h2>10. DS-UV ― 88V</h2>
+<p>DSのフェイルセーフ用不足電圧。タイマーなし。</p>
+<pre>AB：A13→A14
+BC：A14→A15
+CA：A15→A13
+
+電圧を低下
+  ↓
+整定以下
+  ↓
+正面「DS用UV」黄色LED 点灯</pre>
+<p><b>専用接点出力なし。</b> 動作表示LEDで判定。</p>
+<p class="calc">88V ±5% → 83.6～92.4V</p>
+<p><span class="tag t-past">過去</span> 87.9 / 88.0 / 87.5V。</p>
+</section>
+
+<section id="uf" class="card" data-search>
+<h2>11. UF ― 49.3Hz / 1.0s</h2>
+<pre>入力：VAB A13→A14
+VAB < 35V → UFロック
+不要動作ロック解除が必要</pre>
+<h3>動作値</h3>
+<p>メーカー保証：<b>整定値±0.05Hz</b>。</p>
+<p class="calc">49.3 - 0.05 = 49.25Hz<br>49.3 + 0.05 = 49.35Hz</p>
+<p><span class="tag t-past">過去</span> 49.28Hz。</p>
+<div class="card danger"><b>成績書誤記：</b> 「±0.05Hz」という文は正しいが、括弧内47.95～48.05Hzは49.3Hz整定と一致しない。</div>
+
+<h3>時間 ― RX4744 95試験が最も噛み合う</h3>
+<p>三菱の正式条件は、整定値+1Hz以上側から整定値-1Hz以下側へ<b>5Hz/s</b>で低下。掃引開始から整定値到達までの時間を差し引いてリレー時限を求める。</p>
+<p>RX4744 95試験では「交差周波数」に達した時点で時間カウンタを開始できるので、<b>交差周波数=UF整定値</b>とすれば考え方が一致する。</p>
+<pre>RX 95試験：
+開始周波数：整定より1Hz以上高い側
+故障周波数：整定より1Hz以上低い側
+スイープ速度：5.000 Hz/s
+交差周波数：49.300 Hz
+振幅：定格電圧
+TRIP：a接点
+
+開始
+ ↓ 5Hz/s
+49.3Hz（交差）→ RX時間カウンタ開始
+ ↓
+CPP UF接点閉 → 時間停止</pre>
+<p>メーカー時限保証：1.0s ± max(20ms,5%) → <b>0.95～1.05s</b>。過去成績書管理0.98～1.02sはメーカーより厳しい別管理値。</p>
+<p><span class="tag t-past">過去</span> 50→47Hz、0.997s。</p>
+</section>
+
+<section id="of" class="card" data-search>
+<h2>12. OF ― 50.5Hz / 1.0s</h2>
+<pre>入力：VAB A13→A14
+VAB < 35V → OFロック
+不要動作ロック解除が必要</pre>
+<p class="calc">50.5 ±0.05Hz → 50.45～50.55Hz</p>
+<p><span class="tag t-past">過去</span> 50.49Hz。</p>
+<h3>95試験</h3>
+<pre>開始周波数：整定より1Hz以上低い側
+故障周波数：整定より1Hz以上高い側
+スイープ速度：5.000 Hz/s
+交差周波数：50.500 Hz
+振幅：定格電圧</pre>
+<p>メーカー時限保証：1.0s±max(20ms,5%) → <b>0.95～1.05s</b>。過去管理は0.98～1.02s。</p>
+</section>
+
+<section id="ovg" class="card danger" data-search>
+<h2>13. OVG ― MPD-3 T-Eから入れる</h2>
+<p class="big red">A11-A12へ38V・57Vを直接入れない。</p>
+<pre>RX4744 V出力
+  ↓
+MPD-3  T ─ E
+  ↓
+MPD-3二次 Y1/Y2
+  ↓
+CPP A11-A12</pre>
+<p>CPP1-A02D2はMPD-3組合せZVT入力。6.6kV設定時100%=7V、3.3kV設定時100%=3.5V。</p>
+
+<h3>T-E試験電圧</h3>
+<table>
+<tr><th>系統設定/OVG整定</th><th>T-E動作値</th></tr>
+<tr><td>6.6kV / 10%</td><td>38.1V</td></tr>
+<tr><td>3.3kV / 20%</td><td>38.1V</td></tr>
+</table>
+<p><b>よって「38V」だけでOVG=10%と断定しない。</b> 項目904と511を確認。</p>
+<p>MPD-3組合せメーカー保証：整定値±25%。過去38V基準なら28.5～47.5V。</p>
+
+<h3>時間</h3>
+<p>メーカー：0 → 動作整定値×150%。</p>
+<p class="calc">38.1×1.50 = 57.15V（該当設定の場合）</p>
+<p><span class="tag t-past">過去</span> T-E 0→57V、1.005s。</p>
+<p>RX4744：ホールド急変、V1の125Vレンジで足りる。</p>
+</section>
+
+<section id="ov" class="card" data-search>
+<h2>14. OV ― 132V / 2.0s</h2>
+<pre>VAB：A13→A14
+動作値：0V側から徐々に上昇
+時間：0 → 整定×120%</pre>
+<p class="calc">132×0.95 = 125.4V<br>132×1.05 = 138.6V</p>
+<p class="calc">132×1.20 = 158.4V</p>
+<p>158.4Vを出すのでRX4744 Vは<b>250Vレンジ</b>。</p>
+<p>メーカー時限保証：2.0s±max(20ms,5%) → <b>1.90～2.10s</b>。</p>
+<p><span class="tag t-past">過去</span> 132.4V / 1.989s。</p>
+<div class="card warn">メーカー「保証条件」は動作整定値を最小にして行う記述もある。過去成績書の132V実整定×120%試験は過去/社内方法として分離して保存する。</div>
+</section>
+
+<section id="rpup" class="card" data-search>
+<h2>15. RP / UP ― 今回成績書外だがメーカー試験法を収録</h2>
+<h3>RP（逆電力）</h3>
+<table><tr><th>相</th><th>電流</th><th>電圧</th></tr>
+<tr><td>A</td><td>IA A17-A18</td><td>VAB A13-A14</td></tr>
+<tr><td>C</td><td>IC A21-A22</td><td>VCB A15-A14</td></tr></table>
+<p>2電力計法でPA+PCを合成。最高感度角0°±5°（受電方向基準）。</p>
+<p><b>単相試験では動作値が整定値の√3倍。</b> 三相試験ではメーカーp82の力率1ベクトル関係を使う。</p>
+
+<h3>UP（不足電力）</h3>
+<p>入力組合せはRPと同じ。最高感度角180°±5°。</p>
+<p class="red">単相/不平衡試験時、CT断線検出（約10mA以下）で別動作し得る。必要な試験では項目583「断線検出機能ロック=ON」、終了後OFF。</p>
+<p class="src">三菱 p28–30, p82。</p>
+</section>
+
+<section id="restore" class="card ok" data-search>
+<h2>16. 現状復帰 ― 試験終了より大事</h2>
+<ul class="checklist">
+<li>RX電流を0へ、電圧を0へ</li>
+<li>RX出力OFF</li>
+<li>RX制御電源OFF</li>
+<li>試験線撤去・仮設線ゼロ確認</li>
+<li>UV-TEST（533）OFF</li>
+<li>DS-TEST（546）OFF</li>
+<li>DSL/DSHのLOCKを試験前値へ</li>
+<li>DS-UV（545）を試験前値へ</li>
+<li>UP断線検出ロック（583）を試験前値へ（通常OFF）</li>
+<li>不要動作ロック時間（591）を試験前値へ</li>
+<li>511～591を試験前記録と照合</li>
+<li>901～904を照合</li>
+<li>800～8b0接点設定を照合</li>
+<li>CT/VT/MPD-3/E01-E03回路を原状復帰</li>
+<li>RUN LED点灯、監視異常なし</li>
+<li>動作表示LEDは必要に応じ「表示復帰」</li>
+<li>別人による復帰照合後、現場手順に従ってトリップロック解除</li>
+</ul>
+</section>
+
+<section id="audit" class="card warn" data-search>
+<h2>17. 不整合・未確定 ― 隠さない</h2>
+<table>
+<tr><th>項目</th><th>現状</th><th>扱い</th></tr>
+<tr><td>DSH 5.2A（200%）</td><td>メーカー式は3.0A、過去成績書は5.2A</td><td>併記。5.2Aを標準化しない。</td></tr>
+<tr><td>DSH C相位相 64.0°</td><td>管理50～60°なのに「良」</td><td>原本確認まで64.0°のまま不整合。</td></tr>
+<tr><td>UF 47.95～48.05Hz</td><td>整定49.3Hzと矛盾</td><td>49.3ならメーカー49.25～49.35Hz。</td></tr>
+<tr><td>Xb設定</td><td>取説の説明欄と設定データに整合しない箇所</td><td>8b0現物確認前は使用先を断定しない。</td></tr>
+<tr><td>制御電源</td><td>A02D2に24V品と100～220V共用品が存在</td><td>銘板確認前にRX制御電源を接続しない。</td></tr>
+<tr><td>CPP正面の細かなキー順</td><td>機種別取説は別冊JEP0-IL1242を参照指定</td><td>項目番号・キー役割まで記載。未確認の押下順は作らない。</td></tr>
+<tr><td>MPD-3単独の詳細</td><td>CPP取説内に必要なT-E試験表は収録</td><td>今回OVG試験に必要な範囲は確定。MPD単独保守操作は別取説なしで拡張しない。</td></tr>
+</table>
+</section>
+
+<section class="card" data-search>
+<h2>18. 故障したら何が起こるか</h2>
+<h3>CPP内部異常</h3>
+<pre>正常：
+監視リレー励磁
+RUN点灯
+Y(b接点) 開
+保護出力許可
+
+内部異常 / 内蔵電源異常：
+保護要素出力をロック
+RUN消灯
+Y(b接点) 閉
+不良コード記録</pre>
+<p>監視異常を電源入切りで解除する場合も、メーカーは外部トリップロックを要求。</p>
+
+<h3>RX4744異常</h3>
+<p>電圧/電流アンプの過負荷、ピーク超過、温度異常などを保護機能が監視。急変でハングする場合は電源ラインの容量/インピーダンスも確認。出力できない場合は【出力要素】と【電圧/電流】の二重有効を確認。</p>
+</section>
+
+<section id="sources" class="card" data-search>
+<h2>19. 根拠資料・精読範囲</h2>
+<table>
+<tr><th>資料</th><th>確認範囲</th><th>このアンチョコで使用した主内容</th></tr>
+<tr><td>三菱 CPP1-A01/A11/A02/A12D2<br>JEP0-IL1308-AB（2019-01）</td><td>全89頁を確認</td><td>安全、仕様、DS論理、全端子、接点、整定番号、保証値、OVG/UV/UF/OF/RP/UP/DS試験回路、原状復帰注意</td></tr>
+<tr><td>NF RX4744 取扱説明書<br>DA00040890-010</td><td>全246頁を確認</td><td>安全、端子、V4I4出力、フローティング、レンジ、制御電源、平衡三相、2LS/3LS、ベクトル、急変/スイープ/95試験、TRIP入力、カウンタ、仕様</td></tr>
+<tr><td>添付 過去成績書</td><td>CPP1-A02D2実績欄</td><td>実整定・実測・過去管理値。不整合は修正せず監査対象として残した。</td></tr>
+</table>
+
+<div class="card info">
+<b>資料の優先順位：</b><br>
+1. メーカー仕様・試験条件<br>
+2. 現物の型式/整定/接点設定<br>
+3. 社内正式基準<br>
+4. 過去成績書（実績）<br>
+5. 根拠組合せによる配線案・解釈<br><br>
+過去成績書にメーカー条件と違う値があっても、理由が確認できるまで「メーカー値」に書き換えない。
+</div>
+</section>
+
+<section class="card hero">
+<h2 style="border-color:#fff">最後に：CPP1-A02D2で絶対に外さない7点</h2>
+<ol>
+<li><b>DS：IA+VBC / IB+VCA / IC+VAB</b></li>
+<li><b>DS-TEST ONは単相試験用。全相本来ロジックはOFF。</b></li>
+<li><b>L/Hを片方試験するとき、もう片方LOCK。</b></li>
+<li><b>メーカーDS特性試験ではDS-UV=NO USE。</b></li>
+<li><b>DS/RP/UF/OF/UPは不要動作ロック解除を確認。</b></li>
+<li><b>OVGはMPD-3 T-E。A11-A12へ38V/57V直入れ禁止。</b></li>
+<li><b>試験後はTEST/LOCK/整定/配線を全部元へ。</b></li>
+</ol>
+</section>
+
+</main>
+</body>
+</html>
