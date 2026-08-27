@@ -1,0 +1,17 @@
+--- a/index.html
++++ b/index.html
+@@
+-<button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="IP-1110">IP-1110</button>
++<button data-q="CPP1-A02D2">CPP1-A02D2</button><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="IP-1110">IP-1110</button>
+@@
+   const BASE_UPDATES = [
++    { date: '2026-08-28', title: 'CPP1-A02D2 × NF RX4744 現場アンチョコ v2', href: 'cpp1-a02d2-rx4744.html' },
+     { date: '2026-08-25', title: '測定器具DB 165型式・IP-1110詳細追加', href: 'measuring-instruments.html?model=IP-1110' },
+@@
+-<a href="protective-relay.html">⌕ 型式検索</a><a href="relay-test-flow.html">⚡ 試験方法一覧</a><a href="measuring-instruments.html">🔧 測定器具一覧</a>
++<a href="protective-relay.html">⌕ 型式検索</a><a href="cpp1-a02d2-rx4744.html">🧪 A02 × RX4744</a><a href="relay-test-flow.html">⚡ 試験方法一覧</a><a href="measuring-instruments.html">🔧 測定器具一覧</a>
+@@
+ function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.toLowerCase();
++ const directA02=['cpp1-a02d2','cpp1a02d2','a02d2'];
++ if(directA02.some(k=>n.includes(k))){ location.href='cpp1-a02d2-rx4744.html'; return; }
+  const directInstruments=[
