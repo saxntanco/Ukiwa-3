@@ -144,7 +144,7 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
 <body>
 <header class="top">
  <a class="brand" href="index.html" style="text-decoration:none">🌊 うきわメモ<small>OCR / 51 EASY SETTING</small></a>
- <div class="badge">v5.6 実機整定優先</div>
+ <div class="badge">v5.7 参考管理値追加</div>
 </header>
 
 <main>
@@ -399,7 +399,7 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
    <div class="criteria timeCrit" id="simCriteria">
     <div class="criteriaHead"><b>社内管理値｜限時 動作時間</b><span id="simCriteriaPct">300% / 700%</span></div>
     <div class="criteriaMain" id="simCriteriaRange">—</div>
-    <div class="criteriaSub" id="simCriteriaSub">判定基準表の試験条件はレバー10。300%は±17%、700%は±12%。</div>
+    <div class="criteriaSub" id="simCriteriaSub">200% 参考±17% / 300% ±17% / 500% 参考±12% / 700% ±12%。</div>
    </div>
 
    <div class="actions">
@@ -439,7 +439,7 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
 <section class="panel">
  <div class="note warn">
   <b>管理値の扱い：</b>ここで表示する管理値は社内判定基準です。K2OCなど各メーカーの製品仕様・公差とは別物です。
-  限時動作時間の基準表条件は「レバー10・300% / 700%」。実機試験では社内手順書・最新基準・メーカー資料を優先してください。
+  限時動作時間の正式な社内基準は「レバー10・300% / 700%」。200%・500%は参考表示で、合否判定には使用しません。実機試験では社内手順書・最新基準・メーカー資料を優先してください。
  </div>
 </section>
 
@@ -770,24 +770,31 @@ function renderSim(){
  $$("#pctButtons button").forEach(b=>b.classList.toggle("active",Math.abs(Number(b.dataset.pct)-M*100)<1));
 
  const pct=M*100;
- const at300=Math.abs(pct-300)<.5,at700=Math.abs(pct-700)<.5;
- if(at300||at700){
-  const checkM=at300?3:7;
-  const tol=at300?.17:.12;
-  const nominal=k2time(simCurve,checkM,10);
-  const lo=nominal*(1-tol),hi=nominal*(1+tol);
-  const pctLabel=at300?"300%":"700%";
-  const tolLabel=at300?"±17%":"±12%";
-  $("#simCriteriaPct").textContent=`${pctLabel}｜${tolLabel}`;
+ const points=[
+  {pct:200,tol:.17,kind:"参考値",formal:false},
+  {pct:300,tol:.17,kind:"社内管理値",formal:true},
+  {pct:500,tol:.12,kind:"参考値",formal:false},
+  {pct:700,tol:.12,kind:"社内管理値",formal:true}
+ ];
+ const point=points.find(x=>Math.abs(pct-x.pct)<.5);
+ if(point){
+  const lo=t*(1-point.tol),hi=t*(1+point.tol);
+  const tolLabel=`±${Math.round(point.tol*100)}%`;
+  $("#simCriteriaPct").textContent=`${point.pct}%｜${point.kind} ${tolLabel}`;
   $("#simCriteriaRange").textContent=`${f(lo,3)} ～ ${f(hi,3)} s`;
-  $("#simCriteriaSub").textContent=
-   `レバー10・${pctLabel}：公称 ${f(nominal,3)}s × (1${tolLabel})。`+
-   (Math.abs(D-10)<.001?" 現在のD10と判定条件が一致。":` 現在はD${D}なので、上の${f(t,3)}sは学習計算値。社内判定はレバー10条件。`);
+  if(point.formal){
+   $("#simCriteriaSub").textContent=
+    `現在の公称計算時間 ${f(t,3)}s × (1${tolLabel})。社内基準の正式試験点は${point.pct}%`+
+    (Math.abs(D-10)<.001?"・レバー10で条件一致。":`。現在D${D}での範囲は参考換算。正式判定は社内基準のレバー10条件を優先。`);
+  }else{
+   $("#simCriteriaSub").textContent=
+    `現在の公称計算時間 ${f(t,3)}s × (1${tolLabel})。${point.pct}%はJISの正式許容率ではなく参考表示。合否判定には使用しない。`;
+  }
  }else{
-  $("#simCriteriaPct").textContent="300% / 700%";
-  $("#simCriteriaRange").textContent="300%：±17%　／　700%：±12%";
+  $("#simCriteriaPct").textContent="200 / 300 / 500 / 700%";
+  $("#simCriteriaRange").textContent="200% 参考±17%｜300% ±17%｜500% 参考±12%｜700% ±12%";
   $("#simCriteriaSub").textContent=
-   `${f(pct,0)}%は社内判定基準表の時間試験指定点ではありません。300%または700%を選ぶと、レバー10の合格範囲を自動表示します。`;
+   `${f(pct,0)}%はこの簡易判定表示の対象外。200%・500%は参考、300%・700%は社内管理値として区別しています。`;
  }
  drawGraph();
 }
