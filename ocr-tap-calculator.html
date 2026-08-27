@@ -103,6 +103,24 @@ svg{width:100%;height:auto;display:block;border:1px solid #d6e6ec;border-radius:
 .actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .actions button{min-height:40px;border-radius:10px;padding:7px 10px;font-size:8.5px;font-weight:1000;cursor:pointer}
 .secondary{border:1px solid #c7dfe8;background:#fff;color:#17688c}
+
+.criteria{
+ margin-top:10px;padding:12px 13px;border:1px solid #b8dbe5;border-left:4px solid #168cad;
+ border-radius:14px;background:linear-gradient(180deg,#f7fdff,#edf9fc)
+}
+.criteria.instCrit{border-left-color:#d4534d;background:linear-gradient(180deg,#fffafa,#fff1f0)}
+.criteria.timeCrit{border-left-color:#cf8b13;background:linear-gradient(180deg,#fffdf7,#fff8e9)}
+.criteriaHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.criteriaHead b{font-size:11px;color:#23586c}
+.criteriaHead span{display:inline-flex;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid #c8e0e7;font-size:10px;font-weight:1000;white-space:nowrap}
+.criteriaMain{font-size:21px;font-weight:1000;letter-spacing:.01em;color:#126782;line-height:1.25}
+.instCrit .criteriaMain{color:#ac3d38}
+.timeCrit .criteriaMain{color:#9b650d}
+.criteriaSub{margin-top:5px;font-size:10px;line-height:1.55;color:#607984;font-weight:800}
+.criteriaRows{display:grid;gap:9px}
+.criteriaRow+.criteriaRow{border-top:1px dashed #ccdfe5;padding-top:9px}
+.criteriaLabel{display:block;font-size:9px;color:#718791;font-weight:1000;margin-bottom:3px}
+
 @media(max-width:620px){
  .trrow{grid-template-columns:1fr 1fr}
  .trrow .remove{grid-column:2;justify-self:end;width:46px}
@@ -126,7 +144,7 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
 <body>
 <header class="top">
  <a class="brand" href="index.html" style="text-decoration:none">🌊 うきわメモ<small>OCR / 51 EASY SETTING</small></a>
- <div class="badge">v5 現場＋学習</div>
+ <div class="badge">v5.6 実機整定優先</div>
 </header>
 
 <main>
@@ -213,6 +231,11 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
  <div class="dual">
   <div class="dualbox"><span>6.6kV側 負荷電流</span><b id="loadPri">—</b></div>
   <div class="dualbox"><span>CT二次負荷電流</span><b id="loadSec">—</b></div>
+ </div>
+ <div class="criteria" id="tapCriteria">
+  <div class="criteriaHead"><b>社内管理値｜限時 最小動作電流</b><span>±10%</span></div>
+  <div class="criteriaMain" id="tapCriteriaRange">—</div>
+  <div class="criteriaSub" id="tapCriteriaSub">Tap候補が決まると合格範囲を表示します。</div>
  </div>
  <div class="chips" id="tapChips"></div>
 </section>
@@ -313,10 +336,29 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
   </div>
  </div>
 
- <div class="result inst"><span>INSTANT 計算基準</span><strong id="instResult">—</strong><small id="instSub">—</small></div>
+ <div class="result inst"><span>INSTANT 整定候補</span><strong id="instResult">—</strong><small id="instSub">—</small></div>
+ <div class="note" style="margin-top:8px">
+  <b>表示ルール：</b>大きく表示するのは実機で選べる瞬時整定値。
+  700%・1000%の計算値は中間計算値として下段に残します。
+ </div>
  <div class="dual">
   <div class="dualbox"><span>二次基準</span><b id="instSecondary">—</b></div>
   <div class="dualbox"><span>一次換算</span><b id="instPrimary">—</b></div>
+ </div>
+ <div class="criteria instCrit" id="instCriteria">
+  <div class="criteriaHead"><b>社内管理値｜瞬時</b><span>最小動作 ±15%</span></div>
+  <div class="criteriaRows">
+   <div class="criteriaRow">
+    <span class="criteriaLabel">最小動作電流</span>
+    <div class="criteriaMain" id="instCriteriaPick">—</div>
+    <div class="criteriaSub" id="instCriteriaPickSub">瞬時整定候補が決まると表示します。</div>
+   </div>
+   <div class="criteriaRow">
+    <span class="criteriaLabel">動作時間</span>
+    <div class="criteriaMain" id="instCriteriaTime">—</div>
+    <div class="criteriaSub" id="instCriteriaTimeSub">整定電流の200%を印加したとき 0.05秒以下。</div>
+   </div>
+  </div>
  </div>
  <div class="formula"><small>瞬時の計算</small><b id="instFormula">—</b><div id="instTrace">—</div></div>
  <div class="chips" id="instChips"></div>
@@ -354,6 +396,12 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
 
    <div class="result time"><span id="simName">EI</span><strong id="simTime">—</strong><small id="simFormula">—</small></div>
 
+   <div class="criteria timeCrit" id="simCriteria">
+    <div class="criteriaHead"><b>社内管理値｜限時 動作時間</b><span id="simCriteriaPct">300% / 700%</span></div>
+    <div class="criteriaMain" id="simCriteriaRange">—</div>
+    <div class="criteriaSub" id="simCriteriaSub">判定基準表の試験条件はレバー10。300%は±17%、700%は±12%。</div>
+   </div>
+
    <div class="actions">
     <button class="primary" id="run" type="button">⚡ 電流を流す</button>
     <button class="secondary" id="stop" type="button">停止</button>
@@ -385,6 +433,14 @@ footer{text-align:center;font-size:8px;color:#758995;padding:16px}
    同じ「700%」でも、前者は限時特性の試験点、後者は瞬時設定の基準なので、画面上で混同しないよう分離しています。
   </div>
  </details>
+</section>
+
+
+<section class="panel">
+ <div class="note warn">
+  <b>管理値の扱い：</b>ここで表示する管理値は社内判定基準です。K2OCなど各メーカーの製品仕様・公差とは別物です。
+  限時動作時間の基準表条件は「レバー10・300% / 700%」。実機試験では社内手順書・最新基準・メーカー資料を優先してください。
+ </div>
 </section>
 
 <footer>うきわメモ｜OCR 51 整定ナビ v5</footer>
@@ -571,6 +627,18 @@ function renderTap(){
  $("#tapChips").innerHTML=P.taps.map(v=>`<span class="chip ${v===x.tap?"good":""}">${v}A</span>`).join("");
  $("#sumTap").textContent=x.tap!==undefined?`${x.tap}A`:"要確認";
  $("#sumTapSub").textContent=`負荷 ${f(x.I,1)}A`;
+
+ if(x.tap!==undefined){
+  const ratio=ctP/5;
+  const lo=x.tap*.90,hi=x.tap*1.10;
+  $("#tapCriteriaRange").textContent=`${f(lo,2)} ～ ${f(hi,2)} A（二次）`;
+  $("#tapCriteriaSub").textContent=
+   `Tap ${x.tap}A × (1±10%)｜一次換算 ${f(lo*ratio,1)} ～ ${f(hi*ratio,1)}A（CT ${ctP}/5）`;
+ }else{
+  $("#tapCriteriaRange").textContent="—";
+  $("#tapCriteriaSub").textContent="Tap候補が決まると合格範囲を表示します。";
+ }
+
  if(x.tap!==undefined){
   ["leverTap","instTap","simTap"].forEach(id=>$("#"+id).value=String(x.tap));
   $("#simInput").value=String(Math.min(100,x.tap*3));
@@ -642,8 +710,8 @@ function renderInst(){
   target=tap*mult;pri=target*ratio;
   const above=upper(P.inst,target),below=[...P.inst].reverse().find(v=>v<=target);
   if(above!==undefined)good=[above];
-  formula=`Tap ${tap}A × ${mult} = ${f(target,1)}A（二次）`;
-  trace=`一次換算 ${f(target,1)}×${f(ratio,1)}=${f(pri,0)}A｜下側 ${below??"—"}A / 上側 ${above??"—"}A`;
+  formula=`Tap ${tap}A × ${mult} = ${f(target,1)}A（二次・計算値）`;
+  trace=`計算値 ${f(target,1)}A → 実機整定候補 ${above??"範囲外"}A｜一次換算 ${above!==undefined?f(above*ratio,0):"—"}A`;
  }else if(instMode==="direct"){
   target=nullable("directInst");
   if(target!==null){pri=target*ratio;const above=upper(P.inst,target);if(above!==undefined)good=[above];formula=`指定 ${f(target,1)}A（二次）`;trace=`一次換算 ${f(pri,0)}A`;}
@@ -663,15 +731,36 @@ function renderInst(){
   $("#instPrimary").textContent=good.length?`${f(good[0]*ratio,0)}～${f(good[good.length-1]*ratio,0)}A`:"—";
   $("#sumInst").textContent=good.length?`${good[0]}A～`:"—";
  }else{
-  $("#instResult").textContent=target!==null?`${f(target,1)} A 基準`:"条件待ち";
-  $("#instSub").textContent=good.length?`K2OC基準以上直近：${good[0]}A`:"実機候補を確認";
-  $("#instSecondary").textContent=target!==null?`${f(target,1)}A`:"—";
-  $("#instPrimary").textContent=pri!==null?`${f(pri,0)}A`:"—";
-  $("#sumInst").textContent=good.length?`${good[0]}A`:"—";
+  const actualInst=good.length?good[0]:null;
+  $("#instResult").textContent=actualInst!==null?`${actualInst} A`:"条件待ち";
+  $("#instSub").textContent=
+   actualInst!==null
+    ? `${instMode==="700"?"700%":instMode==="1000"?"1000%":instMode==="direct"?"指定値":"計算"} ${target!==null?f(target,1)+"A":"—"} → 実機整定 ${actualInst}A`
+    : "実機候補を確認";
+  $("#instSecondary").textContent=actualInst!==null?`${f(actualInst,1)}A`:"—";
+  $("#instPrimary").textContent=actualInst!==null?`${f(actualInst*ratio,0)}A`:"—";
+  $("#sumInst").textContent=actualInst!==null?`${actualInst}A`:"—";
  }
  $("#sumInstSub").textContent=instMode==="700"?"700%基準":instMode==="1000"?"1000%基準":instMode==="direct"?"直接A":"突入/始動";
  $("#instFormula").textContent=formula||"—";$("#instTrace").textContent=trace||"—";
  $("#instChips").innerHTML=P.inst.map(v=>`<span class="chip ${good.includes(v)?"good":(target!==null&&Math.abs(v-target)<=5?"near":"")}">${v}A</span>`).join("");
+
+ const instSet=good.length?good[0]:null;
+ if(instSet!==null){
+  const lo=instSet*.85,hi=instSet*1.15;
+  const test200=instSet*2;
+  $("#instCriteriaPick").textContent=`${f(lo,2)} ～ ${f(hi,2)} A（二次）`;
+  $("#instCriteriaPickSub").textContent=
+   `${instMode==="inrush"&&good.length>1?"先頭候補 ":""}整定 ${instSet}A × (1±15%)｜一次換算 ${f(lo*ratio,0)} ～ ${f(hi*ratio,0)}A`;
+  $("#instCriteriaTime").textContent=`${f(test200,1)}A を印加 → 0.05秒以下`;
+  $("#instCriteriaTimeSub").textContent=
+   `整定 ${instSet}A の200%｜一次換算 ${f(test200*ratio,0)}A（CT ${ctP}/5）`;
+ }else{
+  $("#instCriteriaPick").textContent="—";
+  $("#instCriteriaPickSub").textContent="瞬時整定候補が決まると表示します。";
+  $("#instCriteriaTime").textContent="—";
+  $("#instCriteriaTimeSub").textContent="整定電流の200%を印加したとき 0.05秒以下。";
+ }
 }
 function renderSim(){
  const tap=n("simTap",5),D=n("simD",3),input=n("simInput",15),M=input/tap,t=k2time(simCurve,M,D);
@@ -679,6 +768,27 @@ function renderSim(){
  $("#simName").textContent=simCurve;$("#simTime").textContent=M>1?`${f(t,3)} s`:"不動作";$("#simFormula").textContent=M>1?FORM[simCurve]:"入力≤Tap";
  ["NI","VI","EI","DT"].forEach(k=>$("#t"+k).textContent=M>1?`${f(k2time(k,M,D),3)}s`:"—");
  $$("#pctButtons button").forEach(b=>b.classList.toggle("active",Math.abs(Number(b.dataset.pct)-M*100)<1));
+
+ const pct=M*100;
+ const at300=Math.abs(pct-300)<.5,at700=Math.abs(pct-700)<.5;
+ if(at300||at700){
+  const checkM=at300?3:7;
+  const tol=at300?.17:.12;
+  const nominal=k2time(simCurve,checkM,10);
+  const lo=nominal*(1-tol),hi=nominal*(1+tol);
+  const pctLabel=at300?"300%":"700%";
+  const tolLabel=at300?"±17%":"±12%";
+  $("#simCriteriaPct").textContent=`${pctLabel}｜${tolLabel}`;
+  $("#simCriteriaRange").textContent=`${f(lo,3)} ～ ${f(hi,3)} s`;
+  $("#simCriteriaSub").textContent=
+   `レバー10・${pctLabel}：公称 ${f(nominal,3)}s × (1${tolLabel})。`+
+   (Math.abs(D-10)<.001?" 現在のD10と判定条件が一致。":` 現在はD${D}なので、上の${f(t,3)}sは学習計算値。社内判定はレバー10条件。`);
+ }else{
+  $("#simCriteriaPct").textContent="300% / 700%";
+  $("#simCriteriaRange").textContent="300%：±17%　／　700%：±12%";
+  $("#simCriteriaSub").textContent=
+   `${f(pct,0)}%は社内判定基準表の時間試験指定点ではありません。300%または700%を選ぶと、レバー10の合格範囲を自動表示します。`;
+ }
  drawGraph();
 }
 function drawGraph(){
