@@ -1,6 +1,220 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#031326"><title>ぷかぷか日誌｜うきわメモ</title><style>
 :root{--bg:#031326;--panel:#081f3b;--line:#28577c;--text:#f7fbff;--muted:#aec9dc;--blue:#69c5ff;--gold:#f0c96b}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% 0,#0a3156 0,transparent 34%),linear-gradient(#031326,#061d37);color:var(--text);font-family:"Hiragino Sans","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.85}a{color:inherit;text-decoration:none}.top{position:sticky;top:0;background:#031326e8;backdrop-filter:blur(14px);border-bottom:1px solid #234a68}.topin{max-width:920px;height:62px;margin:auto;padding:0 18px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:1000;font-size:18px}.home{font-size:12px;color:#c9e4f5}.wrap{max-width:920px;margin:auto;padding:42px 18px 80px}.hero{margin-bottom:25px}.tag{font-size:10px;font-weight:1000;letter-spacing:.14em;color:#83c9f5}.hero h1{font-size:clamp(35px,7vw,58px);line-height:1.1;margin:8px 0}.hero p{color:var(--muted);margin:0;max-width:650px}.updated{margin-top:10px!important;font-size:11px;color:#82badf!important;font-weight:900;letter-spacing:.03em}.entry{background:linear-gradient(180deg,#092442,#071c34);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,5vw,38px);box-shadow:0 18px 50px #0005}.entry+.entry{margin-top:28px}.date{color:#82badf;font-size:12px;font-weight:900}.entry h2{font-size:clamp(25px,5vw,36px);line-height:1.35;margin:6px 0 20px}.lead{font-size:17px;font-weight:800;color:#e9f6ff}.entry h3{margin:30px 0 8px;font-size:19px;color:#d9f0ff}.flow{margin:22px 0;padding:17px 18px;background:#04172c;border:1px solid #245273;border-radius:16px;font-weight:900;text-align:center;line-height:2}.tool{margin:18px 0;padding:14px 16px;border-left:4px solid var(--blue);background:#0a2948;border-radius:0 12px 12px 0}.panic{margin:24px 0;padding:18px;border:1px solid #745d35;background:#2a251b;border-radius:16px}.panic b{color:var(--gold)}.memo{margin-top:30px;padding:20px;border:1px solid #39709a;background:#0b2b4b;border-radius:17px}.memo h3{margin:0 0 8px;color:#8ed0fa}.note{margin-top:28px;color:#8faec3;font-size:11px;border-top:1px solid #214663;padding-top:16px}.back{display:inline-flex;margin-top:24px;padding:11px 16px;border:1px solid #3e7195;border-radius:12px;background:#0a2846;font-weight:900;font-size:12px}@media(max-width:600px){.wrap{padding-top:28px}.entry{border-radius:17px}.flow{text-align:left;font-size:13px}}
-</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.08.24 00:35</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+
+/* 2026-08-29 技術記事拡張 */
+.entry table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13px}.entry th,.entry td{border:1px solid #2c5a7a;padding:10px 11px;vertical-align:top}.entry th{background:#0c3153;color:#e9f7ff;text-align:left}.entry td{background:#061b31}.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:1000;letter-spacing:.02em;margin:2px 5px 2px 0;border:1px solid #3b6c8e;background:#0a2948}.badge.official{border-color:#3f9272;background:#0b3229;color:#a9f0ce}.badge.field{border-color:#3b80a8;background:#0b2c47;color:#bce6ff}.badge.infer{border-color:#a28243;background:#332a14;color:#f8d991}.warning{margin:20px 0;padding:16px 18px;border-radius:15px;border:1px solid #9b7440;background:#2c2315}.warning strong{color:#f3d080}.danger{margin:20px 0;padding:16px 18px;border-radius:15px;border:1px solid #9b4b4b;background:#301919}.danger strong{color:#ffb6b6}.sourcebox{margin-top:28px;padding:18px;border:1px solid #315f80;border-radius:16px;background:#061a2f}.sourcebox h3{margin-top:0}.sourcebox a{color:#8ed0fa;text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}.eq{margin:15px 0;padding:14px 16px;border-radius:14px;background:#031326;border:1px solid #234d6b;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow:auto}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.mini{padding:14px 15px;border:1px solid #2c5c7e;border-radius:14px;background:#071c33}.mini b{color:#bfe7ff}.keyline{padding:14px 16px;border-radius:14px;background:#0e3457;border:1px solid #3a79a3;font-weight:900}.article-nav{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 24px}.article-nav a{padding:8px 11px;border-radius:999px;border:1px solid #315f80;background:#061a2f;font-size:11px;font-weight:900;color:#cdeaff}@media(max-width:650px){.twocol{grid-template-columns:1fr}.entry table{font-size:12px}.entry th,.entry td{padding:8px}}
+</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.08.29 10:11</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<article class="entry" id="pas-sog-ocr-lock-20260829" data-update-date="2026/08/29">
+<div class="date">2026.08.29｜今日のなんで？・PAS / SOG</div>
+<h2>PASの過電流ロックはどう動く？<br>OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</h2>
+<p class="lead">短絡事故でPASがすぐ開かないのはなぜか。今回、戸上電機のSOG付PASの取説と、分解した実機でOCR接点を追った確認内容をつなげることで、<b>「地絡は直接トリップ」「短絡は一度ロックして上位CBを待つ」</b>という仕組みがかなり明確になりました。</p>
+<div class="article-nav"><a href="#pas-ocr-conclusion">結論</a><a href="#pas-ocr-contact">OCR接点</a><a href="#pas-ocr-ground">地絡</a><a href="#pas-ocr-short">短絡</a><a href="#pas-ocr-test">18T試験</a><a href="#pas-ocr-vt">VT内蔵注意</a></div>
+<p><span class="badge official">🟢 メーカー公式で確認</span><span class="badge field">🔵 実機で確認</span><span class="badge infer">🟡 回路からの整理</span></p>
+
+<h3 id="pas-ocr-conclusion">まず結論</h3>
+<div class="twocol">
+<div class="mini"><b>地絡事故</b><div class="flow">地絡<br>↓<br>ZCT・ZPD<br>↓<br>SOGがGR判定<br>↓<br>TC励磁<br>↓<br>PAS開放</div><p>通常の地絡では過電流ロックを掛けず、そのままPASをトリップさせる。</p></div>
+<div class="mini"><b>短絡・大過電流</b><div class="flow">短絡<br>↓<br>OCR動作<br>↓<br>TC回路をロック<br>↓<br>上位CB遮断<br>↓<br>停電<br>↓<br>SOトリップ<br>↓<br>PAS開放</div><p>PASに大きな短絡電流を遮断させず、先に上位遮断器へ任せる。</p></div>
+</div>
+<p><span class="badge official">メーカー公式</span> 戸上電機はSOG動作について、地絡事故はすぐにトリップし、ロック電流値以上の過電流事故では開閉器をいったんロックし、電源側遮断器が動作して無電圧になった後に自動開放すると説明しています。地絡と過電流が重なった場合も過電流側のシーケンス、すなわちSO動作が優先されます。</p>
+
+<h3>1. なぜ「過電流ロック」が必要なのか</h3>
+<p>PASは高圧負荷開閉器です。上位のVCBのように、大きな短絡電流を遮断することを主目的にした遮断器ではありません。</p>
+<div class="flow">短絡発生<br>↓<br>PASが先に開くのは避けたい<br>↓<br>OCRで「今は切るな」とロック<br>↓<br>上位CBが短絡電流を遮断<br>↓<br>安全な無電圧状態でPASを開放</div>
+<p><span class="badge official">メーカー公式</span> KLT-PA系ではロック電流が機種定格によって定められ、200A品は350A±50A、300/400A品は600A±100Aです。これはPAS自身の「短絡遮断容量」ではなく、過電流ロックを動作させるための値です。</p>
+
+<h3>2. PAS内部の役割分担</h3>
+<table><thead><tr><th>記号</th><th>名称</th><th>役割</th></tr></thead><tbody>
+<tr><td>OCR</td><td>過電流ロックリレー</td><td>短絡・大過電流を検出し、PASのトリップを一時的にロックする</td></tr>
+<tr><td>ZCT</td><td>零相変流器</td><td>地絡時の零相電流 Io を検出</td></tr>
+<tr><td>ZPD</td><td>零相電圧検出器</td><td>方向性SOGで零相電圧 Vo を検出</td></tr>
+<tr><td>TC</td><td>トリップコイル</td><td>励磁されると機械ラッチを外しPASを開放</td></tr>
+</tbody></table>
+
+<h3>3. Va・Vb・Vcは何をしている？</h3>
+<p><span class="badge official">メーカー公式</span> 取扱説明書では、<b>Va-Vcは開閉器トリップ時に電圧を出力する端子</b>、<b>Vb-Vcは過電流ロックリレーの入力端子</b>と定義されています。</p>
+<div class="eq">Va ── TCを含むトリップ回路 ── Vc
+
+Vb ── OCRの過電流ロック情報 ── Vc</div>
+<p>この二つを同じ「接点端子」と考えると分かりにくくなります。Va側はTCを動かすトリップ経路、Vb側はOCRが過電流を検出したことをSOG側へ伝える経路、と整理すると見通しがよくなります。</p>
+
+<h3 id="pas-ocr-contact">4. OCRの接点はC接点なのか</h3>
+<p>ここが今回いちばん理解が進んだ部分です。</p>
+<div class="warning"><strong>取説の「補助接点1C」とOCRは別物。</strong><br>戸上取説で「主接触連動スイッチ（1C付）」と書かれている <b>S</b> は、PAS主接触器と連動するオプション補助接点です。これはOCRではありません。</div>
+<p><span class="badge field">実機確認</span> 一方、分解したOCR機構を配線図と照合した確認では、接点について「B接点」「A接点」「共通端子」として追跡し、<b>通常時はTC側、過電流動作時はTCを介さない側へ切り替わる</b>ことを確認しました。</p>
+<div class="twocol">
+<div class="mini"><b>OCR無動作・通常時</b><div class="eq">Va
+ │
+ TC
+ │
+ [通常側 接点：閉]
+ │
+ Vc
+
+Vb-Vc側：開</div></div>
+<div class="mini"><b>OCR動作・過電流時</b><div class="eq">Va
+ │
+ TC
+ │
+ [通常側 接点：開]
+
+Vb ── [過電流側：閉] ── Vc</div></div>
+</div>
+<p><span class="badge infer">整理</span> したがって機能的には、<b>共通接点が通常側（b側）と動作側（a側）の間を切り替えるC接点的な構造</b>として理解すると、実機と回路の両方がつながります。ただし「メーカー取説本文にOCR＝1cと明記されている」という意味ではありません。</p>
+
+<h3>5. なぜVa-Vcを測ると約140Ωなのか</h3>
+<p><span class="badge official">メーカー公式</span> メーカーの点検フローでは、開閉器側Va-Vc間の抵抗が約140Ωであることを確認します。</p>
+<div class="flow">Va<br>↓<br>TC巻線<br>↓<br>OCR通常側接点<br>↓<br>Vc</div>
+<p>つまり、VaとVcが金属接点で直接ショートしているわけではありません。途中に<b>TC巻線</b>があるため、正常な閉路状態でもゼロΩではなく、およそ140Ωになります。</p>
+
+<h3 id="pas-ocr-ground">6. 地絡事故ではどう動く？</h3>
+<p>通常の地絡ではOCRのロック電流値ほどの大電流にはならないため、OCRは通常位置のままです。したがってVa-TC-Vcのトリップ経路は生きています。</p>
+<div class="flow">地絡発生<br>↓<br>ZCT → Io検出<br>ZPD → Vo検出（方向性形）<br>↓<br>SOGが地絡条件を判定<br>↓<br>GR動作<br>↓<br>Va-Vcへトリップ出力<br>↓<br>TC励磁<br>↓<br>PAS開放</div>
+<p><span class="badge official">メーカー公式</span> GR試験ではVa(+)-Vc(-)間に約DC140Vが出ることを確認するフローが示されています。これがTCを励磁するトリップ出力です。</p>
+
+<h3 id="pas-ocr-short">7. 短絡事故では何が違う？</h3>
+<p>短絡電流がOCRのロック値を超えると、OCRが動作して接点を切り替えます。</p>
+<div class="flow">短絡・大過電流<br>↓<br>OCR動作<br>↓<br>Va-TC-Vc側を開く<br>＋<br>Vb-Vc側を成立<br>↓<br>TCを一時的に使えなくする<br>＋<br>SOGへ「過電流発生」を伝える</div>
+<p><span class="badge field">実機確認</span> 実機確認でも「OCRが動作したらトリップコイルに電流が流れないようにする」と、実際の接点と配線を追って確認しています。</p>
+<div class="keyline">短絡電流そのものがTCへ流れるのではない。TCはSOGのトリップ出力で励磁される。過電流ロックは「短絡電流が主回路に流れている間にSOGがTCを動かさない」ための仕組み。</div>
+
+<h3>8. 上位CBが切れた後、なぜPASが開く？</h3>
+<p><span class="badge official">メーカー公式</span> 過電流事故では、電源側遮断器が動作して高圧電路が停電し、SOG制御装置の制御電源がなくなると開閉器が自動開放します。</p>
+<div class="flow">短絡<br>↓<br>OCR動作・TCロック<br>↓<br>Vb-Vcで過電流を検出<br>↓<br>SOGがSO条件を保持<br>↓<br>上位CB遮断<br>↓<br>短絡電流消滅<br>↓<br>P1-P2制御電源消失<br>↓<br>SOトリップ<br>↓<br>PAS開放</div>
+<p>なお、SOG内部の蓄勢回路で「どの部品に何Vを貯めているか」までは、今回確認したメーカー公開資料だけでは断定しません。</p>
+
+<h3>9. 地絡＋短絡が同時に起きたら？</h3>
+<p><span class="badge official">メーカー公式</span> 地絡と過電流が同時に発生した場合は、SO動作が優先されます。</p>
+<div class="flow">地絡条件成立 ＋ OCRロック値以上<br>↓<br>過電流ロックを優先<br>↓<br>短絡中はPASを開かない<br>↓<br>上位CB遮断後<br>↓<br>SOでPAS開放</div>
+
+<h3 id="pas-ocr-test">10. 50A×18ターン＝「900A相当」とは？</h3>
+<p><span class="badge field">実機確認</span> 確認では、OCRを通る試験導体を18ターンさせ、NF試験器から50Aを流してOCRが動作することを確認しました。</p>
+<div class="eq">I × N = 50 A × 18 turn = 900 A·turn</div>
+<table><tbody><tr><th>実際に試験線を流れた電流</th><td>50A</td></tr><tr><th>巻数</th><td>18ターン</td></tr><tr><th>起磁力</th><td>900AT</td></tr><tr><th>1ターン換算</th><td>約900A相当の磁気作用</td></tr></tbody></table>
+<p>したがって「900A流した」という現場表現は意味として通じますが、厳密には<b>50Aを18ターン通して900ATを作った</b>ということです。</p>
+<p>300/400A品のロック値は600±100Aなので、この確認は「正確な動作値を測る」よりも、十分高い一次換算値を与えて<b>OCR機構が確実に動くことを目視する実演</b>と見るのが自然です。</p>
+
+<h3>11. 短絡点投入ではSOしない</h3>
+<p><span class="badge official">メーカー公式</span> 負荷側が既に短絡している状態でPASを投入した「短絡点投入」では、通常のSO動作を行わないとされています。SOGの電源はP1-P2からのみ供給され、一般のOCRのようにCT二次電流から電源を取る構造ではないためです。</p>
+
+<h3 id="pas-ocr-vt">12. VT内蔵形のP1-P2は重大注意</h3>
+<div class="danger"><strong>VT内蔵PASでP1-P2へ外部AC100/110Vを二重印加しない。</strong><br>メーカーは、内蔵VT焼損や開閉器破損につながるおそれを警告しています。耐圧試験時の制御線処理も、機種の最新取説に従って行います。</div>
+<p>今回の実機確認でも、P1-P2まわりの取り扱い不備が疑われるVT焼損事例が紹介されました。ここは「覚えておく知識」ではなく、実際の損傷事故を防ぐための確認項目です。</p>
+
+<h3>13. 現場30秒版</h3>
+<table><thead><tr><th>項目</th><th>地絡</th><th>短絡・大過電流</th></tr></thead><tbody>
+<tr><td>主検出</td><td>ZCT・ZPD</td><td>OCR</td></tr>
+<tr><td>OCR接点</td><td>通常位置</td><td>過電流側へ切替</td></tr>
+<tr><td>Va-TC-Vc</td><td>成立</td><td>一時ロック</td></tr>
+<tr><td>Vb-Vc</td><td>通常不成立</td><td>過電流入力成立</td></tr>
+<tr><td>PAS</td><td>GRで直接開放</td><td>短絡中は開かない</td></tr>
+<tr><td>上位CB</td><td>通常は先行遮断不要</td><td>先に短絡電流を遮断</td></tr>
+<tr><td>最終動作</td><td>GR</td><td>SO</td></tr>
+</tbody></table>
+<section class="memo"><h3>🛟 覚え方</h3><p><b>地絡：</b>「見つけたらPASを切る」</p><p><b>短絡：</b>「見つけても今はPASを切るな。上位CBが切ってからPASを切る」</p><p>この対比が分かれば、SOGのG（Ground）とSO（Storage Overcurrent）が別の事故処理をしていることが一気につながります。</p></section>
+<div class="sourcebox"><h3>📚 根拠資料</h3>
+<p><b>メーカー公式</b><br><a href="https://www.togami-elec.co.jp/document/catalogs/gr_pas_la_ippan_No.01314b.pdf" target="_blank" rel="noopener">戸上電機製作所「開閉器およびSOG制御装置」取扱説明書</a><br><a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_110.php" target="_blank" rel="noopener">戸上電機製作所 SOG開閉器 動作説明</a></p>
+<p><b>実機確認</b><br>2026-08-28 実機確認：PAS分解、OCR接点追跡、50A×18ターンの過電流ロック動作確認。</p></div>
+<div class="note">※本記事はメーカー資料と実機確認を整理した学習用メモです。実設備の操作、耐圧試験、制御線取り外し、P1-P2処理、トリップ確認は、設備構成・型式・現場手順・最新メーカー取説・作業責任者の指示を優先してください。</div>
+</article>
+
+<article class="entry" id="igr-insulation-monitor-20260829" data-update-date="2026/08/29">
+<div class="date">2026.08.29｜今日のなんで？・絶縁監視</div>
+<h2>Igr絶縁監視装置は何を見ている？<br>Io・Iorとの違い、監視信号、漏電探査、異常表示まで</h2>
+<p class="lead">Igrは「漏れ電流をクランプで測るだけ」の方式ではありません。<b>商用50/60Hzとは違う小さな監視信号をわざと重畳し、その周波数成分から絶縁抵抗に由来する成分を取り出して監視する</b>方式です。今回の確認では、その原理だけでなく、漏電探査の順番や「異常ランプ＝本体故障とは限らない」という実務上の切り分けまで確認しました。</p>
+<div class="article-nav"><a href="#igr-principle">原理</a><a href="#igr-convert">換算</a><a href="#igr-search">漏電探査</a><a href="#igr-alarm">表示</a><a href="#igr-error">異常切分け</a></div>
+<p><span class="badge official">🟢 公開技術資料で確認</span><span class="badge field">🔵 対象機で確認</span><span class="badge infer">🟡 機種依存は区別</span></p>
+
+<h3 id="igr-principle">1. Io・Ior・Igrは何が違う？</h3>
+<table><thead><tr><th>方式</th><th>ざっくり何を見る？</th><th>ポイント</th></tr></thead><tbody>
+<tr><td>Io</td><td>大地へ流れる漏れ電流全体</td><td>絶縁抵抗分だけでなく、対地静電容量による容量性電流も含む</td></tr>
+<tr><td>Ior</td><td>Ioから容量性成分を演算で除いた抵抗性成分</td><td>商用周波数の電圧・位相関係を利用</td></tr>
+<tr><td>Igr</td><td>別周波数の監視信号を重畳し、その信号に対する抵抗分を抽出</td><td>「目印付きの電気」で絶縁抵抗成分を追う</td></tr>
+</tbody></table>
+<p><span class="badge official">技術資料</span> 関東電気保安協会・総合技術センターの2023年解説でも、Io・Ior・Igrを区別し、Igrでは監視周波数成分を抽出した上でベクトル演算により抵抗分を分離し、商用周波数の対地電圧に換算して監視する考え方が示されています。</p>
+
+<h3>2. Ioだけでは、なぜ絶縁不良と言い切れない？</h3>
+<div class="eq">電路 ──┬── 絶縁抵抗 R ─→ 抵抗性漏れ電流 Ir
+       └── 対地静電容量 C ─→ 容量性漏れ電流 Ic</div>
+<p>長いケーブル、ノイズフィルタ、インバータ、OA機器などが増えると、絶縁が壊れていなくても対地静電容量による電流が増えます。Ioはそれらも一緒に見ます。</p>
+<div class="keyline">Ioが大きい ＝ 必ず絶縁抵抗が悪い、ではない。</div>
+
+<h3>3. Igrは「別の周波数」を目印にする</h3>
+<div class="flow">絶縁監視電圧発生器<br>↓<br>商用50/60Hzとは異なる低周波信号<br>↓<br>重畳・注入トランス<br>↓<br>B種接地系統<br>↓<br>電路<br>↓<br>ZCT / 探査CTで監視周波数成分を検出</div>
+<p>測定側ではいろいろな周波数が混じった電流から監視周波数を抽出し、そこに含まれる容量分と抵抗分を分離します。</p>
+<div class="eq">ZCT出力
+  ↓
+監視周波数だけ抽出
+  ↓
+容量分 Igc と 抵抗分 Igr を分離
+  ↓
+絶縁抵抗の状態を監視</div>
+
+<h3>4. 「20.3Hz・0.1V」はIgr全部の共通仕様ではない</h3>
+<p><span class="badge field">対象機</span> 今回の実技確認では、<b>0.1V・20.3Hz</b>を注入トランスからB種接地系統へ印加して監視するものとして説明されました。また旧設備では12.5Hzを使う例があり、探査器側で切替できるという説明もありました。</p>
+<p><span class="badge official">他メーカー公式比較</span> 一方、ミドリ安全の現行IGRS-500では20Hz時0.5V、12.5Hz時0.3Vを重畳する仕様です。</p>
+<div class="warning"><strong>したがって「Igr＝20.3Hz・0.1V」と一般化しない。</strong><br>監視周波数・重畳電圧・警報整定・表示ロジックは、メーカーと機種ごとに確認します。</div>
+
+<h3 id="igr-convert">5. 0.1Vで測って、なぜ100Vや200Vの漏れが分かる？</h3>
+<p>絶縁抵抗をRとすると、抵抗分電流はオームの法則で</p>
+<div class="eq">I = V / R</div>
+<p>となります。Rが同じなら、抵抗分電流は電圧に比例します。そこで監視信号で得た抵抗分を、実際の<b>対地電圧</b>へ換算して考えます。</p>
+<div class="eq">概念上の換算倍率 K = V(対地) / E(監視)</div>
+<div class="twocol">
+<div class="mini"><b>対地100V・監視0.1V</b><div class="eq">100 / 0.1 = 1000</div><p>→ 1000倍相当</p></div>
+<div class="mini"><b>対地200V・監視0.1V</b><div class="eq">200 / 0.1 = 2000</div><p>→ 2000倍相当</p></div>
+</div>
+<p><b>監視電圧0.1V</b>を基準にすると、対地電圧100Vなら1000倍、対地電圧200Vなら2000倍です。100V/200Vレンジを切り替えるのは、測定対象の対地電圧に合わせて換算条件を正しく設定するためです。</p>
+<div class="warning"><strong>「線間200V」ではなく、対地電圧と機器設定を見る。</strong><br>たとえば単相3線100/200Vは線間200Vでも、非接地線－中性点・大地間は100Vです。単純に「200V回路だから2000倍」と決めないこと。</div>
+
+<h3>6. Igr探査器は、まず監視信号を取れているか確認</h3>
+<p><span class="badge field">対象探査器</span> 今回の探査器では、20.3Hzの監視信号を正常に取れると表示がフリッカー・点滅する、と説明されました。</p>
+<div class="flow">探査器を接続<br>↓<br>監視周波数信号を正常取得？<br>↓ YES<br>測定開始</div>
+<p>監視信号が取れていない状態で数値だけ追っても、Igr探査としての前提が成立していません。</p>
+
+<h3 id="igr-search">7. 漏電探査は「いきなり分岐」から始めない</h3>
+<p>確認した基本順序は、<b>大きい範囲から小さい範囲へ絞る</b>ことです。</p>
+<div class="flow">① 変圧器のB種接地線<br>「どのバンク？」<br>↓<br>② そのバンクの幹線<br>「どの系統？」<br>↓<br>③ 分電盤<br>「どの分岐？」<br>↓<br>④ 末端負荷<br>「どの機器？」</div>
+<p>例えば3バンクあって、B種接地線の測定値が4mA・140mA・5mAなら、最初から100回路を一つずつ当たるのではなく、140mAのバンクから追えばよいという考え方です。</p>
+
+<h3>8. 100V/200VレンジとCT方向</h3>
+<p><span class="badge field">実機確認</span> Igr探査では換算して表示するため、100V系・200V系など対象条件に応じてレンジを正しく合わせるよう指導されました。またクランプCTには指定方向があり、B種接地線や負荷側を測る際に矢印を所定方向へ向けます。</p>
+<p>逆向きでも近い値が出る場合はありますが、<b>数字が出ることと正規の測定方法であることは別</b>です。指定方向で統一します。</p>
+
+<h3 id="igr-alarm">9. 警報が出ても、いきなり復帰しない</h3>
+<div class="flow">警報発生<br>↓<br>まず表示を記録<br>・どのCH？<br>・点灯？点滅？<br>・時刻は？<br>↓<br>測定・切り分け<br>↓<br>必要に応じて復帰</div>
+<p><span class="badge field">実機確認</span> 「まず復帰じゃない」と強く説明されました。復帰前の表示には事故履歴が残っており、消してしまうと原因追跡に使える情報を失います。</p>
+<p>対象の絶監では、5分以内の警報履歴は点灯、5分以上継続すると点滅という説明でした。ただし<b>点滅＝今この瞬間も必ず漏電中</b>ではありません。過去に10分継続してその後消えた場合でも履歴として残る可能性があるため、最終判断は実測します。</p>
+
+<h3 id="igr-error">10. 「異常ランプ＝本体故障」ではない</h3>
+<p>実機確認でかなり価値があった部分です。</p>
+<table><thead><tr><th>原因候補</th><th>なぜ異常になる？</th></tr></thead><tbody>
+<tr><td>大電流地絡・監視範囲外</td><td>小さな監視信号を正常に識別できなくなる可能性</td></tr>
+<tr><td>CTオープン・断線・外れ</td><td>監視入力回路が正常に成立しない</td></tr>
+<tr><td>未使用CHの短絡処理不足</td><td>機種指定の未使用入力処理になっていない</td></tr>
+<tr><td>注入トランスのずれ</td><td>監視信号を正常に重畳できない</td></tr>
+<tr><td>注入トランスの錆・接触不良</td><td>注入信号が弱い、または不安定になる</td></tr>
+<tr><td>コネクタ・配線不良</td><td>信号の「作る→入れる→拾う」のどこかが途切れる</td></tr>
+<tr><td>本体故障</td><td>上記を確認した後の原因候補</td></tr>
+</tbody></table>
+<p><span class="badge field">実機確認</span> 大電流地絡、CTオープン、未使用CTの短絡線不足、注入トランスのずれ・錆などを異常原因として確認しました。</p>
+<p><span class="badge official">他メーカー公式比較</span> ミドリ安全の旧IGRS-410でも、商用周波数のB種接地線電流が大き過ぎる場合には出力回路を遮断し、重畳異常として扱う機能が公開されています。つまり「異常表示が出たから本体が壊れた」とは限りません。</p>
+
+<h3>11. 異常表示の現場切り分け</h3>
+<div class="flow">IGR異常表示<br>↓<br>① 本当に大電流地絡していない？<br>↓<br>② CT・ZCT・配線・コネクタは正常？<br>↓<br>③ 未使用CHの処理は仕様どおり？<br>↓<br>④ 監視周波数信号は出ている？<br>↓<br>⑤ 注入トランスは正常？<br>・ずれ<br>・錆<br>・接触不良<br>↓<br>⑥ ここまで正常<br>↓<br>本体故障を疑う</div>
+<section class="memo"><h3>🛟 覚え方</h3><p><b>Igrの原理：</b>「目印付きの小さな電気を流して、絶縁抵抗から漏れた分を追う」</p><p><b>漏電探査：</b>「いきなり枝を探すな。まず幹＝変圧器バンクを特定する」</p><p><b>異常表示：</b>「壊れた？ではなく、監視信号を作れて・入れられて・拾えているか？」</p></section>
+
+<h3>12. 現場30秒版</h3>
+<div class="flow">絶監警報<br>↓<br>表示・CH・時刻を記録<br>↓<br>いきなり復帰しない<br>↓<br>Igr探査なら監視信号確認<br>↓<br>B種接地線でバンク特定<br>↓<br>幹線 → 分電盤 → 分岐 → 負荷</div>
+<div class="danger"><strong>活線探査は安全条件が最優先。</strong><br>単線結線図・接地系統・充電部との離隔・保護具・安全にクランプできる位置・現場責任者の指示・社内手順を確認し、無理に盤奥へ手を入れない。</div>
+<div class="sourcebox"><h3>📚 根拠資料</h3>
+<p><b>原理</b><br><a href="https://www.jstage.jst.go.jp/article/ieiej/43/4/43_234/_article/-char/ja/" target="_blank" rel="noopener">鈴木正美「低圧電路の絶縁状態監視システム」電気設備学会誌 43巻4号（2023）</a></p>
+<p><b>メーカー仕様比較</b><br><a href="https://www.midori-em.com/01/igr-500-series/igrs-500.html" target="_blank" rel="noopener">ミドリ安全 IGRS-500 絶縁監視電圧発生器</a><br><a href="https://www.midori-em.com/category/01/01-tansaki" target="_blank" rel="noopener">ミドリ安全 Igr探査器</a></p>
+<p><b>実機確認</b><br>2026-08-28 実機確認：0.1V・20.3Hz系のIgr探査、100/200Vレンジ、CT方向、警報表示、異常原因の切り分け。</p></div>
+<div class="note">※0.1V・20.3Hz、警報値、点灯/点滅条件などは対象システムの説明です。Igr方式一般の共通仕様ではありません。実設備では対象機種の取扱説明書・整定値・接地方式・対地電圧を確認してください。</div>
+</article>
+
+
 <article class="entry" id="pas-withstand-20260822" data-update-date="2026/08/24">
 <div class="date">2026.08.22｜竣工検査・工事立会</div>
 <h2>PAS交換工事と耐圧試験。<br>「どこまで耐圧するか」を結線から考える。</h2>
