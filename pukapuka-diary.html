@@ -3,7 +3,275 @@
 
 /* 2026-08-29 技術記事拡張 */
 .entry table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13px}.entry th,.entry td{border:1px solid #2c5a7a;padding:10px 11px;vertical-align:top}.entry th{background:#0c3153;color:#e9f7ff;text-align:left}.entry td{background:#061b31}.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:1000;letter-spacing:.02em;margin:2px 5px 2px 0;border:1px solid #3b6c8e;background:#0a2948}.badge.official{border-color:#3f9272;background:#0b3229;color:#a9f0ce}.badge.field{border-color:#3b80a8;background:#0b2c47;color:#bce6ff}.badge.infer{border-color:#a28243;background:#332a14;color:#f8d991}.warning{margin:20px 0;padding:16px 18px;border-radius:15px;border:1px solid #9b7440;background:#2c2315}.warning strong{color:#f3d080}.danger{margin:20px 0;padding:16px 18px;border-radius:15px;border:1px solid #9b4b4b;background:#301919}.danger strong{color:#ffb6b6}.sourcebox{margin-top:28px;padding:18px;border:1px solid #315f80;border-radius:16px;background:#061a2f}.sourcebox h3{margin-top:0}.sourcebox a{color:#8ed0fa;text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}.eq{margin:15px 0;padding:14px 16px;border-radius:14px;background:#031326;border:1px solid #234d6b;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow:auto}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.mini{padding:14px 15px;border:1px solid #2c5c7e;border-radius:14px;background:#071c33}.mini b{color:#bfe7ff}.keyline{padding:14px 16px;border-radius:14px;background:#0e3457;border:1px solid #3a79a3;font-weight:900}.article-nav{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 24px}.article-nav a{padding:8px 11px;border-radius:999px;border:1px solid #315f80;background:#061a2f;font-size:11px;font-weight:900;color:#cdeaff}@media(max-width:650px){.twocol{grid-template-columns:1fr}.entry table{font-size:12px}.entry th,.entry td{padding:8px}}
-</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.08.29 12:02</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+
+/* 2026-08-29 CT励磁特性記事 */
+.table-scroll{width:100%;overflow-x:auto;margin:18px 0;border-radius:14px}.table-scroll table{margin:0;min-width:650px}.diagram-card{margin:18px 0;padding:16px;border:1px solid #2c5c7e;border-radius:16px;background:#061a2f}.diagram-card svg{display:block;width:100%;height:auto;max-height:390px}.small{font-size:12px;color:#a9c5d8}.center{text-align:center}.pillrow{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 18px}.pill{padding:6px 9px;border:1px solid #315f80;border-radius:999px;background:#071e35;font-size:11px;font-weight:900;color:#d8efff}.checkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.checkcard{padding:13px 14px;border:1px solid #2c5c7e;border-radius:14px;background:#071c33}.checkcard b{color:#c8ebff}.sourcebox li{margin:8px 0}@media(max-width:650px){.checkgrid{grid-template-columns:1fr}.diagram-card{padding:10px}}
+</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.08.29 18:07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+
+
+<article class="entry" id="ct-excitation-saturation-20260829" data-update-date="2026/08/29">
+<div class="date">2026.08.29｜今日のなんで？・CT / 保護継電器</div>
+<h2>CTの磁気飽和は、結局なにが起きている？<br>B-H・ヒステリシス・励磁特性・膝点を一本につなげる</h2>
+<p class="lead">「CTが飽和する」「励磁電流が急に増える」「膝点を見る」「ヒステリシスがある」「試験後は消磁する」。別々に覚えるとややこしいので、<b>鉄心の中で起きていること → CT端子から見える現象 → 励磁特性試験</b>の順に一本につなげます。</p>
+
+<div class="article-nav">
+<a href="#ct-exc-conclusion">まず結論</a>
+<a href="#ct-exc-normal">通常のCT</a>
+<a href="#ct-exc-test">励磁特性</a>
+<a href="#ct-exc-bh">B-H</a>
+<a href="#ct-exc-hysteresis">ヒステリシス</a>
+<a href="#ct-exc-knee">膝点</a>
+<a href="#ct-exc-record">試験表</a>
+<a href="#ct-exc-maker">メーカー例</a>
+</div>
+<p><span class="badge official">🟢 メーカー・規格情報で確認</span><span class="badge field">🔵 現場で理解しやすい形に整理</span><span class="badge infer">🟡 説明用モデルを含む</span></p>
+
+<h3 id="ct-exc-conclusion">まず結論：全部、同じ鉄心の話</h3>
+<div class="keyline">CTの鉄心には、磁束を増やせる範囲に限界がある。限界に近づくと、<b>電圧を少し上げただけで励磁電流が大きく増える</b>。この外から見える変化が励磁特性曲線の「膝」で、鉄心内部ではB-H特性の飽和領域へ入っている。</div>
+<div class="flow">CT二次へ交流電圧を加える<br>↓<br>励磁電流が流れる<br>↓<br>鉄心が磁化される<br>↓<br>磁束が増える<br>↓<br>鉄心の限界へ近づく<br>↓<br><b>磁気飽和</b><br>↓<br>少しの電圧上昇で励磁電流が急増<br>↓<br><b>励磁特性曲線に「膝」が現れる</b></div>
+
+<div class="table-scroll"><table><thead><tr><th>言葉</th><th>何を見ている？</th><th>一言でいうと</th></tr></thead><tbody>
+<tr><td><b>B-H特性</b></td><td>鉄心そのもの</td><td>磁化する力を増やしたとき、鉄心の磁束がどう増えるか</td></tr>
+<tr><td><b>磁気飽和</b></td><td>鉄心の限界</td><td>磁化する力を増やしても、磁束が増えにくくなった状態</td></tr>
+<tr><td><b>ヒステリシス</b></td><td>磁化の「履歴」</td><td>磁化を戻しても同じ道を戻らず、磁気が少し残る性質</td></tr>
+<tr><td><b>励磁特性曲線</b></td><td>CT二次端子から見た結果</td><td>二次電圧と励磁電流の関係</td></tr>
+<tr><td><b>膝点</b></td><td>励磁特性曲線の曲がり</td><td>飽和の影響が強く現れ始める目安</td></tr>
+<tr><td><b>残留磁気</b></td><td>励磁を止めた後の鉄心</td><td>磁化する力をゼロにしても残る磁気</td></tr>
+<tr><td><b>消磁</b></td><td>残留磁気を小さくする処置</td><td>磁化の往復幅を徐々に小さくして中心へ戻していく</td></tr>
+</tbody></table></div>
+
+<h3 id="ct-exc-normal">1. 普通に使っているCTでは何が起きている？</h3>
+<p>例えば200/5AのCTなら、一次側の大きな電流を二次側の5A系へ変換して、OCRや電流計へ渡します。</p>
+<div class="flow">一次導体 200A<br>↓<br>【 CTの鉄心 】<br>↓<br>二次回路 5A<br>↓<br>OCR・電流計</div>
+<p>一次電流は鉄心を磁化しようとします。すると二次側にも電流が流れ、その二次電流が作る磁化作用は、一次側による磁化作用を<b>打ち消す方向</b>になります。</p>
+<div class="twocol">
+<div class="mini"><b>一次側</b><div class="eq">一次電流
+↓
+鉄心を磁化しようとする</div></div>
+<div class="mini"><b>二次側</b><div class="eq">二次電流
+↓
+一次側の磁化作用を
+打ち消す方向に働く</div></div>
+</div>
+<p>だから正常なCTでは、一次電流が大きくても、鉄心の磁束を必要以上に大きくしないように働きます。</p>
+
+<h3 id="ct-exc-test">2. 励磁特性試験では、CTを逆側から見る</h3>
+<p>励磁特性を確認するときは、通常運転とは違い、<b>設備から適切に切り離されたCT</b>の二次側から交流電圧を与え、二次電圧と励磁電流の関係を見ます。OMICRONも、励磁特性は二次側から電圧を加え、励磁電流を測る方法として説明しています。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 310" role="img" aria-label="CT励磁特性試験の概念図">
+<defs><marker id="arrowCT" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#8ed0fa"/></marker></defs>
+<text x="70" y="45" fill="#dff4ff" font-size="22" font-weight="700">一次側</text>
+<line x1="55" y1="70" x2="250" y2="70" stroke="#9dbdd3" stroke-width="5"/>
+<line x1="155" y1="52" x2="155" y2="88" stroke="#ffb6b6" stroke-width="5"/>
+<line x1="132" y1="52" x2="178" y2="88" stroke="#ffb6b6" stroke-width="5"/>
+<text x="70" y="112" fill="#ffb6b6" font-size="17" font-weight="700">励磁特性を見る状態では一次電流を流さない</text>
+<circle cx="370" cy="150" r="72" fill="#0b2b4b" stroke="#69c5ff" stroke-width="5"/>
+<circle cx="370" cy="150" r="38" fill="#031326" stroke="#3f769b" stroke-width="4"/>
+<text x="338" y="158" fill="#f7fbff" font-size="24" font-weight="800">CT</text>
+<path d="M450 125 C500 125 505 95 550 95" fill="none" stroke="#8ed0fa" stroke-width="5" marker-end="url(#arrowCT)"/>
+<path d="M450 175 C500 175 505 215 550 215" fill="none" stroke="#8ed0fa" stroke-width="5"/>
+<rect x="550" y="65" width="150" height="180" rx="16" fill="#071c33" stroke="#3a79a3" stroke-width="3"/>
+<text x="584" y="105" fill="#dff4ff" font-size="20" font-weight="800">交流電圧源</text>
+<text x="580" y="143" fill="#a9dfff" font-size="17">測るもの</text>
+<text x="580" y="176" fill="#f7fbff" font-size="17">① 二次電圧</text>
+<text x="580" y="205" fill="#f7fbff" font-size="17">② 励磁電流</text>
+<text x="293" y="265" fill="#aec9dc" font-size="16">二次側から「この鉄心はどこで飽和するか」を観察する</text>
+</svg>
+</div>
+<div class="danger"><strong>重要：運転中のCT二次開放とは別の話。</strong><br>運転中に一次電流が流れているCTの二次回路を開放すると危険な高電圧が生じるおそれがあります。ここで説明しているのは、設備から適切に切り離し、試験条件を整えたCTの励磁特性評価の原理です。この記事は高電圧試験の操作手順書ではありません。</div>
+
+<h3>3. 最初は「電圧を上げても、励磁電流は少ししか増えない」</h3>
+<p>鉄心にまだ余裕がある領域では、二次電圧を上げても励磁電流は比較的小さいままです。ところが飽和に近づくと、<b>二次電圧は下がるのではなく上昇を続けますが、そのわずかな電圧上昇に対して励磁電流が大きく増える</b>ようになります。</p>
+<p class="small">下表は仕組みを理解するための<b>説明用の架空例</b>であり、特定CTのメーカー値・実測値ではありません。</p>
+<div class="table-scroll"><table><thead><tr><th>二次電圧</th><th>励磁電流</th><th>鉄心の状態イメージ</th></tr></thead><tbody>
+<tr><td>20V</td><td>5mA</td><td>まだ十分に余裕</td></tr>
+<tr><td>40V</td><td>8mA</td><td>正常励磁領域</td></tr>
+<tr><td>60V</td><td>12mA</td><td>正常励磁領域</td></tr>
+<tr><td>80V</td><td>18mA</td><td>まだ電圧がよく伸びる</td></tr>
+<tr><td>100V</td><td>30mA</td><td>曲がり始める例</td></tr>
+<tr><td>110V</td><td>50mA</td><td>飽和の影響が強くなる</td></tr>
+<tr><td>120V</td><td>150mA</td><td>励磁電流が急増</td></tr>
+<tr><td>130V</td><td>500mA</td><td>深い飽和側の例</td></tr>
+</tbody></table></div>
+
+<div class="diagram-card">
+<svg viewBox="0 0 760 440" role="img" aria-label="説明用データから描いたCT励磁特性曲線">
+<rect x="0" y="0" width="760" height="440" rx="18" fill="#061a2f"/>
+<!-- axes -->
+<line x1="100" y1="355" x2="710" y2="355" stroke="#9dbdd3" stroke-width="3"/>
+<line x1="100" y1="355" x2="100" y2="45" stroke="#9dbdd3" stroke-width="3"/>
+<text x="505" y="414" fill="#dff4ff" font-size="20" font-weight="700">励磁電流 [mA] →（対数目盛）</text>
+<text x="18" y="38" fill="#dff4ff" font-size="20" font-weight="700">二次電圧 [V] ↑</text>
+
+<!-- horizontal guide lines -->
+<g stroke="#244b68" stroke-width="1">
+<line x1="100" y1="355" x2="710" y2="355"/>
+<line x1="100" y1="304" x2="710" y2="304"/>
+<line x1="100" y1="253" x2="710" y2="253"/>
+<line x1="100" y1="202" x2="710" y2="202"/>
+<line x1="100" y1="151" x2="710" y2="151"/>
+<line x1="100" y1="100" x2="710" y2="100"/>
+<line x1="100" y1="75" x2="710" y2="75"/>
+</g>
+<g fill="#a9c5d8" font-size="14" text-anchor="end">
+<text x="90" y="360">20</text><text x="90" y="309">40</text><text x="90" y="258">60</text>
+<text x="90" y="207">80</text><text x="90" y="156">100</text><text x="90" y="105">120</text><text x="90" y="80">130</text>
+</g>
+
+<!-- log-x guide lines / ticks: 5,10,20,50,100,200,500 mA -->
+<g stroke="#244b68" stroke-width="1">
+<line x1="120" y1="355" x2="120" y2="45"/>
+<line x1="206" y1="355" x2="206" y2="45"/>
+<line x1="292" y1="355" x2="292" y2="45"/>
+<line x1="405" y1="355" x2="405" y2="45"/>
+<line x1="491" y1="355" x2="491" y2="45"/>
+<line x1="577" y1="355" x2="577" y2="45"/>
+<line x1="690" y1="355" x2="690" y2="45"/>
+</g>
+<g fill="#a9c5d8" font-size="14" text-anchor="middle">
+<text x="120" y="378">5</text><text x="206" y="378">10</text><text x="292" y="378">20</text>
+<text x="405" y="378">50</text><text x="491" y="378">100</text><text x="577" y="378">200</text><text x="690" y="378">500</text>
+</g>
+
+<!-- exact points from the explanatory table: 20V/5mA ... 130V/500mA -->
+<polyline points="120,355 178,304 228,253 279,202 342,151 405,126 541,100 690,75" fill="none" stroke="#69c5ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#d9f0ff" stroke="#031326" stroke-width="3">
+<circle cx="120" cy="355" r="6"/><circle cx="178" cy="304" r="6"/><circle cx="228" cy="253" r="6"/><circle cx="279" cy="202" r="6"/>
+<circle cx="342" cy="151" r="6"/><circle cx="405" cy="126" r="6"/><circle cx="541" cy="100" r="6"/><circle cx="690" cy="75" r="6"/>
+</g>
+
+<!-- knee example, consistent with table: 100V→110V while 30mA→50mA -->
+<circle cx="342" cy="151" r="10" fill="#f0c96b"/>
+<line x1="342" y1="151" x2="342" y2="355" stroke="#f0c96b" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="360" y="145" fill="#f7dd98" font-size="18" font-weight="800">膝点判定の例（約100V）</text>
+<text x="145" y="240" fill="#bce6ff" font-size="16">飽和前：電圧を上げても励磁電流は比較的小さい</text>
+<text x="430" y="185" fill="#ffb6b6" font-size="16">飽和側：少しの電圧上昇で励磁電流が大きく増える</text>
+</svg>
+</div>
+<p class="small"><b>※重要：</b>この曲線は、直前の「説明用の架空データ」8点をそのままプロットしたものです。実在CTの特性値ではありません。横軸は励磁電流の変化を見やすくするため対数目盛です。<b>励磁特性曲線は膝点を越えても二次電圧が下がる曲線ではなく、上昇を続けながら傾きが小さくなります。</b> 実機評価ではメーカー曲線または実測値を使用します。</p>
+
+<h3 id="ct-exc-bh">4. 鉄心の中ではB-H特性の「飽和領域」へ進んでいる</h3>
+<p>B-Hという記号を暗記する必要はありません。ここでは、<b>横軸＝鉄心を磁化しようとする強さ、縦軸＝実際に鉄心の中にできた磁束の強さ</b>と思えば十分です。</p>
+<div class="flow">磁化する力を少し増やす<br>↓<br>最初は磁束が大きく増える<br>↓<br>さらに磁化する<br>↓<br>鉄心の限界へ近づく<br>↓<br><b>磁化する力を増やしても磁束があまり増えない</b><br>↓<br>磁気飽和</div>
+<div class="keyline">つまり、<b>B-H特性は「鉄心内部の原因」</b>。<b>励磁特性曲線は、その結果をCT二次端子から電圧と電流で見たもの</b>。</div>
+
+<h3 id="ct-exc-hysteresis">5. ヒステリシスは「鉄心が前の磁化状態を少し覚えている」性質</h3>
+<p>交流では磁化する方向がプラス・マイナスへ繰り返し入れ替わります。しかし鉄心の磁気は、磁化する力に対して完全に同じ道を往復しません。そのためB-Hの関係を一周するとループを描きます。これが<b>ヒステリシスループ</b>です。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 390" role="img" aria-label="ヒステリシスループの概念図">
+<line x1="85" y1="195" x2="700" y2="195" stroke="#789bb2" stroke-width="2"/>
+<line x1="380" y1="40" x2="380" y2="350" stroke="#789bb2" stroke-width="2"/>
+<path d="M120 315 C165 320,240 290,300 235 C350 190,370 150,410 100 C455 45,560 50,640 85 C595 75,520 90,455 145 C405 185,390 235,350 285 C300 345,205 345,120 315 Z" fill="none" stroke="#8ed0fa" stroke-width="6"/>
+<circle cx="380" cy="145" r="8" fill="#f0c96b"/>
+<circle cx="380" cy="245" r="8" fill="#f0c96b"/>
+<text x="397" y="140" fill="#f7dd98" font-size="17" font-weight="700">磁化する力が0でも磁気が残る</text>
+<text x="397" y="270" fill="#f7dd98" font-size="17" font-weight="700">反対方向にも残る</text>
+<text x="560" y="185" fill="#dff4ff" font-size="18">磁化する強さ →</text>
+<text x="245" y="55" fill="#dff4ff" font-size="18">鉄心の磁気 ↑</text>
+</svg>
+</div>
+<p>磁化する力をゼロに戻しても、鉄心の磁気が完全にはゼロへ戻らず少し残ります。これが<b>残留磁気</b>です。</p>
+<div class="flow">強く励磁する<br>↓<br>鉄心が磁化される<br>↓<br>励磁を止める<br>↓<br><b>磁気が少し残る＝残留磁気</b></div>
+<p>残留磁気の向きと次に加わる磁束の向きが重なると、片側の飽和までの余裕が小さくなることがあります。だから専用CT試験器には、試験後にCTを<b>消磁</b>する機能を持つものがあります。OMICRON CT Analyzerも、試験後の消磁を機能として明記しています。</p>
+
+<h3 id="ct-exc-knee">6. 膝点は「何となく曲がったところ」ではなく、判定の考え方がある</h3>
+<p>東芝産業機器システムのFAQでは、JEC-1201によるCTの飽和開始電圧について、<b>励磁電圧を10%増加させたとき、励磁電流が50%増加する点</b>と説明しています。</p>
+<div class="eq">例：100V → 110V
+電圧は +10%
+
+40mA → 62mA
+励磁電流は +55%
+
+→ JEC-1201の説明に照らすと、飽和開始付近の判定候補</div>
+<div class="warning"><strong>規格によって膝点の定義は同じとは限らない。</strong><br>試験表には「JEC-1201で評価」「IEC/IEEE系で評価」など、どの定義で判定したかを残す。単に「グラフが曲がった気がする」で決めない。</div>
+
+<h3>7. CT比だけで「何Vで飽和する」とは決められない</h3>
+<p>50/5A、100/5A、200/5A、1,000/5A……と変流比が違っても、膝点電圧が単純に比例するわけではありません。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>鉄心の材質・断面積</b><br><span class="small">磁束をどこまで受け持てるかに直結する。</span></div>
+<div class="checkcard"><b>二次巻線の巻数</b><br><span class="small">同じ鉄心でも電圧特性に影響する。</span></div>
+<div class="checkcard"><b>巻線抵抗</b><br><span class="small">端子から見える電圧・励磁電流に影響する。</span></div>
+<div class="checkcard"><b>計測用 / 保護用</b><br><span class="small">求められる飽和特性そのものが違う。</span></div>
+<div class="checkcard"><b>定格負担・階級</b><br><span class="small">CTが保証する性能条件と関係する。</span></div>
+<div class="checkcard"><b>残留磁気</b><br><span class="small">測定前の鉄心状態でも飽和余裕が変わり得る。</span></div>
+</div>
+<div class="keyline">だから一番強いのは、<b>その型式のメーカー励磁曲線・メーカー指定値・適切な試験による実測値</b>。</div>
+
+<h3 id="ct-exc-record">8. うきわメモ用「CT励磁特性試験表」</h3>
+<p>実測値を蓄積するなら、CTの銘板情報と測定値を分けて残します。これなら後でメーカーやCT比が違うもの同士を比較できます。</p>
+<div class="table-scroll"><table><thead><tr><th colspan="2">CT基本情報</th></tr></thead><tbody>
+<tr><th>メーカー</th><td>　　　　　　　　　　　　　　　　</td></tr>
+<tr><th>型式</th><td>　　　　　　　　　　　　　　　　</td></tr>
+<tr><th>CT比</th><td>　　　　/　　　 A</td></tr>
+<tr><th>二次定格</th><td>1A / 5A</td></tr>
+<tr><th>定格負担</th><td>　　　 VA</td></tr>
+<tr><th>確度・保護階級</th><td>　　　　　　　　　　　　　　　　</td></tr>
+<tr><th>過電流定数など</th><td>　　　　　　　　　　　　　　　　</td></tr>
+<tr><th>周波数</th><td>50Hz / 60Hz</td></tr>
+<tr><th>メーカー励磁曲線</th><td>有 / 無　資料名：　　　　　　　　　</td></tr>
+<tr><th>判定基準</th><td>JEC-1201 / IEC / IEEE / その他</td></tr>
+<tr><th>試験後消磁</th><td>実施 / 対象外 / 未確認</td></tr>
+</tbody></table></div>
+
+<div class="table-scroll"><table><thead><tr><th>No.</th><th>CT二次電圧 [V]</th><th>励磁電流 [mA / A]</th><th>前点からの電圧増加 [%]</th><th>前点からの電流増加 [%]</th><th>判定・メモ</th></tr></thead><tbody>
+<tr><td>1</td><td></td><td></td><td>―</td><td>―</td><td></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>5</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>6</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>7</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>8</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>9</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>10</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>11</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>12</td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+
+<p>増加率は次のように計算できます。</p>
+<div class="eq">電圧増加率 [%]
+= (今回電圧 - 前回電圧) ÷ 前回電圧 × 100
+
+励磁電流増加率 [%]
+= (今回電流 - 前回電流) ÷ 前回電流 × 100</div>
+
+<h4>CTを何台か測ったら、比較表へ</h4>
+<div class="table-scroll"><table><thead><tr><th>メーカー</th><th>型式</th><th>CT比</th><th>用途</th><th>定格負担</th><th>メーカー飽和値</th><th>実測膝点</th><th>根拠</th></tr></thead><tbody>
+<tr><td></td><td></td><td></td><td>計測 / 保護</td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td>計測 / 保護</td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td>計測 / 保護</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p>この形なら、<b>「CT比が大きいから飽和電圧が高いはず」</b>のような推測だけでなく、メーカー値と実測値を並べて比較できます。</p>
+
+<h3 id="ct-exc-maker">9. 三菱電機に実際の「励磁特性曲線」がある</h3>
+<p>三菱電機の技報資料には、BN-O形CTについて実際の励磁特性曲線が掲載されています。誌面78ページの<b>図6.1が200/5A、図6.2が1,000/5A</b>です。</p>
+<div class="table-scroll"><table><thead><tr><th>資料中のCT</th><th>図</th><th>グラフから読み取れること</th></tr></thead><tbody>
+<tr><td><b>BN-O形 200/5A</b></td><td>図6.1</td><td>励磁電流が増えるにつれ二次電圧が上昇し、100V前後の領域で曲線が大きく寝てくる。</td></tr>
+<tr><td><b>BN-O形 1,000/5A</b></td><td>図6.2</td><td>変流比は大きく違うが、こちらも100V前後の領域で飽和傾向が見える。</td></tr>
+</tbody></table></div>
+<div class="warning"><strong>「膝点＝ちょうど100V」と資料が数値指定しているわけではない。</strong><br>100V前後というのはグラフ形状の読み取り。正確な飽和開始電圧は、採用する規格の定義と測定データで判定する。</div>
+<p>このメーカー実例は、<b>CT比だけでは飽和電圧を決められない</b>ことを理解する良い材料になります。</p>
+
+<h3>10. 「磁気飽和」と「絶縁破壊」は別物</h3>
+<div class="table-scroll"><table><thead><tr><th></th><th>磁気飽和</th><th>絶縁破壊・耐電圧</th></tr></thead><tbody>
+<tr><th>何の限界？</th><td>鉄心の磁気的な限界</td><td>巻線・絶縁物の電気絶縁上の限界</td></tr>
+<tr><th>何が起きる？</th><td>磁束が増えにくくなり、励磁電流が急増</td><td>絶縁が耐えられなくなり、放電・破壊などにつながる</td></tr>
+<tr><th>同じ電圧？</th><td colspan="2"><b>同じではない。</b>「飽和した電圧＝絶縁限界」ではない。</td></tr>
+</tbody></table></div>
+<p>三菱の同資料でも、励磁特性とは別に二次回路試験や耐電圧試験の記載があります。<b>磁気的な限界と絶縁上の限界は別の評価</b>です。</p>
+
+<h3>11. 最後に一本で覚える</h3>
+<div class="flow">CTには鉄心がある<br>↓<br>鉄心には磁束を増やせる限界がある<br>↓<br>限界へ近づくと磁気飽和<br>↓<br>飽和すると励磁電流が急増<br>↓<br>外からV-Iで見たものが励磁特性曲線<br>↓<br>大きく曲がる場所が膝点<br>↓<br>鉄心内部の原因を表すのがB-H特性<br>↓<br>交流で履歴まで見るとヒステリシスループ<br>↓<br>磁化を止めても残るのが残留磁気<br>↓<br>残留磁気を小さくするのが消磁</div>
+<div class="memo"><h3>🛟 今日のうきわメモ</h3><p><b>B-Hは鉄心内部の原因。励磁特性曲線はCT端子から見える結果。膝点はその結果に飽和がはっきり現れ始める場所。</b></p><p>CTの「磁気飽和」「ヒステリシス」「残留磁気」「励磁特性試験」は別々の話ではなく、全部ひとつの鉄心を違う角度から見ている。</p></div>
+
+<div class="sourcebox"><h3>📚 根拠・参考資料</h3><ul>
+<li><a href="https://www.giho.mitsubishielectric.co.jp/giho/pdf/1963/6309.pdf" target="_blank" rel="noopener">三菱電機技報 1963年資料</a> — 誌面78ページ、図6.1「BN-O形変流器 200/5A 励磁特性曲線」、図6.2「BN-O形変流器 1,000/5A 励磁特性曲線」。</li>
+<li><a href="https://www.toshiba-tips.co.jp/services/faq/trans/instrument-trans.html" target="_blank" rel="noopener">東芝産業機器システム｜計器用変成器 FAQ</a> — JEC-1201によるCT飽和開始電圧の説明。</li>
+<li><a href="https://www.omicronenergy.com/en/products/ct-analyzer/description/" target="_blank" rel="noopener">OMICRON CT Analyzer</a> — 二次側からの試験信号、励磁特性・膝点評価、試験後の消磁。</li>
+<li><a href="https://www.omicronenergy.com/en/solution/common-electrical-tests-on-instrument-transformers/" target="_blank" rel="noopener">OMICRON｜Instrument Transformer Tests</a> — 磁化特性、飽和挙動、変流比、負担、巻線抵抗などCT評価項目。</li>
+</ul></div>
+<div class="note">※この記事はCTの磁気飽和と励磁特性を理解するための技術メモです。実設備の試験手順・操作票の代わりではありません。運転中のCT二次回路開放は危険です。励磁特性評価は対象CTの仕様、メーカー資料、使用試験器の取扱説明書、社内手順および現場責任者の指示に従って実施してください。</div>
+</article>
 
 <article class="entry" id="cable-capacitance-shield-ground-20260829" data-update-date="2026/08/29">
 <div class="date">2026.08.29｜今日のなんで？・高圧ケーブル / 耐圧試験</div>
