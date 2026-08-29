@@ -3,7 +3,254 @@
 
 /* 2026-08-29 技術記事拡張 */
 .entry table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13px}.entry th,.entry td{border:1px solid #2c5a7a;padding:10px 11px;vertical-align:top}.entry th{background:#0c3153;color:#e9f7ff;text-align:left}.entry td{background:#061b31}.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:1000;letter-spacing:.02em;margin:2px 5px 2px 0;border:1px solid #3b6c8e;background:#0a2948}.badge.official{border-color:#3f9272;background:#0b3229;color:#a9f0ce}.badge.field{border-color:#3b80a8;background:#0b2c47;color:#bce6ff}.badge.infer{border-color:#a28243;background:#332a14;color:#f8d991}.warning{margin:20px 0;padding:16px 18px;border-radius:15px;border:1px solid #9b7440;background:#2c2315}.warning strong{color:#f3d080}.danger{margin:20px 0;padding:16px 18px;border-radius:15px;border:1px solid #9b4b4b;background:#301919}.danger strong{color:#ffb6b6}.sourcebox{margin-top:28px;padding:18px;border:1px solid #315f80;border-radius:16px;background:#061a2f}.sourcebox h3{margin-top:0}.sourcebox a{color:#8ed0fa;text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}.eq{margin:15px 0;padding:14px 16px;border-radius:14px;background:#031326;border:1px solid #234d6b;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow:auto}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.mini{padding:14px 15px;border:1px solid #2c5c7e;border-radius:14px;background:#071c33}.mini b{color:#bfe7ff}.keyline{padding:14px 16px;border-radius:14px;background:#0e3457;border:1px solid #3a79a3;font-weight:900}.article-nav{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 24px}.article-nav a{padding:8px 11px;border-radius:999px;border:1px solid #315f80;background:#061a2f;font-size:11px;font-weight:900;color:#cdeaff}@media(max-width:650px){.twocol{grid-template-columns:1fr}.entry table{font-size:12px}.entry th,.entry td{padding:8px}}
-</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.08.29 10:11</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.08.29 12:02</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+
+<article class="entry" id="cable-capacitance-shield-ground-20260829" data-update-date="2026/08/29">
+<div class="date">2026.08.29｜今日のなんで？・高圧ケーブル / 耐圧試験</div>
+<h2>高圧ケーブルはなぜコンデンサになる？<br>芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</h2>
+<p class="lead">ケーブルの「対地静電容量」は、いったいどことどこの容量なのか。金属遮へい層を接地すると何が変わるのか。さらに、<b>遮へい層を接地しないまま耐圧試験をすると、なぜ正しい試験にならないのか</b>。全部を「導体－絶縁体－導体」に分解して整理します。</p>
+
+<div class="article-nav">
+<a href="#cable-cap-conclusion">結論</a>
+<a href="#cable-cap-structure">構造</a>
+<a href="#cable-cap-measure">容量測定</a>
+<a href="#cable-cap-floating">浮いているとは</a>
+<a href="#cable-cap-withstand">耐圧試験</a>
+<a href="#cable-cap-grounding">遮へい層接地</a>
+</div>
+<p><span class="badge official">🟢 メーカー・技術資料で確認</span><span class="badge infer">🟡 等価回路で整理</span></p>
+
+<h3 id="cable-cap-conclusion">まず結論</h3>
+<div class="keyline">高圧ケーブルの主な静電容量は、<b>「芯線（導体）－絶縁体－金属遮へい層（導体）」</b>でできている。金属遮へい層を接地すると、その導体が大地電位に固定されるため、芯線－遮へい層間の容量を<b>対地静電容量</b>として扱える。</div>
+<div class="flow">芯線（導体）<br>↓<br>ケーブル絶縁体（誘電体）<br>↓<br>金属遮へい層（導体・大地電位）<br>↓<br>接地線 → 接地極 → 大地</div>
+<p>一番大事なのは、<b>「金属遮へい層」はただの保護材ではなく、電気を流す導体</b>だということです。</p>
+
+<h3 id="cable-cap-structure">1. 6.6kV CV/CVTケーブルを中心から外へ見る</h3>
+<p><span class="badge official">メーカー公式</span> 6600V CV/CVTの代表的な構造は、次のようになっています。</p>
+<div class="flow">芯線（導体）<br>↓<br>内部半導電層<br>↓<br>架橋ポリエチレン絶縁体<br>↓<br>外部半導電層<br>↓<br><b>金属遮へい層（銅テープなど）</b><br>↓<br>シース（ビニルなどの外被）</div>
+<p>SWCC/SFCCの6600V CVT仕様でも、遮へいには軟銅テープ、シースにはビニルを用いる構造が示されています。つまり、<b>金属遮へい層とシースは別物</b>です。</p>
+
+<h3>2. 「コンデンサは導体－絶縁体－導体」で探す</h3>
+<p>普通のコンデンサは、</p>
+<div class="eq">電極A（導体）
+│
+誘電体（絶縁体）
+│
+電極B（導体）</div>
+<p>です。高圧ケーブルも同じように分解できます。</p>
+<div class="eq">芯線（導体）
+│
+ケーブル絶縁体
+│
+金属遮へい層（導体）</div>
+<p>したがって、ケーブルそのものが<b>非常に長い円筒形のコンデンサ</b>として振る舞います。</p>
+
+<h3 id="cable-cap-measure">3. ケーブル単体でも静電容量は測れる</h3>
+<p>ケーブルを設備から完全に取り外して、地面にも接続していない状態でも、</p>
+<div class="flow">テスター＋ → 芯線<br><br>芯線（導体）<br>↓<br>絶縁体<br>↓<br>金属遮へい層（導体）<br><br>テスター－ → 金属遮へい層</div>
+<p>とすれば静電容量を測れます。<b>大地は必要ありません。</b>静電容量は「2つの導体の間の性質」だからです。</p>
+<div class="warning"><strong>同じ芯線の両端を測っても静電容量ではない。</strong><br>同じ芯線の左端と右端は一本の導体なので、そこは基本的に導通です。容量測定は、絶縁体を挟んだ<b>別々の2導体</b>に当てます。</div>
+
+<h3>4. 片端で測ってもケーブル全長分が見える</h3>
+<p>テスター棒をキュービクル側の端末にしか当てていなくても、芯線と金属遮へい層はそれぞれケーブル全長にわたって続いています。</p>
+<div class="eq">PAS側                                      キュービクル側
+芯線 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━●
+      │   │   │   │   │   │   │
+      C   C   C   C   C   C   C
+      │   │   │   │   │   │   │
+遮へい層━━━━━━━━━━━━━━━━━━━━━━━━━━━━●</div>
+<p>全長に分布している小さな静電容量は、電気的にはほぼ並列なので、</p>
+<div class="eq">Ctotal = C1 + C2 + C3 + …</div>
+<p>となります。単位長さ当たりの静電容量を <b>c [F/m]</b>、長さを <b>L [m]</b> とすれば、</p>
+<div class="eq">Ctotal = c × L</div>
+<p>です。メーカーのケーブルカタログにも、導体サイズごとの参考静電容量が <b>µF/km</b> で示されています。</p>
+
+<h3>5. 遮へい層を接地すると「対地静電容量」になる</h3>
+<p>設備では金属遮へい層を接地します。</p>
+<div class="flow">芯線（導体）<br>↓<br>絶縁体<br>↓<br><b>金属遮へい層（大地電位の導体）</b><br>↓<br>接地線<br>↓<br>接地極<br>↓<br>大地</div>
+<p>つまり、芯線から見れば相手側電極である金属遮へい層が大地とほぼ同じ電位に固定されます。そのため、</p>
+<div class="eq">C（芯線－大地） ≒ C（芯線－金属遮へい層）</div>
+<p>として扱えます。</p>
+
+<h3 id="cable-cap-floating">6. 「遮へい層が浮いている」って何？</h3>
+<p>ここでいう<b>「浮いている」＝物理的に宙に浮いている</b>ではありません。</p>
+<div class="keyline"><b>電気的に浮いている（フローティング）</b>とは、その導体が接地や電源などに接続されず、電位が0Vなどに固定されていない状態。</div>
+<p>ケーブルにしっかりくっついていても、遮へい層の接地線がつながっていなければ、遮へい層は電気的に浮いています。</p>
+
+<h3>7. なぜ遮へい層が浮くと「コンデンサが2つ」出てくる？</h3>
+<p>芯線から大地までを、もう一度<b>導体－絶縁体－導体</b>で分解します。</p>
+<div class="twocol">
+<div class="mini"><b>① ケーブル内部</b><div class="eq">芯線
+（導体①）
+↓
+ケーブル絶縁体
+↓
+金属遮へい層
+（導体②）</div><p>ここに <b>C1</b> ができます。</p></div>
+<div class="mini"><b>② ケーブル外部</b><div class="eq">金属遮へい層
+（導体②）
+↓
+シース・空気など
+（絶縁体）
+↓
+大地・周囲金属
+（導体③）</div><p>ここに <b>C2</b> ができます。</p></div>
+</div>
+<p>したがって、遮へい層を接地せずに「芯線－大地」を見ると、等価回路は、</p>
+<div class="eq">芯線 ── C1 ── 金属遮へい層 ── C2 ── 大地</div>
+<p>となります。C2はケーブルの中に「もう1個コンデンサ部品が入っている」という意味ではなく、<b>遮へい層と大地・金属ラック・建物などとの間に自然に生じる浮遊容量</b>です。</p>
+
+<h3>8. 遮へい層を接地するとC2はどうなる？</h3>
+<p>金属遮へい層を接地すると、遮へい層と大地が接地線で直接つながります。</p>
+<div class="eq">芯線 ── C1 ── 金属遮へい層 ───── 大地
+                         ↑
+                      導体で直結</div>
+<p>そのため、芯線から大地を見た主な容量はC1、つまり<b>芯線－絶縁体－金属遮へい層</b>になります。ケーブル単体で芯線－遮へい層を測った値と、設備で遮へい層を接地して芯線－アースを測った値が基本的に近くなるのはこのためです。</p>
+<p class="note">※実測値は端末部、測定リード、他相の処理、周囲金属、接続機器などの影響で多少変わります。</p>
+
+<h3 id="cable-cap-withstand">9. 耐圧試験では、このCに充電電流が流れる</h3>
+<p>交流耐圧では、ケーブルの静電容量に対して、</p>
+<div class="eq">Ic = 2π f C V</div>
+<table><tbody>
+<tr><th>Ic</th><td>充電電流 [A]</td></tr>
+<tr><th>f</th><td>周波数 [Hz]</td></tr>
+<tr><th>C</th><td>ケーブル全長の静電容量 [F]</td></tr>
+<tr><th>V</th><td>芯線－遮へい層間にかかる交流電圧 [V]</td></tr>
+</tbody></table>
+<p>が流れます。ただし、絶縁体の中を普通の導電電流が突き抜けているわけではありません。交流電界の変化に伴う<b>変位電流</b>として、外部回路に充電電流が現れます。</p>
+
+
+<h3 id="cable-cap-current-check">10. 計算した充電電流と実測値をクロスチェックする</h3>
+<p>静電容量 <b>C</b> を測ったら、それで終わりではありません。試験電圧と周波数を使って、耐圧時に流れるはずの充電電流を先に計算しておくと、結線や接地の異常に気づくための強いチェックになります。</p>
+<div class="eq">Ic = 2π f C V</div>
+<p>ムサシインテック R-1220K の取扱説明書にも、この式による充電電流の計算方法とケーブルの参考静電容量が掲載されています。つまり、<b>「事前にCから予想電流を出し、試験中の電流と見比べる」</b>という考え方は、試験器の仕組みに沿った確認方法です。</p>
+<div class="warning"><strong>計算したIcと実測電流が大きくずれていたら、「何かがおかしい」と考える。</strong><br>そのまま数字だけ記録するのではなく、遮へい層接地、試験範囲、結線、ケーブル長・種類、周波数・印加電圧、計器の読み方などを再確認します。特に金属遮へい層が接地されていなければ、前述の容量分圧によって試験器から見える電流が小さくなる方向に働きます。</div>
+
+<h4>リアクトルを使わない場合</h4>
+<div class="eq">計算値 Ic  ≒  R-1220K 二次側電流計の値</div>
+<p>完全一致する必要はありません。ケーブルの実容量、端末部、損失・漏れ電流、計器精度などがあるためです。ただし、<b>桁が違う、明らかに小さすぎる／大きすぎる</b>といった場合は結線・接地・試験対象を確認する価値があります。</p>
+
+<h4>「一次電流」と「二次電流」は同じ値になるのか？</h4>
+<p><b>なりません。</b> R-1220K は入力0～120V、出力0～12000V、巻線比1:100の昇圧トランスです。理想的には電流比は電圧比の逆になるため、</p>
+<div class="eq">V1 × I1 ≒ V2 × I2
+
+I1 ≒ 100 × I2</div>
+<p>となります。例えば二次側が <b>100mA</b> 流れているなら、一次側は概ね <b>10A</b> 級になります。したがって、一次電流と二次電流の数値が大きく違うこと自体は正常です。</p>
+<div class="keyline"><b>見るべきは「一次と二次が同じか」ではなく、巻線比で換算した関係が大きく崩れていないか。</b></div>
+
+<h4>リアクトル使用時はA1とA2を混同しない</h4>
+<p>R-1220K＋DR-1220MHでは、メーカー取説上、</p>
+<table><thead><tr><th>計器</th><th>何を表示する？</th><th>何と比べる？</th></tr></thead><tbody>
+<tr><td><b>A1</b></td><td>耐圧トランスの出力電流</td><td>リアクトル補償後の電流</td></tr>
+<tr><td><b>A2</b></td><td>被試験ケーブルに流れる充電電流</td><td><b>Cから計算したIc</b></td></tr>
+</tbody></table>
+<p>リアクトルはケーブルの容量性電流と逆向きの無効電流を流してトランスの負担を減らします。したがって概念的には、</p>
+<div class="eq">A2 ≒ Ic
+
+A1 ≒ | Ic − IL |</div>
+<p>となり、<b>A1とA2が大きく違っていても正常</b>です。</p>
+<p>DR-1220MHは10,350V印加時、リアクトル電流がメーカー仕様で<b>50Hz：約165mA、60Hz：約138mA</b>です。例えば50HzでケーブルのA2が200mAなら、理想化すればA1は約35mAまで小さくなり得ます。</p>
+<div class="eq">A2 = 200mA
+IL = 165mA
+↓
+A1 ≒ |200 − 165|
+   ≒ 35mA</div>
+
+<h4>計算値と実測値が合わないときの確認ポイント</h4>
+<table><thead><tr><th>現象</th><th>確認すること</th></tr></thead><tbody>
+<tr><td>実測が計算よりかなり小さい</td><td>金属遮へい層の接地忘れ・接触不良、試験対象が途中で切り離されていないか、電圧・周波数、容量測定条件、電流計の経路</td></tr>
+<tr><td>実測が計算よりかなり大きい</td><td>想定外のケーブル・機器まで接続されていないか、ケーブル長・種類の取り違え、漏れ・損失成分、不要な接地経路</td></tr>
+<tr><td>A1が想定より大きい（リアクトル使用）</td><td>リアクトルの結線、台数・定格、50/60Hz、補償量、接続不良</td></tr>
+<tr><td>電流計の値だけ不自然</td><td>計器レンジ、コード接続、試験器本体の不要な接地・接触、計器回路の分流</td></tr>
+</tbody></table>
+<p class="note">※R-1220K取説では、トランス部筐体を大地から絶縁して使用するよう指定されており、筐体が大地に接触すると二次側電流計が正常に動作しない場合があると明記されています。またDR-1220MH取説では、電流計回路に分流が生じると正しい電流表示ができない旨が記載されています。</p>
+
+<h3>11. 正常な耐圧試験では遮へい層を大地電位に固定する</h3>
+<div class="flow">耐圧試験器<br>↓<br>芯線（試験電圧）<br>↓<br>ケーブル絶縁体<br>↓<br><b>金属遮へい層（接地・0V側）</b><br>↓<br>接地系統<br>↓<br>試験器の戻り側</div>
+<p>こうしてはじめて、<b>ケーブルの主絶縁「芯線－絶縁体－金属遮へい層」に、意図した試験電圧をかける</b>ことができます。</p>
+
+<h3>12. 遮へい層を接地し忘れたまま耐圧をかけると？</h3>
+<div class="danger"><strong>耐圧試験前に、金属遮へい層の接地確認は必須。</strong><br>遮へい層が電気的に浮いたままでは、所定の対地耐圧条件を作れず、遮へい層自体が高電位になる危険があります。</div>
+<p>工事後、遮へい層の接地をしないまま芯線へ試験電圧を印加すると、</p>
+<div class="eq">芯線
+（導体①・試験電圧）
+↓
+C1：ケーブル主絶縁
+↓
+金属遮へい層
+（導体②・電位が固定されない）
+↓
+C2：シース・空気等を介した浮遊容量
+↓
+大地
+（導体③・0V）</div>
+<p>という<b>容量分圧回路</b>になります。</p>
+<div class="warning"><strong>重要：金属遮へい層を接地しないと、充電電流は小さくなる。</strong><br>芯線－金属遮へい層の容量C1と、金属遮へい層－大地の浮遊容量C2が直列になるため、合成容量はC1単独より小さくなります。したがって <b>Ic＝2πfCV</b> より、試験器から見える充電電流も小さくなります。</div>
+<div class="eq">Ceq = (C1 × C2) / (C1 + C2)
+
+Ceq &lt; C1</div>
+<p>本当に問題なのは<b>電流の大小ではなく、遮へい層の電位が0Vに固定されないこと</b>です。</p>
+<div class="flow">芯線：試験電圧<br>↓<br>C1<br>↓<br>遮へい層：？？？V<br>↓<br>C2<br>↓<br>大地：0V</div>
+<p>例えば遮へい層の電位が上昇すれば、芯線に10kVを印加していても、ケーブル主絶縁にかかる電圧は10kVより小さくなります。これでは<b>「主絶縁に所定電圧をかけた」ことを保証できず、正しい耐圧試験として評価できません。</b></p>
+<p><span class="badge official">技術資料</span> 日本電力ケーブル接続技術協会（JCAA）も、遮へい層の接地が不確実だと遮へい層に誘導電圧が発生し、近接する接地物へ充電電流が流れようとして、火災・感電の原因になり得ると注意喚起しています。実際に、遮へい層が接地されていなかった終端部で放電・焼損に至った事故事例も公開されています。</p>
+
+<h3 id="cable-cap-grounding">12. 現場でいう「シース接地」は何を接地している？</h3>
+<p>6.6kV CV/CVTで、実際に接地するのは<b>外側のビニルシースそのものではなく、内部の金属遮へい層</b>です。</p>
+<div class="eq">金属遮へい層（銅テープ等） ← 接地する導体
+↓
+シース（ビニル等）          ← 外側の絶縁・保護外被</div>
+<p>現場で「シースアース」「シース接地」と呼ばれていても、構造としては<b>金属遮へい層の接地</b>と理解するほうが正確です。</p>
+<p><span class="badge official">規程・技術資料</span> 高圧ケーブルの遮へい層にはD種接地工事が必要とされます。JESCでは、高圧機器のA種接地とケーブル遮へい層側の接地を連接し、合成抵抗をA種接地抵抗値以下にする方式も規定されています。</p>
+
+<h3>14. 片端接地・両端接地は勝手に決めない</h3>
+<p>需要家の引込用高圧ケーブルでは、一般に片端接地が採用されます。JCAAの資料では、</p>
+<table><tbody>
+<tr><th>片端接地</th><td>遮へい層の循環電流が流れない。ただし非接地端には誘起電圧が発生する。</td></tr>
+<tr><th>両端接地</th><td>遮へい層電位を抑えやすいが、遮へい層に循環電流が流れ、地絡保護との関係も考慮が必要。</td></tr>
+</tbody></table>
+<p>片端接地では<b>接地の確実さが期待できる側を選び、受電室に至るケーブルは受電室側で接地することを原則</b>とされています。ただし、ケーブル長、誘起電圧、ZCT・GR/DGRの検出方式などで設計は変わります。</p>
+
+<h3>15. 第2・第3・第4変電所がある施設では？</h3>
+<p>施設全体で一か所だけを見るのではなく、<b>高圧ケーブルの区間ごと</b>に遮へい層の接地方式を考えます。</p>
+<div class="flow">第1変電所<br>↓ ケーブル①<br>第2変電所<br>↓ ケーブル②<br>第3変電所<br>↓ ケーブル③<br>第4変電所</div>
+<p>ケーブル①・②・③それぞれについて、接地の確実さ、非接地端の誘起電圧、ZCTの位置と地絡検出範囲などを確認して接地点を決めます。<b>「A種接地が近いから、とりあえず両側で渡りを掛ける」</b>という決め方はしません。</p>
+
+<h3>16. 現場30秒版</h3>
+<table><thead><tr><th>疑問</th><th>答え</th></tr></thead><tbody>
+<tr><td>ケーブルのコンデンサはどこ？</td><td><b>芯線－絶縁体－金属遮へい層</b></td></tr>
+<tr><td>金属遮へい層は導体？</td><td>導体。代表例は銅テープ。</td></tr>
+<tr><td>シースは？</td><td>外側のビニル等。金属遮へい層とは別。</td></tr>
+<tr><td>ケーブル単体でも容量は測れる？</td><td>芯線－金属遮へい層なら測れる。大地は不要。</td></tr>
+<tr><td>なぜ片端で全長分を測れる？</td><td>芯線・遮へい層が全長につながり、分布容量が並列に足されるから。</td></tr>
+<tr><td>遮へい層を接地すると？</td><td>遮へい層が大地電位になり、芯線－遮へい層容量を対地容量として扱える。</td></tr>
+<tr><td>「浮いている」とは？</td><td>物理的ではなく、電気的にどこにも接続されず電位が固定されていない状態。</td></tr>
+<tr><td>遮へい層非接地で耐圧すると？</td><td>容量分圧で遮へい層電位が上がり、主絶縁に所定電圧がかかった保証がなくなる。危険。</td></tr>
+<tr><td>遮へい層を接地しないと充電電流は？</td><td><b>小さくなる。C1とC2が直列となり、合成容量が小さくなるため。</b></td></tr>
+<tr><td>計算Icと実測が大きく違う</td><td><b>結線・接地・試験範囲などを再確認するサイン。</b></td></tr>
+<tr><td>一次電流と二次電流は同じ？</td><td>同じではない。R-1220Kは1:100なので、一次電流は概ね二次電流の100倍級。</td></tr>
+<tr><td>リアクトル使用時のA1とA2は？</td><td><b>A2＝ケーブル充電電流、A1＝補償後のトランス出力電流。</b>大きく違っていても正常。</td></tr>
+<tr><td>「シース接地」の実体は？</td><td>6.6kV CV/CVTでは、基本的に<b>金属遮へい層の接地</b>。</td></tr>
+</tbody></table>
+
+<section class="memo"><h3>🛟 覚え方</h3>
+<p><b>迷ったら「導体－絶縁体－導体」に分解する。</b></p>
+<p>芯線 → 絶縁体 → 金属遮へい層。これがケーブル本体のコンデンサ。</p>
+<p>金属遮へい層を接地すれば「大地電位の導体」になる。接地しなければ、遮へい層と大地の間にも「導体－絶縁体－導体」ができて、浮遊容量が現れる。</p>
+<p>この考え方だけで、静電容量測定・充電電流・耐圧試験・遮へい層接地が一本につながる。</p>
+</section>
+
+<div class="sourcebox"><h3>📚 根拠資料</h3>
+<p><b>ケーブル構造・参考静電容量</b><br><a href="https://www.swcc.co.jp/sfcc/products/detail/sfcc014_2041.html" target="_blank" rel="noopener">SFCC / SWCC「6600V CV・CVT」製品・仕様資料</a></p>
+<p><b>遮へい層接地・片端/両端接地</b><br><a href="https://www.jpcaa.or.jp/faq.html" target="_blank" rel="noopener">日本電力ケーブル接続技術協会（JCAA）FAQ「端末の接地のとり方」</a><br><a href="https://www.jpcaa.or.jp/pdf/gijyutu/technical5_wtt.pdf" target="_blank" rel="noopener">JCAA「高圧ケーブルしゃへい層の接地の必要性」</a></p>
+<p><b>遮へい層接地不良の危険・事故事例</b><br><a href="https://www.jpcaa.or.jp/pdf/gijyutu/technical2_wtt.pdf" target="_blank" rel="noopener">JCAA「電力ケーブル接続部を安全にお使い頂くために（施工・工事編その2）」</a></p>
+<p><b>連接接地</b><br><a href="https://www.jesc.gr.jp/jesc-assent/quotation/jesc_e2019_20.html" target="_blank" rel="noopener">JESC E2019「高圧ケーブルの遮へい層による高圧用機器の連接接地」</a></p>
+<p><b>耐圧時の充電電流・一次/二次・リアクトル</b><br>
+<a href="https://www.musashi-in.co.jp/manual/r-1220k_01.pdf" target="_blank" rel="noopener">ムサシインテック「R-1220K 取扱説明書」</a><br>
+<a href="https://www.musashi-in.co.jp/manual/DR-1220MH_J06.pdf" target="_blank" rel="noopener">ムサシインテック「DR-1220MH 取扱説明書」</a></p>
+</div>
+<p class="note">※耐圧試験は高電圧を扱うため、対象設備を確実に切り離し、無電圧確認・放電・接地状態確認を行い、使用する試験器・ケーブル・端末の取扱説明書および現場手順に従って実施します。</p>
+</article>
+
 <article class="entry" id="pas-sog-ocr-lock-20260829" data-update-date="2026/08/29">
 <div class="date">2026.08.29｜今日のなんで？・PAS / SOG</div>
 <h2>PASの過電流ロックはどう動く？<br>OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</h2>
