@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b83b8">
-<title>OCR 51 整定ナビ v6.4｜うきわメモ</title>
+<title>OCR 51 整定ナビ v6.5｜うきわメモ</title>
 <meta name="description" content="高圧受電用OCR（51）の限時Tap・瞬時Tap・ダイヤルを、役割を混ぜずに整理して検討する現場向け補助ツール。">
 <style>
 :root{--b:#0d84bb;--bd:#0b5d88;--ink:#143d5b;--muted:#68818e;--line:#cfe3eb;--bg:#f3fbfd;--ok:#25845e;--warn:#a56b12;--bad:#a33f37;--tap:#1687bd;--inst:#d85148;--time:#d48a22;--violet:#7655b7;--shadow:0 14px 34px rgba(0,72,102,.10)}
@@ -12,27 +12,23 @@
 </style>
 </head>
 <body>
-<header class="top"><a class="brand" href="index.html">🌊 うきわメモ<small>OCR / 51 SETTING NAVI</small></a><div class="badge">v6.4 最終監査版</div></header>
+<header class="top"><a class="brand" href="index.html">🌊 うきわメモ<small>OCR / 51 SETTING NAVI</small></a><div class="badge">v6.5 Tap修正版</div></header>
 <main>
 <section class="hero"><small>LOAD → TAP / INRUSH・FAULT → INSTANT / DOWNSTREAM → DIAL</small><h1>OCR 51 整定ナビ</h1><p><b>Tap＝通常負荷の電流基準、瞬時＝大短絡の高速遮断、ダイヤル＝限時の時間協調。</b><br>3つを混ぜずに別々に決めます。条件不足なら「未判定」。固定値で「安全」「協調OK」とは表示しません。</p></section>
 <section class="summary" id="summaryBar"><div class="sum tap"><span>LIMITED / TAP</span><b id="sumTap">—</b><small id="sumTapSub">通常負荷から</small></div><div class="sum inst"><span>INSTANT</span><b id="sumInst">—</b><small id="sumInstSub">突入を避け短絡を拾う</small></div><div class="sum time"><span>DIAL / LEVER</span><b id="sumD">未判定</b><small id="sumDSub">下位保護との時間協調</small></div></section>
 
-<section class="panel">
- <h2>最初に：受電方式</h2><p class="intro">51（OCR＋CB）の整定はCB形が対象。PF-S形は主短絡保護がPFなので、同じロジックでOCRのTap・瞬時・ダイヤルを出しません。</p>
- <div class="tabs two" id="recvTabs"><button class="active" data-r="cb">CB形（VCB＋OCR）</button><button data-r="pfs">PF-S形（PF＋LBS）</button></div>
- <div id="pfsMsg" class="note bad" hidden><b>PF-S形では、この51整定フローを使いません。</b><br>主短絡保護はPF。地絡はGR/DGR等で開閉器をトリップする構成が基本です。別階層にCB＋OCRがある設備は、そのOCRについてCB形として個別に検討します。</div>
-</section>
-
 <div id="cbArea">
+
 <section class="panel">
  <h2>共通条件</h2><p class="intro">既設設備では「推奨CT」ではなく、<b>実際に受電OCRへつながっているCT</b>を使います。</p>
- <div class="grid3"><div class="field"><label><span>受電電圧</span><span>kV</span></label><input id="voltage" type="number" value="6.6" min="0.1" step="0.1"></div><div class="field"><label><span>受電OCR用CT 一次</span><span>A</span></label><input id="ctP" type="number" value="50" min="1" step="1"></div><div class="field"><label><span>CT二次</span><span>A</span></label><select id="ctS"><option value="5" selected>5 A</option><option value="1">1 A</option></select></div></div>
+ <div class="grid3"><div class="field"><label><span>受電電圧</span><span>kV</span></label><input id="voltage" type="number" value="6.6" min="0.1" step="0.1"></div><div class="field"><label><span>受電OCR用CT 一次</span><span>A</span></label><input id="ctP" type="number" placeholder="銘板例 200" min="1" step="1"></div><div class="field"><label><span>CT二次</span><span>A</span></label><select id="ctS"><option value="5" selected>5 A</option><option value="1">1 A</option></select></div></div>
  <div class="field"><label><span>OCR機種</span><span>自動計算の範囲</span></label><select id="relay"><option value="k2oc" selected>OMRON K2OC（特性式・目盛を内蔵）</option><option value="custom">その他／機種不明（目盛のみ手入力）</option></select></div>
  <div id="customRelay" hidden>
   <div class="grid3"><div class="field"><label><span>限時Tap候補</span><span>A / カンマ区切り</span></label><input id="customTaps" value="3,3.5,4,4.5,5,6"></div><div class="field"><label><span>瞬時Tap候補</span><span>A / カンマ区切り</span></label><input id="customInst" value="10,15,20,25,30,40,50,60,80"></div><div class="field"><label><span>ダイヤル候補</span><span>カンマ区切り</span></label><input id="customDials" value="1,2,3,4,5,6,7,8,9,10"></div></div>
   <div class="note warn">その他機種ではTap・瞬時の候補目盛だけ使えます。<b>ダイヤル自動計算は停止</b>します。実機の時間特性式・曲線が登録されていないためです。</div>
  </div>
  <div id="ctInputNote" class="note">K2OCは定格入力AC5Aです。</div>
+ <div id="ctStatus" class="note warn"><b>受電OCR用CT比を入力してください。</b> 既設設備では銘板・単線結線図の実CT比を使います。仮の50/5などは自動入力しません。</div>
 </section>
 
 <section class="panel" id="tapPanel">
@@ -43,8 +39,9 @@
   <div class="note good"><b>現場ルート</b>：各変圧器を1台ずつ入れ、三相Trは3相へ均等、単相Trは接続相間へ加算して、OCRが見る相の最大電流を求めます。容量ベースの簡便法なので、実負荷・力率・社内基準がある場合はそちらを優先。</div>
   <div id="trList"></div><div class="actions"><button class="secondary" type="button" id="addTr">＋ Tr追加</button><button class="secondary" type="button" id="clearTr">全部消す</button></div>
   <div class="field" style="margin-top:8px"><label><span>OCRが見るCT相</span><span>既設結線で確認</span></label><select id="ctPhase"><option value="RT" selected>R・T（2CT）</option><option value="RST">R・S・T（3CT）</option><option value="R">Rのみ</option><option value="S">Sのみ</option><option value="T">Tのみ</option></select></div>
+  <div id="trBreakdown" class="note"><b>各Trの計算内訳</b><br>三相Trは S/(√3V)、単相Trは S/V。入力したTrを1台ずつ計算してから相ごとに合成します。</div>
  </div>
- <div id="contractBox" hidden><div class="grid2"><div class="field"><label><span>契約電力</span><span>kW</span></label><input id="kw" type="number" placeholder="例 150"></div><div class="field"><label><span>力率</span><span>cosφ</span></label><input id="pf" type="number" value="0.90" min="0.1" max="1" step="0.01"></div></div><div class="note">JEEA例の負荷電流は <b>P＝√3VIcosφ</b> として力率を考慮。いっぽうK2OCデータシートの公開簡便式は <b>I₁=P/(√3V)</b> と力率項を置いていません。v6.4では両者を混ぜず別計算します。</div></div>
+ <div id="contractBox" hidden><div class="grid2"><div class="field"><label><span>契約電力</span><span>kW</span></label><input id="kw" type="number" placeholder="例 150"></div><div class="field"><label><span>力率</span><span>cosφ</span></label><input id="pf" type="number" value="0.90" min="0.1" max="1" step="0.01"></div></div><div class="note">JEEA例の負荷電流は <b>P＝√3VIcosφ</b> として力率を考慮。いっぽうK2OCデータシートの公開簡便式は <b>I₁=P/(√3V)</b> と力率項を置いていません。v6.5では両者を混ぜず別計算します。</div></div>
  <div id="knownBox" hidden><div class="field"><label><span>CT一次側で分かっている最大負荷電流</span><span>A</span></label><input id="knownLoad" type="number" placeholder="実測・設計値"></div></div>
  <div id="kvaBox" hidden><div class="field"><label><span>三相設備容量</span><span>kVA</span></label><input id="kva" type="number" placeholder="例 500"></div><div class="note">三相等価の簡易法。単相偏りがある設備は「各Trから」を優先。</div></div>
 
@@ -54,6 +51,7 @@
   <div class="compareCard"><span>JEEA 120～150%</span><b id="tapJeea">—</b><small>契約負荷電流に対する公開目安。<b>契約電力モードのみ</b>表示。</small></div>
   <div class="compareCard"><span>K2OC 公開簡便式</span><b id="tapK2oc">—</b><small>I₁=P/(√3V) → ITAP≧I₁×(5/ICT)×1.5。<b>メーカー式どおり力率項なし</b>。</small></div>
  </div>
+ <div id="tapAlert" class="note warn" hidden></div>
  <div class="formula"><small>計算の中身</small><b id="tapFormula">—</b><div id="tapTrace">—</div></div>
  <div class="chips" id="tapChips"></div>
  <div class="choice"><label>この設備で実際に使う限時Tapを選ぶ</label><select id="selectedTap"></select><div class="note" style="margin-top:6px">候補が複数あるときは、社内基準・既設承認整定値・実機取説を優先。<b>既設Tapが分かっている場合は、計算を飛ばしてここから直接選んでもOK。</b> ここで選んだTapを瞬時・ダイヤルへ引き継ぎます。</div></div>
@@ -111,8 +109,8 @@
   <div class="note">Tap・瞬時TapはStep1/2で選んだ値を自動引継ぎ。M＝事故時OCR二次電流÷限時Tap は<b>裏で自動計算</b>します。K2OCのEI/VI/NIは、大電流域でメーカー公表の<b>定時間（下限時間）</b>になる仕様も計算へ反映します。</div>
 
   <h3>① 下位保護を先に動かしたい領域</h3>
-  <div class="grid3"><div class="field"><label><span>下位保護</span><span>種類</span></label><select id="downType"><option value="pf" selected>変圧器一次PF（PF＋LBS等）</option><option value="pcfuse">PC用ヒューズ</option><option value="mccb">低圧MCCB等</option><option value="other">その他</option></select></div><div class="field"><label><span>協調余裕</span><span>s（任意）</span></label><input id="marginSec" type="number" min="0" step="0.01" placeholder="社内/設計基準"></div><div class="field"><label><span>機器メモ</span><span>型式</span></label><input id="downMemo" placeholder="例 CL-LB G50(T30)"></div></div>
-  <div id="pfOnly"><div class="grid2"><div class="field"><label><span>ヒューズ最小遮断電流 Is</span><span>一次A</span></label><input id="pfIs" type="number" placeholder="メーカー保証値"></div><div class="field"><label><span>PFプリセット</span><span>PF＋LBS時のみ</span></label><select id="pfPreset"><option value="manual">手入力</option><option value="cllb50">三菱 CL-LB G50(T30)：Is≈80Aのみ入力</option></select></div></div><div class="note warn"><b>限流PFとのOCR協調は「動作時間－電流特性（遮断特性）」を使用。</b> 溶断時間だけをそのまま使わない。PC用ヒューズも、実際のヒューズ種類・メーカー特性を使う。Is未満は遮断保証領域ではないため、下位優先条件には使いません。</div><div class="actions"><a class="secondary" style="text-decoration:none;display:inline-flex;align-items:center" href="https://www.mitsubishielectric.co.jp/fa/download/techinfo/search.page?category1=&category2=&category3=&kisyu=%2Ffuses&kisyuid=&lang=1&listView=1&mode=curve&q=&sort=2" target="_blank" rel="noopener">三菱PF公式特性曲線を開く</a></div></div>
+  <div class="grid3"><div class="field"><label><span>下位保護</span><span>種類</span></label><select id="downType"><option value="pf" selected>変圧器一次PF</option><option value="pcfuse">PC用ヒューズ</option><option value="mccb">低圧MCCB等</option><option value="other">その他</option></select></div><div class="field"><label><span>協調余裕</span><span>s（任意）</span></label><input id="marginSec" type="number" min="0" step="0.01" placeholder="社内/設計基準"></div><div class="field"><label><span>機器メモ</span><span>型式</span></label><input id="downMemo" placeholder="例 CL-LB G50(T30)"></div></div>
+  <div id="pfOnly"><div class="grid2"><div class="field"><label><span>ヒューズ最小遮断電流 Is</span><span>一次A</span></label><input id="pfIs" type="number" placeholder="メーカー保証値"></div><div class="field"><label><span>PFプリセット</span><span>変圧器一次PF用</span></label><select id="pfPreset"><option value="manual">手入力</option><option value="cllb50">三菱 CL-LB G50(T30)：Is≈80Aのみ入力</option></select></div></div><div class="note warn"><b>限流PFとのOCR協調は「動作時間－電流特性（遮断特性）」を使用。</b> 溶断時間だけをそのまま使わない。PC用ヒューズも、実際のヒューズ種類・メーカー特性を使う。Is未満は遮断保証領域ではないため、下位優先条件には使いません。</div><div class="actions"><a class="secondary" style="text-decoration:none;display:inline-flex;align-items:center" href="https://www.mitsubishielectric.co.jp/fa/download/techinfo/search.page?category1=&category2=&category3=&kisyu=%2Ffuses&kisyuid=&lang=1&listView=1&mode=curve&q=&sort=2" target="_blank" rel="noopener">三菱PF公式特性曲線を開く</a></div></div>
   <div id="lowerRows" class="constraintRows"></div><div class="actions"><button class="secondary" type="button" id="addLower">＋ 下位曲線点</button><button class="secondary" type="button" id="clearLower">点を消す</button></div><div class="note warn">手入力モードの自動判定は<b>入力した点</b>を評価します。点と点の間の交差やメーカー公差まで完全判定するものではないため、最後は正式な時間－電流曲線全体で確認。<b>Trが複数あり一次PF/PCヒューズが別々なら、関係する全枝の特性を確認</b>します。</div>
 
   <h3>② OCRが遅すぎないための上限制約［任意だが最終選定には重要］</h3>
@@ -150,13 +148,13 @@
  <details><summary>最大需要電力（デマンド）って何？30分kWhからkWは？</summary><div class="body">最大需要電力は30分平均使用電力の月間最大値。30分の使用電力量がE[kWh]なら平均電力は P=E/0.5=2E[kW]。</div></details>
  <details><summary>OCRのCTってどのCT？30/5って何？</summary><div class="body">受電OCRへ実際につながる保護用CT。30/5Aなら一次30Aのとき二次5Aになる比。VCT（取引用計器用変成器）やZCT（零相電流用）と混同しない。既設では図面・銘板で確認。</div></details>
  <details><summary>限時Tapって一言で？</summary><div class="body"><b>OCRが過電流として拾い始める基準電流。</b> 通常負荷で動かず、必要な過負荷を拾える位置に置く。契約電力法、各Tr容量法、既知最大負荷法など入口が違う。</div></details>
- <details><summary>なぜ契約電力法で120～150%とK2OC式が両方ある？</summary><div class="body">資料の計算入口が違うため。JEEA例は負荷力率を含めた実電流を出して120～150%。K2OCデータシートの公開簡便式は I₁=P/(√3V) とし、さらに ITAP≧I₁×5/ICT×1.5。<b>力率項の有無まで別手順</b>なので、v6.4では混ぜず別計算。</div></details>
+ <details><summary>なぜ契約電力法で120～150%とK2OC式が両方ある？</summary><div class="body">資料の計算入口が違うため。JEEA例は負荷力率を含めた実電流を出して120～150%。K2OCデータシートの公開簡便式は I₁=P/(√3V) とし、さらに ITAP≧I₁×5/ICT×1.5。<b>力率項の有無まで別手順</b>なので、v6.5では混ぜず別計算。</div></details>
  <details><summary>瞬時Tapって一言で？Tap×7/10は絶対？</summary><div class="body"><b>大短絡を高速で切るための電流整定。</b> Tap×7/×10は現場・社内の簡便基準として使われることがあるが全国共通の絶対則ではない。JEEAは負荷1000～1500%、三菱は500～1500%の公開例を示し、励磁突入・始動で動かないことを要求している。</div></details>
  <details><summary>700%って何？Mって何？</summary><div class="body">700%=Tapの7倍。Mは入力倍数で M=OCR二次電流/Tap。Mは時間特性計算の途中値で、現場画面では基本的に自動計算する。</div></details>
  <details><summary>瞬時を高くしすぎるとどうなる？</summary><div class="body">短絡電流が需要家瞬時整定に届かず、需要家側が限時で待っている間に上位OCRの動作領域へ入る可能性がある。だから上位協調は典型的にはまず<b>瞬時側</b>で見る。</div></details>
  <details><summary>OMRONは「上位OCRと下位保護の両方を見る」と書いてるけど、ダイヤルも上位から決める？</summary><div class="body">メーカー資料は系統全体の一般条件として上下の時間特性を重ねないよう求めている。一方JEEAの典型的な受電例では、<b>短絡領域は瞬時、過負荷領域は限時</b>と分け、ダイヤルは主にTr一次PFとの協調で選ぶ。需要家瞬時が高すぎて上位OCRが先に拾う電流帯ができる場合だけ、限時側も上位特性の制約を受ける。</div></details>
  <details><summary>ダイヤルって一言で？事故電流だけから出せないの？</summary><div class="body"><b>限時要素の動作時間を上下させる設定。</b> 事故電流からMは出せても、「何秒にすべきか」は下位PF/MCCB等との協調で決まるため、事故電流だけではDは決まらない。</div></details>
- <details><summary>ダイヤルの上限制約でVCB遮断時間も必要？</summary><div class="body">必要。Tr短時間耐量など「事故電流を何秒以内に消すか」を見る条件では、OCRが接点動作する時間だけでなく<b>VCBが実際に遮断するまで</b>を含める。v6.4は tOCR＋tVCB ≤ 上限時間－余裕 で判定する。</div></details>
+ <details><summary>ダイヤルの上限制約でVCB遮断時間も必要？</summary><div class="body">必要。Tr短時間耐量など「事故電流を何秒以内に消すか」を見る条件では、OCRが接点動作する時間だけでなく<b>VCBが実際に遮断するまで</b>を含める。v6.5は tOCR＋tVCB ≤ 上限時間－余裕 で判定する。</div></details>
  <details><summary>PFとのダイヤル協調はどう見る？</summary><div class="body">PFが遮断できる領域ではPFを先に動かし、PFの小電流遮断不能領域ではOCR側でカバーする考え方。PFの<b>最小遮断電流Is</b>より下を「PFが遅いからOCRを先」と単純比較しない。そこはPFの遮断保証外なので、Tr耐量等の上限制約を見る。TrごとにPF/PCヒューズが別なら、関係する各枝の曲線を確認する。</div></details>
  <details><summary>PFの「溶断特性」と「動作特性」は違う？</summary><div class="body">違う。溶断特性はエレメントが溶けるまで、動作（遮断）特性はアーク消滅まで含む。OCRとの遮断協調にはメーカーの<b>動作時間－電流特性</b>を使う。</div></details>
  <details><summary>CL-LB G50（T30）のG50/T30って？最小遮断は？</summary><div class="body">三菱表示ではGは一般用、Tは変圧器用の特性区分。CL-LBのG5～100Aは超広域形で、メーカー説明ではG定格の約1.6倍から定格遮断電流まで遮断可能。したがってG50なら概算Isは約80A。ただし最終は当該型式の正式資料で確認。</div></details>
@@ -164,22 +162,21 @@
  <details><summary>低圧側事故やモータ電流をなぜ6.6kV側へ換算する？</summary><div class="body">受電OCRのCTが6.6kV側電流を見ているから。同じ電力基準の三相概算なら IH≈IL×VL/VH で高圧側等価へ換算して比較する。</div></details>
  <details><summary>Tap×7/×10と「負荷×10～15」は関係ある？</summary><div class="body">数字上は近くなる場合がある。例えば限時Tapが負荷CT二次の約150%なら、Tap×7≈負荷1050%、Tap×10≈負荷1500%。ただしTapは離散値で、7/10倍法自体も全国共通則ではないため「同じ公式」とは扱わない。</div></details>
  <details><summary>「Tr定格電流×8」で瞬時を決めていい？</summary><div class="body">一般則としては採用しない。OMRONの公開技術解説には従来の簡便法として<b>Tr定格一次電流×10・0.1秒</b>の参考点を瞬時特性が横切らないようにする方法があり、さらに励磁突入の減衰カーブ全体で確認する方法が示されている。単純な「×8→次のTap」で完了とはしない。</div></details>
- <details><summary>K2OCのEI/VI/NI式は大電流までそのまま延長する？</summary><div class="body">しない。K2OCデータシートではEI/VI/NIに大電流域の<b>定時間部分</b>があり、Dによって「M=20での計算値」または160msが下限になる。v6.4ではこの下限をダイヤル計算とグラフへ反映。</div></details>
+ <details><summary>K2OCのEI/VI/NI式は大電流までそのまま延長する？</summary><div class="body">しない。K2OCデータシートではEI/VI/NIに大電流域の<b>定時間部分</b>があり、Dによって「M=20での計算値」または160msが下限になる。v6.5ではこの下限をダイヤル計算とグラフへ反映。</div></details>
  <details><summary>K2OCの瞬時3段って無視していい？</summary><div class="body">無視しない。K2OCは2段/3段の瞬時特性を選べ、3段では20/40/60/80%設定がある。3段を使う場合は名目瞬時Tapより低い電流域から瞬時特性が関係するため、単純な「瞬時Tapの縦線」だけでは足りない。</div></details>
  <details><summary>CTは比だけ見ればいい？</summary><div class="body">大短絡時はCT飽和・過電流領域特性・負担も関係する。特に瞬時要素では、CTが事故電流を正しく二次へ伝えられるかを実機仕様で確認する。</div></details>
- <details><summary>PC用ヒューズの枝もダイヤル協調で見る？</summary><div class="body">受電OCRの下位にPC＋ヒューズで保護されたTr枝があるなら、その枝も下位保護として実際のヒューズ時間－電流特性を確認する。PF＋LBSだけを見ればよいとは限らない。</div></details>
- <details><summary>CB形とPF-S形の違いは？PF-SでOCRダイヤルを出す？</summary><div class="body">CB形はOCRで過負荷・短絡を検出してCB遮断。PF-S形は主短絡をPFで遮断する方式。したがってPF-S形だからOCRレバーを固定値で出す、というロジックにはしない。別階層にOCRがある場合はそのOCRを個別検討。</div></details>
- <details><summary>「協調OK」「安全」と表示しないのはなぜ？</summary><div class="body">実際の上位・下位曲線、機器ばらつき、遮断時間、Tr耐量、CT特性などが揃わないと最終判定できないから。ツールは「成立候補」「未確認」を分けて表示する。</div></details>
+ <details><summary>PC用ヒューズの枝もダイヤル協調で見る？</summary><div class="body">受電OCRの下位にPC＋ヒューズで保護されたTr枝があるなら、その枝も下位保護として実際のヒューズ時間－電流特性を確認する。PFだけを見ればよいとは限らない。</div></details>
+  <details><summary>「協調OK」「安全」と表示しないのはなぜ？</summary><div class="body">実際の上位・下位曲線、機器ばらつき、遮断時間、Tr耐量、CT特性などが揃わないと最終判定できないから。ツールは「成立候補」「未確認」を分けて表示する。</div></details>
 </section>
 
 <section class="panel sources"><h2>根拠資料・監査メモ</h2><p class="intro">一次資料・メーカー資料を優先。リンク先の最新版・実機取説・社内基準を最終確認。</p>
- <div class="note"><b>日本電気技術者協会（JEEA）</b>：CB形/PF-S形、限時120～150%、瞬時1000～1500%、レバーとPFの協調、上位OCRは個別確認。<br><a href="https://www.jeea.or.jp/course/contents/05204/" target="_blank" rel="noopener">高圧自家用受電設備の保護について</a></div>
+ <div class="note"><b>日本電気技術者協会（JEEA）</b>：限時120～150%、瞬時1000～1500%、レバーとPFの協調、上位OCRは個別確認。<br><a href="https://www.jeea.or.jp/course/contents/05204/" target="_blank" rel="noopener">高圧自家用受電設備の保護について</a></div>
  <div class="note"><b>OMRON K2OC</b>：AC5A、Tap/瞬時/D目盛、EI/VI/NI/DT/DO公称式、契約電力150%近傍。メーカー資料は上位・下位を含む系統全体の時間協調も要求。本ツールではJEEAの典型例に合わせ、上位短絡協調はStep2（瞬時）で先に確認し、Step3（ダイヤル）は下位保護を主役に扱う。<br><a href="https://www.fa.omron.co.jp/data_pdf/cat/k2oc_ds_j_2_3.pdf?id=3660" target="_blank" rel="noopener">K2OCデータシート</a></div>
  <div class="note"><b>OMRON 技術解説</b>：励磁突入曲線による瞬時整定、定格電流×10・0.1秒の簡略法、CT飽和注意。<br><a href="https://www.fa.omron.co.jp/guide/technicalguide/65/148/index.html" target="_blank" rel="noopener">保護機器 技術解説</a></div>
  <div class="note"><b>三菱電機 OCR e-learning</b>：限時110～150%、瞬時500～1500%、Tap/Inst/レバーの役割。<br><a href="https://www.mitsubishielectric.co.jp/fa/ssl/learn/el/eln/course/fa_0142/cha_3/03010005.html" target="_blank" rel="noopener">OCR整定例</a> ／ <a href="https://www.mitsubishielectric.co.jp/fa/ssl/learn/el/eln/course/fa_0142/cha_3/03010008.html" target="_blank" rel="noopener">整定値と曲線の動き</a></div>
  <div class="note"><b>三菱電機 高圧限流ヒューズ</b>：PF選定、最小遮断電流、超広域/広域、CL-LB特性曲線。<br><a href="https://www.mitsubishielectric.co.jp/dl/fa/document/catalog/fuses/k-k06-6-c1034/K-K06-6-C1034-V.pdf" target="_blank" rel="noopener">高圧・特別高圧限流ヒューズカタログ</a> ／ <a href="https://www.mitsubishielectric.co.jp/fa/download/techinfo/search.page?category1=&category2=&category3=&kisyu=%2Ffuses&kisyuid=&lang=1&listView=1&mode=curve&q=&sort=2" target="_blank" rel="noopener">特性曲線一覧</a></div>
  <div class="note"><b>東京電力EP（契約電力FAQ用）</b>：500kW未満の実量制、最大需要電力。<br><a href="https://www.tepco.co.jp/ep/corporate/charge_c/decision01.html" target="_blank" rel="noopener">契約電力について</a></div>
- <div class="note warn"><b>v6.4最終監査で確認・修正した重要点</b><br>①ダイヤルの上位OCRを主入力から分離し、上位確認は瞬時側へ。②PF最小遮断電流未満を単純な下位優先条件から除外。③ダイヤルは瞬時関与領域の点を除外。④K2OC以外でK2OC特性式を流用しない。⑤契約kW計算に力率を入れる。⑥JEEA/K2OCのTap基準は契約電力ルートだけに限定。⑦PFは溶断特性ではなく動作/遮断特性を使う。⑧K2OC EI/VI/NIの大電流定時間を反映。⑨瞬時3段の有効%条件を実機Tapに合わせて制限。⑩三相/単相Trの短絡簡易計算を分離。⑪OMRONの10倍・0.1秒突入参考点とTr 25倍・2秒耐量参考点を追加。⑫入力曲線点だけの自動判定であることを明示。⑬K2OC公開式とJEEAの力率込み電流計算を分離。⑭Tr短時間耐量などの上限制約にVCB遮断時間を反映。⑮複数Tr枝・PC用ヒューズも下位協調対象になり得ることを追加。⑯PF-S切替時はCB用結果を非表示。</div>
+ <div class="note warn"><b>v6.5で確認・修正した重要点</b><br>①ダイヤルの上位OCRを主入力から分離し、上位確認は瞬時側へ。②PF最小遮断電流未満を単純な下位優先条件から除外。③ダイヤルは瞬時関与領域の点を除外。④K2OC以外でK2OC特性式を流用しない。⑤契約kW計算に力率を入れる。⑥JEEA/K2OCのTap基準は契約電力ルートだけに限定。⑦PFは溶断特性ではなく動作/遮断特性を使う。⑧K2OC EI/VI/NIの大電流定時間を反映。⑨瞬時3段の有効%条件を実機Tapに合わせて制限。⑩三相/単相Trの短絡簡易計算を分離。⑪OMRONの10倍・0.1秒突入参考点とTr 25倍・2秒耐量参考点を追加。⑫入力曲線点だけの自動判定であることを明示。⑬K2OC公開式とJEEAの力率込み電流計算を分離。⑭Tr短時間耐量などの上限制約にVCB遮断時間を反映。⑮複数Tr枝・PC用ヒューズも下位協調対象になり得ることを追加。⑯51ツールから受電方式切替を削除し、CB＋OCRの整定だけに限定。</div>
 </section>
 </div>
 <footer>うきわメモ｜OCR 51 整定ナビ v6.4　※本ツールは整定検討補助。既設承認値・実機取説・正式保護協調図を優先。</footer>
@@ -207,13 +204,14 @@
   }
   return raw;
  }
- let recv='cb',tapMode='phase',instMode='tapmult',faultMode='tr',dialMode='select';
+ let tapMode='phase',instMode='tapmult',faultMode='tr',dialMode='select';
  let trs=[],lowerPts=[],upperPts=[];
  const relay=()=>$('#relay').value;
  const taps=()=>relay()==='k2oc'?K2OC.taps:parseList('customTaps');
  const insts=()=>relay()==='k2oc'?K2OC.inst:parseList('customInst');
  const dials=()=>relay()==='k2oc'?K2OC.dials:parseList('customDials');
- const ctRatio=()=>Math.max(.001,num('ctP',50)/Math.max(.001,num('ctS',5)));
+ const ctPrimary=()=>{const v=parseFloat($('#ctP')?.value);return Number.isFinite(v)&&v>0?v:NaN};
+ const ctRatio=()=>{const p=ctPrimary(),sec=Math.max(.001,num('ctS',5));return Number.isFinite(p)?p/sec:NaN;}
  const V=()=>Math.max(.001,num('voltage',6.6));
  const upper=(arr,x)=>arr.find(v=>v>=x);
  const lower=(arr,x)=>[...arr].reverse().find(v=>v<=x);
@@ -228,35 +226,32 @@
 
  function renderTrs(){const root=$('#trList');root.innerHTML='';trs.forEach((tr,i)=>{const d=document.createElement('div');d.className='trrow';d.innerHTML=`<div class="field"><label><span>Tr ${i+1}</span><span>種別</span></label><select class="trType"><option value="3ph" ${tr.type==='3ph'?'selected':''}>三相</option><option value="1ph" ${tr.type==='1ph'?'selected':''}>単相</option></select></div><div class="field"><label><span>接続</span><span>単相のみ</span></label><select class="trConn"><option value="RS" ${tr.conn==='RS'?'selected':''}>RS</option><option value="ST" ${tr.conn==='ST'?'selected':''}>ST</option><option value="TR" ${tr.conn==='TR'?'selected':''}>TR</option></select></div><div class="field"><label><span>容量</span><span>kVA</span></label><input class="trKva" type="number" value="${tr.kva}" placeholder="例 300"></div><button class="remove" type="button">×</button>`;const ty=d.querySelector('.trType'),co=d.querySelector('.trConn'),kv=d.querySelector('.trKva');co.disabled=tr.type==='3ph';ty.onchange=()=>{tr.type=ty.value;renderTrs();renderTap()};co.onchange=()=>{tr.conn=co.value;renderTap()};kv.oninput=()=>{tr.kva=kv.value;renderTap()};d.querySelector('.remove').onclick=()=>{trs=trs.filter(x=>x.id!==tr.id);renderTrs();renderTap()};root.appendChild(d)});}
  function trCalc(){let a=0,b=0,c=0;trs.forEach(tr=>{const s=parseFloat(tr.kva)||0;if(tr.type==='3ph'){a+=s/3;b+=s/3;c+=s/3}else if(tr.conn==='RS')a+=s;else if(tr.conn==='ST')b+=s;else c+=s});const v=V();const cur={R:Math.sqrt(a*a+c*c+a*c)/v,S:Math.sqrt(a*a+b*b+a*b)/v,T:Math.sqrt(b*b+c*c+b*c)/v};const p=$('#ctPhase').value,ks=p==='RT'?['R','T']:p==='RST'?['R','S','T']:[p];const max=ks.map(k=>[k,cur[k]]).sort((x,y)=>y[1]-x[1])[0]||['—',0];return{a,b,c,cur,keys:ks,max};}
- function tapCalc(){const ratio=ctRatio(),v=V();if(tapMode==='phase'){const z=trCalc(),I=z.max[1]||0;return{I,sec:I/ratio,kind:'phase',detail:`a(RS)=${f(z.a,1)} / b(ST)=${f(z.b,1)} / c(TR)=${f(z.c,1)} kVA → ${z.keys.join('/')}監視最大 ${z.max[0]}相 ${f(I,2)}A → CT二次 ${f(I/ratio,3)}A`}}if(tapMode==='contract'){const kw=num('kw'),pf=Math.max(.01,num('pf',.9)),I=kw/(Math.sqrt(3)*v*pf),Ivendor=kw/(Math.sqrt(3)*v);return{I,sec:I/ratio,vendorI:Ivendor,vendorSec:Ivendor/ratio,kind:'contract',detail:`JEEA型：I=${f(kw,1)}kW÷(√3×${f(v,1)}kV×${f(pf,2)})=${f(I,2)}A → CT二次 ${f(I/ratio,3)}A｜K2OC公開簡便式：I₁=P/(√3V)=${f(Ivendor,2)}A → CT二次 ${f(Ivendor/ratio,3)}A`}}if(tapMode==='known'){const I=num('knownLoad');return{I,sec:I/ratio,kind:'known',detail:`既知最大負荷 ${f(I,2)}A → CT二次 ${f(I/ratio,3)}A`}}const s=num('kva'),I=s/(Math.sqrt(3)*v);return{I,sec:I/ratio,kind:'kva',detail:`I=${f(s,1)}kVA÷(√3×${f(v,1)}kV)=${f(I,2)}A → CT二次 ${f(I/ratio,3)}A`};}
- function setPreferredTap(cands){const arr=taps(),sel=$('#selectedTap');if(!arr.length)return;const current=Number(sel.value);if(!arr.includes(current))sel.value='';syncChosen();}
- function renderTap(){
-  const x=tapCalc(),arr=taps();
-  $('#tapPri').textContent=x.I>0?`${f(x.I,2)} A`:'—';
-  $('#tapSecA').textContent=x.sec>0?`${f(x.sec,3)} A`:'—';
-  let direct=[],jeea=[],k2=[];
-  if(x.sec>0){
-   const u=upper(arr,x.sec);if(u!==undefined)direct=[u];
-   // JEEA 120～150%とK2OC 150%式は「契約電力から求めた負荷電流」の公開手順として分離表示する。
-   if(x.kind==='contract'){
-    jeea=inRange(arr,x.sec*1.2,x.sec*1.5);
-    if(relay()==='k2oc'){const base=x.vendorSec>0?x.vendorSec:x.sec,k=upper(arr,base*1.5);if(k!==undefined)k2=[k]}
-   }
-   $('#tapFormula').textContent=x.kind==='contract'?'P=√3VIcosφ → CT二次 → 契約電力基準を比較':'基準一次電流 → CT二次 → 実機Tapを比較';
-   $('#tapTrace').textContent=x.kind==='contract'
-    ?`${x.detail}｜JEEA 120～150%=${f(x.sec*1.2,3)}～${f(x.sec*1.5,3)}A${relay()==='k2oc'?`｜K2OC公開式 150%基準=${f((x.vendorSec||0)*1.5,3)}A以上`:''}`
-    :`${x.detail}｜このルートは容量/既知負荷からの簡便法。JEEA 120～150%・K2OC 150%式は契約電力ルートと混ぜず、ここでは適用しません。`;
-  }else{$('#tapFormula').textContent='—';$('#tapTrace').textContent='条件を入力してください。'}
-  $('#tapDirect').textContent=x.kind==='contract'?'参考：'+(direct[0]??'—')+(direct.length?'A':''):(direct.length?direct[0]+' A':'—');
-  $('#tapJeea').textContent=x.kind==='contract'?(jeea.length?jeea.map(v=>v+'A').join(' / '):'該当なし'):'契約電力モードで表示';
-  $('#tapK2oc').textContent=(x.kind==='contract'&&relay()==='k2oc')?(k2.length?k2[0]+' A':'該当なし'):'対象外';
-  const hi=unique([...(x.kind==='contract'?jeea:direct),...k2]);
-  $('#tapChips').innerHTML=arr.map(v=>`<span class="chip ${hi.includes(v)?'good':''}">${v}A</span>`).join('');
-  setPreferredTap([]);
-  $('#sumTapSub').textContent=x.kind==='phase'?'各Tr容量法':x.kind==='contract'?'契約電力法':x.kind==='known'?'既知負荷法':'三相kVA法';
-  renderInst();
+ function renderTrBreakdown(z){
+  const root=$('#trBreakdown');if(!root)return;const v=V(),rows=[];
+  trs.forEach((tr,i)=>{const kva=parseFloat(tr.kva);if(!(kva>0))return;if(tr.type==='3ph'){const I=kva/(Math.sqrt(3)*v);rows.push(`Tr${i+1} 三相 ${f(kva,0)}kVA → ${f(I,2)}A [S/(√3×${f(v,1)}kV)]`)}else{const I=kva/v;rows.push(`Tr${i+1} 単相 ${tr.conn} ${f(kva,0)}kVA → ${f(I,2)}A [S/${f(v,1)}kV]`)}});
+  root.innerHTML=rows.length?`<b>各Trの計算内訳</b><br>${rows.join('<br>')}<br><br><b>相合成後</b> R=${f(z.cur.R,2)}A / S=${f(z.cur.S,2)}A / T=${f(z.cur.T,2)}A → OCR監視 ${z.keys.join('/')} の最大＝<b>${z.max[0]}相 ${f(z.max[1],2)}A</b>`:'<b>各Trの計算内訳</b><br>容量を入力すると1台ずつ表示します。';
  }
- function syncChosen(){const tap=parseFloat($('#selectedTap')?.value),inst=parseFloat($('#selectedInst')?.value);if(Number.isFinite(tap)){fillSelect('dialTap',taps(),tap,true);$('#instTapShow').textContent=tap+' A';$('#sumTap').textContent=tap+'A'}else{fillSelect('dialTap',taps(),undefined,true);$('#instTapShow').textContent='—';$('#sumTap').textContent='—'}if(Number.isFinite(inst)){fillSelect('dialInst',insts(),inst,true);$('#instSecA').textContent=inst+' A';$('#instPriA').textContent=f(inst*ctRatio(),0)+' A';$('#sumInst').textContent=inst+'A'}else{fillSelect('dialInst',insts(),undefined,true);$('#instSecA').textContent='—';$('#instPriA').textContent='—';$('#sumInst').textContent='—'}renderUpperCheck();renderDial();}
+ function tapCalc(){
+  const ratio=ctRatio(),v=V(),hasCT=Number.isFinite(ratio),toSec=I=>hasCT?I/ratio:NaN;
+  if(tapMode==='phase'){const z=trCalc(),I=z.max[1]||0;return{I,sec:toSec(I),hasCT,kind:'phase',z,detail:`a(RS)=${f(z.a,1)} / b(ST)=${f(z.b,1)} / c(TR)=${f(z.c,1)}kVA → ${z.keys.join('/')}監視最大 ${z.max[0]}相 ${f(I,2)}A${hasCT?` → CT二次 ${f(toSec(I),3)}A`:' → CT比待ち'}`}}
+  if(tapMode==='contract'){const kw=num('kw'),pf=Math.max(.01,num('pf',.9)),I=kw/(Math.sqrt(3)*v*pf),Ivendor=kw/(Math.sqrt(3)*v);return{I,sec:toSec(I),vendorI:Ivendor,vendorSec:toSec(Ivendor),hasCT,kind:'contract',detail:`JEEA型 ${f(I,2)}A${hasCT?` → 二次 ${f(toSec(I),3)}A`:' → CT比待ち'}｜K2OC簡便式 ${f(Ivendor,2)}A${hasCT?` → 二次 ${f(toSec(Ivendor),3)}A`:' → CT比待ち'}`}}
+  if(tapMode==='known'){const I=num('knownLoad');return{I,sec:toSec(I),hasCT,kind:'known',detail:`既知最大負荷 ${f(I,2)}A${hasCT?` → 二次 ${f(toSec(I),3)}A`:' → CT比待ち'}`}}
+  const kva=num('kva'),I=kva/(Math.sqrt(3)*v);return{I,sec:toSec(I),hasCT,kind:'kva',detail:`${f(kva,1)}kVA → ${f(I,2)}A${hasCT?` → 二次 ${f(toSec(I),3)}A`:' → CT比待ち'}`};
+ }
+ function setPreferredTap(cands,force=false){const arr=taps(),sel=$('#selectedTap');if(!arr.length||!sel)return;const first=(cands||[]).find(v=>arr.includes(v));const current=Number(sel.value);if(force){sel.value=first!==undefined?String(first):'';}else if(!arr.includes(current)){sel.value=first!==undefined?String(first):'';}syncChosen();}
+ function renderTap(){
+  const x=tapCalc(),arr=taps(),maxTap=arr.length?Math.max(...arr):NaN;if(x.kind==='phase'&&x.z)renderTrBreakdown(x.z);
+  $('#tapPri').textContent=x.I>0?`${f(x.I,2)} A`:'—';$('#tapSecA').textContent=x.hasCT?(x.sec>0?`${f(x.sec,3)} A`:'—'):'CT比待ち';
+  const cts=$('#ctStatus');if(!x.hasCT){cts.className='note warn';cts.innerHTML='<b>受電OCR用CT比を入力してください。</b> この51に実際につながっているCTの一次値を、銘板または単線結線図から入力します。'}else if(x.I>0&&x.I>ctPrimary()){cts.className='note bad';cts.innerHTML=`<b>入力条件を再確認：</b> 基準一次電流 ${f(x.I,1)}A が入力CT一次 ${f(ctPrimary(),0)}Aを超えています。CT比・Tr構成・対象OCRを確認してください。`}else{cts.className='note good';cts.innerHTML=`実CT <b>${f(ctPrimary(),0)}/${f(num('ctS',5),0)}A</b> を使用中。`}
+  let direct=[],jeea=[],k2=[];const alert=$('#tapAlert');alert.hidden=true;alert.innerHTML='';
+  if(x.hasCT&&x.sec>0){const u=upper(arr,x.sec);if(u!==undefined)direct=[u];if(x.kind==='contract'){jeea=inRange(arr,x.sec*1.2,x.sec*1.5);if(relay()==='k2oc'){const base=x.vendorSec>0?x.vendorSec:x.sec,k=upper(arr,base*1.5);if(k!==undefined)k2=[k]}}
+   $('#tapFormula').textContent=x.kind==='contract'?'契約負荷 → CT二次 → 公開基準を比較':'各Tr → 一次電流 → 相合成 → CT二次 → 実機Tap';$('#tapTrace').textContent=x.kind==='contract'?`${x.detail}｜JEEA 120～150%=${f(x.sec*1.2,3)}～${f(x.sec*1.5,3)}A${relay()==='k2oc'?`｜K2OC 150%基準=${f((x.vendorSec||0)*1.5,3)}A以上`:''}`:`${x.detail}｜CT二次負荷を下回らない直近上位Tapを候補にします。`;
+   if(Number.isFinite(maxTap)&&x.sec>maxTap){alert.hidden=false;alert.innerHTML=`<b>Tap範囲外：</b> CT二次負荷 ${f(x.sec,3)}A は最大Tap ${f(maxTap,1)}Aを超えています。壊れた表示ではありません。<b>実CT比・入力したTr構成・対象OCRを確認</b>してください。`;}
+  }else if(x.I>0&&!x.hasCT){$('#tapFormula').textContent='各Tr → 一次電流 → CT比入力待ち';$('#tapTrace').textContent=`${x.detail}。Tapを出すには実際の受電OCR用CT比が必要です。`;}else{$('#tapFormula').textContent='—';$('#tapTrace').textContent='条件を入力してください。'}
+  const dtext=!x.hasCT?'CT比待ち':(direct.length?direct[0]+' A':(Number.isFinite(maxTap)&&x.sec>maxTap?'範囲外':'—'));$('#tapDirect').textContent=x.kind==='contract'?'参考：'+dtext:dtext;$('#tapJeea').textContent=x.kind==='contract'?(x.hasCT?(jeea.length?jeea.map(v=>v+'A').join(' / '):'該当なし'):'CT比待ち'):'契約電力モードで表示';$('#tapK2oc').textContent=(x.kind==='contract'&&relay()==='k2oc')?(x.hasCT?(k2.length?k2[0]+' A':'該当なし'):'CT比待ち'):'対象外';
+  const hi=unique([...(x.kind==='contract'?jeea:direct),...k2]);$('#tapChips').innerHTML=arr.map(v=>`<span class="chip ${hi.includes(v)?'good':''}">${v}A</span>`).join('');const preferred=x.kind==='contract'?(jeea.length===1?jeea:(k2.length===1?k2:[])):direct;setPreferredTap(preferred,x.kind!=='contract');$('#sumTapSub').textContent=x.kind==='phase'?'各Tr容量法':x.kind==='contract'?'契約電力法':x.kind==='known'?'既知負荷法':'三相kVA法';renderInst();if(!parseFloat($('#selectedTap').value)){if(!x.hasCT)$('#sumTap').textContent='CT待ち';else if(Number.isFinite(maxTap)&&x.sec>maxTap)$('#sumTap').textContent='範囲外';else $('#sumTap').textContent='—';}
+ }
+ function syncChosen(){const tap=parseFloat($('#selectedTap')?.value),inst=parseFloat($('#selectedInst')?.value);if(Number.isFinite(tap)){fillSelect('dialTap',taps(),tap,true);$('#instTapShow').textContent=tap+' A';$('#sumTap').textContent=tap+'A'}else{fillSelect('dialTap',taps(),undefined,true);$('#instTapShow').textContent='—';$('#sumTap').textContent='—'}if(Number.isFinite(inst)){fillSelect('dialInst',insts(),inst,true);$('#instSecA').textContent=inst+' A';$('#instPriA').textContent=Number.isFinite(ctRatio())?f(inst*ctRatio(),0)+' A':'CT比待ち';$('#sumInst').textContent=inst+'A'}else{fillSelect('dialInst',insts(),undefined,true);$('#instSecA').textContent='—';$('#instPriA').textContent='—';$('#sumInst').textContent='—'}renderUpperCheck();renderDial();}
 
  function neighbors(arr,target){const lo=lower(arr,target),hi=upper(arr,target);return unique([lo,hi]);}
  function renderInst(){const arr=insts(),tap=parseFloat($('#selectedTap').value)||0,ratio=ctRatio(),load=tapCalc();$('#instTapShow').textContent=tap?`${tap} A`:'—';$('#instLoadSec').textContent=load.sec>0?`${f(load.sec,3)} A`:'—';let cand=[],text='—',sub='条件を入力',formula='—',trace='—';if(instMode==='tapmult'&&tap>0){const a=tap*7,b=tap*10,c7=neighbors(arr,a),c10=neighbors(arr,b);cand=unique([...c7,...c10]);text=cand.length?cand.map(v=>v+'A').join(' / '):'範囲外';sub=`目標：×7=${f(a,1)}A / ×10=${f(b,1)}A`;formula=`Iinst目標 = Tap×7 または Tap×10`;trace=`×7の前後実機Tap：${c7.length?c7.join(' / ')+'A':'なし'}｜×10の前後実機Tap：${c10.length?c10.join(' / ')+'A':'なし'}。丸め方向は突入回避と上位協調を見て決める。`;}else if(instMode==='loadmult'&&load.sec>0){const lo=load.sec*10,hi=load.sec*15;cand=inRange(arr,lo,hi);text=cand.length?cand.map(v=>v+'A').join(' / '):'該当なし';sub=`負荷二次1000～1500%：${f(lo,1)}～${f(hi,1)}A`;formula=`Iinst ≈ Iload(sec)×10～15`;trace=`負荷CT二次 ${f(load.sec,3)}A → ${f(lo,2)}～${f(hi,2)}A。${tapMode==='contract'?'JEEAの契約負荷1000～1500%ルート。':'現在は契約電力以外の基準負荷へ10～15倍を参考適用。JEEA原文は契約負荷電流。'} 励磁突入・始動・上位協調を別途確認。`;}else if(instMode==='bounds'){const avoid=num('avoidA'),pick=num('pickupA'),as=avoid/ratio,ps=pick/ratio;if(avoid>0&&pick>0&&pick>avoid){cand=arr.filter(v=>v>as&&v<=ps);text=cand.length?cand.map(v=>v+'A').join(' / '):'成立候補なし';sub=`二次条件：${f(as,2)}A < Inst ≤ ${f(ps,2)}A`;formula='動かしたくない最大電流 < 瞬時一次整定 ≤ 拾いたい最小事故';trace=`一次 ${f(avoid,1)}A < Inst ≤ ${f(pick,1)}A → CT二次 ${f(as,2)}A < Inst ≤ ${f(ps,2)}A`;}else{sub='突入/始動と事故電流を入力';}}else if(instMode==='direct'){const v=num('directInst');if(v>0){cand=neighbors(arr,v);text=cand.length?cand.map(x=>x+'A').join(' / '):'範囲外';sub=`指定 ${f(v,1)}A の前後実機Tap`;formula='既設/設計値を実機Tapへ';trace=`一次換算：${cand.map(x=>x+'A→'+f(x*ratio,0)+'A').join(' / ')}`;}}
@@ -342,7 +337,6 @@
  }
 
  function bindTabs(selector,key,callback){$$(selector+' button').forEach(b=>b.onclick=()=>{if(key==='recv')recv=b.dataset.r;if(key==='tap')tapMode=b.dataset.m;if(key==='inst')instMode=b.dataset.i;if(key==='fault')faultMode=b.dataset.f;if(key==='dial')dialMode=b.dataset.d;$$(selector+' button').forEach(x=>x.classList.toggle('active',x===b));callback(b)});}
- bindTabs('#recvTabs','recv',()=>{$('#cbArea').hidden=recv!=='cb';$('#pfsMsg').hidden=recv==='cb';$('#summaryBar').hidden=recv!=='cb'});
  bindTabs('#tapTabs','tap',()=>{$('#phaseBox').hidden=tapMode!=='phase';$('#contractBox').hidden=tapMode!=='contract';$('#knownBox').hidden=tapMode!=='known';$('#kvaBox').hidden=tapMode!=='kva';renderTap()});
  bindTabs('#instTabs','inst',()=>{$('#tapMultBox').hidden=instMode!=='tapmult';$('#loadMultBox').hidden=instMode!=='loadmult';$('#boundsBox').hidden=instMode!=='bounds';$('#directBox').hidden=instMode!=='direct';renderInst()});
  bindTabs('#faultTabs','fault',()=>{$('#faultTr').hidden=faultMode!=='tr';$('#faultBus').hidden=faultMode!=='bus';$('#faultKnown').hidden=faultMode!=='known';renderFault()});
