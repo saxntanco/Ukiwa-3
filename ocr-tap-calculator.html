@@ -34,7 +34,8 @@
 <section class="panel" id="tapPanel">
  <div class="step"><div class="num">1</div><h2>限時Tap</h2></div>
  <p class="intro"><b>通常負荷では動かない電流基準</b>を決めます。求め方は1つではないので、どの基準を使ったかを残します。</p>
- <div class="tabs" id="tapTabs"><button class="active" data-m="phase">各Trから</button><button data-m="contract">契約電力</button><button data-m="known">既知負荷A</button><button data-m="kva">三相kVA</button></div>
+ <p><a href="ct-calculator.html">🛟 CT比の意味・電流換算・容量からの候補比較はこちら</a></p>
+<div class="tabs" id="tapTabs"><button class="active" data-m="phase">各Trから</button><button data-m="contract">契約電力</button><button data-m="known">既知負荷A</button><button data-m="kva">三相kVA</button></div>
  <div id="phaseBox">
   <div class="note good"><b>現場ルート</b>：各変圧器を1台ずつ入れ、三相Trは3相へ均等、単相Trは接続相間へ加算して、OCRが見る相の最大電流を求めます。容量ベースの簡便法なので、実負荷・力率・社内基準がある場合はそちらを優先。</div>
   <div id="trList"></div><div class="actions"><button class="secondary" type="button" id="addTr">＋ Tr追加</button><button class="secondary" type="button" id="clearTr">全部消す</button></div>
