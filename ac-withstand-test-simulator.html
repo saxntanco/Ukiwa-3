@@ -387,8 +387,8 @@ html,body{max-width:100%;overflow-x:hidden}
 <small>Ic = 2πfCV</small>
 </div>
 <div class="metrics">
-<div class="metric"><span>全静電容量 C</span><b id="capTotal">—</b></div>
-<div class="metric"><span>容量リアクタンス Xc</span><b id="xc">—</b></div>
+<div class="metric"><span>1相分の静電容量 C</span><b id="capTotal">—</b></div>
+<div class="metric"><span>1相分の容量リアクタンス Xc</span><b id="xc">—</b></div>
 <div class="metric"><span>1相分充電電流</span><b id="currentOne">—</b></div>
 <div class="metric"><span>表示対象</span><b id="modeValue">—</b></div>
 </div>
@@ -408,6 +408,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <span>2kVA：DR-1220MH / 200H</span>
 <span>5kVA：DR-1250MH / 80H</span>
 </div>
+<p>登録機種：最大許容印加電圧 AC12kV、インダクタンス公差 ±10%。公称値による概算であり、機器の適合は未確認です。<a href="https://www.musashi-in.co.jp/item/3700/3700.html" target="_blank" rel="noopener">ムサシインテック DR-1200Mシリーズ公式仕様</a>（発行年月未確認、2026年9月9日確認）。</p>
 <div class="reactor-best" id="reactorBest">
 <span>BEST MATCH</span>
 <b>計算後に表示</b>
@@ -444,13 +445,13 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="learn-body">
         ケーブルは導体と遮へい層・大地との間に静電容量を持つため、交流電圧を印加するとコンデンサと同じように電流が流れます。
         <div class="formula-box">Xc = 1 / (2πfC)</div>
-        容量リアクタンス Xc を使うと、Ic = V / Xc。これに Xc を代入すると Ic = 2πfCV になります。
+        1相分の容量リアクタンス Xc を使うと、Ic = V / Xc。これに Xc を代入すると Ic = 2πfCV になります。
       </div>
 </details>
 <details>
 <summary>単位を確認する</summary>
 <div class="learn-body">
-        μF/km を使う場合は、まずケーブル長を km にそろえて全静電容量 C [μF] を求め、その後 F に換算します。
+        μF/km を使う場合は、まずケーブル長を km にそろえて1相分の静電容量 C [μF] を求め、その後 F に換算します。
         <div class="formula-box">C [F] = C [μF] × 10⁻⁶</div>
         計算結果は A で得られ、このページでは読みやすいよう mA も併記します。
       </div>
@@ -485,8 +486,8 @@ html,body{max-width:100%;overflow-x:hidden}
 
 
   const reactorSpecs = {
-    r2:{name:'DR-1220MH',kva:2,L:200},
-    r5:{name:'DR-1250MH',kva:5,L:80}
+    r2:{name:'DR-1220MH',kva:2,L:200,maxVoltage:12000},
+    r5:{name:'DR-1250MH',kva:5,L:80,maxVoltage:12000}
   };
 
   function reactorCurrent(V,f,L){
@@ -494,6 +495,7 @@ html,body{max-width:100%;overflow-x:hidden}
   }
 
   function renderReactorComparison(Ic,V,f){
+    if(V>Math.min(reactorSpecs.r2.maxVoltage,reactorSpecs.r5.maxVoltage)){$('#reactorBest').textContent='候補提示不可：登録リアクトルの最大許容印加電圧 AC12,000V を超えています。';$('#reactorRows').innerHTML='';return;}
     const rows=[];
     const max2=4, max5=3;
     const il2=reactorCurrent(V,f,reactorSpecs.r2.L);
@@ -520,7 +522,7 @@ html,body{max-width:100%;overflow-x:hidden}
     };
 
     document.querySelector('#reactorBest').innerHTML=`
-      <span>BEST MATCH / 理想式での最小残差</span>
+      <span>公称インダクタンスによる残差比較（適合未確認）</span>
       <b>${combo(best)}</b>
       <small>補償電流 ${fmt(best.IL*1000,1)} mA ／ 充電電流との差 ${fmt(best.residual*1000,1)} mA
       ${best.over?'（過補償側）':'（不足補償側）'}</small>
@@ -576,7 +578,7 @@ html,body{max-width:100%;overflow-x:hidden}
     }
 
     $('#trace').innerHTML=`
-      <div><b>① 全静電容量：</b>${capTrace}</div>
+      <div><b>① 1相分の静電容量：</b>${capTrace}</div>
       <div><b>② Fへ換算：</b>C = ${C.toExponential(6)} F</div>
       <div><b>③ 容量リアクタンス：</b>Xc = 1 ÷ (2π × ${fmt(f,0)} × ${C.toExponential(6)}) = ${fmt(Xc,3)} Ω</div>
       <div><b>④ 1相分充電電流：</b>Ic = ${fmt(V,0)} ÷ ${fmt(Xc,3)} = ${I1.toExponential(6)} A = ${fmt(I1*1000,3)} mA</div>
@@ -629,6 +631,7 @@ html,body{max-width:100%;overflow-x:hidden}
       if(btn.dataset.preset==='66') voltage.value='10350';
       if(btn.dataset.preset==='33') voltage.value='5175';
       freq.value='50';
+      empty.hidden=false;wrap.hidden=true;
     });
   });
 
