@@ -5,8 +5,8 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#0b83b8" name="theme-color"/>
-<title>充電電流計算｜ぷかぷかうきわメモ</title>
-<meta content="ケーブルの静電容量・長さ・周波数・印加電圧から充電電流を計算する電気保安学習ツール。" name="description"/>
+<title>充電電流3方式比較｜ぷかぷかうきわメモ</title>
+<meta content="6.6kV CVケーブルの充電電流をメーカー参考値・容量表・構造理論値で比較。実測Cとリアクトル補償の計算にも対応。" name="description"/>
 <style>
 :root{
   --deep:#0b4b73;--blue:#0d84bb;--cyan:#5fd4e9;--ice:#ecfbff;
@@ -158,6 +158,12 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
   .hero h1{font-size:31px}
   .metrics{grid-template-columns:1fr 1fr}
 }
+
+/* Source-aware comparison extends the existing sea-blue visual identity. */
+body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% - 32px))}.intro{padding:24px 0 12px}.intro h1{font-size:clamp(25px,4vw,36px);line-height:1.4;margin:0}.intro p{margin:6px 0}.eyebrow{color:#087291;font-size:14px;font-weight:800;margin:0}.surface{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 4px 18px #064e7010}.surface h2{font-size:23px;line-height:1.5;margin:0 0 12px}.surface h3{font-size:18px;line-height:1.5;margin:22px 0 8px}.surface p{margin:10px 0}.notice{padding:14px 18px;border-left:4px solid #c99126;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}.hint,.source{font-size:14px;color:#486675}.input-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:14px 0}label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700;min-width:0}input,select{width:100%;min-height:46px;border:1px solid #8dafbd;border-radius:9px;padding:10px;color:var(--ink);background:#fff;min-width:0;font-size:16px}input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:3px solid #44b9d8;outline-offset:2px}button{cursor:pointer;min-height:46px;padding:10px 20px;border-radius:9px;font-weight:700;font-size:16px}.primary{background:#087ca9;color:#fff;border:1px solid #087ca9;margin:8px 10px 0 0}.secondary{background:#fff;color:#155778;border:1px solid #9cbecb;margin:8px 0 0}.check{display:flex;flex-direction:row;align-items:flex-start;gap:10px;margin:16px 0}.check input{width:20px;min-height:20px;flex-shrink:0;margin-top:3px}.measured{border-top:4px solid #0d8292}.measured-details{margin:0;padding:0;border:0}.measured .input-grid{grid-template-columns:1fr 2fr}.optional{font-size:14px;color:#486675}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0}.result-card{border:1px solid var(--line);border-top:4px solid #1594af;border-radius:12px;padding:18px;min-width:0}.result-card h3{font-size:18px;margin:5px 0;min-height:54px}.result-card .result-number{font-size:clamp(30px,4vw,42px);font-weight:850;line-height:1.4;color:#084e74;margin:10px 0}.result-number small{font-size:17px}.method-B{border-top-color:#126a9e}.method-C{border-top-color:#64819b}.tag{font-size:13px;font-weight:700;color:#355b70}.result-card .tag{padding:4px 8px;background:#edf7fb;border-radius:6px}.difference{background:#edf7fb;padding:14px;border-radius:9px;margin:16px 0;font-size:14px}.table-scroll{overflow-x:auto;max-width:100%}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}th{background:#edf7fb;white-space:nowrap}small{font-size:13px}details{border-top:1px solid var(--line);padding:12px 0;margin-top:10px}summary{font-size:16px;font-weight:700;cursor:pointer}a{color:#086e9c;text-underline-offset:3px}.source{overflow-wrap:anywhere}#sources p{padding:10px 0;border-bottom:1px solid var(--line)}.error{color:#a3261d;font-weight:700}#measuredResult{font-size:18px;font-weight:700}#reactorSummary{padding:12px;background:#f0f8fb}footer{font-size:14px}.brand small{font-size:12px}.back{font-size:14px}.topbar{height:auto;min-height:62px}.brand{font-size:15px}.surface ul{padding-left:24px}[hidden]{display:none!important}
+@media(max-width:900px){.input-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.result-grid{grid-template-columns:1fr}.result-card h3{min-height:0}.result-card .result-number{font-size:36px}}
+@media(max-width:520px){main.comparison{width:calc(100% - 20px)}.surface{padding:16px}.intro{padding-top:18px}.measured .input-grid{grid-template-columns:1fr}.topbar .brand small{display:none}.back{font-size:13px;padding:8px}.result-card{padding:16px}.input-grid{gap:12px}.input-grid label{font-size:14px}th,td{padding:9px}.surface h2{font-size:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 <style id="v41-reactor-compare-style">
 .reactor-compare{
@@ -195,6 +201,12 @@ footer{margin-top:17px;padding:13px;text-align:center;color:#728692;font-size:9p
   .reactor-compare{padding:11px;border-radius:14px}
   .reactor-best b{font-size:18px}
 }
+
+/* Source-aware comparison extends the existing sea-blue visual identity. */
+body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% - 32px))}.intro{padding:24px 0 12px}.intro h1{font-size:clamp(25px,4vw,36px);line-height:1.4;margin:0}.intro p{margin:6px 0}.eyebrow{color:#087291;font-size:14px;font-weight:800;margin:0}.surface{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 4px 18px #064e7010}.surface h2{font-size:23px;line-height:1.5;margin:0 0 12px}.surface h3{font-size:18px;line-height:1.5;margin:22px 0 8px}.surface p{margin:10px 0}.notice{padding:14px 18px;border-left:4px solid #c99126;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}.hint,.source{font-size:14px;color:#486675}.input-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:14px 0}label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700;min-width:0}input,select{width:100%;min-height:46px;border:1px solid #8dafbd;border-radius:9px;padding:10px;color:var(--ink);background:#fff;min-width:0;font-size:16px}input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:3px solid #44b9d8;outline-offset:2px}button{cursor:pointer;min-height:46px;padding:10px 20px;border-radius:9px;font-weight:700;font-size:16px}.primary{background:#087ca9;color:#fff;border:1px solid #087ca9;margin:8px 10px 0 0}.secondary{background:#fff;color:#155778;border:1px solid #9cbecb;margin:8px 0 0}.check{display:flex;flex-direction:row;align-items:flex-start;gap:10px;margin:16px 0}.check input{width:20px;min-height:20px;flex-shrink:0;margin-top:3px}.measured{border-top:4px solid #0d8292}.measured-details{margin:0;padding:0;border:0}.measured .input-grid{grid-template-columns:1fr 2fr}.optional{font-size:14px;color:#486675}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0}.result-card{border:1px solid var(--line);border-top:4px solid #1594af;border-radius:12px;padding:18px;min-width:0}.result-card h3{font-size:18px;margin:5px 0;min-height:54px}.result-card .result-number{font-size:clamp(30px,4vw,42px);font-weight:850;line-height:1.4;color:#084e74;margin:10px 0}.result-number small{font-size:17px}.method-B{border-top-color:#126a9e}.method-C{border-top-color:#64819b}.tag{font-size:13px;font-weight:700;color:#355b70}.result-card .tag{padding:4px 8px;background:#edf7fb;border-radius:6px}.difference{background:#edf7fb;padding:14px;border-radius:9px;margin:16px 0;font-size:14px}.table-scroll{overflow-x:auto;max-width:100%}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}th{background:#edf7fb;white-space:nowrap}small{font-size:13px}details{border-top:1px solid var(--line);padding:12px 0;margin-top:10px}summary{font-size:16px;font-weight:700;cursor:pointer}a{color:#086e9c;text-underline-offset:3px}.source{overflow-wrap:anywhere}#sources p{padding:10px 0;border-bottom:1px solid var(--line)}.error{color:#a3261d;font-weight:700}#measuredResult{font-size:18px;font-weight:700}#reactorSummary{padding:12px;background:#f0f8fb}footer{font-size:14px}.brand small{font-size:12px}.back{font-size:14px}.topbar{height:auto;min-height:62px}.brand{font-size:15px}.surface ul{padding-left:24px}[hidden]{display:none!important}
+@media(max-width:900px){.input-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.result-grid{grid-template-columns:1fr}.result-card h3{min-height:0}.result-card .result-number{font-size:36px}}
+@media(max-width:520px){main.comparison{width:calc(100% - 20px)}.surface{padding:16px}.intro{padding-top:18px}.measured .input-grid{grid-template-columns:1fr}.topbar .brand small{display:none}.back{font-size:13px;padding:8px}.result-card{padding:16px}.input-grid{gap:12px}.input-grid label{font-size:14px}th,td{padding:9px}.surface h2{font-size:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style><style id="v42-layout-fix-style">
 html,body{max-width:100%;overflow-x:hidden}
 .calculator{align-items:start}
@@ -223,6 +235,12 @@ html,body{max-width:100%;overflow-x:hidden}
   .metrics{grid-template-columns:1fr}
   .reactor-table{min-width:500px}
 }
+
+/* Source-aware comparison extends the existing sea-blue visual identity. */
+body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% - 32px))}.intro{padding:24px 0 12px}.intro h1{font-size:clamp(25px,4vw,36px);line-height:1.4;margin:0}.intro p{margin:6px 0}.eyebrow{color:#087291;font-size:14px;font-weight:800;margin:0}.surface{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 4px 18px #064e7010}.surface h2{font-size:23px;line-height:1.5;margin:0 0 12px}.surface h3{font-size:18px;line-height:1.5;margin:22px 0 8px}.surface p{margin:10px 0}.notice{padding:14px 18px;border-left:4px solid #c99126;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}.hint,.source{font-size:14px;color:#486675}.input-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:14px 0}label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700;min-width:0}input,select{width:100%;min-height:46px;border:1px solid #8dafbd;border-radius:9px;padding:10px;color:var(--ink);background:#fff;min-width:0;font-size:16px}input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:3px solid #44b9d8;outline-offset:2px}button{cursor:pointer;min-height:46px;padding:10px 20px;border-radius:9px;font-weight:700;font-size:16px}.primary{background:#087ca9;color:#fff;border:1px solid #087ca9;margin:8px 10px 0 0}.secondary{background:#fff;color:#155778;border:1px solid #9cbecb;margin:8px 0 0}.check{display:flex;flex-direction:row;align-items:flex-start;gap:10px;margin:16px 0}.check input{width:20px;min-height:20px;flex-shrink:0;margin-top:3px}.measured{border-top:4px solid #0d8292}.measured-details{margin:0;padding:0;border:0}.measured .input-grid{grid-template-columns:1fr 2fr}.optional{font-size:14px;color:#486675}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0}.result-card{border:1px solid var(--line);border-top:4px solid #1594af;border-radius:12px;padding:18px;min-width:0}.result-card h3{font-size:18px;margin:5px 0;min-height:54px}.result-card .result-number{font-size:clamp(30px,4vw,42px);font-weight:850;line-height:1.4;color:#084e74;margin:10px 0}.result-number small{font-size:17px}.method-B{border-top-color:#126a9e}.method-C{border-top-color:#64819b}.tag{font-size:13px;font-weight:700;color:#355b70}.result-card .tag{padding:4px 8px;background:#edf7fb;border-radius:6px}.difference{background:#edf7fb;padding:14px;border-radius:9px;margin:16px 0;font-size:14px}.table-scroll{overflow-x:auto;max-width:100%}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}th{background:#edf7fb;white-space:nowrap}small{font-size:13px}details{border-top:1px solid var(--line);padding:12px 0;margin-top:10px}summary{font-size:16px;font-weight:700;cursor:pointer}a{color:#086e9c;text-underline-offset:3px}.source{overflow-wrap:anywhere}#sources p{padding:10px 0;border-bottom:1px solid var(--line)}.error{color:#a3261d;font-weight:700}#measuredResult{font-size:18px;font-weight:700}#reactorSummary{padding:12px;background:#f0f8fb}footer{font-size:14px}.brand small{font-size:12px}.back{font-size:14px}.topbar{height:auto;min-height:62px}.brand{font-size:15px}.surface ul{padding-left:24px}[hidden]{display:none!important}
+@media(max-width:900px){.input-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.result-grid{grid-template-columns:1fr}.result-card h3{min-height:0}.result-card .result-number{font-size:36px}}
+@media(max-width:520px){main.comparison{width:calc(100% - 20px)}.surface{padding:16px}.intro{padding-top:18px}.measured .input-grid{grid-template-columns:1fr}.topbar .brand small{display:none}.back{font-size:13px;padding:8px}.result-card{padding:16px}.input-grid{gap:12px}.input-grid label{font-size:14px}th,td{padding:9px}.surface h2{font-size:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style><style id="v43-layout-fix">
 /* v43: prevent result/reactor area from breaking calculator layout */
 .calculator{
@@ -300,6 +318,12 @@ html,body{max-width:100%;overflow-x:hidden}
     min-width:560px;
   }
 }
+
+/* Source-aware comparison extends the existing sea-blue visual identity. */
+body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% - 32px))}.intro{padding:24px 0 12px}.intro h1{font-size:clamp(25px,4vw,36px);line-height:1.4;margin:0}.intro p{margin:6px 0}.eyebrow{color:#087291;font-size:14px;font-weight:800;margin:0}.surface{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 4px 18px #064e7010}.surface h2{font-size:23px;line-height:1.5;margin:0 0 12px}.surface h3{font-size:18px;line-height:1.5;margin:22px 0 8px}.surface p{margin:10px 0}.notice{padding:14px 18px;border-left:4px solid #c99126;background:var(--warn-bg);color:var(--warn-ink);font-size:14px}.hint,.source{font-size:14px;color:#486675}.input-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:14px 0}label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700;min-width:0}input,select{width:100%;min-height:46px;border:1px solid #8dafbd;border-radius:9px;padding:10px;color:var(--ink);background:#fff;min-width:0;font-size:16px}input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:3px solid #44b9d8;outline-offset:2px}button{cursor:pointer;min-height:46px;padding:10px 20px;border-radius:9px;font-weight:700;font-size:16px}.primary{background:#087ca9;color:#fff;border:1px solid #087ca9;margin:8px 10px 0 0}.secondary{background:#fff;color:#155778;border:1px solid #9cbecb;margin:8px 0 0}.check{display:flex;flex-direction:row;align-items:flex-start;gap:10px;margin:16px 0}.check input{width:20px;min-height:20px;flex-shrink:0;margin-top:3px}.measured{border-top:4px solid #0d8292}.measured-details{margin:0;padding:0;border:0}.measured .input-grid{grid-template-columns:1fr 2fr}.optional{font-size:14px;color:#486675}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0}.result-card{border:1px solid var(--line);border-top:4px solid #1594af;border-radius:12px;padding:18px;min-width:0}.result-card h3{font-size:18px;margin:5px 0;min-height:54px}.result-card .result-number{font-size:clamp(30px,4vw,42px);font-weight:850;line-height:1.4;color:#084e74;margin:10px 0}.result-number small{font-size:17px}.method-B{border-top-color:#126a9e}.method-C{border-top-color:#64819b}.tag{font-size:13px;font-weight:700;color:#355b70}.result-card .tag{padding:4px 8px;background:#edf7fb;border-radius:6px}.difference{background:#edf7fb;padding:14px;border-radius:9px;margin:16px 0;font-size:14px}.table-scroll{overflow-x:auto;max-width:100%}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}th{background:#edf7fb;white-space:nowrap}small{font-size:13px}details{border-top:1px solid var(--line);padding:12px 0;margin-top:10px}summary{font-size:16px;font-weight:700;cursor:pointer}a{color:#086e9c;text-underline-offset:3px}.source{overflow-wrap:anywhere}#sources p{padding:10px 0;border-bottom:1px solid var(--line)}.error{color:#a3261d;font-weight:700}#measuredResult{font-size:18px;font-weight:700}#reactorSummary{padding:12px;background:#f0f8fb}footer{font-size:14px}.brand small{font-size:12px}.back{font-size:14px}.topbar{height:auto;min-height:62px}.brand{font-size:15px}.surface ul{padding-left:24px}[hidden]{display:none!important}
+@media(max-width:900px){.input-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.result-grid{grid-template-columns:1fr}.result-card h3{min-height:0}.result-card .result-number{font-size:36px}}
+@media(max-width:520px){main.comparison{width:calc(100% - 20px)}.surface{padding:16px}.intro{padding-top:18px}.measured .input-grid{grid-template-columns:1fr}.topbar .brand small{display:none}.back{font-size:13px;padding:8px}.result-card{padding:16px}.input-grid{gap:12px}.input-grid label{font-size:14px}th,td{padding:9px}.surface h2{font-size:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style></head>
 <body>
 <header class="topbar">
@@ -309,343 +333,176 @@ html,body{max-width:100%;overflow-x:hidden}
 </a>
 <a class="back" href="./index.html">← 島へ戻る</a>
 </header>
-<main>
-<section class="hero">
-<div class="hero-card">
-<span class="kicker">CHARGING CURRENT CALCULATOR</span>
-<h1>充電電流計算</h1>
-<p>ケーブルの静電容量・長さ・周波数・印加電圧から、充電電流をすばやく計算します。</p>
-<div class="hero-tags"><span>充電電流だけに特化</span><span>スマホ優先</span><span>計算式まで確認</span></div>
-</div>
-</section>
-<div class="quick-note">
-<div>⚠️</div>
-<div><b>安全上の前提</b><br/>
-      本ページは計算・理解補助です。実設備の試験条件、試験電圧、結線、停復電操作は、メーカー資料・社内手順書・操作票・現場責任者の指示を優先してください。
-    </div>
-</div>
-<section class="calculator" id="calc">
-<div class="panel input-panel">
-<h2>条件を入力</h2>
-<p class="panel-intro">必要な条件だけ入れて「計算する」を押します。</p>
-<div class="preset-row">
-<button class="preset" data-preset="66" type="button">6.6kV例</button>
-<button class="preset" data-preset="33" type="button">3.3kV例</button>
-</div>
-<div class="field">
-<label for="freq">周波数 f [Hz]</label>
-<select id="freq">
-<option value="50">50 Hz</option>
-<option value="60">60 Hz</option>
-</select>
-</div>
-<div class="field">
-<label for="voltage">印加電圧 V [V]</label>
-<input id="voltage" inputmode="decimal" min="0" step="1" type="number" value="10350"/>
-</div>
-<div class="field cable-size-field">
-<label for="cableSize">高圧ケーブルサイズ</label>
-<select id="cableSize"><option value="0.27">22mm²（代表値 0.27 μF/km）</option><option selected="" value="0.32">38mm²（代表値 0.32 μF/km）</option><option value="0.37">60mm²（代表値 0.37 μF/km）</option><option value="0.45">100mm²（代表値 0.45 μF/km）</option><option value="0.52">150mm²（代表値 0.52 μF/km）</option><option value="0.55">250mm²（代表値 0.55 μF/km）</option><option value="custom">その他・メーカー値を手入力</option></select>
-</div><p class="cable-help">代表値は既存の学習用データです。実務ではメーカー仕様値を優先してください。</p>
-<div class="field">
-<label for="cap">長さ当たり静電容量 c（サイズ選択で自動入力／手入力可）</label>
-<div class="field-grid">
-<input id="cap" inputmode="decimal" min="0" step="0.001" type="number" value="0.32"/>
-<select aria-label="静電容量の単位" id="capUnit">
-<option value="uFkm">μF/km</option>
-<option value="nFm">nF/m</option>
-<option value="uFm">μF/m</option>
-</select>
-</div>
-</div>
-<div class="field">
-<label for="length">ケーブル長さ ℓ</label>
-<div class="field-grid">
-<input id="length" inputmode="decimal" min="0" step="0.001" type="number" value="100"/>
-<select aria-label="長さの単位" id="lengthUnit">
-<option value="m">m</option>
-<option value="km">km</option>
-</select>
-</div>
-</div>
-<div aria-label="計算表示" class="phase-row">
-<label class="phase"><input name="phase" type="radio" value="1"/>1相分</label>
-<label class="phase"><input checked="checked" name="phase" type="radio" value="3"/>3相一括</label>
-</div>
-<button class="calc-btn" id="calcBtn" type="button">充電電流を計算する</button>
-<button class="reset-btn" id="resetBtn" type="button">入力をリセット</button>
-<div class="source-note">代表静電容量は学習用の目安です。初期値は38mm²＝0.32 μF/km、3相一括です。22 / 38 / 60 / 100 / 150 / 250mm²から選択できます。その他のケーブルは「その他・メーカー値を手入力」を選び、メーカー仕様値・設備資料・実測値を入力してください。3相一括の扱いは実際の試験結線・試験要領書を優先してください。</div>
-</div>
-<div class="panel result-panel">
-<div class="result-empty" id="resultEmpty">
-<div><b>まだ計算していません</b>左の条件を入力して「計算する」を押してください。</div>
-</div>
-<div class="result-wrap" hidden="" id="resultWrap">
-<div class="result-hero">
-<span id="resultLabel">1相分 充電電流</span>
-<strong id="currentBig">0.00 mA</strong>
-<small>Ic = 2πfCV</small>
-</div>
-<div class="metrics">
-<div class="metric"><span>1相分の静電容量 C</span><b id="capTotal">—</b></div>
-<div class="metric"><span>1相分の容量リアクタンス Xc</span><b id="xc">—</b></div>
-<div class="metric"><span>1相分充電電流</span><b id="currentOne">—</b></div>
-<div class="metric"><span>表示対象</span><b id="modeValue">—</b></div>
-</div>
-<div class="formula-card">
-<span>FORMULA</span>
-<div class="formula-main">I<sub>c</sub> = 2π f C V</div>
-</div>
-<div class="trace" id="trace"></div>
-<section class="reactor-compare" id="reactorCompare">
-<div class="reactor-compare-head">
-<div>
-<h3>リアクトル組み合わせ比較</h3>
-<p>2kVA（DR-1220MH）と5kVA（DR-1250MH）を混在させ、充電電流に近い補償電流の候補を比較します。</p>
-</div>
-</div>
-<div class="reactor-badges">
-<span>2kVA：DR-1220MH / 200H</span>
-<span>5kVA：DR-1250MH / 80H</span>
-</div>
-<p>登録機種：最大許容印加電圧 AC12kV、インダクタンス公差 ±10%。公称値による概算であり、機器の適合は未確認です。<a href="https://www.musashi-in.co.jp/item/3700/3700.html" target="_blank" rel="noopener">ムサシインテック DR-1200Mシリーズ公式仕様</a>（発行年月未確認、2026年9月9日確認）。</p>
-<div class="reactor-best" id="reactorBest">
-<span>BEST MATCH</span>
-<b>計算後に表示</b>
-<small>入力条件から補償電流を比較します。</small>
-</div>
-<div class="reactor-table-wrap">
-<table class="reactor-table">
-<thead>
-<tr>
-<th>組み合わせ</th>
-<th>2kVA</th>
-<th>5kVA</th>
-<th>補償電流</th>
-<th>残差 |Ic−IL|</th>
-<th>判定</th>
-</tr>
-</thead>
-<tbody id="reactorRows">
-<tr><td colspan="6">充電電流を計算すると候補を表示します。</td></tr>
-</tbody>
-</table>
-</div>
-<div class="reactor-note">
-    ※ この比較は理想インダクタンス式 IL = V/(2πfL) による学習・選定補助です。
-    実機の定格、推奨組み合わせ、接続可能条件、過容量可否はメーカー取扱説明書・現場条件を優先してください。
-  </div>
-</section>
-</div>
-</div>
-</section>
-<section class="learn">
-<details>
-<summary>なぜ充電電流が流れる？</summary>
-<div class="learn-body">
-        ケーブルは導体と遮へい層・大地との間に静電容量を持つため、交流電圧を印加するとコンデンサと同じように電流が流れます。
-        <div class="formula-box">Xc = 1 / (2πfC)</div>
-        1相分の容量リアクタンス Xc を使うと、Ic = V / Xc。これに Xc を代入すると Ic = 2πfCV になります。
-      </div>
-</details>
-<details>
-<summary>単位を確認する</summary>
-<div class="learn-body">
-        μF/km を使う場合は、まずケーブル長を km にそろえて1相分の静電容量 C [μF] を求め、その後 F に換算します。
-        <div class="formula-box">C [F] = C [μF] × 10⁻⁶</div>
-        計算結果は A で得られ、このページでは読みやすいよう mA も併記します。
-      </div>
-</details>
-<details>
-<summary>3相表示について</summary>
-<div class="learn-body">
-        「3相単純合計」は、同条件の1相分充電電流を3本分として単純加算した参考表示です。
-        実際の耐圧試験で何相をどのように一括するか、非試験相や遮へい層をどう扱うかによって条件が異なるため、
-        現場の結線図・試験要領書を優先してください。
-      </div>
-</details>
-</section>
-<footer>ぷかぷかうきわメモ｜充電電流計算</footer>
-</main>
+<main class="comparison">
+<section class="intro"><p class="eyebrow">6.6kV CVケーブル・三相一括</p><h1>充電電流を、根拠で比べる</h1><p>同じ条件でも、静電容量の決め方で結果は変わります。</p></section>
+<aside class="notice">計算・学習補助です。実設備の試験は、現場責任者・社内手順書・操作票・機器の取扱説明書に従ってください。実測Cの測定には、停電・無電圧確認・放電・誤投入防止など所定の安全措置が必要です。</aside>
+<form id="compareForm" novalidate>
+<section class="surface"><h2>共通の入力条件</h2><p class="hint">各心が遮へいされたCV 3心の導体を一括し、接地された遮へい層との間に正弦波交流を印加する計算です。運転中の三相充電電流とは区別します。</p>
+<div class="input-grid">
+<label>断面積 [mm²]<select id="size"><option>8</option><option>14</option><option>22</option><option selected>38</option><option>60</option><option>100</option><option>150</option><option>200</option><option>250</option></select></label>
+<label>ケーブル長 [m]<input id="length" type="number" min="0" step="any" inputmode="decimal" value="100"></label>
+<label>周波数 f [Hz]<select id="freq"><option>50</option><option>60</option></select></label>
+<label>試験電圧 V [V・実効値]<input id="voltage" type="number" min="0" step="any" inputmode="decimal" value="10350"></label>
+</div><p class="hint">電圧は試験条件の入力値です。10,350Vの適用可否をこの画面では判定しません。方式Aは原資料の10,350Vに限定します。</p>
+<button class="primary" type="submit">3方式を比較する</button><button class="secondary" id="reset" type="button">初期値に戻す</button><p id="inputError" role="alert" class="error" hidden></p></section>
+<section class="surface measured"><details class="measured-details"><summary>対象設備の実測Cから計算する（任意）</summary><p>三相一括・被試験物全体の静電容量を入力します。ケーブル長や3倍を重ねて掛けません。</p>
+<div class="input-grid"><label>実測静電容量 [μF・全体]<input id="measured" type="number" min="0" step="any" inputmode="decimal" placeholder="例：0.062"></label><label>測定器・測定条件メモ<input id="measureNote" type="text" maxlength="300" placeholder="例：CC-50MN、対象ケーブルのみ"></label></div>
+<label class="check"><input id="measureConfirm" type="checkbox">測定対象・一括結線・含まれる機器が今回の試験対象と一致する</label>
+<p id="measuredResult" aria-live="polite">未入力</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
+</form>
+<section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading">充電電流の比較</h2><p id="conditions" class="hint"></p><div class="result-grid" id="cards" aria-live="polite"></div>
+<div id="difference" class="difference"></div>
+<details><summary>同じ原資料の「JIS規格」欄も確認する</summary><p id="jisReference"></p><p class="hint">双興電機の資料が「JIS規格」として掲載する値です。適用する規格の版は当該ページで確認できないため、現行JISへの適合判定や保証最大値には使いません。</p></details>
+<h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
+<h3>どの値を使えばいい？</h3><ul><li>実測C：対象と測定条件が一致する場合に、設備に即した検討の材料にする。</li><li>試験器容量：対象ケーブルの仕様・最大値の定義と、試験器メーカーの選定基準を確認する。方式A・Bを自動的に保証最大値とは扱わない。</li><li>理論値：原理や概算の理解に使う。対象ケーブルとの構造差・仮定を確認する。</li></ul></section>
+<section class="surface"><h2>方式Cの計算条件</h2>
+<label>理論モデル<select id="theoryMode"><option value="example">メーカー計算例（38mm²のみ）</option><option value="dimensions">寸法と仮定を入力する（参考推定）</option></select></label>
+<p id="theoryExplanation"></p>
+<div id="dimensionFields" hidden><p class="hint">初期寸法はSFCC表から取得。内部半導電層の厚さを含む公称寸法のため、電界境界の厳密な寸法ではありません。半導電層を個別に考慮しない同軸モデルによる参考推定です。撚り込み率は対象資料または明示した仮定を入力してください。</p>
+<div class="input-grid"><label>内側径 d [mm]<input id="d" type="number" min="0" step="any" value="7.3"></label><label>外側径 D [mm]<input id="D" type="number" min="0" step="any" value="15.3"></label><label>比誘電率 εr [無次元]<input id="epsilon" type="number" min="1" step="any" value="2.3"></label><label>撚り込み率 [%]<input id="lay" type="number" min="0" step="any" placeholder="未確認・自動適用しません"></label></div><label>寸法・撚り込み率の出典または仮定<input id="dimensionNote" type="text" maxlength="300" placeholder="例：SFCC公称寸法、撚り込み率は0%と仮定"></label></div>
+<p class="hint">C₁ [μF/km] = 0.02413 × εr / log10(D/d)。全体C [F] = C₁ × 3 × (1＋撚り込み率/100) × 長さ[m]/1000 × 10⁻⁶。方式Bのカタログ容量にこの撚り込み補正を再び掛けることはしません。</p></section>
+<section class="surface"><h2>リアクトル組み合わせ比較</h2><p>採用する充電電流と、補償後に試験器が負担する電流の概算を確認します。</p>
+<div class="input-grid"><label>採用する充電電流<select id="reactorBasis"><option value="B">方式B：SFCC静電容量データ</option><option value="A">方式A：メーカー掲載参考値</option><option value="C">方式C：構造理論値</option><option value="M">実測Cからの計算</option></select></label><label>試験器の許容出力電流 [mA・高圧側]<input id="outputLimit" type="number" min="0" step="any" placeholder="取扱説明書から入力"></label><label>DR-1220MH 最大検討台数<input id="count2" type="number" min="0" max="10" step="1" value="4"></label><label>DR-1250MH 最大検討台数<input id="count5" type="number" min="0" max="10" step="1" value="3"></label></div>
+<p class="hint">DR-1220MH：200H±10%、DR-1250MH：80H±10%。両機種とも定格12kV・30分。通称2kVA／5kVAではなく、インダクタンスから補償電流を計算します。検討上限台数はメーカーの接続許容台数ではありません。</p>
+<p id="reactorSummary" aria-live="polite"></p><div class="table-scroll"><table><thead><tr><th>台数<br>1220 / 1250</th><th>補償電流</th><th>残留無効電流</th><th>L公差を考慮した<br>残留最大値</th><th>許容電流との比較</th></tr></thead><tbody id="reactorRows"></tbody></table></div>
+<p>IL = V/(2πfL)。損失を無視した残留電流は |Ic−IL|。表はL公差±10%の両端も比較しますが、損失電流・試験器自身の励磁電流・Cの不確かさは含みません。「数値上は範囲内」は実機適合の判定ではありません。過補償でも負担は増え、残留無効電流がゼロでも実機の電流はゼロにはなりません。</p><p class="hint">出典：<a href="https://www.musashi-in.co.jp/manual/DR-1220MH_J06.pdf#page=9" target="_blank" rel="noopener">DR-1220MH取扱説明書 第6版・本文2ページ</a>／<a href="https://www.musashi-in.co.jp/manual/DR-1250MH_J05.pdf#page=9" target="_blank" rel="noopener">DR-1250MH取扱説明書 第5版・本文2ページ</a>。メーカー掲載2023年2月、2026年9月11日確認。</p></section>
+<section class="surface"><details><summary>旧データ・任意Cによる計算（1心／一括・単位換算）</summary><p>従来の値を保存した学習用計算です。旧データの採用元は未記録ですが、登録6サイズの値は今回確認したSFCCの参考容量と一致しました。対象設備のメーカー値であるとは限りません。この欄は上の3方式・リアクトル比較と独立しています。</p>
+<div class="input-grid"><label>旧登録値<select id="legacySize"><option value="0.27">22mm²：0.27</option><option value="0.32" selected>38mm²：0.32</option><option value="0.37">60mm²：0.37</option><option value="0.45">100mm²：0.45</option><option value="0.52">150mm²：0.52</option><option value="0.55">250mm²：0.55</option><option value="custom">手入力</option></select></label><label>長さ当たりC<input id="legacyC" type="number" step="any" value="0.32"></label><label>Cの単位<select id="legacyUnit"><option value="uFkm">μF/km</option><option value="nFm">nF/m</option><option value="uFm">μF/m</option></select></label><label>Cが表す範囲<select id="legacyBasis"><option value="one">1心と遮へい間（等しい3心を一括）</option><option value="total">既に三相一括の値</option><option value="single">1心だけを計算</option></select></label><label>ケーブル長<input id="legacyLength" type="number" step="any" value="100"></label><label>長さの単位<select id="legacyLengthUnit"><option value="m">m</option><option value="km">km</option></select></label><label>試験電圧 [V]<input id="legacyV" type="number" step="any" value="10350"></label><label>周波数 [Hz]<select id="legacyF"><option>50</option><option>60</option></select></label></div><button id="legacy33" type="button" class="secondary">従来の3.3kV例（5,175V）</button><p class="hint">このボタンは電圧だけを変更します。Cは対象ケーブルに合わせて入力してください。「1心だけ」は他心との相互容量を含む任意の試験結線を自動評価しません。</p><p id="legacyResult" aria-live="polite"></p></details></section>
+<section class="surface"><h2>忘れても作り直せる親公式</h2><p><b>Ic = 2πfCV</b> ― 充電電流は、周波数・静電容量・試験電圧に比例します。</p><div class="table-scroll"><table><thead><tr><th>記号</th><th>意味・英語・単位</th></tr></thead><tbody><tr><td>Ic</td><td>充電電流 Charging current [A]。Iは電流の慣用記号、cはchargingを区別する添字。</td></tr><tr><td>f</td><td>周波数 Frequency [Hz = 1/s]。英語の頭文字。</td></tr><tr><td>C、C₁</td><td>静電容量 Capacitance [F]。Cは被試験物全体、添字1は1心分を区別。</td></tr><tr><td>V</td><td>試験電圧 Voltage [V]。交流の実効値。</td></tr><tr><td>D、d</td><td>径 Diameter [mm]。大文字は外側、小文字は内側。D/dは同じ単位なので無次元。</td></tr><tr><td>εr</td><td>比誘電率 Relative permittivity [無次元]。εは誘電率の慣用記号、rはrelative。資料の2.3は絶対誘電率ではなく比誘電率。</td></tr><tr><td>L、IL</td><td>インダクタンス Inductance [H]とリアクトル電流 [A]。Lは慣用記号。添字Lは誘導性枝を区別し、ケーブル長と混同しない。</td></tr></tbody></table></div>
+<details><summary>単位・復元方法・増減関係</summary><p>単位：Hz × F × V = (1/s) × (A·s/V) × V = A。μFを使うときは10⁻⁶を掛けてFへ、AをmAにするときは1000倍します。</p><p>親公式は I = V/X。コンデンサでは Xc = 1/(2πfC) なので、割り算を整理すると Ic = 2πfCV を復元できます。さらに基本へ戻るなら q = Cv、i = dq/dt。正弦波を微分すると角周波数2πfが現れます。qは電荷 Charge [C：クーロン]、i・vは瞬時値です。容量記号Cと電荷の単位Cは別です。</p><p>同じ構造で、f・C・Vのいずれかが2倍ならIcは2倍。長さ2倍ならCも約2倍です。単位だけでは2πや心数は決まらず、定義と結線が必要です。</p><p>対になる式：Xc = 1/(2πfC)、XL = 2πfL。周波数が上がるとC側の電流は増え、同じLのリアクトル電流は減ります。</p><p>三相一括では各導体が同電位になるため、理想的には心間容量の両端電圧はゼロです。各心遮へいの対遮へい容量は並列に加算します。三相運転時の作用静電容量や線間容量をそのまま3倍してはいけません。</p><p>寸法式は同軸円筒の静電容量に由来します。0.02413は真空の誘電率と、自然対数から常用対数、F/mからμF/kmへの換算をまとめた係数です。εrが増えるとCも増え、D/dが増えるとCは減ります。</p><p>問題文の「三相一括・対地静電容量・耐圧試験」が目印。通常運転の線間電圧から相電圧へ換算する場面とは違い、一括試験電圧を√3で割りません。</p></details>
+<p><b>これだけ覚える：</b>式はIc = 2πfCV。先に「Cは何心分か」を確かめる。参考値と最大値は別。リアクトルは大きいほどよいわけではない。</p></section>
+<section class="surface"><details><summary>出典と確認状況</summary><div id="sources"></div><p class="hint">確認日：2026年9月11日。原資料の図や紙面は転載せず、計算に必要な数値・条件とリンクを保持しています。</p></details></section>
+<footer>ぷかぷかうきわメモ｜充電電流3方式比較</footer></main>
+<script>
+'use strict';
+/* Pure calculations: units at boundaries are m, V, Hz, microfarads and mA. */
+const ChargingComparison = (() => {
+  const sizes = [8,14,22,38,60,100,150,200,250];
+  const reference50 = [1.29,1.47,1.74,2.04,2.46,3.03,3.60,3.60,4.00];
+  const reference60 = [1.53,1.77,2.10,2.46,2.94,3.63,4.32,4.32,4.80];
+  const jis50 = [2.05,2.34,2.63,3.12,3.61,4.39,5.07,4.97,5.37];
+  const jis60 = [2.46,2.81,3.16,3.75,4.33,5.27,6.09,5.97,6.44];
+  const capacitance = [.21,.24,.27,.32,.37,.45,.52,.51,.55];
+  const inner = [3.4,4.4,5.5,7.3,9.3,12,14.7,17,19];
+  const outer = [11.4,12.4,13.5,15.3,17.3,20,22.7,26,28];
+  const legacy = {22:.27,38:.32,60:.37,100:.45,150:.52,250:.55};
+  const sources = {
+    A:{maker:'双興電機製作所',title:'L−13Kシリーズ取扱説明書',edition:'第3版・2025年12月3日表記',pages:'本文11〜12ページ',url:'https://soukou.co.jp/pdf/L-13K.pdf#page=12',kind:'実測に基づく参考値',scope:'三相一括・10,350V・50/60Hz。ケーブルの個別型式は未特定。最大値の記載なし。'},
+    B:{maker:'SFCC（SWCC公式サイト掲載）',title:'産業用電線・ケーブル',edition:'CAT.NO.40-14-03・24.09表記（2024年9月）',pages:'18〜19ページ',url:'https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=19',kind:'カタログ参考値',scope:'6600V CV・3心・各心遮へい。静電容量は1心あたり。保証最大値ではなく「参考」欄。'},
+    C:{maker:'ムサシインテック',title:'R−1115K取扱説明書',edition:'第2版・メーカー掲載2014年6月',pages:'本文27ページ・4.2.3',url:'https://www.musashi-in.co.jp/manual/r-1115k_02.pdf#page=35',kind:'特定構造の計算例',scope:'38mm²、d=7.8mm、D=15.8mm、εr=2.3、撚り込み率2%。他サイズには自動適用しない。'},
+    M:{maker:'双興電機製作所',title:'CC−50MN取扱説明書',edition:'第4版・2025年11月20日表記',pages:'本文4・8〜10ページ',url:'https://soukou.co.jp/pdf/CC-50MN.pdf#page=11',kind:'実測Cからの計算原理',scope:'測定値Cと設定f・VからI=2πfCVを算出。登録測定値の出典は利用者の測定器・条件メモ。'}
+  };
+  function positive(v,label,allowZero=false){
+    if(v===null||v===undefined||String(v).trim()==='') throw Error(label+'を入力してください。');
+    const n=Number(v); if(!Number.isFinite(n)||(allowZero?n<0:n<=0)) throw Error(label+'は'+(allowZero?'0以上':'0より大きい')+'の有限の数値にしてください。'); return n;
+  }
+  function current(f,capUF,V){const n=2*Math.PI*f*capUF*1e-6*V*1000;if(!Number.isFinite(n))throw Error('計算範囲を超えています。入力値を小さくしてください。');return n;}
+  function dimensions(d,D,e,k){d=positive(d,'内側径d');D=positive(D,'外側径D');e=positive(e,'比誘電率');k=positive(k,'撚り込み率',true);if(D<=d)throw Error('外側径Dは内側径dより大きくしてください。');if(e<1)throw Error('このモデルの比誘電率は1以上にしてください。');const one=.02413*e/Math.log10(D/d);return {one,all:one*3*(1+k/100),d,D,e,k};}
+  function compare(input){
+    const size=Number(input.size),idx=sizes.indexOf(size);if(idx<0)throw Error('対象断面積を選択してください。');
+    const f=positive(input.f,'周波数'),V=positive(input.V,'試験電圧'),length=positive(input.length,'ケーブル長');if(![50,60].includes(f))throw Error('周波数は50Hzまたは60Hzです。');
+    const bC=capacitance[idx]*3*length/1000;
+    const A=V===10350?{value:(f===50?reference50:reference60)[idx]*length,rate:(f===50?reference50:reference60)[idx]}:{value:null,reason:'原資料は10,350Vのみ。電圧の外挿は行いません。'};
+    const B={value:current(f,bC,V),one:capacitance[idx],cap:bC};
+    let C;
+    try {
+      if(input.theoryMode==='dimensions'){
+        if(!String(input.dimensionNote||'').trim())throw Error('寸法・撚り込み率の出典または仮定を入力してください。');
+        const dim=dimensions(input.d,input.D,input.epsilon,input.lay);C={...dim,cap:dim.all*length/1000,value:current(f,dim.all*length/1000,V),estimated:true};
+      }else if(size===38){const dim=dimensions(7.8,15.8,2.3,2);C={...dim,cap:dim.all*length/1000,value:current(f,dim.all*length/1000,V),estimated:false};}
+      else C={value:null,reason:'このサイズの出典付き計算例は未登録です。寸法と仮定の入力で参考推定できます。'};
+    }catch(e){C={value:null,reason:e.message};}
+    let M={value:null,reason:'未入力'};
+    if(String(input.measured??'').trim()){
+      try {const cap=positive(input.measured,'実測C');M=input.confirm?{value:current(f,cap,V),cap}:{value:null,reason:'測定対象と一括結線の一致を確認してください。'};}catch(e){M={value:null,reason:e.message};}
+    }
+    const values=[A,B,C].map(x=>x.value).filter(x=>x!==null),max=Math.max(...values),min=Math.min(...values);
+    return {size,idx,f,V,length,A,B,C,M,max,min,ratio:max/min,jis:V===10350?(f===50?jis50:jis60)[idx]*length:null};
+  }
+  function reactors(Ic,V,f,n2,n5,limit){
+    Ic=positive(Ic,'採用電流',true);V=positive(V,'試験電圧');f=positive(f,'周波数');
+    if(V>12000)throw Error('登録リアクトルの定格12,000Vを超えています。候補は提示できません。');
+    if(![50,60].includes(f))throw Error('登録リアクトルは50/60Hzです。');
+    n2=positive(n2,'1220最大台数',true);n5=positive(n5,'1250最大台数',true);
+    if(!Number.isInteger(n2)||!Number.isInteger(n5)||n2>10||n5>10)throw Error('最大検討台数は0〜10の整数にしてください。');
+    const allowed=String(limit??'').trim()===''?null:positive(limit,'許容出力電流');
+    const rows=[];for(let a=0;a<=n2;a++)for(let b=0;b<=n5;b++){
+      const IL=1000*V/(2*Math.PI*f)*(a/200+b/80),residual=Math.abs(Ic-IL),worst=Math.max(Math.abs(Ic-IL/.9),Math.abs(Ic-IL/1.1));
+      if(!Number.isFinite(worst))throw Error('リアクトル計算範囲を超えています。');
+      rows.push({a,b,IL,residual,worst,over:IL>Ic,within:allowed===null?null:worst<=allowed});
+    }
+    rows.sort((a,b)=>a.residual-b.residual||(a.a+a.b)-(b.a+b.b));
+    const feasible=allowed===null?[]:rows.filter(x=>x.within).sort((a,b)=>(a.a+a.b)-(b.a+b.b)||a.worst-b.worst);
+    return {rows,allowed,minimum:feasible[0]||null};
+  }
+  function manual(c,unit,len,lenUnit,basis,f,V){
+    c=positive(c,'C');len=positive(len,'長さ');f=positive(f,'周波数');V=positive(V,'電圧');
+    if(!['uFkm','nFm','uFm'].includes(unit)||!['m','km'].includes(lenUnit)||!['one','total','single'].includes(basis))throw Error('単位・範囲を選択してください。');
+    const ufPerM=unit==='uFm'?c:c/1000,m=lenUnit==='km'?len*1000:len,cap=ufPerM*m*(basis==='one'?3:1);
+    return {cap,value:current(f,cap,V)};
+  }
+  return {sizes,reference50,reference60,jis50,jis60,capacitance,inner,outer,legacy,sources,positive,current,dimensions,compare,reactors,manual};
+})();
+if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison;
+</script>
 <script>
 (() => {
-  const $ = s => document.querySelector(s);
-  const fmt = (n,d=3) => Number(n).toLocaleString('ja-JP',{maximumFractionDigits:d});
-
-  const freq=$('#freq'), voltage=$('#voltage'), cap=$('#cap'), capUnit=$('#capUnit');
-  const cableSize=$('#cableSize');
-  const length=$('#length'), lengthUnit=$('#lengthUnit');
-  const empty=$('#resultEmpty'), wrap=$('#resultWrap');
-
-  function capToFPerM(value, unit){
-    if(unit==='uFkm') return value*1e-6/1000;
-    if(unit==='nFm') return value*1e-9;
-    if(unit==='uFm') return value*1e-6;
-    return NaN;
+  'use strict';
+  const E=ChargingComparison,$=id=>document.getElementById(id),format=(v,d=1)=>Number(v).toLocaleString('ja-JP',{maximumFractionDigits:d}),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const names={A:'メーカー掲載参考値',B:'静電容量データ方式',C:'ケーブル構造からの理論計算',M:'実測Cからの計算'};
+  let result=null;
+  function inputs(){return {size:$('size').value,f:$('freq').value,V:$('voltage').value,length:$('length').value,theoryMode:$('theoryMode').value,d:$('d').value,D:$('D').value,epsilon:$('epsilon').value,lay:$('lay').value,dimensionNote:$('dimensionNote').value,measured:$('measured').value,confirm:$('measureConfirm').checked};}
+  function sourceLink(key){const s=E.sources[key];return `<a href="${s.url}" target="_blank" rel="noopener">${s.maker}・${s.pages}</a>`;}
+  function draw(){
+    $('inputError').hidden=true;result=null;
+    $('dimensionFields').hidden=$('theoryMode').value!=='dimensions';
+    $('theoryExplanation').textContent=$('theoryMode').value==='example'?'ムサシの38mm²計算例：d=7.8mm、D=15.8mm、εr=2.3、撚り込み率2%。方式BのSFCC製品寸法（38mm²：7.3/15.3mm）とは異なります。':'同軸モデルによる参考推定。入力した寸法と仮定は結果の下にも表示します。';
+    try {result=E.compare(inputs());}catch(e){$('inputError').textContent=e.message;$('inputError').hidden=false;$('cards').textContent='共通条件の入力を確認してください。';$('conditions').textContent='';$('difference').textContent='';$('jisReference').textContent='計算待ち';$('measuredResult').textContent='共通条件の入力を確認してください。';drawReactors();return;}
+    const x=result;$('conditions').textContent=`${x.size}mm²・${format(x.length,3)}m・${x.f}Hz・${format(x.V,3)}V・三相一括`;
+    $('cards').innerHTML=['A','B','C'].map(key=>{
+      const r=x[key],valid=r.value!==null;let trace='',tag='',meaning='';
+      if(key==='A'){tag='実測に基づく参考値';meaning='メーカー資料の目安。保証最大値ではありません。';trace=valid?`${format(r.rate,2)} mA/m × ${format(x.length,3)} m = ${format(r.value,3)} mA。${x.f}Hz専用表を使用。`:r.reason;}
+      if(key==='B'){tag='SFCCカタログ参考値';meaning='各心と遮へい間の容量を3心分加算。';trace=`1心 ${r.one} μF/km × 3 × ${format(x.length,3)}/1000 = ${format(r.cap,6)} μF（全体）。Ic = 2π × ${x.f} × ${format(r.cap,6)} × 10⁻⁶ × ${x.V} = ${format(r.value/1000,6)} A。`;}
+      if(key==='C'){tag=valid?(r.estimated?'参考推定・仮定あり':'メーカーの特定構造例'):'理論値算出不可';meaning='寸法と誘電率から求めた静電容量を使用。';trace=valid?`d=${r.d}mm、D=${r.D}mm、εr=${r.e}、撚り込み${r.k}%。1心 ${format(r.one,6)} μF/km → 全体 ${format(r.cap,6)} μF。Ic = 2π × ${x.f} × ${format(r.cap,6)} × 10⁻⁶ × ${x.V} = ${format(r.value/1000,6)} A。${r.estimated?'入力した根拠・仮定：'+$('dimensionNote').value:''}`:r.reason;}
+      const diff=valid?`表示3方式の最大数値との差：${format(x.max-r.value)} mA（${format((x.max-r.value)/x.max*100)}%・最大数値を分母）`:'差の比較対象外';
+      return `<article class="result-card method-${key}"><p class="eyebrow">方式${key}</p><h3>${names[key]}</h3><p class="result-number">${valid?format(r.value)+' <small>mA</small>':'—'}</p><p class="tag">${tag}</p><p>${meaning}</p><p class="hint">${diff}</p><details><summary>計算の内訳</summary><p>${esc(trace)}</p></details><p class="source">${key==='C'&&r.estimated?sourceLink('B')+'／式：'+sourceLink('C'):sourceLink(key)}</p></article>`;
+    }).join('');
+    const count=[x.A,x.B,x.C].filter(r=>r.value!==null).length;
+    $('difference').textContent=`算出できた${count}方式の最大／最小倍率：${format(x.ratio,3)}倍。最大数値は最小数値より${format((x.ratio-1)*100)}%大きい（最小数値を分母）。ここでの「最大」は表示結果の比較で、保証最大値ではありません。実測Cはこの倍率に含めません。`;
+    $('jisReference').textContent=x.jis===null?'10,350V以外は掲載表の対象外です。':`${x.f}Hz・${x.size}mm²・${format(x.length,3)}m：${format(x.jis)}mA。方式Aの「実測に基づく参考値」とは別の行です。`;
+    $('measuredResult').textContent=x.M.value===null?x.M.reason:`実測値ベース：${format(x.M.value)} mA。全体C=${format(x.M.cap,6)} μF、Ic = 2π × ${x.f} × ${x.M.cap} × 10⁻⁶ × ${x.V} = ${format(x.M.value/1000,6)} A。${$('measureNote').value}`;
+    drawReactors();
   }
-
-
-  const reactorSpecs = {
-    r2:{name:'DR-1220MH',kva:2,L:200,maxVoltage:12000},
-    r5:{name:'DR-1250MH',kva:5,L:80,maxVoltage:12000}
-  };
-
-  function reactorCurrent(V,f,L){
-    return V/(2*Math.PI*f*L);
+  function drawReactors(){
+    $('reactorRows').innerHTML='';
+    if(!result){$('reactorSummary').textContent='共通条件が未確定のため候補を表示できません。';return;}
+    const key=$('reactorBasis').value,r=result[key];
+    if(!r||r.value===null){$('reactorSummary').textContent=`採用した「${names[key]}」は算出できません。別の算出済み方式を選んでください。`;return;}
+    try {
+      const rr=E.reactors(r.value,result.V,result.f,$('count2').value,$('count5').value,$('outputLimit').value);
+      let msg=`採用：${names[key]} ${format(r.value)}mA。表は公称残留電流の小さい順・上位8候補（補償なしを含めて探索）。`;
+      if(rr.allowed===null)msg+=' 許容出力電流が未入力のため、必要台数は判定しません。';
+      else if(rr.minimum){const m=rr.minimum;msg+=` 検討範囲でL公差込みの数値条件を満たす最少は${m.a+m.b}台（1220：${m.a}、1250：${m.b}）。損失等は未評価のため、必要台数の確定ではありません。`;}
+      else msg+=' 指定台数の範囲では、L公差を含めて許容出力電流を満たす候補はありません。';
+      $('reactorSummary').textContent=msg;
+      const rows=rr.rows.slice(0,8);if(rr.minimum&&!rows.includes(rr.minimum))rows.push(rr.minimum);
+      $('reactorRows').innerHTML=rows.map(r=>`<tr><td>${r.a} / ${r.b}${rr.minimum===r?' <span class="tag">数値上の最少</span>':''}</td><td>${format(r.IL)} mA</td><td>${format(r.residual)} mA<br><small>${r.over?'過補償・遅れ側':'不足補償・進み側'}</small></td><td>${format(r.worst)} mA</td><td>${r.within===null?'未入力':r.within?'数値上は範囲内<br>損失等は未評価':'超過'}</td></tr>`).join('');
+    }catch(e){$('reactorSummary').textContent=e.message;}
   }
-
-  function renderReactorComparison(Ic,V,f){
-    if(V>Math.min(reactorSpecs.r2.maxVoltage,reactorSpecs.r5.maxVoltage)){$('#reactorBest').textContent='候補提示不可：登録リアクトルの最大許容印加電圧 AC12,000V を超えています。';$('#reactorRows').innerHTML='';return;}
-    const rows=[];
-    const max2=4, max5=3;
-    const il2=reactorCurrent(V,f,reactorSpecs.r2.L);
-    const il5=reactorCurrent(V,f,reactorSpecs.r5.L);
-
-    for(let n2=0;n2<=max2;n2++){
-      for(let n5=0;n5<=max5;n5++){
-        if(n2===0 && n5===0) continue;
-        const IL=n2*il2+n5*il5;
-        const residual=Math.abs(Ic-IL);
-        const over=IL>Ic;
-        rows.push({n2,n5,IL,residual,over,kva:n2*2+n5*5});
-      }
-    }
-    rows.sort((a,b)=>a.residual-b.residual || a.kva-b.kva || (a.n2+a.n5)-(b.n2+b.n5));
-    const top=rows.slice(0,8);
-    const best=top[0];
-
-    const combo = r => {
-      const parts=[];
-      if(r.n2) parts.push(`2kVA×${r.n2}`);
-      if(r.n5) parts.push(`5kVA×${r.n5}`);
-      return parts.join(' ＋ ');
-    };
-
-    document.querySelector('#reactorBest').innerHTML=`
-      <span>公称インダクタンスによる残差比較（適合未確認）</span>
-      <b>${combo(best)}</b>
-      <small>補償電流 ${fmt(best.IL*1000,1)} mA ／ 充電電流との差 ${fmt(best.residual*1000,1)} mA
-      ${best.over?'（過補償側）':'（不足補償側）'}</small>
-    `;
-
-    document.querySelector('#reactorRows').innerHTML=top.map((r,i)=>`
-      <tr class="${i===0?'best-row':''}">
-        <td>${combo(r)}</td>
-        <td>${r.n2}台</td>
-        <td>${r.n5}台</td>
-        <td>${fmt(r.IL*1000,1)} mA</td>
-        <td>${fmt(r.residual*1000,1)} mA</td>
-        <td class="${r.over?'over':'ok'}">${r.over?'過補償':'不足補償'}</td>
-      </tr>
-    `).join('');
-  }
-
-  function calculate(){
-    const f=+freq.value;
-    const V=+voltage.value;
-    const c=+cap.value;
-    const len=+length.value;
-    const mode=+document.querySelector('input[name="phase"]:checked').value;
-
-    if(!(f>0 && V>0 && c>0 && len>0)){
-      alert('周波数・印加電圧・静電容量・ケーブル長さを確認してください。');
-      return;
-    }
-
-    const lengthM=lengthUnit.value==='km' ? len*1000 : len;
-    const lengthKm=lengthM/1000;
-    const cFperM=capToFPerM(c,capUnit.value);
-    const C=cFperM*lengthM;
-    const CuF=C*1e6;
-    const Xc=1/(2*Math.PI*f*C);
-    const I1=V/Xc;
-    const Ishow=mode===3?I1*3:I1;
-
-    $('#resultLabel').textContent=mode===3?'3相単純合計 充電電流':'1相分 充電電流';
-    $('#currentBig').textContent=`${fmt(Ishow*1000,2)} mA`;
-    $('#capTotal').textContent=`${fmt(CuF,6)} μF`;
-    $('#xc').textContent=`${fmt(Xc,2)} Ω`;
-    $('#currentOne').textContent=`${fmt(I1*1000,2)} mA`;
-    $('#modeValue').textContent=mode===3?'1相分 × 3':'1相分';
-
-    let capTrace='';
-    if(capUnit.value==='uFkm'){
-      capTrace=`c = ${fmt(c,6)} μF/km × ${fmt(lengthKm,6)} km → C = ${fmt(CuF,6)} μF`;
-    } else if(capUnit.value==='nFm'){
-      capTrace=`c = ${fmt(c,6)} nF/m × ${fmt(lengthM,3)} m → C = ${fmt(CuF,6)} μF`;
-    } else {
-      capTrace=`c = ${fmt(c,6)} μF/m × ${fmt(lengthM,3)} m → C = ${fmt(CuF,6)} μF`;
-    }
-
-    $('#trace').innerHTML=`
-      <div><b>① 1相分の静電容量：</b>${capTrace}</div>
-      <div><b>② Fへ換算：</b>C = ${C.toExponential(6)} F</div>
-      <div><b>③ 容量リアクタンス：</b>Xc = 1 ÷ (2π × ${fmt(f,0)} × ${C.toExponential(6)}) = ${fmt(Xc,3)} Ω</div>
-      <div><b>④ 1相分充電電流：</b>Ic = ${fmt(V,0)} ÷ ${fmt(Xc,3)} = ${I1.toExponential(6)} A = ${fmt(I1*1000,3)} mA</div>
-      ${mode===3?`<div><b>⑤ 3相単純合計：</b>${fmt(I1*1000,3)} mA × 3 = ${fmt(Ishow*1000,3)} mA</div>`:''}
-    `;
-
-    renderReactorComparison(Ishow,V,f);
-
-    empty.hidden=true;
-    wrap.hidden=false;
-  }
-
-  function reset(){
-    freq.value='50';
-    voltage.value='10350';
-    cableSize.value='0.32';
-    cap.value='0.32';
-    cap.readOnly=true;
-    cap.setAttribute('aria-readonly','true');
-    capUnit.value='uFkm';
-    length.value='100';
-    lengthUnit.value='m';
-    document.querySelector('input[name="phase"][value="3"]').checked=true;
-    empty.hidden=false;
-    wrap.hidden=true;
-    const rr=document.querySelector('#reactorRows');
-    if(rr) rr.innerHTML='<tr><td colspan="6">充電電流を計算すると候補を表示します。</td></tr>';
-    const rb=document.querySelector('#reactorBest');
-    if(rb) rb.innerHTML='<span>BEST MATCH</span><b>計算後に表示</b><small>入力条件から補償電流を比較します。</small>';
-  }
-
-  cableSize?.addEventListener('change',()=>{
-    if(cableSize.value==='custom'){
-      cap.focus();
-      return;
-    }
-    cap.value=cableSize.value;
-    capUnit.value='uFkm';
-    if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; }
-  });
-
-  cap?.addEventListener('input',()=>{
-    const v=Number(cap.value);
-    const match=[...cableSize.options].find(o=>o.value!=='custom' && Math.abs(Number(o.value)-v)<1e-9);
-    cableSize.value=match?match.value:'custom';
-  });
-
-  document.querySelectorAll('[data-preset]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      if(btn.dataset.preset==='66') voltage.value='10350';
-      if(btn.dataset.preset==='33') voltage.value='5175';
-      freq.value='50';
-      empty.hidden=false;wrap.hidden=true;
-    });
-  });
-
-  $('#calcBtn').addEventListener('click',calculate);
-  $('#resetBtn').addEventListener('click',reset);
-
-  [freq,voltage,cap,capUnit,length,lengthUnit].forEach(el=>{
-    el.addEventListener('input',()=>{ if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; } });
-    el.addEventListener('change',()=>{ if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; } });
-  });
-  document.querySelectorAll('input[name="phase"]').forEach(el=>{
-    el.addEventListener('change',()=>{ if(!wrap.hidden){ empty.hidden=false; wrap.hidden=true; } });
-  });
+  function drawLegacy(){try{const r=E.manual($('legacyC').value,$('legacyUnit').value,$('legacyLength').value,$('legacyLengthUnit').value,$('legacyBasis').value,$('legacyF').value,$('legacyV').value);$('legacyResult').textContent=`${format(r.value)} mA／計算対象の全体C ${format(r.cap,6)} μF。${$('legacyBasis').value==='one'?'1心分を3倍。':'3倍はしていません。'}`;}catch(e){$('legacyResult').textContent=e.message;}}
+  function fillDimensions(){const idx=E.sizes.indexOf(Number($('size').value));$('d').value=E.inner[idx];$('D').value=E.outer[idx];$('lay').value='';$('dimensionNote').value='';}
+  $('size').addEventListener('change',()=>{fillDimensions();draw();});
+  $('compareForm').addEventListener('submit',e=>{e.preventDefault();draw();});
+  ['freq','voltage','length','measured','measureConfirm','measureNote','theoryMode','d','D','epsilon','lay','dimensionNote'].forEach(id=>$(id).addEventListener('input',draw));
+  ['reactorBasis','outputLimit','count2','count5'].forEach(id=>$(id).addEventListener('input',drawReactors));
+  ['legacyC','legacyUnit','legacyBasis','legacyLength','legacyLengthUnit','legacyV','legacyF'].forEach(id=>$(id).addEventListener('input',drawLegacy));
+  $('legacySize').addEventListener('change',()=>{if($('legacySize').value!=='custom'){$('legacyC').value=$('legacySize').value;$('legacyUnit').value='uFkm';}drawLegacy();});
+  $('legacyC').addEventListener('input',()=>{$('legacySize').value='custom';});
+  $('legacy33').addEventListener('click',()=>{$('legacyV').value=5175;drawLegacy();});
+  $('reset').addEventListener('click',()=>{$('compareForm').reset();$('theoryMode').value='example';$('epsilon').value=2.3;fillDimensions();$('reactorBasis').value='B';$('outputLimit').value='';$('count2').value=4;$('count5').value=3;draw();});
+  $('sources').innerHTML=Object.entries(E.sources).map(([key,s])=>`<p><b>${key==='M'?'実測C':`方式${key}`}：${s.maker}</b><br>${s.title}／${s.edition}／${s.pages}<br>${s.kind}。${s.scope}<br><a href="${s.url}" target="_blank" rel="noopener">原資料を開く</a></p>`).join('');
+  draw();drawLegacy();
 })();
 </script>
-</body>
-</html>
+
+</body></html>
