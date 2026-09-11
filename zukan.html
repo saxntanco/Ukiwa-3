@@ -863,6 +863,9 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 .hero-grid{width:min(1000px,100%);margin:auto}
 .hero-copy{background:rgba(4,75,111,.52)}
 @media(max-width:760px){.hero-grid{padding-top:12px}.hero-copy{margin-top:12px}}
+</style><style>
+.hero-copy{min-width:0}.hero-copy h1{font-size:clamp(1.65rem,3.5vw,2.7rem)!important;line-height:1.4!important}.hero-copy h1 span{white-space:nowrap}
+.zukan-menu[hidden]{display:none}.zukan-menu{position:fixed;top:80px;right:16px;z-index:10000;background:#fff;color:#123c50;border:1px solid #a8d8e7;border-radius:16px;padding:12px;box-shadow:0 12px 32px #0a3b5433;max-width:calc(100vw - 32px)}.zukan-menu a{display:block;color:#123c50;padding:12px 16px;font-size:1rem;text-decoration:none}.zukan-menu a:hover,.zukan-menu a:focus-visible{background:#e4f7fc;border-radius:8px}
 </style></head>
 <body>
 <header class="site-header">
@@ -872,7 +875,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 </a>
 <div class="header-actions">
 <button aria-label="ダークモードを切り替える" class="theme-btn" id="themeToggle" type="button">☀️ ダークモード</button>
-<button aria-label="メニュー" class="menu-btn" type="button">≡</button>
+<button aria-label="メニュー" class="menu-btn" id="zukanMenuButton" aria-expanded="false" aria-controls="zukanMenu" type="button">≡</button><nav id="zukanMenu" class="zukan-menu" aria-label="図鑑メニュー" hidden><a href="index.html">ホーム</a><a href="index.html#categories">ツール・教材一覧</a><a href="protective-relay.html">保護継電器</a><a href="why-today.html">今日の「なんで？」</a></nav>
 </div>
 </header>
 <div aria-hidden="true" aria-label="ANOTHER OCEAN 別世界ビジュアル" class="another-ocean" id="anotherOcean" role="dialog">
@@ -938,7 +941,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 </div>
 <div class="hero-copy">
 <span class="world-badge">CHARACTER COLLECTION</span>
-<h1>うきわちゃん<br/>カード図鑑</h1>
+<h1><span>うきわちゃん</span><br/>カード図鑑</h1>
 <p>左右スワイプで裏面。<br/>長押しでANOTHER OCEAN。</p>
 <a class="hero-cta" href="./index.html">← 島のホームへ戻る</a>
 </div>
@@ -997,13 +1000,13 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 </section>
 <!-- ホームは選択に徹し、詳細は必要なときだけ開く -->
 </main>
-<button aria-label="質問を開く" class="chat-bubble" type="button">💬</button>
+<a aria-label="今日のなんで？を読む" title="今日の「なんで？」" class="chat-bubble" href="why-today.html" style="display:grid;place-items:center;text-decoration:none">💬</a>
 <nav aria-label="メインナビゲーション" class="bottom-nav">
 <a href="./index.html"><span><b>🏠</b>ホーム</span></a>
-<a href="./index.html#construction"><span><b>💧</b>基礎</span></a>
-<a href="./index.html#worldMap"><span><b>🗺️</b>マップ</span></a>
+<a href="./index.html#categories"><span><b>💧</b>基礎</span></a>
+<a href="./index.html#categories"><span><b>🗺️</b>マップ</span></a>
 <a class="active" href="./zukan.html"><span><b>🎭</b>図鑑</span></a>
-<a href="./index.html#construction"><span><b>💬</b>用語</span></a>
+<a href="./index.html#categories"><span><b>💬</b>用語</span></a>
 </nav>
 <script>
 (() => {
@@ -1431,5 +1434,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
   },{passive:true});
   update();
 })();
+</script><script>
+(()=>{const b=document.getElementById('zukanMenuButton'),m=document.getElementById('zukanMenu');function close(){m.hidden=true;b.setAttribute('aria-expanded','false');}b.addEventListener('click',()=>{m.hidden=!m.hidden;b.setAttribute('aria-expanded',String(!m.hidden));});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!m.hidden){close();b.focus();}});document.addEventListener('click',e=>{if(!m.contains(e.target)&&!b.contains(e.target))close();});})();
 </script></body>
 </html>

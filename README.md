@@ -15,7 +15,10 @@
 
 ZIPを解凍し、中のファイルをリポジトリ直下へ上書きしてください。
 最低限、`index.html`、`ac-withstand-test-simulator.html`、
-`ovgr-rpr-test-manual-rev10.pdf` を同じ階層へ置きます。
+`ovgr-rpr-learning-guide.pdf` を同じ階層へ置きます。
 
 固有保安術は記憶の補助表現です。実設備の機能、端子、整定、操作方法は、
 設備図面、メーカー取扱説明書、操作票、保安規程、現場責任者の指示を優先してください。
+
+
+2026-09-11 更新：旧Rev.10のPDFと旧完成サイトv3 ZIPは配布案内へ置換。公開教材は ovgr-rpr-learning-guide.pdf を参照してください。旧URL用の案内ファイルも保持してください。

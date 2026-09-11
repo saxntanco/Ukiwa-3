@@ -137,18 +137,18 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
   </nav>
   <div class="hero">
     <h1>🛟 KP-PRRV-CPC 現場アンチョコ</h1>
-    <div class="lead">OVGR（64）＋RPR（67P）｜GCR-mini VS想定｜<b>配線 → 試験条件 → メーカー判定値</b>を最短で確認</div>
+    <div class="lead">OVGR（64）＋RPR（67P）｜GCR-mini VS想定｜<b>配線 → 試験条件 → 教材掲載の範囲</b>を最短で確認</div>
     <div class="quickchips">
       <span class="chip">制御電源：AC/DC110V</span>
       <span class="chip">RPR：1相試験値は取説表</span>
       <span class="chip">OVGR：ZPD一次3810V基準</span>
-      <span class="chip">メーカー性能値を優先表示</span>
+      <span class="chip">原本照合待ちの数値を含む</span>
     </div>
   </div>
 
   <div class="safety">⚠ 教育・確認用。実設備では現場責任者、社内手順、操作票、系統状態、無電圧確認、CTT/VTT状態、誤投入防止、試験後の原状復帰を優先してください。完全型式・実整定値・現物端子を必ず照合。</div>
 
-  <div class="legend">
+  <section class="card" id="source-status"><strong>この教材の数値は原本照合待ちです。</strong><p>現場の判定に使う前に、対象実機の取扱説明書と照合してください。</p><details><summary>根拠資料と確認範囲を開く</summary><h2>根拠資料と確認範囲</h2><p>このページは <b>OMRON KP-PRRV-CPCと専用CT・指定零相電圧検出器の組合せ</b>を対象にした既存教材です。端子名・換算値を他機種へ転用しないでください。</p><p>メーカー公開製品仕様：<a href="https://socialsolution.omron.com/jp/ja/products_service/energy/product/close/kp-prrv.html" target="_blank" rel="noopener">OMRON KP-PRRV 製品ページ</a>。専用CT・定格などの概要を確認できます。</p><p>元の教材が参照する取扱説明書：KP-PRRV-CPC、5671766-2 B（2021-05-28）。<b>今回の修正では、この版の本文・該当ページを一次資料で照合できていません。</b>以下の既存の試験値・許容範囲は保持していますが、実機の取扱説明書で一致を確認するまで、現場の合否基準として使用しないでください。</p><p>試験器：<a href="https://www.musashi-in.co.jp/manual/gcr-minivs_23.pdf" target="_blank" rel="noopener">ムサシインテック GCR-mini VS 取扱説明書 第23版</a>（5209-000ST015、メーカー一覧の掲載年月2026年1月）。元教材の第21版と版が異なるため、旧版の操作へそのまま適用しないでください。確認日：2026-09-11。</p></details></section><div class="legend">
     <div class="control">⬛ 制御電源</div>
     <div class="voltage">🟦 電圧</div>
     <div class="current">⬜ 電流</div>
@@ -182,7 +182,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
       <div>
         <div class="card">
           <h2>⚡ RPR｜逆電力</h2>
-          <div class="example"><b>初期表示：1% / 1.0s</b><br><span class="small">整定変更で、1相試験電流・メーカー判定範囲・±30°電流・120%時間試験電流が連動。</span></div>
+          <div class="example"><b>初期表示：1% / 1.0s</b><br><span class="small">整定変更で、1相試験電流・教材掲載の範囲（原本照合待ち）範囲・±30°電流・120%時間試験電流が連動。</span></div>
 
           <h3>まず配線</h3>
           <div class="conn"><span class="badge control">⬛ 制御</span><div class="val">S1－S2 ｜ <b>AC/DC110V</b></div></div>
@@ -240,7 +240,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
           </div>
           <div class="result">
             <span>取説基準電流</span><strong id="rbase">0.087A</strong>
-            <span id="rerr">メーカー判定：±5%</span><strong id="rrange">0.083～0.091A</strong>
+            <span id="rerr">教材掲載の範囲（原本照合待ち）：±5%</span><strong id="rrange">0.083～0.091A</strong>
           </div>
         </div>
 
@@ -272,7 +272,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             <div class="metric"><small>時限</small><b id="rtset">1.0s</b></div>
           </div>
           <div class="result">
-            <span>メーカー判定</span>
+            <span>教材掲載の範囲（原本照合待ち）</span>
             <strong id="rtrange">0.95～1.05s</strong>
             <span>整定値±5%（最小誤差±50ms）</span>
           </div>
@@ -356,7 +356,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             <div class="metric"><small>TRIP例</small><b>a1-c1-2</b></div>
             <div class="metric"><small>誤差</small><b>±25%</b></div>
           </div>
-          <div class="result"><span>メーカー判定</span><strong id="orange">285.8～476.3V</strong></div>
+          <div class="result"><span>教材掲載の範囲（原本照合待ち）</span><strong id="orange">285.8～476.3V</strong></div>
         </div>
 
         <div class="test">
@@ -367,7 +367,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             <div class="metric"><small>入力倍率</small><b>150%</b></div>
             <div class="metric"><small>時限</small><b id="otset">1.0s</b></div>
           </div>
-          <div class="result"><span>メーカー判定</span><strong id="otrange">0.95～1.05s</strong><span>整定値±5%（最小誤差±50ms）</span></div>
+          <div class="result"><span>教材掲載の範囲（原本照合待ち）</span><strong id="otrange">0.95～1.05s</strong><span>整定値±5%（最小誤差±50ms）</span></div>
         </div>
 
         <div class="info">取説代表値：5%=190.5V、10%=381.0V、15%=571.5V、30%=1143V。時間試験例では5%整定→285.8V（150%）を印加。</div>
@@ -422,7 +422,7 @@ function rr(){
   document.querySelectorAll('#rtable tr').forEach(tr=>tr.classList.toggle('activeRow',parseFloat(tr.dataset.p)===p));
   const ep=p===0.2?10:5;
   rbase.textContent=fmtA(I);
-  rerr.textContent=`メーカー判定：±${ep}%`;
+  rerr.textContent=`教材掲載の範囲（原本照合待ち）：±${ep}%`;
   rrange.textContent=`${(I*(1-ep/100)).toFixed(3)}～${(I*(1+ep/100)).toFixed(3)}A`;
   const p30=I*1.15;
   rphaseBase.textContent=fmtA(I);
