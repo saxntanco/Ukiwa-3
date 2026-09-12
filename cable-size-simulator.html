@@ -4,32 +4,43 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#eef8ff">
-<meta name="description" content="電流・距離・敷設方法から、低圧CVケーブルの太さを比較。許容電流と電圧降下を分けて確認できる、うきわメモの計算補助。">
+<meta name="description" content="単相3線100/200Vの負荷の偏りと中性線にも対応。電流・距離・敷設方法から、低圧CVケーブルの太さを比較。許容電流と電圧降下を分けて確認できる、うきわメモの計算補助。">
 <title>電線の太さ相談｜うきわメモ</title>
 <link rel="icon" href="https://saxntanco.github.io/Ukiwa-3/favicon.svg" type="image/svg+xml">
 <style>
 :root{color-scheme:light;--bg:#eef8ff;--paper:#fff;--ink:#143750;--muted:#526f82;--line:#c6ddec;--blue:#0977be;--navy:#0a3556;--soft:#e6f3fc;--ok:#08765e;--okbg:#e7f7f1;--warn:#9c5100;--warnbg:#fff3df;--bad:#b13744;--badbg:#fff0f1;--shadow:0 12px 32px #0a35560b}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic",Meiryo,system-ui,sans-serif;font-size:16px;line-height:1.65}a{color:var(--blue);text-underline-offset:3px}button,input,select,textarea{font:inherit}button,select{cursor:pointer}button,input,select{min-height:46px}button{touch-action:manipulation}button:disabled{cursor:default;opacity:.5}input,select,textarea{width:100%;border:1px solid #9fbfd2;background:var(--paper);border-radius:10px;padding:10px 12px;color:var(--ink);font-size:16px}input[type=range]{padding:0;accent-color:var(--blue);min-height:28px}input[type=checkbox]{width:20px;min-height:20px;accent-color:var(--blue)}:focus-visible{outline:3px solid #d69417;outline-offset:3px}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h2{font-size:20px;line-height:1.4;margin-bottom:18px}h3{font-size:17px;margin-bottom:10px}.muted,small{color:var(--muted)}small,.small{font-size:13px}.help{font-size:14px;color:var(--muted);margin:6px 0 0}.top{border-bottom:1px solid var(--line);background:#ffffffed}.topin{max-width:1160px;margin:auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;text-decoration:none;color:var(--ink)}.brand span{color:#b64268}.topnav{font-size:14px}.wrap{max-width:1160px;margin:auto;padding:26px 20px 64px}.heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}.eyebrow{font-size:13px;letter-spacing:.06em;color:var(--blue);font-weight:800;margin:0 0 3px}h1{font-size:clamp(25px,4vw,34px);line-height:1.3;margin:0}.heading p:last-child{margin:6px 0 0;font-size:14px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(310px,.88fr) minmax(0,1.12fr);align-items:start;gap:22px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px}.input-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:18px}.input-head h2{margin:0}.textbtn{background:none;border:0;color:var(--blue);font-size:14px;padding:4px}.field{margin-bottom:18px}.field:last-child{margin-bottom:0}.field>label,.field>.label{display:block;font-size:14px;font-weight:800;margin-bottom:6px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}.unitinput{position:relative}.unitinput input{padding-right:48px;font-weight:800;font-variant-numeric:tabular-nums}.unitinput span{position:absolute;right:14px;top:12px;color:var(--muted);font-size:14px;pointer-events:none}.biginput input{font-size:25px;min-height:58px}.biginput span{top:18px}.seg{display:flex;gap:5px;padding:5px;background:var(--soft);border-radius:12px;margin:14px 0 18px}.seg button{flex:1;border:0;background:transparent;color:var(--muted);font-weight:800;font-size:14px;border-radius:8px;padding:7px}.seg button[aria-pressed=true]{background:var(--paper);color:var(--blue);box-shadow:0 2px 7px #163a5320}.range-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.pillset{display:flex;flex-wrap:wrap;gap:7px}.pillset button{font-size:14px;border:1px solid var(--line);border-radius:9px;background:var(--paper);padding:7px 13px;color:var(--ink)}.pillset button[aria-pressed=true]{border-color:var(--blue);background:var(--soft);color:var(--blue);font-weight:800}.subtle{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14px}.subtle p:last-child{margin-bottom:0}details{border-top:1px solid var(--line);padding-top:14px;margin-top:16px}summary{cursor:pointer;font-weight:800;font-size:15px;min-height:44px;padding:6px 0}details[open]>summary{margin-bottom:12px}details .field:last-child{margin-bottom:4px}.assumption{display:flex;gap:10px;align-items:start;font-size:14px}.assumption input{flex:none;margin-top:3px}.action{border:0;border-radius:10px;padding:12px 18px;background:var(--blue);color:#fff;font-weight:800}.full{width:100%;margin-top:16px}.result-column{min-width:0}.result{border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--paper);box-shadow:var(--shadow)}.result-head{padding:21px 24px;background:var(--navy);color:white}.result-head .eyebrow{color:#acd9fb}.result-head h2{color:#fff;font-size:15px;font-weight:500;margin-bottom:3px}.size-number{font-size:54px;font-weight:900;line-height:1.2;letter-spacing:-.03em;font-variant-numeric:tabular-nums}.size-number span{font-size:19px;font-weight:500;letter-spacing:0}.headmeta{font-size:14px;opacity:.88;margin:8px 0 0}.result-body{padding:22px 24px}.badge{display:inline-block;border-radius:6px;font-size:13px;font-weight:800;padding:3px 8px;background:var(--soft);color:var(--blue)}.badge.ok{color:var(--ok);background:var(--okbg)}.badge.warn{color:var(--warn);background:var(--warnbg)}.badge.bad{color:var(--bad);background:var(--badbg)}.check{margin-bottom:22px}.checkline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:5px}.checkline strong{font-size:15px}.metric{font-size:25px;font-weight:850;line-height:1.45;font-variant-numeric:tabular-nums}.metric span{font-size:14px;font-weight:400;color:var(--muted)}.meter{height:8px;border-radius:20px;background:#e5edf2;margin-top:9px;overflow:hidden}.meter i{display:block;height:100%;background:var(--blue);border-radius:20px;max-width:100%}.meter i.warn{background:var(--bad)}.why{font-size:15px;border-left:3px solid var(--blue);padding:1px 0 1px 12px;margin:16px 0}.why p{margin:0}.voltage-track{display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;border-block:1px solid var(--line);padding:13px 0;margin:18px 0}.voltage-track small{display:block;font-size:12px}.voltage-track strong{font-size:19px;white-space:nowrap}.voltage-track .middle{color:var(--blue);font-size:14px;padding-top:5px}.notice{font-size:13px;color:var(--muted);margin:16px 0 0}.errorbox{border:1px solid #e7a9af;border-radius:12px;background:var(--badbg);padding:18px;color:var(--bad)}.errorbox p{margin:0}.compare{margin-top:20px}.compare-header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:13px}.compare-header h2{margin:0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}caption{text-align:left;margin-bottom:10px;font-size:13px;color:var(--muted)}th{text-align:left;color:var(--muted);font-size:13px;font-weight:700}th,td{padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:middle}th:first-child,td:first-child{padding-left:0}td:last-child{padding-right:0}tr.picked{background:#eef8ff}td small{display:block;font-size:12px}td button{background:none;border:1px solid var(--line);border-radius:8px;min-height:38px;padding:4px 9px;color:var(--blue);font-weight:800}.fit{color:var(--ok)}.notfit{color:var(--bad)}.unknown{color:var(--muted)}.tools{display:flex;gap:8px;margin-top:18px}.tools button{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:8px;font-size:14px}.brief{font-size:14px;background:var(--soft);padding:14px;border-radius:10px;white-space:pre-wrap;margin-top:12px}.learning{margin-top:26px}.learning>details:first-child{border-top:0;margin-top:0;padding-top:0}.learning p,.learning li{font-size:15px}.learning ul{padding-left:22px}.formula{font-size:16px;overflow-wrap:anywhere;font-weight:700}.source-list p{font-size:14px}.footer{font-size:12px;text-align:center;color:var(--muted);margin-top:30px}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.invalid{border-color:var(--bad)!important}.sampletag{font-size:12px;color:var(--warn);background:var(--warnbg);border-radius:6px;padding:3px 7px;white-space:nowrap}.minitip{font-size:13px;color:var(--muted);margin:8px 0 0}.only-print{display:none}#copyStatus{min-height:1.6em}.sticky-jump{display:none}
-@media(max-width:820px){.layout{grid-template-columns:1fr}.wrap{max-width:620px;padding:19px 14px 70px}.heading{margin-bottom:16px}.panel{padding:18px}.result-head{padding:18px 20px}.result-body{padding:18px 20px}.heading p:last-child{font-size:13px}.input-head{margin-bottom:15px}.field{margin-bottom:15px}.biginput input{font-size:24px}.sticky-jump{display:flex;position:fixed;bottom:0;left:0;right:0;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:#ffffffed;border-top:1px solid var(--line);z-index:10;gap:12px;justify-content:space-between;align-items:center;font-size:14px}.sticky-jump a{font-weight:800;text-decoration:none;background:var(--blue);color:#fff;padding:9px 15px;border-radius:8px}.sticky-jump strong{font-size:16px}.topin{padding-inline:14px}h2{font-size:18px}.size-number{font-size:47px}th,td{padding:11px 6px}.compare{padding:17px}.compare .badge{font-size:12px;padding:2px 5px}}
+@media(max-width:980px){.layout{grid-template-columns:1fr}.wrap{max-width:620px;padding:19px 14px 70px}.heading{margin-bottom:16px}.panel{padding:18px}.result-head{padding:18px 20px}.result-body{padding:18px 20px}.heading p:last-child{font-size:13px}.input-head{margin-bottom:15px}.field{margin-bottom:15px}.biginput input{font-size:24px}.sticky-jump{display:flex;position:fixed;bottom:0;left:0;right:0;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:#ffffffed;border-top:1px solid var(--line);z-index:10;gap:12px;justify-content:space-between;align-items:center;font-size:14px}.sticky-jump a{font-weight:800;text-decoration:none;background:var(--blue);color:#fff;padding:9px 15px;border-radius:8px}.sticky-jump strong{font-size:16px}.topin{padding-inline:14px}h2{font-size:18px}.size-number{font-size:47px}th,td{padding:11px 6px}.compare{padding:17px}.compare .badge{font-size:12px;padding:2px 5px}}
 @media(max-width:350px){.pair{grid-template-columns:1fr}.topnav{font-size:12px}.table-wrap table{min-width:300px}.tools{flex-direction:column}}
 @media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}.meter i{transition:width .15s}}
 @media print{body{background:#fff;font-size:12px}.top,.heading,.input-panel,.tools,.sticky-jump,.learning,.footer,.compare-header button{display:none!important}.wrap{max-width:none;padding:0}.layout{display:block}.result-head{background:#fff;color:#143750;border-bottom:1px solid #c6ddec}.result-head h2{color:#143750}.result-head .eyebrow{color:#526f82}.result,.panel{box-shadow:none;break-inside:avoid}.only-print{display:block;font-size:13px}.compare{break-inside:auto}.result-body{padding:15px}.size-number{font-size:32px}.check{margin-bottom:12px}details{display:none}.brief{background:#fff}.result-head{padding:15px}table{font-size:12px}th,td{padding:6px}}
+
+.pair:has(> #loadField[hidden]){grid-template-columns:1fr}.load-card{background:#f4f9fd;border:1px solid var(--line);border-radius:12px;padding:13px;margin:12px 0}.load-card .field{margin-bottom:0}.load-card .field[hidden]+*{margin:0}.load-card input,.load-card select{background:#fff}.load-card .field[id$="CustomField"]{margin-top:10px}.wiring-note{margin:5px 0 18px}.wiring-note p{font-size:13px;margin:5px 0 0}.model-note{margin:8px 0 18px}.current-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}.current-box{border:1px solid var(--line);border-radius:10px;padding:10px 7px;text-align:center;min-width:0}.current-box strong{display:block;font-size:20px;font-variant-numeric:tabular-nums}.current-box span{font-size:12px;color:var(--muted)}.current-box.over{border-color:var(--bad);background:var(--badbg)}.voltage-table{font-size:13px}.voltage-table th,.voltage-table td{padding:10px 5px}.voltage-table th:first-child,.voltage-table td:first-child{white-space:nowrap}.size-number.word{font-size:34px;letter-spacing:0;line-height:1.5}.headmeta{overflow-wrap:anywhere}#singleResults{margin:22px 0}#singleSettings label{font-size:13px}#results{scroll-margin-top:12px}.range-text{font-size:13px;color:var(--muted)}.bad-text{color:var(--bad)}
+@media(max-width:420px){.load-card .pair{grid-template-columns:1fr;gap:10px}.current-box strong{font-size:18px}.voltage-table{font-size:12px}.result-body{padding:18px 15px}.topnav{font-size:12px}}
+@media print{.current-grid,.voltage-table{break-inside:avoid}.size-number.word{font-size:26px}#singleResults{margin:12px 0}.result{break-inside:auto}}
 </style>
 </head>
 <body>
 <header class="top"><div class="topin"><a class="brand" href="https://saxntanco.github.io/Ukiwa-3/">🛟 うきわ<span>メモ</span></a><a class="topnav" href="#learning">計算の根拠を見る</a></div></header>
 <main class="wrap">
-<div class="heading"><div><p class="eyebrow">低圧 CV・CVD・CVT</p><h1>電線の太さ相談</h1><p>電流と距離から、太さの候補を比べる。</p></div></div>
+<div class="heading"><div><p class="eyebrow">低圧 CV・CVD・CVT</p><h1>電線の太さ相談</h1><p>単相3線・単相2線・三相3線。電流と距離から太さを比べる。</p></div></div>
 <noscript><p class="errorbox">計算にはJavaScriptを有効にしてください。</p></noscript>
 <div class="layout">
 <form class="panel input-panel" id="form" novalidate>
 <div class="input-head"><h2>どんな回路？</h2><button class="textbtn" type="button" id="reset">入力例に戻す</button></div>
-<p class="help" style="margin-bottom:14px"><span class="sampletag" id="sampleTag">初期値は入力例</span> 単相3線の幹線・VVFは対象外です。</p>
-<div class="pair"><div class="field"><label for="supply">電源</label><select id="supply"><option value="three200">三相3線 200V</option><option value="three400">三相3線 400V</option><option value="single100">単相2線 100V</option><option value="single200">単相2線 200V</option></select></div><div class="field"><label for="cable">ケーブル</label><select id="cable"><option value="CVT">CVT（単心3個より）</option><option value="CV">CV（3心）</option></select></div></div>
-<div class="field"><label for="loadMode">分かっている数字は？</label><select id="loadMode"><option value="A">電流［A］</option><option value="kW">消費電力・入力電力［kW］</option><option value="kVA">皮相電力・容量［kVA］</option><option value="motor">モーターの出力［kW］</option></select></div>
-<div class="pair"><div class="field"><label for="load" id="loadLabel">流れる電流</label><div class="unitinput biginput"><input id="load" type="number" inputmode="decimal" min="0.01" max="10000" step="any" value="50"><span id="loadUnit">A</span></div></div><div class="field"><label for="length">片道の距離</label><div class="unitinput biginput"><input id="length" type="number" inputmode="decimal" min="0.1" max="10000" step="any" value="80"><span>m</span></div></div></div>
-<div class="field"><label class="sr" for="lengthRange">距離をスライダーで調整</label><input id="lengthRange" type="range" min="1" max="200" step="1" value="80"><div class="range-labels"><span>1m</span><span id="rangeMax">200m</span></div><p class="help">盤から機械までの距離。往復分を入れないでください。</p></div>
-<div class="pair"><div class="field"><label for="pf">負荷の力率</label><select id="pf"><option value="unknown">不明（大きめに試算）</option><option value="1">100%（1.00）</option><option value="0.95">95%（0.95）</option><option value="0.9">90%（0.90）</option><option value="0.85">85%（0.85）</option><option value="0.8">80%（0.80）</option><option value="0.7">70%（0.70）</option><option value="custom">数値を入力</option></select></div><div class="field" id="customPfField" hidden><label for="customPf">力率［%・遅れ］</label><input id="customPf" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="例：82"></div><div class="field" id="efficiencyField" hidden><label for="efficiency">モーター効率［%］</label><input id="efficiency" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="銘板・仕様書で確認"></div></div>
+<p class="help" style="margin-bottom:14px"><span class="sampletag" id="sampleTag">初期値は入力例</span> 入力例を実際の条件に置き換えてください。</p>
+<div class="pair"><div class="field"><label for="supply">電源</label><select id="supply"><option value="single3">単相3線 100/200V</option><option value="three200">三相3線 200V</option><option value="three400">三相3線 400V</option><option value="single100">単相2線 100V</option><option value="single200">単相2線 200V</option></select></div><div class="field"><label for="cable">ケーブル</label><select id="cable"><option value="CVT">CVT（単心3個より）</option><option value="CV">CV（3心）</option></select></div></div>
+
+<div id="singleSettings" hidden>
+<div class="subtle wiring-note"><strong>単3は L1・N・L2 の3本</strong><p>L1–NとL2–Nが100V、L1–L2が200V。Nは中性線です。三相のR・S・Tとは区別します。</p></div>
+<div class="field"><label for="singleInput">単3の負荷をどう入力する？</label><select id="singleInput"><option value="lines">左右の線電流を入力（A）</option><option value="loads">100V・200Vの負荷を積み上げる</option><option value="balanced">左右が平衡と確認できている</option></select><p class="help" id="singleHelp"></p></div>
+<div id="lineInputs"><div class="load-card"><div class="pair"><div class="field"><label for="line1">L1の線電流（合計）</label><div class="unitinput"><input id="line1" type="number" inputmode="decimal" min="0" max="10000" step="any" value="50"><span class="">A</span></div></div><div class="field"><label for="line1Pf">この負荷の遅れ力率</label><select id="line1Pf"><option value="unknown">不明（範囲で計算）</option><option value="1">100%（1.00）</option><option value="0.95">95%</option><option value="0.9">90%</option><option value="0.8">80%</option><option value="custom">数値を入力</option></select></div></div><div class="field" id="line1CustomField" hidden><label for="line1CustomPf">遅れ力率［%］</label><input id="line1CustomPf" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="例：85"></div></div><div class="load-card"><div class="pair"><div class="field"><label for="line2">L2の線電流（合計）</label><div class="unitinput"><input id="line2" type="number" inputmode="decimal" min="0" max="10000" step="any" value="30"><span class="">A</span></div></div><div class="field"><label for="line2Pf">この負荷の遅れ力率</label><select id="line2Pf"><option value="unknown">不明（範囲で計算）</option><option value="1">100%（1.00）</option><option value="0.95">95%</option><option value="0.9">90%</option><option value="0.8">80%</option><option value="custom">数値を入力</option></select></div></div><div class="field" id="line2CustomField" hidden><label for="line2CustomPf">遅れ力率［%］</label><input id="line2CustomPf" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="例：85"></div></div></div>
+<p class="help model-note">正弦波・遅れ負荷の近似です。L1・L2・Nは同じ太さ・長さを前提にします。</p>
+</div>
+<div class="field" id="loadModeField"><label for="loadMode">分かっている数字は？</label><select id="loadMode"><option value="A">電流［A］</option><option value="kW">消費電力・入力電力［kW］</option><option value="kVA">皮相電力・容量［kVA］</option><option value="motor">モーターの出力［kW］</option></select></div>
+<div id="branchInputs" hidden><div class="load-card"><div class="pair"><div class="field"><label for="branch1">L1–Nの100V負荷</label><div class="unitinput"><input id="branch1" type="number" inputmode="decimal" min="0" max="10000" step="any" value="30"><span class="branch-unit">A</span></div></div><div class="field"><label for="branch1Pf">この負荷の遅れ力率</label><select id="branch1Pf"><option value="unknown">不明（範囲で計算）</option><option value="1">100%（1.00）</option><option value="0.95">95%</option><option value="0.9">90%</option><option value="0.8">80%</option><option value="custom">数値を入力</option></select></div></div><div class="field" id="branch1CustomField" hidden><label for="branch1CustomPf">遅れ力率［%］</label><input id="branch1CustomPf" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="例：85"></div></div><div class="load-card"><div class="pair"><div class="field"><label for="branch2">L2–Nの100V負荷</label><div class="unitinput"><input id="branch2" type="number" inputmode="decimal" min="0" max="10000" step="any" value="10"><span class="branch-unit">A</span></div></div><div class="field"><label for="branch2Pf">この負荷の遅れ力率</label><select id="branch2Pf"><option value="unknown">不明（範囲で計算）</option><option value="1">100%（1.00）</option><option value="0.95">95%</option><option value="0.9">90%</option><option value="0.8">80%</option><option value="custom">数値を入力</option></select></div></div><div class="field" id="branch2CustomField" hidden><label for="branch2CustomPf">遅れ力率［%］</label><input id="branch2CustomPf" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="例：85"></div></div><div class="load-card"><div class="pair"><div class="field"><label for="branch200">L1–L2の200V負荷</label><div class="unitinput"><input id="branch200" type="number" inputmode="decimal" min="0" max="10000" step="any" value="20"><span class="branch-unit">A</span></div></div><div class="field"><label for="branch200Pf">この負荷の遅れ力率</label><select id="branch200Pf"><option value="unknown">不明（範囲で計算）</option><option value="1">100%（1.00）</option><option value="0.95">95%</option><option value="0.9">90%</option><option value="0.8">80%</option><option value="custom">数値を入力</option></select></div></div><div class="field" id="branch200CustomField" hidden><label for="branch200CustomPf">遅れ力率［%］</label><input id="branch200CustomPf" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="例：85"></div></div></div><div class="pair"><div class="field" id="loadField"><label for="load" id="loadLabel">流れる電流</label><div class="unitinput biginput"><input id="load" type="number" inputmode="decimal" min="0.01" max="10000" step="any" value="50"><span id="loadUnit">A</span></div></div><div class="field"><label for="length">片道の距離</label><div class="unitinput biginput"><input id="length" type="number" inputmode="decimal" min="0.1" max="10000" step="any" value="80"><span>m</span></div></div></div>
+<div class="field"><label class="sr" for="lengthRange">距離をスライダーで調整</label><input id="lengthRange" type="range" min="1" max="200" step="1" value="80"><div class="range-labels"><span>1m</span><span id="rangeMax">200m</span></div><p class="help">送り側の盤から負荷側の盤・機器まで。往復分を入れないでください。</p></div>
+<div class="pair" id="commonPfFields"><div class="field"><label for="pf">負荷の力率</label><select id="pf"><option value="unknown">不明（大きめに試算）</option><option value="1">100%（1.00）</option><option value="0.95">95%（0.95）</option><option value="0.9">90%（0.90）</option><option value="0.85">85%（0.85）</option><option value="0.8">80%（0.80）</option><option value="0.7">70%（0.70）</option><option value="custom">数値を入力</option></select></div><div class="field" id="customPfField" hidden><label for="customPf">力率［%・遅れ］</label><input id="customPf" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="例：82"></div><div class="field" id="efficiencyField" hidden><label for="efficiency">モーター効率［%］</label><input id="efficiency" type="number" inputmode="decimal" min="1" max="100" step="any" placeholder="銘板・仕様書で確認"></div></div>
 <p class="help" id="loadHelp">銘板電流、または今回検討する負荷電流を入力します。</p>
 <p class="subtle" id="derivedCurrent" hidden></p>
 <div class="field" style="margin-top:18px"><label for="installation">どこに敷設する？</label><select id="installation"><option value="pipe">電線管内・1回路だけ（気中）</option><option value="air">ラック等の気中・単独1回路</option><option value="other">束ねる・複数回路・地中・その他</option><option value="unknown">まだ分からない</option></select><p class="help" id="installHelp">管内1条のメーカー表で比較。適用する管サイズは結果の根拠欄で確認できます。</p></div>
@@ -37,8 +48,8 @@
 <div class="field" id="existingField" hidden><label for="existing">確認したいサイズ</label><select id="existing"></select></div>
 <details id="conditions"><summary>比較条件を調整 <span class="muted small" id="conditionSummary">50Hz・周囲40℃・電圧降下3%</span></summary>
 <div class="pair"><div class="field"><label for="frequency">周波数</label><select id="frequency"><option value="50">50Hz（東日本）</option><option value="60">60Hz（西日本）</option></select></div><div class="field"><label for="ambient">周囲温度</label><select id="ambient"><option value="20">20℃</option><option value="25">25℃</option><option value="30">30℃</option><option value="35">35℃</option><option value="40" selected>40℃</option><option value="45">45℃</option><option value="50">50℃</option></select></div></div>
-<div class="field"><label for="limit">この区間の電圧降下目標［%］</label><input id="limit" type="number" inputmode="decimal" min="0.1" max="10" step="any" value="3"><div class="pillset" style="margin-top:8px" aria-label="電圧降下の比較目標"><button type="button" data-limit="2" aria-pressed="false">2%</button><button type="button" data-limit="3" aria-pressed="true">3%</button><button type="button" data-limit="5" aria-pressed="false">5%</button></div><p class="help">初期値3%は比較用の仮設定です。一律の許容基準ではありません。設計条件と、上流からの電圧降下の配分に合わせて変更してください。</p></div>
-<div class="field"><label for="voltage">計算に使う送り側電圧［V］</label><input id="voltage" type="number" inputmode="decimal" min="50" max="600" step="any" value="200"><p class="help">電源の選択時に100・200・400Vを設定します。必要なら実際の電圧に変更できます。</p></div>
+<div class="field"><label for="limit">この区間の電圧変化の目標［%］</label><input id="limit" type="number" inputmode="decimal" min="0.1" max="10" step="any" value="3"><div class="pillset" style="margin-top:8px" aria-label="電圧降下の比較目標"><button type="button" data-limit="2" aria-pressed="false">2%</button><button type="button" data-limit="3" aria-pressed="true">3%</button><button type="button" data-limit="5" aria-pressed="false">5%</button></div><p class="help">初期値3%は比較用の仮設定です。一律の許容基準ではありません。設計条件と、上流からの電圧降下の配分に合わせて変更してください。</p></div>
+<div class="field"><label for="voltage">送り側の線間電圧［V］</label><input id="voltage" type="number" inputmode="decimal" min="50" max="600" step="any" value="200"><p class="help"><span id="voltageHelp">必要なら実際の電圧に変更できます。</span></p></div>
 </details>
 <button class="action full" type="submit">比較結果を見る ↓</button>
 <p class="minitip">入力すると自動再計算。通常運転時の電流を比較します。始動時・短絡時・保護協調は別途確認が必要です。</p>
@@ -49,38 +60,49 @@
 <div class="result-head"><p class="eyebrow" id="resultType">入力例での比較</p><h2 id="resultTitle">入力すると結果が表示されます</h2><div class="size-number" id="resultSize">—</div><p class="headmeta" id="resultMeta"></p></div>
 <div class="result-body"><p class="only-print">うきわメモ｜電線の太さ相談</p><div class="only-print" id="printSummary" style="white-space:pre-wrap;overflow-wrap:anywhere"></div>
 <div class="check"><div class="checkline"><strong>① 電流は範囲内？</strong><span class="badge" id="ampBadge">—</span></div><div class="metric" id="ampMetric">—</div><div class="meter" aria-hidden="true"><i id="ampBar"></i></div><p class="help" id="ampHelp"></p></div>
-<div class="check"><div class="checkline"><strong>② 電圧降下は目標内？</strong><span class="badge" id="dropBadge">—</span></div><div class="metric" id="dropMetric">—</div><div class="meter" aria-hidden="true"><i id="dropBar"></i></div><p class="help" id="dropHelp"></p></div>
-<div class="why"><p id="reason"></p></div>
-<div class="voltage-track"><div><small>送り側</small><strong id="sourceV">—</strong></div><div class="middle"><span id="distanceDisplay">—</span><br><span aria-hidden="true">→</span></div><div><small>末端の概算</small><strong id="endV">—</strong></div></div>
+<div class="check"><div class="checkline"><strong>② 電圧の変化は目標内？</strong><span class="badge" id="dropBadge">—</span></div><div class="metric" id="dropMetric">—</div><div class="meter" aria-hidden="true"><i id="dropBar"></i></div><p class="help" id="dropHelp"></p></div>
+<div class="why"><p id="reason"></p></div><section id="singleResults" hidden><h3>3本それぞれを確認</h3><div class="current-grid" id="wireCurrents"></div><div class="table-wrap"><table class="voltage-table"><caption id="voltageCaption"></caption><thead><tr><th>区間</th><th>末端電圧の概算</th><th>送り側からの変化</th></tr></thead><tbody id="voltageRows"></tbody></table></div><p class="help" id="balanceNote"></p></section>
+<div class="voltage-track" id="voltageTrack"><div><small>送り側</small><strong id="sourceV">—</strong></div><div class="middle"><span id="distanceDisplay">—</span><br><span aria-hidden="true">→</span></div><div><small>末端の概算</small><strong id="endV">—</strong></div></div>
 <p class="help" id="lengthAdvice"></p>
 <p class="notice" id="approxNotice"></p>
 <p class="notice">この候補は許容電流と電圧降下だけの比較です。ブレーカの保護特性、始動電流、短絡耐量、端子・施工条件を含む最終選定は、実設備の図面・メーカー仕様・社内基準で確認してください。</p>
 <details><summary>この結果の計算と採用データ</summary><div id="calculation"></div></details>
 <div class="tools"><button type="button" id="copy">条件・結果をコピー</button><button type="button" id="print">印刷 / PDF</button></div><p class="help" id="copyStatus" role="status"></p><textarea id="copyFallback" aria-label="コピー用の計算結果" rows="9" hidden readonly></textarea>
 </div></article>
-<section class="panel compare" id="comparison"><div class="compare-header"><h2>前後の太さと比べる</h2><button class="textbtn" type="button" id="showAll" aria-expanded="false">全サイズ</button></div><div class="table-wrap"><table><caption id="tableCaption">数値を入力して比較します。</caption><thead><tr><th scope="col">サイズ</th><th scope="col">許容電流</th><th scope="col">電圧降下</th><th scope="col">比較</th></tr></thead><tbody id="rows"></tbody></table></div><p class="help" id="tableHelp">サイズを押すと、その太さを詳しく確認できます。</p></section>
+<section class="panel compare" id="comparison"><div class="compare-header"><h2>前後の太さと比べる</h2><button class="textbtn" type="button" id="showAll" aria-expanded="false">全サイズ</button></div><div class="table-wrap"><table><caption id="tableCaption">数値を入力して比較します。</caption><thead><tr><th scope="col">サイズ</th><th scope="col">許容電流</th><th scope="col">電圧変化</th><th scope="col">比較</th></tr></thead><tbody id="rows"></tbody></table></div><p class="help" id="tableHelp">サイズを押すと、その太さを詳しく確認できます。</p></section>
 <p class="sr" id="liveStatus" role="status" aria-live="polite"></p>
 </div>
 </div>
 <section class="panel learning" id="learning">
+<details><summary>単相3線の負荷の偏りは、どう計算する？</summary>
+<p>単相3線では100V側2区間と200V側1区間を別々に確認します。100V側は送り側線間電圧の半分を基準にし、電圧上昇も含む変化の絶対値を目標と比較します。200V負荷は両外線を流れ、中性線では相殺されます。</p>
+<p>「左右の線電流」は200V負荷を含んだ各線の合計です。同時点のL1・L2電流と各側の合成力率を入力します。「負荷を積み上げる」では100V負荷を左右に分け、200V負荷を別に入力します。200V分を100V側にも加えると二重計上になります。</p>
+<p>中性線電流は左右電流のベクトル差です。力率が同じ場合に限り大きさの差になります。左右の電流が同じでも、力率が違えばNに電流が流れます。「平衡」は電流と力率の両方が左右で同じと確認できる場合に使います。</p>
+<p class="formula">L1側の降下 ≈ ℓ × Re[Z(2A − B ＋ C)]<br>L2側の降下 ≈ ℓ × Re[Z(2B − A ＋ C)]<br>200V側の降下 ≈ ℓ × Re[Z(A ＋ B ＋ 2C)]</p>
+<p>A・Bは各100V側、Cは200V負荷の複素電流。各負荷の電圧を基準にI(cosφ − j sinφ)で表します。Z＝R＋jX、ℓは片道km。左右線電流を直接入力する場合はA・Bを各線の合計、C＝0とします。中性点の電圧移動をキルヒホッフの法則で加え、電圧方向の成分を取り出した近似です。負の降下は電圧上昇として表示します。</p>
+<p>力率不明の負荷は0〜90°の遅れ角の範囲で評価します。R cosφ＋X sinφの範囲はmin(R,X)〜√(R²＋X²)。各負荷の範囲を式の係数に従って合成します。N電流も角度差の最大値から上限を求めます。表示する上限は同時に起こるとは限りません。平衡モードのみ左右の電流と力率を同一と仮定します。</p>
+<p>全負荷を区間の末端にまとめ、3導体の長さ・太さ・インピーダンスを同じとした通常運転時の近似です。送り側は対中性線電圧が等しい健全な電源を前提とします。中性線の細線化・断線、進み力率、波形ひずみ・高調波、途中分岐、三相不平衡、逆潮流は対象外です。真の実効値電流だけでは高調波によるN電流を推定できません。</p>
+<p>許容電流はSFCCの3心／単心3個よりの表をL1・L2・Nそれぞれに適用し、最大電流で比較します。平衡時の中性線無電流を理由とした許容電流の増量はしていません。</p>
+</details>
+
 <details><summary>なぜ「電流」と「電圧降下」の両方を見るの？</summary><p><strong>許容電流は、ケーブルの温度が上がりすぎないための条件。</strong>電圧降下は、負荷まで届く電圧が下がりすぎないための条件です。電流が許容範囲でも、距離が長ければ太いケーブルが候補になります。</p><p>許容電流は心数・周囲温度・敷設方法で変わります。単独のラックと電線管内で同じ表を使いません。複数回路をまとめる条件や地中布設は、この版では許容電流を未判定にします。</p><p>「sq」は断面積mm²の現場での呼び方です。38sqは直径38mmではありません。</p></details>
-<details><summary>公式を忘れても、ここから復元</summary><p class="formula">ΔV ≈ K × I × ℓ × (R cosφ ＋ X sinφ)</p><p>日本語では「電線による電圧降下は、電流・片道の長さ・負荷の力率を考慮した抵抗分に比例する」。単相2線は往復2本分なのでK＝2。平衡三相3線の線間電圧では、相の関係からK＝√3です。</p><div class="table-wrap"><table><thead><tr><th>記号</th><th>意味と単位</th></tr></thead><tbody><tr><td>ΔV</td><td>電圧降下 Voltage drop［V］。Δは差、VはVoltage。</td></tr><tr><td>I</td><td>線電流 Current［A］。Iは電流の慣用記号。</td></tr><tr><td>ℓ</td><td>片道の長さ Length［km］。入力したmを1000で割る。</td></tr><tr><td>R / X</td><td>交流導体抵抗 Resistance / リアクタンス Reactance［Ω/km］。Xは慣用記号。</td></tr><tr><td>cosφ / sinφ</td><td>φは電圧と電流の位相差。cosφが力率［無次元］。遅れ負荷でsinφ＝√(1−cos²φ)。</td></tr><tr><td>K</td><td>配電方式の係数［無次元］。単相2線2、三相3線√3。</td></tr></tbody></table></div><p>親公式は抵抗の電圧降下 V＝IR。交流ではリアクタンスと位相の影響を加えます。単位は A × km × Ω/km＝AΩ＝V。単位だけでは2や√3は決まらず、回路方式も必要です。</p><p>同じ条件なら、電流2倍で電圧降下2倍、距離2倍で電圧降下2倍。太くするとRが小さくなり、電圧降下が減ります。Xは単純に断面積へ反比例するとは限りません。</p><p class="formula">力率不明時：ΔVの比較用上限 ≈ K × I × ℓ × √(R²＋X²)</p><p>SFCCの力率不明時の式です。これはR cosφ＋X sinφの最大値を使った試算で、力率を推定する式ではありません。末端電圧も同じ近似の参考値です。</p><p class="formula">許容電流 Iz ＝ 表の許容電流 × 周囲温度の補正係数</p><p>Izは許容電流 Current-carrying capacity［A］。添字zはケーブルの許容電流を区別する慣用の添字です。導体温度90℃の表を使用し、周囲温度に応じてメーカー掲載の補正係数を掛けます。実際の導体温度を推定する機能はありません。</p><p>これだけ覚える：<strong>電流は熱、距離は電圧降下。長さは片道。条件をそろえて両方を比較。</strong></p></details>
+<details><summary>公式を忘れても、ここから復元</summary><p class="formula">ΔV ≈ K × I × ℓ × (R cosφ ＋ X sinφ)</p><p>日本語では「電線による電圧降下は、電流・片道の長さ・負荷の力率を考慮した抵抗分に比例する」。単相2線は往復2本分なのでK＝2。平衡三相3線の線間電圧では、相の関係からK＝√3です。</p><div class="table-wrap"><table><thead><tr><th>記号</th><th>意味と単位</th></tr></thead><tbody><tr><td>ΔV</td><td>電圧降下 Voltage drop［V］。Δは差、VはVoltage。</td></tr><tr><td>I</td><td>線電流 Current［A］。Iは電流の慣用記号。</td></tr><tr><td>ℓ</td><td>片道の長さ Length［km］。入力したmを1000で割る。</td></tr><tr><td>R / X</td><td>交流導体抵抗 Resistance / リアクタンス Reactance［Ω/km］。Xは慣用記号。</td></tr><tr><td>cosφ / sinφ</td><td>φは電圧と電流の位相差。cosφが力率［無次元］。遅れ負荷でsinφ＝√(1−cos²φ)。</td></tr><tr><td>K</td><td>配電方式の係数［無次元］。単相2線2、三相3線√3。平衡単相3線の対中性線電圧は1。</td></tr></tbody></table></div><p>親公式は抵抗の電圧降下 V＝IR。交流ではリアクタンスと位相の影響を加えます。単位は A × km × Ω/km＝AΩ＝V。単位だけでは2や√3は決まらず、回路方式も必要です。</p><p>同じ条件なら、電流2倍で電圧降下2倍、距離2倍で電圧降下2倍。太くするとRが小さくなり、電圧降下が減ります。Xは単純に断面積へ反比例するとは限りません。</p><p class="formula">力率不明時：ΔVの比較用上限 ≈ K × I × ℓ × √(R²＋X²)</p><p>SFCCの力率不明時の式です。これはR cosφ＋X sinφの最大値を使った試算で、力率を推定する式ではありません。末端電圧も同じ近似の参考値です。</p><p class="formula">許容電流 Iz ＝ 表の許容電流 × 周囲温度の補正係数</p><p>Izは許容電流 Current-carrying capacity［A］。添字zはケーブルの許容電流を区別する慣用の添字です。導体温度90℃の表を使用し、周囲温度に応じてメーカー掲載の補正係数を掛けます。実際の導体温度を推定する機能はありません。</p><p>これだけ覚える：<strong>電流は熱、距離は電圧降下。長さは片道。条件をそろえて両方を比較。</strong></p></details>
 <details><summary>kW・kVA・モーター出力の違い</summary><p>銘板電流が分かるなら、その電流を入力するのが簡単です。kWしか分からないときは、そのkWが電気入力か機械出力かを先に確認します。</p><p>単相：I＝P/(V cosφ)、三相平衡：I＝P/(√3 V cosφ)。Pは有効な入力電力 Power［W］。kWは1000倍してWにします。VAで表す皮相電力S（Apparent power・慣用記号）なら、単相I＝S/V、三相I＝S/(√3V)で、さらに力率を割りません。</p><p>モーターの機械出力Poutからは、入力電力Pin＝Pout/η。添字outはoutput（出力）、inはinput（入力）を区別します。ηは効率 Efficiency［無次元］。電流式のPにはPinを使います。力率と効率は別の量です。</p><p>単位はW÷(V×無次元)＝A。モーター出力が同じでも、効率や力率が低いほど必要電流が増えます。始動電流、インバータの高調波、三相不平衡はこの計算に含みません。</p></details>
 <details class="source-list"><summary>出典・対象範囲・確認日</summary>
 <p><strong>許容電流・温度補正：</strong>SFCC「産業用電線・ケーブル」CAT.NO.40-14-03、24.09表記（2024年9月）、36ページ。600V CV・CVD・CVT、気中単独1条／気中・暗渠における電線管内1条、基準周囲40℃・絶縁体許容温度90℃。管路埋設とは別です。<a href="https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=36" target="_blank" rel="noopener">メーカー資料を開く</a></p>
 <p><strong>交流抵抗・リアクタンス：</strong>岩崎電気「照明関連設備の設計資料／配線設計／ケーブルのインピーダンス」表1.7〜1.10、2020年11月19日入稿。導体温度90℃、50Hz・60Hzの各掲載値を使用。CV2・3心は2〜325sq、CVD・CVTは14〜325sqを登録。8sqのCVD・CVTはこの表にR・Xがないため、電圧降下と総合候補を未判定にします。<a href="https://www.iwasaki.co.jp/lighting/support/tech-data/document/wiring/09.html" target="_blank" rel="noopener">掲載表を開く</a></p>
-<p><strong>電圧降下の式：</strong>SFCC同資料45ページ。力率既知の近似式と不明時の式を使い分けます。周囲温度で補正するのは許容電流であり、Rは導体温度90℃の掲載値のままです。<a href="https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=45" target="_blank" rel="noopener">式と条件を開く</a></p>
-<p><strong>対応：</strong>銅導体600V CV（単相2線は2心／平衡三相3線は3心）、CVD（単相2線）、CVT（平衡三相3線）。1回路の通常運転時。50・60Hz、周囲20〜50℃の掲載温度。<strong>対象外：</strong>単相3線幹線・不平衡、VVF・IV・アルミ、高圧、並列ケーブル、始動時や短絡時、上流系統を含む電圧変動。複数条・束ね・地中・敷設不明は許容電流未判定。</p>
-<p>メーカー資料を使った検討補助であり、メーカーや関東電気保安協会の公式・承認済みツールではありません。製品仕様・資料の版・施工条件が現物と合うか確認してください。計算入力をサーバーへ送信・保存しません。確認日：2026年9月11日。</p>
+<p><strong>電圧降下の式：</strong>SFCC同資料45ページ。力率既知の近似式と不明時の式を使い分けます。単相3線の不平衡は、上記の回路モデルから導出した式で拡張しており、メーカーの不平衡計算機能そのものではありません。周囲温度で補正するのは許容電流であり、Rは導体温度90℃の掲載値のままです。<a href="https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=45" target="_blank" rel="noopener">式と条件を開く</a></p>
+<p><strong>対応：</strong>銅導体600V CV（単相2線は2心／単相3線・平衡三相3線は3心）、CVD（単相2線）、CVT（単相3線・平衡三相3線）。1回路の通常運転時。50・60Hz、周囲20〜50℃の掲載温度。<strong>対象外：</strong>三相不平衡・高調波・進み力率・中性線の細線化／断線、VVF・IV・アルミ、高圧、並列ケーブル、始動時や短絡時、上流系統を含む電圧変動。複数条・束ね・地中・敷設不明は許容電流未判定。</p>
+<p>メーカー資料を使った検討補助であり、メーカーや関東電気保安協会の公式・承認済みツールではありません。製品仕様・資料の版・施工条件が現物と合うか確認してください。計算入力をサーバーへ送信・保存しません。確認日：2026年9月12日。</p>
 </details>
 </section>
-<footer class="footer">うきわメモ｜電線の太さ相談 v1.0.0 · 2026.09.11</footer>
+<footer class="footer">うきわメモ｜電線の太さ相談 v1.1.0 · 2026.09.12</footer>
 </main>
 <nav class="sticky-jump" aria-label="比較結果への移動"><span id="mobileSummary">入力例を計算中</span><a href="#results">結果を見る ↓</a></nav>
 <script id="cable-engine">
 'use strict';
 const CableCalc = (() => {
-  // 許容電流: SFCC CAT.NO.40-14-03 p.36 / R・X: 岩崎電気 表1.7–1.10
+  // Catalog values are not interpolated. See the source/assumption panel.
   const sizes=[2,3.5,5.5,8,14,22,38,60,100,150,200,250,325];
   const amps={
     CV2:{air:[28,39,52,65,91,120,170,225,310,400,485,560,660],pipe:[23,31,41,51,70,93,135,175,245,320,390,455,540],pipeMm:[25,25,25,31,31,39,51,63,75,82,82,92,104]},
@@ -91,45 +113,127 @@ const CableCalc = (() => {
   const cv={50:{r:[12,6.76,4.34,3.01,1.71,1.08,.626,.397,.239,.160,.121,.0985,.0770],x:[.0992,.0914,.0914,.0870,.0828,.0820,.0771,.0768,.0773,.0744,.0755,.0739,.0723]},60:{r:[12,6.76,4.34,3.01,1.71,1.08,.627,.397,.240,.160,.122,.0995,.0783],x:[.119,.110,.110,.104,.0994,.0984,.0925,.0922,.0928,.0893,.0906,.0888,.0867]}};
   const twisted={50:{r:[null,null,null,null,1.71,1.08,.626,.397,.239,.159,.121,.0981,.0764],x:[null,null,null,null,.107,.103,.0955,.0913,.0881,.0846,.0859,.0836,.0816]},60:{r:[null,null,null,null,1.71,1.08,.626,.397,.240,.160,.121,.0989,.0775],x:[null,null,null,null,.128,.123,.115,.110,.106,.102,.103,.100,.0980]}};
   const temps={20:1.18,25:1.14,30:1.10,35:1.05,40:1,45:.95,50:.89};
-  const supplies={three200:{phase:3,v:200},three400:{phase:3,v:400},single100:{phase:1,v:100},single200:{phase:1,v:200}};
+
+  const supplies = {
+    single3:{phase:1,wires:3,v:200,name:'単相3線 100/200V'},
+    three200:{phase:3,wires:3,v:200,name:'三相3線 200V'},
+    three400:{phase:3,wires:3,v:400,name:'三相3線 400V'},
+    single100:{phase:1,wires:2,v:100,name:'単相2線 100V'},
+    single200:{phase:1,wires:2,v:200,name:'単相2線 200V'}
+  };
   const labels={CV2:'600V CV 2心',CV3:'600V CV 3心',CVD:'600V CVD',CVT:'600V CVT'};
   const within=(a,b)=>a<=b+1e-9*Math.max(1,Math.abs(b));
+  function fail(message,field){throw Object.assign(new Error(message),{field});}
   function num(value,min,max,label,id){
-    if(value===null||value===undefined||String(value).trim()==='')throw Object.assign(new Error(label+'を入力してください。'),{field:id});
+    if(value===null||value===undefined||String(value).trim()==='')fail(label+'を入力してください。',id);
     const n=Number(value);
-    if(!Number.isFinite(n)||n<min||n>max)throw Object.assign(new Error(label+'は'+min+'〜'+max+'で入力してください。'),{field:id});
+    if(!Number.isFinite(n)||n<min||n>max)fail(label+'は'+min+'〜'+max+'で入力してください。',id);
     return n;
   }
+  function factor(o,id,custom){
+    if(o[id]==='unknown')return null;
+    return o[id]==='custom'?num(o[custom],1,100,'遅れ力率［%］',custom)/100:num(o[id],.01,1,'遅れ力率',id);
+  }
+  function ampsFrom(value,unit,v,pf,eta,id){
+    if(value===0)return 0;
+    if((unit==='kW'||unit==='motor')&&pf===null)fail('kWから電流を求めるには力率が必要です。電流が分かる場合はA入力を選べます。',id);
+    return unit==='A'?value:unit==='kVA'?value*1000/v:value*1000/(v*pf*eta);
+  }
+  const angleRange=g=>g.pf===null?[0,Math.PI/2]:[Math.acos(g.pf),Math.acos(g.pf)];
+  // Exact upper bound of |a +/- b| for independent lagging phase-angle intervals.
+  function pairCurrent(a,b,subtract=false){
+    const [a0,a1]=angleRange(a),[b0,b1]=angleRange(b);
+    const delta=subtract?Math.max(Math.abs(a0-b1),Math.abs(a1-b0)):Math.max(0,a0-b1,b0-a1);
+    const value=Math.sqrt(Math.max(0,a.i*a.i+b.i*b.i+(subtract?-2:2)*a.i*b.i*Math.cos(delta)));
+    return {value,bounded:a.i>0&&b.i>0&&(a.pf===null||b.pf===null)};
+  }
+  // Longitudinal voltage-drop interval; all unknown angles cover 0..90° lagging.
+  function projection(g,r,x){
+    if(!g.i)return [0,0];
+    if(g.pf===null)return [g.i*Math.min(r,x),g.i*Math.hypot(r,x)];
+    const z=g.i*(r*g.pf+x*Math.sqrt(Math.max(0,1-g.pf*g.pf)));
+    return [z,z];
+  }
+  function combine(ranges,coefficients,km){
+    let low=0,high=0;
+    coefficients.forEach((k,i)=>{
+      low+=k*(k<0?ranges[i][1]:ranges[i][0]);
+      high+=k*(k<0?ranges[i][0]:ranges[i][1]);
+    });
+    return [low*km,high*km];
+  }
   function calculate(o){
-    const supply=supplies[o.supply];if(!supply)throw new Error('対応する電源方式を選んでください。');
-    if(!['CV','CVD','CVT'].includes(o.cable)||(supply.phase===1&&o.cable==='CVT')||(supply.phase===3&&o.cable==='CVD'))throw new Error('回路方式に合うケーブルを選んでください。');
-    if(!['air','pipe','other','unknown'].includes(o.installation))throw new Error('敷設方法を選んでください。');
-    const f=num(o.frequency,50,60,'周波数','frequency');if(!cv[f])throw new Error('周波数は50Hzまたは60Hzを選んでください。');
-    const temp=num(o.ambient,20,50,'周囲温度','ambient');if(!temps[temp])throw new Error('資料にある周囲温度を選んでください。');
-    const v=num(o.voltage,50,600,'電圧','voltage'),length=num(o.length,.1,10000,'片道の距離','length'),limit=num(o.limit,.1,10,'電圧降下目標','limit');
-    const load=num(o.load,.01,10000,'電流または電力','load');
-    let pf=null;if(o.pf!=='unknown')pf=o.pf==='custom'?num(o.customPf,1,100,'力率','customPf')/100:num(o.pf,.01,1,'力率','pf');
-    if(!['A','kW','kVA','motor'].includes(o.loadMode))throw new Error('入力する量を選んでください。');
-    if(['kW','motor'].includes(o.loadMode)&&pf===null)throw Object.assign(new Error('kWから電流を出すには、力率の指定が必要です。銘板電流が分かる場合は「電流［A］」を選べます。'),{field:'pf'});
-    const eta=o.loadMode==='motor'?num(o.efficiency,1,100,'モーター効率','efficiency')/100:1;
-    const powerK=supply.phase===3?Math.sqrt(3):1;
-    const current=o.loadMode==='A'?load:o.loadMode==='kVA'?load*1000/(powerK*v):load*1000/(powerK*v*pf*eta);
-    if(!Number.isFinite(current)||current<=0||current>1000000)throw new Error('電流が計算範囲を超えています。単位と入力値を確認してください。');
-    const key=o.cable==='CV'?(supply.phase===3?'CV3':'CV2'):o.cable;
-    const zdata=o.cable==='CV'?cv[f]:twisted[f],K=supply.phase===3?Math.sqrt(3):2;
+    const supply=supplies[o.supply];if(!supply)fail('対応する電源方式を選んでください。','supply');
+    const single3=o.supply==='single3',threeCore=supply.wires===3;
+    if(!['CV','CVD','CVT'].includes(o.cable)||(threeCore&&o.cable==='CVD')||(!threeCore&&o.cable==='CVT'))fail('回路方式に合うケーブルを選んでください。','cable');
+    if(!['air','pipe','other','unknown'].includes(o.installation))fail('敷設方法を選んでください。','installation');
+    const f=num(o.frequency,50,60,'周波数','frequency');if(!cv[f])fail('周波数は50Hzまたは60Hzを選んでください。','frequency');
+    const temp=num(o.ambient,20,50,'周囲温度','ambient');if(!temps[temp])fail('資料にある周囲温度を選んでください。','ambient');
+    const v=num(o.voltage,single3?100:50,600,'送り側の線間電圧','voltage');
+    const length=num(o.length,.1,10000,'片道の距離','length'),limit=num(o.limit,.1,10,'電圧変化の目標','limit');
+    const inputKind=single3?o.singleInput:'standard';
+    if(single3&&!['lines','loads','balanced'].includes(inputKind))fail('単相3線の入力方法を選んでください。','singleInput');
+    const unit=inputKind==='lines'?'A':o.loadMode;
+    if(!['A','kW','kVA','motor'].includes(unit)||(single3&&unit==='motor'))fail('この回路で使える入力単位を選んでください。','loadMode');
+    let pf=null,eta=1,load=null,current,groups=[],currents=[],bounded=false;
+    if(!single3||inputKind==='balanced'){
+      load=num(o.load,.01,10000,'電流または電力','load');
+      pf=factor(o,'pf','customPf');
+      eta=unit==='motor'?num(o.efficiency,1,100,'モーター効率［%］','efficiency')/100:1;
+      current=ampsFrom(load,unit,(supply.phase===3?Math.sqrt(3):1)*v,pf,eta,'pf');
+      groups=[{i:current,pf}];bounded=pf===null;
+      if(single3)currents=[{name:'L1',value:current,bounded:false},{name:'L2',value:current,bounded:false},{name:'N（中性線）',value:0,bounded:false}];
+    }else{
+      const ids=inputKind==='lines'?['line1','line2']:['branch1','branch2','branch200'];
+      groups=ids.map((id,i)=>{
+        const value=num(o[id],0,10000,id==='branch200'?'200V負荷':i===0?'L1側の負荷':'L2側の負荷',id);
+        const p=value===0?1:factor(o,id+'Pf',id+'CustomPf');
+        return {i:ampsFrom(value,unit,i===2?v:v/2,p,1,id+'Pf'),pf:p,value,id};
+      });
+      if(groups.length===2)groups.push({i:0,pf:1});
+      if(groups.every(g=>g.i===0))fail('少なくとも1か所に0より大きい負荷を入力してください。',ids[0]);
+      const [a,b,c]=groups;
+      currents=[{name:'L1',...pairCurrent(a,c)},{name:'L2',...pairCurrent(b,c)},{name:'N（中性線）',...pairCurrent(a,b,true)}];
+      current=Math.max(...currents.map(g=>g.value));
+      bounded=groups.some(g=>g.i>0&&g.pf===null);
+    }
+    if(!Number.isFinite(current)||current<=0||current>1000000)fail('電流が計算範囲を超えています。単位を確認してください。',inputKind==='lines'?'line1':inputKind==='loads'?'branch1':'load');
+    const key=o.cable==='CV'?(threeCore?'CV3':'CV2'):o.cable;
+    const zdata=o.cable==='CV'?cv[f]:twisted[f],K=supply.phase===3?Math.sqrt(3):single3?1:2;
     const ambientFactor=temps[temp],ampKnown=['air','pipe'].includes(o.installation);
     const rows=sizes.map((size,i)=>{
-      const base=ampKnown?amps[key][o.installation][i]:null;
       if(amps[key].air[i]===null)return null;
-      const iz=base===null?null:base*ambientFactor;
-      const r=zdata.r[i],x=zdata.x[i],z=r===null||x===null?null:pf===null?Math.hypot(r,x):r*pf+x*Math.sqrt(Math.max(0,1-pf*pf));
-      const drop=z===null?null:K*current*(length/1000)*z,percent=drop===null?null:100*drop/v;
+      const base=ampKnown?amps[key][o.installation][i]:null,iz=base===null?null:base*ambientFactor;
+      const r=zdata.r[i],x=zdata.x[i],known=r!==null&&x!==null;
+      let circuits=[],drop=null,percent=null,z=null,maxLength=null;
+      if(known){
+        const km=length/1000;
+        if(single3){
+          const ranges=groups.map(g=>projection(g,r,x));
+          const values=inputKind==='balanced'?[combine(ranges,[1],km),combine(ranges,[1],km),combine(ranges,[2],km)]:
+            [combine(ranges,[2,-1,1],km),combine(ranges,[-1,2,1],km),combine(ranges,[1,1,2],km)];
+          circuits=values.map(([low,high],j)=>{
+            const basis=j===2?v:v/2;
+            return {name:['L1–N','L2–N','L1–L2'][j],basis,low,high,percent:100*Math.max(Math.abs(low),Math.abs(high))/basis,endLow:basis-high,endHigh:basis-low};
+          });
+          const worst=circuits.reduce((a,b)=>b.percent>a.percent?b:a);
+          percent=worst.percent;drop=Math.max(Math.abs(worst.low),Math.abs(worst.high));
+        }else{
+          z=pf===null?Math.hypot(r,x):r*pf+x*Math.sqrt(Math.max(0,1-pf*pf));
+          drop=K*current*km*z;percent=drop/v*100;
+          const low=pf===null?K*current*km*Math.min(r,x):drop;
+          circuits=[{name:'線間',basis:v,low,high:drop,percent,endLow:v-drop,endHigh:v-low}];
+        }
+        maxLength=percent===0?Infinity:length*limit/percent;
+      }
       const ampPass=iz===null?null:within(current,iz),dropPass=percent===null?null:within(percent,limit);
-      const fits=ampPass===null||dropPass===null?null:ampPass&&dropPass;
-      const maxLength=z===null?null:v*limit/100/(K*current*z)*1000;
-      return {size,base,iz,r,x,z,drop,percent,ampPass,dropPass,fits,maxLength,pipeMm:amps[key].pipeMm[i]};
+      // Known failures remain failures even if the other check is unavailable.
+      const fits=ampPass===false||dropPass===false?false:ampPass===null||dropPass===null?null:true;
+      return {size,base,iz,r,x,z,drop,percent,ampPass,dropPass,fits,maxLength,circuits,pipeMm:amps[key].pipeMm[i]};
     }).filter(Boolean);
-    return {rows,recommended:rows.find(row=>row.fits===true)||null,dropCandidate:rows.find(row=>row.dropPass===true)||null,ampKnown,key,label:labels[key],K,v,current,length,limit,pf,eta,phase:supply.phase,frequency:f,ambient:temp,ambientFactor,installation:o.installation,loadMode:o.loadMode,load};
+    return {rows,recommended:rows.find(row=>row.fits===true)||null,dropCandidate:rows.find(row=>row.dropPass===true)||null,
+      ampKnown,key,label:labels[key],K,v,current,currents,groups,length,limit,pf,eta,phase:supply.phase,single3,inputKind,bounded,
+      frequency:f,ambient:temp,ambientFactor,installation:o.installation,loadMode:unit,load,supplyName:supply.name};
   }
   return {calculate,sizes,supplies,labels,within};
 })();
@@ -139,120 +243,188 @@ const CableCalc = (() => {
 (() => {
   const $=id=>document.getElementById(id),form=$('form');
   let mode='find',all=false,last=null,shown=null,isSample=true,announceTimer;
-  const fmt=(x,d=1)=>Number.isFinite(x)?x.toLocaleString('ja-JP',{minimumFractionDigits:0,maximumFractionDigits:d}):'—';
+  const fmt=(x,d=1)=>Number.isFinite(x)?x.toLocaleString('ja-JP',{maximumFractionDigits:d}):'—';
   const text=(id,s)=>{$(id).textContent=s;};
-  const values=()=>Object.fromEntries(['supply','cable','loadMode','load','length','pf','customPf','efficiency','installation','frequency','ambient','limit','voltage'].map(id=>[id,$(id).value]));
+  const groupIds=['line1','line2','branch1','branch2','branch200'];
+  const ids=['supply','cable','singleInput','loadMode','load','length','pf','customPf','efficiency','installation','frequency','ambient','limit','voltage',...groupIds.flatMap(id=>[id,id+'Pf',id+'CustomPf'])];
+  const values=()=>Object.fromEntries(ids.map(id=>[id,$(id).value]));
   const installName={air:'気中・単独1回路',pipe:'気中の電線管内・1回路',other:'複数回路・地中など（許容電流未判定）',unknown:'敷設方法不明（許容電流未判定）'};
+  const kindName={lines:'左右の線電流（200V負荷を含む合計）',loads:'100V・200Vの負荷を積み上げ',balanced:'左右の電流・力率が同じ平衡負荷',standard:'通常入力'};
+  function paragraph(parent,s,cls='help'){const p=document.createElement('p');p.textContent=s;p.className=cls;parent.appendChild(p);}
   function badge(id,pass,success='範囲内',failure='超過'){
-    const node=$(id);node.className='badge '+(pass===null?'':pass?'ok':'bad');node.textContent=pass===null?'未判定':pass?success:failure;
+    const n=$(id);n.className='badge '+(pass===null?'':pass?'ok':'bad');n.textContent=pass===null?'未判定':pass?success:failure;
   }
   function setMode(m){mode=m;document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));$('existingField').hidden=mode!=='check';}
-  function cableOptions(){
-    const previous=$('cable').value,three=CableCalc.supplies[$('supply').value].phase===3;
-    const options=three?[['CVT','CVT（単心3個より）'],['CV','CV（3心）']]:[['CVD','CVD（単心2個より）'],['CV','CV（2心）']];
-    $('cable').replaceChildren(...options.map(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;return o;}));
-    $('cable').value=options.some(x=>x[0]===previous)?previous:options[0][0];
-    sizeOptions();
-  }
   function sizeOptions(){
-    const old=Number($('existing').value)||22;
-    const sizes=CableCalc.sizes.filter(s=>$('cable').value==='CV'||s>=8);
-    $('existing').replaceChildren(...sizes.map(s=>{const o=document.createElement('option');o.value=s;o.textContent=s+'sq（mm²）';return o;}));
+    const old=Number($('existing').value)||22,sizes=CableCalc.sizes.filter(s=>$('cable').value==='CV'||s>=8);
+    $('existing').replaceChildren(...sizes.map(s=>Object.assign(document.createElement('option'),{value:s,textContent:s+'sq（mm²）'})));
     $('existing').value=sizes.includes(old)?old:22;
   }
+  function cableOptions(){
+    const previous=$('cable').value,three=CableCalc.supplies[$('supply').value].wires===3;
+    const options=three?[['CVT','CVT（単心3個より）'],['CV','CV（3心）']]:[['CVD','CVD（単心2個より）'],['CV','CV（2心）']];
+    $('cable').replaceChildren(...options.map(([v,t])=>Object.assign(document.createElement('option'),{value:v,textContent:t})));
+    $('cable').value=options.some(x=>x[0]===previous)?previous:options[0][0];sizeOptions();
+  }
   function conditionalInputs(){
-    const lm=$('loadMode').value;
-    $('efficiencyField').hidden=lm!=='motor';$('customPfField').hidden=$('pf').value!=='custom';
-    text('loadLabel',{A:'流れる電流',kW:'消費電力・入力電力',kVA:'皮相電力・容量',motor:'モーターの機械出力'}[lm]);text('loadUnit',lm==='A'?'A':lm==='kVA'?'kVA':'kW');
-    text('loadHelp',{A:'銘板電流、または今回検討する負荷電流を入力します。',kW:'機械が電気として消費するkW。電流への換算には力率が必要です。',kVA:'kVAを入力します。電流換算に力率は掛けたり割ったりしません。',motor:'軸から出る機械出力のkW。入力電流を求めるため、力率と効率の両方が必要です。'}[lm]);
+    const single=$('supply').value==='single3',kind=single?$('singleInput').value:'standard',lm=$('loadMode').value;
+    const simple=!single||kind==='balanced';
+    $('singleSettings').hidden=!single;$('lineInputs').hidden=kind!=='lines';$('branchInputs').hidden=kind!=='loads';
+    $('loadModeField').hidden=kind==='lines';$('loadField').hidden=!simple;$('commonPfFields').hidden=!simple;$('loadHelp').hidden=!simple;
+    $('efficiencyField').hidden=lm!=='motor'||single;$('customPfField').hidden=$('pf').value!=='custom';
+    $('loadMode').querySelector('[value="motor"]').disabled=single;
+    groupIds.forEach(id=>{$(id+'CustomField').hidden=$(id+'Pf').value!=='custom';});
+    document.querySelectorAll('.branch-unit').forEach(n=>n.textContent=lm);
+    text('singleHelp',kind==='lines'?'同時点のL1・L2の線電流を入力。200V負荷分も含む各線の合計です。力率は各側の対中性線電圧を基準とした合成値。':kind==='loads'?'100V負荷を左右に分け、200V負荷を別に入力。使わない負荷は0。200V分を100V側へ重ねて足さないでください。':'左右で電流も力率も同じと確認できる場合だけ選択。N電流を0として計算します。Aは片側の線電流、kW・kVAは幹線全体の合計です。');
+    text('loadLabel',kind==='balanced'?(lm==='A'?'片側の線電流':'幹線全体の合計'):{A:'流れる線電流',kW:'消費電力・入力電力',kVA:'皮相電力・容量',motor:'モーターの機械出力'}[lm]);
+    text('loadUnit',lm==='A'?'A':lm==='kVA'?'kVA':'kW');
+    text('loadHelp',kind==='balanced'?'100V負荷の左右平衡を確認してください。片側へ偏る可能性がある場合は左右別入力で検討します。':{A:'銘板電流、または今回検討する負荷電流を入力します。',kW:'電気として消費する入力kW。電流換算には力率が必要です。',kVA:'電流への換算に力率を掛けたり割ったりしません。',motor:'機械出力のkW。入力電流の換算には力率と効率が必要です。'}[lm]);
     const ins=$('installation').value;
-    text('installHelp',ins==='air'?'単独1条のメーカー表で比較します。他回路との密接・多条布設は対象外です。':ins==='pipe'?'管内1条のメーカー表で比較。適用する管サイズは結果の根拠欄で確認できます。':'この条件の許容電流は未判定。電圧降下を参考比較します。');
+    text('installHelp',ins==='air'?'単独1条のメーカー表で比較。他回路との密接・多条布設は対象外です。':ins==='pipe'?'気中の管内1条。メーカー表が想定する管の内径を結果の根拠欄で確認してください。':'この条件の許容電流は未判定。電圧変化を参考比較します。');
+    text('voltageHelp',single?'L1–L2の電圧です。100V側はこの半分として計算します（例：210Vなら105/210V）。送り側に既に偏りがある場合は対象外です。':'電源の選択時に100・200・400Vを設定します。必要なら実際の電圧に変更できます。');
+    $('voltage').min=single?'100':'50';
     const n=Number($('length').value),max=Math.max(200,Math.ceil(n/100)*100);
-    $('lengthRange').max=Number.isFinite(max)?Math.min(max,10000):200;$('lengthRange').value=Number.isFinite(n)?Math.max(1,Math.min(n,10000)):1;text('rangeMax',fmt(Number($('lengthRange').max),0)+'m');
+    $('lengthRange').max=Number.isFinite(max)?Math.min(max,10000):200;$('lengthRange').value=Number.isFinite(n)?Math.max(1,Math.min(n,10000)):1;
+    text('rangeMax',fmt(Number($('lengthRange').max),0)+'m');
     document.querySelectorAll('[data-limit]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.limit)===Number($('limit').value))));
-    text('conditionSummary',$('frequency').value+'Hz・周囲'+$('ambient').value+'℃・電圧降下'+$('limit').value+'%');
+    text('conditionSummary',$('frequency').value+'Hz・周囲'+$('ambient').value+'℃・目標'+$('limit').value+'%');
     $('sampleTag').hidden=!isSample;
   }
-  function paragraph(parent,s,cls){const p=document.createElement('p');p.textContent=s;if(cls)p.className=cls;parent.appendChild(p);}
+  const range=(a,b,d=2)=>Math.abs(a-b)<1e-9?fmt(a,d):fmt(a,d)+'〜'+fmt(b,d);
+  function changeWords(q){
+    if(Math.abs(q.low-q.high)<1e-9)return Math.abs(q.high)<1e-9?'変化なし':fmt(Math.abs(q.high),2)+'V '+(q.high<0?'上昇':'降下');
+    if(q.low>=0)return range(q.low,q.high)+'V 降下';
+    if(q.high<=0)return range(Math.abs(q.high),Math.abs(q.low))+'V 上昇';
+    return '上昇 '+fmt(-q.low,2)+'V 〜 降下 '+fmt(q.high,2)+'V';
+  }
+  function renderSingle(c,r){
+    $('singleResults').hidden=!c.single3;$('voltageTrack').hidden=c.single3;
+    if(!c.single3)return;
+    $('wireCurrents').replaceChildren(...c.currents.map(w=>{
+      const div=document.createElement('div');div.className='current-box'+(r.iz!==null&&!CableCalc.within(w.value,r.iz)?' over':'');
+      const label=document.createElement('span');label.textContent=w.name;
+      const value=document.createElement('strong');value.textContent=(w.bounded?'≤ ':'')+fmt(w.value,2)+'A';
+      const note=document.createElement('span');note.textContent=w.bounded?'力率不明時の上限':'入力条件での値';
+      div.append(label,value,note);return div;
+    }));
+    text('voltageCaption','送り側 '+fmt(c.v/2)+' / '+fmt(c.v)+'V。'+(c.bounded?'力率不明のため範囲で表示。':'負荷の偏りによる上昇も表示。'));
+    $('voltageRows').replaceChildren(...r.circuits.map(q=>{
+      const tr=document.createElement('tr');
+      [q.name,r.percent>10?'近似範囲外':range(q.endLow,q.endHigh,2)+'V',changeWords(q)].forEach((s,i)=>{
+        const td=document.createElement('td');td.textContent=s;
+        if(i===2){const small=document.createElement('small');small.textContent='最大 '+fmt(q.percent,2)+'% / 基準 '+fmt(q.basis)+'V';td.append(small);}
+        if(!CableCalc.within(q.percent,c.limit)&&i>0)td.className='notfit';tr.append(td);
+      });return tr;
+    }));
+    if(!r.circuits.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=3;td.textContent='このサイズのR・Xデータがないため未算出です。';tr.append(td);$('voltageRows').append(tr);}
+    text('balanceNote',(c.inputKind==='balanced'?'左右の電流・力率が同一という入力条件なのでN電流は0です。':c.bounded?'不明な力率を独立に変化させた上限です。各線の上限が同時に起こるとは限りません。':'N電流は左右のベクトル差です。')+' 3本とも同じ太さとして、最大電流と各区間の最大電圧変化を比較します。');
+  }
   function render(){
-    conditionalInputs();clearTimeout(announceTimer);document.querySelectorAll('.invalid').forEach(n=>{n.classList.remove('invalid');n.removeAttribute('aria-invalid');});
+    conditionalInputs();clearTimeout(announceTimer);
+    document.querySelectorAll('.invalid').forEach(n=>{n.classList.remove('invalid');n.removeAttribute('aria-invalid');});
     text('copyStatus','');$('copyFallback').hidden=true;
     let c;try{c=CableCalc.calculate(values());}catch(e){
-      last=null;shown=null;$('resultCard').hidden=true;$('comparison').hidden=true;$('errors').hidden=false;text('errors',e.message);$('derivedCurrent').hidden=true;text('mobileSummary','入力を確認してください');text('liveStatus','');if(e.field&&$(e.field)){$(e.field).classList.add('invalid');$(e.field).setAttribute('aria-invalid','true');}return;
+      last=null;shown=null;$('resultCard').hidden=true;$('comparison').hidden=true;$('errors').hidden=false;text('errors',e.message);
+      $('derivedCurrent').hidden=true;text('mobileSummary','入力を確認してください');text('liveStatus','');text('printSummary','');
+      if(e.field&&$(e.field)){$(e.field).classList.add('invalid');$(e.field).setAttribute('aria-invalid','true');}return;
     }
     last=c;$('errors').hidden=true;$('resultCard').hidden=false;$('comparison').hidden=false;
-    $('derivedCurrent').hidden=c.loadMode==='A';text('derivedCurrent','計算に使う線電流：'+fmt(c.current,2)+'A'+(c.loadMode==='motor'?'（効率'+fmt(c.eta*100)+'%を含む）':''));
-    const selected=mode==='check'?c.rows.find(r=>r.size===Number($('existing').value)):c.recommended||c.dropCandidate||c.rows[c.rows.length-1];
-    shown=selected;const hasCandidate=Boolean(c.recommended);
+    const candidate=c.recommended,r=mode==='check'?c.rows.find(r=>r.size===Number($('existing').value)):candidate||c.dropCandidate||c.rows.at(-1);
+    shown=r;
+    $('derivedCurrent').hidden=c.single3||c.loadMode==='A';text('derivedCurrent','計算に使う線電流：'+fmt(c.current,2)+'A'+(c.loadMode==='motor'?'（効率'+fmt(c.eta*100)+'%を含む）':''));
+    const reference=mode==='find'&&!candidate;
     text('resultType',isSample?'入力例での比較':mode==='check'?'今ある太さを確認':'入力条件での比較');
-    text('resultTitle',mode==='check'?'確認するケーブル':hasCandidate?'登録データ内での最小候補':!c.ampKnown?'電圧降下だけの参考サイズ':'登録範囲で条件を満たす候補なし');
-    $('resultSize').replaceChildren(document.createTextNode(String(selected.size)),Object.assign(document.createElement('span'),{textContent:' sq'}));
-    text('resultMeta',c.label+' ／ '+fmt(c.current,2)+'A・片道'+fmt(c.length)+'m');
-    const ampPass=selected.ampPass,dropPass=selected.dropPass;
-    badge('ampBadge',ampPass);badge('dropBadge',dropPass,'目標内','目標超過');
-    $('ampMetric').replaceChildren(document.createTextNode(fmt(c.current,2)+'A '),Object.assign(document.createElement('span'),{textContent:' / 許容 '+(selected.iz===null?'未判定':fmt(selected.iz,2)+'A')}));
-    $('ampBar').style.width=selected.iz===null?'0%':Math.min(100,100*c.current/selected.iz)+'%';$('ampBar').className=ampPass===false?'warn':'';
-    text('ampHelp',selected.iz===null?'対象の敷設条件に対応する許容電流データを確認してください。':installName[c.installation]+'・周囲'+c.ambient+'℃。表の'+fmt(selected.base)+'A × '+fmt(c.ambientFactor,2)+'。');
-    $('dropMetric').replaceChildren(document.createTextNode(selected.percent===null?'—':fmt(selected.percent,2)+'% '),Object.assign(document.createElement('span'),{textContent:' / 目標 '+fmt(c.limit,2)+'%'}));
-    $('dropBar').style.width=selected.percent===null?'0%':Math.min(100,100*selected.percent/c.limit)+'%';$('dropBar').className=dropPass===false?'warn':'';
-    text('dropHelp',selected.drop===null?'このサイズのR・Xデータは未登録です。補間していません。':'電圧降下 '+fmt(selected.drop,2)+'V。'+(c.pf===null?'力率不明のため、インピーダンスの大きさで試算。':'遅れ力率 '+fmt(c.pf*100)+'%での近似値。'));
+    text('resultTitle',reference?(c.ampKnown?'登録サイズ内で条件を満たしません':'敷設条件の許容電流が未判定'):mode==='check'?'確認するケーブル':'両データが揃うサイズの最小候補');
+    $('resultSize').className='size-number'+(reference?' word':'');
+    if(reference)text('resultSize',c.ampKnown?'候補なし':'太さは未判定');
+    else $('resultSize').replaceChildren(document.createTextNode(String(r.size)),Object.assign(document.createElement('span'),{textContent:' sq'}));
+    text('resultMeta',(reference?'以下は '+r.size+'sq の参考比較。':'')+c.label+' ／ 片道'+fmt(c.length)+'m'+(c.bounded?' ／ 力率不明の上限で比較':''));
+    badge('ampBadge',r.ampPass);badge('dropBadge',r.dropPass,'目標内','目標超過');
+    $('ampMetric').replaceChildren(document.createTextNode((c.single3?'最大 ':'')+fmt(c.current,2)+'A '),Object.assign(document.createElement('span'),{textContent:' / 許容 '+(r.iz===null?'未判定':fmt(r.iz,2)+'A')}));
+    $('ampBar').style.width=r.iz===null?'0%':Math.min(100,100*c.current/r.iz)+'%';$('ampBar').className=r.ampPass===false?'warn':'';
+    text('ampHelp',r.iz===null?'対象の敷設条件に対応する許容電流データを確認してください。':installName[c.installation]+'・周囲'+c.ambient+'℃。表の'+fmt(r.base)+'A × '+fmt(c.ambientFactor,2)+'。'+(c.single3?'中性線を含む3本に同じ許容電流を適用。':''));
+    $('dropMetric').replaceChildren(document.createTextNode(r.percent===null?'—':'最大 '+fmt(r.percent,2)+'% '),Object.assign(document.createElement('span'),{textContent:' / 目標 '+fmt(c.limit,2)+'%'}));
+    $('dropBar').style.width=r.percent===null?'0%':Math.min(100,100*r.percent/c.limit)+'%';$('dropBar').className=r.dropPass===false?'warn':'';
+    text('dropHelp',r.drop===null?'このサイズのR・Xデータは未登録です。補間していません。':c.single3?'100V側2区間と200V側のうち、電圧変化率の絶対値が最大の値です。上昇も比較します。':'電圧降下 '+(c.bounded?'最大 ':'')+fmt(r.drop,2)+'V。'+(c.bounded?'力率不明のため|Z|で試算。':'遅れ力率 '+fmt(c.pf*100)+'%での近似値。'));
     let reason;
-    if(selected.fits===true){
-      const before=c.rows.filter(r=>r.size<selected.size&&r.percent!==null).at(-1);
-      if(mode==='find'&&before)reason=before.size+'sqは'+(before.ampPass===false&&before.dropPass===false?'電流・電圧降下の両方が条件外です。':before.ampPass===false?'電流が許容値を超えます。':'電流は範囲内ですが、電圧降下が目標を超えます。');
-      else reason='入力した許容電流と電圧降下の条件に収まります。実際の採用前に保護・施工条件を確認してください。';
-    }else if(selected.ampPass===null)reason='敷設条件が未対応のため、太さの総合候補は出せません。表示は電圧降下の参考比較です。';
-    else if(selected.dropPass===null)reason='電圧降下を計算するデータが不足しています。許容電流だけで採用を決めないでください。';
-    else reason=(selected.ampPass===false?'負荷電流が許容電流を超えています。':'')+(selected.dropPass===false?'電圧降下が設定目標を超えています。':'')+(c.recommended?' 同じ入力条件では'+c.recommended.size+'sqが最小候補です。':' 登録サイズ内に両条件を満たす候補がありません。');
-    text('reason',reason);
-    text('sourceV',fmt(c.v)+'V');text('distanceDisplay',fmt(c.length)+'m');text('endV',selected.drop===null?'—':selected.percent>=100?'範囲外':fmt(c.v-selected.drop,1)+'V');
-    text('lengthAdvice',selected.maxLength===null?'距離目安も未算出です。':'この太さ・同じ電流で、電圧降下だけを見た距離目安：約'+fmt(Math.floor(selected.maxLength*10)/10,1)+'mまで。');
-    text('approxNotice',(selected.percent!==null&&selected.percent>10?'電圧降下が大きく、近似式による末端電圧の信頼性が下がる条件です。詳細な回路計算で確認してください。':'末端電圧は、このケーブル区間の降下だけを引いた概算です。上流の電圧降下・変圧器の変動は含みません。')+(c.loadMode==='A'?'':' 電流は入力電圧で換算し、電圧低下に伴う電流増加は再計算しません。'));
+    if(reference)reason=(c.ampKnown?'登録サイズ内に2条件を満たす候補がありません。':'許容電流が分からないため、総合候補は出せません。')+'下の数値は'+r.size+'sqを選んだ場合の参考です。';
+    else if(r.fits===true)reason='入力した許容電流と電圧変化の2条件に収まります。'+(c.bounded?'不明な力率の範囲を含む比較用上限での結果です。':'')+(mode==='check'&&candidate&&candidate.size<r.size?'同じ条件での最小候補は'+candidate.size+'sqです。':'');
+    else reason=(r.ampPass===false?'比較用電流が許容電流を超えます。':'')+(r.dropPass===false?'電圧変化が目標を超えます。':'')+(r.ampPass===null?'許容電流は未判定です。':'')+(r.dropPass===null?'R・X未登録で電圧変化は未判定です。':'')+(candidate?' 同じ条件での最小候補は'+candidate.size+'sqです。':'');
+    text('reason',reason);renderSingle(c,r);
+    text('sourceV',fmt(c.v)+'V');text('distanceDisplay',fmt(c.length)+'m');
+    text('endV',r.drop===null?'未算出':r.percent>10?'近似範囲外':range(r.circuits[0].endLow,r.circuits[0].endHigh,1)+'V');
+    text('lengthAdvice',r.maxLength===null?'距離目安も未算出です。':!Number.isFinite(r.maxLength)?'この入力条件では電圧変化の距離目安を算出できません。':'同じ負荷で、電圧変化だけを見た距離目安：約'+fmt(Math.floor(r.maxLength*10)/10,1)+'mまで。許容電流の条件は別です。');
+    text('approxNotice',(r.percent!==null&&r.percent>10?'電圧変化が10%を超え、近似の精度が低下するため末端電圧の数値表示を止めています。':'末端電圧はこのケーブル区間だけの近似値です。')+' 上流の電圧変動・高調波・途中分岐は含みません。'+(c.loadMode==='A'?'':'電流は送り側電圧で換算し、定電力負荷の電圧低下時の電流増加は再計算しません。'));
     const calc=$('calculation');calc.replaceChildren();
-    paragraph(calc,'条件：'+(c.phase===3?'平衡三相3線':'単相2線')+'、'+fmt(c.v)+'V、'+c.frequency+'Hz、'+c.label+' '+selected.size+'sq、'+installName[c.installation]+'、周囲'+c.ambient+'℃。','help');
-    if(c.loadMode!=='A')paragraph(calc,'線電流 I = '+fmt(c.load,3)+' × 1000 / ('+(c.phase===3?'√3 × ':'')+fmt(c.v)+(c.loadMode==='kVA'?'':' × '+fmt(c.pf,3))+(c.loadMode==='motor'?' × '+fmt(c.eta,3):'')+') = '+fmt(c.current,4)+' A。','help');
-    if(selected.r!==null){
-      paragraph(calc,'R = '+selected.r+' Ω/km、X = '+selected.x+' Ω/km（導体温度90℃）。','help');
-      paragraph(calc,'ΔV ≈ '+(c.phase===3?'√3':'2')+' × '+fmt(c.current,4)+' × ('+fmt(c.length,3)+' / 1000) × '+(c.pf===null?'√('+selected.r+'² + '+selected.x+'²)':'('+selected.r+' × '+c.pf+' + '+selected.x+' × √(1 − '+c.pf+'²))')+' = '+fmt(selected.drop,4)+' V。','help');
-      paragraph(calc,'電圧降下率 = '+fmt(selected.drop,4)+' / '+fmt(c.v)+' × 100 = '+fmt(selected.percent,4)+' %。mをkmへ変換。A × km × Ω/km = V。','help');
-    }else paragraph(calc,'R・Xの出典付きデータがないため、電圧降下は未算出です。','help');
-    if(c.installation==='pipe')paragraph(calc,'SFCC表の電線管サイズ：'+selected.pipeMm+'mm（同資料の厚鋼電線管・管内1条）。占積率40%以下となる管で計算した表です。資料はケーブル外径の1.5倍以上の管にも適用可能としています。現物の管径・ケーブル外径と照合してください。地中管路や他回路混在には流用できません。','help');
-    paragraph(calc,'許容電流：SFCCカタログ36頁。R・X：岩崎電気 表'+(c.label.includes('CVD')||c.label.includes('CVT')?(c.frequency===50?'1.9':'1.10'):(c.frequency===50?'1.7':'1.8'))+'。両データが揃う登録サイズの中で比較しています。','help');
-    renderTable(c,selected);
-    const summary=mode==='check'?selected.size+'sq：'+(selected.fits===true?'2条件内':selected.fits===null?'未判定あり':'条件外あり'):hasCandidate?'最小候補 '+selected.size+'sq':!c.ampKnown?'許容電流は未判定':'条件内の候補なし';
+    paragraph(calc,'条件：'+c.supplyName+'（計算電圧 '+fmt(c.v)+'V）、'+c.frequency+'Hz、'+c.label+' '+r.size+'sq、'+installName[c.installation]+'、周囲'+c.ambient+'℃。');
+    if(c.single3)paragraph(calc,'単3の入力：'+kindName[c.inputKind]+'。L1・L2・Nは同じ断面積。各対中性線の送り側電圧は '+fmt(c.v/2)+'V。');
+    if(c.single3&&c.inputKind!=='balanced')c.groups.forEach((g,i)=>paragraph(calc,['A（L1側）','B（L2側）','C（200V負荷）'][i]+'：'+fmt(g.i,4)+'A、力率 '+(g.pf===null?'不明':fmt(g.pf*100,2)+'%')+'。'));
+    else if(c.loadMode!=='A')paragraph(calc,'I = '+fmt(c.load,3)+' × 1000 / ('+(c.phase===3?'√3 × ':'')+fmt(c.v)+(c.loadMode==='kVA'?'':' × '+fmt(c.pf,3))+(c.loadMode==='motor'?' × '+fmt(c.eta,3):'')+') = '+fmt(c.current,4)+' A。');
+    if(r.r!==null){
+      paragraph(calc,'R = '+r.r+' Ω/km、X = '+r.x+' Ω/km（導体温度90℃）。ℓ = '+fmt(c.length,3)+' / 1000 km。');
+      if(c.single3){
+        paragraph(calc,c.inputKind==='balanced'?'平衡：対中性線のΔV ≈ Iℓ(Rcosφ＋Xsinφ)、線間はその2倍。':'ΔV1 ≈ ℓ Re[Z(2A−B＋C)]、ΔV2 ≈ ℓ Re[Z(2B−A＋C)]、ΔV12 ≈ ℓ Re[Z(A＋B＋2C)]。N電流 = |A−B|。詳しい前提は下の「単相3線の負荷の偏り」を参照。');
+        r.circuits.forEach(q=>paragraph(calc,q.name+'：'+changeWords(q)+'。基準 '+fmt(q.basis)+'V、最大変化率 '+fmt(q.percent,4)+'%。'));
+      }else paragraph(calc,'ΔV ≈ '+(c.phase===3?'√3':'2')+' × '+fmt(c.current,4)+' × ('+fmt(c.length,3)+' / 1000) × '+(c.pf===null?'√('+r.r+'²＋'+r.x+'²)':'('+r.r+' × '+c.pf+'＋'+r.x+' × √(1−'+c.pf+'²))')+' = '+fmt(r.drop,4)+'V。降下率 = ΔV / '+fmt(c.v)+' × 100。');
+    }else paragraph(calc,'出典付きR・Xデータがないため電圧変化は未算出です。');
+    if(c.installation==='pipe')paragraph(calc,'SFCC表の電線管サイズ（内径の目安）：'+r.pipeMm+'mm。表は占積率40%以下となる最小内径の管で計算。ケーブル外径の1.5倍以上の管にも表の値を適用可能とする注記があります。呼び径ではなく現物の内径・ケーブル外径を照合してください。地中管路・他回路混在には流用できません。');
+    paragraph(calc,'許容電流・温度補正：SFCC CAT.NO.40-14-03 p.36。R・X：岩崎電気 表'+(c.key==='CVD'||c.key==='CVT'?(c.frequency===50?'1.9':'1.10'):(c.frequency===50?'1.7':'1.8'))+'。確認日：2026-09-12。');
+    renderTable(c,r);
+    const summary=mode==='check'?r.size+'sq：'+(r.fits===true?'2条件内':r.fits===null?'未判定あり':'条件外あり'):candidate?'最小候補 '+r.size+'sq':c.ampKnown?'条件内の候補なし':'太さは未判定';
     text('mobileSummary',summary);text('printSummary',brief());
-    announceTimer=setTimeout(()=>text('liveStatus',summary+'。電圧降下'+fmt(selected.percent,2)+'%。'),300);
+    announceTimer=setTimeout(()=>text('liveStatus',summary+'。電圧変化 最大'+fmt(r.percent,2)+'%。'),300);
   }
   function renderTable(c,selected){
-    text('tableCaption',c.label+' ／ '+c.frequency+'Hz・周囲'+c.ambient+'℃・電圧降下目標'+fmt(c.limit)+'%');
+    text('tableCaption',c.label+' ／ '+c.frequency+'Hz・周囲'+c.ambient+'℃・変化目標'+fmt(c.limit)+'%'+(c.bounded?'（力率不明の上限）':''));
     $('rows').replaceChildren();const idx=c.rows.indexOf(selected),start=Math.max(0,Math.min(c.rows.length-5,idx-2)),list=all?c.rows:c.rows.slice(start,start+5);
     list.forEach(r=>{
       const tr=document.createElement('tr');if(r.size===selected.size)tr.className='picked';
-      const sizeTd=document.createElement('td'),button=document.createElement('button');button.type='button';button.dataset.size=r.size;button.textContent=r.size+'sq';button.setAttribute('aria-label',r.size+'sqの詳細を確認');sizeTd.appendChild(button);
-      if(c.recommended&&r.size===c.recommended.size){const s=document.createElement('small');s.textContent='最小候補';sizeTd.appendChild(s);}tr.appendChild(sizeTd);
-      const a=document.createElement('td');a.textContent=r.iz===null?'未判定':fmt(r.iz,1)+'A';a.className=r.ampPass===false?'notfit':'';tr.appendChild(a);
-      const d=document.createElement('td');d.textContent=r.percent===null?'未算出':fmt(r.percent,2)+'%';d.className=r.dropPass===false?'notfit':'';if(r.drop!==null){const s=document.createElement('small');s.textContent=fmt(r.drop,2)+'V';d.appendChild(s);}tr.appendChild(d);
-      const result=document.createElement('td'),b=document.createElement('span');b.className='badge '+(r.fits===true?'ok':r.fits===false?'bad':'');b.textContent=r.fits===true?'2条件内':r.fits===null?'未判定':r.ampPass===false&&r.dropPass===false?'両方超過':r.ampPass===false?'電流超過':'降下超過';result.appendChild(b);tr.appendChild(result);$('rows').appendChild(tr);
+      const sizeTd=document.createElement('td'),button=document.createElement('button');button.type='button';button.dataset.size=r.size;button.textContent=r.size+'sq';button.setAttribute('aria-label',r.size+'sqの詳細を確認');sizeTd.append(button);
+      if(c.recommended&&r.size===c.recommended.size){const s=document.createElement('small');s.textContent='最小候補';sizeTd.append(s);}tr.append(sizeTd);
+      const a=document.createElement('td');a.textContent=r.iz===null?'未判定':fmt(r.iz,1)+'A';a.className=r.ampPass===false?'notfit':'';tr.append(a);
+      const d=document.createElement('td');d.textContent=r.percent===null?'未算出':fmt(r.percent,2)+'%';d.className=r.dropPass===false?'notfit':'';
+      if(r.circuits.length){const s=document.createElement('small');s.textContent=c.single3?r.circuits.reduce((a,b)=>b.percent>a.percent?b:a).name:fmt(r.drop,2)+'V';d.append(s);}tr.append(d);
+      const result=document.createElement('td'),b=document.createElement('span');b.className='badge '+(r.fits===true?'ok':r.fits===false?'bad':'');b.textContent=r.fits===true?'2条件内':r.fits===null?'未判定':'条件外';result.append(b);tr.append(result);$('rows').append(tr);
     });text('showAll',all?'前後だけ':'全'+c.rows.length+'サイズ');$('showAll').setAttribute('aria-expanded',String(all));
-    text('tableHelp','サイズを押すと詳しく確認できます。'+(c.label.includes('CVD')||c.label.includes('CVT')?'8sqはR・X未登録のため総合未判定です。':''));
+    text('tableHelp','サイズを押すと詳細を確認できます。'+(c.key==='CVD'||c.key==='CVT'?'8sqはR・X未登録。候補は両データが揃う14sq以上から探します。':''));
   }
   function brief(){
     if(!last||!shown)return '';
-    const c=last,r=shown;
-    return ['うきわメモ｜電線の太さ相談 v1.0.0',isSample?'入力例での試算':'入力条件での試算',(c.phase===3?'三相3線（平衡）':'単相2線')+' '+fmt(c.v)+'V / '+c.frequency+'Hz',c.label+' '+r.size+'sq / 負荷'+fmt(c.current,3)+'A / 片道'+fmt(c.length)+'m',installName[c.installation]+' / 周囲'+c.ambient+'℃',c.pf===null?'力率不明：|Z|で電圧降下を大きめに試算':'遅れ力率'+fmt(c.pf*100)+'%',c.loadMode==='motor'?'モーター出力'+fmt(c.load)+'kW / 効率'+fmt(c.eta*100)+'%':'', '許容電流：'+(r.iz===null?'未判定':fmt(r.iz,2)+'A'),'電圧降下：'+(r.drop===null?'未算出':fmt(r.drop,3)+'V / '+fmt(r.percent,3)+'%')+'（比較目標'+fmt(c.limit)+'%）',r.fits===true?'許容電流・電圧降下の2条件内':r.fits===false?'条件外あり':'未判定あり','比較目標は入力した仮設定。保護・始動・短絡耐量・施工条件を含む最終適合は未判定。','許容電流：SFCC CAT.NO.40-14-03 p.36 / R・X：岩崎電気 配線設計 表1.7–1.10 / データ確認2026-09-11','https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=36','https://www.iwasaki.co.jp/lighting/support/tech-data/document/wiring/09.html'].filter(Boolean).join('\n');
+    const c=last,r=shown,lines=['うきわメモ｜電線の太さ相談 v1.1.0',isSample?'入力例での試算':'入力条件での試算',c.supplyName+' / 計算の線間電圧 '+fmt(c.v)+'V / '+c.frequency+'Hz',mode==='find'?(c.recommended?'両データが揃う最小候補：'+c.recommended.size+'sq':'総合候補なし／未判定。以下は参考比較です。'):'既設サイズの確認',c.label+' '+r.size+'sq / 片道'+fmt(c.length)+'m',installName[c.installation]+' / 周囲'+c.ambient+'℃'];
+    if(c.single3){
+      lines.push('入力方法：'+kindName[c.inputKind]);
+      if(c.inputKind==='balanced')lines.push('入力 '+fmt(c.load)+' '+c.loadMode+' / 共通力率 '+(c.pf===null?'不明':fmt(c.pf*100)+'%'));
+      else c.groups.forEach((g,i)=>{if(g.id)lines.push((c.inputKind==='lines'?['L1線電流','L2線電流']:['L1–N負荷','L2–N負荷','L1–L2負荷'])[i]+'：'+fmt(g.value,4)+' '+c.loadMode+' / 遅れ力率 '+(g.pf===null?'不明':fmt(g.pf*100,2)+'%'));});
+      c.currents.forEach(w=>lines.push(w.name+'：'+(w.bounded?'上限 ':'')+fmt(w.value,3)+'A'));
+      r.circuits.forEach(q=>lines.push(q.name+'：'+changeWords(q)+' / 最大 '+fmt(q.percent,3)+'%（基準 '+fmt(q.basis)+'V） / 末端 '+(r.percent>10?'近似範囲外':range(q.endLow,q.endHigh,3)+'V')));
+      lines.push('Nは外線と同サイズ。送り側は対中性線電圧が等しい正弦波電源。負荷は末端集中・遅れ負荷。');
+    }else lines.push('入力 '+fmt(c.load)+' '+c.loadMode+' / 線電流 '+fmt(c.current,3)+'A / 力率 '+(c.pf===null?'不明':fmt(c.pf*100)+'%')+(c.loadMode==='motor'?' / 効率 '+fmt(c.eta*100)+'%':''));
+    lines.push('許容電流：'+(r.iz===null?'未判定':fmt(r.iz,3)+'A（基準 '+fmt(r.base)+'A × '+c.ambientFactor+'）'),'電圧変化：'+(r.percent===null?'R・X未登録で未算出':'最大 '+fmt(r.percent,3)+'%')+' / 比較目標 '+fmt(c.limit)+'%',r.fits===true?'許容電流・電圧変化の2条件内':r.fits===false?'条件外あり':'未判定あり');
+    if(r.r!==null)lines.push('R='+r.r+' Ω/km / X='+r.x+' Ω/km / 導体温度90℃');
+    if(c.installation==='pipe')lines.push('メーカー表の管サイズ（内径目安）'+r.pipeMm+'mm。現物の管内径とケーブル外径・注記を要照合。');
+    if(c.bounded)lines.push('力率不明：0〜90°の遅れ角の範囲から比較用上限を算出。各上限が同時に起こるとは限らない。');
+    lines.push('比較目標は仮設定。保護・始動・短絡・高調波・上流電圧変動・端子施工を含む最終適合は未判定。','電流は入力時の値に固定。電圧低下による定電力負荷の電流増加は未計算。','出典：SFCC CAT.NO.40-14-03 p.36,45 / 岩崎電気 表1.7–1.10 / 確認2026-09-12','https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=36','https://www.iwasaki.co.jp/lighting/support/tech-data/document/wiring/09.html');
+    return lines.join('\n');
   }
   form.addEventListener('input',e=>{if(e.target.tagName==='SELECT')return;if(e.target.id==='lengthRange')$('length').value=$('lengthRange').value;isSample=false;render();});
-  form.addEventListener('change',e=>{if(e.target.id==='supply'){$('voltage').value=CableCalc.supplies[$('supply').value].v;cableOptions();}if(e.target.id==='cable')sizeOptions();isSample=false;render();});
+  form.addEventListener('change',e=>{
+    if(e.target.id==='supply'){
+      $('voltage').value=CableCalc.supplies[$('supply').value].v;
+      if($('supply').value==='single3'&&$('loadMode').value==='motor')$('loadMode').value='A';cableOptions();
+    }
+    if(e.target.id==='cable')sizeOptions();isSample=false;render();
+  });
   form.addEventListener('submit',e=>{e.preventDefault();render();$('results').scrollIntoView({block:'start'});$('results').focus({preventScroll:true});});
   document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{setMode(b.dataset.mode);render();}));
   document.querySelectorAll('[data-limit]').forEach(b=>b.addEventListener('click',()=>{$('limit').value=b.dataset.limit;isSample=false;render();}));
   $('showAll').addEventListener('click',()=>{all=!all;if(last&&shown)renderTable(last,shown);});
   $('rows').addEventListener('click',e=>{const b=e.target.closest('[data-size]');if(!b)return;$('existing').value=b.dataset.size;setMode('check');render();$('results').scrollIntoView({block:'start'});});
-  $('reset').addEventListener('click',()=>{form.reset();isSample=true;all=false;setMode('find');cableOptions();$('existing').value=22;render();});
+  $('reset').addEventListener('click',()=>{form.reset();isSample=true;all=false;setMode('find');cableOptions();$('cable').value='CVT';sizeOptions();$('existing').value=22;render();});
   $('copy').addEventListener('click',async()=>{const s=brief();if(!s)return;try{if(!navigator.clipboard)throw new Error('clipboard unavailable');await navigator.clipboard.writeText(s);text('copyStatus','条件・結果・出典をコピーしました。');}catch(e){$('copyFallback').value=s;$('copyFallback').hidden=false;$('copyFallback').focus();$('copyFallback').select();text('copyStatus','下の文章を選択してコピーできます。');}});
   $('print').addEventListener('click',()=>{if(last&&shown){$('copyFallback').hidden=true;window.print();}});
   cableOptions();render();
 })();
+
 </script>
 </body>
 </html>
