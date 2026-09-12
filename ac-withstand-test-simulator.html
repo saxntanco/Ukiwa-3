@@ -324,6 +324,14 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 @media(max-width:900px){.input-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.result-grid{grid-template-columns:1fr}.result-card h3{min-height:0}.result-card .result-number{font-size:36px}}
 @media(max-width:520px){main.comparison{width:calc(100% - 20px)}.surface{padding:16px}.intro{padding-top:18px}.measured .input-grid{grid-template-columns:1fr}.topbar .brand small{display:none}.back{font-size:13px;padding:8px}.result-card{padding:16px}.input-grid{gap:12px}.input-grid label{font-size:14px}th,td{padding:9px}.surface h2{font-size:21px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style><style>
+.reactor-quick{margin:24px 0;padding:22px;border:2px solid #187581;border-radius:18px;background:#f4fbfc;color:#183b43}
+.reactor-quick h3{margin:0 0 12px;font-size:1.3rem}
+.reactor-counts{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0}
+.reactor-model{flex:1 1 180px;padding:16px;border-radius:12px;background:white;border:2px solid}
+.reactor-model strong{display:block;font-size:2.2rem;line-height:1.3;margin-top:6px}
+.model1220{color:#a12835;border-color:#c64a58}.model1250{color:#155da0;border-color:#377dbd}
+.reactor-quick p{line-height:1.7;margin:8px 0}
 </style></head>
 <body>
 <header class="topbar">
@@ -351,7 +359,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <p id="measuredResult" aria-live="polite">未入力</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
 </form>
 <section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading">充電電流の比較</h2><p id="conditions" class="hint"></p><div class="result-grid" id="cards" aria-live="polite"></div>
-<div id="difference" class="difference"></div>
+<aside class="reactor-quick" aria-labelledby="reactorQuickHeading"><h3 id="reactorQuickHeading">リアクトル台数の目安</h3><div id="reactorQuick" aria-live="polite"></div><a href="#reactor-settings">採用する方式・許容出力電流・検討台数を変更する ↓</a></aside><div id="difference" class="difference"></div>
 <details><summary>同じ原資料の「JIS規格」欄も確認する</summary><p id="jisReference"></p><p class="hint">双興電機の資料が「JIS規格」として掲載する値です。適用する規格の版は当該ページで確認できないため、現行JISへの適合判定や保証最大値には使いません。</p></details>
 <h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
 <p>比較している物理量は、どの方式も「導体3心を一括した交流試験時に、試験器から被試験ケーブルへ流れる充電電流」です。通常の三相運転では、各相に位相の異なる対地電圧がかかり、各相電流のベクトル和を扱います。その3相運転の電流を算術で足した値との比較ではありません。</p>
@@ -362,7 +370,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <div id="dimensionFields" hidden><p class="hint">初期寸法はSFCC表から取得。内部半導電層の厚さを含む公称寸法のため、電界境界の厳密な寸法ではありません。半導電層を個別に考慮しない同軸モデルによる参考推定です。撚り込み率は対象資料または明示した仮定を入力してください。</p>
 <div class="input-grid"><label>内側径 d [mm]<input id="d" type="number" min="0" step="any" value="7.3"></label><label>外側径 D [mm]<input id="D" type="number" min="0" step="any" value="15.3"></label><label>比誘電率 εr [無次元]<input id="epsilon" type="number" min="1" step="any" value="2.3"></label><label>撚り込み率 [%]<input id="lay" type="number" min="0" step="any" placeholder="未確認・自動適用しません"></label></div><label>寸法・撚り込み率の出典または仮定<input id="dimensionNote" type="text" maxlength="300" placeholder="例：SFCC公称寸法、撚り込み率は0%と仮定"></label></div>
 <p class="hint">C₁ [μF/km] = 0.02413 × εr / log10(D/d)。全体C [F] = C₁ × 3 × (1＋撚り込み率/100) × 長さ[m]/1000 × 10⁻⁶。方式Bのカタログ容量にこの撚り込み補正を再び掛けることはしません。</p></section>
-<section class="surface"><h2>リアクトル組み合わせ比較</h2><p>採用する充電電流と、補償後に試験器が負担する電流の概算を確認します。</p>
+<section class="surface"><h2 id="reactor-settings">リアクトル組み合わせ比較</h2><p>採用する充電電流と、補償後に試験器が負担する電流の概算を確認します。</p>
 <div class="input-grid"><label>採用する充電電流<select id="reactorBasis"><option value="B">方式B：SFCC静電容量データ</option><option value="A">方式A：メーカー掲載参考値</option><option value="C">方式C：構造理論値</option><option value="M">実測Cからの計算</option></select></label><label>試験器の許容出力電流 [mA・高圧側]<input id="outputLimit" type="number" min="0" step="any" placeholder="取扱説明書から入力"></label><label>DR-1220MH 最大検討台数<input id="count2" type="number" min="0" max="10" step="1" value="4"></label><label>DR-1250MH 最大検討台数<input id="count5" type="number" min="0" max="10" step="1" value="3"></label></div>
 <p class="hint">DR-1220MH：200H±10%、DR-1250MH：80H±10%。両機種とも定格12kV・30分。通称2kVA／5kVAではなく、インダクタンスから補償電流を計算します。検討上限台数はメーカーの接続許容台数ではありません。</p>
 <details><summary>実機で残る定格確認（被試験物側の電流計・試験時間）</summary><p>補償後の残留電流が小さくても、A2電流計には被試験物の電流が流れます。標準メーターはDR-1220MHが500mA、DR-1250MHが1000mAフルスケールです。複数台接続時は負荷電流に応じた電流計が必要で、メーターの許容電流が台数分増えるわけではありません。</p><div class="input-grid"><label>A2の許容電流 [mA・被試験物側]<input id="meterLimit" type="number" min="0" step="any" placeholder="実際に使う電流計の仕様"></label><label>今回の連続印加時間 [分]<input id="testMinutes" type="number" min="0" step="any" placeholder="所定の試験時間"></label></div><p id="equipmentCheck" aria-live="polite"></p><p class="hint">別定格リアクトルの混在接続、電流計の耐電圧・保護、各リアクトルの実電流、試験器・トランス・電源の定格電流、時間定格・休止時間は実機資料で照合します。リアクトルの30分定格をトランスに流用しません。例えばR-1220Kは10分定格、取説は連続試験の間に10分以上の休止を指定しています。DR同士の混在を、この表だけで許容された組み合わせとは判断できません。</p></details>
@@ -477,6 +485,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
     drawReactors();
   }
   function drawReactors(){
+    $('reactorQuick').textContent='台数を表示できません。入力条件と下のリアクトル比較欄を確認してください。';
     $('reactorRows').innerHTML='';
     $('equipmentCheck').textContent='実機の定格条件を確認してください。';
     if(!result){$('reactorSummary').textContent='共通条件が未確定のため候補を表示できません。';return;}
@@ -488,6 +497,19 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
       $('equipmentCheck').textContent=`被試験物の充電電流は${format(r.value)}mA。`+(meter===null?'A2の許容電流は未確認。':r.value>meter?`入力したA2の許容電流${format(meter)}mAを充電電流だけで超えています。適切な計器の確認が必要です。`:'充電電流成分はA2の入力した許容電流以内ですが、損失電流と計器の仕様も確認が必要です。')+(minutes===null?'連続印加時間は未入力。':minutes>30?'指定時間は登録リアクトルの30分定格を超えています。':'リアクトルの30分定格内です。トランス・電源の時間定格と休止条件は未確認です。');
       if(minutes!==null&&minutes>30){$('reactorSummary').textContent='連続印加時間が登録リアクトルの定格を超えるため、補償候補は提示できません。共通条件の充電電流計算は利用できます。';return;}
       const rr=E.reactors(r.value,result.V,result.f,$('count2').value,$('count5').value,$('outputLimit').value);
+      const candidate=rr.allowed===null?rr.rows[0]:rr.minimum;
+      const quick=$('reactorQuick');
+      if(candidate){
+        const title=rr.allowed===null?'公称残留電流が最小になる参考候補':'L公差込みで入力した許容電流を満たす最少台数';
+        quick.innerHTML='<p><b>'+title+'</b></p><p>採用：'+names[key]+' ／ '+format(r.value)+' mA<br>'+format(result.V)+' V・'+result.f+' Hz</p>'
+          +'<div class="reactor-counts"><div class="reactor-model model1220">DR-1220MH<strong>'+candidate.a+' 台</strong></div><div class="reactor-model model1250">DR-1250MH<strong>'+candidate.b+' 台</strong></div></div>'
+          +'<p>合計 '+(candidate.a+candidate.b)+' 台 ／ 公称残留電流 '+format(candidate.residual)+' mA ／ L公差込み最大 '+format(candidate.worst)+' mA</p>'
+          +'<p>'+(rr.allowed===null?'許容出力電流が未入力のため、必要台数はまだ判定できません。下の条件欄で入力すると、数値条件を満たす最少台数を表示します。':'検討範囲内の計算結果です。損失電流・機器定格・接続適合は別途確認が必要です。')
+          +(meter!==null&&r.value>meter?' 被試験物の充電電流が入力したA2の許容電流を超えています。':'')
+          +'</p>';
+      }else{
+        quick.textContent='採用：'+names[key]+' '+format(r.value)+' mA。指定した検討台数の範囲では、L公差込みで許容出力電流を満たす候補がありません。';
+      }
       let msg=`採用：${names[key]} ${format(r.value)}mA。表は公称残留電流の小さい順・上位8候補（補償なしを含めて探索）。`;
       if(rr.allowed===null)msg+=' 許容出力電流が未入力のため、必要台数は判定しません。';
       else if(rr.minimum){const m=rr.minimum;msg+=` 検討範囲でL公差込みの数値条件を満たす最少は${m.a+m.b}台（1220：${m.a}、1250：${m.b}）。損失等は未評価のため、必要台数の確定ではありません。`;}
