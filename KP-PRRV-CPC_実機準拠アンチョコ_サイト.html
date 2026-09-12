@@ -142,13 +142,13 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
       <span class="chip">制御電源：AC/DC110V</span>
       <span class="chip">RPR：1相試験値は取説表</span>
       <span class="chip">OVGR：ZPD一次3810V基準</span>
-      <span class="chip">原本照合待ちの数値を含む</span>
+      <span class="chip">対象型式の公開取説を照合（2026-09-12）</span>
     </div>
   </div>
 
   <div class="safety">⚠ 教育・確認用。実設備では現場責任者、社内手順、操作票、系統状態、無電圧確認、CTT/VTT状態、誤投入防止、試験後の原状復帰を優先してください。完全型式・実整定値・現物端子を必ず照合。</div>
 
-  <section class="card" id="source-status"><strong>この教材の数値は原本照合待ちです。</strong><p>現場の判定に使う前に、対象実機の取扱説明書と照合してください。</p><details><summary>根拠資料と確認範囲を開く</summary><h2>根拠資料と確認範囲</h2><p>このページは <b>OMRON KP-PRRV-CPCと専用CT・指定零相電圧検出器の組合せ</b>を対象にした既存教材です。端子名・換算値を他機種へ転用しないでください。</p><p>メーカー公開製品仕様：<a href="https://socialsolution.omron.com/jp/ja/products_service/energy/product/close/kp-prrv.html" target="_blank" rel="noopener">OMRON KP-PRRV 製品ページ</a>。専用CT・定格などの概要を確認できます。</p><p>元の教材が参照する取扱説明書：KP-PRRV-CPC、5671766-2 B（2021-05-28）。<b>今回の修正では、この版の本文・該当ページを一次資料で照合できていません。</b>以下の既存の試験値・許容範囲は保持していますが、実機の取扱説明書で一致を確認するまで、現場の合否基準として使用しないでください。</p><p>試験器：<a href="https://www.musashi-in.co.jp/manual/gcr-minivs_23.pdf" target="_blank" rel="noopener">ムサシインテック GCR-mini VS 取扱説明書 第23版</a>（5209-000ST015、メーカー一覧の掲載年月2026年1月）。元教材の第21版と版が異なるため、旧版の操作へそのまま適用しないでください。確認日：2026-09-11。</p></details></section><div class="legend">
+  <section class="card" id="source-status"><strong>KP-PRRV-CPC（末尾-Bなし）の公開取扱説明書を照合しました。</strong><p>B/C両版の定格・試験倍率・メーカー表と、C版のT-E使用時の制約を確認しました。実盤のCTT・VTT接続、試験器との組合せ、実整定は別途照合が必要です。</p><details><summary>根拠資料と確認範囲を開く</summary><h2>根拠資料と確認範囲</h2><p>このページは <b>OMRON KP-PRRV-CPCと専用CT・指定零相電圧検出器の組合せ</b>を対象にした既存教材です。端子名・換算値を他機種へ転用しないでください。</p><p>メーカー公開製品仕様：<a href="https://socialsolution.omron.com/jp/ja/products_service/energy/product/close/kp-prrv.html" target="_blank" rel="noopener">OMRON KP-PRRV 製品ページ</a>。専用CT・定格などの概要を確認できます。</p><p>照合資料：<a href="https://socialsolution.omron.com/jp/ja/products_service/energy/doc/mnu/5671766-2b_inst_kp-prrv-cpc.pdf" target="_blank" rel="noopener">KP-PRRV-CPC取扱説明書 5671766-2 B</a>。PDF本文作成表示：2021-05-28（正式な発行・改訂日の記載は確認できず）。PDF1頁の3節、PDF2頁の8～9節を照合。<a href="https://socialsolution.omron.com/jp/ja/products_service/energy/doc/mnu/5671766-2c_inst_kp-prrv-cpc.pdf" target="_blank" rel="noopener">5671766-2 C</a>もPDF2頁9節を照合。C版はT-E試験の上限と判定条件の注意を追加しています。C版の正式な発行・改訂日記載は未確認。KP-PRRV-CPC-Bは別型式です。</p><p>試験器：<a href="https://www.musashi-in.co.jp/manual/gcr-minivs_23.pdf" target="_blank" rel="noopener">ムサシインテック GCR-mini VS 取扱説明書 第23版</a>（5209-000ST015、メーカー一覧の掲載年月2026年1月）。元教材の第21版と版が異なるため、旧版の操作へそのまま適用しないでください。確認日：2026-09-12。</p></details></section><div class="legend">
     <div class="control">⬛ 制御電源</div>
     <div class="voltage">🟦 電圧</div>
     <div class="current">⬜ 電流</div>
@@ -177,26 +177,27 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
     <div class="warn"><b>接続の確認範囲</b><br>ここでは試験器の能力と確認根拠を切り替えます。KP-PRRV-CPC側の端子、専用CT経由の電流入力、極性、コード色の対応は、継電器・試験器・実盤図面の三者で照合してください。</div>
   </div>
 
+  <div class="warn"><b>印加前に確認する機種固有の条件</b><p>取説8節は、外部入力による点検時のCT比定率を0(TEST)とし、試験後の復元を要求しています。機能選択のVo点検/P点検は内蔵試験スイッチ用で、外部印加試験と混同しません。設定変更・外部トリップロックは責任者と操作票で先に確定してください。0(TEST)が60秒以上続くとPCSが戻し忘れを検出するため、連動範囲も確認します。</p><p>CT二次開放防止、VT二次からの分離、専用CT一次の試験導体、試験器出力ゼロを確認してから結線します。以下の電圧・電流は試験側の値で、受電設備一次の運転電流・電圧ではありません。</p></div>
   <section id="rpr">
     <div class="grid">
       <div>
         <div class="card">
           <h2>⚡ RPR｜逆電力</h2>
-          <div class="example"><b>初期表示：1% / 1.0s</b><br><span class="small">整定変更で、1相試験電流・教材掲載の範囲（原本照合待ち）範囲・±30°電流・120%時間試験電流が連動。</span></div>
+          <div class="example"><b>初期表示：1% / 1.0s（入力例）</b><br><span class="small">整定変更で、1相試験電流・メーカー許容幅・±30°電流・120%時間試験電流が連動。</span></div>
 
-          <h3>まず配線</h3>
+          <h3>試験入力点の確認</h3>
           <div class="conn"><span class="badge control">⬛ 制御</span><div class="val">S1－S2 ｜ <b>AC/DC110V</b></div></div>
-          <div class="conn"><span class="badge voltage">🟦 電圧</span><div class="val"><b>V0 → P1・P3短絡点</b><br><b>E → P2</b><div class="small">単相試験：P1-P3を短絡し、P1-P2間へ110V</div></div></div>
+          <div class="conn"><span class="badge voltage">🟦 電圧</span><div class="val"><b>V0 → P1・P3短絡点</b><br><b>E → P2</b><div class="small">メーカー単相試験例：系統のVT二次から分離した試験対象側でP1-P3を接続し、P1-P2間へ110V。常設VT回路に接続したまま短絡しない。</div></div></div>
           <div class="conn"><span class="badge current">⬜ 電流</span><div class="val"><b>CTT試験器側 → 専用CTを通して注入</b></div></div>
 
           <div class="danger">
             <strong>⚠ KP-PRRV-CPC本体の電流入力端子へ直接注入しない</strong>
-            試験電流はCTTの試験器側から、設置されている専用CTを通して入力する。取扱説明書の試験回路・現物のCTT配線を確認。
+            取説9節は専用CT（KP-CT-C09AC005）の一次導体へ試験電流を流す回路です。盤のCTTから試験できるかは、その経路に専用CTが入ることとCT側の安全な分離・短絡を現物図で確認して判断します。CTT端子名だけで接続点を決めません。
           </div>
 
           <div class="conn"><span class="badge trip">🟨 TRIP</span><div class="val"><b>a3－c3</b></div></div>
 
-          <div class="warn"><b>位相：180° / 0°</b><br>取説上は逆電力方向が基準。GCR-mini VSで電流極性を反転して試験する場合は表示上0°側になることがあるため、接続・極性・逆電力方向を確認。</div>
+          <div class="warn"><b>位相：メーカー基準180°（極性反転時は表示が変わる）</b><br>取説上は逆電力方向が基準。GCR-mini VSで電流極性を反転して試験する場合は表示上0°側になることがあるため、接続・極性・逆電力方向を確認。</div>
         </div>
 
         <div class="card">
@@ -239,13 +240,13 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             <div class="metric"><small>TRIP</small><b>a3-c3</b></div>
           </div>
           <div class="result">
-            <span>取説基準電流</span><strong id="rbase">0.087A</strong>
-            <span id="rerr">教材掲載の範囲（原本照合待ち）：±5%</span><strong id="rrange">0.083～0.091A</strong>
+            <span>理論電流（専用CT一次の試験電流）</span><strong id="rbase">0.087A</strong>
+            <span id="rerr">メーカー許容幅（取説3・9節）：±5%</span><strong id="rrange">0.083～0.091A</strong>
           </div>
         </div>
 
         <div class="test">
-          <div class="testhead">② 位相特性｜基準 180° / 0° → ±30°</div>
+          <div class="testhead">② 位相特性｜最大感度方向から±30°（理想式による電流）</div>
           <div class="metrics">
             <div class="metric"><small>電圧</small><b>110V</b></div>
             <div class="metric"><small>基準電流</small><b id="rphaseBase">0.087A</b></div>
@@ -254,7 +255,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
           </div>
           <div class="result">
             <span>±30°の試験電流</span>
-            <strong id="rphaseFormula">0.087A × 1.15 = 0.100A</strong>
+            <strong id="rphaseFormula">I / cos30°</strong>
           </div>
           <div class="info">
             基準180°なら <b>150° / 210°</b><br>
@@ -272,7 +273,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             <div class="metric"><small>時限</small><b id="rtset">1.0s</b></div>
           </div>
           <div class="result">
-            <span>教材掲載の範囲（原本照合待ち）</span>
+            <span>メーカー許容幅（取説3・9節）</span>
             <strong id="rtrange">0.95～1.05s</strong>
             <span>整定値±5%（最小誤差±50ms）</span>
           </div>
@@ -299,10 +300,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             </div>
           </div>
 
-          <div class="formula">1%整定の例
-三相通常時 0.050A
-× √3
-= 片相試験 約0.087A</div>
+          <p>1%整定の例：三相平衡・力率1では 5A × 1% = 0.050A。試験時は単相の110Vで同じ電力を作るため、約0.086603Aです。実運転の不平衡負荷を1相電流だけで判定する式ではありません。</p><p>親公式は P = √3 × V<sub>L</sub> × I<sub>L</sub> × cosφ、単相試験は P = V<sub>test</sub> × I<sub>test</sub>（最大感度方向の大きさ）。Pは有効電力 Power [W]、Vは電圧 Voltage [V]、Iは電流 Current [A]（Iは慣用記号）、LはLineで線間電圧・線電流、testは試験条件、φは電圧と電流の位相差です。W/V=Aなので、電力を試験電圧で割れば電流を復元できます。整定%が2倍なら電流も2倍です。</p><p>表はメーカー掲載の丸め済み参考値です。結果計算には丸め前の理論値を使用します。表示桁は計算の追跡用で、試験器が同じ桁で設定・測定できることを意味しません。メーカー4%位相例0.398Aは1.15倍に丸めた例。理想式の1/cos30°では0.400Aです。</p>
 
           <div class="warn"><b>補足</b><br>「CTが2個ある＝試験も必ず三相」ではない。また「片相試験だから通常時も1相しか見ていない」でもない。</div>
         </div>
@@ -317,9 +315,9 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
           <h2>⚡ OVGR｜地絡過電圧</h2>
           <div class="example"><b>初期表示：10% / 1.0s</b><br><span class="small">ZPD一次側3810V基準。取説の±25%・時間試験150%を表示。</span></div>
 
-          <h3>まず配線</h3>
+          <h3>試験入力点の確認</h3>
           <div class="conn"><span class="badge control">⬛ 制御</span><div class="val">S1－S2 ｜ <b>AC/DC110V</b></div></div>
-          <div class="conn"><span class="badge voltage">🟦 電圧</span><div class="val"><b>T－E</b> へ試験電圧</div></div>
+          <div class="conn"><span class="badge voltage">🟦 電圧</span><div class="val"><b>指定ZPDの一次側三相一括、またはT-E（取説の条件を確認）</b><br>B版はVOC-1MS2-1一次側三相一括の試験回路を掲載。C版にはT-E使用時の制約があります。T-Eは最大約858Vで、三相一括用の判定基準を満足しない場合があるため、同じ扱いにしません。継電器Y1－Y2へここに表示する電圧を直接印加しないでください。</div></div>
           <div class="conn"><span class="badge current">⬜ 電流</span><div class="val">使用しない</div></div>
           <div class="conn"><span class="badge trip">🟨 TRIP</span><div class="val"><b>a1－c1-2（自動復帰）</b><br><b>a2－c1-2（手動復帰）</b></div></div>
         </div>
@@ -327,7 +325,7 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
         <div class="card">
           <h2>整定</h2>
           <div class="controls">
-            <label>OVGR整定
+            <label>試験入力の方式<select id="opath"><option value="primary" selected>ZPD一次側の三相一括</option><option value="te">T-E試験端子（適用条件を照合）</option></select></label><label>OVGR整定
               <select id="op">
                 <option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option>
                 <option>5</option><option>6</option><option>7.5</option><option selected>10</option><option>12.5</option>
@@ -354,9 +352,9 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             <div class="metric"><small>入力</small><b>0V → UP</b></div>
             <div class="metric"><small>基準値</small><b id="obase">381.0V</b></div>
             <div class="metric"><small>TRIP例</small><b>a1-c1-2</b></div>
-            <div class="metric"><small>誤差</small><b>±25%</b></div>
+            <div class="metric"><small>判定の基準</small><b id="oerr">三相一括：±25%</b></div>
           </div>
-          <div class="result"><span>教材掲載の範囲（原本照合待ち）</span><strong id="orange">285.8～476.3V</strong></div>
+          <div class="result"><span>メーカー許容幅（取説3・9節）</span><strong id="orange">285.8～476.3V</strong></div>
         </div>
 
         <div class="test">
@@ -367,34 +365,38 @@ th{background:#10304b}.activeRow{background:#194865;font-weight:950}
             <div class="metric"><small>入力倍率</small><b>150%</b></div>
             <div class="metric"><small>時限</small><b id="otset">1.0s</b></div>
           </div>
-          <div class="result"><span>教材掲載の範囲（原本照合待ち）</span><strong id="otrange">0.95～1.05s</strong><span>整定値±5%（最小誤差±50ms）</span></div>
+          <div class="result"><span>メーカー許容幅（取説3・9節）</span><strong id="otrange">0.95～1.05s</strong><span>整定値±5%（最小誤差±50ms）</span></div>
         </div>
 
-        <div class="info">取説代表値：5%=190.5V、10%=381.0V、15%=571.5V、30%=1143V。時間試験例では5%整定→285.8V（150%）を印加。</div>
+        <p class="small">C版9節の図にはK2ZC-K2RV・VOC-1MS2の表記が残る一方、本文の指定組合せはKP-PRRV-CPC・VOC-1MS2-1です。T-E端子の実機形式、結線、定格、判定方法は原本・メーカーと照合が必要です。</p><p id="ocapacity" class="warn" aria-live="polite"></p><p class="small">計算値はZPD一次側の三相一括入力基準。C版はT-Eにも同じ電圧値としますが、許容幅の適用条件は異なります。U<sub>test</sub> = 3810V × 整定% / 100。Uは電圧（Voltageの慣用記号）、testは試験側。比は無次元なので単位はVです。整定が2倍なら動作基準と時間試験電圧も2倍。Y1–Y2の定格7.6Vと混同しないでください。</p><div class="info">取説代表値：5%=190.5V、10%=381.0V、15%=571.5V、30%=1143V。時間試験例では5%整定→285.8V（150%）を印加。</div>
         <div class="source">メーカー側根拠：OMRON KP-PRRV-CPC取扱説明書のOVGRタップ値、動作時間試験、判定基準。</div>
       </div>
     </div>
   </section>
 
+  <div class="card"><h2>接点・復帰・故障時の見方</h2><p>通常監視で要素非動作のとき、a1-c1-2、a2-c1-2、a3-c3は開。動作条件が時限まで続くと該当接点が閉じます。外部コイル・遮断器・警報は盤図の接続で決まり、この接点だけで遮断器が必ず動くとは限りません。内部コイルの励磁状態は公開資料で確定していません。</p><p>入力が復帰値以下になるとa1とa3は自動復帰。a2は入力復帰後に復帰スイッチが必要です。電源喪失時は内蔵バックアップが最大3秒（定格制御電源を15秒以上印加後）なので、保持時間と外部電源を確認。内部故障時のTSELFはトランジスタ出力で、a接点と同じ試験入力に接続しません。公開取説8節・3節参照。</p></div>
   <div class="card">
     <h2>🔁 試験後の原状復帰</h2>
     <div class="restore">
       <div>□ 試験器出力ゼロ</div><div>□ 試験器停止</div>
       <div>□ P1-P3短絡線撤去</div><div>□ CTT原状復帰</div>
-      <div>□ VTT/試験端子原状復帰</div><div>□ 整定値復元・照合</div>
+      <div>□ VTT/試験端子原状復帰</div><div>□ 整定値復元・照合</div><div>□ CT比定率0(TEST)を試験前値へ復元</div><div>□ 機能選択Vo点検/P点検を通常表示へ復元</div>
       <div>□ 制御電源・配線確認</div><div>□ 別人確認 / 復旧写真</div>
     </div>
   </div>
 </div>
 
-<script src="./relay-guide-data-v14.js"></script>
+<script src="./relay-guide-data-v14.js?v=20260912-1"></script>
 <script>
 const rdata=[
 [0.2,1.9,0.017],[0.4,3.8,0.035],[0.6,5.7,0.052],[0.8,7.6,0.069],[1,9.5,0.087],
 [1.5,14.3,0.130],[2,19.1,0.173],[3,28.6,0.260],[4,38.1,0.346],[5,47.7,0.433],
 [6,57.2,0.520],[7,66.7,0.606],[8,76.2,0.693],[9,85.8,0.779],[10,95.3,0.866]
 ];
-const fmtA=v=>v.toFixed(3)+'A', fmtV=v=>v.toFixed(1)+'V';
+const fmtA=v=>v.toFixed(6)+'A', fmtV=v=>v.toFixed(1)+'V';
+const timeTaps=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.2,1.5,2,2.5,3,5];
+const ovgrTaps=[2,2.5,3,3.5,4,4.5,5,6,7.5,10,12.5,15,20,25,30];
+function clearResults(ids){ids.forEach(id=>document.getElementById(id).textContent='— 未計算（整定を選択）');}
 
 function renderTester(){
   const tester=RELAY_TESTER_PROFILES.find(item=>item.model===testerSelect.value);
@@ -418,30 +420,43 @@ function renderTable(){
   rtable.innerHTML=rdata.map(x=>`<tr data-p="${x[0]}"><td>${x[0]}</td><td>${x[1]}</td><td>${x[2].toFixed(3)}</td></tr>`).join('');
 }
 function rr(){
-  const p=parseFloat(rp.value), t=parseFloat(rt.value), row=rdata.find(x=>x[0]===p), I=row[2];
+  const p=Number(rp.value), t=Number(rt.value), row=rdata.find(x=>x[0]===p);
+  if(!row||!timeTaps.includes(t)){clearResults(['rbase','rerr','rrange','rphaseBase','rphaseLead','rphaseLag','rphaseFormula','r120','rtset','rtrange']);return;}
+  const I=Math.sqrt(3)*5*p/100;
   document.querySelectorAll('#rtable tr').forEach(tr=>tr.classList.toggle('activeRow',parseFloat(tr.dataset.p)===p));
   const ep=p===0.2?10:5;
   rbase.textContent=fmtA(I);
-  rerr.textContent=`教材掲載の範囲（原本照合待ち）：±${ep}%`;
-  rrange.textContent=`${(I*(1-ep/100)).toFixed(3)}～${(I*(1+ep/100)).toFixed(3)}A`;
-  const p30=I*1.15;
+  rerr.textContent=`メーカー許容幅（取説3・9節）：±${ep}%`;
+  rrange.textContent=`${(I*(1-ep/100)).toFixed(6)}～${(I*(1+ep/100)).toFixed(6)}A`;
+  const p30=I/Math.cos(Math.PI/6);
   rphaseBase.textContent=fmtA(I);
   rphaseLead.textContent=fmtA(p30);
   rphaseLag.textContent=fmtA(p30);
-  rphaseFormula.textContent=`${fmtA(I)} × 1.15 = ${fmtA(p30)}`;
+  rphaseFormula.textContent=`${fmtA(I)} ÷ cos30° = ${fmtA(p30)}`;
   r120.textContent=fmtA(I*1.2);
   rtset.textContent=t.toFixed(1)+'s';
   const e=Math.max(t*.05,.05);
   rtrange.textContent=`${(t-e).toFixed(2)}～${(t+e).toFixed(2)}s`;
 }
 function oo(){
-  const p=parseFloat(op.value),t=parseFloat(ot.value),base=3810*p/100;
+  const p=Number(op.value),t=Number(ot.value);
+  if(!ovgrTaps.includes(p)||!timeTaps.includes(t)||!['primary','te'].includes(opath.value)){clearResults(['obase','obase2','orange','o150','otset','otrange','ocapacity','oerr']);return;}
+  const base=3810*p/100;
+  oerr.textContent=opath.value==='te'?'T-E：判定条件を要照合':'三相一括：±25%';
   obase.textContent=obase2.textContent=fmtV(base);
-  orange.textContent=`${(base*.75).toFixed(1)}～${(base*1.25).toFixed(1)}V`;
+  orange.textContent=opath.value==='te'?'判定幅未確定：±25%をこの試験入力に流用しません':`${(base*.75).toFixed(1)}～${(base*1.25).toFixed(1)}V`; 
   o150.textContent=fmtV(base*1.5);
   otset.textContent=t.toFixed(1)+'s';
   const e=Math.max(t*.05,.05);
-  otrange.textContent=`${(t-e).toFixed(2)}～${(t+e).toFixed(2)}s`;
+  otrange.textContent=opath.value==='te'?'判定条件を要照合（T-E試験）':`${(t-e).toFixed(2)}～${(t+e).toFixed(2)}s`;
+  const required=base*1.5;
+  ocapacity.textContent=testerSelect.value==='GCR-miniVS'
+    ? (required>1200 ? `出力能力不足：時間試験の計算値${fmtV(required)}はGCR-miniVSの最大1200Vを超過。この組合せでは条件を満たせません。整定をその場で変えて済ませず、承認された試験条件・機器構成を確認してください。` : `電圧上限の比較：時間試験${fmtV(required)}はGCR-miniVSの1200V以内。負担・使用レンジ・精度・連続時間は未確認。600/1200Vレンジの定格負荷は15mA（第23版8頁）です。`)
+    : 'RX47022との試験成立は未確認。電圧2相の1相300V／単相構成600Vという製品表示だけで直列配線を決めず、取説の出力構成・接地・負担を照合してください。';
+  if(opath.value==='te'){
+    const limits=required>858?'T-E上限超過：時間試験の計算値は約858Vを超えるため使用条件外です。':required>850?'T-E上限近傍：約858Vは概数です。計算値が下でも余裕を保証できず、試験器誤差・オーバーシュートを含め照合が必要です。':'T-Eの上限は約858V。端子・適用条件・判定基準は未確定です。';
+    ocapacity.textContent=limits+' '+ocapacity.textContent;
+  }
 }
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));
@@ -449,8 +464,8 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
   rpr.classList.toggle('hide',b.dataset.tab!=='rpr');
   ovgr.classList.toggle('hide',b.dataset.tab!=='ovgr');
 });
-rp.onchange=rr;rt.onchange=rr;op.onchange=oo;ot.onchange=oo;
-testerSelect.onchange=renderTester;
+rp.onchange=rr;rt.onchange=rr;op.onchange=oo;ot.onchange=oo;opath.onchange=oo;
+testerSelect.onchange=()=>{renderTester();oo();};
 renderTable();rr();oo();renderTester();
 </script>
 </body>

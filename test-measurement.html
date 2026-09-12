@@ -28,7 +28,7 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
 <section class="hero">
   <div class="eyebrow">FIELD TEST METHOD DATABASE</div>
   <h1>試験方法から探す</h1>
-  <p>試験の目的を選ぶと、使用できる器具・型式、確認工程、測定値の意味、復旧項目まで逆引きできます。器具固有の操作は、型式アンチョコとメーカー取扱説明書で確認します。</p>
+  <p>試験の目的を選ぶと、関連する器具候補・型式、確認工程、測定値の意味、復旧項目まで逆引きできます。器具の一覧は候補です。完全型式・測定機能・定格・付属品が、その試験条件に対応するかメーカー取扱説明書で確認します。</p>
   <div class="safe"><b>安全上の前提：</b> 実設備の停復電、活線測定、高電圧試験、試験結線、整定変更、トリップ確認は、現場責任者・社内手順書・操作票・系統状態・無電圧確認・誤投入防止措置・最新の実機取扱説明書を優先してください。このページだけを根拠に実操作しないでください。</div>
 </section>
 
@@ -49,17 +49,17 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
   <div class="box"><h3>何を区別するか</h3><p id="dDistinction"></p></div>
   <div class="box"><h3>試験前から復旧まで</h3><ol class="stages" id="dStages"></ol></div>
   <div class="box"><h3>現場確認チェック</h3><div class="checks" id="dChecks"></div></div>
-  <div class="box"><h3>使用できる器具・型式</h3><div class="model-links" id="dModels"></div></div>
+  <div class="box"><h3>関連する器具候補・型式</h3><div class="model-links" id="dModels"></div></div>
   <div class="modal-actions" id="dActions"></div>
 </div></dialog>
 
 <nav class="bottom" aria-label="メインナビゲーション"><a href="./index.html"><b>⌂</b>ホーム</a><a class="active" href="./test-measurement.html"><b>✓</b>試験方法</a><a href="./measuring-instruments.html"><b>⌕</b>測定器具</a><a href="./protective-relay.html"><b>51</b>継電器</a><a href="./zukan.html"><b>図</b>図鑑</a></nav>
 
-<script src="./measurement-db-v2.js"></script>
-<script src="./measurement-catalog-additions-v3.js"></script>
-<script src="./measurement-catalog-global-v4.js"></script>
-<script src="./measurement-catalog-field-v5.js"></script>
-<script src="./measurement-catalog-expansion-v6.js"></script>
+<script src="./measurement-db-v2.js?v=20260912-1"></script>
+<script src="./measurement-catalog-additions-v3.js?v=20260912-1"></script>
+<script src="./measurement-catalog-global-v4.js?v=20260912-1"></script>
+<script src="./measurement-catalog-field-v5.js?v=20260912-1"></script>
+<script src="./measurement-catalog-expansion-v6.js?v=20260912-1"></script>
 <script>
 const METHODS=window.UKIWA_MEASUREMENT_METHODS||[],$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const dbMeta=window.UKIWA_INSTRUMENT_CATALOG_META||{};if(dbMeta.totalCount)$('#instrumentDbCount').textContent=`${dbMeta.totalCount}型式`;
@@ -68,10 +68,10 @@ const categories=['すべて',...new Set(METHODS.map(m=>m.category))];
 function searchable(m){return [m.title,m.category,m.summary,m.distinction,...(m.aliases||[]),...(m.instrumentModels||[])].join(' ').toLowerCase()}
 function filtered(){const q=state.q.trim().toLowerCase();return METHODS.filter(m=>(state.category==='すべて'||m.category===state.category)&&(!q||searchable(m).includes(q)))}
 function drawChips(){$('#chips').innerHTML=categories.map(c=>`<button type="button" class="chip ${c===state.category?'active':''}" data-category="${esc(c)}">${esc(c)}</button>`).join('');document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{state.category=b.dataset.category;render()})}
-function card(m){return `<article class="card"><div class="category">${esc(m.category)}</div><h3>${esc(m.title)}</h3><p>${esc(m.summary)}</p><div class="distinction">${esc(m.distinction)}</div><div class="models">${m.instrumentModels.map(v=>`<span>${esc(v)}</span>`).join('')}</div><div class="actions"><button type="button" class="btn primary" data-open="${esc(m.id)}">工程・復旧を見る</button><a class="btn" href="./measuring-instruments.html?method=${encodeURIComponent(m.id)}">対応器具を探す</a></div></article>`}
+function card(m){return `<article class="card"><div class="category">${esc(m.category)}</div><h3>${esc(m.title)}</h3><p>${esc(m.summary)}</p><div class="distinction">${esc(m.distinction)}</div><div class="models">${m.instrumentModels.map(v=>`<span>${esc(v)}</span>`).join('')}</div><div class="actions"><button type="button" class="btn primary" data-open="${esc(m.id)}">工程・復旧を見る</button><a class="btn" href="./measuring-instruments.html?method=${encodeURIComponent(m.id)}">器具候補を探す</a></div></article>`}
 function urlState(){const p=new URLSearchParams();if(state.q)p.set('q',state.q);if(state.category!=='すべて')p.set('category',state.category);history.replaceState(null,'',location.pathname+(p.toString()?'?'+p:''))}
 function render(){state.q=$('#q').value;drawChips();const rows=filtered();$('#title').textContent=state.q?`「${state.q}」の検索結果`:state.category==='すべて'?'すべての試験方法':state.category;$('#count').textContent=`${rows.length}件 / 全${METHODS.length}件`;$('#grid').innerHTML=rows.map(card).join('')||'<p>該当する試験方法がありません。</p>';document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openMethod(b.dataset.open));urlState()}
-function openMethod(id){const m=METHODS.find(x=>x.id===id);if(!m)return;$('#dCategory').textContent=m.category;$('#dTitle').textContent=m.title;$('#dSummary').textContent=m.summary;$('#dSafety').textContent=m.safety;$('#dDistinction').textContent=m.distinction;$('#dStages').innerHTML=m.stages.map(v=>`<li><span>${esc(v)}</span></li>`).join('');$('#dChecks').innerHTML=m.checklist.map((v,i)=>`<label><input type="checkbox" id="check-${i}"><span>${esc(v)}</span></label>`).join('');$('#dModels').innerHTML=m.instrumentModels.map(v=>`<a href="./measuring-instruments.html?model=${encodeURIComponent(v)}">${esc(v)} →</a>`).join('');const relay=m.category==='保護継電器'||/^relay-/.test(m.id);$('#dActions').innerHTML=`<a class="btn primary" href="./measuring-instruments.html?method=${encodeURIComponent(m.id)}">この試験で使う器具</a>`+(relay?`<a class="btn" href="./protective-relay.html?q=${encodeURIComponent(m.title)}">保護継電器型式DB</a>`:'')+(m.learning?`<a class="btn" href="${esc(m.learning)}">原理・教材</a>`:'');if(!$('#detail').open)$('#detail').showModal();history.replaceState(null,'',location.pathname+'?method='+encodeURIComponent(id))}
+function openMethod(id){const m=METHODS.find(x=>x.id===id);if(!m)return;$('#dCategory').textContent=m.category;$('#dTitle').textContent=m.title;$('#dSummary').textContent=m.summary;$('#dSafety').textContent=m.safety;$('#dDistinction').textContent=m.distinction;$('#dStages').innerHTML=m.stages.map(v=>`<li><span>${esc(v)}</span></li>`).join('');$('#dChecks').innerHTML=m.checklist.map((v,i)=>`<label><input type="checkbox" id="check-${i}"><span>${esc(v)}</span></label>`).join('');$('#dModels').innerHTML=m.instrumentModels.map(v=>`<a href="./measuring-instruments.html?model=${encodeURIComponent(v)}">${esc(v)} →</a>`).join('');const relay=m.category==='保護継電器'||/^relay-/.test(m.id);$('#dActions').innerHTML=`<a class="btn primary" href="./measuring-instruments.html?method=${encodeURIComponent(m.id)}">この試験の器具候補</a>`+(relay?`<a class="btn" href="./protective-relay.html?q=${encodeURIComponent(m.title)}">保護継電器型式DB</a>`:'')+(m.learning?`<a class="btn" href="${esc(m.learning)}">原理・教材</a>`:'');if(!$('#detail').open)$('#detail').showModal();history.replaceState(null,'',location.pathname+'?method='+encodeURIComponent(id))}
 $('#q').oninput=render;$('#reset').onclick=()=>{state={q:'',category:'すべて'};$('#q').value='';render()};$('#close').onclick=()=>$('#detail').close();$('#detail').addEventListener('click',e=>{if(e.target===$('#detail'))$('#detail').close()});$('#detail').addEventListener('close',urlState);
 (function(){const p=new URLSearchParams(location.search);state.q=p.get('q')||'';state.category=categories.includes(p.get('category'))?p.get('category'):'すべて';$('#q').value=state.q;render();const id=p.get('method');if(METHODS.some(m=>m.id===id))setTimeout(()=>openMethod(id),0)})();
 </script>

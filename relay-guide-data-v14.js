@@ -56,37 +56,37 @@ const RELAY_TESTER_PROFILES=[
     contactInput:"接点動作自動判定",auxPower:"AC100V / DC24V / DC48V / DC110V",
     terminals:"電流・電圧・DGR・トリップ・補助電源など用途別コード。機器側接続は試験対象の取説で照合",
     colors:"取説は接続部コネクタの色分けを記載。個々の全コード色はプロファイルで一括断定しない",
-    source:"ユーザー提供 IP-R2000取扱説明書",docNo:"4104-000ST026",sourceDate:"PDF作成情報 2014-03-25",publicUrl:""
+    source:"既存登録（当該旧原本は今回未取得）：ユーザー提供 IP-R2000取扱説明書",docNo:"4104-000ST026",sourceDate:"過去登録のPDF作成情報 2014-03-25",publicUrl:""
   },
   {
-    maker:"ムサシインテック",model:"GCR-mini",status:"green",
+    maker:"ムサシインテック",model:"GCR-mini",status:"yellow",
     targets:["GR","DGR（ZPDタイプ）"],currentOutput:"最大2.5A",voltageOutput:"最大1000V",phaseOutput:"電流・電圧位相 ±180°リニア可変",
     contactInput:"接点動作自動判定",auxPower:"AC100V",
     terminals:"総合端子コード：Vo、E、Kt、Lt、TRIP、P1、P2",
     colors:"赤 Vo、白 E、青 Kt、白 Lt、黄 TRIP、赤 P1、黒 P2（第17版の総合端子コード図で確認）",
-    source:"ユーザー提供 GCR-mini取扱説明書 第17版",docNo:"5208-000ST009",sourceDate:"発行年月は表紙で確認できず",publicUrl:""
+    source:"既存登録（当該旧原本は今回未取得）：ユーザー提供 GCR-mini取扱説明書 第17版",docNo:"5208-000ST009",sourceDate:"発行年月は表紙で確認できず",publicUrl:""
   },
   {
-    maker:"ムサシインテック",model:"GCR-miniVS",status:"green",
-    targets:["GR","DGR（ZPD/EVT・GPT）","OVR","UVR","OVGR","RPR"],currentOutput:"最大5A",voltageOutput:"最大1200V",phaseOutput:"電流・電圧位相 ±180°リニア可変",
-    contactInput:"接点動作自動判定",auxPower:"AC100V / DC24V / DC48V / DC110V",
-    terminals:"電流出力、電圧出力、トリップ、補助電源。総合端子コードは別売形式あり",
-    colors:"電流 赤、電圧 青、トリップ 黄、補助電源 黒、アース 緑、電源 灰（取説付属コード表）",
-    source:"ユーザー提供 GCR-miniVS取扱説明書 Ver1.07対応",docNo:"5209-000ST013",sourceDate:"PDF作成情報 2022-02-23",publicUrl:""
+    maker:"ムサシインテック",model:"GCR-miniVS",status:"yellow",
+    targets:["GR","DGR（ZPD/EVT・GPT）","OVR","UVR","OVGR","RPR"],currentOutput:"0.5mA～5A（レンジ別負担条件あり）",voltageOutput:"DGR/OVGR用1～1200V、OVR/UVR用1～500V（各レンジで負担・精度範囲が異なる）",phaseOutput:"位相設定あり。表示は進み+190°～遅れ−190°、設定条件は取説で照合",
+    contactInput:"a/b接点自動判定と有電圧入力。入力回路の区分を選択",auxPower:"AC100V±10%・500VA / DC24・48・110V±10%・10W。ACは入力電源由来",
+    terminals:"電流出力、電圧出力、トリップ、補助電源。先端記号・接地側・総合端子コードの型式を別に確認",
+    colors:"標準コードと総合端子コードで被覆・先端・クリップ色を区別。色だけで接続先を決めず取説4・6・89～90頁と現物を照合",
+    source:"メーカー公開 GCR-mini VS取扱説明書 第23版（2026-09-12に仕様・コード・安全条件を部分照合。実機接続は未確認）",docNo:"5209-000ST015",sourceDate:"メーカー一覧掲載2026-01。本文改訂日記載なし。印刷4・6・8～10・13・89～90頁",publicUrl:"https://www.musashi-in.co.jp/manual/gcr-minivs_23.pdf"
   },
   {
-    maker:"ムサシインテック",model:"ET-5",status:"green",
+    maker:"ムサシインテック",model:"ET-5",status:"yellow",
     targets:["A・B・C・D種接地抵抗（3極法）","B・D種簡易接地抵抗（2極法）","交流電圧"],currentOutput:"接地抵抗測定用内部出力（外部試験電流出力器ではない）",voltageOutput:"交流電圧測定機能 15/150/300Vレンジ",phaseOutput:"なし",
     contactInput:"なし",auxPower:"単1形乾電池4本（公称DC6V）",terminals:"E：被接地極、P：電圧用補助極、C：電流用補助極",
     colors:"EMコード 赤 約6m、黄 約10m、青 約20m。端子への割付は取説図と現物表示で照合",
-    source:"ユーザー提供 ET-5取扱説明書",docNo:"2102-000ST004",sourceDate:"PDF作成情報 2013-04-01",publicUrl:""
+    source:"既存登録（当該旧原本は今回未取得）：ユーザー提供 ET-5取扱説明書",docNo:"2102-000ST004",sourceDate:"過去登録のPDF作成情報 2013-04-01",publicUrl:""
   },
   {
-    maker:"ムサシインテック",model:"IP-1110",status:"green",
+    maker:"ムサシインテック",model:"IP-1110",status:"yellow",
     targets:["交流耐電圧試験"],currentOutput:"高圧変圧器二次定格91mA、表示はリアクトル併用時500mA計測対応",voltageOutput:"AC0～11kV・片側接地式",phaseOutput:"なし",
     contactInput:"なし",auxPower:"なし",terminals:"高圧出力、接地E、リアクトルL・E",
     colors:"付属コードの色は抽出箇所で確認できず。役割名で表示",
-    source:"ユーザー提供 IP-1110取扱説明書",docNo:"6104-001ST004",sourceDate:"PDF作成情報 2018-03-26",publicUrl:""
+    source:"既存登録（当該旧原本は今回未取得）：ユーザー提供 IP-1110取扱説明書",docNo:"6104-001ST004",sourceDate:"過去登録のPDF作成情報 2018-03-26",publicUrl:""
   },
   {
     maker:"ムサシインテック",model:"WPS-22",status:"green",

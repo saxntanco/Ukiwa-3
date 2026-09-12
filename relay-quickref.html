@@ -185,7 +185,7 @@ button,input,select,a{font:inherit}
   </div>
 </main>
 
-<script src="./relay-guide-data-v14.js"></script>
+<script src="./relay-guide-data-v14.js?v=20260912-1"></script>
 <script>
 const params=new URLSearchParams(location.search);
 const model=params.get('model')||'型式未指定';
@@ -308,14 +308,17 @@ function updateRestore(){
 }
 
 function calculate(){
-  const base=parseFloat($('#baseValue').value),minus=parseFloat($('#minusValue').value),plus=parseFloat($('#plusValue').value),unit=$('#unitValue').value.trim();
-  if(!Number.isFinite(base)){$('#calcResult').textContent='基準値と許容率を入力すると参考範囲を表示します。';return}
-  const low=Number.isFinite(minus)?base*(1-minus/100):null;
-  const high=Number.isFinite(plus)?base*(1+plus/100):null;
-  $('#calcResult').textContent=`入力基準 ${base} ${unit} / 参考下限 ${low===null?'未入力':low.toFixed(4)+' '+unit} / 参考上限 ${high===null?'未入力':high.toFixed(4)+' '+unit}`;
+  const number=selector=>{const raw=$(selector).value.trim();return raw!==''&&Number.isFinite(Number(raw))?Number(raw):null};
+  const base=number('#baseValue'),minus=number('#minusValue'),plus=number('#plusValue'),unit=$('#unitValue').value.trim();
+  if(base===null||base<0||!unit){$('#calcResult').textContent='0以上の基準値と単位を入力してください。単位欄は名称で、数値を自動換算しません。';return}
+  if((number('#minusValue')===null&&$('#minusValue').value.trim()!=='')||(number('#plusValue')===null&&$('#plusValue').value.trim()!=='')){$('#calcResult').textContent='許容率は空欄または有効な数値で入力してください。';return}
+  if((minus!==null&&(minus<0||minus>100))||(plus!==null&&plus<0)){$('#calcResult').textContent='下限許容率は0～100%、上限許容率は0%以上で入力してください。';return}
+  const low=minus!==null?base*(1-minus/100):null,high=plus!==null?base*(1+plus/100):null;
+  if((low!==null&&!Number.isFinite(low))||(high!==null&&!Number.isFinite(high))){$('#calcResult').textContent='計算範囲を超えています。基準値・許容率・単位を確認してください。';return}
+  $('#calcResult').textContent=`入力基準 ${base} ${unit} / 参考下限 ${low===null?'許容率未入力':Number(low.toPrecision(12))+' '+unit} / 参考上限 ${high===null?'許容率未入力':Number(high.toPrecision(12))+' '+unit}。メーカー・社内基準への適合は別途照合。`;
 }
 
-$('#methodSelect').addEventListener('change',event=>{currentType=event.target.value;renderMethod()});
+$('#methodSelect').addEventListener('change',event=>{currentType=event.target.value;['#baseValue','#unitValue','#minusValue','#plusValue'].forEach(selector=>$(selector).value='');renderMethod();calculate()});
 $('#testerSelect').addEventListener('change',event=>renderTesterProfile(testerByModel(event.target.value)));
 $('#restoreList').addEventListener('change',updateRestore);
 ['#baseValue','#unitValue','#minusValue','#plusValue'].forEach(selector=>$(selector).addEventListener('input',calculate));

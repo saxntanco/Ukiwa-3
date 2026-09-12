@@ -134,14 +134,16 @@
 
   function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
   function norm(v){return String(v??'').normalize('NFKC').toLowerCase().replace(/[\s・／/_()（）-]/g,'');}
+  function readSavedList(key){try{const v=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(v)?v.filter(x=>typeof x==='string'):[]}catch{return []}}
+  function saveList(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch{}}
   function init(){
     const root=document.getElementById('generatorDbApp'); if(!root) return;
     const search=document.getElementById('gdbSearch'), cards=document.getElementById('gdbCards'), count=document.getElementById('gdbCount');
     const maker=document.getElementById('gdbMaker'), category=document.getElementById('gdbCategory');
     const dialog=document.getElementById('gdbDialog'), detail=document.getElementById('gdbDetail');
     let tab='models';
-    const fav=new Set(JSON.parse(localStorage.getItem('ukiwa-generator-favorites')||'[]'));
-    let recent=JSON.parse(localStorage.getItem('ukiwa-generator-recent')||'[]');
+    const fav=new Set(readSavedList('ukiwa-generator-favorites'));
+    let recent=readSavedList('ukiwa-generator-recent');
     const sets={models,tests,protections,components};
     const labels={models:'型式・シリーズ',tests:'試験方法',protections:'警報・保護',components:'部品・補機'};
     function current(){return sets[tab]||models;}
@@ -166,7 +168,7 @@
     function linkBlock(title,items){return items.length?`<section><h4>${esc(title)}</h4><div class="gdbRelated">${items.slice(0,18).map(v=>`<button data-open="${esc(v.id)}">${esc(v.model||v.title)}</button>`).join('')}</div></section>`:'';}
     function openItem(id){
       const hit=find(id); if(!hit)return; const x=hit.item;
-      recent=[id,...recent.filter(v=>v!==id)].slice(0,8); localStorage.setItem('ukiwa-generator-recent',JSON.stringify(recent));
+      recent=[id,...recent.filter(v=>v!==id)].slice(0,8); saveList('ukiwa-generator-recent',recent);
       const inverseModels=hit.key==='tests'?models.filter(m=>m.relatedTests?.includes(id)):hit.key==='protections'?models.filter(m=>m.relatedProtections?.includes(id)):hit.key==='components'?models.filter(m=>m.relatedComponents?.includes(id)):[];
       detail.innerHTML=`<div class="gdbDetailHead"><small>${esc(x.kind)}｜${esc(x.category||'')}</small><h2>${esc(x.model||x.title)}</h2>${x.maker?`<p><b>${esc(x.maker)}</b>｜${esc(x.name||'')}</p>`:''}</div><div class="gdbThree"><div><b>何をする？</b><span>${esc(x.summary)}</span></div><div><b>最初に確認</b><span>${esc(x.first||'銘板・図面・対象・試験範囲を確認。')}</span></div><div class="danger"><b>危険・間違えやすい</b><span>${esc(x.danger)}</span></div></div><div class="gdbDetailGrid">${listBlock('操作・確認の流れ',x.procedure)}${listBlock('試験後の復旧',x.recovery)}${linkBlock('関連する試験',(x.relatedTests||[]).map(v=>tests.find(t=>t.id===v)).filter(Boolean))}${linkBlock('関連する警報・保護',(x.relatedProtections||[]).map(v=>protections.find(t=>t.id===v)).filter(Boolean))}${linkBlock('関連する部品',(x.relatedComponents||[]).map(v=>components.find(t=>t.id===v)).filter(Boolean))}${linkBlock('この項目に関連する型式・シリーズ',inverseModels)}${listBlock('異常模擬方式の候補（要図面確認）',x.simulation)}${listBlock('不足資料',x.missing)}</div><div class="gdbTrust"><b>信頼度：</b>${esc(x.confidence)}　<b>最終確認：</b>${esc(x.checked||checked)}${x.source?`<br><a href="${esc(x.source.url)}" target="_blank" rel="noopener">${esc(x.source.label)} ↗</a>`:''}<p>関連表示は一般的な設備構成からの逆引きです。その型式での正式な対応・端子・設定を保証しません。型式別取扱説明書と現地図面で確定してください。</p></div>`;
       if(!dialog.open){if(dialog.showModal)dialog.showModal();else dialog.setAttribute('open','');}
@@ -175,7 +177,7 @@
       const t=e.target.closest('button'); if(!t)return;
       if(t.dataset.tab){tab=t.dataset.tab; root.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));options();render();}
       if(t.dataset.open)openItem(t.dataset.open);
-      if(t.dataset.fav){fav.has(t.dataset.fav)?fav.delete(t.dataset.fav):fav.add(t.dataset.fav);localStorage.setItem('ukiwa-generator-favorites',JSON.stringify([...fav]));render();}
+      if(t.dataset.fav){fav.has(t.dataset.fav)?fav.delete(t.dataset.fav):fav.add(t.dataset.fav);saveList('ukiwa-generator-favorites',[...fav]);render();}
     });
     dialog.addEventListener('click',e=>{const t=e.target.closest('[data-open]');if(t)openItem(t.dataset.open);});
     [search,maker,category].forEach(x=>x.addEventListener(x===search?'input':'change',render));

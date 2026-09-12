@@ -77,7 +77,7 @@ p{margin:.65em 0}
 .flow-arrow{text-align:center;font-weight:900;font-size:1.5rem;color:#4f94aa}
 .diagram{margin:18px 0;border:1px solid var(--line);border-radius:20px;background:#f9fdff;padding:14px;overflow:auto}
 .diagram svg{display:block;width:100%;min-width:680px;height:auto}
-.mini-eq{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f2f7f9;border:1px solid var(--line);border-radius:12px;padding:11px 13px;overflow:auto;font-size:.93rem}
+.mini-eq{margin:10px 0;font-size:1rem;line-height:1.8;overflow-wrap:anywhere}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
 .compare .panel{padding:18px;border-radius:18px;border:1px solid var(--line);background:#fbfeff}
 .compare .panel h3{margin:0 0 8px}
@@ -99,7 +99,7 @@ tr:last-child td{border-bottom:0}
 .check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
 .check{padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:#fbfeff}
 .check::before{content:"✓";display:inline-grid;place-items:center;width:23px;height:23px;border-radius:7px;background:#dff5e8;color:#1c754d;font-weight:950;margin-right:8px}
-.source-list{margin:.5rem 0 0;padding-left:1.25rem}
+.source-list{margin:.5rem 0 0;padding-left:1.25rem;overflow-wrap:anywhere}
 .source-list li{margin:.45rem 0}
 footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center}
 .small{font-size:.86rem;color:var(--muted)}
@@ -134,13 +134,23 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
         <span class="badge">SHG-DF3</span><span class="badge">Ic-Io 電流抑制方式</span><span class="badge">KAF2D-3</span><span class="badge">ZHF-30</span><span class="badge">非接地 / PC接地</span>
       </div>
     </div>
-    <div class="notice"><strong>安全上の前提：</strong>この記事は原理理解と試験計画用の整理です。実設備への試験結線・操作は、現場責任者、社内手順書・操作票、停電・無電圧確認、接地、試験回路の切離し、メーカー結線図、使用試験器の取扱説明書を最終基準にしてください。</div>
+    <div class="notice"><strong>安全上の前提：</strong>この記事は原理理解と試験計画用の整理です。実設備への試験結線・操作に先立ち、現場責任者、社内手順書・操作票、系統図、停電・無電圧確認・放電・所定の接地・誤投入防止、試験回路の切離し、補助電源の回り込み防止、トリップ／警報回路の扱い、実機形式に一致するメーカー結線図、使用試験器の取扱説明書を照合してください。<br><strong>今回の原資料照合では試験条件の資料間不一致が残りました。</strong>下の表をそのまま実行手順や合否判定に使わず、<a href="#sourceConflicts">未解決の条件</a>についてメーカーの訂正資料・回答を確認してください。</div>
     <nav class="toc" aria-label="記事内メニュー">
       <a href="#summary">30秒まとめ</a><a href="#whyic">なぜIc？</a><a href="#pc">非接地とPC接地</a><a href="#methods">2つの試験方法</a><a href="#tests">試験・管理値</a><a href="#phase">位相試験</a><a href="#field">現場メモ</a>
     </nav>
   </div>
 </header>
 <main class="wrap">
+<section id="sourceConflicts">
+  <h2>試験条件に関する資料間不一致</h2>
+  <p>2026年9月12日に、SHG-DF3専用資料とAF3/DF3共用試験マニュアルの本文を照合しました。次の違いは確認できましたが、どちらを適用すべきかはメーカーへ未確認です。</p>
+  <div class="table-wrap"><table><thead><tr><th>論点</th><th>実際の記載</th><th>残る確認</th></tr></thead><tbody>
+    <tr><td>Ic抑制試験の位相</td><td>SHG-DF3試験管理値1頁：Io進み115°。TR1203A 2頁4.2：進み155°。</td><td>使用機種・接地方式・試験器の基準方向に対する指定位相。片方を誤記と決めて実行しない。</td></tr>
+    <tr><td>動作時間400%の手順</td><td>管理値表はIo400%。TR1202A・TR1203A 3頁4.3.2は、見出し400%に対し手順①130%。</td><td>適用する試験手順の訂正版。さらに2024.7取説の性能表はIc＝130%を含む条件、現場試験マニュアルはIc／Vo不要と区別されている。</td></tr>
+    <tr><td>電圧引外しの端子</td><td>共用マニュアル1頁はSo−T1。DF3専用取説2頁・仕様書6頁はS2−T2。</td><td>AF3の端子表をDF3へ流用しない。実機端子図・製造仕様と、試験マニュアル本文の適用範囲を照合する。</td></tr>
+  </tbody></table></div>
+  <p class="small">根拠は<a href="#sources">末尾のメーカー原資料</a>。管理値表の数値を掲載することと、実機に適用できる試験条件が確定したことは別です。</p>
+</section>
 <section id="summary">
   <h2><span class="num">1</span>30秒でつかむ結論</h2>
   <p class="lead">SHG-DF3は、一般的なVo-Io方式ではなく、<strong>Ic（零相基準入力・抑制電流）とIo（零相電流）で判断する「電流抑制方式」DGR</strong>。</p>
@@ -150,6 +160,7 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
     <div><b>試験は2通り</b>Icを直接作るIc-Io試験と、KAF2D-3を使ってIcを作るVo-Io試験。</div>
   </div>
   <div class="big-memory" style="margin-top:15px">覚え方：<strong>「Ioで地絡を拾い、Icで“動かしてよいIoか”を見分ける」</strong></div>
+  <p class="small">記号の区別：Iは電流 Electric current [A]、Vは電圧 Voltage [V] の慣用記号。このページのIcはメーカー表記の<strong>抑制電流</strong> [mA]で、耐圧ページのIc（Charging current：充電電流）とは用途が違います。cの正式な英語展開はメーカー資料に記載なし。Io・Voのoは原資料の零相の識別表記です。Io整定値は主ZCTの検出・試験電流側で扱い、継電器の二次入力端子電流や、対称座標法で定義するI₀をそのまま代入しません。</p>
 </section>
 
 <section id="whyic">
@@ -209,7 +220,7 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
     <div class="panel">
       <h3>PC接地系</h3>
       <p>中性点と大地の間に<strong>消弧リアクトル</strong>を入れ、容量性地絡電流を誘導性電流で補償する。そのため、残留地絡電流の<strong>大きさ・位相</strong>が非接地系と変わる。</p>
-      <div class="mini-eq">容量性電流 Ic ↔ リアクトル電流 IL（補償）</div>
+      <p>系統の容量性電流と消弧リアクトルの誘導性電流が補償し合います。この容量性電流を、SHG-DF3の抑制入力Icと同じ量として扱いません。</p>
     </div>
   </div>
 
@@ -221,22 +232,18 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
   <h2><span class="num">4</span>SHG-DF3は「Ic-Io試験」と「Vo-Io試験」の両方ができる</h2>
   <p>SHG-DF3本体の保護原理は<strong>Ic-Ioの電流抑制方式</strong>。ただしメーカーは、定期点検用として<strong>Ic-Io試験器編</strong>と<strong>Vo-Io試験器編</strong>の両方を用意している。</p>
 
-  <h3>① Ic-Io試験：Icを直接作る</h3>
-  <div class="mini-eq">試験器 → Ic（電流） ─┐
-                         ├→ SHG-DF3
-試験器 → Io（電流） ─┘</div>
-  <p>SHG-DF3が実際に判断に使う2つの電流要素を直接模擬する方法。</p>
+  <h3>① Ic-Io試験：指定ZCT経路で2つの電流を模擬する</h3>
+  <p>TR1203Aの図1では、Ic出力を零相基準入力用ZCT（ZHF-30）の一次貫通試験線へ、Io出力を主ZCTの試験巻線へ加えています。各ZCTを経てSHG-DF3へ入力する構成です。<strong>継電器のG1−G2・Z1−Z2などの二次端子へ直結する図ではありません。</strong>極性・貫通方向・巻数・試験巻線の有無は、実際のZCTと指定結線図で確認します。</p>
 
   <h3>② Vo-Io試験：KAF2D-3を使ってIcを作る</h3>
-  <div class="mini-eq">試験器 → Vo → KAF2D-3 → ZHF-30 → Ic → SHG-DF3
-試験器 → Io ─────────────────────→ SHG-DF3</div>
+  <p>Vo出力は指定どおり切り離したKAF2D-3の高圧側3相一括へ加え、そこで生じる電流をZHF-30で検出する構成です。Io出力は主ZCTの指定試験経路へ加えます。これは原理の対応で、現場の結線手順を省略して実施できるという意味ではありません。</p>
   <p><strong>VoをSHG-DF3のVo入力へ直接入れる試験ではない。</strong> KAF2D-3側へメーカー指定条件で電圧を加え、Icを発生させて試験する。</p>
   <div class="callout good">だから「Vo-Ioで試験できる＝SHG-DF3がVo-Io方式」という意味ではない。<strong>本体はあくまでIc-Io方式。</strong></div>
 </section>
 
 <section id="tests">
   <h2><span class="num">5</span>各試験方法とメーカー管理値</h2>
-  <p class="small">以下は泰和電気が公開しているSHG-DF3の試験管理値・試験マニュアルを記事用に整理したもの。社内管理値がある場合は、メーカー値と混ぜずに別管理する。</p>
+  <p class="small">以下の数値は泰和電気「SHG-DF3試験管理値」1頁を整理したものです。<a href="#sourceConflicts">資料間不一致</a>がある条件は試験適用未確定としています。社内管理値・継電器単体動作時間・遮断器までの連動時間を混ぜずに別管理します。</p>
 
   <div class="table-wrap">
   <table>
@@ -244,8 +251,8 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
     <tbody>
       <tr><td><strong>Io動作電流</strong></td><td>Ic・Voを印加せず、Ioを徐々に上げて動作点を測定。</td><td><span class="value">Io整定値 ±10%</span></td></tr>
       <tr><td><strong>動作時間 130%</strong></td><td>Ic・Voを印加せず、Io＝整定値×130%で測定。</td><td>瞬時：<span class="value">50～100ms</span><br>限時：<span class="value">時間整定値 ±50ms</span></td></tr>
-      <tr><td><strong>動作時間 400%</strong></td><td>Ic・Voを印加せず、Io＝整定値×400%で測定。</td><td>瞬時：<span class="value">50～100ms</span><br>限時：<span class="value">整定値－50ms ～ 整定値</span></td></tr>
-      <tr><td><strong>Ic抑制電流</strong><br>Ic直接</td><td>Io＝整定値×130%。IoをIcに対して<strong>進み115°</strong>。Icを約8mAから徐々に下げ、抑制が外れて動作する境界を見る。</td><td><span class="value">Ic＝5±1mA</span></td></tr>
+      <tr><td><strong>動作時間 400%</strong><br>試験適用未確定</td><td>管理値表の条件はIc・Vo不要、Io＝整定値×400%。共用マニュアルの手順本文と不一致。</td><td>管理値表の記載：瞬時 <span class="value">50～100ms</span><br>限時 <span class="value">整定値－50ms ～ 整定値</span></td></tr>
+      <tr><td><strong>Ic抑制電流</strong><br>試験適用未確定</td><td>Io＝整定値×130%、Icを約8mAから下げる条件。位相は管理値表で進み115°、TR1203A本文で進み155°のため未確定。</td><td>両資料の管理値：<span class="value">Ic＝5±1mA</span></td></tr>
       <tr><td><strong>Voによる抑制試験</strong><br>50Hz</td><td>Io＝整定値×130%。IoをVoに対して<strong>遅れ155°</strong>。Voを高い側から下げ、抑制境界を見る。</td><td><span class="value">265V ±20%</span><br>＝212～318V</td></tr>
       <tr><td><strong>Voによる抑制試験</strong><br>60Hz</td><td>同上。</td><td><span class="value">220V ±20%</span><br>＝176～264V</td></tr>
     </tbody>
@@ -296,17 +303,11 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
     <li><strong>試験開始：</strong>Ic・Voは加えず、Ioを低い値から上げる。</li>
     <li><strong>動作：</strong>Ioが動作値に達するとSHG-DF3の出力接点が動作。</li>
     <li><strong>判定：</strong>動作Ioが「整定値±10%」に入るか確認。</li>
-    <li><strong>復帰：</strong>Ioを下げ、表示・出力・外部回路を復帰確認。</li>
+    <li><strong>復帰：</strong>出力接点の自動／手動復帰設定を確認。入力低下で接点が戻る自動復帰と、復帰操作が必要な手動復帰を区別する。磁気反転表示器は手動復帰です。外部自己保持や遮断器の復帰条件は設備の展開接続図で別に確認します。</li>
   </ol>
 
   <h3>Ic抑制電流試験</h3>
-  <ol class="step-list">
-    <li>Ioを整定値×130%に設定。</li>
-    <li>IoをIcに対して進み115°となるよう位相条件を作る。</li>
-    <li>Icを約8mAから徐々に下げる。</li>
-    <li>抑制が外れ、継電器が動作する境界を測る。</li>
-    <li>境界が<strong>5±1mA</strong>に入るか確認。</li>
-  </ol>
+  <p>原理は「Ioを一定にし、抑制側でIcを低下させ、抑制が外れる境界を見る」です。<strong>試験位相に資料間不一致があるため、このページでは実行可能な手順として確定していません。</strong>指定位相を確認できた後に、Ic＝5±1mAの管理値の適用を検討します。</p>
 
   <h3>位相特性試験</h3>
   <ol class="step-list">
@@ -316,6 +317,7 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
     <li>遅れ側・進み側の両境界を記録。</li>
     <li>該当する管理値と比較する。</li>
   </ol>
+  <p class="small">接点の基準は継電器が復帰して不動作の状態で、a接点は開、b接点は閉です。動作すると出力接点が切り替わりますが、内部コイルの常時励磁／無励磁をこの記事では断定しません。遮断器のトリップコイルに電流が流れるか、警報が出るかは、引外し方式・外部電源・インターロック・外部自己保持によります。接点動作だけで遮断器の開放完了を確認したことにはなりません。</p>
 </section>
 
 <section id="field">
@@ -339,9 +341,9 @@ footer{padding:16px 0 50px;color:var(--muted);font-size:.84rem;text-align:center
   <div class="big-memory">現場の一言まとめ：<br><strong>「SHG-DF3はIoで拾う。Icで止める。方向を見るときはIc-Ioの位相。PC接地なら位相特性が変わる。」</strong></div>
 </section>
 
-<section id="sources"><div class="callout"><strong>2026-09-11 原資料を再確認</strong><p>次のメーカーPDFを取得し、試験管理値1ページのIo・時限・Ic・Vo・位相の数値と、記事の表が一致することを確認しました。説明書の版と試験器の方式も併記します。</p><ul><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69D%2dM%2d%20SHG%2dDF3%81%40%8E%E6%88%B5%90%E0%96%BE%8F%91%282024%2e7a%81j%2epdf&amp;name=RH69D%2dM%2d%20SHG%2dDF3%81%40%8E%E6%88%B5%90%E0%96%BE%8F%91%282024%2e7a%81j%2epdf" target="_blank" rel="noopener">RH69D-M- SHG-DF3　取扱説明書(2024.7a）.pdf</a><br>取扱説明書：2024.7a。適用回路・端子・設定は実機と照合。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69B%2dS%201201%2d102c%81%40SHG%2dDF3%81%40%8Ed%97l%8F%91%81%40%282024%2d7a%81j%2epdf&amp;name=RH69B%2dS%201201%2d102c%81%40SHG%2dDF3%81%40%8Ed%97l%8F%91%81%40%282024%2d7a%81j%2epdf" target="_blank" rel="noopener">RH69B-S 1201-102c　SHG-DF3　仕様書　(2024-7a）.pdf</a><br>仕様書：1201-102c、2024-7a。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69%2dT%20SHG%2dDF3%8E%8E%8C%B1%8A%C7%97%9D%92l%2epdf&amp;name=RH69%2dT%20SHG%2dDF3%8E%8E%8C%B1%8A%C7%97%9D%92l%2epdf" target="_blank" rel="noopener">RH69-T SHG-DF3試験管理値.pdf</a><br>全1ページ：管理値・入力倍率・位相条件を本記事の表と照合。発行年月の記載は確認できず。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69%2dR3%20%28TR1202A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82u%82%8F%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf&amp;name=RH69%2dR3%20%28TR1202A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82u%82%8F%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf" target="_blank" rel="noopener">RH69-R3 (TR1202A)SHG-AF3試験方法マニュアル＜Ｖｏ－Ｉｏ試験器編＞.pdf</a><br>TR1202A、全3ページ。Vo-Io試験器用。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69%2dR4%20%28TR1203A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82h%82%83%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf&amp;name=RH69%2dR4%20%28TR1203A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82h%82%83%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf" target="_blank" rel="noopener">RH69-R4 (TR1203A)SHG-AF3試験方法マニュアル＜Ｉｃ－Ｉｏ試験器編＞.pdf</a><br>TR1203A、全3ページ。Ic-Io試験器用。</li></ul></div>
+<section id="sources"><div class="callout"><strong>2026-09-12 原資料本文を再照合・一部未確定</strong><p>次のメーカーPDFを再取得しました。試験管理値表、専用取説・仕様書、共用試験マニュアルを比較し、<a href="#sourceConflicts">位相・倍率・端子の資料間不一致</a>を記録しています。原理と表の転記確認が済んだことは、実機の試験条件が確定したことを意味しません。</p><ul><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69D%2dM%2d%20SHG%2dDF3%81%40%8E%E6%88%B5%90%E0%96%BE%8F%91%282024%2e7a%81j%2epdf&amp;name=RH69D%2dM%2d%20SHG%2dDF3%81%40%8E%E6%88%B5%90%E0%96%BE%8F%91%282024%2e7a%81j%2epdf" target="_blank" rel="noopener">RH69D-M- SHG-DF3　取扱説明書(2024.7a）.pdf</a><br>取扱説明書：ファイル名2024.7a、本文1201-802・2024.7。2〜5頁の端子・仕様・復帰・原理、6〜7頁の試験、8頁の組合せ品を照合。適用は実機と照合。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69B%2dS%201201%2d102c%81%40SHG%2dDF3%81%40%8Ed%97l%8F%91%81%40%282024%2d7a%81j%2epdf&amp;name=RH69B%2dS%201201%2d102c%81%40SHG%2dDF3%81%40%8Ed%97l%8F%91%81%40%282024%2d7a%81j%2epdf" target="_blank" rel="noopener">RH69B-S 1201-102c　SHG-DF3　仕様書　(2024-7a）.pdf</a><br>仕様書：1201-102c。変更履歴は2024年7月6日。2〜4頁の機能・特性、6頁のDF3端子・組合せ機器を照合。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69%2dT%20SHG%2dDF3%8E%8E%8C%B1%8A%C7%97%9D%92l%2epdf&amp;name=RH69%2dT%20SHG%2dDF3%8E%8E%8C%B1%8A%C7%97%9D%92l%2epdf" target="_blank" rel="noopener">RH69-T SHG-DF3試験管理値.pdf</a><br>全1ページ：管理値・入力倍率・位相条件を本記事の表と照合。発行年月の記載は確認できず。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69%2dR3%20%28TR1202A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82u%82%8F%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf&amp;name=RH69%2dR3%20%28TR1202A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82u%82%8F%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf" target="_blank" rel="noopener">RH69-R3 (TR1202A)SHG-AF3試験方法マニュアル＜Ｖｏ－Ｉｏ試験器編＞.pdf</a><br>TR1202A、全3ページ。表題はSHG-AF3形・SHG-DF3形共用。Vo-Io試験器用。発行年月の記載なし。本文3頁4.3.2の倍率不一致と共用本文の端子記載に注意。</li><li><a href="https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69%2dR4%20%28TR1203A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82h%82%83%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf&amp;name=RH69%2dR4%20%28TR1203A%29SHG%2dAF3%8E%8E%8C%B1%95%FB%96%40%83%7D%83j%83%85%83A%83%8B%81%83%82h%82%83%81%7C%82h%82%8F%8E%8E%8C%B1%8A%ED%95%D2%81%84%2epdf" target="_blank" rel="noopener">RH69-R4 (TR1203A)SHG-AF3試験方法マニュアル＜Ｉｃ－Ｉｏ試験器編＞.pdf</a><br>TR1203A、全3ページ。表題はSHG-AF3形・SHG-DF3形共用。Ic-Io試験器用。発行年月の記載なし。図1の試験経路を照合。本文2頁4.2の位相と3頁4.3.2の倍率不一致に注意。</li></ul></div>
   <h2><span class="num">9</span>確認資料</h2>
-  <p>記事作成時（2026年8月）に、以下の公開資料を確認。</p>
+  <p>次は従来記事の関連資料です。今回の製品仕様・試験条件の照合根拠は上記の取得済みメーカーPDFです。</p>
   <ul class="source-list">
     <li><a href="https://www.taiwadenki.co.jp/product/product_search.php" target="_blank" rel="noopener">泰和電気工業｜継電器シリーズ SHG-DF3</a> — 「電流抑制方式・非接地／PC接地系」、SHG-AF3/DF3向けVo-Io試験器編・Ic-Io試験器編、取扱説明書、仕様書、試験管理値への導線。</li>
     <li>泰和電気工業｜SHG-AF3/DF3 地絡方向継電器 試験方法マニュアル（TR1202A：Vo-Io試験器編、TR1203A：Ic-Io試験器編）</li>

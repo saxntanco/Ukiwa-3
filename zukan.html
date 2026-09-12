@@ -865,6 +865,7 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 @media(max-width:760px){.hero-grid{padding-top:12px}.hero-copy{margin-top:12px}}
 </style><style>
 .hero-copy{min-width:0}.hero-copy h1{font-size:clamp(1.65rem,3.5vw,2.7rem)!important;line-height:1.4!important}.hero-copy h1 span{white-space:nowrap}
+#card-fiction-note{position:relative;z-index:5;width:min(430px,100%);margin:0 0 14px;padding:12px;background:#fff;color:#153b50;border-radius:12px;font-size:14px;line-height:1.7}
 .zukan-menu[hidden]{display:none}.zukan-menu{position:fixed;top:80px;right:16px;z-index:10000;background:#fff;color:#123c50;border:1px solid #a8d8e7;border-radius:16px;padding:12px;box-shadow:0 12px 32px #0a3b5433;max-width:calc(100vw - 32px)}.zukan-menu a{display:block;color:#123c50;padding:12px 16px;font-size:1rem;text-decoration:none}.zukan-menu a:hover,.zukan-menu a:focus-visible{background:#e4f7fc;border-radius:8px}
 </style></head>
 <body>
@@ -888,7 +889,8 @@ body.dark .map-panel,.dark .destination-card{background:#0a3854;color:#effcff;bo
 <section class="hero" id="home">
 <div class="hero-grid">
 <div class="card-stage">
-<div aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります" class="hero-card" id="heroCard" role="group" tabindex="0">
+<p id="card-fiction-note">このカードの技・効果・%は、学習演出のための架空設定です。実機の保護機能、事故防止率、測定精度や作業条件を表していません。</p>
+<div aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります" aria-describedby="card-fiction-note" class="hero-card" id="heroCard" role="group" tabindex="0">
 <span class="hero-card-inner">
 <span class="hero-card-face hero-card-front"><img alt="うきわちゃんURカード" fetchpriority="high" src="./ukiwa-card.png"/></span>
 <span class="hero-card-face hero-card-back">

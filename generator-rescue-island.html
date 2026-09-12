@@ -446,7 +446,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
             <option value="5">5倍速</option>
             <option value="10">10倍速</option>
           </select>
-          <div style="font-size:12px;color:#67819a;margin-top:5px">通常は画像の秒数どおりに進みます。復電側は最大210秒かかります。</div>
+          <div style="font-size:12px;color:#67819a;margin-top:5px">通常は教材の例示秒数どおりに進みます。復電側は最大210秒かかります。</div>
         </div>
       </div>
 
@@ -468,7 +468,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
       <div class="metric"><span>負荷切替 → エンジン停止</span><b id="mCool">--</b><small>s</small></div>
       <div class="metric"><span>停止 → 始動準備</span><b id="mReady">--</b><small>s</small></div>
     </div>
-    <div class="callout" style="margin-top:14px"><b>教材の例示値：</b> 3 / 6 / 2 / 60 / 120 / 30 秒。これは画像の資料を参考にした例示値で、一般標準値ではありません。</div>
+    <div class="callout" style="margin-top:14px"><b>教材の例示値：</b> 3 / 6 / 2 / 60 / 120 / 30 秒。画面の動きを説明するための値です。実設備の記録・標準値・推奨整定値としては未確認です。</div>
   </div>
 
   <div class="panel" style="margin-top:16px">
@@ -491,7 +491,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 <section class="section db-content-view" data-db-view="anatomy" id="generatorAnatomy">
   <small class="label">TOUCHABLE GENERATOR</small>
   <h2>発電機まるごと解剖図</h2>
-  <p class="sub">部品名をタップすると、「どこ？ → 役割 → 試験との関係 → 成績書のどこ？」までつながります。位置を実資料だけで確定できないものは、候補位置として表示します。</p>
+  <p class="sub">部品名をタップすると、「どこ？ → 役割 → 試験との関係 → 成績書のどこ？」までつながります。図は代表構造です。実機位置が未確認のものは、候補位置として表示します。</p>
 
   <div class="anatomy-toolbar" aria-label="表示モード">
     <button class="anatomy-mode active" data-anatomy-mode="parts">🔧 部品を見る</button>
@@ -624,7 +624,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
         <span class="flow-node">乾式抵抗器 15 kW</span><span class="flow-arrow">→</span>
         <span class="flow-node">熱</span>
       </div>
-      <div class="anatomy-note">※図は教育用の代表構造。実機の部品位置・配管・測定点は型式・メーカー資料・社内試験要領で確認してください。</div>
+      <div class="anatomy-note">※図は教育用の代表構造。電気の例は三相平衡の抵抗負荷、線間電圧207 V、線電流42 A、力率1とし、P = √3 × 207 × 42 / 1000 ≈ 15.06 kW。50 Hz・3000 min⁻¹は2極の同期発電機を仮定。実機の部品位置・配管・測定点・極数・定格は型式とメーカー資料で確認してください。</div>
     </div>
 
     <aside class="anatomy-info" id="anatomyInfo">
@@ -644,33 +644,13 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 
 <section class="section db-content-view" data-db-view="reference" id="fieldReference">
   <small class="label">FIELD REFERENCE</small>
-  <h2>現場で使っている検査表も一緒に見る</h2>
-  <p class="sub">この画像を教材の「元資料」として残します。自動試験と保護装置試験で見る場所を分けて使います。</p>
-
-  <div class="referenceBlock">
-    <div class="referenceImage">
-      <img id="fieldReferenceImage" src="ukiwa-asset-5640a8c0de0733ce.png" alt="非常用発電機の自動試験と保護装置試験をまとめた現場用ホワイトボード資料">
-      <div class="caption">タップすると拡大表示できます。画像の数値や記号は、この資料の設備・試験例として扱い、全設備共通値にはしません。</div>
-    </div>
-
-    <div class="referenceTips">
-      <div class="refTip">
-        <b>⚡ 自動始動・停止試験で見る場所</b>
-        <p><strong>右下の時間軸</strong>。停電、起動、電圧確立、運転切換、復電、負荷切換、エンジン停止、ソレノイド復帰の順序と秒数を見る。</p>
-      </div>
-      <div class="refTip">
-        <b>🛡️ 保護装置連動試験で見る場所</b>
-        <p><strong>右上の表</strong>。63Q、26W、49、非常停止、始動渋滞について、機関停止、ブレーカトリップ、警報、表示などの連動を見る。</p>
-      </div>
-      <div class="refTip">
-        <b>🔋 左側の表</b>
-        <p>バッテリー関係などの測定・判定記録として読める部分。教材では今後、運転前点検・始動電源点検の章へ分離して追加できる。</p>
-      </div>
-      <div class="safe">
-        <b>資料の扱い</b><br>
-        画像から読み取れる内容と、実機固有の端子・時限・接点論理は分けます。実操作時は実機型式、展開接続図、メーカー資料、社内試験要領を優先します。
-      </div>
-    </div>
+  <h2>成績書と実機資料で照合する項目</h2>
+  <p class="sub">このページの秒数・測定値は教材の例です。実設備の成績書原本、機関・制御盤の型式、展開接続図との対応は未確認です。</p>
+  <div class="referenceTips">
+    <div class="refTip"><b>⚡ 自動始動・停止</b><p>停電検出、始動指令、電圧・周波数成立、負荷切替、復電確認、商用復帰、機関停止、再始動可能への復帰を、それぞれの起点と終点で記録します。</p></div>
+    <div class="refTip"><b>🛡️ 保護装置の連動</b><p>異常ごとに、検出条件、入力接点の平常時・異常時、判定時限、遮断器・機関停止・警報の動作、ラッチと復帰条件を実機図面で照合します。警報だけの異常もあり、全異常が同じ出力を動かすとは限りません。</p></div>
+    <div class="refTip"><b>🔋 測定記録</b><p>始動用蓄電池は測定点・始動前後の時点・負荷状態をそろえ、前電圧から後電圧を引いた値を電圧低下として記録します。例：12.4 V − 12.4 V = 0.0 V。合否は蓄電池の型式・メーカー条件で確認します。</p></div>
+    <div class="safe"><b>実記録の準備：</b>実設備の写真・原本がそろうまで、教材上の値を点検成績書や保護整定の確定値に転記しないでください。</div>
   </div>
 </section>
 
@@ -687,7 +667,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
       <div class="solenoidArrow">→</div>
       <div class="solenoidStep"><b>② 制御盤</b><span>STOP出力<br>リレー/CPU</span></div>
       <div class="solenoidArrow">→</div>
-      <div class="solenoidStep"><b>③ ソレノイド</b><span>電磁力で<br>プランジャ移動</span></div>
+      <div class="solenoidStep"><b>③ ソレノイド</b><span>励磁／消磁で<br>機構が移動</span></div>
       <div class="solenoidArrow">→</div>
       <div class="solenoidStep"><b>④ 燃料機構</b><span>燃料ラック/遮断レバー<br>停止側へ</span></div>
       <div class="solenoidArrow">→</div>
@@ -741,95 +721,50 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 
   <div class="panel" style="margin-top:16px">
     <small class="label">WHY 30 SECONDS?</small>
-    <h2 style="font-size:26px">画像の「ソレノイド復帰 30s」は何を見ている？</h2>
+    <h2 style="font-size:26px">教材の「停止機構の復帰 30 秒」は何を見ている？</h2>
     <p>教材では、エンジン停止後に<strong>停止系のソレノイドや停止機構が元の待機位置へ戻り、次回始動可能な状態へ復帰するまで</strong>を確認する区間として扱います。</p>
-    <div class="callout"><b>ただし：</b> この30秒が何のタイマ名で、どの接点・ソレノイドを監視しているかは設備ごとに異なります。画像だけから具体的な制御回路までは断定しません。</div>
+    <div class="callout"><b>ただし：</b> この30秒が何のタイマ名で、どの接点・ソレノイドを監視しているかは設備ごとに異なります。実機の制御回路・タイマ名が分かる資料で確認します。</div>
   </div>
 </section>
 
 
 <section class="section db-content-view" data-db-view="auto" id="autoMaterials">
   <small class="label">AUTO TEST VISUAL GUIDE</small>
-  <h2>自動起動・自動停止を「絵」と「実資料」でつなぐ</h2>
-  <p class="sub">シミュレーションで動きを見たあと、プロ向けに描き直した教材図と、実際の社内資料を見比べて理解を固めます。</p>
-
+  <h2>時系列と給電状態を一緒に読む</h2>
+  <p class="sub">商用と発電機を並列にしない切替方式の教材例です。実機の接点・タイマ値を表す図ではありません。切替器の開放確認・インターロック・切替間の無電圧区間は、この時間モデルでは省略しています。</p>
   <div class="panel">
     <div class="ref-tabs">
-      <button class="ref-tab active" data-ref-tab="deformed">🎨 教材イラスト</button>
-      <button class="ref-tab" data-ref-tab="field">📋 実資料</button>
-      <button class="ref-tab" data-ref-tab="compare">🔎 見比べる</button>
+      <button class="ref-tab active" data-ref-tab="deformed">⏱ 教材の時間</button>
+      <button class="ref-tab" data-ref-tab="field">📋 実機との照合</button>
+      <button class="ref-tab" data-ref-tab="compare">🔎 成立条件と出典</button>
     </div>
-
     <div class="ref-panel active" data-ref-panel="deformed">
-      <div class="material-card">
-        <div class="material-head">
-          <div class="material-num">1</div>
-          <div>
-            <h3>非常用発電機 自動起動・自動停止の流れ</h3>
-            <p>元資料の考え方を、新人が左から右へ追えるように再設計した教材イラスト。</p>
-          </div>
-        </div>
-        <div class="material-img-wrap">
-          <img class="material-img js-zoom-img" src="ukiwa-asset-187ab76afd8dbe96.png" alt="非常用発電機の自動起動・自動停止を図解した教育用インフォグラフィック">
-        </div>
-        <div class="material-foot">
-          <div class="material-note blue">
-            <b>見るポイント</b><br>
-            上段は <strong>停電 → 起動 → 電圧確立 → 電源切替</strong>。<br>
-            下段は <strong>復電 → 電源切替 → 機関停止 → 継電器開放</strong>。
-          </div>
-          <div class="material-note">
-            <b>注意</b><br>
-            イラストの時間・表現は今回の資料を基にした教材表示。設備ごとの正式値は成績書・取説・結線図を優先します。
-          </div>
-        </div>
-      </div>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left;line-height:1.8">
+        <caption>停電を 0 秒、復電時に改めて 0 秒とした教材の経過時間</caption>
+        <thead><tr><th>経過時間</th><th>機関・制御の状態</th><th>負荷への給電元</th></tr></thead>
+        <tbody>
+          <tr><td>停電 0 秒</td><td>停電検出の待ち時間開始</td><td>なし</td></tr>
+          <tr><td>3 秒</td><td>セル始動</td><td>なし</td></tr>
+          <tr><td>9 秒（3 + 6）</td><td>機関運転・発電成立</td><td>なし</td></tr>
+          <tr><td>11 秒（3 + 6 + 2）</td><td>電圧等の成立確認後、発電機へ切替</td><td>発電機</td></tr>
+          <tr><td>復電 0 秒</td><td>商用電圧回復、復電確認の待ち時間開始</td><td>発電機</td></tr>
+          <tr><td>60 秒</td><td>商用へ切替、機関は無負荷運転</td><td>商用</td></tr>
+          <tr><td>180 秒（60 + 120）</td><td>機関停止</td><td>商用を継続</td></tr>
+          <tr><td>210 秒（60 + 120 + 30）</td><td>停止機構の復帰・再始動待機</td><td>商用を継続</td></tr>
+        </tbody>
+      </table></div>
+      <p>最後の 30 秒は、この教材で区間を分けるための例です。実機のソレノイドの方式、復帰条件、タイマ名称・値は未確認です。</p>
     </div>
-
     <div class="ref-panel" data-ref-panel="field">
-      <div class="material-card">
-        <div class="material-head">
-          <div class="material-num">2</div>
-          <div>
-            <h3>年次点検で使われている自動起動・自動停止タイムチャート</h3>
-            <p>写真を教材そのものとして転載するのではなく、「実際の現場で何を見るのか」を確認する参考資料として掲載。</p>
-          </div>
-        </div>
-        <div class="material-img-wrap">
-          <img class="material-img js-zoom-img" src="ukiwa-asset-62d96b3689a9b6db.png" alt="非常用発電機の自動起動・自動停止タイムチャートの実資料">
-        </div>
-        <div class="material-foot">
-          <div class="material-note blue">
-            <b>上段で確認する流れ</b><br>
-            停電 → 発電機起動 → 負荷切替 → 停止確認 → 復電。状態表示や電源の流れを時間と合わせて見る資料です。
-          </div>
-          <div class="material-note">
-            <b>そのまま一般化しない</b><br>
-            この資料には設備・メーカー固有の表示や整定が含まれる可能性があります。数値・記号は実機資料で照合します。
-          </div>
-        </div>
-      </div>
+      <div class="refTip"><b>実機で必要なもの</b><p>機関と制御盤の型式・末尾記号、該当版の取扱説明書、展開接続図、タイマ設定一覧、負荷切替器の方式、承認された試験要領・成績書原本を用意します。再停電、始動失敗、切替失敗、停止失敗時の動作も確認します。</p></div>
+      <p>異常入力を戻すこと、警報をリセットすること、遮断器を再投入することは別の動作です。原因を除き、実機の許可条件・復帰手順を満たすまで自動で再投入できるとは扱いません。</p>
     </div>
-
     <div class="ref-panel" data-ref-panel="compare">
-      <div class="ref-compare">
-        <div class="ref-mini">
-          <b>🎨 教材イラストの役割</b>
-          「なぜそう動くのか」を理解するために、電気の流れ・発電機の状態・時間軸を整理して見せる。
-        </div>
-        <div class="ref-mini">
-          <b>📋 実資料の役割</b>
-          現場で実際に見る表示、設備固有の時間、確認箇所を照合する。
-        </div>
-      </div>
-      <div class="good" style="margin-top:12px">
-        <b>使い方：</b>
-        まず上のシミュレーションで動きを見る → 教材イラストで全体像を理解 → 最後に実資料で「現場では何を確認するか」を照合する。
-      </div>
+      <p>この教材では、停電後の始動、発電成立後の切替、復電後の商用復帰、機関停止、待機への復帰という順序を説明しています。再停電や故障時の分岐、同期・並列運転の制御は再現していません。</p>
+      <p>確認した資料：消防庁「<a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf#page=6" target="_blank" rel="noopener">第24 非常電源（自家発電設備）</a>」PDF 6〜7ページの始動・停止性能は、設備のタイムスケジュールとシーケンスによる確認を示しています。資料本文に発行年月・版の記載なし。確認日：2026-09-12。このページの 3 / 6 / 2 / 60 / 120 / 30 秒を規定する資料ではありません。</p>
     </div>
   </div>
 </section>
-
 
 <section class="section db-content-view" data-db-view="records" id="recordsSection">
   <small class="label">RECORD SHEET INDEX</small>
@@ -850,19 +785,19 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 <section class="section db-content-view" data-db-view="electrical" id="electricalSection">
   <small class="label">ELECTRICAL HEALTH CHECK</small>
   <h2>絶縁・接地</h2>
-  <p class="sub">今回の実資料に出ている測定項目を、役割で分けて整理します。</p>
+  <p class="sub">測定項目の意味を整理します。下記の数値は読み方の教材例で、実測原本との対応は未確認です。</p>
   <div class="electrical-cards">
     <div class="electrical-card">
       <h3>絶縁抵抗</h3>
       <p><b>見るもの：</b>巻線などの充電部とフレーム・大地側の間が、電気的に漏れにくいか。</p>
-      <div class="good"><b>今回の記録例：</b> 一括－E 50 MΩ</div>
+      <div class="good"><b>教材の記載例：</b> 一括－E 50 MΩ</div>
       <p class="sub">※測定電圧・切離し条件・対象回路は実機試験要領を確認。</p>
     </div>
     <div class="electrical-card">
       <h3>接地抵抗</h3>
       <p><b>見るもの：</b>発電機フレームから接地極・大地へ至る接地経路の抵抗。</p>
-      <div class="good"><b>今回の記録例：</b> D種 0.6 Ω</div>
-      <p class="sub">※一般的な合否値としてではなく、今回資料の実測記録として表示。</p>
+      <div class="good"><b>教材の記載例：</b> D種 0.6 Ω</div>
+      <p class="sub">※合否には適用する接地工事の条件、接地網の構成、測定方法、実機資料の確認が必要。</p>
     </div>
   </div>
 </section>
@@ -870,6 +805,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 <section class="section db-content-view hidden" data-db-view="protection" id="protectionSection">
   <small class="label">PROTECTION INTERLOCK TEST</small>
   <h2>保護装置連動試験</h2>
+  <div class="safe"><b>試験の前提：</b>現場責任者・操作票・社内手順で系統状態、始動禁止・誤投入防止、制御電源、回転部・高温部、負荷停止への影響を確認します。配線変更の前には対象回路の隔離・無電圧・残留電荷を確認してください。型式別取説・展開接続図で入力の接点常態、COMの電位、模擬方法、停止・遮断・警報の連動先を確定できない場合は実機操作に使えません。</div>
   <p class="sub">こっちは時間より、「異常入力が入ったあと、何が動くか」を見る。</p>
 
   <div class="protectionGrid">
@@ -881,7 +817,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   </div>
 
   <div class="panel" style="margin-top:14px">
-    <h2 style="font-size:26px">この機種はどうやって異常を模擬する？</h2>
+    <h2 style="font-size:26px">異常模擬方式の違いを知る</h2><p>型式ごとの試験方式・端子は未確認です。下は方式名の説明と、画面内だけの状態変化です。</p>
     <div class="methodGrid">
       <button class="method active" data-method="test"><b>🔘 TEST</b><br><small>内部試験回路</small></button>
       <button class="method" data-method="com"><b>🔌 COM式</b><br><small>COM＋個別入力</small></button>
@@ -897,13 +833,13 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 
   <div class="panel" style="margin-top:14px">
     <div class="logic">
-      <div class="logicNode" id="p1"><b>① 試験操作</b><br><small>TEST / クリップ / DIP</small></div>
+      <div class="logicNode" id="p1"><b>① 試験操作</b><br><small>教材内の模擬入力（実端子未確認）</small></div>
       <div class="arrow">→</div>
       <div class="logicNode" id="p2"><b>② 異常入力</b><br><small id="pInput">63Q INPUT</small></div>
       <div class="arrow">→</div>
       <div class="logicNode" id="p3"><b>③ 判定</b><br><small>CPU / リレー / 時限</small></div>
       <div class="arrow">→</div>
-      <div class="logicNode" id="p4"><b>④ 出力</b><br><small>52G / STOP / ALARM</small></div>
+      <div class="logicNode" id="p4"><b>④ 出力</b><br><small>連動確認先の例：52G / STOP / ALARM<br>全てが必ず動作するという意味ではありません。</small></div>
     </div>
   </div>
 </section>
@@ -935,7 +871,7 @@ function autoWait(seconds,runId){return new Promise(resolve=>{if(runId!==autoRun
 
 function say(t){$("#guideText").textContent="「"+t+"」";}
 function setMode(v){
-  resetAuto();
+  resetAuto();resetProtection();
   mode=v;
   $$(".modeCard").forEach(x=>x.classList.toggle("active",x.dataset.mode===v));
   $("#autoSection").classList.toggle("hidden",v!=="auto");
@@ -1164,38 +1100,21 @@ $$(".method").forEach(x=>x.addEventListener("click",()=>setMethod(x.dataset.meth
 function renderProtectionControl(){
   const c=$("#protectionControl");
   if(method==="test") c.innerHTML=`<button class="btn red" id="doProt">TEST：${fault}異常を模擬</button>`;
-  else if(["com","two","one"].includes(method)) c.innerHTML=`<div class="termGrid">
-    <div class="term" data-term="COM"><b>COM</b></div><div class="term" data-term="63Q"><b>63Q</b></div><div class="term" data-term="26W"><b>26W</b></div><div class="term" data-term="49"><b>49</b></div><div class="term" data-term="DC-"><b>DC－</b></div><div class="term" data-term="PE"><b>PE</b></div>
-  </div><div id="termMsg" class="callout" style="margin-top:10px">教材モデル。実機の正解端子ではありません。</div>`;
+  else if(["com","two","one"].includes(method)) c.innerHTML=`<div class="callout">この方式の実端子・極性・開閉条件は未確認です。教材では端子間を結ぶ問題を出さず、異常入力が既に成立した状態だけを再生します。</div><button class="btn blue" id="doProt">画面内で${fault}入力成立を再生</button>`;
   else if(method==="dip") c.innerHTML=`<button class="btn yellow" id="doProt">TEST用DIP：ON</button>`;
   else if(method==="plc") c.innerHTML=`<button class="btn blue" id="doProt">診断機能で${fault}を模擬</button>`;
   else c.innerHTML=`<div class="safe"><b>ここで停止。</b> 方式不明のまま短絡・DIP操作をしない。</div>`;
   $("#doProt")?.addEventListener("click",triggerProtection);
-  $$(".term").forEach(x=>x.addEventListener("click",()=>pickTerm(x)));
+
 }
-function expectedPair(){
-  if(method==="com") return ["COM",fault];
-  if(method==="two") return ["COM",fault];
-  if(method==="one") return ["DC-",fault];
-  return [];
-}
-function pickTerm(el){
-  const n=el.dataset.term;
-  if(picked.includes(n)){picked=picked.filter(x=>x!==n);el.classList.remove("pick")}
-  else if(picked.length<2){picked.push(n);el.classList.add("pick")}
-  if(picked.length===2){
-    const e=expectedPair(), ok=e.length===2&&e.every(x=>picked.includes(x));
-    picked.forEach(n=>document.querySelector(`[data-term="${n}"]`)?.classList.add("connected"));
-    $("#termMsg").innerHTML=ok?`<b style="color:#249768">✓ 教材モデルでは異常入力成立</b>`:`<b style="color:#cf3c4d">× この教材モデルでは成立しない</b><br><small>実機では誤接続による短絡・損傷のおそれ。図面確認。</small>`;
-    if(ok)triggerProtection();
-  }
-}
+let protectionRunId=0;
 async function triggerProtection(){
-  $("#p1").classList.add("on");await sleep(250);$("#p2").classList.add("on");await sleep(250);$("#p3").classList.add("on");await sleep(250);$("#p4").classList.add("on");
+  const runId=++protectionRunId;
+  for(const id of ["p1","p2","p3","p4"]){if(runId!==protectionRunId)return;$("#"+id).classList.add("on");if(id!=="p4"){await sleep(250);if(runId!==protectionRunId)return;}}
   say("保護試験は、異常入力から52G・停止・警報・表示まで後段の連動を追うよ。");
 }
 function resetProtection(){
-  picked=[];["p1","p2","p3","p4"].forEach(id=>$("#"+id).classList.remove("on"));
+  protectionRunId++;picked=[];["p1","p2","p3","p4"].forEach(id=>$("#"+id).classList.remove("on"));
 }
 buildEvents();resetAuto();setMode("auto");setMethod("test");setFault("63Q");
 
@@ -1226,7 +1145,7 @@ const generatorParts={
  role:"燃料を燃焼させ、クランク軸を回して交流発電機を駆動する。",
  test:"負荷試験では、負荷をかけた状態で回転数・油圧・各部温度などが正常に保たれるかを見る。",
  sheet:"回転数、潤滑油圧力、各種温度。本体表面温度の正式な測定対象は実機要領で確認。",
- caution:"本体表面温度の『本体』が機関側か発電機側かは、今回の写真だけでは確定扱いにしない。"},
+ caution:"本体表面温度の『本体』が機関側か発電機側かは、実機図面・測定点表示を確認して確定する。"},
  governor:{title:"ガバナ（調速機）",status:"候補位置",lead:"負荷が変わっても回転速度を約一定に保つため、燃料量を調整する機構。",
  where:"一般には燃料噴射系・エンジン制御系の近傍。実機位置は型式で異なる。",
  role:"負荷増加で回転数が落ちれば燃料を増やし、負荷減少で回転数が上がれば燃料を減らす。",
@@ -1237,7 +1156,7 @@ const generatorParts={
  where:"オイルパン、オイルポンプ、油路、フィルタ等から構成される。",
  role:"潤滑、冷却、清浄、密封などを担う。",
  test:"負荷運転中の潤滑油圧力・潤滑油温度を確認する。63Q（油圧低下保護）とも関係する。",
- sheet:"潤滑油圧力 約3.1～3.5 kgf/cm²、潤滑油温度。",
+ sheet:"潤滑油圧力（単位を確認）、潤滑油温度。指定値は実機資料で確認。",
  caution:"油圧と油温は別の状態量。油圧正常＝油温正常ではない。"},
  cooling:{title:"冷却水系統",status:"代表位置",lead:"燃焼で生じた熱を冷却水へ移し、機関温度を適正範囲に保つ。",
  where:"冷却器／ラジエータ、ウォーターポンプ、ウォータージャケット、配管など。",
@@ -1254,9 +1173,9 @@ const generatorParts={
  exhaust:{title:"排気系",status:"代表位置",lead:"燃焼後のガスをエンジン外へ排出する経路。",
  where:"排気マニホールド、排気管、消音器など。",
  role:"燃焼ガスを安全に排出する。負荷状態や燃焼状態により温度が変化する。",
- test:"今回の成績書では『排気温度』と『排気温度出口』を別項目として扱う。",
+ test:"成績書に『排気温度』と『排気温度出口』がある場合は、それぞれの測定点を確認する。",
  sheet:"排気温度、排気温度出口。",
- caution:"2項目を勝手に統合しない。今回の資料だけで各測定点の厳密な位置は確定できない。"},
+ caution:"2項目を勝手に統合しない。この代表図から各測定点の厳密な位置は確定できない。"},
  coupling:{title:"回転軸・カップリング",status:"代表位置",lead:"エンジンが作った回転力を交流発電機へ伝える。",
  where:"エンジン出力軸と交流発電機回転子の間。",
  role:"機械エネルギーを発電機へ伝達する。",
@@ -1268,7 +1187,7 @@ const generatorParts={
  role:"回転子の位置を保持しながら摩擦を小さくする。",
  test:"負荷運転時の異常発熱がないか、軸受温度を確認する。",
  sheet:"軸受温度。",
- caution:"今回の実設備で『どの軸受を測るか』は写真だけでは確定できない。メーカー要領・過去記録・測定位置表示を確認。"},
+ caution:"実設備で『どの軸受を測るか』は未確認。メーカー要領・過去記録・測定位置表示を確認。"},
  alternator:{title:"交流発電機",status:"代表位置",lead:"エンジンの回転エネルギーを三相交流の電気エネルギーへ変換する。",
  where:"エンジンとカップリングで直結された発電機側。",
  role:"回転子の磁界と固定子巻線の相対運動により交流電圧を発生する。",
@@ -1305,18 +1224,18 @@ const generatorParts={
  test:"自動試験のエンジン停止・ソレノイド復帰、保護装置動作時の機関停止と関係する。",
  sheet:"自動始動・停止試験、保護装置試験。",
  caution:"通電で停止する型／通電で運転保持する型がある。実機回路で確認。"},
- loadbank:{title:"乾式抵抗器（ドライダミー）",status:"実資料に存在",lead:"発電機へ人工的な抵抗負荷を与え、電気エネルギーを熱として消費する。",
+ loadbank:{title:"乾式抵抗器（ドライダミー）",status:"教材の例",lead:"発電機へ人工的な抵抗負荷を与え、電気エネルギーを熱として消費する。",
  where:"発電機出力へ試験用ケーブルで接続する可搬型負荷装置。",
  role:"実負荷を使わずに発電機を働かせ、負荷状態での性能を確認する。",
- test:"今回の資料では25 kW器を用い、15 kWの負荷試験を実施。",
- sheet:"負荷15 kW、負荷率56.8%（算出基準は現資料だけでは未確定）。",
+ test:"教材では15 kWの抵抗負荷を例示。負荷装置の容量・定格電圧・周波数は実機の銘板で確認。",
+ sheet:"教材例：負荷15 kW。負荷率は発電機の定格有効電力kWを確認してから算出する。",
  caution:"投入する抵抗段・ケーブル・遮断器容量などは実試験要領に従う。"},
  rst:{title:"三相出力 R・S・T",status:"代表位置",lead:"交流発電機から取り出す三相の出力線。",
  where:"発電機出力端子 → 出力遮断器 → 負荷側。",
  role:"乾式抵抗器へ三相電力を供給する。",
- test:"約207 V、各相約42 A、約50 Hz、15 kWが電気的につながっていることを確認する。",
+ test:"教材例は三相平衡の抵抗負荷、線間207 V、線電流42 A、力率1を仮定。P = √3 × 207 × 42 × 1 / 1000 ≈ 15.06 kW。",
  sheet:"電圧、R/S/T電流、出力kW、周波数。",
- caution:"測定器の具体的結線は、今回の写真で確認できない部分を推測しない。"}
+ caution:"測定器の具体的結線は、機器型式・実機図面・計器取説から確認する。"}
 };
 
 function setPart(partKey){
@@ -1395,7 +1314,7 @@ const dbLabels={
   auto:"自動始動・停止試験",
   protection:"保護装置試験",
   anatomy:"発電機のしくみ",
-  reference:"現場資料",
+  reference:"実機資料の確認項目",
   parts:"停止ソレノイド",
   records:"成績書から探す",
   electrical:"絶縁・接地"
@@ -1505,12 +1424,6 @@ hideDbViews();
 dbToolbar?.classList.remove("show");
 
 </script>
-
-<div class="lightbox" id="fieldLightbox" aria-hidden="true">
-  <button id="fieldLightboxClose" aria-label="閉じる">×</button>
-  <img src="ukiwa-asset-5640a8c0de0733ce.png" alt="現場用発電機検査表の拡大表示">
-</div>
-
 
 <div class="img-lightbox" id="autoImgLightbox" aria-hidden="true">
   <button id="autoImgLightboxClose" aria-label="閉じる">×</button>

@@ -129,7 +129,7 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
 <a class="card" href="generator-rescue-island.html"><div class="row"><span class="n">04</span><span class="ico">⚙</span></div><h2>非常用発電機 試験・シーケンス</h2><p>自動始動・停止と、保護装置連動試験の流れを学ぶ。</p><div class="examples">停電 / 始動 / 切替 / 復電 / 停止 / 保護連動</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="sequence-basics.html"><div class="row"><span class="n">05</span><span class="ico">🔁</span></div><h2>リレーシーケンス</h2><p>接点とコイルを電源側から追い、自己保持・インターロックを理解する。</p><div class="examples">a/b接点 / 励磁 / 自己保持 / インターロック</div><span class="go">学ぶ <b>→</b></span></a>
 <a class="card" href="measurement-principles.html"><div class="row"><span class="n">06</span><span class="ico">🧭</span></div><h2>測定器の原理</h2><p>絶縁抵抗・接地抵抗を「何を測っているか」から理解する。</p><div class="examples">絶縁抵抗 / ET-5 / 3極法・2極法 / 回路色分け</div><span class="go">学ぶ <b>→</b></span></a>
-<a class="card" href="ocr-tap-calculator.html"><div class="row"><span class="n">07</span><span class="ico">🧮</span></div><h2>OCRタップ計算</h2><p>変圧器構成・CT比からTapを求め、レバー・瞬時まで整理する。</p><div class="examples">単相/三相Tr / CT / Tap / D / 700%・1000%</div><span class="go">計算する <b>→</b></span></a>
+<a class="card" href="ocr-tap-calculator.html"><div class="row"><span class="n">07</span><span class="ico">🧮</span></div><h2>OCRタップ計算</h2><p>変圧器構成・CT比からタップ候補を比較し、機種・事故電流・保護協調の条件を確認する。</p><div class="examples">単相・三相Tr / CT一次・二次 / タップ・時限候補</div><span class="go">計算する <b>→</b></span></a>
 <a class="card" href="ct-calculator.html"><div class="row"><span class="n">08</span><span class="ico">🛟</span></div><h2>CT比・電流計算</h2><p>一次・二次の電流換算と、変圧器容量からのCT候補比較。</p><div class="examples">50/5Aの意味 / 単相・三相 / 条件付き候補</div><span class="go">計算する <b>→</b></span></a>
 <a class="card" href="cable-size-simulator.html"><div class="row"><span class="n">09</span><span class="ico">📏</span></div><h2>電線の太さ相談</h2><p>電流・距離・敷設方法から、許容電流と電圧降下をサイズ別に比較。</p><div class="examples">600V CV・CVD・CVT / 電圧降下 / 太さの候補</div><span class="go">比較する <b>→</b></span></a>
 </section></div></section>
@@ -326,6 +326,7 @@ html[data-theme="dark"] .characterFrame img{filter:drop-shadow(0 18px 30px rgba(
 <script>
 const input=document.getElementById('siteSearch');
 function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.normalize('NFKC').toLowerCase();
+ if(/ocr.*(?:タップ|整定|ダイヤル|レバー|計算)|(?:限時|瞬時).*タップ|ダイヤル計算/.test(n)){location.href='ocr-tap-calculator.html';return;}
  if(/電圧降下|電線.*(?:太さ|サイズ)|ケーブル.*(?:太さ|サイズ|選定)|許容電流/.test(n)){location.href='cable-size-simulator.html';return;}
  if(/(?:^|[^a-z])ct(?:$|[^a-z])|変流比|変流器.*(?:比|換算|計算|選定)|変圧器.*電流/.test(n)&&!/(?:zct|vct|零相)/.test(n)){location.href='ct-calculator.html';return;}
  const directInstruments=[
