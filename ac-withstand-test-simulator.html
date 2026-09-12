@@ -500,13 +500,18 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
       const candidate=rr.allowed===null?rr.rows[0]:rr.minimum;
       const quick=$('reactorQuick');
       if(candidate){
-        const title=rr.allowed===null?'公称残留電流が最小になる参考候補':'L公差込みで入力した許容電流を満たす最少台数';
+        const title=rr.allowed===null?'必要台数は未判定：以下は残留電流を最小にする参考例':'L公差込みで入力した許容電流を満たす最少台数';
         quick.innerHTML='<p><b>'+title+'</b></p><p>採用：'+names[key]+' ／ '+format(r.value)+' mA<br>'+format(result.V)+' V・'+result.f+' Hz</p>'
           +'<div class="reactor-counts"><div class="reactor-model model1220">DR-1220MH<strong>'+candidate.a+' 台</strong></div><div class="reactor-model model1250">DR-1250MH<strong>'+candidate.b+' 台</strong></div></div>'
           +'<p>合計 '+(candidate.a+candidate.b)+' 台 ／ 公称残留電流 '+format(candidate.residual)+' mA ／ L公差込み最大 '+format(candidate.worst)+' mA</p>'
           +'<p>'+(rr.allowed===null?'許容出力電流が未入力のため、必要台数はまだ判定できません。下の条件欄で入力すると、数値条件を満たす最少台数を表示します。':'検討範囲内の計算結果です。損失電流・機器定格・接続適合は別途確認が必要です。')
+          +(rr.allowed===null?' 1台で足りる場合もあります。リアクトルで全電流を打ち消す必要はなく、補償後の電流と試験器の許容値で判断します。':'')
           +(meter!==null&&r.value>meter?' 被試験物の充電電流が入力したA2の許容電流を超えています。':'')
           +'</p>';
+        const singles=rr.rows.filter(x=>(x.a+x.b)===1);
+        if(singles.length){
+          quick.innerHTML+='<p><b>1台だけの場合も比較</b><br>'+singles.map(x=>(x.a?'DR-1220MH':'DR-1250MH')+' 1台：公称残留 '+format(x.residual)+' mA ／ L公差込み最大 '+format(x.worst)+' mA'+(x.within===null?'（許容電流未入力）':x.within?'（入力した数値条件内）':'（入力した許容電流を超過）')).join('<br>')+'</p>';
+        }
       }else{
         quick.textContent='採用：'+names[key]+' '+format(r.value)+' mA。指定した検討台数の範囲では、L公差込みで許容出力電流を満たす候補がありません。';
       }
