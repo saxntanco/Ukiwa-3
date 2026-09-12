@@ -350,7 +350,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <label>断面積 [mm²]<select id="size"><option>8</option><option>14</option><option>22</option><option selected>38</option><option>60</option><option>100</option><option>150</option><option>200</option><option>250</option></select></label>
 <div><label>ケーブル長 [m]<input id="length" type="number" min="0" step="any" inputmode="decimal" value="100"></label><div class="length-options" aria-label="ケーブル長を10mずつ増減"><button type="button" id="lengthMinus">−10m</button><button type="button" id="lengthPlus">＋10m</button></div></div>
 <label>周波数 f [Hz]<select id="freq"><option>50</option><option>60</option></select></label>
-<label>試験電圧 V [V・実効値]<input id="voltage" type="number" min="0" step="any" inputmode="decimal" value="10350"></label>
+<label>試験電圧 V [V・実効値]<select id="voltage"><option value="5175">5,175 V</option><option value="10350" selected>10,350 V</option></select></label>
 </div><p class="hint">電圧は試験条件の入力値です。10,350Vの適用可否をこの画面では判定しません。方式Aは原資料の10,350Vに限定します。</p>
 <button class="primary" type="submit">3方式を比較する</button><button class="secondary" id="reset" type="button">初期値に戻す</button><p id="inputError" role="alert" class="error" hidden></p></section>
 <section class="surface measured"><details class="measured-details"><summary>対象設備の実測Cから計算する（任意）</summary><p>三相一括・被試験物全体の静電容量を入力します。ケーブル長や3倍を重ねて掛けません。</p>
@@ -519,15 +519,15 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
       }else{
         quick.textContent='採用：'+names[key]+' '+format(r.value)+' mA。指定した検討台数の範囲では、L公差込みで許容出力電流を満たす候補がありません。';
       }
-      const mixedRows=E.reactors(r.value,result.V,result.f,$('count2').value,$('count5').value,$('outputLimit').value).rows.filter(x=>x.a>0&&x.b>0);
+      const mixedRows=E.reactors(r.value,result.V,result.f,$('count2').value,$('count5').value,$('outputLimit').value).rows;
       const eligible=mixedRows.filter(x=>x.within).sort((a,b)=>(a.a+a.b)-(b.a+b.b)||a.worst-b.worst);
-      const mixed=rr.allowed===null?mixedRows[0]:(eligible[0]||mixedRows[0]);
-      $('reactorMixed').innerHTML='<hr><h3>2K＋5K 組み合わせ方式</h3><p>両機種を1台以上使う場合。トランス・リアクトルの混在接続適合は未確認です。</p>';
+      const mixed=rr.allowed===null?mixedRows[0]:eligible[0];
+      $('reactorMixed').innerHTML='<hr><h3>2K＋5K 組み合わせ方式</h3><p>各機種0台から検討し、合計台数が最少になる組み合わせを表示します。5K使用時・混在時の実機適合は別途確認が必要です。</p>';
       if(mixed){
-        const status=rr.allowed===null?'許容電流未入力：公称残留最小の参考例':eligible.length?'入力した許容電流を満たす最少台数（損失未評価）':'条件を満たす混在候補なし：以下は公称残留最小の比較例';
+        const status=rr.allowed===null?'許容電流未入力：公称残留最小の参考例':eligible.length?'入力した許容電流を満たす最少台数（損失未評価）':'条件を満たす候補なし';
         $('reactorMixed').innerHTML+='<p><b>'+status+'</b></p><div class="reactor-counts"><div class="reactor-model model1220">2K・DR-1220MH<strong>'+mixed.a+' 台</strong></div><div class="reactor-model model1250">5K・DR-1250MH<strong>'+mixed.b+' 台</strong></div></div><p>合計 '+(mixed.a+mixed.b)+' 台 ／ 補償電流 '+format(mixed.IL)+' mA<br>公称残留 '+format(mixed.residual)+' mA ／ L公差込み最大 '+format(mixed.worst)+' mA</p>';
       }else{
-        $('reactorMixed').innerHTML+='<p>両機種の最大検討台数を1台以上にすると、組み合わせを表示します。</p>';
+        $('reactorMixed').innerHTML+='<p>指定した検討範囲では許容電流を満たす組み合わせがありません。条件を満たさない台数は表示しません。</p>';
       }
       let msg=`採用：${names[key]} ${format(r.value)}mA。表は公称残留電流の小さい順・上位8候補（補償なしを含めて探索）。`;
       if(rr.allowed===null)msg+=' 許容出力電流が未入力のため、必要台数は判定しません。';
