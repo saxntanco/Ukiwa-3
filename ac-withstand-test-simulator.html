@@ -332,7 +332,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 .reactor-model strong{display:block;font-size:2.2rem;line-height:1.3;margin-top:6px}
 .model1220{color:#a12835;border-color:#c64a58}.model1250{color:#155da0;border-color:#377dbd}
 .reactor-quick p{line-height:1.7;margin:8px 0}
-</style></head>
+</style><style>.length-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.length-options button{padding:7px 10px;border:1px solid #8badb7;border-radius:8px;background:#eff8fb;color:#174855;cursor:pointer;font:inherit}</style></head>
 <body>
 <header class="topbar">
 <a aria-label="ぷかぷかうきわメモへ戻る" class="brand" href="./index.html">
@@ -348,7 +348,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <section class="surface"><h2>共通の入力条件</h2><p class="hint">各心が遮へいされたCV 3心の導体を一括し、接地された遮へい層との間に正弦波交流を印加する計算です。運転中の三相充電電流とは区別します。</p>
 <div class="input-grid">
 <label>断面積 [mm²]<select id="size"><option>8</option><option>14</option><option>22</option><option selected>38</option><option>60</option><option>100</option><option>150</option><option>200</option><option>250</option></select></label>
-<label>ケーブル長 [m]<input id="length" type="number" min="0" step="any" inputmode="decimal" value="100"></label>
+<div><label>ケーブル長 [m]<input id="length" type="number" min="0" step="any" inputmode="decimal" value="100"></label><div class="length-options" aria-label="ケーブル長を10mずつ増減"><button type="button" id="lengthMinus">−10m</button><button type="button" id="lengthPlus">＋10m</button></div></div>
 <label>周波数 f [Hz]<select id="freq"><option>50</option><option>60</option></select></label>
 <label>試験電圧 V [V・実効値]<input id="voltage" type="number" min="0" step="any" inputmode="decimal" value="10350"></label>
 </div><p class="hint">電圧は試験条件の入力値です。10,350Vの適用可否をこの画面では判定しません。方式Aは原資料の10,350Vに限定します。</p>
@@ -359,7 +359,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <p id="measuredResult" aria-live="polite">未入力</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
 </form>
 <section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading">充電電流の比較</h2><p id="conditions" class="hint"></p><div class="result-grid" id="cards" aria-live="polite"></div>
-<aside class="reactor-quick" aria-labelledby="reactorQuickHeading"><h3 id="reactorQuickHeading">リアクトル台数の目安</h3><div id="reactorQuick" aria-live="polite"></div><a href="#reactor-settings">採用する方式・許容出力電流・検討台数を変更する ↓</a></aside><div id="difference" class="difference"></div>
+<aside class="reactor-quick" aria-labelledby="reactorQuickHeading"><h3 id="reactorQuickHeading">リアクトル台数の目安</h3><div id="reactorQuick" aria-live="polite"></div><div id="reactorMixed" aria-live="polite"></div><a href="#reactor-settings">採用する方式・許容出力電流・検討台数を変更する ↓</a></aside><div id="difference" class="difference"></div>
 <details><summary>同じ原資料の「JIS規格」欄も確認する</summary><p id="jisReference"></p><p class="hint">双興電機の資料が「JIS規格」として掲載する値です。適用する規格の版は当該ページで確認できないため、現行JISへの適合判定や保証最大値には使いません。</p></details>
 <h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
 <p>比較している物理量は、どの方式も「導体3心を一括した交流試験時に、試験器から被試験ケーブルへ流れる充電電流」です。通常の三相運転では、各相に位相の異なる対地電圧がかかり、各相電流のベクトル和を扱います。その3相運転の電流を算術で足した値との比較ではありません。</p>
@@ -371,8 +371,8 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <div class="input-grid"><label>内側径 d [mm]<input id="d" type="number" min="0" step="any" value="7.3"></label><label>外側径 D [mm]<input id="D" type="number" min="0" step="any" value="15.3"></label><label>比誘電率 εr [無次元]<input id="epsilon" type="number" min="1" step="any" value="2.3"></label><label>撚り込み率 [%]<input id="lay" type="number" min="0" step="any" placeholder="未確認・自動適用しません"></label></div><label>寸法・撚り込み率の出典または仮定<input id="dimensionNote" type="text" maxlength="300" placeholder="例：SFCC公称寸法、撚り込み率は0%と仮定"></label></div>
 <p class="hint">C₁ [μF/km] = 0.02413 × εr / log10(D/d)。全体C [F] = C₁ × 3 × (1＋撚り込み率/100) × 長さ[m]/1000 × 10⁻⁶。方式Bのカタログ容量にこの撚り込み補正を再び掛けることはしません。</p></section>
 <section class="surface"><h2 id="reactor-settings">リアクトル組み合わせ比較</h2><p>採用する充電電流と、補償後に試験器が負担する電流の概算を確認します。</p>
-<div class="input-grid"><label>耐圧トランスとリアクトル<select id="transformer"><option value="R1220K">R-1220K ＋ DR-1220MH</option><option value="manual">その他・手入力（接続適合は別途確認）</option></select></label><label>採用する充電電流<select id="reactorBasis"><option value="B">方式B：SFCC静電容量データ</option><option value="A">方式A：メーカー掲載参考値</option><option value="C">方式C：構造理論値</option><option value="M">実測Cからの計算</option></select></label><label>試験器の許容出力電流 [mA・高圧側]<input id="outputLimit" type="number" min="0" step="any" placeholder="取扱説明書から入力" value="167"></label><label>DR-1220MH 最大検討台数<input id="count2" type="number" min="0" max="10" step="1" value="4"></label><label>DR-1250MH 最大検討台数<input id="count5" type="number" min="0" max="10" step="1" value="0" disabled></label></div>
-<p class="hint">R-1220K：定格二次電流167mA・12kV・10分。許容電流には実際の遮断設定なども考慮し、定格以下の値を入力してください。初期設定では対応するDR-1220MHだけで台数を検討します。<a href="https://www.musashi-in.co.jp/manual/r-1220k_01.pdf#page=14" target="_blank" rel="noopener">耐圧トランスの仕様（取扱説明書・本文6ページ）</a></p><p class="hint">DR-1220MH：200H±10%、DR-1250MH：80H±10%。両機種とも定格12kV・30分。通称2kVA／5kVAではなく、インダクタンスから補償電流を計算します。検討上限台数はメーカーの接続許容台数ではありません。</p>
+<div class="input-grid"><label>耐圧トランスとリアクトル<select id="transformer"><option value="R1220K">R-1220K ＋ DR-1220MH</option><option value="manual">その他・手入力（接続適合は別途確認）</option></select></label><label>採用する充電電流<select id="reactorBasis"><option value="B">方式B：SFCC静電容量データ</option><option value="A">方式A：メーカー掲載参考値</option><option value="C">方式C：構造理論値</option><option value="M">実測Cからの計算</option></select></label><label>試験器の許容出力電流 [mA・高圧側]<input id="outputLimit" type="number" min="0" step="any" placeholder="取扱説明書から入力" value="167"></label><label>DR-1220MH 最大検討台数<input id="count2" type="number" min="0" max="10" step="1" value="4"></label><label>DR-1250MH 最大検討台数<input id="count5" type="number" min="0" max="10" step="1" value="3"></label></div>
+<p class="hint">R-1220K：定格二次電流167mA・12kV・10分。許容電流には実際の遮断設定なども考慮し、定格以下の値を入力してください。主候補はDR-1220MHだけで検討し、2K＋5Kの混在は別枠で数値比較します。<a href="https://www.musashi-in.co.jp/manual/r-1220k_01.pdf#page=14" target="_blank" rel="noopener">耐圧トランスの仕様（取扱説明書・本文6ページ）</a></p><p class="hint">DR-1220MH：200H±10%、DR-1250MH：80H±10%。両機種とも定格12kV・30分。通称2kVA／5kVAではなく、インダクタンスから補償電流を計算します。検討上限台数はメーカーの接続許容台数ではありません。</p>
 <details><summary>実機で残る定格確認（被試験物側の電流計・試験時間）</summary><p>補償後の残留電流が小さくても、A2電流計には被試験物の電流が流れます。標準メーターはDR-1220MHが500mA、DR-1250MHが1000mAフルスケールです。複数台接続時は負荷電流に応じた電流計が必要で、メーターの許容電流が台数分増えるわけではありません。</p><div class="input-grid"><label>A2の許容電流 [mA・被試験物側]<input id="meterLimit" type="number" min="0" step="any" placeholder="実際に使う電流計の仕様"></label><label>今回の連続印加時間 [分]<input id="testMinutes" type="number" min="0" step="any" placeholder="所定の試験時間" value="10"></label></div><p id="equipmentCheck" aria-live="polite"></p><p class="hint">別定格リアクトルの混在接続、電流計の耐電圧・保護、各リアクトルの実電流、試験器・トランス・電源の定格電流、時間定格・休止時間は実機資料で照合します。リアクトルの30分定格をトランスに流用しません。例えばR-1220Kは10分定格、取説は連続試験の間に10分以上の休止を指定しています。DR同士の混在を、この表だけで許容された組み合わせとは判断できません。</p></details>
 <p id="reactorSummary" aria-live="polite"></p><div class="table-scroll"><table><thead><tr><th>台数<br>1220 / 1250</th><th>補償電流</th><th>残留無効電流</th><th>L公差を考慮した<br>残留最大値</th><th>許容電流との比較</th></tr></thead><tbody id="reactorRows"></tbody></table></div>
 <p>IL = V/(2πfL)。損失を無視した残留電流は |Ic−IL|。表はL公差±10%の両端も比較しますが、損失電流・Cの不確かさは含みません。電源側ではトランスの励磁電流も別途必要です。「数値上は範囲内」は残留無効電流だけの比較で、実機適合の判定ではありません。過補償でも負担は増え、残留無効電流がゼロでも実機の電流はゼロにはなりません。</p><p class="hint">出典：<a href="https://www.musashi-in.co.jp/manual/DR-1220MH_J06.pdf#page=10" target="_blank" rel="noopener">DR-1220MH取扱説明書 4136-040ST006・第6版・本文2、4〜6ページ</a>／<a href="https://www.musashi-in.co.jp/manual/DR-1250MH_J05.pdf#page=10" target="_blank" rel="noopener">DR-1250MH取扱説明書 4138-040ST005・第5版・本文2、4〜6ページ</a>／<a href="https://www.musashi-in.co.jp/manual/r-1220k_01.pdf#page=29" target="_blank" rel="noopener">R-1220K取扱説明書 4110-030ST001・第1版・本文21ページ</a>。発行年月：PDF本文に記載なし。2026年9月12日再確認。</p></section>
@@ -485,6 +485,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
     drawReactors();
   }
   function drawReactors(){
+    $('reactorMixed').textContent='';
     $('reactorQuick').textContent='台数を表示できません。入力条件と下のリアクトル比較欄を確認してください。';
     $('reactorRows').innerHTML='';
     $('equipmentCheck').textContent='実機の定格条件を確認してください。';
@@ -518,6 +519,16 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
       }else{
         quick.textContent='採用：'+names[key]+' '+format(r.value)+' mA。指定した検討台数の範囲では、L公差込みで許容出力電流を満たす候補がありません。';
       }
+      const mixedRows=E.reactors(r.value,result.V,result.f,$('count2').value,$('count5').value,$('outputLimit').value).rows.filter(x=>x.a>0&&x.b>0);
+      const eligible=mixedRows.filter(x=>x.within).sort((a,b)=>(a.a+a.b)-(b.a+b.b)||a.worst-b.worst);
+      const mixed=rr.allowed===null?mixedRows[0]:(eligible[0]||mixedRows[0]);
+      $('reactorMixed').innerHTML='<hr><h3>2K＋5K 組み合わせ方式</h3><p>両機種を1台以上使う場合。トランス・リアクトルの混在接続適合は未確認です。</p>';
+      if(mixed){
+        const status=rr.allowed===null?'許容電流未入力：公称残留最小の参考例':eligible.length?'入力した許容電流を満たす最少台数（損失未評価）':'条件を満たす混在候補なし：以下は公称残留最小の比較例';
+        $('reactorMixed').innerHTML+='<p><b>'+status+'</b></p><div class="reactor-counts"><div class="reactor-model model1220">2K・DR-1220MH<strong>'+mixed.a+' 台</strong></div><div class="reactor-model model1250">5K・DR-1250MH<strong>'+mixed.b+' 台</strong></div></div><p>合計 '+(mixed.a+mixed.b)+' 台 ／ 補償電流 '+format(mixed.IL)+' mA<br>公称残留 '+format(mixed.residual)+' mA ／ L公差込み最大 '+format(mixed.worst)+' mA</p>';
+      }else{
+        $('reactorMixed').innerHTML+='<p>両機種の最大検討台数を1台以上にすると、組み合わせを表示します。</p>';
+      }
       let msg=`採用：${names[key]} ${format(r.value)}mA。表は公称残留電流の小さい順・上位8候補（補償なしを含めて探索）。`;
       if(rr.allowed===null)msg+=' 許容出力電流が未入力のため、必要台数は判定しません。';
       else if(rr.minimum){const m=rr.minimum;msg+=` 検討範囲でL公差込みの数値条件を満たす最少は${m.a+m.b}台（1220：${m.a}、1250：${m.b}）。損失等は未評価のため、必要台数の確定ではありません。`;}
@@ -526,7 +537,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
       $('reactorSummary').textContent=msg;
       const rows=rr.rows.slice(0,8);if(rr.minimum&&!rows.includes(rr.minimum))rows.push(rr.minimum);
       $('reactorRows').innerHTML=rows.map(r=>`<tr><td>${r.a} / ${r.b}${rr.minimum===r?' <span class="tag">数値上の最少</span>':''}</td><td>${format(r.IL)} mA</td><td>${format(r.residual)} mA<br><small>${r.over?'過補償・遅れ側':'不足補償・進み側'}</small></td><td>${format(r.worst)} mA</td><td>${r.within===null?'未入力':r.within?'数値上は範囲内<br>損失等は未評価':'超過'}</td></tr>`).join('');
-    }catch(e){$('reactorSummary').textContent=e.message;$('reactorQuick').textContent=e.message;}
+    }catch(e){$('reactorSummary').textContent=e.message;$('reactorQuick').textContent=e.message;$('reactorMixed').textContent='';}
   }
   function drawLegacy(){try{const r=E.manual($('legacyC').value,$('legacyUnit').value,$('legacyLength').value,$('legacyLengthUnit').value,$('legacyBasis').value,$('legacyF').value,$('legacyV').value);$('legacyResult').textContent=`${format(r.value)} mA／計算対象の全体C ${format(r.cap,6)} μF。${$('legacyBasis').value==='one'?'1心分を3倍。':'3倍はしていません。'}`;}catch(e){$('legacyResult').textContent=e.message;}}
   function fillDimensions(){const idx=E.sizes.indexOf(Number($('size').value));$('d').value=E.inner[idx];$('D').value=E.outer[idx];$('lay').value='';$('dimensionNote').value='';}
@@ -542,15 +553,18 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
   $('legacySize').addEventListener('change',()=>{if($('legacySize').value!=='custom'){$('legacyC').value=$('legacySize').value;$('legacyUnit').value='uFkm';oldCapUnit='uFkm';$('legacyBasis').value='one';}drawLegacy();});
   $('legacyC').addEventListener('input',()=>{$('legacySize').value='custom';});
   $('legacy33').addEventListener('click',()=>{$('legacyV').value=5175;drawLegacy();});
-  $('reset').addEventListener('click',()=>{HTMLFormElement.prototype.reset.call($('compareForm'));$('theoryMode').value='example';$('epsilon').value=2.3;fillDimensions();$('reactorBasis').value='B';$('transformer').value='R1220K';$('outputLimit').value='167';$('meterLimit').value='';$('testMinutes').value='10';$('count2').value=4;$('count5').value=0;$('count5').disabled=true;draw();});
+  $('reset').addEventListener('click',()=>{HTMLFormElement.prototype.reset.call($('compareForm'));$('theoryMode').value='example';$('epsilon').value=2.3;fillDimensions();$('reactorBasis').value='B';$('transformer').value='R1220K';$('outputLimit').value='167';$('meterLimit').value='';$('testMinutes').value='10';$('count2').value=4;$('count5').value=3;draw();});
   $('sources').innerHTML=Object.entries(E.sources).map(([key,s])=>`<p><b>${key==='M'?'実測C':`方式${key}`}：${s.maker}</b><br>${s.title}／${s.edition}／${s.pages}<br>${s.kind}。${s.scope}<br><a href="${s.url}" target="_blank" rel="noopener">原資料を開く</a></p>`).join('');
   $('transformer').addEventListener('change',()=>{
     const preset=$('transformer').value==='R1220K';
     $('outputLimit').value=preset?'167':'';
     $('testMinutes').value=preset?'10':'';
-    $('count5').value=preset?'0':'3';$('count5').disabled=preset;
+    $('count5').value='3';
     drawReactors();
   });
+  function adjustLength(delta){const raw=$('length').value.trim();if(!raw||!Number.isFinite(Number(raw))){$('length').focus();return;}$('length').value=String(Math.max(0,Math.round((Number(raw)+delta)*1000000)/1000000));draw();}
+  $('lengthMinus').addEventListener('click',()=>adjustLength(-10));
+  $('lengthPlus').addEventListener('click',()=>adjustLength(10));
   draw();drawLegacy();
 })();
 </script>
