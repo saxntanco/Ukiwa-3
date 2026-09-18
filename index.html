@@ -153,6 +153,27 @@ html[data-motion="paused"] body:before,html[data-motion="paused"] .characterFram
 @media(prefers-reduced-motion:reduce){body:before,.characterFrame img,.stars{animation:none!important;will-change:auto}}
 @media(max-width:680px){.topin{gap:8px}.topActions{gap:5px}.scenePicker select{max-width:110px;padding:8px;font-size:11px}#motionToggle{min-width:34px;padding:8px}#motionToggle span{display:none}.brand span{font-size:16px}.brand{gap:6px}html[data-theme="sunset"] body:before{background-position:68% center}}
 </style>
+
+<style id="ukiwa-menu-palette">
+:root{--island-surface:linear-gradient(145deg,rgba(246,254,255,.98),rgba(215,241,247,.98));--island-inset:#e7f6fa;--island-border:#8cbcca;--island-ink:#163c50;--island-muted:#3e6474;--island-accent:#12627f;--island-shadow:0 10px 26px rgba(23,91,121,.16)}
+html[data-theme="sunset"]{--island-surface:linear-gradient(145deg,rgba(255,247,228,.98),rgba(250,218,211,.98));--island-inset:#fce5d9;--island-border:#c89483;--island-ink:#523446;--island-muted:#755267;--island-accent:#984a32;--island-shadow:0 10px 26px rgba(129,66,74,.18)}
+html[data-theme="dark"]{--island-surface:linear-gradient(145deg,rgba(18,36,66,.98),rgba(42,30,67,.98));--island-inset:#243551;--island-border:#69739d;--island-ink:#f4f3ff;--island-muted:#c3cce5;--island-accent:#a7dfff;--island-shadow:0 12px 30px rgba(3,6,25,.32)}
+html[data-theme] body .hero .card,html[data-theme] body .panel,html[data-theme] body .fieldNotes,html[data-theme] body .zukan,html[data-theme] body .aboutLink,html[data-theme] body .notice{background:var(--island-surface)!important;border-color:var(--island-border)!important;color:var(--island-ink);box-shadow:var(--island-shadow)}
+html[data-theme] body .shortcuts a,html[data-theme] body .fieldItem,html[data-theme] body .quick button,html[data-theme] body .construction{background:var(--island-inset)!important;border-color:var(--island-border)!important;color:var(--island-ink)!important}
+html[data-theme] body .card h2,html[data-theme] body .fieldItem b,html[data-theme] body .panel h2{color:var(--island-ink)}
+html[data-theme] body .card p,html[data-theme] body .card .n,html[data-theme] body .examples,html[data-theme] body .fieldItem small,html[data-theme] body .fieldNotesHead p,html[data-theme] body .aboutLink small,html[data-theme] body .zukan small,html[data-theme] body .updates time{color:var(--island-muted)!important}
+html[data-theme] body .card .go,html[data-theme] body .card .ico{color:var(--island-accent)!important}
+html[data-theme] body .go,html[data-theme] body .updates a{border-color:var(--island-border)}
+html[data-theme] body .themeToggle,html[data-theme] body .scenePicker select{background:var(--island-inset);border-color:var(--island-border);color:var(--island-ink)}
+html[data-theme] body .search{background:var(--island-inset);border:1px solid var(--island-border)}
+html[data-theme] body .search input{background:var(--island-inset);color:var(--island-ink)}
+html[data-theme] body .search input::placeholder{color:var(--island-muted)}
+html[data-theme] body .search button{background:var(--island-accent);color:#fff}
+html[data-theme="dark"] body .search button{background:#42618a;color:#fff}
+html[data-theme] body .card:hover,html[data-theme] body .fieldItem:hover,html[data-theme] body .shortcuts a:hover{border-color:var(--island-accent)!important}
+html[data-theme] body .mobileNav{background:var(--island-inset);border-color:var(--island-border)}
+html[data-theme] body .mobileNav a{color:var(--island-ink)}
+</style>
 </head>
 <body>
 <header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><label class="scenePicker"><span class="srOnly">島の景色</span><select id="sceneSelect" aria-label="島の景色"><option value="light">☀️ 昼の島</option><option value="sunset">🌅 夕焼け</option><option value="dark">🌙 月夜</option></select></label><button class="themeToggle" id="motionToggle" type="button" aria-label="ぷかぷかする動きを止める" aria-pressed="false">⏸ <span>動き</span></button></div></div></header>
