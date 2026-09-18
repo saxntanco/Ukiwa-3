@@ -195,6 +195,9 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
 <main class="main"><section class="contentSection"><div class="side"><section class="panel" id="updates"><h2>📣 更新・おすすめ</h2>
 <div class="updates" id="updatesList">
   <!-- JSが読めない場合のフォールバック -->
+<a href="index.html#islandMusicCredits"><time datetime="2026-09-18">2026/09/18</time><b>島のBGMを追加。再生後はサイト内を移動しても曲が続きます。</b></a>
+<a href="field-essentials.html"><time datetime="2026-09-18">2026/09/18</time><b>昼・夕焼け・月夜の景色を各ページへ。背景とカードの配色を統一。</b></a>
+<a href="analytics-info.html"><time datetime="2026-09-18">2026/09/18</time><b>アクセス解析の案内を追加。計測は同意した場合のみ。</b></a>
   <a href="measuring-instruments.html?model=IP-1110"><time>2026/08/25</time><b>測定器具DBを165型式へ拡張。IP-1110詳細・公式取説導線を追加。</b></a>
   <a href="pukapuka-diary.html#pas-withstand-20260822"><time>2026/08/24</time><b>PAS交換工事と耐圧試験。「どこまで耐圧するか」を結線から考える。</b></a>
   <a href="pukapuka-diary.html#seven-eleven-completion-20260821"><time>2026/08/24</time><b>初めてPASの上まで昇った。セブンイレブン竣工検査の日。</b></a>
@@ -218,6 +221,9 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
   // 固定でトップに残しておきたい更新。
   // 「今日のなんで？」と「ぷかぷか日誌」は各ページから自動取得します。
   const BASE_UPDATES = [
+{"date":"2026-09-18","title":"島のBGMを追加。再生後はサイト内を移動しても曲が続きます。","href":"index.html#islandMusicCredits"},
+{"date":"2026-09-18","title":"昼・夕焼け・月夜の景色を各ページへ。背景とカードの配色を統一。","href":"field-essentials.html"},
+{"date":"2026-09-18","title":"アクセス解析の案内を追加。計測は同意した場合のみ。","href":"analytics-info.html"},
     { date: '2026-09-11', title: '電線の太さ相談：許容電流・電圧降下をサイズ別に比較', href: 'cable-size-simulator.html' },
     { date: '2026-08-25', title: '測定器具DB 165型式・IP-1110詳細追加', href: 'measuring-instruments.html?model=IP-1110' },
     { date: '2026-08-09', title: '保護継電器 メーカー・型式DB', href: 'protective-relay.html' },
