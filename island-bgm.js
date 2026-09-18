@@ -1,21 +1,19 @@
-/* Original compositions for Ukiwa. No third-party melodies or recordings. */
+/* Kevin MacLeod recordings, CC BY 4.0. See the visible music credits. */
 (()=>{
 const button=document.getElementById('bgmToggle');if(!button)return;
-const scores={
-light:{title:'ひだまりの桟橋',bpm:76,chords:[[48,55,59,64],[45,52,55,60],[41,48,52,57],[43,50,53,59],[48,55,60,64],[40,47,55,59],[41,48,57,60],[43,50,55,59]],melody:[[67,72,71,64],[69,67,64,0],[65,69,72,69],[67,62,64,0],[76,74,72,67],[71,67,64,62],[65,69,67,64],[62,67,60,0],[72,76,79,76],[74,72,69,0],[77,76,72,69],[74,71,67,0],[76,72,67,64],[67,71,74,71],[72,69,65,62],[67,64,60,0]]},
-sunset:{title:'琥珀の潮路',bpm:66,chords:[[50,57,60,64],[46,53,57,60],[48,55,58,62],[45,52,55,60],[43,50,57,62],[46,53,60,65],[48,55,59,64],[50,57,60,65]],melody:[[69,0,72,76],[77,72,69,0],[74,70,67,0],[72,67,64,0],[69,74,77,76],[77,72,70,0],[76,74,71,67],[69,65,62,0],[81,76,74,72],[77,81,77,72],[79,74,70,67],[76,72,67,0],[74,77,81,77],[77,74,72,70],[71,76,74,67],[69,65,62,0]]},
-dark:{title:'月あかりの帰り道',bpm:60,chords:[[45,52,55,60],[41,48,52,57],[48,55,59,64],[43,50,55,59],[38,45,53,57],[40,47,55,59],[41,48,52,57],[45,52,59,60]],melody:[[72,71,64,0],[69,65,64,0],[67,72,76,0],[74,71,67,0],[65,69,72,69],[71,67,64,0],[69,72,67,65],[64,60,57,0],[76,72,71,67],[77,76,72,69],[79,76,74,72],[74,71,67,0],[77,74,72,69],[71,74,76,71],[72,69,65,64],[60,59,57,0]]}
-};
-let ctx,master,verb,timer,playing=false,starting=false,generation=0,beatIndex=0,next=0,mode='';const voices=new Set();
-function setup(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('audio unavailable');ctx=new AC();master=ctx.createGain();master.gain.value=.32;const limiter=ctx.createDynamicsCompressor();master.connect(limiter);limiter.connect(ctx.destination);verb=ctx.createConvolver();const b=ctx.createBuffer(2,Math.floor(ctx.sampleRate*2.8),ctx.sampleRate);let seed=7281;for(let ch=0;ch<2;ch++){const d=b.getChannelData(ch);for(let i=0;i<d.length;i++){seed=(seed*1664525+1013904223)>>>0;d[i]=(seed/2147483648-1)*Math.pow(1-i/d.length,3)}}verb.buffer=b;const wet=ctx.createGain();wet.gain.value=.19;verb.connect(wet);wet.connect(master);}
-function piano(pitch,time,length,velocity){const f=440*Math.pow(2,(pitch-69)/12);for(let h=1;h<=7;h++){const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=f*h*Math.sqrt(1+.00009*h*h);const amount=velocity*[0,1,.36,.19,.09,.045,.025,.012][h],decay=Math.max(.24,length/(1+(h-1)*.46));g.gain.setValueAtTime(0,time);g.gain.linearRampToValueAtTime(amount,time+.007);g.gain.exponentialRampToValueAtTime(Math.max(.00001,amount*.24),time+.18);g.gain.exponentialRampToValueAtTime(.00001,time+decay+.2);o.connect(g);g.connect(master);g.connect(verb);voices.add(o);o.onended=()=>{voices.delete(o);o.disconnect();g.disconnect()};o.start(time);o.stop(time+decay+.23)}}
-function schedule(){if(!playing)return;const selected=document.documentElement.dataset.theme;const chosen=scores[selected]?selected:'light';if(chosen!==mode){mode=chosen;beatIndex=0}const s=scores[mode],b=60/s.bpm;button.title=s.title;while(next<ctx.currentTime+.18){const bar=Math.floor(beatIndex/4)%20,beat=beatIndex%4,section=bar<2||bar>=18,phrase=(bar-2+16)%16,c=s.chords[(bar<2?bar:phrase)%8],v=mode==='dark'?.068:.082;
-if(beat===0)piano(c[0],next,b*3.4,.11);
-// Broken left-hand chords leave room for the melody.
-piano(c[1+(beat%3)],next+.016,b*2,.046);if(beat===1||beat===3)piano(c[2+(beat%2)]+12,next+b*.51,b*1.5,.024);
-if(!section){const n=s.melody[phrase][beat];if(n)piano(n,next+.025,b*(beat===3?2.1:1.65),v*(beat===0?1:.9))}
-beatIndex=(beatIndex+1)%80;next+=b;}timer=setTimeout(schedule,60)}
-function stop(){generation++;playing=false;starting=false;clearTimeout(timer);for(const o of voices){try{o.stop()}catch{}}voices.clear();if(ctx){ctx.close();ctx=null}button.innerHTML='♫ <span>BGM</span>';button.setAttribute('aria-pressed','false');button.setAttribute('aria-label','島のBGMを再生');}
-button.addEventListener('click',async()=>{if(playing||starting){stop();return}const ticket=++generation;starting=true;try{setup();const current=ctx;await current.resume();if(ticket!==generation)return;starting=false;playing=true;beatIndex=0;mode='';next=ctx.currentTime+.07;button.innerHTML='⏸ <span>BGM</span>';button.setAttribute('aria-pressed','true');button.setAttribute('aria-label','島のBGMを停止');schedule()}catch{stop();button.title='このブラウザーでは音楽を再生できません'}});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});addEventListener('pagehide',stop);
+const tracks={light:{title:'Luminous Rain',file:'Luminous Rain.mp3',id:'USUAN1100169'},sunset:{title:'Dream Culture',file:'Dream Culture.mp3',id:'USUAN1300046'},dark:{title:'Evening Fall (Piano)',file:'Evening Fall - Piano.mp3',id:'USUAN1100235'}};
+const audio=new Audio();audio.preload='none';audio.loop=true;audio.volume=.3;
+let wanted=false,request=0,loaded='';
+const credit=document.createElement('details');credit.id='islandMusicCredits';credit.style.cssText='max-width:1100px;margin:8px auto;padding:0 16px;font-size:12px;color:var(--text);position:relative;z-index:2';
+credit.innerHTML='<summary style="cursor:pointer">♫ BGM・音量・クレジット</summary><div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:6px"><p id="islandTrackName" aria-live="polite"></p><label>音量 <input id="islandVolume" type="range" min="0" max="100" value="30" aria-label="BGMの音量"></label><p>Music by <a href="https://incompetech.com/" target="_blank" rel="noopener">Kevin MacLeod (incompetech.com)</a><br><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0</a> — 音源の編集なし。再生時に音量調整・繰り返し再生。音声は再生ボタンを押したときに配信元から読み込みます。</p><ul>'+Object.entries(tracks).map(([key,t])=>'<li>'+({light:'昼の島',sunset:'夕焼け',dark:'月夜'})[key]+'：<a href="https://incompetech.com/music/royalty-free/index.html?isrc='+t.id+'" target="_blank" rel="noopener">'+t.title+'</a></li>').join('')+'</ul></div>';
+document.querySelector('header').after(credit);
+const label=credit.querySelector('#islandTrackName');credit.querySelector('#islandVolume').addEventListener('input',e=>{audio.volume=Number(e.target.value)/100});
+function current(){return tracks[document.documentElement.dataset.theme]||tracks.light}
+function display(state){const t=current();button.setAttribute('aria-pressed',String(wanted));button.setAttribute('aria-label',wanted?'島のBGMを停止':'島のBGMを再生');button.innerHTML=(wanted?'⏸':'♫')+' <span>BGM</span>';button.title=t.title;label.textContent=state+'：'+t.title+' — Kevin MacLeod'}
+function stop(){wanted=false;request++;audio.pause();display('停止中')}
+async function play(){const token=++request,t=current();wanted=true;display('読み込み中');if(loaded!==t.file){audio.src='https://incompetech.com/music/royalty-free/mp3-royaltyfree/'+encodeURIComponent(t.file);loaded=t.file}try{await audio.play();if(token!==request)return;display('再生中')}catch{if(token!==request)return;stop();label.textContent='音源を読み込めませんでした。再生ボタンから再試行できます。'}}
+button.addEventListener('click',()=>{if(wanted)stop();else play()});
+document.getElementById('sceneSelect')?.addEventListener('change',()=>{if(wanted){audio.pause();play()}else display('停止中')});
+audio.addEventListener('error',()=>{if(wanted){stop();label.textContent='音源の読み込みに失敗しました。配信元リンクからも確認できます。'}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});addEventListener('pagehide',stop);display('停止中');
 })();
