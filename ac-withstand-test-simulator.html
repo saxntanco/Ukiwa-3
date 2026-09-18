@@ -332,7 +332,9 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 .reactor-model strong{display:block;font-size:2.2rem;line-height:1.3;margin-top:6px}
 .model1220{color:#a12835;border-color:#c64a58}.model1250{color:#155da0;border-color:#377dbd}
 .reactor-quick p{line-height:1.7;margin:8px 0}
-</style><style>.length-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.length-options button{padding:7px 10px;border:1px solid #8badb7;border-radius:8px;background:#eff8fb;color:#174855;cursor:pointer;font:inherit}</style><style>.method-reactors h4{margin:14px 0 8px}.method-reactors .model1220,.method-reactors .model1250{font-size:1.15rem}.calc-trace{font-size:.9rem;line-height:1.8;overflow-wrap:anywhere}</style><style>.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.method-M{border-top-color:#218456}#measured-input{scroll-margin-top:80px}@media(max-width:900px){.result-grid{grid-template-columns:1fr}}</style></head>
+</style><style>.length-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.length-options button{padding:7px 10px;border:1px solid #8badb7;border-radius:8px;background:#eff8fb;color:#174855;cursor:pointer;font:inherit}</style><style>.method-reactors h4{margin:14px 0 8px}.method-reactors .model1220,.method-reactors .model1250{font-size:1.15rem}.calc-trace{font-size:.9rem;line-height:1.8;overflow-wrap:anywhere}</style><style>.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.method-M{border-top-color:#218456}#measured-input{scroll-margin-top:80px}@media(max-width:900px){.result-grid{grid-template-columns:1fr}}</style><style id="readable-results">
+body{background:#eff6f8}.intro{padding:24px 0 8px}.surface{box-shadow:none;border-color:#d5e5ec}.step-number{display:inline-grid;place-items:center;width:30px;height:30px;margin-right:8px;background:#0b718b;color:white;border-radius:50%;font-size:16px;vertical-align:middle}.result-grid{gap:20px;align-items:start}.result-card{background:#fff;border-radius:16px;padding:22px;border-top-width:5px;box-shadow:0 5px 18px #163e5010}.result-card h3{min-height:0;font-size:20px;line-height:1.5;margin:5px 0 16px}.result-card .current-label{font-size:13px;color:#486675;margin:0}.result-card .result-number{font-size:42px;margin:0 0 8px;letter-spacing:-1px}.result-card .tag{display:inline-block;font-size:12px;margin:0 0 12px}.reactor-caption{font-size:14px;font-weight:750;padding-top:14px;border-top:1px solid #d8e7ed}.reactor-caption span{display:block;font-size:12px;font-weight:400;color:#526d7a}.method-reactors .choice-title{font-size:14px;margin:16px 0 8px}.method-reactors .choice-title+p{background:#f1f7fa;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.8}.residual-summary{font-size:14px}.residual-summary strong{font-size:23px;color:#164f62}.residual-summary small{font-size:12px}.current-breakdown summary,.basis-details summary{font-size:13px;color:#246279}.same-option{font-size:12px;color:#526d7a}.method-reactors>small{display:block;margin-top:14px;font-size:11px;line-height:1.7;color:#526d7a}.result-card details{margin-top:10px;padding:10px 0}.result-card .source{font-size:12px}.method-M{background:#f7fcf9}@media(max-width:600px){.result-card{padding:18px}.surface{padding:16px}.result-card .result-number{font-size:38px}}
+</style></head>
 <body>
 <header class="topbar">
 <a aria-label="ぷかぷかうきわメモへ戻る" class="brand" href="./index.html">
@@ -345,7 +347,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <section class="intro"><p class="eyebrow">6.6kV CVケーブル・三相一括</p><h1>充電電流を、根拠で比べる</h1><p>同じ条件でも、静電容量の決め方で結果は変わります。 <a href="#usage-notes">使う前の確認事項</a></p></section>
 
 <form id="compareForm" novalidate>
-<section class="surface"><h2>共通の入力条件</h2><p class="hint">各心が遮へいされたCV 3心の導体を一括し、接地された遮へい層との間に正弦波交流を印加する計算です。運転中の三相充電電流とは区別します。</p>
+<section class="surface"><h2><span class="step-number">1</span> ケーブルの条件</h2><p class="hint">各心が遮へいされたCV 3心の導体を一括し、接地された遮へい層との間に正弦波交流を印加する計算です。運転中の三相充電電流とは区別します。</p>
 <div class="input-grid">
 <label>断面積 [mm²]<select id="size"><option>8</option><option>14</option><option>22</option><option selected>38</option><option>60</option><option>100</option><option>150</option><option>200</option><option>250</option></select></label>
 <div><label>ケーブル長 [m]<input id="length" type="number" min="0" step="any" inputmode="decimal" value="100"></label><div class="length-options" aria-label="ケーブル長を10mずつ増減"><button type="button" id="lengthMinus">−10m</button><button type="button" id="lengthPlus">＋10m</button></div></div>
@@ -357,7 +359,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <div class="input-grid"><label>実測静電容量 [μF・全体]<input id="measured" type="number" min="0" step="any" inputmode="decimal" placeholder="例：0.062"></label><label>測定器・測定条件メモ<input id="measureNote" type="text" maxlength="300" placeholder="例：CC-50MN、対象ケーブルのみ"></label></div>
 <label class="check"><input id="measureConfirm" type="checkbox">測定対象・一括結線・含まれる機器が今回の試験対象と一致する</label>
 <p class="hint">計算結果とリアクトル台数は下の「実測静電容量から計算」に表示します。</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
-</form><section class="surface"><h2>トランス・リアクトルの条件</h2><div class="input-grid">
+</form><section class="surface"><h2><span class="step-number">2</span> 使用する試験機器</h2><div class="input-grid">
 <label>耐圧トランス<select id="transformer"><option value="R1220K">R-1220K（167mA・10分）</option><option value="manual">その他・手入力</option></select></label>
 <label>許容出力電流 [mA]<input id="outputLimit" type="number" min="0" step="any" value="167"></label>
 <label>2K 最大検討台数<input id="count2" type="number" min="0" max="10" value="4"></label>
@@ -367,12 +369,12 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <label>被試験物側A2の許容電流 [mA]<input id="meterLimit" type="number" min="0" step="any" placeholder="実際の電流計の仕様"></label></div>
 <p>R-1220K：12kV・167mA・10分。許容値は実際の遮断設定も考慮してください。2KはDR-1220MH（200H±10%）、5KはDR-1250MH（80H±10%）。リアクトルは12kV・30分定格。5K使用時や混在時のトランスとの接続適合、複数台の接続可否は別途確認が必要です。A2には補償前の被試験物電流が流れます。計算は損失電流・Cの不確かさを含みません。</p>
 <p><a href="https://www.musashi-in.co.jp/manual/r-1220k_01.pdf#page=14">トランス仕様</a> ／ <a href="https://www.musashi-in.co.jp/manual/DR-1220MH_J06.pdf#page=10">2K仕様</a> ／ <a href="https://www.musashi-in.co.jp/manual/DR-1250MH_J05.pdf#page=10">5K仕様</a></p></details></section>
-<section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading">充電電流の比較</h2><p id="conditions" class="hint"></p><div class="result-grid" id="cards" aria-live="polite"></div>
-<div id="difference" class="difference"></div>
+<section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading"><span class="step-number">3</span> 計算結果を比較</h2><p class="hint">充電電流 → リアクトル台数 → トランス負担電流の順に確認できます。</p><p id="conditions" class="hint"></p><div class="result-grid" id="cards" aria-live="polite"></div>
+<details><summary>結果の差を確認する</summary><div id="difference" class="difference"></div></details>
 <details><summary>同じ原資料の「JIS規格」欄も確認する</summary><p id="jisReference"></p><p class="hint">双興電機の資料が「JIS規格」として掲載する値です。適用する規格の版は当該ページで確認できないため、現行JISへの適合判定や保証最大値には使いません。</p></details>
-<h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
+<details><summary>結果の選び方・違いを確認する</summary><h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
 <p>比較している物理量は、どの方式も「導体3心を一括した交流試験時に、試験器から被試験ケーブルへ流れる充電電流」です。通常の三相運転では、各相に位相の異なる対地電圧がかかり、各相電流のベクトル和を扱います。その3相運転の電流を算術で足した値との比較ではありません。</p>
-<h3>どの値を使えばいい？</h3><ul><li>実測C：対象と測定条件が一致する場合に、設備に即した検討の材料にする。</li><li>試験器容量：対象ケーブルの仕様・最大値の定義と、試験器メーカーの選定基準を確認する。参考表・容量表の値を自動的に保証最大値とは扱わない。</li><li>理論値：原理や概算の理解に使う。対象ケーブルとの構造差・仮定を確認する。</li></ul></section>
+<h3>どの値を使えばいい？</h3><ul><li>実測C：対象と測定条件が一致する場合に、設備に即した検討の材料にする。</li><li>試験器容量：対象ケーブルの仕様・最大値の定義と、試験器メーカーの選定基準を確認する。参考表・容量表の値を自動的に保証最大値とは扱わない。</li><li>理論値：原理や概算の理解に使う。対象ケーブルとの構造差・仮定を確認する。</li></ul></details></section>
 <section class="surface"><h2>ケーブル寸法モデルの計算条件</h2>
 <label>理論モデル<select id="theoryMode"><option value="example">メーカー計算例（38mm²のみ）</option><option value="dimensions">寸法と仮定を入力する（参考推定）</option></select></label>
 <p id="theoryExplanation"></p>
@@ -481,7 +483,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
       if(key==='C'){tag=valid?(r.estimated?'参考推定・仮定あり':'メーカーの特定構造例'):'理論値算出不可';meaning='寸法と誘電率から求めた静電容量を使用。';trace=valid?`d=${r.d}mm、D=${r.D}mm、εr=${r.e}、撚り込み${r.k}%。1心 ${format(r.one,6)} μF/km → 全体 ${format(r.cap,6)} μF。Ic = 2π × ${x.f} × ${format(r.cap,6)} × 10⁻⁶ × ${x.V} = ${format(r.value/1000,6)} A。${r.estimated?'入力した根拠・仮定：'+$('dimensionNote').value:''}`:r.reason;}
       if(key==='M'){tag=valid?'対象設備の実測C':'任意入力';meaning='被試験物全体の測定値を使用。上の断面積・長さを重ねて掛けません。';trace=valid?`全体C=${format(r.cap,6)} μF。Ic = 2π × ${x.f} × ${format(r.cap,6)} × 10⁻⁶ × ${x.V} = ${format(r.value/1000,6)} A。測定メモ：${$('measureNote').value||'未記入'}`:r.reason;}
       const diff=valid?`計算できた結果の最大数値との差：${format(x.max-r.value)} mA（${format((x.max-r.value)/x.max*100)}%・最大数値を分母）`:'差の比較対象外';
-      return `<article class="result-card method-${key}"><p class="eyebrow">${key==="M"?"対象設備の測定値":key==="C"?"寸法と誘電率":"メーカー資料"}</p><h3>${names[key]}</h3><p class="result-number">${valid?format(r.value)+' <small>mA</small>':'—'}</p><p class="tag">${tag}</p><p>${meaning}</p><p class="hint">${diff}</p>${key==="M"?`<p>${!valid?esc(r.reason)+"。":""}<button type="button" class="secondary" id="editMeasured">実測Cを入力・変更</button></p>`:""}<details><summary>計算の内訳</summary><p>${esc(trace)}</p></details><p class="source">${key==='C'&&r.estimated?sourceLink('B')+'／式：'+sourceLink('C'):sourceLink(key)}</p></article>`;
+      return `<article class="result-card method-${key}"><p class="eyebrow">${key==="M"?"対象設備の測定値":key==="C"?"寸法と誘電率":"メーカー資料"}</p><h3>${names[key]}</h3><p class="current-label">充電電流</p><p class="result-number">${valid?format(r.value)+' <small>mA</small>':'—'}</p><p class="tag">${tag}</p>${key==="M"?`<p>${!valid?esc(r.reason)+"。":""}<button type="button" class="secondary" id="editMeasured">実測Cを入力・変更</button></p>`:""}<details class="basis-details"><summary>根拠・計算式を見る</summary><p>${meaning}</p><p class="hint">${diff}</p><p>${esc(trace)}</p><p class="source">${key==='C'&&r.estimated?sourceLink('B')+'／式：'+sourceLink('C'):sourceLink(key)}</p></details></article>`;
     }).join('');
     $('editMeasured').onclick=()=>{document.querySelector('.measured-details').open=true;$('measured').focus();$('measured-input').scrollIntoView({block:'start',behavior:'smooth'});};
     const count=[x.A,x.B,x.C,x.M].filter(r=>r.value!==null).length;
@@ -495,7 +497,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
     const preset=$('transformer').value==='R1220K';
     ['A','B','C','M'].forEach((key,index)=>{
       const host=$('cards').children[index];if(!host)return;
-      const panel=document.createElement('div');panel.className='method-reactors';host.appendChild(panel);
+      const panel=document.createElement('div');panel.className='method-reactors';host.insertBefore(panel,host.querySelector('.basis-details'));
       const r=result[key];
       if(!r||r.value===null){panel.textContent='この方式は算出できないため台数も表示しません。';return;}
       try{
@@ -504,23 +506,23 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
         const minutes=$('testMinutes').value.trim()?E.positive($('testMinutes').value,'連続印加時間'):null;
         if(minutes!==null&&minutes>(preset?10:30))throw Error('連続印加時間が登録機器の定格を超えています。');
         const meter=$('meterLimit').value.trim()?E.positive($('meterLimit').value,'A2許容電流'):null;
-        panel.innerHTML='<hr><h4>この方式の '+format(r.value)+' mA から台数を計算</h4><p>トランス許容：'+(limit.trim()?format(Number(limit))+' mA':'未入力')+'</p>';
+        panel.innerHTML='<p class="reactor-caption">リアクトル組合せ（公称負担最小） <span>トランス許容 '+(limit.trim()?format(Number(limit))+' mA':'未入力')+'</span></p>';
         if(meter!==null&&r.value>meter)panel.innerHTML+='<p class="error">被試験物側A2の許容電流を超えています。</p>';
         const options=[['2Kのみ',$('count2').value,0],['2K・5Kから組み合わせ',$('count2').value,$('count5').value]];
         let previous=null;
         options.forEach(([title,n2,n5])=>{
           const rr=E.reactors(r.value,result.V,result.f,n2,n5,limit);
           const chosen=rr.rows.find(row=>rr.allowed===null||row.within);
-          if(chosen&&previous&&chosen.a===previous.a&&chosen.b===previous.b){panel.innerHTML+='<p>5Kを含めて検討しても、公称負担最小の内訳は同じです。</p>';return;}
+          if(chosen&&previous&&chosen.a===previous.a&&chosen.b===previous.b){panel.innerHTML+='<p class="same-option">2K・5Kで検討しても同じ内訳</p>';return;}
           previous=chosen;
-          panel.innerHTML+='<h4>'+title+'</h4>';
+          panel.innerHTML+='<h4 class="choice-title">'+title+'</h4>';
           if(!chosen){panel.innerHTML+='<p>検討範囲内に許容電流を満たす候補がありません。</p>';return;}
-          if(chosen.over)panel.innerHTML+='<p class="error">過補償：リアクトル電流がケーブル電流を上回ります。</p>';if(chosen.b>0&&preset)panel.innerHTML+='<p class="error">R-1220Kと5Kの実機適合は未確認。数値比較のみです。</p>';const i2=1000*result.V/(2*Math.PI*result.f*200),i5=1000*result.V/(2*Math.PI*result.f*80);
+          const i2=1000*result.V/(2*Math.PI*result.f*200),i5=1000*result.V/(2*Math.PI*result.f*80);
           panel.innerHTML+='<p><b class="model1220">2K × '+chosen.a+'台</b> ＋ <b class="model1250">5K × '+chosen.b+'台</b><br>合計 <strong>'+ (chosen.a+chosen.b)+'台</strong>（'+(rr.allowed===null?'公称負担最小・許容未判定':'許容条件内で公称負担が最小')+'）</p>'
-           +'<p class="calc-trace">補償：'+format(i2)+' × '+chosen.a+' ＋ '+format(i5)+' × '+chosen.b+' ＝ '+format(chosen.IL)+' mA<br>トランス負担（損失除外）：|'+format(r.value)+' − '+format(chosen.IL)+'| ＝ <b>'+format(chosen.residual)+' mA</b><br>L公差込み最大：<b>'+format(chosen.worst)+' mA</b>'
-           +(rr.allowed===null?'':' ／ 許容 '+format(rr.allowed)+' mA')+'</p>';
+           +(chosen.b>0&&preset?'<p class="error">R-1220Kとの組合せ適合は未確認（5K取説の適応トランスはR-1250H/R-1250）。数値比較のみ。</p>':'')+(chosen.over?'<p class="error">過補償：リアクトル電流がケーブル電流を上回る候補</p>':'')+'<p class="residual-summary">トランス負担（損失除外） <strong>'+format(chosen.residual)+' mA</strong><br><small>L公差込み最大 '+format(chosen.worst)+' mA'+(rr.allowed===null?' ／ 許容値未入力':' ／ 許容 '+format(rr.allowed)+' mA')+'</small></p><details class="current-breakdown"><summary>電流の内訳</summary><p class="calc-trace">リアクトル電流：'+format(i2)+' × '+chosen.a+' ＋ '+format(i5)+' × '+chosen.b+' ＝ '+format(chosen.IL)+' mA<br>残留：|'+format(r.value)+' − '+format(chosen.IL)+'| ＝ <b>'+format(chosen.residual)+' mA</b><br>L公差込み最大：<b>'+format(chosen.worst)+' mA</b>'
+           +(rr.allowed===null?'':' ／ 許容 '+format(rr.allowed)+' mA')+'</p></details>';
         });
-        panel.innerHTML+='<p class="hint">設定台数の範囲で、公差込み電流が許容以下の候補から公称負担が最小になる組合せを表示。同じ負担なら台数の少ない候補を選びます。</p><small>損失電流は未評価。5K使用・混在の実機適合は別途確認。各機種0台を含めて検討。</small>';
+        panel.innerHTML+='<p class="hint">許容167mAなどの設定値は、常に流れる電流ではありません。トランス負担はケーブル電流とリアクトル電流の差（絶対値）で計算します。</p><small>損失電流は未評価。5K使用・混在の実機適合は別途確認。各機種0台を含めて検討。</small>';
       }catch(e){panel.textContent=e.message;}
     });
   }
@@ -555,3 +557,4 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
 </script>
 
 </body></html>
+
