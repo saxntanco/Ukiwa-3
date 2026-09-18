@@ -281,6 +281,29 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   .protectionGrid,.methodGrid{grid-template-columns:1fr 1fr}
   .termGrid{grid-template-columns:1fr 1fr}
 }
+
+/* Source-reviewed load test guide */
+[hidden]{display:none!important}
+.load-guide{display:grid;gap:18px;margin:20px 0 28px}
+.load-guide h3{font-size:23px;margin:0 0 12px}
+.load-guide details{border-top:1px solid var(--line);padding:14px 0;margin-top:12px}
+.load-guide summary{cursor:pointer;font-weight:800;color:#125c99}
+.load-inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.load-inputs label{display:grid;gap:6px;font-weight:800}
+.load-inputs input{width:100%;min-width:0;padding:12px;border:1px solid #99bed6;border-radius:10px;color:var(--ink);background:#fff;font:inherit}
+.load-inputs .wide{grid-column:span 2}
+.load-presets{margin-top:12px}
+.load-result{padding:20px;border-radius:16px;background:#eaf7ff;margin:16px 0;border:1px solid #b4d9ef}
+.load-result strong{font-size:clamp(30px,5vw,46px);color:#075c99}
+.load-result .result-line{display:flex;gap:16px;flex-wrap:wrap;align-items:baseline}
+.load-table{overflow-x:auto}.load-table table{width:100%;border-collapse:collapse;min-width:620px;text-align:left}
+.load-table th,.load-table td{padding:13px;border-bottom:1px solid var(--line);vertical-align:top}
+.load-table thead{background:#edf8ff}.load-table .btn{font-size:12px;padding:6px;margin-top:6px}
+.load-steps{padding-left:25px}.load-steps li{padding:8px 0}.load-steps p{margin:5px 0}
+.cooling-flow{background:#edf8ff;border-radius:12px;padding:14px;margin-top:12px;font-weight:800}
+.load-guide a{color:#075c99}.load-guide [id]{scroll-margin-top:85px}
+@media(max-width:650px){.load-inputs{grid-template-columns:1fr}.load-inputs .wide{grid-column:auto}.load-guide .panel{padding:16px}.load-table table{min-width:560px}}
+
 </style>
 </head>
 <body>
@@ -315,7 +338,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
   <p class="sub">最初から全部読まなくて大丈夫。目的に近い入口を選んでください。</p>
 
   <div class="db-search-wrap">
-    <input id="dbSearch" class="db-search" type="search" placeholder="例：63Q、軸受、ソレノイド、15kW、60秒、絶縁…" autocomplete="off">
+    <input id="dbSearch" class="db-search" type="search" placeholder="例：63Q、軸受、ソレノイド、負荷率、60秒、絶縁…" autocomplete="off">
     <button class="btn blue" id="dbSearchClear">クリア</button>
   </div>
   <div id="dbHits" class="db-hitbox"></div>
@@ -329,9 +352,9 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
       <div class="db-ico">🛡️</div><b>保護装置試験</b>
       <span>異常入力から、停止・遮断・警報・表示までを追う。</span><small>守れるかを見る</small>
     </button>
-    <button class="db-card" data-open-view="anatomy-load" data-search="負荷試験 乾式抵抗器 ドライダミー 15kW 207V 42A 50Hz">
+    <button class="db-card" data-open-view="anatomy-load" data-search="負荷試験 乾式抵抗器 ドライダミー ドライダミ 消防法 負荷率 kW kVA 継続時間 30% 60%">
       <div class="db-ico">🔥</div><b>乾式抵抗器・負荷試験</b>
-      <span>15 kWをかけたとき、発電機がどう働くかを見る。</span><small>電圧・電流・出力</small>
+      <span>定格と負荷率からkWを計算。試験の流れ・時間・記録を確認。</span><small>電圧・電流・出力</small>
     </button>
     <button class="db-card" data-open-view="anatomy-temp" data-search="温度測定 軸受 本体表面 吸気 排気 潤滑油 冷却水 入口 出口">
       <div class="db-ico">🌡️</div><b>温度測定</b>
@@ -500,7 +523,80 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
     <button class="anatomy-mode" data-anatomy-mode="flow">➡ 流れを見る</button>
   </div>
 
-  <div class="anatomy-wrap">
+<div id="dryLoadGuide" class="load-guide" hidden>
+  <div class="panel">
+    <small class="label">DRY LOAD TEST</small><h2>ドライダミー負荷試験</h2>
+    <p>発電機に抵抗負荷をつなぎ、出力・周波数・温度・運転状態を確認します。負荷は発電機の定格と試験目的に合わせて決めます。</p>
+    <nav class="controls" aria-label="負荷試験の案内"><a class="btn" href="#loadPlanner">負荷を計算</a><a class="btn" href="#loadWorkflow">試験の流れ</a><button class="btn" type="button" data-open-view="anatomy-temp">温度はどこで測る？</button><a class="btn" href="#loadRecords">記録する項目</a></nav>
+  </div>
+  <div class="panel" id="loadPlanner">
+    <h3>1. 定格と負荷率から、必要なkWを出す</h3>
+    <p class="sub">初期値は計算例です。銘板の定格有効電力を入力してください。</p>
+    <div class="load-inputs">
+      <label>発電機の定格有効電力 [kW]<input id="loadRated" type="number" min="0" step="any" inputmode="decimal" value="100"></label>
+      <label>今回の負荷率 [%]<input id="loadPercent" type="number" min="0" max="100" step="any" inputmode="decimal" value="60"></label>
+      <label>線間電圧 [V]<input id="loadVoltage" type="number" min="0" step="any" inputmode="decimal" value="200"></label>
+    </div>
+    <div class="controls load-presets" aria-label="負荷率の入力候補"><button class="btn" type="button" data-load-percent="30">30％</button><button class="btn" type="button" data-load-percent="60">60％</button><button class="btn" type="button" data-load-percent="75">75％</button><button class="btn" type="button" data-load-percent="100">100％</button></div>
+    <p class="sub">候補ボタンは計算用です。この順番で投入する手順や推奨負荷率を示すものではありません。</p>
+    <div id="loadCalcResult" class="load-result" aria-live="polite"></div>
+    <p id="loadCalcError" role="alert" class="safe" hidden></p>
+    <details><summary>kVAしか書いていない場合・電流計算の前提</summary><p>定格有効電力は、同じ定格条件のkVA × 定格力率で確認します。例：125kVA × 0.8 = 100kW。抵抗負荷の力率がほぼ1だからといって、発電機の125kVAを125kWと読み替えません。</p><p>三相平衡・抵抗負荷（力率1）の概算線電流：I = P × 1000 ÷（√3 × 線間電圧）。実測では三相それぞれの電流と電力計のkWも確認します。不平衡時や他の負荷がある場合に、この概算をそのまま当てはめません。発電機・負荷装置・ケーブル等の電流定格は別途照合します。</p><p>負荷装置は対応電圧によって使えるkWが変わる場合があります。同一抵抗なら電力は電圧の二乗に比例しますが、切替結線のある製品もあるため、実際の容量はその電圧のメーカー仕様を使います。<a href="https://www.denyo.co.jp/products/le-75/" target="_blank" rel="noopener">メーカー製品例</a></p></details>
+    <h3>2. 継続時間は、試験要領から入力する</h3>
+    <div class="load-inputs"><label>目標負荷に到達してからの計画時間 [分]<input id="loadMinutes" type="number" min="0" step="any" inputmode="decimal" placeholder="資料で確認して入力"></label><label class="wide">時間・段階投入の根拠<input id="loadTimeSource" type="text" maxlength="180" placeholder="メーカー取説のページ／承認済み試験要領"></label></div>
+    <p id="loadTimeResult" class="callout" aria-live="polite">運転時間は未確定です。</p>
+    <p>容量や負荷率だけでは時間は決まりません。消防庁の負荷運転要領は「必要な時間」としており、全国一律の30分・60分とは書かれていません。暖機・各負荷段階・目標負荷の保持・冷却を分け、使用機器の取扱説明書と試験計画で決定します。<a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf#page=10" target="_blank" rel="noopener">消防庁：総合点検・負荷運転</a></p>
+    <details><summary>消防法・保安規程・メーカー点検の違い</summary>
+      <ul><li><b>消防用設備等の非常電源：</b>消防法に基づく点検の対象。機器点検は6か月ごと、総合点検は1年ごと。総合点検の運転性能は、対象機関について負荷運転または内部観察等で確認します。<a href="https://www.yanmar.com/jp/energy/maintenance/emergency_generator/inspection.html" target="_blank" rel="noopener">ヤンマーの点検案内</a></li>
+      <li><b>負荷運転を選ぶ場合：</b>対象の点検要領では、定格回転速度・定格出力の30％以上で継続運転。実負荷も選択肢に含まれ、ドライダミーだけが唯一の方法ではありません。<a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf#page=10" target="_blank" rel="noopener">消防庁 第24</a></li>
+      <li><b>例外・周期：</b>ガスタービンはこの負荷運転の対象外。予防的な保全策を講じる場合は、製造年または前回の負荷運転・内部観察等からの6年の条件があります。「6年間すべての点検が不要」ではありません。<a href="https://www.fdma.go.jp/mission/prevention/suisin/items/h30_leaflet01.pdf" target="_blank" rel="noopener">改正の説明</a></li>
+      <li><b>自家用電気工作物の保安：</b>該当する設備では、電気事業法に基づく保安規程・点検計画も確認します。消防の負荷運転と同じものと決めつけません。<a href="https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/files/jikayouannai.pdf" target="_blank" rel="noopener">経済産業省の案内</a></li>
+      <li><b>メーカー保守・竣工時試験：</b>目的によって負荷率・時間・測定項目が異なります。30％の点検だけで全負荷性能や全ての負荷投入特性を確認したとは扱いません。</li></ul>
+      <p>適用対象・点検周期・資格は設備と点検内容で確認。<a href="https://www.fdma.go.jp/mission/prevention/suisin/items/h30_leaflet_fuka.pdf" target="_blank" rel="noopener">消防庁による不適切な営業情報への注意喚起</a>も参照してください。</p>
+    </details>
+  </div>
+  <div class="panel" id="loadWorkflow"><h3>3. 試験の流れと、各段階で見ること</h3><p class="sub">現場の試験計画を組むための整理です。端子接続・遮断器操作の順番は、実機の操作票で確定します。</p>
+    <ol class="load-steps">
+      <li><b>計画・事前点検</b><p>試験目的、定格kW・電圧・周波数、目標負荷、保持時間、記録間隔、メーカー管理値、中止条件を確定。既設負荷への影響、切替方式、停電対応、責任者も確認します。</p></li>
+      <li><b>負荷装置・測定の準備</b><p>対象を隔離して無電圧を確認したうえで、承認された結線と接地・保護を確認。負荷装置の電圧別容量、ケーブル、冷却用補機電源、ファンと排風経路を確認します。発電機の排ガスと負荷装置の熱風を区別し、吸気への再循環を避ける配置にします。</p></li>
+      <li><b>始動・無負荷時の確認</b><p>機種別の暖機条件に従い、電圧・周波数・油圧・水温・漏れ・異音を確認。負荷装置の冷却が成立していることを確認してから、計画した負荷投入へ進みます。</p></li>
+      <li><b>段階投入・目標負荷で記録</b><p>メーカー指定の投入幅で負荷を上げ、実測kWで目標を確認。電圧・三相電流・周波数・各温度を、時刻と負荷条件をそろえて記録します。異常警報、指定範囲外、漏れや異常発熱があれば、決めた中止手順に移ります。</p></li>
+      <li><b>除荷・冷却</b><p>指定手順で除荷。発電機の冷却運転と負荷装置のファン冷却は別々に確認します。負荷を切った直後に補機電源も一括遮断する手順にはしません。具体的な冷却時間は各機種の取説で確認します。</p></li>
+      <li><b>復旧・記録</b><p>冷却・停止・隔離確認後に仮設を撤去し、操作票に沿って復旧。自動始動待機、スイッチ・弁・充電器等の状態を確認し、燃料等の補給、不備と処置を記録します。</p></li>
+    </ol>
+    <p class="sub">装置の仕様例：<a href="https://www.dkn.co.jp/system-solution/fukashiken/" target="_blank" rel="noopener">デンケン（強制空冷・補機電源・電圧別容量）</a>。操作順・冷却時間は使用する型式の取説が必要です。</p>
+  </div>
+  <div class="panel" id="loadRecords"><h3>4. 成績書に何を残す？</h3>
+    <div class="load-table"><table><thead><tr><th>項目</th><th>記録する内容</th><th>見方</th></tr></thead><tbody>
+    <tr><th>試験条件</th><td>型式、定格kW/kVA・力率、電圧、周波数、機器構成、根拠資料</td><td>銘板と実機を一致させる</td></tr>
+    <tr><th>負荷と時間</th><td>段階ごとの実測kW・負荷率、到達時刻、開始／終了時刻</td><td>負荷装置のスイッチ値だけで決めない</td></tr>
+    <tr><th>電気</th><td>線間電圧、R/S/T各相電流、周波数、必要に応じ力率・回転数</td><td>メーカー範囲・相間差・変動を確認</td></tr>
+    <tr><th>機関・温度</th><td>油圧、水温、設備が備える油温・排気温度、指定測定点の温度</td><td>測定位置・計器・単位・負荷を一緒に記録</td></tr>
+    <tr><th>状態・復旧</th><td>漏れ、異音、振動、煙、警報、処置、待機復旧確認</td><td>異常なし／未測定／対象外を分ける</td></tr>
+    </tbody></table></div>
+    <details><summary>記録欄のひな形</summary><p>現場名／発電機型式／負荷装置型式／試験目的／根拠資料／管理値の出典</p><p>測定時刻｜負荷kW・％｜電圧V｜R/S/T電流A｜Hz｜油圧・単位｜温度℃・測定点ID｜異常・処置</p><p>管理値は型式別資料から転記します。水温・油温・軸受温度に、一律の合否温度は設定しません。</p></details>
+  </div>
+</div>
+<div id="temperatureGuide" class="load-guide" hidden>
+  <div class="panel"><small class="label">TEMPERATURE MAP</small><h2>温度は「何の温度か」から探す</h2><p><b>まず既設の計器・センサ表示を確認。</b>追加測定は、取説・配管図・成績書で指定位置を特定してから行います。下の図は部品を探すための代表図です。</p>
+    <div class="load-table"><table><thead><tr><th>測るもの</th><th>どこを見る？</th><th>どう測る・記録する？</th><th>混同しないこと</th></tr></thead><tbody>
+    <tr><th>冷却水温度<br><button type="button" class="btn" data-temp-part="cooling">冷却水系を図で見る</button></th><td>制御盤の水温表示と、そのセンサが取り付く機関の冷却水系</td><td>既設センサの指示値。入口／出口を別記する場合は、配管図で両測定点を確認</td><td>ホース表面温度は水温ではない。入口は「何への入口」かを書く</td></tr>
+    <tr><th>潤滑油温度<br><button type="button" class="btn" data-temp-part="oil">潤滑油系を図で見る</button></th><td>油温表示・取説に示す油温センサ位置</td><td>装備されている油温計を読む。未装備なら指定測定方法を確認し、代替値を捏造しない</td><td>オイルパン表面と油そのものの温度は別。油圧も別の項目</td></tr>
+    <tr><th>発電機の軸受温度<br><button type="button" class="btn" data-temp-part="bearing">軸受を図で見る</button></th><td>発電機の回転軸支持部。駆動側／反駆動側の有無・位置を実機図で確認</td><td>内蔵センサがあればその値。表面測定指定なら、指定した軸受ハウジングの点を毎回そろえる</td><td>回転軸自体に触れない。内蔵センサ値とハウジング表面値を同じ欄で比較しない</td></tr>
+    <tr><th>排気ガス温度<br><button type="button" class="btn" data-temp-part="exhaust">排気系を図で見る</button></th><td>排気管等の既設熱電対・表示。気筒別／過給機の前後などを図面で特定</td><td>指定センサの指示値と位置を記録。未設置なら計測方法をメーカーへ確認</td><td>放射温度計で排気管を測っても、内部の排気ガス温度にはならない</td></tr>
+    <tr><th>吸気・周囲温度<br><button type="button" class="btn" data-temp-part="intake">吸気系を図で見る</button></th><td>試験要領が指定する吸気側の空気・室内／外気</td><td>空気用の適切な温度センサで測定。測定位置、排風や日射の影響を記録</td><td>エアクリーナ外装を測った値は吸気温度ではない</td></tr>
+    <tr><th>本体表面・巻線<br><button type="button" class="btn" data-temp-part="alternator">発電機を図で見る</button></th><td>機関／発電機のどちらかを特定。本体表面は指定点、巻線は指定の内蔵測温装置等</td><td>表面測定は接触式または放射式の条件を記録。巻線は型式別の方法による</td><td>外装表面から巻線内部温度を決めない。「本体」の一語だけで記録しない</td></tr>
+    </tbody></table></div>
+    <p class="callout">測定点が分からないときは「未特定」と記録して確認します。運転中にカバーを外す、回転部へ近づく、高温・加圧中のキャップを開けて測る方法にはしません。</p>
+    <details><summary>冷却水の「入口／出口」を整理する</summary><div class="cooling-flow">機関の出口 → ラジエータの入口 → ラジエータの出口 → 機関の入口</div><p>一般的なラジエータ冷却回路の考え方です。バイパス、別系統、熱交換器がある実機では配管図を優先します。測定記録には「機関出口・既設水温計」のように、対象と位置を付けます。</p></details>
+    <details><summary>放射温度計を使う場合</summary><p>測るのは対象の表面です。放射率、表面状態、周囲からの反射、測定距離と測定範囲で値が変わります。レーザーの点だけを測っているとは限りません。比較するなら同じ測定点・計器・条件で記録します。<a href="https://www.hioki.co.jp/file/cmw/hdInstructionManual/90780/pdf/?action=browser&amp;log=1" target="_blank" rel="noopener">HIOKI：放射温度計取説（放射率・測定の注意）</a></p><p>接触式も、表面用と内部測定用のプローブは用途が異なります。<a href="https://www.hioki.com/download/28121" target="_blank" rel="noopener">HIOKI：温度ハイテスタ取説</a></p></details>
+    <details><summary>管理値と換気の確認</summary><p>許容温度・警報値・測定装備は機種で異なります。指定範囲は対象機種の資料で確認し、負荷率と経過時間をそろえて比較します。室温だけで換気良否を判定せず、換気口と換気装置の作動も確認します。<a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf#page=7" target="_blank" rel="noopener">消防庁：運転状況・換気</a></p></details>
+    <p class="sub">この表は測定対象を区別するための整理です。実機の測定点番号・合否値は未確定。発電機のメーカー・型式と測定点図が分かれば、具体的な位置へ置き換えられます。</p>
+  </div>
+</div>
+
+<details class="panel" style="margin:16px 0"><summary>このガイドの確認範囲・出典（2026年9月18日）</summary><p>消防庁の現行掲載「第24 非常電源（自家発電設備）」の負荷運転・換気、2018年改正説明、経済産業省の保安規程案内、負荷装置メーカーの公開仕様、HIOKIの測温資料を照合しました。実機型式は未指定のため、接続端子・投入段階・継続時間・温度の位置と管理値は未確定です。自動始動・保護試験の既存教材は今回の負荷試験ガイドとは別の内容です。</p><p><a href="https://www.fdma.go.jp/mission/prevention/post-1.html" target="_blank" rel="noopener">消防庁の点検要領一覧</a> ／ <a href="https://www.fdma.go.jp/mission/prevention/suisin/post21.html" target="_blank" rel="noopener">点検改正資料</a> ／ <a href="https://www.denyo.co.jp/products/le-75/" target="_blank" rel="noopener">デンヨー</a> ／ <a href="https://www.dkn.co.jp/system-solution/fukashiken/" target="_blank" rel="noopener">デンケン</a> ／ <a href="https://www.yanmar.com/jp/energy/maintenance/emergency_generator/inspection.html" target="_blank" rel="noopener">ヤンマー</a></p></details>
+  <div class="anatomy-wrap" id="generatorDiagram">
     <div class="anatomy-stage">
       <svg viewBox="0 0 1100 650" role="img" aria-label="非常用ディーゼル発電機の教育用カットモデル">
         <defs>
@@ -586,14 +682,14 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
           <line x1="930" y1="485" x2="1005" y2="485"/><line x1="930" y1="505" x2="1005" y2="505"/>
         </g>
         <text x="922" y="545" font-size="14" font-weight="900" fill="#455f70">乾式抵抗器</text>
-        <text x="940" y="565" font-size="15" font-weight="900" fill="#b86600">15 kW</text>
+        <text x="940" y="565" font-size="15" font-weight="900" fill="#b86600">抵抗負荷</text>
 
         <!-- measurement chips -->
         <g class="mode-layer load-layer" style="display:none">
-          <rect x="805" y="385" width="95" height="30" rx="15" fill="#1684c7"/><text x="822" y="406" class="measure-chip">約207 V</text>
-          <rect x="805" y="420" width="95" height="30" rx="15" fill="#1684c7"/><text x="822" y="441" class="measure-chip">約42 A</text>
-          <rect x="805" y="455" width="95" height="30" rx="15" fill="#1684c7"/><text x="820" y="476" class="measure-chip">約50 Hz</text>
-          <rect x="295" y="505" width="125" height="30" rx="15" fill="#1684c7"/><text x="309" y="526" class="measure-chip">約3000 min⁻¹</text>
+          <rect x="805" y="385" width="95" height="30" rx="15" fill="#1684c7"/><text x="822" y="406" class="measure-chip">線間電圧</text>
+          <rect x="805" y="420" width="95" height="30" rx="15" fill="#1684c7"/><text x="822" y="441" class="measure-chip">三相電流</text>
+          <rect x="805" y="455" width="95" height="30" rx="15" fill="#1684c7"/><text x="820" y="476" class="measure-chip">周波数</text>
+          <rect x="295" y="505" width="125" height="30" rx="15" fill="#1684c7"/><text x="309" y="526" class="measure-chip">回転数</text>
         </g>
 
         <!-- clickable pins -->
@@ -618,13 +714,13 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
       <div class="flow-banner" id="generatorFlow">
         <span class="flow-node">燃料</span><span class="flow-arrow">→</span>
         <span class="flow-node">エンジン</span><span class="flow-arrow">→</span>
-        <span class="flow-node">約3000 min⁻¹</span><span class="flow-arrow">→</span>
+        <span class="flow-node">回転数</span><span class="flow-arrow">→</span>
         <span class="flow-node">交流発電機</span><span class="flow-arrow">→</span>
-        <span class="flow-node">約207 V / 約42 A / 約50 Hz</span><span class="flow-arrow">→</span>
-        <span class="flow-node">乾式抵抗器 15 kW</span><span class="flow-arrow">→</span>
+        <span class="flow-node">電圧・電流・周波数</span><span class="flow-arrow">→</span>
+        <span class="flow-node">乾式抵抗器</span><span class="flow-arrow">→</span>
         <span class="flow-node">熱</span>
       </div>
-      <div class="anatomy-note">※図は教育用の代表構造。電気の例は三相平衡の抵抗負荷、線間電圧207 V、線電流42 A、力率1とし、P = √3 × 207 × 42 / 1000 ≈ 15.06 kW。50 Hz・3000 min⁻¹は2極の同期発電機を仮定。実機の部品位置・配管・測定点・極数・定格は型式とメーカー資料で確認してください。</div>
+      <div class="anatomy-note">図はディーゼル発電機の代表構造で、測定点や結線を指定する図ではありません。負荷kW・電流は上の入力条件で計算します。回転数は極数と周波数で異なり、50Hzの同期機なら2極3000min⁻¹、4極1500min⁻¹です。実機の位置・定格・計測装備は型式別資料で確認してください。</div>
     </div>
 
     <aside class="anatomy-info" id="anatomyInfo">
@@ -1179,7 +1275,7 @@ const generatorParts={
  coupling:{title:"回転軸・カップリング",status:"代表位置",lead:"エンジンが作った回転力を交流発電機へ伝える。",
  where:"エンジン出力軸と交流発電機回転子の間。",
  role:"機械エネルギーを発電機へ伝達する。",
- test:"回転数と周波数の関係を理解する中心部分。50 Hz・約3000 min⁻¹は2極機の関係と整合する。",
+ test:"回転数と周波数の関係を理解する中心部分。50 Hz・回転数は2極機の関係と整合する。",
  sheet:"回転数、周波数。",
  caution:"実機の極数は銘板等で確認して確定する。"},
  bearing:{title:"軸受（ベアリング）",status:"候補位置",lead:"回転軸を支え、滑らかに回転できるようにする部品。",
@@ -1227,13 +1323,13 @@ const generatorParts={
  loadbank:{title:"乾式抵抗器（ドライダミー）",status:"教材の例",lead:"発電機へ人工的な抵抗負荷を与え、電気エネルギーを熱として消費する。",
  where:"発電機出力へ試験用ケーブルで接続する可搬型負荷装置。",
  role:"実負荷を使わずに発電機を働かせ、負荷状態での性能を確認する。",
- test:"教材では15 kWの抵抗負荷を例示。負荷装置の容量・定格電圧・周波数は実機の銘板で確認。",
- sheet:"教材例：負荷15 kW。負荷率は発電機の定格有効電力kWを確認してから算出する。",
+ test:"上の計算欄で定格kWと負荷率から目標負荷を確認。使用電圧での容量、冷却・補機電源、投入段階は負荷装置の取説で確認。",
+ sheet:"実測kW・負荷率・継続時間、線間電圧、各相電流、周波数、温度、異常と復旧状態。",
  caution:"投入する抵抗段・ケーブル・遮断器容量などは実試験要領に従う。"},
  rst:{title:"三相出力 R・S・T",status:"代表位置",lead:"交流発電機から取り出す三相の出力線。",
  where:"発電機出力端子 → 出力遮断器 → 負荷側。",
  role:"乾式抵抗器へ三相電力を供給する。",
- test:"教材例は三相平衡の抵抗負荷、線間207 V、線電流42 A、力率1を仮定。P = √3 × 207 × 42 × 1 / 1000 ≈ 15.06 kW。",
+ test:"三相平衡の概算はP[kW] = √3 × 線間電圧[V] × 線電流[A] × 力率 / 1000。実際には各相電流と電力計のkWも確認する。",
  sheet:"電圧、R/S/T電流、出力kW、周波数。",
  caution:"測定器の具体的結線は、機器型式・実機図面・計器取説から確認する。"}
 };
@@ -1257,6 +1353,8 @@ document.querySelectorAll(".part-pin").forEach(pin=>{
  pin.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();setPart(pin.dataset.part)}});
 });
 function setAnatomyMode(mode){
+ document.getElementById("dryLoadGuide").hidden=mode!=="load";
+ document.getElementById("temperatureGuide").hidden=mode!=="temp";
  document.querySelectorAll(".anatomy-mode").forEach(b=>b.classList.toggle("active",b.dataset.anatomyMode===mode));
  document.querySelectorAll(".part-pin").forEach(pin=>{
    const modes=(pin.dataset.modes||"parts").split(" ");
@@ -1387,7 +1485,8 @@ const searchRoutes=[
   ["非常停止","緊急停止","protection"],["始動渋滞","起動渋滞","protection"],
   ["軸受","軸受温度","anatomy-temp"],["冷却水入口","冷却水出口","anatomy-temp"],
   ["排気温度","排気温度入口・出口","anatomy-temp"],["ソレノイド","停止ソレノイド","anatomy-parts"],
-  ["ガバナ","調速機","governor"],["15kW","乾式抵抗器","anatomy-load"],
+  ["ガバナ","調速機","governor"],["負荷率","乾式抵抗器 ドライダミー ドライダミ","anatomy-load"],
+  ["消防法","負荷運転 30％ 点検","anatomy-load"],["継続時間","何分 kW kVA","anatomy-load"],
   ["207V","42A","anatomy-load"],["60秒","120秒","auto"],["停電","復電","auto"],
   ["絶縁","絶縁抵抗","electrical"],["接地","接地抵抗","electrical"],["成績書","試験項目から探す","records"]
 ];
@@ -1422,6 +1521,32 @@ document.querySelectorAll("[data-record-action]").forEach(b=>b.addEventListener(
 // Start at the menu, not at all content
 hideDbViews();
 dbToolbar?.classList.remove("show");
+
+
+// Pure load arithmetic: no automatic time or compliance decision.
+function calculateDryLoad(rated,percent,voltage){
+ if([rated,percent,voltage].some(v=>String(v).trim()===''))throw new Error('定格kW・負荷率・線間電圧を入力してください。');
+ const [r,p,v]=[rated,percent,voltage].map(Number);
+ if(![r,p,v].every(Number.isFinite)||r<=0||v<=0||p<0||p>100)throw new Error('定格kWと電圧は正の値、負荷率は0〜100％で入力してください。');
+ const kw=r*p/100, amps=kw*1000/(Math.sqrt(3)*v);
+ if(!Number.isFinite(kw)||!Number.isFinite(amps))throw new Error('入力値が大きすぎます。');
+ return {kw,amps,percent:p,rated:r};
+}
+function drawDryLoad(){
+ const by=id=>document.getElementById(id),result=by('loadCalcResult'),error=by('loadCalcError');
+ const fmt=n=>n.toLocaleString('ja-JP',{maximumFractionDigits:1});
+ try{
+  const x=calculateDryLoad(by('loadRated').value,by('loadPercent').value,by('loadVoltage').value);
+  result.hidden=false;error.hidden=true;
+  result.innerHTML='<div class="result-line"><span>目標負荷 <strong>'+fmt(x.kw)+' kW</strong></span><span>概算線電流 <b>'+fmt(x.amps)+' A</b></span></div><p>'+fmt(x.rated)+' kW × '+fmt(x.percent)+'％ = '+fmt(x.kw)+' kW ／ 三相平衡・抵抗負荷（力率1）</p><p>'+(x.percent<30?'30％未満です。消防庁の対象負荷運転の負荷率条件を満たしません。':'30％以上の入力です。これだけで法定点検の完了・合格を判定するものではありません。')+'</p>';
+ }catch(e){result.hidden=true;result.textContent='';error.hidden=false;error.textContent=e.message;}
+ const raw=by('loadMinutes').value.trim(),minutes=Number(raw),source=by('loadTimeSource').value.trim();
+ by('loadTimeResult').textContent=!raw?'保持時間：未確定。使用機種の取説・承認済み試験要領で確認してください。':!Number.isFinite(minutes)||minutes<=0?'保持時間は正の分数で入力してください。':('計画保持時間：'+fmt(minutes)+'分（目標負荷に到達してから）。'+(source?'根拠メモ：'+source:'根拠は未入力です。時間の適否は未確認。'));
+}
+['loadRated','loadPercent','loadVoltage','loadMinutes','loadTimeSource'].forEach(id=>document.getElementById(id).addEventListener('input',drawDryLoad));
+document.querySelectorAll('[data-load-percent]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('loadPercent').value=b.dataset.loadPercent;drawDryLoad();}));
+document.querySelectorAll('[data-temp-part]').forEach(b=>b.addEventListener('click',()=>{setPart(b.dataset.tempPart);document.getElementById('anatomyInfo').scrollIntoView({behavior:'smooth',block:'center'});}));
+drawDryLoad();
 
 </script>
 
