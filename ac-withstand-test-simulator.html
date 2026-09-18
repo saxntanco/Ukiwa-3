@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#0b83b8" name="theme-color"/>
-<title>充電電流3方式比較｜ぷかぷかうきわメモ</title>
+<title>充電電流・根拠別比較｜ぷかぷかうきわメモ</title>
 <meta content="6.6kV CVケーブルの充電電流をメーカー参考値・容量表・構造理論値で比較。実測Cとリアクトル補償の計算にも対応。" name="description"/>
 <style>
 :root{
@@ -332,7 +332,7 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 .reactor-model strong{display:block;font-size:2.2rem;line-height:1.3;margin-top:6px}
 .model1220{color:#a12835;border-color:#c64a58}.model1250{color:#155da0;border-color:#377dbd}
 .reactor-quick p{line-height:1.7;margin:8px 0}
-</style><style>.length-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.length-options button{padding:7px 10px;border:1px solid #8badb7;border-radius:8px;background:#eff8fb;color:#174855;cursor:pointer;font:inherit}</style><style>.method-reactors h4{margin:14px 0 8px}.method-reactors .model1220,.method-reactors .model1250{font-size:1.15rem}.calc-trace{font-size:.9rem;line-height:1.8;overflow-wrap:anywhere}</style></head>
+</style><style>.length-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.length-options button{padding:7px 10px;border:1px solid #8badb7;border-radius:8px;background:#eff8fb;color:#174855;cursor:pointer;font:inherit}</style><style>.method-reactors h4{margin:14px 0 8px}.method-reactors .model1220,.method-reactors .model1250{font-size:1.15rem}.calc-trace{font-size:.9rem;line-height:1.8;overflow-wrap:anywhere}</style><style>.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.method-M{border-top-color:#218456}#measured-input{scroll-margin-top:80px}@media(max-width:900px){.result-grid{grid-template-columns:1fr}}</style></head>
 <body>
 <header class="topbar">
 <a aria-label="ぷかぷかうきわメモへ戻る" class="brand" href="./index.html">
@@ -351,12 +351,12 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <div><label>ケーブル長 [m]<input id="length" type="number" min="0" step="any" inputmode="decimal" value="100"></label><div class="length-options" aria-label="ケーブル長を10mずつ増減"><button type="button" id="lengthMinus">−10m</button><button type="button" id="lengthPlus">＋10m</button></div></div>
 <label>周波数 f [Hz]<select id="freq"><option>50</option><option>60</option></select></label>
 <label>試験電圧 V [V・実効値]<select id="voltage"><option value="5175">5,175 V</option><option value="10350" selected>10,350 V</option></select></label>
-</div><p class="hint">電圧は試験条件の入力値です。10,350Vの適用可否をこの画面では判定しません。方式Aは原資料の10,350Vに限定します。</p>
-<button class="primary" type="submit">3方式を比較する</button><button class="secondary" id="reset" type="button">初期値に戻す</button><p id="inputError" role="alert" class="error" hidden></p></section>
-<section class="surface measured"><details class="measured-details"><summary>対象設備の実測Cから計算する（任意）</summary><p>三相一括・被試験物全体の静電容量を入力します。ケーブル長や3倍を重ねて掛けません。</p>
+</div><p class="hint">電圧は試験条件の入力値です。10,350Vの適用可否をこの画面では判定しません。双興電機の参考表は原資料の10,350Vに限定します。</p>
+<button class="primary" type="submit">充電電流を比較する</button><button class="secondary" id="reset" type="button">初期値に戻す</button><p id="inputError" role="alert" class="error" hidden></p></section>
+<section class="surface measured" id="measured-input"><details class="measured-details"><summary>実測静電容量を入力する（4つ目の比較・任意）</summary><p>三相一括・被試験物全体の静電容量を入力します。ケーブル長や3倍を重ねて掛けません。</p>
 <div class="input-grid"><label>実測静電容量 [μF・全体]<input id="measured" type="number" min="0" step="any" inputmode="decimal" placeholder="例：0.062"></label><label>測定器・測定条件メモ<input id="measureNote" type="text" maxlength="300" placeholder="例：CC-50MN、対象ケーブルのみ"></label></div>
 <label class="check"><input id="measureConfirm" type="checkbox">測定対象・一括結線・含まれる機器が今回の試験対象と一致する</label>
-<p id="measuredResult" aria-live="polite">未入力</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
+<p class="hint">計算結果とリアクトル台数は下の「実測静電容量から計算」に表示します。</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
 </form><section class="surface"><h2>トランス・リアクトルの条件</h2><div class="input-grid">
 <label>耐圧トランス<select id="transformer"><option value="R1220K">R-1220K（167mA・10分）</option><option value="manual">その他・手入力</option></select></label>
 <label>許容出力電流 [mA]<input id="outputLimit" type="number" min="0" step="any" value="167"></label>
@@ -372,21 +372,21 @@ body{font-size:16px;line-height:1.75}main.comparison{width:min(1180px,calc(100% 
 <details><summary>同じ原資料の「JIS規格」欄も確認する</summary><p id="jisReference"></p><p class="hint">双興電機の資料が「JIS規格」として掲載する値です。適用する規格の版は当該ページで確認できないため、現行JISへの適合判定や保証最大値には使いません。</p></details>
 <h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
 <p>比較している物理量は、どの方式も「導体3心を一括した交流試験時に、試験器から被試験ケーブルへ流れる充電電流」です。通常の三相運転では、各相に位相の異なる対地電圧がかかり、各相電流のベクトル和を扱います。その3相運転の電流を算術で足した値との比較ではありません。</p>
-<h3>どの値を使えばいい？</h3><ul><li>実測C：対象と測定条件が一致する場合に、設備に即した検討の材料にする。</li><li>試験器容量：対象ケーブルの仕様・最大値の定義と、試験器メーカーの選定基準を確認する。方式A・Bを自動的に保証最大値とは扱わない。</li><li>理論値：原理や概算の理解に使う。対象ケーブルとの構造差・仮定を確認する。</li></ul></section>
-<section class="surface"><h2>方式Cの計算条件</h2>
+<h3>どの値を使えばいい？</h3><ul><li>実測C：対象と測定条件が一致する場合に、設備に即した検討の材料にする。</li><li>試験器容量：対象ケーブルの仕様・最大値の定義と、試験器メーカーの選定基準を確認する。参考表・容量表の値を自動的に保証最大値とは扱わない。</li><li>理論値：原理や概算の理解に使う。対象ケーブルとの構造差・仮定を確認する。</li></ul></section>
+<section class="surface"><h2>ケーブル寸法モデルの計算条件</h2>
 <label>理論モデル<select id="theoryMode"><option value="example">メーカー計算例（38mm²のみ）</option><option value="dimensions">寸法と仮定を入力する（参考推定）</option></select></label>
 <p id="theoryExplanation"></p>
 <div id="dimensionFields" hidden><p class="hint">初期寸法はSFCC表から取得。内部半導電層の厚さを含む公称寸法のため、電界境界の厳密な寸法ではありません。半導電層を個別に考慮しない同軸モデルによる参考推定です。撚り込み率は対象資料または明示した仮定を入力してください。</p>
 <div class="input-grid"><label>内側径 d [mm]<input id="d" type="number" min="0" step="any" value="7.3"></label><label>外側径 D [mm]<input id="D" type="number" min="0" step="any" value="15.3"></label><label>比誘電率 εr [無次元]<input id="epsilon" type="number" min="1" step="any" value="2.3"></label><label>撚り込み率 [%]<input id="lay" type="number" min="0" step="any" placeholder="未確認・自動適用しません"></label></div><label>寸法・撚り込み率の出典または仮定<input id="dimensionNote" type="text" maxlength="300" placeholder="例：SFCC公称寸法、撚り込み率は0%と仮定"></label></div>
-<p class="hint">C₁ [μF/km] = 0.02413 × εr / log10(D/d)。全体C [F] = C₁ × 3 × (1＋撚り込み率/100) × 長さ[m]/1000 × 10⁻⁶。方式Bのカタログ容量にこの撚り込み補正を再び掛けることはしません。</p></section>
+<p class="hint">C₁ [μF/km] = 0.02413 × εr / log10(D/d)。全体C [F] = C₁ × 3 × (1＋撚り込み率/100) × 長さ[m]/1000 × 10⁻⁶。SFCC静電容量表のカタログ容量にこの撚り込み補正を再び掛けることはしません。</p></section>
 
-<section class="surface"><details><summary>旧データ・任意Cによる計算（1心／一括・単位換算）</summary><p>従来の値を保存した学習用計算です。旧データの採用元は未記録ですが、登録6サイズの値は今回確認したSFCCの参考容量と一致しました。対象設備のメーカー値であるとは限りません。この欄は上の3方式・リアクトル比較と独立しています。</p>
+<section class="surface"><details><summary>旧データ・任意Cによる計算（1心／一括・単位換算）</summary><p>従来の値を保存した学習用計算です。旧データの採用元は未記録ですが、登録6サイズの値は今回確認したSFCCの参考容量と一致しました。対象設備のメーカー値であるとは限りません。この欄は上の根拠別比較・リアクトル計算と独立しています。</p>
 <div class="input-grid"><label>旧登録値<select id="legacySize"><option value="0.27">22mm²：0.27</option><option value="0.32" selected>38mm²：0.32</option><option value="0.37">60mm²：0.37</option><option value="0.45">100mm²：0.45</option><option value="0.52">150mm²：0.52</option><option value="0.55">250mm²：0.55</option><option value="custom">手入力</option></select></label><label>長さ当たりC<input id="legacyC" type="number" step="any" value="0.32"></label><label>Cの単位<select id="legacyUnit"><option value="uFkm">μF/km</option><option value="nFm">nF/m</option><option value="uFm">μF/m</option></select></label><label>Cが表す範囲<select id="legacyBasis"><option value="one">1心と遮へい間（等しい3心を一括）</option><option value="total">既に三相一括の値</option><option value="single">1心だけを計算</option></select></label><label>ケーブル長<input id="legacyLength" type="number" step="any" value="100"></label><label>長さの単位<select id="legacyLengthUnit"><option value="m">m</option><option value="km">km</option></select></label><label>試験電圧 [V]<input id="legacyV" type="number" step="any" value="10350"></label><label>周波数 [Hz]<select id="legacyF"><option>50</option><option>60</option></select></label></div><button id="legacy33" type="button" class="secondary">従来の3.3kV例（5,175V）</button><p class="hint">このボタンは電圧だけを変更します。Cは対象ケーブルに合わせて入力してください。「1心だけ」は他心との相互容量を含む任意の試験結線を自動評価しません。</p><p id="legacyResult" aria-live="polite"></p></details></section>
 <section class="surface"><details><summary>忘れても作り直せる親公式</summary><p><b>Ic = 2πfCV</b> ― 充電電流は、周波数・静電容量・試験電圧に比例します。</p><div class="table-scroll"><table><thead><tr><th>記号</th><th>意味・英語・単位</th></tr></thead><tbody><tr><td>Ic</td><td>充電電流 Charging current [A]。Iは電流の慣用記号、cはchargingを区別する添字。</td></tr><tr><td>f</td><td>周波数 Frequency [Hz = 1/s]。英語の頭文字。</td></tr><tr><td>C、C₁</td><td>静電容量 Capacitance [F]。Cは被試験物全体、添字1は1心分を区別。</td></tr><tr><td>V</td><td>試験電圧 Voltage [V]。交流の実効値。</td></tr><tr><td>D、d</td><td>径 Diameter [mm]。大文字は外側、小文字は内側。D/dは同じ単位なので無次元。</td></tr><tr><td>εr</td><td>比誘電率 Relative permittivity [無次元]。εは誘電率の慣用記号、rはrelative。資料の2.3は絶対誘電率ではなく比誘電率。</td></tr><tr><td>L、IL</td><td>インダクタンス Inductance [H]とリアクトル電流 [A]。Lは慣用記号。添字Lは誘導性枝を区別し、ケーブル長と混同しない。</td></tr></tbody></table></div>
 <details><summary>単位・復元方法・増減関係</summary><p>単位：Hz × F × V = (1/s) × (A·s/V) × V = A。μFを使うときは10⁻⁶を掛けてFへ、AをmAにするときは1000倍します。</p><p>親公式は I = V/X。コンデンサでは Xc = 1/(2πfC) なので、割り算を整理すると Ic = 2πfCV を復元できます。さらに基本へ戻るなら q = Cv、i = dq/dt。正弦波を微分すると角周波数2πfが現れます。qは電荷 Charge [C：クーロン]、i・vは瞬時値です。容量記号Cと電荷の単位Cは別です。</p><p>同じ構造で、f・C・Vのいずれかが2倍ならIcは2倍。長さ2倍ならCも約2倍です。単位だけでは2πや心数は決まらず、定義と結線が必要です。</p><p>対になる式：Xc = 1/(2πfC)、XL = 2πfL。周波数が上がるとC側の電流は増え、同じLのリアクトル電流は減ります。</p><p>三相一括では各導体が同電位になるため、理想的には心間容量の両端電圧はゼロです。各心遮へいの対遮へい容量は並列に加算します。三相運転時の作用静電容量や線間容量をそのまま3倍してはいけません。</p><p>寸法式は同軸円筒の静電容量に由来します。0.02413は真空の誘電率と、自然対数から常用対数、F/mからμF/kmへの換算をまとめた係数です。εrが増えるとCも増え、D/dが増えるとCは減ります。</p><p>問題文の「三相一括・対地静電容量・耐圧試験」が目印。通常運転の線間電圧から相電圧へ換算する場面とは違い、一括試験電圧を√3で割りません。</p></details>
 <p><b>これだけ覚える：</b>式はIc = 2πfCV。先に「Cは何心分か」を確かめる。参考値と最大値は別。リアクトルは大きいほどよいわけではない。</p></details></section>
-<section class="surface"><details><summary>出典と確認状況</summary><div id="sources"></div><p class="hint">確認日：2026年9月12日。原資料の図や紙面は転載せず、計算に必要な数値・条件とリンクを保持しています。JIS本文の現行版、実際のケーブル仕様・Cの最大値、使用する試験機器一式の適合は未確認です。</p></details></section>
-<footer>ぷかぷかうきわメモ｜充電電流3方式比較</footer><section class="surface" id="usage-notes"><details><summary>使う前の確認事項</summary><p>計算・学習補助です。実設備の試験は、現場責任者・社内手順書・操作票・系統図・対象機器の取扱説明書と照合してください。接続変更や実測Cの測定に先立ち、停電・全電源からの切離し・無電圧確認・放電・誤投入防止・両端の試験区画を確保します。保護接地と被試験導体の短絡接地は役割が異なるため、試験範囲の接地処理は指定結線図で確認します。試験後の放電・残留電荷の再確認までが対象です。</p></details></section></main>
+<section class="surface"><details><summary>出典と確認状況</summary><div id="sources"></div><p class="hint">既存数値の確認日：2026年9月12日。2026年9月18日に名称を整理し、CC-50MNの計算式（本文10ページ）を再確認して実測Cを比較欄へ統合。原資料の図や紙面は転載せず、計算に必要な数値・条件とリンクを保持しています。JIS本文の現行版、実際のケーブル仕様・Cの最大値、使用する試験機器一式の適合は未確認です。</p></details></section>
+<footer>ぷかぷかうきわメモ｜充電電流・根拠別比較</footer><section class="surface" id="usage-notes"><details><summary>使う前の確認事項</summary><p>計算・学習補助です。実設備の試験は、現場責任者・社内手順書・操作票・系統図・対象機器の取扱説明書と照合してください。接続変更や実測Cの測定に先立ち、停電・全電源からの切離し・無電圧確認・放電・誤投入防止・両端の試験区画を確保します。保護接地と被試験導体の短絡接地は役割が異なるため、試験範囲の接地処理は指定結線図で確認します。試験後の放電・残留電荷の再確認までが対象です。</p></details></section></main>
 <script>
 'use strict';
 /* Pure calculations: units at boundaries are m, V, Hz, microfarads and mA. */
@@ -431,7 +431,7 @@ const ChargingComparison = (() => {
     if(String(input.measured??'').trim()){
       try {const cap=positive(input.measured,'実測C');M=input.confirm?{value:current(f,cap,V),cap}:{value:null,reason:'測定対象と一括結線の一致を確認してください。'};}catch(e){M={value:null,reason:e.message};}
     }
-    const values=[A,B,C].map(x=>x.value).filter(x=>x!==null),max=Math.max(...values),min=Math.min(...values);
+    const values=[A,B,C,M].map(x=>x.value).filter(x=>x!==null),max=Math.max(...values),min=Math.min(...values);
     return {size,idx,f,V,length,A,B,C,M,max,min,ratio:max/min,jis:V===10350?(f===50?jis50:jis60)[idx]*length:null};
   }
   function reactors(Ic,V,f,n2,n5,limit){
@@ -464,28 +464,29 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
 (() => {
   'use strict';
   const E=ChargingComparison,$=id=>document.getElementById(id),format=(v,d=1)=>{const n=Number(v);return n!==0&&(Math.abs(n)<10**(-d)||Math.abs(n)>=1e12)?n.toExponential(3):n.toLocaleString('ja-JP',{maximumFractionDigits:d});},esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const names={A:'メーカー掲載参考値',B:'静電容量データ方式',C:'ケーブル構造からの理論計算',M:'実測Cからの計算'};
+  const names={A:'双興電機・充電電流参考表',B:'SFCC・静電容量表',C:'ケーブル寸法による理論計算',M:'実測静電容量から計算'};
   let result=null;
   function inputs(){return {size:$('size').value,f:$('freq').value,V:$('voltage').value,length:$('length').value,theoryMode:$('theoryMode').value,d:$('d').value,D:$('D').value,epsilon:$('epsilon').value,lay:$('lay').value,dimensionNote:$('dimensionNote').value,measured:$('measured').value,confirm:$('measureConfirm').checked};}
   function sourceLink(key){const s=E.sources[key];return `<a href="${s.url}" target="_blank" rel="noopener">${s.maker}・${s.pages}</a>`;}
   function draw(){
     $('inputError').hidden=true;result=null;
     $('dimensionFields').hidden=$('theoryMode').value!=='dimensions';
-    $('theoryExplanation').textContent=$('theoryMode').value==='example'?'ムサシの38mm²計算例：d=7.8mm、D=15.8mm、εr=2.3、撚り込み率2%。方式BのSFCC製品寸法（38mm²：7.3/15.3mm）とは異なります。':'同軸モデルによる参考推定。入力した寸法と仮定は結果の下にも表示します。';
-    try {result=E.compare(inputs());}catch(e){$('inputError').textContent=e.message;$('inputError').hidden=false;$('cards').textContent='共通条件の入力を確認してください。';$('conditions').textContent='';$('difference').textContent='';$('jisReference').textContent='計算待ち';$('measuredResult').textContent='共通条件の入力を確認してください。';drawReactors();return;}
+    $('theoryExplanation').textContent=$('theoryMode').value==='example'?'ムサシの38mm²計算例：d=7.8mm、D=15.8mm、εr=2.3、撚り込み率2%。SFCC静電容量表のSFCC製品寸法（38mm²：7.3/15.3mm）とは異なります。':'同軸モデルによる参考推定。入力した寸法と仮定は結果の下にも表示します。';
+    try {result=E.compare(inputs());}catch(e){$('inputError').textContent=e.message;$('inputError').hidden=false;$('cards').textContent='共通条件の入力を確認してください。';$('conditions').textContent='';$('difference').textContent='';$('jisReference').textContent='計算待ち';drawReactors();return;}
     const x=result;$('conditions').textContent=`${x.size}mm²・${format(x.length,3)}m・${x.f}Hz・${format(x.V,3)}V・三相一括`;
-    $('cards').innerHTML=['A','B','C'].map(key=>{
+    $('cards').innerHTML=['A','B','C','M'].map(key=>{
       const r=x[key],valid=r.value!==null;let trace='',tag='',meaning='';
       if(key==='A'){tag='実測に基づく参考値';meaning='メーカー資料の目安。保証最大値ではありません。';trace=valid?`${format(r.rate,2)} mA/m × ${format(x.length,3)} m = ${format(r.value,3)} mA。${x.f}Hz専用表を使用。`:r.reason;}
       if(key==='B'){tag='SFCCカタログ参考値';meaning='各心と遮へい間の容量を3心分加算。';trace=`1心 ${r.one} μF/km × 3 × ${format(x.length,3)}/1000 = ${format(r.cap,6)} μF（全体）。Ic = 2π × ${x.f} × ${format(r.cap,6)} × 10⁻⁶ × ${x.V} = ${format(r.value/1000,6)} A。`;}
       if(key==='C'){tag=valid?(r.estimated?'参考推定・仮定あり':'メーカーの特定構造例'):'理論値算出不可';meaning='寸法と誘電率から求めた静電容量を使用。';trace=valid?`d=${r.d}mm、D=${r.D}mm、εr=${r.e}、撚り込み${r.k}%。1心 ${format(r.one,6)} μF/km → 全体 ${format(r.cap,6)} μF。Ic = 2π × ${x.f} × ${format(r.cap,6)} × 10⁻⁶ × ${x.V} = ${format(r.value/1000,6)} A。${r.estimated?'入力した根拠・仮定：'+$('dimensionNote').value:''}`:r.reason;}
-      const diff=valid?`表示3方式の最大数値との差：${format(x.max-r.value)} mA（${format((x.max-r.value)/x.max*100)}%・最大数値を分母）`:'差の比較対象外';
-      return `<article class="result-card method-${key}"><p class="eyebrow">方式${key}</p><h3>${names[key]}</h3><p class="result-number">${valid?format(r.value)+' <small>mA</small>':'—'}</p><p class="tag">${tag}</p><p>${meaning}</p><p class="hint">${diff}</p><details><summary>計算の内訳</summary><p>${esc(trace)}</p></details><p class="source">${key==='C'&&r.estimated?sourceLink('B')+'／式：'+sourceLink('C'):sourceLink(key)}</p></article>`;
+      if(key==='M'){tag=valid?'対象設備の実測C':'任意入力';meaning='被試験物全体の測定値を使用。上の断面積・長さを重ねて掛けません。';trace=valid?`全体C=${format(r.cap,6)} μF。Ic = 2π × ${x.f} × ${format(r.cap,6)} × 10⁻⁶ × ${x.V} = ${format(r.value/1000,6)} A。測定メモ：${$('measureNote').value||'未記入'}`:r.reason;}
+      const diff=valid?`計算できた結果の最大数値との差：${format(x.max-r.value)} mA（${format((x.max-r.value)/x.max*100)}%・最大数値を分母）`:'差の比較対象外';
+      return `<article class="result-card method-${key}"><p class="eyebrow">${key==="M"?"対象設備の測定値":key==="C"?"寸法と誘電率":"メーカー資料"}</p><h3>${names[key]}</h3><p class="result-number">${valid?format(r.value)+' <small>mA</small>':'—'}</p><p class="tag">${tag}</p><p>${meaning}</p><p class="hint">${diff}</p>${key==="M"?`<p>${!valid?esc(r.reason)+"。":""}<button type="button" class="secondary" id="editMeasured">実測Cを入力・変更</button></p>`:""}<details><summary>計算の内訳</summary><p>${esc(trace)}</p></details><p class="source">${key==='C'&&r.estimated?sourceLink('B')+'／式：'+sourceLink('C'):sourceLink(key)}</p></article>`;
     }).join('');
-    const count=[x.A,x.B,x.C].filter(r=>r.value!==null).length;
-    $('difference').textContent=`算出できた${count}方式の最大／最小倍率：${format(x.ratio,3)}倍。最大数値は最小数値より${format((x.ratio-1)*100)}%大きい（最小数値を分母）。ここでの「最大」は表示結果の比較で、保証最大値ではありません。実測Cはこの倍率に含めません。`;
-    $('jisReference').textContent=x.jis===null?'10,350V以外は掲載表の対象外です。':`${x.f}Hz・${x.size}mm²・${format(x.length,3)}m：${format(x.jis)}mA。方式Aの「実測に基づく参考値」とは別の行です。`;
-    $('measuredResult').textContent=x.M.value===null?x.M.reason:`実測値ベース：${format(x.M.value)} mA。全体C=${format(x.M.cap,6)} μF、Ic = 2π × ${x.f} × ${x.M.cap} × 10⁻⁶ × ${x.V} = ${format(x.M.value/1000,6)} A。${$('measureNote').value}`;
+    $('editMeasured').onclick=()=>{document.querySelector('.measured-details').open=true;$('measured').focus();$('measured-input').scrollIntoView({block:'start',behavior:'smooth'});};
+    const count=[x.A,x.B,x.C,x.M].filter(r=>r.value!==null).length;
+    $('difference').textContent=`算出できた${count}方式の最大／最小倍率：${format(x.ratio,3)}倍。最大数値は最小数値より${format((x.ratio-1)*100)}%大きい（最小数値を分母）。ここでの「最大」は表示結果の比較で、保証最大値ではありません。実測Cは入力と対象確認が済んだ場合のみ含みます。`;
+    $('jisReference').textContent=x.jis===null?'10,350V以外は掲載表の対象外です。':`${x.f}Hz・${x.size}mm²・${format(x.length,3)}m：${format(x.jis)}mA。双興電機の参考表の「実測に基づく参考値」とは別の行です。`;
     drawReactors();
   }
   function drawReactors(){
@@ -493,7 +494,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
     if(!result)return;
     const preset=$('transformer').value==='R1220K';
     ['A','B','C','M'].forEach((key,index)=>{
-      const host=key==='M'?$('measuredResult'):$('cards').children[index];if(!host)return;
+      const host=$('cards').children[index];if(!host)return;
       const panel=document.createElement('div');panel.className='method-reactors';host.appendChild(panel);
       const r=result[key];
       if(!r||r.value===null){panel.textContent='この方式は算出できないため台数も表示しません。';return;}
@@ -538,7 +539,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
   $('legacyC').addEventListener('input',()=>{$('legacySize').value='custom';});
   $('legacy33').addEventListener('click',()=>{$('legacyV').value=5175;drawLegacy();});
   $('reset').addEventListener('click',()=>{HTMLFormElement.prototype.reset.call($('compareForm'));$('theoryMode').value='example';$('epsilon').value=2.3;fillDimensions();$('transformer').value='R1220K';$('outputLimit').value='167';$('meterLimit').value='';$('testMinutes').value='10';$('count2').value=4;$('count5').value=3;draw();});
-  $('sources').innerHTML=Object.entries(E.sources).map(([key,s])=>`<p><b>${key==='M'?'実測C':`方式${key}`}：${s.maker}</b><br>${s.title}／${s.edition}／${s.pages}<br>${s.kind}。${s.scope}<br><a href="${s.url}" target="_blank" rel="noopener">原資料を開く</a></p>`).join('');
+  $('sources').innerHTML=Object.entries(E.sources).map(([key,s])=>`<p><b>${names[key]}：${s.maker}</b><br>${s.title}／${s.edition}／${s.pages}<br>${s.kind}。${s.scope}<br><a href="${s.url}" target="_blank" rel="noopener">原資料を開く</a></p>`).join('');
   $('transformer').addEventListener('change',()=>{
     const preset=$('transformer').value==='R1220K';
     $('outputLimit').value=preset?'167':'';
