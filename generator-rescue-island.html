@@ -304,6 +304,34 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 .load-guide a{color:#075c99}.load-guide [id]{scroll-margin-top:85px}
 @media(max-width:650px){.load-inputs{grid-template-columns:1fr}.load-inputs .wide{grid-column:auto}.load-guide .panel{padding:16px}.load-table table{min-width:560px}}
 
+
+/* sequence-design-v2 */
+#protectionSection{background:#f4f8fc;border:0;padding:clamp(18px,3vw,36px);color:#193449}
+#protectionSection>h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.04em;line-height:1.3;margin:10px 0 18px}
+#protectionSection>.label{color:#146d87;font-weight:800;letter-spacing:.16em}
+.seq-intro{display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:center;background:#123e53;color:white;border-radius:24px;padding:28px;margin-bottom:24px}
+.seq-intro h3{font-size:26px;line-height:1.45;margin:0 0 12px;color:white}.seq-intro p{color:#d5e9ef;line-height:1.8;margin:0}
+.seq-route{display:grid;gap:9px}.seq-route span{padding:12px 16px;border:1px solid #537885;border-radius:12px;background:#214e61;font-weight:700}.seq-route em{font-style:normal;color:#84e6d3;margin-right:12px}
+#protectionSection h3{font-size:22px;line-height:1.5}#protectionSection .panel{border:1px solid #d7e3eb;box-shadow:none;border-radius:24px;padding:24px;margin-top:24px}
+#protectionSection .protectionGrid{gap:10px;margin-top:18px}
+#protectionSection .prot{padding:18px 8px;border:1px solid #d2e0e9;transition:background .15s,transform .15s;min-height:124px}
+#protectionSection .prot.active{border:2px solid #087a88;background:#e5f6f3;box-shadow:0 5px 0 #d1eae6}#protectionSection .prot span{display:block;margin-top:8px;font-weight:700;color:#294556}
+#protectionSection .prot b{font-size:18px;color:#116477}#protectionSection .prot .ico{font-size:25px;margin-bottom:6px}
+#faultDetail{background:white;border:1px solid #d6e5eb;border-left:5px solid #087a88;border-radius:16px;padding:20px 24px;line-height:1.8}#faultDetail>b{font-size:20px}#faultDetail p{margin:8px 0 0}
+#protectionSection .methodGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+#protectionSection .method{overflow:hidden;padding:0;text-align:left;border:2px solid #e0e8ee;border-radius:18px;box-shadow:0 3px 0 #edf1f5;background:white}
+#protectionSection .method.active{border-color:#087a88;background:#eaf9f5;box-shadow:0 0 0 3px #bde7dc}
+.seq-art{display:block;width:100%;height:108px;background:#edf4f8}.seq-card-text{display:block;padding:13px 14px 15px}.seq-card-text b{display:block;color:#163f56;font-size:18px}.seq-card-text small{display:block;color:#496375;font-size:13px;margin-top:6px;line-height:1.4}
+#methodVisual{display:none}#methodInfo{background:#eaf4fa;border:0;border-radius:16px;padding:22px;font-size:17px;line-height:1.9;color:#173d54;margin-top:22px!important}
+#protectionSection .logic{display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr 28px 1fr;gap:0;align-items:stretch;margin-top:22px}
+#protectionSection .logicNode{min-width:0;text-align:left;background:#f3f7fa;padding:20px 15px;border:1px solid #dbe5ec;border-radius:16px;line-height:1.6}
+#protectionSection .logicNode b{font-size:18px;color:#154b62}#protectionSection .logicNode small{display:block;margin-top:10px;font-size:14px;color:#496070}#protectionSection .logicNode.on{background:#dff6ed;border-color:#188575}#protectionSection .arrow{align-self:center;text-align:center;color:#147888}
+.seq-output-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}.seq-output-grid div{border-top:3px solid #258899;background:#f4f9fa;padding:16px;border-radius:0 0 12px 12px}.seq-output-grid b{display:block;font-size:18px}.seq-output-grid small{display:block;color:#526b77;line-height:1.6;margin-top:7px}
+#protectionSection details{background:white;border:1px solid #dce7ed;border-radius:12px;padding:13px 16px;margin:14px 0}#protectionSection summary{cursor:pointer;font-weight:700;color:#32556a}
+#protectionSection button:focus-visible{outline:3px solid #e29817;outline-offset:4px}
+@media(max-width:760px){.seq-intro{grid-template-columns:1fr;padding:22px}.seq-intro h3{font-size:23px}.seq-route{grid-template-columns:repeat(3,1fr);gap:6px}.seq-route span{font-size:12px;padding:10px 8px}.seq-route em{display:block}#protectionSection .methodGrid{grid-template-columns:repeat(2,minmax(0,1fr))}#protectionSection .protectionGrid{grid-template-columns:repeat(2,minmax(0,1fr))}#protectionSection .prot:last-child{grid-column:1/-1;min-height:90px}#protectionSection .logic{grid-template-columns:1fr}#protectionSection .arrow{transform:rotate(90deg);padding:3px}#protectionSection .panel{padding:18px}.seq-output-grid{grid-template-columns:repeat(2,1fr)}}
+
+@media(max-width:480px){#protectionSection{padding:12px}#protectionSection .panel{padding:12px}#protectionSection .methodGrid{gap:10px}.seq-card-text{padding:10px}.seq-card-text b{font-size:16px}.seq-card-text small{font-size:12px}.seq-art{height:94px}#faultDetail{padding:16px}.seq-intro{padding:20px}}
 </style>
 </head>
 <body>
@@ -900,7 +928,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 
 <section class="section db-content-view hidden" data-db-view="protection" id="protectionSection">
   <small class="label">PROTECTION INTERLOCK TEST</small>
-  <h2>シーケンス試験｜保護装置の連動</h2>
+  <h2>異常を伝える。<br>連動を確かめる。</h2><div class="seq-intro"><div><h3>発電機のシーケンス試験</h3><p>何を試験するか、どこから模擬するか、<br>何が動くか。三つに分けると整理できます。</p></div><div class="seq-route"><span><em>01</em>試験項目</span><span><em>02</em>入力方式</span><span><em>03</em>連動結果</span></div></div>
   <details><summary>実機で試験する前の確認</summary><div class="safe"><b>試験の前提：</b>現場責任者・操作票・社内手順で系統状態、始動禁止・誤投入防止、制御電源、回転部・高温部、負荷停止への影響を確認します。配線変更の前には対象回路の隔離・無電圧・残留電荷を確認してください。型式別取説・展開接続図で入力の接点常態、COMの電位、模擬方法、停止・遮断・警報の連動先を確定できない場合は実機操作に使えません。</div></details>
   <p class="sub">① 項目を選ぶ → ② 入力方式を見分ける → ③ 表示・警報・遮断・停止を照合する。時限も実機要領で確認します。</p>
 
@@ -912,15 +940,15 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
     <button class="prot" data-fault="STARTFAIL"><div class="ico">🔄</div><b>始動渋滞</b><span>始動失敗系</span></button>
   </div>
 
-  <div id="faultDetail" class="callout" aria-live="polite" style="margin-top:12px"></div><div class="panel" style="margin-top:14px"><h3>② 模擬入力の入口を見分ける</h3><p>見た目・呼び方による整理で、互いに重なる分類もあります。全方式が各試験項目に対応するわけではありません。</p>
+  <div id="faultDetail" class="callout" aria-live="polite" style="margin-top:12px"></div><div class="panel" style="margin-top:14px"><h3>② 模擬入力の入口を見分ける</h3><p>図を選ぶと確認ポイントが表示されます。すべて見分け方の模式図で、実機写真・接続図ではありません。分類は重なる場合があります。</p>
     <div class="methodGrid">
-      <button class="method active" data-method="test"><b>🔘 TEST</b><br><small>機能名を確認</small></button>
-      <button class="method" data-method="com"><b>🔌 COM式</b><br><small>COM＋個別入力</small></button>
-      <button class="method" data-method="two"><b>〰️ 2線</b><br><small>2線間状態</small></button>
-      <button class="method" data-method="one"><b>➰ 1線</b><br><small>指定共通点</small></button>
-      <button class="method" data-method="dip"><b>🎚️ DIP</b><br><small>用途・設定を確認</small></button>
-      <button class="method" data-method="plc"><b>🖥️ ECU/PLC</b><br><small>電子診断</small></button>
-      <button class="method" data-method="six"><b>▦ 6ピン</b><br><small>型式・用途未特定</small></button><button class="method" data-method="unknown"><b>❓ 不明</b><br><small>ここで止める</small></button>
+      <button class="method active" data-method="test" aria-pressed="true"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><rect x="36" y="15" width="128" height="78" rx="10" fill="#fff"/><rect x="48" y="27" width="56" height="18" rx="3" fill="#cedee7"/><circle cx="134" cy="55" r="20" fill="#127b88"/><circle cx="134" cy="55" r="13" fill="#67cabb"/><path d="M50 61h45M50 72h30" stroke="#9db5c4"/></svg><span class="seq-card-text"><b>TEST表示</b><small>試験運転？ 異常模擬？</small></span></button>
+      <button class="method" data-method="com" aria-pressed="false"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><rect x="28" y="25" width="144" height="58" rx="8" fill="#fff"/><rect x="37" y="34" width="56" height="40" rx="5" fill="#c9e8ed"/><rect x="107" y="34" width="56" height="40" rx="5" fill="#f1ddb9"/><circle cx="65" cy="54" r="9" fill="#518d9d"/><circle cx="135" cy="54" r="9" fill="#b8965e"/></svg><span class="seq-card-text"><b>COM＋入力</b><small>共通点の意味を確認</small></span></button>
+      <button class="method" data-method="two" aria-pressed="false"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><rect x="32" y="18" width="62" height="68" rx="9" fill="#fff"/><circle cx="64" cy="40" r="7" fill="#147d8a"/><circle cx="64" cy="65" r="7" fill="#518fc0"/><path d="M71 40h93M71 65h93" stroke="#397e9b" stroke-width="5"/></svg><span class="seq-card-text"><b>2本の信号線</b><small>接点の常態を確認</small></span></button>
+      <button class="method" data-method="one" aria-pressed="false"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><rect x="32" y="22" width="62" height="62" rx="9" fill="#fff"/><circle cx="64" cy="51" r="8" fill="#147d8a"/><path d="M72 51h84" stroke="#397e9b" stroke-width="5"/><circle cx="162" cy="51" r="13" fill="#dce7ed"/><path d="M158 46q8-7 9 1q0 4-5 5m0 5v2" stroke="#587585" stroke-width="2" fill="none"/></svg><span class="seq-card-text"><b>1本の信号線</b><small>戻り回路を確認</small></span></button>
+      <button class="method" data-method="dip" aria-pressed="false"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><rect x="30" y="20" width="140" height="68" rx="8" fill="#427c8b"/><rect x="41" y="32" width="13" height="44" rx="3" fill="#183f54"/><rect x="43" y="36" width="9" height="18" rx="2" fill="#e8f7f7"/><rect x="62" y="32" width="13" height="44" rx="3" fill="#183f54"/><rect x="64" y="53" width="9" height="18" rx="2" fill="#e8f7f7"/><rect x="83" y="32" width="13" height="44" rx="3" fill="#183f54"/><rect x="85" y="36" width="9" height="18" rx="2" fill="#e8f7f7"/><rect x="104" y="32" width="13" height="44" rx="3" fill="#183f54"/><rect x="106" y="53" width="9" height="18" rx="2" fill="#e8f7f7"/><rect x="125" y="32" width="13" height="44" rx="3" fill="#183f54"/><rect x="127" y="36" width="9" height="18" rx="2" fill="#e8f7f7"/><rect x="146" y="32" width="13" height="44" rx="3" fill="#183f54"/><rect x="148" y="53" width="9" height="18" rx="2" fill="#e8f7f7"/></svg><span class="seq-card-text"><b>DIPスイッチ</b><small>試験用か設定用か</small></span></button>
+      <button class="method" data-method="plc" aria-pressed="false"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><rect x="36" y="13" width="128" height="78" rx="9" fill="#316279"/><rect x="45" y="22" width="110" height="53" rx="4" fill="#d5eee9"/><path d="M56 37h36M56 48h67M56 60h51" stroke="#6ca69b" stroke-width="5"/><circle cx="146" cy="83" r="3" fill="#9fe2c9"/></svg><span class="seq-card-text"><b>制御画面・診断</b><small>専用機能を確認</small></span></button>
+      <button class="method" data-method="six" aria-pressed="false"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><rect x="45" y="17" width="110" height="73" rx="18" fill="#38647b"/><rect x="54" y="26" width="92" height="55" rx="12" fill="#dce8ee"/><circle cx="74" cy="41" r="7" fill="#5e8196"/><circle cx="100" cy="41" r="7" fill="#5e8196"/><circle cx="126" cy="41" r="7" fill="#5e8196"/><circle cx="74" cy="66" r="7" fill="#5e8196"/><circle cx="100" cy="66" r="7" fill="#5e8196"/><circle cx="126" cy="66" r="7" fill="#5e8196"/></svg><span class="seq-card-text"><b>6ピン形状</b><small>型式・用途は未特定</small></span></button><button class="method" data-method="unknown" aria-pressed="false"><svg class="seq-art" viewBox="0 0 200 108" aria-hidden="true"><circle cx="100" cy="54" r="34" fill="#d3e2ec"/><path d="M87 41q0-18 18-12q22 12-3 28v4" stroke="#648299" stroke-width="7" fill="none"/><circle cx="102" cy="75" r="4" fill="#648299"/></svg><span class="seq-card-text"><b>方式が不明</b><small>銘板・図面から確認</small></span></button>
     </div>
     <div id="methodVisual" style="margin-top:16px"></div><div id="methodInfo" class="callout" style="margin-top:12px"></div>
     <div id="protectionControl" style="margin-top:14px"></div>
@@ -937,7 +965,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
       <div class="logicNode" id="p4"><b>④ 出力</b><br><small>連動確認先の例：52G / STOP / ALARM<br>全てが必ず動作するという意味ではありません。</small></div>
     </div>
   </div>
-<div class="panel"><h3>試験記録に残すこと</h3><p>入力した異常／模擬方法と根拠ページ／表示／警報／遮断器／機関停止／動作時間／復旧確認を、実機の連動表と照合します。「対象外」と「動作しなかった」は分けて記録します。</p><details><summary>模擬試験で確認できる範囲・出典</summary><p>接点などの模擬入力は、入力した位置より後段の連動を確認するものです。油圧・水温の検出器が設定値で作動することまで確認したとは限りません。検出器単体の試験と連動試験を区別し、適用する点検要領で必要範囲を確認します。</p><p>東京電機の資料には「自動－試験」という運転モードと、油圧・水温・過電流などの故障表示が別に記載されています。TESTという表示だけで異常模擬用とは判断できません。</p><ul><li><a href="https://www.tokyodenki.co.jp/support/trouble/" target="_blank" rel="noopener">東京電機：制御装置・故障表示の説明</a></li><li><a href="https://www.jeea.or.jp/course/contents/02401/index_small.html" target="_blank" rel="noopener">日本電気技術者協会：自家用電気工作物の竣工検査</a></li><li><a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf" target="_blank" rel="noopener">消防庁：自家発電設備の点検要領（PDF）</a></li></ul><p>図は本サイト作成の見分け方の模式図です。実機写真・配線図ではありません。DIP・6ピンの型式別試験手順は未確認です。</p></details></div>
+<div class="panel"><h3>四つの連動先を照合する</h3><div class="seq-output-grid"><div><b>表示</b><small>選んだ異常名が出たか</small></div><div><b>警報</b><small>ブザー・外部信号はどうか</small></div><div><b>遮断</b><small>対象の遮断器はどうか</small></div><div><b>機関停止</b><small>停止が必要な項目か</small></div></div><p><b>すべてが動けば合格、ではありません。</b>項目ごとの実機連動表と一致するかを確認します。</p><details><summary>試験記録に残すこと</summary><p>入力した異常／模擬方法と根拠ページ／表示／警報／遮断器／機関停止／動作時間／復旧確認を、実機の連動表と照合します。「対象外」と「動作しなかった」は分けて記録します。</p></details><details><summary>模擬試験で確認できる範囲・出典</summary><p>接点などの模擬入力は、入力した位置より後段の連動を確認するものです。油圧・水温の検出器が設定値で作動することまで確認したとは限りません。検出器単体の試験と連動試験を区別し、適用する点検要領で必要範囲を確認します。</p><p>東京電機の資料には「自動－試験」という運転モードと、油圧・水温・過電流などの故障表示が別に記載されています。TESTという表示だけで異常模擬用とは判断できません。</p><ul><li><a href="https://www.tokyodenki.co.jp/support/trouble/" target="_blank" rel="noopener">東京電機：制御装置・故障表示の説明</a></li><li><a href="https://www.jeea.or.jp/course/contents/02401/index_small.html" target="_blank" rel="noopener">日本電気技術者協会：自家用電気工作物の竣工検査</a></li><li><a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf" target="_blank" rel="noopener">消防庁：自家発電設備の点検要領（PDF）</a></li></ul><p>図は本サイト作成の見分け方の模式図です。実機写真・配線図ではありません。DIP・6ピンの型式別試験手順は未確認です。</p></details></div>
 </section>
 
 
@@ -1201,7 +1229,7 @@ function setFault(v){
   fault=v; const d=faultDetails[v]; $("#faultDetail").innerHTML="<b>"+d[0]+"｜確認すること</b><p>"+d[1]+"</p><p>"+d[2]+"</p>"; $$(".prot").forEach(x=>x.classList.toggle("active",x.dataset.fault===v));$("#pInput").textContent=v+" INPUT";renderProtectionControl();resetProtection()
 }
 function setMethod(v){
-  method=v; $$(".method").forEach(x=>x.classList.toggle("active",x.dataset.method===v));$("#methodInfo").textContent=methodInfo[v];renderMethodVisual();renderProtectionControl();resetProtection()
+  method=v; $$(".method").forEach(x=>(x.classList.toggle("active",x.dataset.method===v),x.setAttribute("aria-pressed",String(x.dataset.method===v))));$("#methodInfo").textContent=methodInfo[v];renderMethodVisual();renderProtectionControl();resetProtection()
 }
 $$(".prot").forEach(x=>x.addEventListener("click",()=>setFault(x.dataset.fault)));
 $$(".method").forEach(x=>x.addEventListener("click",()=>setMethod(x.dataset.method)));
