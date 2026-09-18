@@ -510,17 +510,17 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
         let previous=null;
         options.forEach(([title,n2,n5])=>{
           const rr=E.reactors(r.value,result.V,result.f,n2,n5,limit);
-          const chosen=rr.allowed===null?rr.rows[0]:rr.minimum;
-          if(chosen&&previous&&chosen.a===previous.a&&chosen.b===previous.b){panel.innerHTML+='<p>5Kを含めて検討しても、最少台数の内訳は同じです。</p>';return;}
+          const chosen=rr.rows.find(row=>rr.allowed===null||row.within);
+          if(chosen&&previous&&chosen.a===previous.a&&chosen.b===previous.b){panel.innerHTML+='<p>5Kを含めて検討しても、公称負担最小の内訳は同じです。</p>';return;}
           previous=chosen;
           panel.innerHTML+='<h4>'+title+'</h4>';
           if(!chosen){panel.innerHTML+='<p>検討範囲内に許容電流を満たす候補がありません。</p>';return;}
-          const i2=1000*result.V/(2*Math.PI*result.f*200),i5=1000*result.V/(2*Math.PI*result.f*80);
-          panel.innerHTML+='<p><b class="model1220">2K × '+chosen.a+'台</b> ＋ <b class="model1250">5K × '+chosen.b+'台</b><br>合計 <strong>'+ (chosen.a+chosen.b)+'台</strong>（'+(rr.allowed===null?'参考例・必要台数未判定':'数値条件を満たす最少')+'）</p>'
-           +'<p class="calc-trace">補償：'+format(i2)+' × '+chosen.a+' ＋ '+format(i5)+' × '+chosen.b+' ＝ '+format(chosen.IL)+' mA<br>残留：|'+format(r.value)+' − '+format(chosen.IL)+'| ＝ <b>'+format(chosen.residual)+' mA</b><br>L公差込み最大：<b>'+format(chosen.worst)+' mA</b>'
+          if(chosen.over)panel.innerHTML+='<p class="error">過補償：リアクトル電流がケーブル電流を上回ります。</p>';if(chosen.b>0&&preset)panel.innerHTML+='<p class="error">R-1220Kと5Kの実機適合は未確認。数値比較のみです。</p>';const i2=1000*result.V/(2*Math.PI*result.f*200),i5=1000*result.V/(2*Math.PI*result.f*80);
+          panel.innerHTML+='<p><b class="model1220">2K × '+chosen.a+'台</b> ＋ <b class="model1250">5K × '+chosen.b+'台</b><br>合計 <strong>'+ (chosen.a+chosen.b)+'台</strong>（'+(rr.allowed===null?'公称負担最小・許容未判定':'許容条件内で公称負担が最小')+'）</p>'
+           +'<p class="calc-trace">補償：'+format(i2)+' × '+chosen.a+' ＋ '+format(i5)+' × '+chosen.b+' ＝ '+format(chosen.IL)+' mA<br>トランス負担（損失除外）：|'+format(r.value)+' − '+format(chosen.IL)+'| ＝ <b>'+format(chosen.residual)+' mA</b><br>L公差込み最大：<b>'+format(chosen.worst)+' mA</b>'
            +(rr.allowed===null?'':' ／ 許容 '+format(rr.allowed)+' mA')+'</p>';
         });
-        panel.innerHTML+='<small>損失電流は未評価。5K使用・混在の実機適合は別途確認。各機種0台を含めて検討。</small>';
+        panel.innerHTML+='<p class="hint">設定台数の範囲で、公差込み電流が許容以下の候補から公称負担が最小になる組合せを表示。同じ負担なら台数の少ない候補を選びます。</p><small>損失電流は未評価。5K使用・混在の実機適合は別途確認。各機種0台を含めて検討。</small>';
       }catch(e){panel.textContent=e.message;}
     });
   }
