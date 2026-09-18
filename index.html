@@ -174,9 +174,9 @@ html[data-theme] body .card:hover,html[data-theme] body .fieldItem:hover,html[da
 html[data-theme] body .mobileNav{background:var(--island-inset);border-color:var(--island-border)}
 html[data-theme] body .mobileNav a{color:var(--island-ink)}
 </style>
-</head>
+<style>@media(max-width:680px){#bgmToggle{padding:8px;min-width:34px}#bgmToggle span{display:none}}</style></head>
 <body>
-<header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><label class="scenePicker"><span class="srOnly">島の景色</span><select id="sceneSelect" aria-label="島の景色"><option value="light">☀️ 昼の島</option><option value="sunset">🌅 夕焼け</option><option value="dark">🌙 月夜</option></select></label><button class="themeToggle" id="motionToggle" type="button" aria-label="ぷかぷかする動きを止める" aria-pressed="false">⏸ <span>動き</span></button></div></div></header>
+<header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><label class="scenePicker"><span class="srOnly">島の景色</span><select id="sceneSelect" aria-label="島の景色"><option value="light">☀️ 昼の島</option><option value="sunset">🌅 夕焼け</option><option value="dark">🌙 月夜</option></select></label><button class="themeToggle" id="bgmToggle" type="button" aria-pressed="false" aria-label="島のBGMを再生">♫ <span>BGM</span></button><button class="themeToggle" id="motionToggle" type="button" aria-label="ぷかぷかする動きを止める" aria-pressed="false">⏸ <span>動き</span></button></div></div></header>
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
 <div class="characterWrap" aria-label="うきわメモの浮き輪マスコット"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-ring-hero.png" alt="うきわメモの浮き輪マスコット"></div></div>
 <div class="core"><span class="kicker">OCEAN FIELD NOTE</span><h1 class="title">うきわ<b>メモ</b></h1><p class="lead">電気保安の「わからない」を、ここから探す。</p><span class="work">WORK MODE｜すぐ調べる</span><div class="search"><input id="siteSearch" type="search" autocomplete="off" placeholder="型式・メーカー・試験・機器を検索…" aria-label="サイト内検索"><button id="searchBtn" type="button" aria-label="検索">⌕</button></div><div class="quick"><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="IP-1110">IP-1110</button><button data-q="DI-05N">DI-05N</button><button data-q="OCR">OCR</button><button data-q="OVGR">OVGR</button><button data-q="RPR">RPR</button><button data-q="耐圧試験">耐圧試験</button><button data-q="IR4052">IR4052</button><button data-q="CT比">CT比</button><button data-q="電線の太さ">電線の太さ</button></div></div>
@@ -422,4 +422,4 @@ function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.normalize('NF
 document.getElementById('searchBtn').addEventListener('click',()=>jump(input.value));input.addEventListener('keydown',e=>{if(e.key==='Enter')jump(input.value)});document.querySelectorAll('.quick button').forEach(b=>b.addEventListener('click',()=>jump(b.dataset.q)));
 </script>
 <script src="ukiwa-lab-entry.js"></script>
-</body></html>
+<script src="island-bgm.js?v=20260918"></script></body></html>

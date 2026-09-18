@@ -1,0 +1,1 @@
+(()=>{const apply=()=>{let mode='light';try{const saved=localStorage.getItem('ukiwa-theme');if(['light','sunset','dark'].includes(saved))mode=saved}catch{}document.documentElement.dataset.theme=mode};apply();addEventListener('pageshow',apply);addEventListener('storage',e=>{if(e.key==='ukiwa-theme')apply()})})();
