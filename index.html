@@ -138,9 +138,24 @@ html:not([data-theme="dark"]) .card p,html:not([data-theme="dark"]) .n{color:#4c
 html[data-theme="dark"] .kicker,html[data-theme="dark"] .work{color:#9bd7ff}
 @media(max-width:680px){body:before,html[data-theme="dark"] body:before{background-position:68% center;background-size:cover}}
 </style>
+<style id="ukiwa-sunset-motion">
+.srOnly{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.scenePicker select{font:inherit;font-size:12px;font-weight:800;border:1px solid var(--line);border-radius:24px;padding:10px;background:var(--panel);color:var(--text);cursor:pointer}
+#motionToggle{font-size:12px;min-width:66px}#motionToggle:disabled{opacity:.65;cursor:default}
+html[data-theme="sunset"]{--page-bg:#fff1df;--text:#493a48;--muted:#765970;--line:#dbb7ab;--top-bg:rgba(255,244,228,.95);--blue:#a34e39;--panel:#fff8ec;--nav-text:#674050}
+html[data-theme="sunset"] body:before{background:linear-gradient(180deg,rgba(255,241,220,.06),rgba(255,241,220,.12)),url('ukiwa-island-sunset.webp') center center/cover no-repeat}
+html[data-theme="sunset"] .hero .card,html[data-theme="sunset"] .panel,html[data-theme="sunset"] .fieldNotes,html[data-theme="sunset"] .notice{background:rgba(255,248,236,.95)!important}
+body:before{inset:-18px;animation:islandSway 22s ease-in-out infinite;transform-origin:center;will-change:transform}
+.characterFrame img{animation:ringFloat 6.5s ease-in-out infinite;will-change:transform}
+@keyframes islandSway{0%,100%{transform:translate3d(-5px,5px,0) scale(1.015)}50%{transform:translate3d(5px,-5px,0) scale(1.025)}}
+@keyframes ringFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+html[data-motion="paused"] body:before,html[data-motion="paused"] .characterFrame img,html[data-motion="paused"] .stars{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){body:before,.characterFrame img,.stars{animation:none!important;will-change:auto}}
+@media(max-width:680px){.topin{gap:8px}.topActions{gap:5px}.scenePicker select{max-width:110px;padding:8px;font-size:11px}#motionToggle{min-width:34px;padding:8px}#motionToggle span{display:none}.brand span{font-size:16px}.brand{gap:6px}html[data-theme="sunset"] body:before{background-position:68% center}}
+</style>
 </head>
 <body>
-<header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><button class="themeToggle" id="themeToggle" type="button" aria-label="ダークモードに切り替える" aria-pressed="false"><span class="themeIcon">🌙</span><span class="themeText">ダーク</span></button></div></div></header>
+<header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><label class="scenePicker"><span class="srOnly">島の景色</span><select id="sceneSelect" aria-label="島の景色"><option value="light">☀️ 昼の島</option><option value="sunset">🌅 夕焼け</option><option value="dark">🌙 月夜</option></select></label><button class="themeToggle" id="motionToggle" type="button" aria-label="ぷかぷかする動きを止める" aria-pressed="false">⏸ <span>動き</span></button></div></div></header>
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
 <div class="characterWrap" aria-label="うきわメモの浮き輪マスコット"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-ring-hero.png" alt="うきわメモの浮き輪マスコット"></div></div>
 <div class="core"><span class="kicker">OCEAN FIELD NOTE</span><h1 class="title">うきわ<b>メモ</b></h1><p class="lead">電気保安の「わからない」を、ここから探す。</p><span class="work">WORK MODE｜すぐ調べる</span><div class="search"><input id="siteSearch" type="search" autocomplete="off" placeholder="型式・メーカー・試験・機器を検索…" aria-label="サイト内検索"><button id="searchBtn" type="button" aria-label="検索">⌕</button></div><div class="quick"><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="IP-1110">IP-1110</button><button data-q="DI-05N">DI-05N</button><button data-q="OCR">OCR</button><button data-q="OVGR">OVGR</button><button data-q="RPR">RPR</button><button data-q="耐圧試験">耐圧試験</button><button data-q="IR4052">IR4052</button><button data-q="CT比">CT比</button><button data-q="電線の太さ">電線の太さ</button></div></div>
@@ -328,21 +343,26 @@ html[data-theme="dark"] .kicker,html[data-theme="dark"] .work{color:#9bd7ff}
 (function(){
  const root=document.documentElement;
  const meta=document.querySelector('meta[name="theme-color"]');
- const btn=document.getElementById('themeToggle');
- const saved=localStorage.getItem('ukiwa-theme');
- const initial=saved==='dark'?'dark':'light';
+ const picker=document.getElementById('sceneSelect');
+ const motion=document.getElementById('motionToggle');
+ const read=(key)=>{try{return localStorage.getItem(key)}catch{return null}};
+ const save=(key,value)=>{try{localStorage.setItem(key,value)}catch{}};
  function apply(theme){
-   root.dataset.theme=theme;
-   const dark=theme==='dark';
-   btn?.setAttribute('aria-pressed',String(dark));
-   btn?.setAttribute('aria-label',dark?'ライトモードに切り替える':'ダークモードに切り替える');
-   const icon=btn?.querySelector('.themeIcon'); const text=btn?.querySelector('.themeText');
-   if(icon) icon.textContent=dark?'☀️':'🌙';
-   if(text) text.textContent=dark?'ライト':'ダーク';
-   if(meta) meta.setAttribute('content',dark?'#031326':'#eef8ff');
+   root.dataset.theme=theme;picker.value=theme;
+   document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#031326':theme==='sunset'?'#fff1df':'#eef8ff');
  }
- apply(initial);
- btn?.addEventListener('click',()=>{const next=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('ukiwa-theme',next);apply(next)});
+ const saved=read('ukiwa-theme');apply(['light','sunset','dark'].includes(saved)?saved:'light');
+ picker.addEventListener('change',()=>{apply(picker.value);save('ukiwa-theme',picker.value)});
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let paused=read('ukiwa-motion')==='paused';
+ function applyMotion(){
+   const stopped=paused||reduced.matches;root.dataset.motion=stopped?'paused':'running';
+   motion.setAttribute('aria-pressed',String(stopped));
+   motion.setAttribute('aria-label',reduced.matches?'端末の設定により動きを停止中':stopped?'ぷかぷかする動きを再開する':'ぷかぷかする動きを止める');
+   motion.innerHTML=(stopped?'▶':'⏸')+' <span>動き</span>';motion.disabled=reduced.matches;
+ }
+ motion.addEventListener('click',()=>{paused=!paused;save('ukiwa-motion',paused?'paused':'running');applyMotion()});
+ reduced.addEventListener('change',applyMotion);applyMotion();
 })();
 </script>
 <script>
