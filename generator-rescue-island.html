@@ -900,11 +900,11 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
 
 <section class="section db-content-view hidden" data-db-view="protection" id="protectionSection">
   <small class="label">PROTECTION INTERLOCK TEST</small>
-  <h2>保護装置連動試験</h2>
-  <div class="safe"><b>試験の前提：</b>現場責任者・操作票・社内手順で系統状態、始動禁止・誤投入防止、制御電源、回転部・高温部、負荷停止への影響を確認します。配線変更の前には対象回路の隔離・無電圧・残留電荷を確認してください。型式別取説・展開接続図で入力の接点常態、COMの電位、模擬方法、停止・遮断・警報の連動先を確定できない場合は実機操作に使えません。</div>
-  <p class="sub">こっちは時間より、「異常入力が入ったあと、何が動くか」を見る。</p>
+  <h2>シーケンス試験｜保護装置の連動</h2>
+  <details><summary>実機で試験する前の確認</summary><div class="safe"><b>試験の前提：</b>現場責任者・操作票・社内手順で系統状態、始動禁止・誤投入防止、制御電源、回転部・高温部、負荷停止への影響を確認します。配線変更の前には対象回路の隔離・無電圧・残留電荷を確認してください。型式別取説・展開接続図で入力の接点常態、COMの電位、模擬方法、停止・遮断・警報の連動先を確定できない場合は実機操作に使えません。</div></details>
+  <p class="sub">① 項目を選ぶ → ② 入力方式を見分ける → ③ 表示・警報・遮断・停止を照合する。時限も実機要領で確認します。</p>
 
-  <div class="protectionGrid">
+  <h3>① よく確認する五つの項目</h3><p>現場でよく使う項目の整理です。必要項目・記号・動作は設備ごとに確認します。</p><div class="protectionGrid">
     <button class="prot active" data-fault="63Q"><div class="ico">🛢️</div><b>63Q</b><span>油圧低下</span></button>
     <button class="prot" data-fault="26W"><div class="ico">🌡️</div><b>26W</b><span>水温上昇</span></button>
     <button class="prot" data-fault="49"><div class="ico">🔥</div><b>49</b><span>サーマル</span></button>
@@ -912,23 +912,22 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
     <button class="prot" data-fault="STARTFAIL"><div class="ico">🔄</div><b>始動渋滞</b><span>始動失敗系</span></button>
   </div>
 
-  <div class="panel" style="margin-top:14px">
-    <h2 style="font-size:26px">異常模擬方式の違いを知る</h2><p>型式ごとの試験方式・端子は未確認です。下は方式名の説明と、画面内だけの状態変化です。</p>
+  <div id="faultDetail" class="callout" aria-live="polite" style="margin-top:12px"></div><div class="panel" style="margin-top:14px"><h3>② 模擬入力の入口を見分ける</h3><p>見た目・呼び方による整理で、互いに重なる分類もあります。全方式が各試験項目に対応するわけではありません。</p>
     <div class="methodGrid">
-      <button class="method active" data-method="test"><b>🔘 TEST</b><br><small>内部試験回路</small></button>
+      <button class="method active" data-method="test"><b>🔘 TEST</b><br><small>機能名を確認</small></button>
       <button class="method" data-method="com"><b>🔌 COM式</b><br><small>COM＋個別入力</small></button>
       <button class="method" data-method="two"><b>〰️ 2線</b><br><small>2線間状態</small></button>
       <button class="method" data-method="one"><b>➰ 1線</b><br><small>指定共通点</small></button>
-      <button class="method" data-method="dip"><b>🎚️ DIP</b><br><small>内部試験/設定</small></button>
+      <button class="method" data-method="dip"><b>🎚️ DIP</b><br><small>用途・設定を確認</small></button>
       <button class="method" data-method="plc"><b>🖥️ ECU/PLC</b><br><small>電子診断</small></button>
-      <button class="method" data-method="unknown"><b>❓ 不明</b><br><small>ここで止める</small></button>
+      <button class="method" data-method="six"><b>▦ 6ピン</b><br><small>型式・用途未特定</small></button><button class="method" data-method="unknown"><b>❓ 不明</b><br><small>ここで止める</small></button>
     </div>
-    <div id="methodInfo" class="callout" style="margin-top:12px"></div>
+    <div id="methodVisual" style="margin-top:16px"></div><div id="methodInfo" class="callout" style="margin-top:12px"></div>
     <div id="protectionControl" style="margin-top:14px"></div>
   </div>
 
   <div class="panel" style="margin-top:14px">
-    <div class="logic">
+    <h3>③ 連動先を一つずつ確認</h3><p>画面内の概念図です。再生時間は実機の動作時間ではありません。</p><div class="logic">
       <div class="logicNode" id="p1"><b>① 試験操作</b><br><small>教材内の模擬入力（実端子未確認）</small></div>
       <div class="arrow">→</div>
       <div class="logicNode" id="p2"><b>② 異常入力</b><br><small id="pInput">63Q INPUT</small></div>
@@ -938,6 +937,7 @@ footer{margin-top:50px;background:#0e4f92;color:#fff;padding:36px 0 90px;text-al
       <div class="logicNode" id="p4"><b>④ 出力</b><br><small>連動確認先の例：52G / STOP / ALARM<br>全てが必ず動作するという意味ではありません。</small></div>
     </div>
   </div>
+<div class="panel"><h3>試験記録に残すこと</h3><p>入力した異常／模擬方法と根拠ページ／表示／警報／遮断器／機関停止／動作時間／復旧確認を、実機の連動表と照合します。「対象外」と「動作しなかった」は分けて記録します。</p><details><summary>模擬試験で確認できる範囲・出典</summary><p>接点などの模擬入力は、入力した位置より後段の連動を確認するものです。油圧・水温の検出器が設定値で作動することまで確認したとは限りません。検出器単体の試験と連動試験を区別し、適用する点検要領で必要範囲を確認します。</p><p>東京電機の資料には「自動－試験」という運転モードと、油圧・水温・過電流などの故障表示が別に記載されています。TESTという表示だけで異常模擬用とは判断できません。</p><ul><li><a href="https://www.tokyodenki.co.jp/support/trouble/" target="_blank" rel="noopener">東京電機：制御装置・故障表示の説明</a></li><li><a href="https://www.jeea.or.jp/course/contents/02401/index_small.html" target="_blank" rel="noopener">日本電気技術者協会：自家用電気工作物の竣工検査</a></li><li><a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf" target="_blank" rel="noopener">消防庁：自家発電設備の点検要領（PDF）</a></li></ul><p>図は本サイト作成の見分け方の模式図です。実機写真・配線図ではありません。DIP・6ピンの型式別試験手順は未確認です。</p></details></div>
 </section>
 
 
@@ -1176,30 +1176,38 @@ $("#startOutage").addEventListener("click",runOutage);
 $("#startRestore").addEventListener("click",runRestore);
 $("#resetAuto").addEventListener("click",()=>{resetAuto();say("初期状態へ戻したよ。商用給電・発電機停止の待機状態。");});
 
-const methodInfo={
-  test:"TESTボタンで内部に異常入力相当を作る方式。外部短絡が不要な機種もある。",
-  com:"COMと対象入力を接続して異常時接点状態を模擬する方式。COMの意味は実機図面で確認。",
-  two:"2線間のOPEN/CLOSE等を模擬。片側アースとは限らない。",
-  one:"1本の試験線と指定共通点で模擬する機種あり。1本＝PEへ接続とは決めつけない。",
-  dip:"TEST用DIPで内部試験状態を作る場合あり。設定DIPと混同しない。",
-  plc:"電子診断・PLC/ECU入力で異常を模擬する方式。接点短絡できないセンサもある。",
-  unknown:"方式不明ならここで止める。型式、端子表、展開接続図、取説を確認。"
+const faultDetails={
+ '63Q':['油圧低下','潤滑油圧力の低下を検出する保護。始動時の判定条件・遅延の有無も確認。','圧力設定値と接点模擬を混同しない。'],
+ '26W':['水温上昇','冷却水温度の上昇を検出する保護。検出器の種類と温度設定値を確認。','入力模擬だけでは温度検出器の作動温度は未確認。'],
+ '49':['サーマル','保護対象・設定値・復帰方式を確認。現場でサーマルと呼ぶ機器を図面で特定。','49の熱動保護と51の過電流保護を同じ機器・試験と決めつけない。'],
+ 'ESTOP':['非常停止','非常停止入力に対する機関停止・表示・警報・遮断器の連動を確認。','保持・解除・再始動条件は実機要領に従う。'],
+ 'STARTFAIL':['始動渋滞','始動が成立しない場合の判定時間・試行回数・始動打切り・警報を確認。','停止中の機関に対し「機関停止」を一律の合否項目にしない。']
 };
+const methodInfo={
+ test:'TESTの表示だけでは用途を特定できません。試験運転・ランプテスト・保護入力の模擬は別機能です。取説の機能名を確認します。',
+ com:'COMは共通端子を表す呼び方です。入力と共通点の電位・接点常態・指定試験方法を図面で確認します。保護接地PEと同じとは限りません。',
+ two:'2本の信号線で接点状態を扱う例の整理です。正常時と異常時の開閉条件は機種によります。2線という本数だけでは試験方法は決まりません。',
+ one:'1本に見える信号線でも戻り回路があります。指定共通点がどこかを図面で確認します。地面・筐体・PEへ接続する方式だと推定しません。',
+ dip:'小型スイッチ列は設定用の場合もあります。試験用という型式別根拠が未確認のため、スイッチ位置や操作手順は掲載していません。',
+ plc:'制御装置の診断画面・専用機能の有無を取説で確認します。電子センサの入力を接点入力と同じものとして扱いません。',
+ six:'現場で見かけた6ピン形状の候補です。メーカー・制御盤型式・コネクタ記号が未特定で、試験用かも未確認です。ピン番号や接続先は推定していません。',
+ unknown:'銘板のメーカー・型式、制御装置型式、端子・コネクタ記号と対応する取説をそろえて方式を特定します。'
+};
+function renderMethodVisual(){
+ const icons={test:'▣ TEST',com:'○ INPUT   ○ COM',two:'○ SIGNAL   ○ SIGNAL',one:'○ SIGNAL   ? RETURN',dip:'▥ DIP',plc:'▣ DIAG',six:'● ● ●   /   ● ● ●',unknown:'?'};
+ $('#methodVisual').innerHTML='<div style="border:2px solid #94a3b8;border-radius:14px;padding:20px;text-align:center;background:#f8fafc;color:#0f172a"><b style="font-size:24px">'+icons[method]+'</b><br><small>識別用の模式図・実機の配線／ピン配置ではありません</small></div>';
+}
 function setFault(v){
-  fault=v; $$(".prot").forEach(x=>x.classList.toggle("active",x.dataset.fault===v));$("#pInput").textContent=v+" INPUT";renderProtectionControl();resetProtection()
+  fault=v; const d=faultDetails[v]; $("#faultDetail").innerHTML="<b>"+d[0]+"｜確認すること</b><p>"+d[1]+"</p><p>"+d[2]+"</p>"; $$(".prot").forEach(x=>x.classList.toggle("active",x.dataset.fault===v));$("#pInput").textContent=v+" INPUT";renderProtectionControl();resetProtection()
 }
 function setMethod(v){
-  method=v; $$(".method").forEach(x=>x.classList.toggle("active",x.dataset.method===v));$("#methodInfo").textContent=methodInfo[v];renderProtectionControl();resetProtection()
+  method=v; $$(".method").forEach(x=>x.classList.toggle("active",x.dataset.method===v));$("#methodInfo").textContent=methodInfo[v];renderMethodVisual();renderProtectionControl();resetProtection()
 }
 $$(".prot").forEach(x=>x.addEventListener("click",()=>setFault(x.dataset.fault)));
 $$(".method").forEach(x=>x.addEventListener("click",()=>setMethod(x.dataset.method)));
 function renderProtectionControl(){
   const c=$("#protectionControl");
-  if(method==="test") c.innerHTML=`<button class="btn red" id="doProt">TEST：${fault}異常を模擬</button>`;
-  else if(["com","two","one"].includes(method)) c.innerHTML=`<div class="callout">この方式の実端子・極性・開閉条件は未確認です。教材では端子間を結ぶ問題を出さず、異常入力が既に成立した状態だけを再生します。</div><button class="btn blue" id="doProt">画面内で${fault}入力成立を再生</button>`;
-  else if(method==="dip") c.innerHTML=`<button class="btn yellow" id="doProt">TEST用DIP：ON</button>`;
-  else if(method==="plc") c.innerHTML=`<button class="btn blue" id="doProt">診断機能で${fault}を模擬</button>`;
-  else c.innerHTML=`<div class="safe"><b>ここで停止。</b> 方式不明のまま短絡・DIP操作をしない。</div>`;
+  c.innerHTML=method==='unknown'||method==='six'?'<p>型式別の方法は未確定です。上の項目説明と下の連動確認先を参照してください。</p>':'<button class="btn blue" id="doProt">画面内で連動の流れを見る</button><p><small>方式の適合や実機試験の合否を判定する機能ではありません。</small></p>';
   $("#doProt")?.addEventListener("click",triggerProtection);
 
 }
@@ -1207,7 +1215,7 @@ let protectionRunId=0;
 async function triggerProtection(){
   const runId=++protectionRunId;
   for(const id of ["p1","p2","p3","p4"]){if(runId!==protectionRunId)return;$("#"+id).classList.add("on");if(id!=="p4"){await sleep(250);if(runId!==protectionRunId)return;}}
-  say("保護試験は、異常入力から52G・停止・警報・表示まで後段の連動を追うよ。");
+  say("表示・警報・遮断・機関停止それぞれの要否を、実機の連動表で確認しよう。");
 }
 function resetProtection(){
   protectionRunId++;picked=[];["p1","p2","p3","p4"].forEach(id=>$("#"+id).classList.remove("on"));
@@ -1557,3 +1565,4 @@ drawDryLoad();
 
 </body>
 </html>
+
