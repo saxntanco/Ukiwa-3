@@ -1,2 +1,2 @@
 (()=>{const apply=()=>{let mode='light';try{const saved=localStorage.getItem('ukiwa-theme');if(['light','sunset','dark'].includes(saved))mode=saved}catch{}document.documentElement.dataset.theme=mode};apply();addEventListener('pageshow',apply);addEventListener('storage',e=>{if(e.key==='ukiwa-theme')apply()})})();
-(()=>{const s=document.createElement("script");s.src="ukiwa-analytics.js?v=1";s.defer=true;document.head.append(s)})();
+(()=>{const s=document.createElement("script");s.src="ukiwa-analytics.js?v=footer-2";s.defer=true;document.head.append(s)})();
