@@ -389,9 +389,9 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
 <script>
 const input=document.getElementById('siteSearch');
 function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.normalize('NFKC').toLowerCase();
- if(/ocr.*(?:タップ|整定|ダイヤル|レバー|計算)|(?:限時|瞬時).*タップ|ダイヤル計算/.test(n)){location.href='ocr-tap-calculator.html';return;}
- if(/電圧降下|電線.*(?:太さ|サイズ)|ケーブル.*(?:太さ|サイズ|選定)|許容電流/.test(n)){location.href='cable-size-simulator.html';return;}
- if(/(?:^|[^a-z])ct(?:$|[^a-z])|変流比|変流器.*(?:比|換算|計算|選定)|変圧器.*電流/.test(n)&&!/(?:zct|vct|零相)/.test(n)){location.href='ct-calculator.html';return;}
+ if(/ocr.*(?:タップ|整定|ダイヤル|レバー|計算)|(?:限時|瞬時).*タップ|ダイヤル計算/.test(n)){(window.ukiwaNavigate||((u)=>location.href=u))('ocr-tap-calculator.html');return;}
+ if(/電圧降下|電線.*(?:太さ|サイズ)|ケーブル.*(?:太さ|サイズ|選定)|許容電流/.test(n)){(window.ukiwaNavigate||((u)=>location.href=u))('cable-size-simulator.html');return;}
+ if(/(?:^|[^a-z])ct(?:$|[^a-z])|変流比|変流器.*(?:比|換算|計算|選定)|変圧器.*電流/.test(n)&&!/(?:zct|vct|零相)/.test(n)){(window.ukiwaNavigate||((u)=>location.href=u))('ct-calculator.html');return;}
  const directInstruments=[
   {keys:['ip-1110','ip1110'],model:'IP-1110'},
   {keys:['di-05n','di05n','di-05','di05'],model:'DI-05N'},
@@ -411,15 +411,15 @@ function jump(raw){const q=(raw||'').trim();if(!q)return;const n=q.normalize('NF
  const principles=['測定原理','絶縁抵抗の原理','大地間','3極法','2極法','補助極','交流電位差計'];
  const generator=['非常用発電機','発電機','自動起動','自動停止','復電','タイムチャート','同期','並列運転'];
  const relay=['mdg','moc','mgr','k2','ocr','dgr','gr','ovgr','rpr','逆電力','uvr','ovr','ufr','ofr','地絡','過電流','不足電圧','過電圧','周波数'];
- if(direct)location.href='measuring-instruments.html?model='+encodeURIComponent(direct.model);
- else if(sequence.some(k=>n.includes(k)))location.href='sequence-basics.html';
- else if(principles.some(k=>n.includes(k)))location.href='measurement-principles.html';
- else if(generator.some(k=>n.includes(k)))location.href='generator-rescue-island.html';
- else if(withstand.some(k=>n.includes(k)))location.href='ac-withstand-test-simulator.html';
- else if(measurement.some(k=>n.includes(k)))location.href='test-measurement.html?q='+encodeURIComponent(q);
- else location.href='protective-relay.html?q='+encodeURIComponent(q);
+ if(direct)(window.ukiwaNavigate||((u)=>location.href=u))('measuring-instruments.html?model='+encodeURIComponent(direct.model));
+ else if(sequence.some(k=>n.includes(k)))(window.ukiwaNavigate||((u)=>location.href=u))('sequence-basics.html');
+ else if(principles.some(k=>n.includes(k)))(window.ukiwaNavigate||((u)=>location.href=u))('measurement-principles.html');
+ else if(generator.some(k=>n.includes(k)))(window.ukiwaNavigate||((u)=>location.href=u))('generator-rescue-island.html');
+ else if(withstand.some(k=>n.includes(k)))(window.ukiwaNavigate||((u)=>location.href=u))('ac-withstand-test-simulator.html');
+ else if(measurement.some(k=>n.includes(k)))(window.ukiwaNavigate||((u)=>location.href=u))('test-measurement.html?q='+encodeURIComponent(q));
+ else (window.ukiwaNavigate||((u)=>location.href=u))('protective-relay.html?q='+encodeURIComponent(q));
 }
 document.getElementById('searchBtn').addEventListener('click',()=>jump(input.value));input.addEventListener('keydown',e=>{if(e.key==='Enter')jump(input.value)});document.querySelectorAll('.quick button').forEach(b=>b.addEventListener('click',()=>jump(b.dataset.q)));
 </script>
 <script src="ukiwa-lab-entry.js"></script>
-<script src="island-bgm.js?v=licensed-recordings-1"></script><script src="island-secret.js?v=1"></script></body></html>
+<script src="island-bgm.js?v=persistent-2"></script><script src="island-secret.js?v=2"></script></body></html>
