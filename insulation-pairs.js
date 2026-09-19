@@ -1,18 +1,19 @@
 (()=>{'use strict';
 const pairs=[
-['earth','対地間','導体と大地側の間','導体','接地された外箱','導体から外箱・大地側へ漏れる経路の絶縁を見ます。','接地抵抗（接地極と大地の抵抗）を測る試験とは別です。'],
-['phase','相間','異なる相の間','R相','S相','異なる相の導体同士を隔てる絶縁を見ます。','R－S、S－T、T－Rなど。接続された巻線・負荷・電子回路があると、その経路も測定値に影響します。'],
-['line','線間','二本の電線の間','L線','N線','電線相互間の絶縁を見ます。相間と完全に別の試験名ではなく、R－S間なら相間でも線間でもあります。','図のL－Nは呼び方の例です。負荷がつながっていると負荷を通る経路があり、絶縁だけの値にはなりません。'],
-['different','異極間','別々の極の間','R極','S極','遮断器などの別の極の主回路同士を隔てる絶縁を見ます。','「極間」が異極間を指す資料もあります。漏電遮断器などは内部の電源回路が左右極間に接続され、低い測定値になる場合があります。'],
-['contact','同極の接点間','開いた接点を挟む間','R極・電源側','R極・負荷側','同じ極の開いた接点を挟む二点です。隣の相との間ではありません。','「極間」だけで判断せず、図面の測定二点を確認します。接点が閉じていれば導通するため、この二点間の絶縁を測る状態にはなりません。'],
-['winding','巻線間','別々の巻線の間','一次巻線','二次巻線','電気的に分離された巻線同士の絶縁を見ます。巻線と鉄心・外箱の間は別の対象です。','同一巻線の両端は巻線で導通しています。巻線抵抗測定やターン間の短絡検査と混同しません。単巻変圧器など、一次・二次がつながる構造にはこの図を当てはめません。']
-];
-function drawing(key){let body='';const line=(x1,y1,x2,y2,col='#b45c17')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="8" stroke-linecap="round"/>`;const label=(x,y,t)=>`<text x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
-if(key==='earth'){body='<rect x="100" y="30" width="400" height="160" rx="18" fill="none" stroke="#19839b" stroke-width="5"/>'+line(210,105,390,105)+label(300,83,'導体')+label(300,170,'接地された金属外箱');}
-else if(key==='contact'){body=line(80,105,235,105)+line(365,105,520,105,'#19839b')+line(235,105,325,60)+label(150,155,'電源側')+label(445,155,'負荷側')+label(300,195,'同じR極・接点は開放');}
-else if(key==='winding'){body='<rect x="85" y="30" width="430" height="170" fill="none" stroke="#a3adba" stroke-width="3"/><path d="M180 55 q-60 18 0 35 q-60 18 0 35 q-60 18 0 35" fill="none" stroke="#b45c17" stroke-width="8"/><path d="M420 55 q60 18 0 35 q60 18 0 35 q60 18 0 35" fill="none" stroke="#19839b" stroke-width="8"/>'+label(180,190,'一次巻線')+label(420,190,'二次巻線')+label(300,110,'絶縁');}
-else {body=line(90,75,510,75)+line(90,155,510,155,'#19839b')+label(300,50,key==='line'?'L線':key==='different'?'R極':'R相')+label(300,192,key==='line'?'N線':key==='different'?'S極':'S相')+label(300,122,'二つの導体を隔てる絶縁');}
-return `<svg class="pair-svg" viewBox="0 0 600 220" role="img" aria-label="${pairs.find(p=>p[0]===key)[1]}の測定対象を示す概念図">${body}</svg>`;}
+['earth','① 電線と大地側','対地間・大地間','導体','接地された外箱','結局、導体と大地側を隔てる絶縁を見ます。','接地極と大地の抵抗を測る「接地抵抗測定」とは別です。'],
+['different','② 別の電線どうし','線間・相間・異極間が重なる例','R極の導体','S極の導体','結局、別々の導体を隔てる絶縁を見ます。このR–Sの例では、線間・相間・異極間という呼び方が重なります。','リレーの異極接点は三相の相に対応するとは限りません。負荷や内部回路がつながっている場合、その経路も測定値に影響します。'],
+['contact','③ 開いた接点の両側','同極の接点間','R極の接点の片側','同じR極の反対側','結局、同じ通り道が開いている、その切れ目の絶縁を見ます。別のS極との間ではありません。','接点が閉じていると二点は導通します。図は一つの開放接点の例で、実機の端子間全体と同じ範囲とは限りません。'],
+['winding','④ 別の巻線どうし','巻線間・一次二次間','一次巻線','二次巻線','結局、別々の巻線を隔てる絶縁を見ます。巻線と鉄心・外箱の間とは別です。','同じ巻線の両端は巻線で導通しています。単巻変圧器など一次・二次が電気的につながるものには、この図を当てはめません。']];
+const line=(x1,y1,x2,y2,c='#637789',w=7)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+const txt=(x,y,t)=>`<text x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
+const dot=(x,y,t,c)=>`<circle cx="${x}" cy="${y}" r="17" fill="${c}"/><text x="${x}" y="${y+8}" text-anchor="middle" style="fill:white;font-weight:bold">${t}</text>`;
+function drawing(key){let b='';if(key==='earth'){b='<rect x="75" y="45" width="450" height="230" rx="20" fill="none" stroke="#19839b" stroke-width="5"/>'+line(155,120,440,120,'#b45c17')+txt(300,92,'導体')+txt(300,247,'接地された金属外箱')+line(300,275,300,303,'#19839b',4)+line(270,303,330,303,'#19839b',4)+line(280,313,320,313,'#19839b',4)+dot(220,120,'A','#b45c17')+dot(220,275,'B','#19839b');}
+else if(key==='winding'){b='<rect x="60" y="30" width="480" height="265" rx="20" fill="none" stroke="#a3adba" stroke-width="3"/><path d="M180 90 q-60 20 0 40 q-60 20 0 40 q-60 20 0 40" fill="none" stroke="#b45c17" stroke-width="8"/><path d="M420 90 q60 20 0 40 q60 20 0 40 q60 20 0 40" fill="none" stroke="#19839b" stroke-width="8"/>'+txt(160,265,'一次巻線')+txt(440,265,'二次巻線')+txt(300,155,'絶縁')+dot(180,90,'A','#b45c17')+dot(420,90,'B','#19839b');}
+else{b='<rect x="65" y="35" width="480" height="265" rx="18" fill="none" stroke="#b9c6d0" stroke-width="3"/>';['R','S','T'].forEach((p,i)=>{const y=90+i*80;b+=txt(35,y+8,p)+line(85,y,240,y)+line(350,y,525,y)+line(240,y,310,y-30)+`<circle cx="350" cy="${y}" r="7" fill="#637789"/>`;});b+=key==='contact'?dot(240,90,'A','#b45c17')+dot(350,90,'B','#19839b')+txt(295,33,'同じR極の接点'):dot(155,90,'A','#b45c17')+dot(155,170,'B','#19839b')+txt(300,328,'R極とS極の、別の通り道');}
+return `<svg class="pair-svg" viewBox="0 0 600 350" role="img" aria-label="${key==='contact'?'同じR極の開放接点の両側':key==='different'?'別のR極とS極':key==='earth'?'導体と接地された外箱':'一次巻線と二次巻線'}を点A・点Bで示す概念図">${b}</svg>`;}
+for(const [id,key] of [['same-pair-drawing','different'],['different-pole-drawing','different'],['same-pole-drawing','contact']])document.getElementById(id).innerHTML=drawing(key);
+const lenses={line:['線間','R側の電線とS側の電線。二本の電線の間を見ています。'],phase:['相間','R相の導体とS相の導体。異なる相の間を見ています。'],pole:['異極間','遮断器のR極とS極。機器の別々の極の間を見ています。']};
+document.querySelector('.lens-tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-lens]');if(!b)return;const v=lenses[b.dataset.lens];document.getElementById('lens-name').textContent=v[0];document.getElementById('lens-description').textContent=v[1];document.querySelectorAll('[data-lens]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
 const nav=document.querySelector('.pair-nav');nav.innerHTML=pairs.map(p=>`<button type="button" data-pair="${p[0]}" aria-pressed="false">${p[1]}<small>${p[2]}</small></button>`).join('');
-function show(key){const p=pairs.find(p=>p[0]===key);document.getElementById('pair-title').textContent=p[1];document.getElementById('pair-sub').textContent=p[2];document.getElementById('pair-a').textContent=p[3];document.getElementById('pair-b').textContent=p[4];document.getElementById('pair-meaning').textContent=p[5];document.getElementById('pair-caution').textContent=p[6];document.getElementById('pair-drawing').innerHTML=drawing(key);nav.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pair===key)));}
+function show(key){const p=pairs.find(p=>p[0]===key);['pair-title','pair-sub','pair-a','pair-b','pair-meaning','pair-caution'].forEach((id,i)=>document.getElementById(id).textContent=p[i+1]);document.getElementById('pair-drawing').innerHTML=drawing(key);nav.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pair===key)));}
 nav.addEventListener('click',e=>{const b=e.target.closest('button[data-pair]');if(b)show(b.dataset.pair)});show('earth');})();
