@@ -7,3 +7,4 @@ apply();function ready(){const picker=document.getElementById('sceneSelect');if(
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();addEventListener('pageshow',apply);document.addEventListener('visibilitychange',()=>{if(!document.hidden)apply()});addEventListener('storage',e=>{if(['ukiwa-theme','ukiwa-theme-mode'].includes(e.key)){automatic=read('ukiwa-theme-mode')!=='manual';apply()}});
 })();
 (()=>{const s=document.createElement('script');s.src='ukiwa-analytics.js?v=footer-2';s.defer=true;document.head.append(s)})();
+(()=>{const s=document.createElement('script');s.src='island-weather.js?v=1';document.head.append(s)})();
