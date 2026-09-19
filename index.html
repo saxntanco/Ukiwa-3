@@ -181,7 +181,8 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
 <div class="characterWrap" aria-label="うきわメモの浮き輪マスコット"><span class="characterGlow"></span><div class="characterFrame"><img src="ukiwa-ring-hero.png" alt="うきわメモの浮き輪マスコット"></div></div>
 <div class="core"><span class="kicker">OCEAN FIELD NOTE</span><h1 class="title">うきわ<b>メモ</b></h1><p class="lead">電気保安の「わからない」を、ここから探す。</p><span class="work">WORK MODE｜すぐ調べる</span><div class="search"><input id="siteSearch" type="search" autocomplete="off" placeholder="型式・メーカー・試験・機器を検索…" aria-label="サイト内検索"><button id="searchBtn" type="button" aria-label="検索">⌕</button></div><div class="quick"><button data-q="MDG-A3">MDG-A3</button><button data-q="DGR">DGR</button><button data-q="IP-1110">IP-1110</button><button data-q="DI-05N">DI-05N</button><button data-q="OCR">OCR</button><button data-q="OVGR">OVGR</button><button data-q="RPR">RPR</button><button data-q="耐圧試験">耐圧試験</button><button data-q="IR4052">IR4052</button><button data-q="CT比">CT比</button><button data-q="電線の太さ">電線の太さ</button></div></div>
-<section class="cards" id="categories" aria-label="9つの入口">
+<section class="cards" id="categories" aria-label="10の入口"><a class="card" href="equipment-map.html"><div class="row"><span class="n">図解</span><span class="ico">▦</span></div><h2>機器の図から探す</h2><p>キュービクルの絵を押して、機器の役割と点検の入り口へ。</p><div class="examples">VCB・CT・VT・OCR・変圧器など</div><span class="go">図を開く <b>→</b></span></a>
+
 <a class="card" href="protective-relay.html"><div class="row"><span class="n">01</span><span class="ico">⚡</span></div><h2>保護継電器・絶縁監視</h2><p>保護継電器・ELR・絶縁監視をメーカー・型式から探す。</p><div class="examples">OCR・DGR・OVGRなどを型式で探す</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="test-measurement.html"><div class="row"><span class="n">02</span><span class="ico">🔧</span></div><h2>試験方法・測定器具</h2><p>継電器試験・絶縁監視・耐圧と、使用する測定器具を探す。</p><div class="examples">試験の手順と使用する測定器</div><span class="go">一覧を見る <b>→</b></span></a>
 <a class="card" href="ac-withstand-test-simulator.html"><div class="row"><span class="n">03</span><span class="ico">⚠</span></div><h2>充電電流計算</h2><p>ケーブルの静電容量・長さ・周波数・印加電圧から充電電流を計算する。</p><div class="examples">ケーブルの充電電流・リアクトル比較</div><span class="go">一覧を見る <b>→</b></span></a>
@@ -223,6 +224,7 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
   // 固定でトップに残しておきたい更新。
   // 「今日のなんで？」と「ぷかぷか日誌」は各ページから自動取得します。
   const BASE_UPDATES = [
+{date:'2026-09-19',title:'機器の図から探す入口を追加。役割・違い・点検の解説へ。',href:'equipment-map.html'},
 {date:'2026-09-19',title:'浮き輪の向こう側を「幻想の島の図鑑」に。12の風景と小さな物語を追加。',href:'island-game.html'},
 {date:'2026-09-19',title:'型式別の試験早見表を追加。10型式のメーカー基準・症状別確認・更新時の違い。',href:'relay-test-reference.html'},
 {date:'2026-09-19',title:'時計の横に天気便り。地域指定と6時間先の雨・風を確認。',href:'index.html#sceneSelect'},
