@@ -174,7 +174,7 @@ html[data-theme] body .card:hover,html[data-theme] body .fieldItem:hover,html[da
 html[data-theme] body .mobileNav{background:var(--island-inset);border-color:var(--island-border)}
 html[data-theme] body .mobileNav a{color:var(--island-ink)}
 </style>
-<style>@media(max-width:680px){#bgmToggle{padding:8px;min-width:34px}#bgmToggle span{display:none}}</style><link rel="stylesheet" href="island-secret.css?v=1"><script src="ukiwa-analytics.js?v=footer-2" defer></script></head>
+<style>@media(max-width:680px){#bgmToggle{padding:8px;min-width:34px}#bgmToggle span{display:none}}</style><link rel="stylesheet" href="island-secret.css?v=1"><script src="ukiwa-analytics.js?v=footer-2" defer></script><script src="island-pages.js?v=clock-1"></script><style>@media(max-width:680px){.topin{height:auto;min-height:58px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px;gap:6px}.topActions{flex-wrap:wrap;justify-content:flex-end;gap:5px}.islandTimeControls{font-size:11px!important}.scenePicker select{max-width:130px}}</style></head>
 <body>
 <header class="top"><div class="topin"><a class="brand" href="index.html"><img src="icon-192.png" alt=""><span>うきわ<b>メモ</b></span></a><div class="topActions"><nav class="nav"><a href="#search">🔎 検索</a><a href="#categories">カテゴリ</a><a href="#field-notes">📝 メモ</a><a href="zukan.html">📖 図鑑</a><a href="#updates">更新情報</a></nav><label class="scenePicker"><span class="srOnly">島の景色</span><select id="sceneSelect" aria-label="島の景色"><option value="light">☀️ 昼の島</option><option value="sunset">🌅 夕焼け</option><option value="dark">🌙 月夜</option></select></label><button class="themeToggle" id="bgmToggle" type="button" aria-pressed="false" aria-label="島のBGMを再生">♫ <span>BGM</span></button><button class="themeToggle" id="motionToggle" type="button" aria-label="ぷかぷかする動きを止める" aria-pressed="false">⏸ <span>動き</span></button></div></div></header>
 <section class="hero" id="search"><div class="stars"></div><div class="heroInner">
@@ -221,6 +221,9 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
   // 固定でトップに残しておきたい更新。
   // 「今日のなんで？」と「ぷかぷか日誌」は各ページから自動取得します。
   const BASE_UPDATES = [
+{date:'2026-09-19',title:'時刻表示と自動の景色切替を追加。手動選択も可能。',href:'index.html#sceneSelect'},
+{date:'2026-09-19',title:'ET-5の三極法・二極法を図と数値例で解説。',href:'earth-resistance-et5.html'},
+{date:'2026-09-19',title:'絶縁抵抗の呼び方を、測る二点から理解できる図解へ。',href:'insulation-resistance-principle.html'},
 {"date":"2026-09-18","title":"島のBGMを追加。再生後はサイト内を移動しても曲が続きます。","href":"index.html#islandMusicCredits"},
 {"date":"2026-09-18","title":"昼・夕焼け・月夜の景色を各ページへ。背景とカードの配色を統一。","href":"field-essentials.html"},
 {"date":"2026-09-18","title":"アクセス解析の案内を追加。計測は同意した場合のみ。","href":"analytics-info.html"},
@@ -374,12 +377,6 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
  const motion=document.getElementById('motionToggle');
  const read=(key)=>{try{return localStorage.getItem(key)}catch{return null}};
  const save=(key,value)=>{try{localStorage.setItem(key,value)}catch{}};
- function apply(theme){
-   root.dataset.theme=theme;picker.value=theme;
-   document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#031326':theme==='sunset'?'#fff1df':'#eef8ff');
- }
- const saved=read('ukiwa-theme');apply(['light','sunset','dark'].includes(saved)?saved:'light');
- picker.addEventListener('change',()=>{apply(picker.value);save('ukiwa-theme',picker.value)});
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let paused=read('ukiwa-motion')==='paused';
  function applyMotion(){

@@ -15,7 +15,7 @@ function display(state){const t=current();button.setAttribute('aria-pressed',Str
 function stop(){wanted=false;request++;audio.pause();display('停止中')}
 async function play(){const token=++request,t=current();wanted=true;display('読み込み中');if(loaded!==t.file){audio.src='https://incompetech.com/music/royalty-free/mp3-royaltyfree/'+encodeURIComponent(t.file);loaded=t.file}try{await audio.play();if(token!==request)return;display('再生中')}catch{if(token!==request)return;stop();label.textContent='音源を読み込めませんでした。再生ボタンから再試行できます。'}}
 button.addEventListener('click',()=>{if(wanted)stop();else play()});
-document.getElementById('sceneSelect')?.addEventListener('change',()=>{if(wanted){audio.pause();play()}else display('停止中')});
+addEventListener('ukiwa-theme-change',()=>{if(wanted){audio.pause();play()}else display('停止中')});
 audio.addEventListener('error',()=>{if(wanted){stop();label.textContent='音源の読み込みに失敗しました。配信元リンクからも確認できます。'}});
 addEventListener('pagehide',stop);display('停止中');
 const home=new URL('index.html',location.href),base=new URL('.',home);
