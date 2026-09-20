@@ -5,3 +5,6 @@ main{max-width:1600px}.layout{grid-template-columns:240px minmax(0,1fr)}.exercis
 .explanation-link{display:block;padding:14px;border-radius:10px;border:1px solid #36797a;background:#ecf6f1;line-height:1.7;font-size:14px;font-weight:700}
 
 .jump-label{font-size:12px;max-width:330px;margin:0 0 10px}.jump-label select{padding:8px}
+
+.inline-explanation{margin-top:28px;padding:24px;background:#f6faf8;border:1px solid #c3d9d2;border-radius:16px;scroll-margin-top:24px;line-height:1.95;overflow-wrap:anywhere}
+.inline-explanation[hidden]{display:none}.inline-explanation h2{font-size:24px;line-height:1.5}.inline-explanation h3{font-size:16px;margin:0 0 6px}.explanation-idea{font-size:17px}.explanation-steps{list-style:none;padding:0;display:grid;gap:14px}.explanation-steps li{padding:18px;border:1px solid #d1dfdb;border-left:4px solid #407357;background:white;border-radius:8px}.explanation-steps .step-review{border-left-color:#b7771f}.explanation-steps p,.pitfall p{margin:0;white-space:pre-wrap}.pitfall{padding:18px;background:#fff4e8;border-radius:10px}#solution summary{cursor:pointer;padding:14px;background:#edf4f3;border-radius:8px}#solution details[open] summary{margin-bottom:18px}@media(max-width:760px){.inline-explanation{padding:16px}.inline-explanation h2{font-size:21px}.explanation-steps li{padding:14px}}
