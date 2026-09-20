@@ -26,7 +26,7 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
 :root{color-scheme:light}html,body{background:var(--island-bg-eaf3f7-100,#eaf3f7)!important;color:var(--island-fg-173749-100,#173749)!important}body{background-image:none!important}input,select,textarea{color:var(--island-fg-173749-100,#173749)!important;background-color:var(--island-bg-ffffff-100,#fff)!important;border-color:var(--island-line-a9c2d0-100,#a9c2d0)!important}input::placeholder,textarea::placeholder{color:var(--island-fg-617888-100,#617888)!important}a{color:var(--island-fg-096e92-100,#096e92)}body:before,body:after{background-image:none!important}pre,code{color:var(--island-fg-23475b-100,#23475b)}::selection{background:var(--island-bg-bce3ed-100,#bce3ed);color:var(--island-fg-12374b-100,#12374b)}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
-</head>
+<link rel="stylesheet" href="field-start.css?v=20260920"></head>
 <body>
 <header class="top"><div class="topin"><a class="brand" href="./index.html"><img src="./icon-192.png" alt=""><span>ぷかぷかうきわメモ</span></a><a class="home" href="./index.html">⌂ ホーム</a></div></header>
 
@@ -35,13 +35,13 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
   <h1>試験方法から探す</h1>
   <p>試験の目的を選ぶと、関連する器具候補・型式、確認工程、測定値の意味、復旧項目まで逆引きできます。器具の一覧は候補です。完全型式・測定機能・定格・付属品が、その試験条件に対応するかメーカー取扱説明書で確認します。</p>
   <div class="safe"><b>安全上の前提：</b> 実設備の停復電、活線測定、高電圧試験、試験結線、整定変更、トリップ確認は、現場責任者・社内手順書・操作票・系統状態・無電圧確認・誤投入防止措置・最新の実機取扱説明書を優先してください。このページだけを根拠に実操作しないでください。</div>
-</section>
+<aside class="field-start" aria-label="このページの使い方"><h2>試験名から、方法と器具を探す。</h2><p>試験を探したいときは検索へ。使う器具の型式が分かるときは器具DBへ進めます。</p><ol><li>試験名・目的を選ぶ</li><li>器具候補と工程を見る</li><li>実機の取説で条件を照合</li></ol><nav aria-label="使い方の近道"><a href="#method-search">試験を検索する</a><a href="measuring-instruments.html">器具の型式で探す</a></nav></aside></section>
 
 <nav class="switch" aria-label="データベース入口"><a class="active" href="./test-measurement.html">試験方法から探す <small>工程・復旧を確認</small></a><a href="./measuring-instruments.html">器具・型式から探す <small id="instrumentDbCount">型式DB</small></a></nav>
 
 <section class="quick-tools" aria-labelledby="quickToolsTitle"><div class="quick-tools-head"><h2 id="quickToolsTitle">主要器具の型式アンチョコを直接開く</h2><small>器具DBへ移動</small></div><div class="quick-tools-links"><a class="featured" href="./measuring-instruments.html?model=IP-1110">IP-1110</a><a href="./measuring-instruments.html?model=DI-05N">DI-05N</a><a href="./measuring-instruments.html?model=DI-11N">DI-11N</a><a href="./measuring-instruments.html?model=IR4052-11">IR4052</a><a href="./measuring-instruments.html?model=ET-5">ET-5</a><a href="./measuring-instruments.html?model=KEW%204300">KEW 4300</a><a href="./measuring-instruments.html?model=WPS-22">WPS-22</a><a href="./measuring-instruments.html?model=RX47022">I2V2</a></div></section>
 
-<section class="search" aria-label="試験方法検索"><div class="searchrow"><input id="q" type="search" placeholder="試験名・型式・目的で検索　例：IP-1110 / 3極法 / OCR / 絶縁油"><button class="reset" id="reset" type="button">条件を解除</button></div><div class="chips" id="chips"></div></section>
+<section class="search" id="method-search" aria-label="試験方法検索"><div class="searchrow"><input id="q" type="search" placeholder="試験名・型式・目的で検索　例：IP-1110 / 3極法 / OCR / 絶縁油"><button class="reset" id="reset" type="button">条件を解除</button></div><div class="chips" id="chips"></div></section>
 
 <main class="wrap"><div class="head"><h2 id="title">すべての試験方法</h2><small id="count"></small></div><div class="grid" id="grid"></div>
   <section class="related" aria-label="関連教材"><a href="./measurement-principles.html">🧭 測定器の原理</a><a href="./protective-relay.html">51 保護継電器型式DB</a><a href="./insulation-monitoring-test.html">⚠ 絶縁監視・漏電監視</a></section>

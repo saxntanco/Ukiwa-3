@@ -322,7 +322,7 @@ body{background:var(--island-bg-eff6f8-100,#eff6f8)}.intro{padding:24px 0 8px}.s
 :root{color-scheme:light}html,body{background:var(--island-bg-eaf3f7-100,#eaf3f7)!important;color:var(--island-fg-173749-100,#173749)!important}body{background-image:none!important}input,select,textarea{color:var(--island-fg-173749-100,#173749)!important;background-color:var(--island-bg-ffffff-100,#fff)!important;border-color:var(--island-line-a9c2d0-100,#a9c2d0)!important}input::placeholder,textarea::placeholder{color:var(--island-fg-617888-100,#617888)!important}a{color:var(--island-fg-096e92-100,#096e92)}body:before,body:after{background-image:none!important}pre,code{color:var(--island-fg-23475b-100,#23475b)}::selection{background:var(--island-bg-bce3ed-100,#bce3ed);color:var(--island-fg-12374b-100,#12374b)}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
-</head>
+<link rel="stylesheet" href="field-start.css?v=20260920"></head>
 <body>
 <header class="topbar">
 <a aria-label="ぷかぷかうきわメモへ戻る" class="brand" href="./index.html">
@@ -332,10 +332,10 @@ body{background:var(--island-bg-eff6f8-100,#eff6f8)}.intro{padding:24px 0 8px}.s
 <a class="back" href="./index.html">← 島へ戻る</a>
 </header>
 <main class="comparison"><span id="calc"></span><span id="flow"></span>
-<section class="intro"><p class="eyebrow">6.6kV CVケーブル・三相一括</p><h1>充電電流を、根拠で比べる</h1><p>同じ条件でも、静電容量の決め方で結果は変わります。 <a href="#usage-notes">使う前の確認事項</a></p></section>
+<section class="intro"><p class="eyebrow">6.6kV CVケーブル・三相一括</p><h1>充電電流を、根拠で比べる</h1><p>同じ条件でも、静電容量の決め方で結果は変わります。 <a href="#usage-notes">使う前の確認事項</a></p></section><aside class="field-start" aria-label="このページの使い方"><h2>まず、ケーブルの条件を入れる。</h2><p>充電電流と、リアクトル・トランスの負担を比較する計算ページです。</p><ol><li>条件を入力</li><li>計算結果を比較</li><li>採用する根拠を確認</li></ol><nav aria-label="使い方の近道"><a href="#cable-input">条件を入力する</a><a href="#source-notes">計算の根拠を読む</a></nav></aside>
 
 <form id="compareForm" novalidate>
-<section class="surface"><h2><span class="step-number">1</span> ケーブルの条件</h2><p class="hint">各心が遮へいされたCV 3心の導体を一括し、接地された遮へい層との間に正弦波交流を印加する計算です。運転中の三相充電電流とは区別します。</p>
+<section class="surface" id="cable-input"><h2><span class="step-number">1</span> ケーブルの条件</h2><p class="hint">各心が遮へいされたCV 3心の導体を一括し、接地された遮へい層との間に正弦波交流を印加する計算です。運転中の三相充電電流とは区別します。</p>
 <div class="input-grid">
 <label>断面積 [mm²]<select id="size"><option>8</option><option>14</option><option>22</option><option selected>38</option><option>60</option><option>100</option><option>150</option><option>200</option><option>250</option></select></label>
 <div><label>ケーブル長 [m]<input id="length" type="number" min="0" step="any" inputmode="decimal" value="100"></label><div class="length-options" aria-label="ケーブル長を10mずつ増減"><button type="button" id="lengthMinus">−10m</button><button type="button" id="lengthPlus">＋10m</button></div></div>
@@ -366,7 +366,7 @@ body{background:var(--island-bg-eff6f8-100,#eff6f8)}.intro{padding:24px 0 8px}.s
 <section class="surface"><details><summary>忘れても作り直せる親公式</summary><p><b>Ic = 2πfCV</b> ― 充電電流は、周波数・静電容量・試験電圧に比例します。</p><div class="table-scroll"><table><thead><tr><th>記号</th><th>意味・英語・単位</th></tr></thead><tbody><tr><td>Ic</td><td>充電電流 Charging current [A]。Iは電流の慣用記号、cはchargingを区別する添字。</td></tr><tr><td>f</td><td>周波数 Frequency [Hz = 1/s]。英語の頭文字。</td></tr><tr><td>C、C₁</td><td>静電容量 Capacitance [F]。Cは被試験物全体、添字1は1心分を区別。</td></tr><tr><td>V</td><td>試験電圧 Voltage [V]。交流の実効値。</td></tr><tr><td>D、d</td><td>径 Diameter [mm]。大文字は外側、小文字は内側。D/dは同じ単位なので無次元。</td></tr><tr><td>εr</td><td>比誘電率 Relative permittivity [無次元]。εは誘電率の慣用記号、rはrelative。資料の2.3は絶対誘電率ではなく比誘電率。</td></tr><tr><td>L、IL</td><td>インダクタンス Inductance [H]とリアクトル電流 [A]。Lは慣用記号。添字Lは誘導性枝を区別し、ケーブル長と混同しない。</td></tr></tbody></table></div>
 <details><summary>単位・復元方法・増減関係</summary><p>単位：Hz × F × V = (1/s) × (A·s/V) × V = A。μFを使うときは10⁻⁶を掛けてFへ、AをmAにするときは1000倍します。</p><p>親公式は I = V/X。コンデンサでは Xc = 1/(2πfC) なので、割り算を整理すると Ic = 2πfCV を復元できます。さらに基本へ戻るなら q = Cv、i = dq/dt。正弦波を微分すると角周波数2πfが現れます。qは電荷 Charge [C：クーロン]、i・vは瞬時値です。容量記号Cと電荷の単位Cは別です。</p><p>同じ構造で、f・C・Vのいずれかが2倍ならIcは2倍。長さ2倍ならCも約2倍です。単位だけでは2πや心数は決まらず、定義と結線が必要です。</p><p>対になる式：Xc = 1/(2πfC)、XL = 2πfL。周波数が上がるとC側の電流は増え、同じLのリアクトル電流は減ります。</p><p>三相一括では各導体が同電位になるため、理想的には心間容量の両端電圧はゼロです。各心遮へいの対遮へい容量は並列に加算します。三相運転時の作用静電容量や線間容量をそのまま3倍してはいけません。</p><p>寸法式は同軸円筒の静電容量に由来します。0.02413は真空の誘電率と、自然対数から常用対数、F/mからμF/kmへの換算をまとめた係数です。εrが増えるとCも増え、D/dが増えるとCは減ります。</p><p>問題文の「三相一括・対地静電容量・耐圧試験」が目印。通常運転の線間電圧から相電圧へ換算する場面とは違い、一括試験電圧を√3で割りません。</p></details>
 <p><b>これだけ覚える：</b>式はIc = 2πfCV。先に「Cは何心分か」を確かめる。参考値と最大値は別。リアクトルは大きいほどよいわけではない。</p></details></section>
-<section class="surface"><details><summary>出典と確認状況</summary><div id="sources"></div><p class="hint">既存数値の確認日：2026年9月12日。2026年9月18日に名称を整理し、CC-50MNの計算式（本文10ページ）を再確認して実測Cを比較欄へ統合。原資料の図や紙面は転載せず、計算に必要な数値・条件とリンクを保持しています。JIS本文の現行版、実際のケーブル仕様・Cの最大値、使用する試験機器一式の適合は未確認です。</p></details></section>
+<section class="surface" id="source-notes"><details><summary>出典と確認状況</summary><div id="sources"></div><p class="hint">既存数値の確認日：2026年9月12日。2026年9月18日に名称を整理し、CC-50MNの計算式（本文10ページ）を再確認して実測Cを比較欄へ統合。原資料の図や紙面は転載せず、計算に必要な数値・条件とリンクを保持しています。JIS本文の現行版、実際のケーブル仕様・Cの最大値、使用する試験機器一式の適合は未確認です。</p></details></section>
 <footer>ぷかぷかうきわメモ｜充電電流・根拠別比較</footer><section class="surface" id="usage-notes"><details><summary>使う前の確認事項</summary><p>計算・学習補助です。実設備の試験は、現場責任者・社内手順書・操作票・系統図・対象機器の取扱説明書と照合してください。接続変更や実測Cの測定に先立ち、停電・全電源からの切離し・無電圧確認・放電・誤投入防止・両端の試験区画を確保します。保護接地と被試験導体の短絡接地は役割が異なるため、試験範囲の接地処理は指定結線図で確認します。試験後の放電・残留電荷の再確認までが対象です。</p></details></section></main>
 <script>
 'use strict';
