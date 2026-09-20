@@ -1,0 +1,191 @@
+import { CARDS, CARD_IDS } from './cards.js';
+import { newGame, apply, targets, attackTargets, attackReason, playReason } from './engine.js';
+import { chooseAction } from './ai.js';
+import { art } from './art.js';
+const app = document.querySelector('#app'), modal = document.querySelector('#modal'), announce = document.querySelector('#announcement');
+let game = null, screen = 'title', locked = false, selection = null, notice = '', generation = 0, cpuSteps = 0;
+const timers = new Set();
+const escape = (s) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function later(fn, ms) { const epoch = generation; const id = setTimeout(() => { timers.delete(id); if (epoch === generation)
+    fn(); }, ms); timers.add(id); }
+function cancelTimers() { generation++; for (const id of timers)
+    clearTimeout(id); timers.clear(); }
+function start() { cancelTimers(); modal.close(); game = newGame(); screen = 'battle'; locked = game.active === 1; selection = null; notice = `${game.first === 0 ? 'あなた' : 'CPU'}が先攻です。`; cpuSteps = 0; render(); if (game.active === 1)
+    later(cpu, 950); }
+function title() { cancelTimers(); modal.close(); screen = 'title'; game = null; selection = null; locked = false; render(); }
+function dialog(html) { modal.innerHTML = `<button class="close" data-close aria-label="閉じる">×</button>${html}`; modal.showModal(); modal.querySelector('button')?.focus(); }
+function detail(card, uid) { const d = CARDS[card]; const unit = game?.players.flatMap(p => p.board).find(u => u.uid === uid); dialog(`<div class="detail-art" style="--accent:${d.color}">${art(card)}</div><span class="eyebrow">${d.type === 'unit' ? 'UNIT / ユニット' : 'SPELL / スペル'} · COST ${d.cost}</span><h2 id="modal-title">${d.name}</h2><p class="detail-rule">${d.rule}</p>${d.type === 'unit' ? `<p class="detail-stats">攻撃 <b>${unit?.attack ?? d.attack}</b> ／ 体力 <b>${unit?.health ?? d.health}</b>${unit ? `（最大${unit.maxHealth}）` : ''}</p>` : ''}<p class="flavor">「${d.flavor}」</p>${d.guard ? '<p>守護：敵の通常攻撃を引き受けます。スペルは守護を無視して対象を選べます。</p>' : ''}${d.rush ? '<p>速攻：召喚したターンから1回攻撃できます。</p>' : ''}<p class="small">${unit ? escape(attackReason(game, game.players[0].board.includes(unit) ? 0 : 1, unit.uid) || '攻撃可能') : '同名カードはデッキに2枚。両者とも同じ20枚で対戦します。'}</p>`); }
+function how() { dialog(`<span class="eyebrow">FIELD MANUAL</span><h2 id="modal-title">回路をつなぎ、決闘を制す。</h2><ol class="manual"><li><b>相手のライフ20を0に。</b>上がCPU、下があなた。先攻はランダムです。</li><li><b>毎ターン、エネルギーが1増える。</b>最大8。ターン開始時に全回復し、余りは持ち越しません。</li><li><b>手札をタップしてカードを使う。</b>スペルは光る対象を選ぶまで消費されません。キャンセル／Escで解除できます。ⓘで詳細を確認。</li><li><b>盤面のユニット→敵を選んで攻撃。</b>1ターン1回。召喚直後は待機、速攻ならすぐ攻撃できます。</li><li><b>守護を先に倒す。</b>スペルは守護を無視できます。ユニット同士は同時にダメージを与え、行動済みの敵も反撃します。</li><li><b>「ターン終了」でCPUへ。</b>毎ターン1枚ドロー。ただし先攻の最初は引きません。初期手札3枚、上限8枚、盤面5体。</li><li><b>デッキ切れは疲労ダメージ。</b>ドローのたびに1、2、3…と増えます。手札上限を超えるドローは破棄されます。</li></ol><p>ダメージは残ります。体力0で破壊。回復はライフ20まで。同じ処理で両者のライフが0以下なら引き分けです。</p><h3>10の回路 / カードを調べる</h3><div class="catalog">${CARD_IDS.map(id => `<button data-info="${id}"><span>${CARDS[id].cost}</span>${CARDS[id].name}</button>`).join('')}</div><p class="small">架空のカードゲームです。現実の電気設備・作業手順を表すものではありません。</p>`); }
+function confirmExit(action) { dialog(`<span class="eyebrow">CURRENT DUEL</span><h2 id="modal-title">この対戦を終了しますか？</h2><p>現在の対戦は保存されません。</p><div class="dialog-actions"><button data-close>対戦に戻る</button><button class="primary" data-confirm="${action}">${action === 'restart' ? '新しい対戦を始める' : 'タイトルに戻る'}</button></div>`); }
+function canInteract() { return !!game && screen === 'battle' && game.winner === null && game.active === 0 && !locked && !modal.open; }
+function targetList() { if (!game || !selection)
+    return []; if (selection.kind === 'attack')
+    return attackTargets(game, 0); const c = game.players[0].hand.find(c => c.uid === selection.uid); return c ? targets(game, 0, c.card) : []; }
+function isTarget(t) { return canInteract() && targetList().some(x => x.side === t.side && x.uid === t.uid); }
+function cardFace(c, unit) { const d = CARDS[c.card]; return `<div class="card-top"><span class="cost" aria-label="コスト${d.cost}">${d.cost}</span><span class="card-kind">${d.type === 'spell' ? 'SPELL' : 'UNIT'}</span></div>${art(c.card)}<div class="card-copy"><h3>${d.name}</h3><p>${d.rule}</p></div>${d.type === 'unit' ? `<div class="card-stats"><span class="attack-stat" aria-label="攻撃力${unit?.attack ?? d.attack}">⚔ ${unit?.attack ?? d.attack}</span><span class="health-stat ${(unit?.health ?? d.health) < (unit?.maxHealth ?? d.health) ? 'wounded' : ''}" aria-label="体力${unit?.health ?? d.health}">♥ ${unit?.health ?? d.health}</span></div>` : '<div class="spell-label">対象を選んで発動</div>'}`; }
+function handCard(c) { const d = CARDS[c.card], reason = game ? playReason(game, 0, c.uid) : '', available = canInteract() && !reason, selected = selection?.uid === c.uid; return `<article class="card hand-card ${d.type} ${available ? 'playable' : ''} ${selected ? 'selected' : ''}" style="--accent:${d.color}"><button class="card-action" data-play="${c.uid}" ${!available ? 'disabled' : ''} aria-label="${d.name}を使う コスト${d.cost}">${cardFace(c)}</button><button class="info" data-info="${c.card}" data-uid="${c.uid}" aria-label="${d.name}の詳細">ⓘ</button><div class="card-status">${selected ? '対象を選択中' : game?.active === 1 ? '相手のターン' : locked ? '効果処理中' : reason || '使用可能'}</div></article>`; }
+function boardUnit(u, side) {
+    const d = CARDS[u.card], target = isTarget({ side, uid: u.uid }), ready = side === 0 && canInteract() && !attackReason(game, side, u.uid), selected = selection?.uid === u.uid;
+    const hit = game.events.some(e => e.kind === 'damage' && e.ids?.includes(u.uid)), spawn = game.events.some(e => e.kind === 'summon' && e.ids?.includes(u.uid));
+    return `<article class="board-unit ${d.guard ? 'guard' : ''} ${target ? 'targetable' : ''} ${selected ? 'selected' : ''} ${hit && locked ? 'hit' : ''} ${spawn && locked ? 'spawn' : ''}" style="--accent:${d.color}"><button class="unit-action" data-unit="${u.uid}" data-side="${side}" ${!target && !ready ? 'disabled' : ''} aria-label="${d.name} 攻撃${u.attack} 体力${u.health}${target ? ' 対象に選ぶ' : ready ? ' 攻撃可能' : ''}">${art(u.card)}<h3>${d.name}</h3><div class="unit-tags">${d.guard ? '<span>守護</span>' : ''}${d.rush ? '<span>速攻</span>' : ''}</div><div class="card-stats"><span>⚔ ${u.attack}</span><span class="${u.health < u.maxHealth ? 'wounded' : ''}">♥ ${u.health}</span></div><div class="unit-state">${target ? '◎ 対象にする' : side === 1 ? (u.ready ? '待機' : '行動済み') : ready ? '↑ 攻撃可能' : u.born === game.turn && !d.rush ? '召喚直後' : '行動済み'}</div></button><button class="info" data-info="${u.card}" data-uid="${u.uid}" aria-label="${d.name}の詳細">ⓘ</button></article>`;
+}
+function hero(side) { const p = game.players[side], target = isTarget({ side, uid: 'hero' }), hit = locked && game.events.some(e => e.kind === 'damage' && e.ids?.includes(`hero-${side}`)); return `<div class="hero-row ${side === 1 ? 'enemy' : 'self'}"><button class="hero ${target ? 'targetable' : ''} ${hit ? 'hit' : ''}" data-hero="${side}" ${!target ? 'disabled' : ''} aria-label="${side === 0 ? 'あなた' : 'CPU'}の本体 ライフ${Math.max(0, p.life)}${target ? ' 対象に選ぶ' : ''}"><span class="portrait">${side === 0 ? '01' : 'Ω'}</span><span class="hero-name">${side === 0 ? 'YOU / 回路の継承者' : 'CPU / 演算の番人'}<b>♥ ${Math.max(0, p.life)}<small> / 20</small></b></span>${target ? '<span class="target-label">◎ 本体へ</span>' : ''}</button><div class="resources"><span class="energy">ENERGY <b>${p.energy}<small> / ${p.maxEnergy}</small></b><span class="pips" aria-hidden="true">${Array.from({ length: 8 }, (_, i) => `<i class="${i < p.energy ? 'filled' : i < p.maxEnergy ? 'spent' : ''}"></i>`).join('')}</span></span><span>山札 <b>${p.deck.length}</b>　手札 <b>${p.hand.length}</b>${p.fatigue ? `　疲労 <b>${p.fatigue}</b>` : ''}</span></div></div>`; }
+function render() {
+    if (screen === 'title') {
+        app.innerHTML = `<header class="sitebar"><a href="../index.html">← うきわメモ</a><span>UKIWA ARCADE / 001</span><span>SOLO · FREE PLAY</span></header><main class="title-screen"><div class="title-copy"><span class="eyebrow">A DUEL WRITTEN IN ELECTRICITY</span><h1>電界決闘<span>CIRCUIT DUEL</span></h1><p class="tagline">小さな火花が、<br>世界をひっくり返す。</p><p class="intro">電気の精霊を呼び、回路を制する。<br>10種類のカードで挑む、あなたとCPUの決闘。</p><div class="title-actions"><button class="primary start" data-start>対戦開始 <span>↗</span></button><button data-how>遊び方・カード</button></div><div class="title-meta"><span>20<small>ライフ</small></span><span>10<small>カード種</small></span><span>5–10<small>分の決闘</small></span></div></div><div class="showcase" aria-label="電気の精霊たち"><div class="orbital orbital-one"></div><div class="orbital orbital-two"></div>${['resistor', 'tesla', 'coil'].map((id, i) => `<button class="show-card show-${i}" data-info="${id}" style="--accent:${CARDS[id].color}" aria-label="${CARDS[id].name}の詳細">${cardFace({ uid: 'preview-' + id, card: id })}<p class="flavor">${CARDS[id].flavor}</p></button>`).join('')}<span class="showcase-caption">RESIST. AMPLIFY. STRIKE.</span></div><footer class="title-footer"><span>構築不要。対等な20枚から、勝ち筋を見つけよう。</span><span>ORIGINAL CIRCUIT FANTASY</span></footer></main>`;
+        return;
+    }
+    if (!game)
+        return;
+    const s = game, turn = s.active === 0 ? 'あなたのターン' : 'CPUが思考中', last = s.events.filter(e => e.kind !== 'draw').slice(-1)[0]?.text || '', destroyed = locked ? s.events.filter(e => e.kind === 'destroy') : [];
+    app.innerHTML = `<header class="battle-header"><button class="wordmark" data-title>電界決闘 <small>CIRCUIT DUEL</small></button><span class="turn-badge">TURN ${String(s.turn).padStart(2, '0')} <small>${s.first === 0 ? 'あなた' : 'CPU'}先攻</small></span><div><button data-how aria-label="遊び方">?</button><button data-restart>再戦</button></div></header><main class="arena"><section class="battlefield" aria-label="対戦盤面">${hero(1)}<div class="enemy-hand" aria-label="CPUの手札${s.players[1].hand.length}枚。内容は非公開">${s.players[1].hand.map(() => '<span class="card-back">◇</span>').join('')}<small>HIDDEN HAND · ${s.players[1].hand.length}</small></div><div class="board enemy-board" aria-label="CPUの盤面">${s.players[1].board.map(u => boardUnit(u, 1)).join('')}${Array.from({ length: 5 - s.players[1].board.length }, () => '<div class="slot" aria-hidden="true"><span>＋</span></div>').join('')}</div><div class="midline"><span class="line"></span><div class="turn-control"><span class="phase ${s.active === 0 ? 'your-turn' : ''}">${s.winner !== null ? 'DUEL COMPLETE' : locked && s.active === 0 ? '効果処理中' : turn}</span><button class="end-turn" data-end ${!canInteract() ? 'disabled' : ''}>ターン終了 →</button></div><span class="line"></span></div><div class="board player-board" aria-label="あなたの盤面">${s.players[0].board.map(u => boardUnit(u, 0)).join('')}${Array.from({ length: 5 - s.players[0].board.length }, () => '<div class="slot" aria-hidden="true"><span>＋</span></div>').join('')}</div>${hero(0)}<div class="intent" role="status"><span>${selection ? selection.kind === 'attack' ? '攻撃先を選んでください。守護がいる場合は守護を先に。' : '光る対象を選んでください。確定するまでコストは消費しません。' : notice || '手札を使うか、攻撃可能なユニットを選んでください。'}</span>${selection ? '<button data-cancel>キャンセル <kbd>Esc</kbd></button>' : ''}</div>${destroyed.length ? `<div class="destruction" aria-hidden="true">${destroyed.map(e => `<span>${escape(e.text)}</span>`).join('')}</div>` : ''}${locked && s.events.some(e => e.kind === 'attack' || e.kind === 'spell') ? '<div class="pulse-line" aria-hidden="true"></div>' : ''}</section><aside class="battle-log"><span class="eyebrow">BATTLE TRACE</span><h2>決闘の記録</h2><p class="small">新しい行動が上に表示されます。</p><ol>${s.logs.slice(-10).reverse().map((l, i) => `<li class="${i === 0 ? 'latest' : ''}">${escape(l)}</li>`).join('')}</ol></aside><section class="hand-section" aria-label="あなたの手札"><div class="hand-heading"><h2>YOUR HAND <span>${s.players[0].hand.length} / 8</span></h2><span>タップで使用 · ⓘで詳細</span></div><div class="hand">${s.players[0].hand.map(handCard).join('') || '<p class="empty-hand">手札がありません。盤面で攻撃するか、ターンを終了してください。</p>'}</div></section></main>${s.winner !== null ? `<div class="result-backdrop"><section class="result" role="dialog" aria-modal="true" aria-labelledby="result-title"><span class="eyebrow">CIRCUIT ${s.winner === 0 ? 'COMPLETE' : s.winner === 1 ? 'BROKEN' : 'BALANCED'}</span>${art(s.winner === 0 ? 'tesla' : s.winner === 1 ? 'short' : 'coil')}<h2 id="result-title">${s.winner === 0 ? 'VICTORY' : s.winner === 1 ? 'DEFEAT' : 'DRAW'}</h2><p>${s.winner === 0 ? 'あなたの勝利。回路は、あなたに応えた。' : s.winner === 1 ? 'CPUの勝利。次の一手で、運命は変わる。' : '引き分け。二つの火花は、ともに消えた。'}</p><p class="small">${s.turn}ターンの決闘 / ${s.players[0].life} : ${s.players[1].life}</p><div class="dialog-actions"><button class="primary" data-start>もう一戦</button><button data-title>タイトルへ</button></div></section></div>` : ''}`;
+    announce.textContent = s.winner !== null ? last : notice || last;
+}
+function commit(action, side) {
+    if (!game || game.active !== side || game.winner !== null)
+        return;
+    if (side === 0 && !canInteract())
+        return;
+    locked = true;
+    selection = null;
+    const r = apply(game, side, action);
+    if (!r.ok) {
+        locked = side === 1;
+        notice = r.error || '';
+        render();
+        return;
+    }
+    game = r.state;
+    notice = game.events.filter(e => e.kind !== 'draw').slice(-1)[0]?.text || '';
+    render();
+    if (game.winner !== null) {
+        cancelTimers();
+        locked = true;
+        app.querySelector('.result [data-start]')?.focus();
+        return;
+    }
+    later(() => { if (!game)
+        return; locked = game.active === 1; render(); if (game.active === 1)
+        later(cpu, 560); }, 420);
+}
+function cpu() {
+    if (!game || screen !== 'battle' || game.winner !== null || game.active !== 1)
+        return;
+    if (modal.open) {
+        later(cpu, 350);
+        return;
+    }
+    cpuSteps++;
+    let a;
+    try {
+        a = cpuSteps > 35 ? { type: 'end' } : chooseAction(game);
+    }
+    catch {
+        a = { type: 'end' };
+    }
+    if (a.type === 'end')
+        cpuSteps = 0;
+    commit(a, 1);
+}
+function pickTarget(t) { if (!canInteract() || !selection || !isTarget(t))
+    return; commit(selection.kind === 'attack' ? { type: 'attack', uid: selection.uid, target: t } : { type: 'play', uid: selection.uid, target: t }, 0); }
+function handle(e) {
+    const button = e.target.closest('button');
+    if (!button || button.disabled)
+        return;
+    const b = button.dataset;
+    if ('close' in b) {
+        modal.close();
+        return;
+    }
+    if (b.info) {
+        if (modal.open)
+            modal.close();
+        detail(b.info, b.uid);
+        return;
+    }
+    if ('how' in b) {
+        how();
+        return;
+    }
+    if ('start' in b) {
+        start();
+        return;
+    }
+    if ('confirm' in b) {
+        b.confirm === 'restart' ? start() : title();
+        return;
+    }
+    if ('restart' in b) {
+        game?.winner !== null ? start() : confirmExit('restart');
+        return;
+    }
+    if ('title' in b) {
+        game?.winner !== null ? title() : confirmExit('title');
+        return;
+    }
+    if (!canInteract())
+        return;
+    if ('cancel' in b) {
+        selection = null;
+        notice = '選択を解除しました。';
+        render();
+        return;
+    }
+    if ('end' in b) {
+        cpuSteps = 0;
+        commit({ type: 'end' }, 0);
+        return;
+    }
+    if (b.play) {
+        const c = game.players[0].hand.find(c => c.uid === b.play);
+        if (!c)
+            return;
+        if (CARDS[c.card].type === 'unit')
+            commit({ type: 'play', uid: c.uid }, 0);
+        else {
+            selection = { kind: 'spell', uid: c.uid };
+            notice = '';
+            render();
+        }
+        return;
+    }
+    if (b.hero) {
+        pickTarget({ side: Number(b.hero), uid: 'hero' });
+        return;
+    }
+    if (b.unit) {
+        const side = Number(b.side);
+        if (selection && isTarget({ side, uid: b.unit })) {
+            pickTarget({ side, uid: b.unit });
+            return;
+        }
+        if (side === 0 && !attackReason(game, 0, b.unit)) {
+            selection = { kind: 'attack', uid: b.unit };
+            notice = '';
+            render();
+        }
+    }
+}
+app.addEventListener('click', handle);
+modal.addEventListener('click', handle);
+modal.addEventListener('close', () => render());
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.open && selection) {
+    selection = null;
+    notice = '選択を解除しました。';
+    render();
+} });
+document.addEventListener('keydown', e => { if (e.key !== 'Tab' || game?.winner === null || screen !== 'battle' || modal.open)
+    return; const buttons = [...app.querySelectorAll('.result button')]; if (!buttons.length)
+    return; const first = buttons[0], last = buttons[buttons.length - 1]; if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+}
+else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+} });
+window.addEventListener('pageshow', e => { if (e.persisted)
+    title(); });
+window.addEventListener('pagehide', cancelTimers);
+render();
