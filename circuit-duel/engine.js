@@ -44,8 +44,9 @@ function startTurn(s) {
     if (s.turn !== 1)
         draw(s, s.active);
 }
-export function newGame(rng = Math.random) {
-    const make = (side) => { const deck = CARD_IDS.flatMap(card => [0, 1].map(n => ({ card, uid: `${side}-${card}-${n}` }))); for (let i = deck.length - 1; i > 0; i--) {
+export function newGame(rng = Math.random, decks) {
+    const make = (side) => { const cards = decks?.[side] ?? CARD_IDS.flatMap(card => [card, card]); if (cards.length !== 20 || cards.some(c => !CARDS[c]))
+        throw new Error('デッキは登録カード20枚です'); const deck = cards.map((card, n) => ({ card, uid: `${side}-${card}-${n}` })); for (let i = deck.length - 1; i > 0; i--) {
         const j = Math.floor(rng() * (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
     } return { life: 20, energy: 0, maxEnergy: 0, deck, hand: [], board: [], fatigue: 0, turns: 0 }; };

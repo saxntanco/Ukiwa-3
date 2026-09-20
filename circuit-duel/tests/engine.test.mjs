@@ -26,3 +26,13 @@ test('AI finds buff + attack lethal through a guard with spell removal',()=>{let
 test('AI does not consult opposing hand or deck order, including own hidden deck',()=>{const s=fixture();s.active=1;s.players[1].hand=[card('spark')];s.players[0].hand=[card('tesla')];s.players[0].deck=[card('short')];s.players[1].deck=[card('diode')];const t=structuredClone(s);t.players[0].hand=[card('spark','secret')];t.players[0].deck=[card('tesla','secret2')];t.players[1].deck=[card('lightning','secret3')];assert.deepEqual(publicView(s,1),publicView(t,1));assert.deepEqual(chooseAction(s),chooseAction(t))});
 test('CPU chooses favorable trade before face when enemy threat is high',()=>{const s=fixture();s.active=1;s.players[1].board=[unit('diode','mine',{health:4})];s.players[0].board=[unit('diode','foe',{health:2})];const a=chooseAction(s);assert.equal(a.type,'attack');assert.equal(a.target.uid,'foe')});
 test('seeded full CPU-vs-CPU games finish legally with bounded actions',()=>{for(let seed=10;seed<14;seed++){let s=newGame(seeded(seed)),moves=0;while(s.winner===null&&moves<600){const a=chooseAction(s,s.active);const r=apply(s,s.active,a);assert(r.ok);s=r.state;moves++;for(const p of s.players){assert(p.hand.length<=8);assert(p.board.length<=5);assert(p.energy>=0&&p.energy<=8);assert(p.life<=20);assert(p.board.every(u=>u.health>0));}}assert.notEqual(s.winner,null);assert(moves<600);console.log(`seed ${seed}: ${s.turn} turns / ${moves} actions / winner ${s.winner}`)}});
+import {DECKS} from '../dist/decks.js';
+test('every tactical deck has 20 valid unique instances and all matchups finish',()=>{
+ for(const [name,a]of Object.entries(DECKS))for(const [other,b]of Object.entries(DECKS)){
+  assert.equal(a.cards.length,20);assert.ok(a.cards.every(id=>CARDS[id]));
+  let s=newGame(seeded(32),[a.cards,b.cards]);
+  assert.equal(new Set(s.players.flatMap(p=>[...p.deck,...p.hand]).map(c=>c.uid)).size,40);
+  for(let n=0;n<350&&s.winner===null;n++){let r=apply(s,s.active,chooseAction(s));assert.ok(r.ok,name+'/'+other);s=r.state}
+  assert.notEqual(s.winner,null,name+'/'+other);
+ }
+});
