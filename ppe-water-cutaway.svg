@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+<title id="title">水を電極にして、ゴムの絶縁を確かめる</title><desc id="desc">切り開いた手袋と透明な水槽の概念図。手袋内の青い水と水槽の水は黄色いゴムで隔てられ、上の縁には乾いた区間がある。試験器のA端子とB端子はそれぞれの水中電極につながる。実際の接地を含む結線や水位寸法を指定する図ではない。</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#effaff"/><stop offset="1" stop-color="#dce8f3"/></linearGradient><linearGradient id="water" x2="0" y2="1"><stop stop-color="#63d1e5" stop-opacity=".4"/><stop offset="1" stop-color="#238fbf" stop-opacity=".75"/></linearGradient><linearGradient id="rubber" x2="1" y2="0"><stop stop-color="#c88936"/><stop offset=".45" stop-color="#ffdd8c"/><stop offset="1" stop-color="#d79b42"/></linearGradient><linearGradient id="metal" x2="1"><stop stop-color="#64798b"/><stop offset=".5" stop-color="#f3fbff"/><stop offset="1" stop-color="#8e9dad"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#274a67" flood-opacity=".18"/></filter></defs>
+<rect width="1000" height="650" rx="24" fill="url(#bg)"/>
+<g font-family="Arial,'Yu Gothic',sans-serif" fill="#173b52">
+<text x="42" y="48" font-size="13" letter-spacing="3" fill="#287992">WATER ELECTRODE / CUTAWAY</text><text x="42" y="88" font-size="29" font-weight="bold">水で、ゴムの両側に「電極」をつくる。</text>
+<g filter="url(#shadow)"><rect x="701" y="115" width="245" height="138" rx="18" fill="#243e53"/><rect x="717" y="129" width="122" height="49" rx="8" fill="#142a3d"/><text x="778" y="150" fill="#87e6e2" font-size="12" text-anchor="middle">AC TEST</text><text x="778" y="170" fill="#e5ffff" font-size="15" text-anchor="middle">指定の試験電圧</text><circle cx="907" cy="152" r="17" fill="#557085"/><text x="725" y="202" font-size="16" fill="white">交流耐圧試験器</text><circle cx="752" cy="227" r="9" fill="#ec8269"/><circle cx="891" cy="227" r="9" fill="#71bacd"/><text x="770" y="233" fill="white" font-size="14">A</text><text x="910" y="233" fill="white" font-size="14">B</text></g>
+<ellipse cx="423" cy="543" rx="280" ry="28" fill="#466b8520"/>
+<!-- Transparent tank rear and floor -->
+<path d="M187 285 L283 248 H650 L685 285 V500 L589 537 H187Z" fill="#f8fdff" fill-opacity=".55" stroke="#9bb8c8" stroke-width="3"/>
+<path d="M187 340 L283 306 H650 L685 340 V500 L589 537 H187Z" fill="url(#water)"/>
+<path d="M187 340 L283 306 H650 L685 340 H187" fill="#b9f0f7" fill-opacity=".7" stroke="#60b6d0" stroke-width="2"/>
+<!-- glove section, opened vertically -->
+<path d="M345 206 L484 206 L484 339 Q488 353 507 359 Q537 367 535 398 Q531 420 508 408 L484 391 L484 453 Q484 483 466 483 Q450 483 450 460 L450 486 Q450 513 433 513 Q416 513 416 485 L416 495 Q416 522 399 522 Q383 522 383 495 L383 478 Q383 504 366 504 Q346 504 346 478Z" fill="url(#rubber)" stroke="#ad782e" stroke-width="3" filter="url(#shadow)"/>
+<!-- exposed inner cavity/water distinctly within shell -->
+<path d="M359 222 H469 V348 Q471 367 500 374 Q523 381 520 392 L470 374 V454 Q470 467 464 467 L464 440 H437 V486 Q437 496 431 496 L430 451 H402 V495 Q402 505 397 502 V449 H372 V478 Q372 487 360 483Z" fill="#fff5cf" stroke="#fbeaac" stroke-width="4"/>
+<path d="M360 328 H469 V348 Q471 367 500 374 Q523 381 520 392 L470 374 V454 Q470 467 464 467 L464 440 H437 V486 Q437 496 431 496 L430 451 H402 V495 Q402 505 397 502 V449 H372 V478 Q372 487 360 483Z" fill="#358faf" fill-opacity=".92"/>
+<path d="M360 328 H469" stroke="#d7ffff" stroke-width="4"/>
+<ellipse cx="414" cy="210" rx="69" ry="12" fill="#d6953c" stroke="#a6712d" stroke-width="3"/><ellipse cx="414" cy="210" rx="53" ry="6" fill="#f8e8bd"/>
+<!-- electrodes and insulated leads -->
+<path d="M752 227 C735 278 565 142 414 161 V355" fill="none" stroke="#c95f50" stroke-width="7" stroke-linecap="round"/>
+<rect x="407" y="311" width="14" height="87" rx="6" fill="url(#metal)" stroke="#657b8f"/>
+<path d="M891 227 C876 286 601 246 601 322 V386" fill="none" stroke="#33667d" stroke-width="7" stroke-linecap="round"/><rect x="594" y="353" width="14" height="96" rx="6" fill="url(#metal)" stroke="#657b8f"/>
+<!-- tank front outlines -->
+<path d="M187 285 V537 H589 L685 500 V285 M589 537 V340" fill="none" stroke="#668fa8" stroke-width="3"/><path d="M205 361 V515" stroke="white" stroke-width="5" opacity=".6"/>
+<!-- labels with noncrossing leaders -->
+<rect x="34" y="161" width="237" height="80" rx="12" fill="white" fill-opacity=".94"/><text x="52" y="191" font-size="19" font-weight="bold">乾いた縁を残す</text><text x="52" y="220" font-size="15">内外の水をつなげない</text><path d="M271 204 H326 L350 245" fill="none" stroke="#7d6a40" stroke-width="2"/><circle cx="350" cy="245" r="4" fill="#7d6a40"/>
+<rect x="31" y="392" width="230" height="79" rx="12" fill="white" fill-opacity=".95"/><text x="49" y="422" font-size="19" font-weight="bold">ゴムの壁＝試験対象</text><text x="49" y="451" font-size="15">二つの水の間の絶縁</text><path d="M261 430 H326 L348 445" fill="none" stroke="#a56d28" stroke-width="2"/><circle cx="348" cy="445" r="4" fill="#a56d28"/>
+<rect x="723" y="302" width="228" height="73" rx="12" fill="white"/><text x="741" y="331" font-size="19" font-weight="bold">A：内側の水</text><text x="741" y="357" font-size="15">手袋の内面に接触</text><path d="M723 336 H692 L544 293 H451 L428 351" fill="none" stroke="#c95f50" stroke-width="2"/><circle cx="428" cy="351" r="4" fill="#c95f50"/>
+<rect x="723" y="403" width="228" height="73" rx="12" fill="white"/><text x="741" y="432" font-size="19" font-weight="bold">B：外側の水</text><text x="741" y="458" font-size="15">手袋の外面に接触</text><path d="M723 438 H640" fill="none" stroke="#33667d" stroke-width="2"/><circle cx="640" cy="438" r="4" fill="#33667d"/>
+<rect x="42" y="576" width="916" height="46" rx="12" fill="#173c54"/><text x="500" y="606" fill="white" text-anchor="middle" font-size="20" style="fill:white">内側の水　│　ゴムの絶縁　│　外側の水　　→　この間に電圧を加える</text>
+<text x="500" y="643" text-anchor="middle" font-size="12" fill="#527083">原理を示す切断模式図。立体表現のため水面は斜めに描写。実際の水位・電極・接地・寸法は指定方法による。</text>
+</g></svg>
+
