@@ -1,0 +1,24 @@
+(()=>{'use strict';
+const box=(x,y,w,label)=>`<rect class="box" x="${x}" y="${y}" width="${w}" height="64" rx="12"/><text x="${x+w/2}" y="${y+39}" text-anchor="middle">${label}</text>`;
+const wire=(d)=>`<path class="wire" d="${d}"/>`;
+const txt=(x,y,s)=>`<text x="${x}" y="${y}" text-anchor="middle">${s}</text>`;
+const wrap=s=>`<svg viewBox="0 0 800 290" role="img" aria-label="選択した試験の原理図">${s}</svg>`;
+const chain=(a,b,c)=>box(20,90,210,a)+box(295,90,210,b)+box(570,90,210,c)+wire('M230 122 H295 M505 122 H570');
+const data={ppe:{
+glove:['内側と外側の間にある、絶縁の壁を調べる',`<p>水を電極として用いる指定方法では、内側の水と外側の水の間に電圧がかかります。確認したいのは、その間にあるゴムの絶縁性能です。縁を回り込む放電と、材料を貫く絶縁破壊は区別します。</p>`,'<rect x="210" y="95" width="370" height="145" fill="#c8e9f5"/><path d="M210 55 V240 H580 V55" fill="none" stroke="#52758b" stroke-width="3"/><path d="M320 20 V178 Q320 220 395 220 Q470 220 470 178 V20" fill="#fff" stroke="#ad7820" stroke-width="14"/><path d="M335 95 H455 V175 Q455 205 395 205 Q335 205 335 175Z" fill="#c8e9f5"/><path d="M392 30 V158 M522 30 V170" stroke="#ad4c40" stroke-width="7"/>'+txt(135,72,'外側の水')+wire('M160 83 L250 140')+txt(680,78,'内側の水')+wire('M620 88 L425 130')+txt(400,275,'水 ┃ ゴムの壁 ┃ 水：壁を隔てて電圧がかかる')],
+sheet:['両面を挟んで、厚さ方向の絶縁を調べる','<p>指定された電極で対象範囲を挟みます。シートと立体形の管・カバーでは治具が異なります。試験されていない端部まで保証されたとは扱いません。</p>','<rect x="170" y="65" width="460" height="28" rx="6" fill="#7695a7"/><rect x="140" y="112" width="520" height="62" rx="7" fill="#f9df8d" stroke="#ad7820" stroke-width="3"/><rect x="170" y="193" width="460" height="28" rx="6" fill="#7695a7"/>'+txt(400,45,'電極 A')+txt(400,151,'シートの絶縁材料（厚さ方向）')+txt(400,256,'電極 B：実際の電極形状・面積は指定方法による')],
+current:['電流が流れた＝すぐ絶縁破壊、ではない','<p>交流では、絶縁物を挟む電極がコンデンサとしても働きます。容量による電流、絶縁の損失や表面漏れなどが試験電流に含まれます。対象数・水位・面積・汚れでも変わるため、指定条件と判定方法をそろえます。</p>',box(20,90,190,'交流試験器')+box(350,30,400,'容量による電流')+box(350,170,400,'損失・表面漏れ等の電流')+wire('M210 122 H280 V62 H350 M280 122 V202 H350')]
+},vcb:{
+earth:['導電部 → 接地された外郭','<p>主回路と外郭の間の絶縁を調べる考え方です。開閉状態で測定に含まれる範囲が変わります。接続されている機器や制御回路を含めて、印加可能な範囲を先に決めます。</p>',chain('主回路導電部','支持絶縁物','接地外郭')],
+gap:['同じ極の、開いた接点の両側','<p>真空バルブの開極間に対する指定試験です。通常の絶縁抵抗が高いことだけで真空度良好とは判定しません。耐電圧法の条件・対象端子・印加時間は、そのVCBの取説で確定します。</p>',box(35,80,225,'電源側の接点')+box(535,80,225,'負荷側の接点')+wire('M260 112 H330 M470 112 H535')+txt(400,105,'開極間')+txt(400,205,'同じ R 極の両側。R–S の相間とは別。')],
+contact:['閉じた主回路の、電流の通りやすさ','<p>低抵抗を測るため、電流端子と電圧検出端子を分ける4端子法が用いられます。接触位置や測定電流・温度を合わせて、メーカー基準と過去値を比較します。</p>',chain('電流を流す','閉じた主接点','電流の戻り')+txt(400,210,'接点の両側の電圧降下を別の検出線で測る')],
+trip:['操作信号 → 機構 → 主接点','<p>投入・引外しの動作と、表示・補助接点・連動を確認します。蓄勢状態や操作電源が関係します。主回路の絶縁が良好でも、この動作確認を代用できません。</p>',chain('指定の操作信号','コイル・操作機構','主接点の開閉')+txt(400,215,'表示・補助接点・連動先まで確認')]
+},cal:{
+source:['基準の量と、計器の指示を比べる','<p>標準器の補正などを反映した参照値と、対象計器の指示値を同じ単位・条件で比較します。誤差は「指示値 − 参照値」。数値が近いことと、不確かさを含めた適合判定は別です。</p>',chain('標準の量','校正する計器','指示値を記録')+txt(400,220,'参照値 100.0 V ／ 指示値 100.5 V → 誤差 +0.5 V')],
+insulation:['絶縁抵抗計は、自分で試験電圧を出す','<p>既知の高抵抗を測らせて指示を比較します。出力電圧や測定電流の確認は別の校正項目です。高抵抗標準は、電圧・電力・漏れへの適合が必要です。</p>',chain('絶縁抵抗計','適合する標準高抵抗','参照値と指示を比較')+txt(400,220,'一般の小型抵抗器を、そのまま高電圧へ接続しない')],
+panel:['二次入力の校正と、設備全体の検証を分ける','<p>盤面計器の指定入力を基準と比較する試験では、CT・VTの一次側まで含む総合誤差は確認できません。隔離方法は設備の回路図と承認済み手順で決めます。</p>',chain('適合する標準入力','盤面計器','表示・倍率を確認')+txt(400,220,'この比較の範囲に CT・VT 一次側は含まない')]
+}};
+document.querySelectorAll('[data-picker]').forEach(p=>{const group=data[p.dataset.picker];const show=b=>{const d=group[b.dataset.key];p.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.getElementById('guide-diagram').innerHTML=wrap(d[2]);document.getElementById('guide-explanation').innerHTML='<h3>'+d[0]+'</h3>'+d[1]};p.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>show(b)));show(p.querySelector('button'))});
+const result=document.getElementById('cal-result');if(result){const inputs=['cal-ref','cal-reading','cal-fs','cal-unit'].map(id=>document.getElementById(id));const signed=n=>(n>0?'+':'')+Number(n.toPrecision(8));const update=()=>{const raw=inputs.slice(0,3).map(x=>x.value.trim()),[ref,reading,fs]=raw.map(Number);if(raw.some(x=>x==='')||![ref,reading,fs].every(Number.isFinite)||fs<=0){result.textContent='参照値・指示値を入力し、フルスケールには0より大きい値を指定してください。';return}const unit=['V','A','Ω','MΩ'].includes(inputs[3].value)?inputs[3].value:'V',e=reading-ref;result.textContent=`誤差：${signed(e)} ${unit} ／ 補正値：${signed(-e)} ${unit} ／ 参照値に対する誤差：${ref===0?'参照値が0のため計算しません':signed(e/ref*100)+'%'} ／ フルスケールに対する誤差：${signed(e/fs*100)}%f.s.。この結果だけで合否は判定しません。`};inputs.forEach(x=>x.addEventListener('input',update));update()}
+let printState=[];window.addEventListener('beforeprint',()=>{printState=[...document.querySelectorAll('details')].map(d=>[d,d.open]);printState.forEach(([d])=>d.open=true)});window.addEventListener('afterprint',()=>printState.forEach(([d,o])=>d.open=o));document.querySelectorAll('.print-button').forEach(b=>b.addEventListener('click',()=>window.print()));
+})();
