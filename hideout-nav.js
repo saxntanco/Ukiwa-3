@@ -1,0 +1,13 @@
+(()=>{'use strict';
+const base=new URL('.',document.currentScript.src);
+const style=document.createElement('style');style.textContent=`
+.hideout-navigation{margin:0;position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px max(16px,3vw);min-height:48px;background:#101f32;color:#eff8ff;border-bottom:1px solid #466079;font:14px/1.5 system-ui,sans-serif;box-sizing:border-box}
+.hideout-navigation a{color:#eff8ff;text-decoration:none;padding:5px 3px}.hideout-navigation>a{font-weight:700}.hideout-navigation details{position:relative}.hideout-navigation summary{cursor:pointer;padding:5px 10px;border:1px solid #6c8ca7;border-radius:8px;list-style:none}.hideout-navigation summary:after{content:' ▾'}.hideout-navigation .hideout-links{position:absolute;right:0;top:100%;width:240px;display:grid;background:#142940;border:1px solid #6c8ca7;padding:10px;border-radius:12px;box-shadow:0 10px 24px #0005}.hideout-links a{padding:12px;border-radius:7px}.hideout-links a:hover,.hideout-links a[aria-current=page]{background:#28465e}.hideout-navigation a:focus-visible,.hideout-navigation summary:focus-visible{outline:3px solid #f7d38a;outline-offset:2px}body.has-hideout-nav .sitebar{display:none}@media(min-width:1000px){body.has-hideout-nav.studying .exercise{height:calc(100dvh - 335px)}}@media(max-width:480px){.hideout-navigation{font-size:13px;gap:6px}.hideout-navigation .hideout-links{width:220px}}
+`;document.head.append(style);
+const nav=document.createElement('nav');nav.className='hideout-navigation';nav.setAttribute('aria-label','うきわの隠れ家メニュー');
+const back=document.createElement('a');back.href=new URL('hidden-menu.html',base);back.textContent='← うきわの隠れ家';nav.append(back);
+const details=document.createElement('details'),summary=document.createElement('summary'),links=document.createElement('div');summary.textContent='移動メニュー';links.className='hideout-links';
+for(const [path,label] of [['hidden-menu.html','うきわの隠れ家'],['denken-study.html','電験二種 学習室'],['circuit-duel/','電界決闘'],['island-game.html','幻想の島の図鑑'],['index.html','うきわメモ トップ']]){const a=document.createElement('a');a.href=new URL(path,base);a.textContent=label;if(new URL(a.href).pathname===location.pathname)a.setAttribute('aria-current','page');links.append(a)}
+details.append(summary,links);nav.append(details);document.body.prepend(nav);document.body.classList.add('has-hideout-nav');
+document.addEventListener('click',e=>{if(!nav.contains(e.target))details.open=false});nav.addEventListener('keydown',e=>{if(e.key==='Escape'){details.open=false;summary.focus()}});
+})();
