@@ -5,7 +5,7 @@ const fields={
  thermal:{label:'熱分野',title:'熱を、理解する。',index:'energy-study-index.json',key:'ukiwa-energy-progress-v1',book:'2026年版 エネルギー管理士 熱分野',subjects:['総合管理・法規','熱・流体の基礎','燃料・燃焼','熱利用設備']},
  electric:{label:'電気分野',title:'電気を、理解する。',index:'energy-electric-index.json',key:'ukiwa-energy-electric-progress-v1',book:'2025年版 エネルギー管理士 電気分野',subjects:['総合管理・法規','電気の基礎','電気設備及び機器','電力応用']}
 };
-let field='thermal',KEY=fields.thermal.key,switching=false;
+let field='thermal',KEY=fields.thermal.key,switching=false,started=false,startPending=false;
 let index, pdf, current, filtered=[], qpos=0, apos=0, mode='learn', revealed=true, attempted=false, token=0, db, importing=false;
 let records={},last='', readerTab='answer', columns=false, draftEdited=false;
 const viewPositions={q:{x:0,y:0},a:{x:0,y:0}};
@@ -32,14 +32,14 @@ async function loadPDF(blob,save=false){
   let saved=!save;
   if(save){try{db=db||await openDB();await putBook(blob);saved=true;navigator.storage?.persist?.().catch(()=>{});}catch{notice('教材は表示できますが、端末に保存できませんでした。次回は再選択してください。');}}
   $('load-state').textContent=saved?'教材を保存しました。次回は自動で開きます。':'この回だけ教材を開いています。';
-  $('library').hidden=true;document.body.classList.add('ready');applyFilters(last);
+  $('library').hidden=true;applyFilters(last);if(startPending)beginStudy();
  }catch(e){$('load-state').textContent=e.message;$('library').hidden=false;}
- finally{importing=false;$('file').disabled=switching;$('field').disabled=switching;$('file').value='';}
+ finally{importing=false;$('file').disabled=switching;$('field').disabled=switching;$('file').value='';updateStart();}
 }
 function matches(x){const r=records[x.id]||{};return (! $('year').value||x.year===+$('year').value)&&(!$('subject').value||x.subject===+$('subject').value)&&({all:true,new:!r.read&&!r.attempted,read:r.read&&!r.attempted,retry:r.retry,saved:r.saved}[$('filter').value]);}
 function applyFilters(wanted){
  filtered=index.items.filter(matches);$('question').replaceChildren(...filtered.map(x=>new Option(`${$('year').value?'':x.year+'年度 · '}問${x.number} ${x.title}${x.optional?'［選択］':''}`,x.id)));
- $('empty').hidden=filtered.length>0;$('workspace').hidden=!pdf||!filtered.length;
+ $('empty').hidden=filtered.length>0;$('workspace').hidden=!started||!pdf||!filtered.length;
  if(!filtered.length){token++;current=null;return;}
  const next=filtered.find(x=>x.id===wanted)||filtered[0];$('question').value=next.id;selectQuestion(next);
 }
@@ -66,7 +66,7 @@ async function paint(side,serial){
  if(serial!==token)return;view.replaceChildren(canvas);view.scrollTop=pos.y*canvas.clientHeight;view.scrollLeft=pos.x*canvas.clientWidth;
 }
 function render(){
- if(!pdf||!current)return;const serial=++token;
+ if(!started||!pdf||!current)return;const serial=++token;
  for(const [s,list,pos] of [['q',current.question,qpos],['a',answerSegments(),apos]]){$(s+'page').textContent=`${pos+1} / ${list.length}`;$(s+'prev').disabled=pos===0;$(s+'next').disabled=pos===list.length-1;}
  $('aview').hidden=!revealed;$('answer-cover').hidden=revealed;
  $('aprev').disabled=!revealed||apos===0;$('anext').disabled=!revealed||apos===answerSegments().length-1;
@@ -78,7 +78,7 @@ function setMode(m){mode=m;revealed=m==='learn';attempted=false;draftEdited=fals
 function answerSegments(){return current.answer.flatMap(seg=>{if(!columns||seg.rect[2]-seg.rect[0]<.6)return [seg];const [x,y,r,b]=seg.rect,mid=(x+r)/2;return [{...seg,rect:[x,y,mid,b]},{...seg,rect:[mid,y,r,b]}];});}
 function setLayout(layout){$('desk').dataset.layout=layout;document.querySelectorAll('[data-layout]').forEach(b=>{if(b.tagName==='BUTTON')b.setAttribute('aria-pressed',b.dataset.layout===layout);});render();}
 function setTab(tab){readerTab=tab;for(const name of ['answer','note','basics']){$(name+'-panel').hidden=name!==tab;$('tab-'+name).setAttribute('aria-selected',name===tab);$('tab-'+name).tabIndex=name===tab?0:-1;}render();}
-function filters(open){$('filters-panel').hidden=!open;$('filters-toggle').setAttribute('aria-expanded',open);}
+function filters(open){if(!started)open=true;$('filters-panel').hidden=!open;$('filters-toggle').setAttribute('aria-expanded',open);}
 $('filters-toggle').onclick=()=>filters($('filters-panel').hidden);$('filters-close').onclick=()=>filters(false);
 document.querySelectorAll('button[data-layout]').forEach(b=>b.onclick=()=>setLayout(b.dataset.layout));
 for(const [i,name] of ['answer','note','basics'].entries()){$('tab-'+name).onclick=()=>setTab(name);$('tab-'+name).onkeydown=e=>{const names=['answer','note','basics'];let j;if(e.key==='ArrowRight')j=(i+1)%3;else if(e.key==='ArrowLeft')j=(i+2)%3;else if(e.key==='Home')j=0;else if(e.key==='End')j=2;else return;e.preventDefault();setTab(names[j]);$('tab-'+names[j]).focus();};}
@@ -119,13 +119,13 @@ $('settings').onclick=()=>{$('storage').open=!$('storage').open;$('settings').se
 $('close-library').onclick=()=>{if(pdf)$('library').hidden=true;};
 $('change-book').onclick=()=>{$('library').hidden=false;$('library').scrollIntoView({behavior:'smooth'});};
 $('file').onchange=()=>{if($('file').files[0])loadPDF($('file').files[0],true);};
-$('remove-book').onclick=async()=>{if(importing||switching)return;if(!confirm(`${fields[field].label}の保存教材PDFを削除しますか？他分野の教材と学習記録は残ります。`))return;try{if(db){await new Promise((res,rej)=>{const t=db.transaction('books','readwrite');t.objectStore('books').delete(field);t.oncomplete=res;t.onerror=()=>rej(t.error);});}token++;if(pdf)await pdf.destroy();pdf=null;document.body.classList.remove('ready');$('workspace').hidden=true;$('library').hidden=false;$('load-state').textContent='保存教材を削除しました。記録は残っています。';}catch{notice('教材の削除に失敗しました。');}};
+$('remove-book').onclick=async()=>{if(importing||switching)return;if(!confirm(`${fields[field].label}の保存教材PDFを削除しますか？他分野の教材と学習記録は残ります。`))return;try{if(db){await new Promise((res,rej)=>{const t=db.transaction('books','readwrite');t.objectStore('books').delete(field);t.oncomplete=res;t.onerror=()=>rej(t.error);});}token++;if(pdf)await pdf.destroy();pdf=null;started=false;startPending=false;document.body.classList.remove('ready');filters(true);updateStart();$('workspace').hidden=true;$('library').hidden=false;$('load-state').textContent='保存教材を削除しました。記録は残っています。';}catch{notice('教材の削除に失敗しました。');}};
 $('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:1,book:index.book.id,records,last},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ukiwa-energy-${field}-progress.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 $('import').onchange=async()=>{try{const f=$('import').files[0];if(!f)return;if(f.size>5e6)throw Error('記録ファイルが大きすぎます。');const d=JSON.parse(await f.text());if(d.version!==1||d.book!==index.book.id||!d.records||typeof d.records!=='object')throw Error('この学習室の記録ファイルではありません。');for(const x of index.items){const r=d.records[x.id];if(r&&typeof r==='object'){const clean={};for(const k of ['read','correct','retry','saved','attempted'])clean[k]=r[k]===true;clean.draft=typeof r.draft==='string'?r.draft.slice(0,50000):'';records[x.id]=clean;}}last=index.items.some(x=>x.id===d.last)?d.last:last;persist();applyFilters(current?.id);notice('記録を読み込みました。');}catch(e){notice(e.message);}finally{$('import').value='';}};
 let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(render,200);});
 async function switchField(next){
  if(switching||importing||!fields[next])return;
- switching=true;$('field').disabled=true;$('file').disabled=true;notice('');
+ switching=true;$('start').disabled=true;$('field').disabled=true;$('file').disabled=true;notice('');
  try{
   const response=await fetch('./'+fields[next].index);if(!response.ok)throw Error('索引を読み込めません。');const nextIndex=await response.json();
   token++;const old=pdf;pdf=null;current=null;$('workspace').hidden=true;if(old)await old.destroy();
@@ -144,8 +144,24 @@ async function switchField(next){
   $('load-state').textContent=`${config.label}の教材を選ぶと、${index.items.length}問すべてを問題別に学習できます。`;
   try{db=db||await openDB();const book=await getBook();if(book)await loadPDF(book);}catch{notice('教材の保存機能を利用できません。PDFを選択して、この回だけ学習できます。');}
  }catch(e){notice('学習室の準備に失敗しました。'+e.message);$('field').value=field;}
- finally{switching=false;$('field').disabled=false;$('file').disabled=false;}
+ finally{switching=false;$('field').disabled=false;$('file').disabled=false;updateStart();if(started&&pdf)beginStudy();}
 }
+function updateStart(){
+ $('start').disabled=switching||importing||!index;
+ $('start').textContent=switching||importing?'教材を確認しています…':'学習をはじめる';
+ $('start-status').textContent=pdf?'教材は登録済みです。開始すると問題と解説を左右に表示します。':'初回は、この端末で教材PDFの登録が必要です。登録済みなら次回からボタン一つで開始できます。';
+}
+function beginStudy(){
+ if(!pdf||!current)return;
+ started=true;startPending=false;document.body.classList.add('ready');$('library').hidden=true;filters(false);$('storage').open=false;
+ $('workspace').hidden=false;setLayout('split');setTab('answer');setMode('learn');
+ $('lesson-title').setAttribute('tabindex','-1');$('lesson-title').focus({preventScroll:true});
+}
+$('start').onclick=()=>{
+ if(!filtered.length){$('start-status').textContent='条件に合う問題がありません。絞り込みを変更してください。';return;}
+ if(pdf){beginStudy();return;}
+ startPending=true;$('library').hidden=false;$('load-state').textContent='この端末に教材が未登録です。PDFを選ぶと、そのまま左右の学習画面が開きます。';$('file').click();
+};
 $('field').onchange=()=>switchField($('field').value);
 let initialField='thermal';try{initialField=localStorage.getItem('ukiwa-energy-field')||'thermal';}catch{}
 const requestedField=new URL(location.href).searchParams.get('field');
