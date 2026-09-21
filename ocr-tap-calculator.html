@@ -27,7 +27,7 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
 <main>
 <section class="panel ocr-start" id="ocr-start" aria-labelledby="ocr-start-title">
 <small>OCR SETTING GUIDE / まずここだけ</small><h1 id="ocr-start-title">OCRの整定、まずはこの順番。</h1>
-<p class="start-lead">決めるのは<strong>「何Aから」「大きな電流なら」「どれくらい待つか」</strong>。<br>最初から下の項目を全部埋める必要はありません。</p>
+<aside id="demoBanner" class="start-premise" role="status"><strong>学習用の仮入力で表示中</strong><p>6.6kV・契約200kW・CT50/5Aの架空設備です。限時3A、瞬時30A、確認するダイヤル2を見本の初期値にしています。下位の時間・事故電流なども説明用の仮定で、実設備の推奨値ではありません。</p><p><a href="?blank=1#commonPanel">仮入力を消して、空欄から始める</a> ／ <a href="?demo=1#summaryBar">見本の数値・結果へ</a></p><details><summary>この見本の結果を、順に読む</summary><p>① 限時：契約200kWからのK2OC簡便式では、200÷(√3×6.6)×5÷50×1.5 ≈ 2.62A。設定目盛では3Aが候補です。これは力率項のないメーカー簡便式で、別に力率0.90による負荷電流との照合も行います。</p><p>② 瞬時：避けたい電流を一次200A、拾いたい最小事故電流を一次500Aと仮定。見本の30Aは一次300A相当。±7％だけを含む参考比較でも279～321Aなので、200Aより大きく500Aより小さい範囲です。突入の継続時間や時間協調まで確認した結果ではありません。</p><p>③ ダイヤル：一次90Aは二次9A＝限時3Aの300％。EI・D2の公称時間は2秒です。この点で下位の全遮断0.5秒＋余裕0.2秒＝0.7秒より遅く、自OCR2秒＋VCB0.06秒＝2.06秒は、仮の遮断完了上限3秒−余裕0.2秒＝2.8秒以内です。1点で関係を学ぶ例であり、曲線全体の協調成立ではありません。</p></details></aside><p class="start-lead">決めるのは<strong>「何Aから」「大きな電流なら」「どれくらい待つか」</strong>。<br>最初から下の項目を全部埋める必要はありません。</p>
 <div class="start-premise"><strong>点検で動作を確認したいだけ？</strong> その場合は承認済み整定表と現状を照合し、その値で試験します。試験のために新しい整定値を決め直すこととは別です。</div>
 <ol class="start-cards">
 <li><span class="start-number">1</span><h2>限時タップ</h2><p class="start-key">普段の電流で、切れないように。</p><p>負荷の電流をCT比でリレー側の電流へ換算し、負荷変動や動作値の誤差を考えて候補を選びます。大きすぎると必要な過電流を拾いにくくなります。</p><p><b>先に見るもの</b><br>実際のCT比・負荷電流・実機の設定目盛</p><a href="#tapPanel">限時タップの入力へ →</a></li>
@@ -40,12 +40,7 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
 <p>上位は電源寄り、下位は負荷寄りです。矢印は電源から負荷への関係で、実際の端子結線図ではありません。CTが電流を取り出し、OCRが判断し、VCBが主回路を切ります。</p>
 <p>例えば下位のブレーカーで切れる事故なら、まずそこだけを切りたい。受電VCBまで同時に切れると、関係のない負荷も停電します。この順番を電流と時間で合わせるのが<strong>保護協調</strong>です。ただし、受電OCRが直接保護する範囲の事故まで待たせる、という意味ではありません。</p>
 </div></details>
-<details><summary>数字で理解：CT 100/5A・限時3A・ダイヤル10だと？</summary><div class="start-detail">
-<p><strong>以下は換算を理解する例。推奨整定ではありません。</strong></p>
-<ol><li>CTが100/5Aなら、一次40Aはリレー側では40×5÷100＝<b>2A</b>。</li><li>限時タップ3Aの一次換算は3×100÷5＝<b>60A</b>。これは整定の基準で、実機が必ずちょうど60Aで動作する保証ではありません。40Aより大きいというだけで採用は決めません。</li><li>一次180Aなら二次9A。3Aタップに対して9÷3＝<b>3倍＝300％</b>です。</li><li>例としてK2OCのEI（超反限時）・ダイヤル10なら、300％で公称<b>10秒</b>、700％では約<b>1.67秒</b>。<strong>同じダイヤルでも、流れる電流と特性で時間が変わります。</strong>瞬時要素が先に動けば、この限時時間までは待ちません。</li></ol>
-<p>ダイヤルは秒数そのものではありません。またOCRの動作時間に、VCBが実際に遮断するまでの時間が加わります。試験時の許容範囲は、機種と試験条件を指定したメーカー表で別に確認します。</p>
-<a href="https://www.fa.omron.co.jp/data_pdf/cat/k2oc_ds_j_2_4.pdf?id=3660#page=7" target="_blank" rel="noopener">出典：オムロン K2OC・時間特性（p.7）、試験条件（p.21）</a>
-</div></details>
+
 <details><summary>分からない項目は、どこで調べればいい？</summary><div class="start-detail"><dl>
 <dt>CT比・OCR型式・今の整定</dt><dd>単線結線図、銘板、承認済み整定表を照合。CT比を推測すると、一次と二次の換算から間違います。</dd>
 <dt>普段の負荷電流</dt><dd>需要・電流の記録や設計資料。契約電力からの簡便式は、その式の対象と条件を確認して使います。</dd>
@@ -69,7 +64,7 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
  
  
  
-<div class="actions"><button type="button" id="exampleButton" class="secondary">学習例を入力：200kW・CT50/5A</button><span id="exampleNotice" role="status"></span></div></section>
+<div class="actions"><button type="button" id="exampleButton" class="secondary">学習用の見本を入れ直す（現在の入力を置換）</button><span id="exampleNotice" role="status"></span></div></section>
 
 <section class="panel" id="tapPanel">
  <div class="step"><div class="num">1</div><h2>限時タップ</h2></div>
@@ -167,8 +162,8 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
 
   
 
-  <div class="tabs two" id="dialModeTabs"><button class="active" data-d="select" type="button">D候補を探す</button><button data-d="existing" type="button">既設Dを確認</button></div>
-  <div id="existingBox" hidden=""><div class="field"><label for="existingD"><span>既設ダイヤル</span><span>D</span></label><select id="existingD"></select></div></div>
+  <div class="tabs two" id="dialModeTabs"><button class="active" data-d="select" type="button">D候補を探す</button><button data-d="existing" type="button">選んだDを確認</button></div>
+  <div id="existingBox" hidden=""><div class="field"><label for="existingD"><span>確認するダイヤル（既設・検討値）</span><span>D</span></label><select id="existingD"></select></div></div>
   <div class="result time"><span>ダイヤル判定</span><strong id="dialOut">未判定</strong><small id="dialOutSub">下位保護曲線の正式データが必要</small><p id="dialBounds"></p></div>
   <details id="dialEvidence"><summary>全目盛の時間・条件・除外理由</summary><div class="details-body"><div class="formula"><small>判定ロジック</small><b id="dialFormula">—</b><div id="dialTrace">—</div></div><div class="chips" id="dialChips"></div><div id="dialCandidateTable"></div><p><a href="#source-k2-time" data-source-jump="">特性式と定時間処理・根拠を開く</a></p></div></details><div id="dialStatus" class="statusList"></div>
   <div class="chart"><svg id="coordSvg" viewBox="0 0 760 430" aria-label="OCR保護協調グラフ"></svg><div class="legend"><span><i class="dot" style="background:var(--island-bg-d85148-100,#d85148)"></i>下位を先に動かす点</span><span><i class="dot" style="background:var(--island-bg-25845e-100,#25845e)"></i>OCR動作上限点</span><span><i class="dot" style="background:var(--island-bg-ffffff-100,#ffffff)"></i>OCR限時曲線</span><span><i class="dot" style="background:var(--island-bg-ffffff-100,#ffffff)"></i>瞬時境界</span></div></div><p class="note">入力した下位・上位点は点として表示し、点間を補間しません。青線は選択したK2OCの限時単体公称式です。瞬時関与の参考境界より先の実際の動作時間を表す線ではありません。</p>
@@ -438,8 +433,8 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
   let title=!good.length?status:hasL&&hasU?`${good.length}個の候補`:hasL?`下限 D${good[0].D}`:`上限 D${good.at(-1).D}`;
   if(reference&&good.length)title='参考 '+title;
   let desc=!any?'比較点を入力してください。':hasL&&hasU?'上下の入力点を比較。':hasL?'下位の条件のみ。上位・耐量の上限は未確認。':'上限の条件のみ。下位協調は未確認。';
-  let selected=null;if(dialMode==='existing'){selected=N('existingD');const e=evaluated.find(e=>e.D===selected);title=e?`既設 D${selected}`:'既設D未選択';desc=e?`既設値を保持：${!any?'比較点なし':e.ok?'入力点の公称不等式は条件内':e.status==='fail'?'入力点で不成立':e.status==='invalid'?'入力不正':'未確認条件あり'}。${dialStamp&&dialStamp!==fingerprint()?'条件変更後の再確認が必要。':''}`:'実機の既設Dを選択してください。';}
-  text('dialOut',title);text('dialOutSub',desc+' 公差・点間・曲線全域の協調は未評価。');text('sumD',title);text('sumDSub',dialMode==='existing'?'既設値の確認':status);text('sumDMeaning',desc);text('sumDPri',`使用：二次Tap ${c.tap} A／${c.curve}`);
+  let selected=null;if(dialMode==='existing'){selected=N('existingD');const e=evaluated.find(e=>e.D===selected);title=e?`確認 D${selected}`:'確認するDが未選択';desc=e?`選択値を確認：${!any?'比較点なし':e.ok?'入力点の公称不等式は条件内':e.status==='fail'?'入力点で不成立':e.status==='invalid'?'入力不正':'未確認条件あり'}。${dialStamp&&dialStamp!==fingerprint()?'条件変更後の再確認が必要。':''}`:'確認するDを選択してください。';}
+  text('dialOut',title);text('dialOutSub',desc+' 公差・点間・曲線全域の協調は未評価。');text('sumD',title);text('sumDSub',dialMode==='existing'?'選択したDの確認':status);text('sumDMeaning',desc);text('sumDPri',`使用：二次Tap ${c.tap} A／${c.curve}`);
   text('dialFormula','下位：tOCR ≥ 下位時間＋余裕 ／ 遮断上限：tOCR＋tVCB ≤ 上限時間－余裕');
   text('dialTrace',`${c.curve}、二次Tap ${c.tap} A、CT ${f(N('ctP'))}/${f(N('ctS'))} A。M＝一次電流÷CT比÷Tap。${good.length?'公称式の候補：'+good.map(e=>'D'+e.D).join(' / '):'候補の成立扱いはありません。'} 出典・時間の意味が未確認なら参考候補。`);
   html('dialChips',Ds.map(D=>tag('D'+D,good.some(e=>e.D===D)?'active':'')).join(''));
@@ -464,7 +459,7 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
   if(Number.isFinite(boundary)&&boundary>=xmin&&boundary<=xmax)g+=`<line x1="${lx(boundary)}" y1="${t}" x2="${lx(boundary)}" y2="${H-b}" stroke="#7655b7" stroke-dasharray="6 5"/><text x="${Math.min(lx(boundary)+5,W-170)}" y="${t+15}" font-size="12">瞬時関与の参考境界</text>`;
   g+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" font-size="13">一次電流 [A]／公称限時曲線 ${Dsel?'D'+Dsel:'D1・5・10'}</text><text x="15" y="200" transform="rotate(-90 15 200)" text-anchor="middle" font-size="13">時間 [s]</text>`;svg.innerHTML=g;
  }
- function renderRecord(){const items=[`うきわメモ OCR計算記録 v${OCR_DATA.version}`,`記録時刻：${new Date().toLocaleString('ja-JP')}`,`機種：${relay()==='k2oc'?$('#relayModel').value:'その他・特性未登録'}／周波数 ${$('#frequency').value} Hz`,`CT：${f(N('ctP'))}/${f(N('ctS'))} A`,`限時：${$('#sumTap').textContent}／${$('#sumTapSub').textContent}／${$('#sumTapPri').textContent}`,`候補根拠：${last.tap.basis}`,`瞬時：${$('#sumInst').textContent}／${$('#sumInstSub').textContent}／特性 ${$('#instCharacteristic').value}`,`D：${$('#sumD').textContent}／${$('#sumDSub').textContent}`,`協調余裕：${f(N('marginSec'),6)} s／VCB：${f(N('dialVcbSec'),6)} s`,`限時・瞬時の手動値再確認：${last.tap.changed||last.instant.changed?'条件変更後の再確認あり':'変更表示なし'}`,`確認範囲：${last.dial.scope||last.dial.reason}`,`未確認：実機の許容差・CT飽和・上下全枝の曲線・点間・突入と始動の継続時間。`,`出典確認日：${OCR_DATA.checked}`];items.splice(4,0,`負荷の入力：${JSON.stringify(loadInput())}`,`限時選択欄：${$('#selectedTap').value||'未選択'}／由来 ${originName[$('#tapOrigin').value]}`,`瞬時の電流条件：回避 ${f(N('avoidA'))} A／最小事故 ${f(N('pickupA'))} A（一次）`,`電流条件の根拠：${$('#avoidSource').value||'未確認'}／${$('#pickupSource').value||'未確認'}`,`余裕の根拠：${$('#marginSource').value||'未確認'}／VCB時間の根拠：${$('#vcbSource').value||'未確認'}`);items.push('主な根拠：K2OC CSM_K2OC_DS_J_2_4（2026年6月）pp.2–3、7–9、14、21–23','https://www.fa.omron.co.jp/data_pdf/cat/k2oc_ds_j_2_4.pdf?id=3660','JEEA 高圧自家用受電設備の保護について 2.2（4）／版・発行年月未確認','https://www.jeea.or.jp/course/contents/05204/');text('recordText',items.join('\n'));html('recordPoints',table(['種別','一次A','時間s','意味','資料'],[...lowerPts.map(p=>['下位',p.a,p.t,p.role,p.source||'未確認']),...upperPts.map(p=>['上限',p.a,p.t,p.role,p.source||'未確認'])].filter(p=>p[1]||p[2])));}
+ function renderRecord(){const items=[...(document.body.dataset.ocrDemo?['【学習用の仮入力（編集後も仮定を含む）。実設備の承認値ではありません】']:[]),`うきわメモ OCR計算記録 v${OCR_DATA.version}`,`記録時刻：${new Date().toLocaleString('ja-JP')}`,`機種：${relay()==='k2oc'?$('#relayModel').value:'その他・特性未登録'}／周波数 ${$('#frequency').value} Hz`,`CT：${f(N('ctP'))}/${f(N('ctS'))} A`,`限時：${$('#sumTap').textContent}／${$('#sumTapSub').textContent}／${$('#sumTapPri').textContent}`,`候補根拠：${last.tap.basis}`,`瞬時：${$('#sumInst').textContent}／${$('#sumInstSub').textContent}／特性 ${$('#instCharacteristic').value}`,`D：${$('#sumD').textContent}／${$('#sumDSub').textContent}`,`協調余裕：${f(N('marginSec'),6)} s／VCB：${f(N('dialVcbSec'),6)} s`,`限時・瞬時の手動値再確認：${last.tap.changed||last.instant.changed?'条件変更後の再確認あり':'変更表示なし'}`,`確認範囲：${last.dial.scope||last.dial.reason}`,`未確認：実機の許容差・CT飽和・上下全枝の曲線・点間・突入と始動の継続時間。`,`出典確認日：${OCR_DATA.checked}`];items.splice(4,0,`負荷の入力：${JSON.stringify(loadInput())}`,`限時選択欄：${$('#selectedTap').value||'未選択'}／由来 ${originName[$('#tapOrigin').value]}`,`瞬時の電流条件：回避 ${f(N('avoidA'))} A／最小事故 ${f(N('pickupA'))} A（一次）`,`電流条件の根拠：${$('#avoidSource').value||'未確認'}／${$('#pickupSource').value||'未確認'}`,`余裕の根拠：${$('#marginSource').value||'未確認'}／VCB時間の根拠：${$('#vcbSource').value||'未確認'}`);items.push('主な根拠：K2OC CSM_K2OC_DS_J_2_4（2026年6月）pp.2–3、7–9、14、21–23','https://www.fa.omron.co.jp/data_pdf/cat/k2oc_ds_j_2_4.pdf?id=3660','JEEA 高圧自家用受電設備の保護について 2.2（4）／版・発行年月未確認','https://www.jeea.or.jp/course/contents/05204/');text('recordText',items.join('\n'));html('recordPoints',table(['種別','一次A','時間s','意味','資料'],[...lowerPts.map(p=>['下位',p.a,p.t,p.role,p.source||'未確認']),...upperPts.map(p=>['上限',p.a,p.t,p.role,p.source||'未確認'])].filter(p=>p[1]||p[2])));}
  // Existing optional helpers are inserted by build.cjs here.
  function faultCalc(){return C.shortCircuit({mode:faultMode,kva:num('faultTrKva'),voltage:faultMode==='tr'?num('faultTrKv'):V(),z:num('faultZ'),phase:num('faultTrPhase'),mva:num('faultMva'),known:num('faultKnownA'),r:ctRatio()});}
  function renderFault(){const x=faultCalc();text('faultResult',x.status==='ready'?`${f(x.A,1)} A`:'—');text('faultSecResult',x.status==='ready'&&C.pos(x.sec)?`${f(x.sec,2)} A`:'—');text('faultCalcNote',x.message);}
@@ -505,7 +500,19 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
  $('#useThermal').onclick=()=>{const x=renderThermal();if(C.pos(x)&&helperTransferOK('thermalKv','thermalTransferNote')){const point=newPt(String(x),'2',`JEEA解説の25倍・2秒という仮定計算（${f(V())} kV側）。実機%Z・自己インピーダンス制限電流・短時間耐量は未確認。保証上限ではない`,'unknown');point.voltage=V();upperPts.push(point);renderPointRows('upper');$('#timeConditions').open=true;renderAll();}};
  $('#printButton').onclick=()=>{renderRecord();window.print();};
  $('#exportButton').onclick=()=>{const data={tool:'うきわメモ OCR',version:OCR_DATA.version,created:new Date().toISOString(),equipment:{relay:relay(),model:$('#relayModel').value,frequency:$('#frequency').value},record:$('#recordText').textContent,results:last,pointInputs:{lower:lowerPts,upper:upperPts},formValues:Object.fromEntries($$('input[id],select[id],textarea[id]').map(el=>[el.id,el.value])),inputSources:{avoid:$('#avoidSource').value,pickup:$('#pickupSource').value,margin:$('#marginSource').value,vcb:$('#vcbSource').value},sources:OCR_DATA.sources,limits:'実設備の整定承認・操作指示ではありません。'};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ukiwa-ocr-record.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
- $('#exampleButton').onclick=()=>{$('#relay').value='k2oc';enforceRelay();$('#ctP').value='50';$('#ctS').value='5';$('#voltage').value='6.6';$('#kw').value='200';$('#pf').value='.90';$('#tapOrigin').value='auto';$('#tapBasis').value='default';setTapMode('contract');$('#commonFields').open=true;$('#loadFields').open=true;text('exampleNotice','学習例：6.6kV・契約200kW・力率0.90・CT50/5A。実設備の値ではありません。');};
+ function loadDemo(){
+ document.body.dataset.ocrDemo='true';$('#demoBanner').hidden=false;
+ const values={relay:'k2oc',ctP:'50',ctS:'5',voltage:'6.6',kw:'200',pf:'.90',tapOrigin:'auto',tapBasis:'default',instOrigin:'manual',instCharacteristic:'2stage',instTolerance:'spec',avoidA:'200',pickupA:'500',avoidSource:'学習用の仮定：200A（継続時間未評価）',pickupSource:'学習用の仮定：500A（短絡計算書ではない）',curve:'EI',marginSec:'.2',marginSource:'学習用の仮定：0.2秒',dialVcbSec:'.06',vcbSource:'学習用の仮定：0.06秒',downType:'other',downMemo:'架空の下位保護装置'};
+ for(const [id,value] of Object.entries(values))$('#'+id).value=value;
+ enforceRelay();setTapMode('contract');$('#selectedInst').value='30';
+ lowerPts=[newPt('90','.5','学習用の仮定：下位の最大全遮断時間','clearing')];upperPts=[newPt('90','3','学習用の仮定：遮断完了の上限','total')];
+ renderPointRows('lower');renderPointRows('upper');dialMode='existing';$('#existingD').value='2';$('#existingBox').hidden=false;
+ $$('#dialModeTabs button').forEach(b=>b.classList.toggle('active',b.dataset.d==='existing'));
+ tapStamp=fingerprint();instStamp=fingerprint();dialStamp=fingerprint();
+ text('exampleNotice','学習用の架空設備です。入力を変更しても、残っている仮の条件は実設備の値にはなりません。');renderAll();
+ }
+ $('#exampleButton').onclick=()=>{location.href='?demo=1#summaryBar';};
+
  fillSelect('existingD',C.K2OC.dials,'');renderTrs();renderPointRows('lower');renderPointRows('upper');enforceRelay();renderAll();
 })();
 </script><script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-source-jump]');if(a){var target=document.querySelector(a.getAttribute('href'));if(target)target.open=true;}});document.getElementById('downType').addEventListener('change',function(){document.getElementById('pfOnly').hidden=!['pf','pcfuse'].includes(this.value);});</script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
