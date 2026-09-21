@@ -17,3 +17,4 @@ body.ready{height:100dvh;overflow:hidden;display:flex;flex-direction:column}.rea
 body:not(.ready) #filters-panel{position:static;box-shadow:none;margin:0;display:flex!important}body:not(.ready) #filters-close,body:not(.ready) #resume,body:not(.ready) .study-toolbar{display:none}
 .ready #launch,.ready #start-actions{display:none}
 @media(max-width:600px){.launch h2{font-size:20px}#start{width:100%}#start-actions{padding:14px 0}.hero{padding-bottom:8px}}
+.open-public-link{display:inline-block;padding:12px 16px;border-radius:9px;text-decoration:none}.open-public-note{font-size:13px;color:#506b70}
