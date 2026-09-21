@@ -96,3 +96,10 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 
 #paper[data-zoom="fit"] .blank-hotspot{display:none}
 #desk{scroll-margin-top:60px}
+
+/* A quick answer gives the result and one thought, not the entire derivation. */
+.quick-answer{max-height:min(410px,58dvh);padding:14px 16px}
+.quick-answer-body{line-height:1.7}
+.quick-answer-body .quick-answer-result{font-weight:700;color:#104f56;background:#eaf5f0;border-radius:8px;padding:10px 12px;margin:0 0 10px;line-height:1.65}
+.quick-answer-reason{line-height:1.75}
+.quick-detail{background:#edf5f4;border-color:#a2c0ba;min-height:44px}

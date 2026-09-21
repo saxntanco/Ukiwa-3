@@ -43,8 +43,10 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail}){
   const title=document.createElement('strong');title.textContent=`(${slot+1}) 正答 ${spec[slot].correct}${spec.length===10?' ／ 単位 '+spec[slot+5].correct:''}`;
   const dismiss=document.createElement('button');dismiss.type='button';dismiss.textContent='閉じる ×';dismiss.onclick=()=>close(true);head.append(title,dismiss);popover.append(head);
   const body=document.createElement('div');body.className='quick-answer-body';
-  const description=document.createElement('p');description.textContent=lesson?.steps?.[slot]||'この問題の詳しい独自解説は未収録です。正答記号は公式正答表によるものです。';body.append(description);popover.append(body);
-  if(lesson?.steps?.[slot]){const detail=document.createElement('button');detail.type='button';detail.className='quick-detail';detail.textContent='解説パネルで詳しく読む';detail.onclick=()=>{close();onDetail(slot)};popover.append(detail)}
+  const brief=window.UkiwaStudyQuickNotes.brief(q,lesson,slot);
+  if(brief?.answer){const result=document.createElement('p');result.className='quick-answer-result';result.textContent=brief.answer;body.append(result)}
+  const description=document.createElement('p');description.className='quick-answer-reason';description.textContent=brief?.reason||'詳しい解説は未収録です。正答記号は公式正答表で確認できます。';body.append(description);popover.append(body);
+  if(lesson?.steps?.[slot]){const detail=document.createElement('button');detail.type='button';detail.className='quick-detail';detail.textContent='途中式・理由を詳しく';detail.onclick=()=>{close();onDetail(slot)};popover.append(detail)}
   const note=document.createElement('small');note.textContent='答えを見た回として記録します。';popover.append(note);document.body.append(popover);
   const rect=button.getBoundingClientRect(),w=Math.min(440,window.innerWidth-24);
   popover.style.width=w+'px';popover.style.left=Math.max(12,Math.min(window.innerWidth-w-12,rect.left))+'px';
