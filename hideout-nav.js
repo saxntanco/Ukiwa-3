@@ -7,7 +7,7 @@ const style=document.createElement('style');style.textContent=`
 const nav=document.createElement('nav');nav.className='hideout-navigation';nav.setAttribute('aria-label','うきわの隠れ家メニュー');
 const back=document.createElement('a');back.href=new URL('hidden-menu.html',base);back.textContent='← うきわの隠れ家';nav.append(back);
 const details=document.createElement('details'),summary=document.createElement('summary'),links=document.createElement('div');summary.textContent='移動メニュー';links.className='hideout-links';
-for(const [path,label] of [['hidden-menu.html','うきわの隠れ家'],['denken-study.html','電験二種 学習室'],['circuit-duel/','電界決闘'],['island-game.html','幻想の島の図鑑'],['index.html','うきわメモ トップ']]){const a=document.createElement('a');a.href=new URL(path,base);a.textContent=label;if(new URL(a.href).pathname===location.pathname)a.setAttribute('aria-current','page');links.append(a)}
+for(const [path,label] of [['hidden-menu.html','うきわの隠れ家'],['denken-study.html','電験二種 学習室'],['energy-study.html','エネルギー管理士 学習室'],['circuit-duel/','電界決闘'],['island-game.html','幻想の島の図鑑'],['index.html','うきわメモ トップ']]){const a=document.createElement('a');a.href=new URL(path,base);a.textContent=label;if(new URL(a.href).pathname===location.pathname)a.setAttribute('aria-current','page');links.append(a)}
 details.append(summary,links);nav.append(details);document.body.prepend(nav);document.body.classList.add('has-hideout-nav');
 document.addEventListener('click',e=>{if(!nav.contains(e.target))details.open=false});nav.addEventListener('keydown',e=>{if(e.key==='Escape'){details.open=false;summary.focus()}});
 })();
