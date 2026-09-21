@@ -514,6 +514,7 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
  $('#exampleButton').onclick=()=>{location.href='?demo=1#summaryBar';};
 
  fillSelect('existingD',C.K2OC.dials,'');renderTrs();renderPointRows('lower');renderPointRows('upper');enforceRelay();renderAll();
+ if(new URLSearchParams(location.search).get('blank')==='1'){$('#demoBanner').hidden=true;}else loadDemo();
 })();
 </script><script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-source-jump]');if(a){var target=document.querySelector(a.getAttribute('href'));if(target)target.open=true;}});document.getElementById('downType').addEventListener('change',function(){document.getElementById('pfOnly').hidden=!['pf','pcfuse'].includes(this.value);});</script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
 </body></html>
