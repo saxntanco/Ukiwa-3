@@ -4,7 +4,7 @@ const storageKey='ukiwa-study-reader-v1';
 let preferences={zoom:'width',text:18,paper:'warm'};
 try{Object.assign(preferences,JSON.parse(localStorage.getItem(storageKey)||'{}'))}catch{}
 let hotspotRequest;
-const loadHotspots=()=>hotspotRequest||(hotspotRequest=fetch('denken-assets/blank-hotspots.json?v=1').then(r=>{if(!r.ok)throw Error('hotspots');return r.json()}).catch(()=>({})));
+const loadHotspots=()=>hotspotRequest||(hotspotRequest=fetch('denken-assets/blank-hotspots.json?v=2').then(r=>{if(!r.ok)throw Error('hotspots');return r.json()}).catch(()=>({})));
 const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify(preferences))}catch{}};
 window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail}){
  let disposed=false,spots=[],popover=null,anchor=null,drag=null;
