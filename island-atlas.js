@@ -6,7 +6,22 @@ const themes=['昼の島','夕焼けの島','月夜の島'];let filter='all',cur
 const $=id=>document.getElementById(id),items=titles.map((title,i)=>({i,title,story:stories[i],theme:themes[themeIndex(i)],src:`assets/atlas/scene-${String(i+1).padStart(2,'0')}.webp`}));
 const visible=()=>items.filter(x=>filter==='all'||filter==='favorites'&&favorites.has(x.i)||filter==='new'&&x.i>=18||String(themeIndex(x.i))===filter);
 function render(){const list=visible();$('grid').replaceChildren(...list.map(x=>{const b=document.createElement('button');b.className='art';b.setAttribute('aria-label',x.title+'を拡大');const im=document.createElement('img');im.src=x.src;im.alt=x.title;im.loading='lazy';im.width=1536;im.height=1024;b.append(im);const meta=document.createElement('div');meta.className='meta';meta.textContent=`NO. ${String(x.i+1).padStart(2,'0')}　 /　 ${x.theme}`;const h=document.createElement('h2');h.textContent=x.title;const p=document.createElement('p');p.textContent=x.story.split('。')[0]+'。';b.append(meta,h,p);b.onclick=()=>open(x.i);return b}));$('empty').hidden=list.length>0;$('random').disabled=list.length===0;$('result').textContent=`${list.length} 作品`;document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===filter)))}
-function show(){const x=items[current];$('full').src=x.src;$('full').alt=x.title;$('title').textContent=x.title;$('story').textContent=x.story;$('place').textContent=`NO. ${String(current+1).padStart(2,'0')} / ${x.theme}`;$('favorite').textContent=favorites.has(current)?'♥ 保存済み':'♡ お気に入り';$('favorite').setAttribute('aria-pressed',String(favorites.has(current)));const ids=visible().map(x=>x.i);$('prev').disabled=ids.indexOf(current)<=0;$('next').disabled=ids.indexOf(current)<0||ids.indexOf(current)>=ids.length-1}
-function open(i){current=i;show();$('viewer').showModal()}function step(delta){const ids=visible().map(x=>x.i),n=ids.indexOf(current)+delta;if(n>=0&&n<ids.length){current=ids[n];show()}}
+let taleCurrent=-1;
+function renderTale(){
+ if(taleCurrent===current)return;taleCurrent=current;
+ const tale=window.UkiwaAtlasTales?.[String(current+1)];
+ $('tale').open=false;$('tale').hidden=!tale;$('to-tale').hidden=!tale;
+ $('viewer').scrollTop=0;
+ if(!tale)return;
+ $('tale-summary').textContent=`この島の物語を読む · 約${tale.minutes}分`;
+ $('tale-title').textContent=tale.title;
+ $('tale-meta').textContent=`${tale.genre} ／ 読む目安 約${tale.minutes}分`;
+ $('tale-body').replaceChildren(...tale.paragraphs.map(text=>{const p=document.createElement('p');p.textContent=text;return p}));
+}
+function show(){const x=items[current];renderTale();$('full').src=x.src;$('full').alt=x.title;$('title').textContent=x.title;$('story').textContent=x.story;$('place').textContent=`NO. ${String(current+1).padStart(2,'0')} / ${x.theme}`;$('favorite').textContent=favorites.has(current)?'♥ 保存済み':'♡ お気に入り';$('favorite').setAttribute('aria-pressed',String(favorites.has(current)));const ids=visible().map(x=>x.i);$('prev').disabled=ids.indexOf(current)<=0;$('next').disabled=ids.indexOf(current)<0||ids.indexOf(current)>=ids.length-1}
+function open(i){taleCurrent=-1;current=i;show();$('viewer').showModal()}function step(delta){const ids=visible().map(x=>x.i),n=ids.indexOf(current)+delta;if(n>=0&&n<ids.length){current=ids[n];show()}}
+const artBack=()=>{$('viewer').scrollTo({top:0,behavior:'instant'});$('to-tale').focus({preventScroll:true})};
+$('back-to-art').onclick=artBack;$('tale-back').onclick=artBack;
+$('to-tale').onclick=()=>{$('tale').open=true;$('tale').scrollIntoView({block:'start',behavior:'instant'});$('tale-summary').focus({preventScroll:true})};
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;render()});$('random').onclick=()=>{const list=visible();if(list.length)open(list[Math.floor(Math.random()*list.length)].i)};$('close').onclick=()=>$('viewer').close();$('prev').onclick=()=>step(-1);$('next').onclick=()=>step(1);$('viewer').addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}if(e.key==='ArrowRight'){e.preventDefault();step(1)}});$('favorite').onclick=()=>{favorites.has(current)?favorites.delete(current):favorites.add(current);try{localStorage.setItem('ukiwa-atlas-favorites',JSON.stringify([...favorites]))}catch{$('save-note').textContent='この環境ではお気に入りを保存できません。'}show();render()};render();
 })();
