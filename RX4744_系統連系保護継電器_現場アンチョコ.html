@@ -13,6 +13,7 @@
 :root{color-scheme:light}html,body{background:var(--island-bg-eaf3f7-100,#eaf3f7)!important;color:var(--island-fg-173749-100,#173749)!important}body{background-image:none!important}input,select,textarea{color:var(--island-fg-173749-100,#173749)!important;background-color:var(--island-bg-ffffff-100,#fff)!important;border-color:var(--island-line-a9c2d0-100,#a9c2d0)!important}input::placeholder,textarea::placeholder{color:var(--island-fg-617888-100,#617888)!important}a{color:var(--island-fg-096e92-100,#096e92)}body:before,body:after{background-image:none!important}pre,code{color:var(--island-fg-23475b-100,#23475b)}::selection{background:var(--island-bg-bce3ed-100,#bce3ed);color:var(--island-fg-12374b-100,#12374b)}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
+<link rel="stylesheet" href="visual-learning.css?v=1">
 </head>
 <body>
 <header class="hero"><div class="top"><b>うきわメモ</b><span>RX4744 FIELD NOTE / 暫定版 v1</span></div><span class="badge bad" style="margin-top:34px">型式・端子 未確定</span><h1>系統連系保護継電器<br>現場アンチョコ</h1><p>写真原文・公式仕様・過去値・計算値を混ぜずに確認するための作業台。実配線は完全型式と端子図の確認後に確定します。</p></header>
@@ -59,4 +60,5 @@ function renderChecks(){el("checks").innerHTML=DATA.restoreChecklist.map(x=>'<la
 function renderAll(){renderPicker();renderPhase();renderField();renderWiring();renderSignal();renderSequence();renderOps();renderTestMenu();renderCalc();renderFailures();renderEvidence()}
 document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-view]").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));b.classList.add("active");el(b.dataset.view).classList.add("active")});el("phase").onchange=renderOps;el("freq").onchange=renderOps;renderChecks();renderAll();
 </script>
+<script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
 </body></html>

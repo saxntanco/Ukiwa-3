@@ -13,6 +13,7 @@
 :root{color-scheme:light}html,body{background:var(--island-bg-eaf3f7-100,#eaf3f7)!important;color:var(--island-fg-173749-100,#173749)!important}body{background-image:none!important}input,select,textarea{color:var(--island-fg-173749-100,#173749)!important;background-color:var(--island-bg-ffffff-100,#fff)!important;border-color:var(--island-line-a9c2d0-100,#a9c2d0)!important}input::placeholder,textarea::placeholder{color:var(--island-fg-617888-100,#617888)!important}a{color:var(--island-fg-096e92-100,#096e92)}body:before,body:after{background-image:none!important}pre,code{color:var(--island-fg-23475b-100,#23475b)}::selection{background:var(--island-bg-bce3ed-100,#bce3ed);color:var(--island-fg-12374b-100,#12374b)}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
+<link rel="stylesheet" href="visual-learning.css?v=1">
 </head>
 <body>
 <header class="topbar"><a class="brand" href="./index.html">ぷかぷかうきわメモ</a><a class="back" href="./protective-relay.html">保護継電器DBへ戻る</a></header>
@@ -61,5 +62,6 @@ function activeViewport(btn){return btn.closest('dialog')?.querySelector('.viewp
 document.querySelectorAll('[data-zoom]').forEach(b=>b.onclick=()=>{const h=activeViewport(b),a=b.dataset.zoom;if(a==='in')h?._zoom?.(.82);if(a==='out')h?._zoom?.(1.22);if(a==='reset')h?._reset?.()});document.querySelectorAll('[data-full]').forEach(b=>b.onclick=()=>{const h=activeViewport(b);fullKey=h.dataset.current;$('#fullTitle').textContent=b.closest('.diagram-card').querySelector('h2').textContent;renderDiagram($('#fullViewport'),fullKey);$('#fullDialog').showModal()});$('#fullClose').onclick=()=>$('#fullDialog').close();$('#searchBtn').onclick=search;$('#modelSearch').oninput=search;
 (function init(){const p=new URLSearchParams(location.search),m=p.get('model'),tab=p.get('tab');if(m&&MODELS[m])currentModel=m;renderModel();$('#modelSearch').value=currentModel;$('#testCaption').textContent='P1-P2へ試験電圧を入力し、始動LED点灯時の電圧を測定する公式例を再構成しています。';if(tab&&document.querySelector(`[data-tab="${CSS.escape(tab)}"]`))document.querySelector(`[data-tab="${CSS.escape(tab)}"]`).click()})();
 </script>
+<script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
 </body>
 </html>

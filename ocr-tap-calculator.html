@@ -18,6 +18,7 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
 :root{color-scheme:light}html,body{background:var(--island-bg-eaf3f7-100,#eaf3f7)!important;color:var(--island-fg-173749-100,#173749)!important}body{background-image:none!important}input,select,textarea{color:var(--island-fg-173749-100,#173749)!important;background-color:var(--island-bg-ffffff-100,#fff)!important;border-color:var(--island-line-a9c2d0-100,#a9c2d0)!important}input::placeholder,textarea::placeholder{color:var(--island-fg-617888-100,#617888)!important}a{color:var(--island-fg-096e92-100,#096e92)}body:before,body:after{background-image:none!important}pre,code{color:var(--island-fg-23475b-100,#23475b)}::selection{background:var(--island-bg-bce3ed-100,#bce3ed);color:var(--island-fg-12374b-100,#12374b)}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
+<link rel="stylesheet" href="visual-learning.css?v=1">
 </head>
 <body>
 <header class="top"><a class="brand" href="index.html">🌊 うきわメモ<small>OCR / 51 SETTING NAVI</small></a><div class="badge">v7.1 根拠付き計算</div></header>
@@ -476,4 +477,5 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
  $('#exampleButton').onclick=()=>{$('#relay').value='k2oc';enforceRelay();$('#ctP').value='50';$('#ctS').value='5';$('#voltage').value='6.6';$('#kw').value='200';$('#pf').value='.90';$('#tapOrigin').value='auto';$('#tapBasis').value='default';setTapMode('contract');$('#commonFields').open=true;$('#loadFields').open=true;text('exampleNotice','学習例：6.6kV・契約200kW・力率0.90・CT50/5A。実設備の値ではありません。');};
  fillSelect('existingD',C.K2OC.dials,'');renderTrs();renderPointRows('lower');renderPointRows('upper');enforceRelay();renderAll();
 })();
-</script><script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-source-jump]');if(a){var target=document.querySelector(a.getAttribute('href'));if(target)target.open=true;}});document.getElementById('downType').addEventListener('change',function(){document.getElementById('pfOnly').hidden=!['pf','pcfuse'].includes(this.value);});</script></body></html>
+</script><script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-source-jump]');if(a){var target=document.querySelector(a.getAttribute('href'));if(target)target.open=true;}});document.getElementById('downType').addEventListener('change',function(){document.getElementById('pfOnly').hidden=!['pf','pcfuse'].includes(this.value);});</script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
+</body></html>

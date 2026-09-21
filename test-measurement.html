@@ -26,7 +26,8 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
 :root{color-scheme:light}html,body{background:var(--island-bg-eaf3f7-100,#eaf3f7)!important;color:var(--island-fg-173749-100,#173749)!important}body{background-image:none!important}input,select,textarea{color:var(--island-fg-173749-100,#173749)!important;background-color:var(--island-bg-ffffff-100,#fff)!important;border-color:var(--island-line-a9c2d0-100,#a9c2d0)!important}input::placeholder,textarea::placeholder{color:var(--island-fg-617888-100,#617888)!important}a{color:var(--island-fg-096e92-100,#096e92)}body:before,body:after{background-image:none!important}pre,code{color:var(--island-fg-23475b-100,#23475b)}::selection{background:var(--island-bg-bce3ed-100,#bce3ed);color:var(--island-fg-12374b-100,#12374b)}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
-<link rel="stylesheet" href="field-start.css?v=20260920"></head>
+<link rel="stylesheet" href="field-start.css?v=20260920"><link rel="stylesheet" href="visual-learning.css?v=1">
+</head>
 <body>
 <header class="top"><div class="topin"><a class="brand" href="./index.html"><img src="./icon-192.png" alt=""><span>ぷかぷかうきわメモ</span></a><a class="home" href="./index.html">⌂ ホーム</a></div></header>
 
@@ -80,5 +81,6 @@ function openMethod(id){const m=METHODS.find(x=>x.id===id);if(!m)return;$('#dCat
 $('#q').oninput=render;$('#reset').onclick=()=>{state={q:'',category:'すべて'};$('#q').value='';render()};$('#close').onclick=()=>$('#detail').close();$('#detail').addEventListener('click',e=>{if(e.target===$('#detail'))$('#detail').close()});$('#detail').addEventListener('close',urlState);
 (function(){const p=new URLSearchParams(location.search);state.q=p.get('q')||'';state.category=categories.includes(p.get('category'))?p.get('category'):'すべて';$('#q').value=state.q;render();const id=p.get('method');if(METHODS.some(m=>m.id===id))setTimeout(()=>openMethod(id),0)})();
 </script>
+<script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
 </body>
 </html>
