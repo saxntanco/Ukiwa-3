@@ -30,7 +30,7 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail}){
   const cx=(paper.scrollLeft+paper.clientWidth/2)/old,cy=(paper.scrollTop+paper.clientHeight/2)/old;
   const base=Math.max(740,paper.clientWidth-2);
   const width=zoom.value==='fit'?Math.min(paper.clientWidth-2,(paper.clientHeight-2)*box.width/box.height):base*(parseFloat(zoom.value)||100)/100;
-  paper.style.setProperty('--reader-width',Math.max(1,width)+'px');paper.dataset.zoom=zoom.value;
+  reader.style.marginInline='auto';paper.style.setProperty('--reader-width',Math.max(1,width)+'px');paper.dataset.zoom=zoom.value;
   if(preserve){paper.scrollLeft=cx*width-paper.clientWidth/2;paper.scrollTop=cy*width-paper.clientHeight/2}
   bar.querySelector('[data-size="down"]').disabled=zoom.value==='fit';bar.querySelector('[data-size="up"]').disabled=zoom.value==='250%';
  }
