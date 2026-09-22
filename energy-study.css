@@ -59,9 +59,9 @@ body.ready.reading-focus main{padding-top:5px}
 
 .energy-blank{position:absolute;transform:translate(-50%,-50%);min-width:32px;min-height:32px;padding:2px 4px;font-size:14px;line-height:1;background:#e8f7f4eb;border:1px solid #277267;border-radius:6px}.energy-blank[aria-expanded=true]{outline:3px solid #a95b00;background:#fff2ca;color:#402400}
 
-.energy-answer-dialog{position:fixed;inset:0;margin:auto;width:min(1200px,80vw);height:90dvh;max-width:none;max-height:94dvh;padding:0;border:2px solid #397e7e;border-radius:14px;background:#f8fbfa;color:#17252b;overflow:hidden}.energy-answer-dialog::backdrop{background:#10232bb3}.energy-answer-dialog .answer-pane{display:flex;height:100%;min-height:0;border:0}.energy-answer-dialog .reader-panel{min-height:0;flex:1}.energy-answer-dialog .context-head{padding:10px;font-size:18px}.energy-answer-dialog .context-scope{font-size:14px}.energy-answer-dialog .assessment{flex-shrink:0}
+.energy-answer-dialog{position:fixed;inset:0;margin:auto;width:90vw;height:94dvh;max-width:none;max-height:98dvh;padding:0;border:2px solid #397e7e;border-radius:14px;background:#f8fbfa;color:#17252b;overflow:hidden}.energy-answer-dialog::backdrop{background:#10232bb3}.energy-answer-dialog .answer-pane{display:flex;height:100%;min-height:0;border:0}.energy-answer-dialog .reader-panel{min-height:0;flex:1}.energy-answer-dialog .context-head{padding:10px;font-size:20px}.energy-answer-dialog .context-scope{font-size:14px}.energy-answer-dialog .assessment{flex-shrink:0}
 .energy-problem-context{flex-shrink:0;margin:0 8px 6px;padding:8px;font-size:16px}
 .context-originals{max-height:24dvh;overflow:auto;background:#eee}
 .context-originals canvas{display:block;width:100%;min-width:620px;height:auto;margin-bottom:10px}
 .energy-answer-dialog .paper-tools button,.energy-answer-dialog .reader-tabs button,.energy-answer-dialog .assessment button{font-size:14px;min-height:40px}
-@media(max-width:800px){.energy-answer-dialog{width:calc(100vw - 12px);height:94dvh}.context-originals{max-height:20dvh}}
+@media(max-width:800px){.energy-answer-dialog{width:calc(100vw - 8px);height:98dvh}.context-originals{max-height:20dvh}}
