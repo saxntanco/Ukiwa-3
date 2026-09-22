@@ -8,6 +8,7 @@ const loadHotspots=()=>hotspotRequest||(hotspotRequest=fetch('denken-assets/blan
 const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify(preferences))}catch{}};
 window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail}){
  let disposed=false,spots=[],popover=null,anchor=null,drag=null;
+ const pageFrames=new WeakMap();
  const signal=new AbortController(),zoom=document.getElementById('zoom');
  const tools=pane.querySelector('.paper-tools');
  const bar=document.createElement('div');bar.className='reader-bar';
@@ -55,12 +56,46 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail}){
  }
  const shortcut=document.createElement('nav');shortcut.className='blank-shortcuts';shortcut.setAttribute('aria-label','問題を見ながら答えを確認');
  if(spec){const label=document.createElement('span');label.textContent='タップで答え';shortcut.append(label);spec.slice(0,5).forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.textContent=`(${i+1})`;b.setAttribute('aria-label',`空欄 ${i+1} の答えをその場で見る`);b.setAttribute('aria-expanded','false');b.onclick=()=>peek(i,b);shortcut.append(b)});bar.after(shortcut)}
+ async function balancePage(page){
+  const svg=page.querySelector('svg');if(!svg||pageFrames.has(svg))return;
+  const image=svg.querySelector('image');if(!image||svg.querySelectorAll('image').length!==1)return;
+  pageFrames.set(svg,null);
+  try{
+   const bitmap=new Image();bitmap.src=image.getAttribute('href')||image.getAttributeNS('http://www.w3.org/1999/xlink','href');await bitmap.decode();
+   if(disposed||!svg.isConnected)return;
+   const original=svg.viewBox.baseVal,W=original.width,H=original.height;
+   if(original.x||original.y||image.hasAttribute('transform')||Number(image.getAttribute('width'))!==W||Math.abs(Number(image.getAttribute('height'))-H)>1)return;
+   const canvas=document.createElement('canvas');canvas.width=800;canvas.height=Math.round(800*H/W);
+   const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
+   const {data}=ctx.getImageData(0,0,canvas.width,canvas.height),rows=[];
+   for(let y=0;y<canvas.height;y++){let lo=800,hi=-1;for(let x=2;x<798;x++){const i=(y*800+x)*4;if(data[i+3]>200&&Math.max(data[i],data[i+1],data[i+2])<120){lo=Math.min(lo,x);hi=x}}rows.push({lo,hi});}
+   let end=rows.length,groups=[];
+   for(let y=0;y<rows.length;y++){if(rows[y].hi<0)continue;let start=y;while(y+1<rows.length&&rows[y+1].hi>=0)y++;groups.push([start,y+1]);}
+   // Isolate only a small, detached printing footer; preserve it below the reading area.
+   const merged=[];for(const group of groups){const tail=merged.at(-1);if(tail&&group[0]-tail[1]<=20)tail[1]=group[1];else merged.push([...group]);}groups=merged;
+   const last=groups.at(-1),previous=groups.at(-2);
+   if(last&&previous&&last[0]>rows.length*.85&&last[1]-last[0]<rows.length*.035&&last[0]-previous[1]>rows.length*.035)end=Math.floor((last[0]+previous[1])/2);
+   const ink=rows.slice(0,end).filter(r=>r.hi>=0);if(!ink.length)return;
+   const left=Math.min(...ink.map(r=>r.lo)),right=Math.max(...ink.map(r=>r.hi));
+   if(right-left<360)return;
+   const pad=18,x=(left-pad)*W/800,w=(right-left+2*pad)*W/800,cut=end*W/800;
+   if(w>W*1.05)return;
+   const ns='http://www.w3.org/2000/svg',body=document.createElementNS(ns,'svg');
+   body.setAttribute('viewBox',`${x} 0 ${w} ${cut}`);body.setAttribute('width',w);body.setAttribute('height',cut);body.style.setProperty('width',w+'px','important');body.style.setProperty('height',cut+'px','important');body.append(image.cloneNode(true));
+   let height=cut;
+   svg.replaceChildren(body);
+   if(end<rows.length){const footer=document.createElementNS(ns,'svg'),fh=(H-cut)*w/W;footer.setAttribute('viewBox',`0 ${cut} ${W} ${H-cut}`);footer.setAttribute('y',cut);footer.setAttribute('width',w);footer.setAttribute('height',fh);footer.style.setProperty('width',w+'px','important');footer.style.setProperty('height',fh+'px','important');footer.append(image.cloneNode(true));svg.append(footer);height+=fh;}
+   svg.setAttribute('viewBox',`0 0 ${w} ${height}`);svg.setAttribute('width',w);svg.setAttribute('height',height);
+   pageFrames.set(svg,{x,w,h:height,W,H});refresh();
+  }catch{/* Keep the original page if analysis or image decoding fails. */}
+ }
  function refresh(){
   if(disposed)return;close();resize(false);
   const page=paper.querySelector('.paper-page');if(!page)return;
+  balancePage(page);const frame=pageFrames.get(page.querySelector('svg'));
   page.querySelectorAll('.blank-hotspot').forEach(el=>el.remove());
   const index=Number(paper.dataset.page);shortcut.hidden=zoom.value!=='fit'&&spots.some(s=>s.page===index);
-  if(spec)spots.filter(s=>s.page===index&&s.slot<5).forEach(s=>{const b=document.createElement('button');b.type='button';b.className='blank-hotspot';b.textContent=`(${s.slot+1})`;b.style.left=s.x+'%';b.style.top=s.y+'%';b.style.setProperty('--spot-width',s.w+'%');b.setAttribute('aria-label',`本文の空欄 ${s.slot+1} の答えを見る`);b.setAttribute('aria-expanded','false');b.onclick=()=>peek(s.slot,b);page.append(b)});
+  if(spec)spots.filter(s=>s.page===index&&s.slot<5).forEach(s=>{const b=document.createElement('button');b.type='button';b.className='blank-hotspot';b.textContent=`(${s.slot+1})`;b.style.left=(frame?(s.x/100*frame.W-frame.x)/frame.w*100:s.x)+'%';b.style.top=(frame?s.y*frame.H/frame.h:s.y)+'%';b.style.setProperty('--spot-width',(frame?s.w*frame.W/frame.w:s.w)+'%');b.setAttribute('aria-label',`本文の空欄 ${s.slot+1} の答えを見る`);b.setAttribute('aria-expanded','false');b.onclick=()=>peek(s.slot,b);page.append(b)});
  }
  loadHotspots().then(all=>{if(!disposed){spots=all[q.id]||[];refresh()}});
  const observer=new ResizeObserver(()=>resize());observer.observe(paper);
