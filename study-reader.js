@@ -6,7 +6,7 @@ try{Object.assign(preferences,JSON.parse(localStorage.getItem(storageKey)||'{}')
 let hotspotRequest;
 const loadHotspots=()=>hotspotRequest||(hotspotRequest=fetch('denken-assets/blank-hotspots.json?v=2').then(r=>{if(!r.ok)throw Error('hotspots');return r.json()}).catch(()=>({})));
 const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify(preferences))}catch{}};
-window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMode=()=>'learn',onAttempt=()=>{},getRecord=()=>({})}){
+window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMode=()=>'learn',onPractice=()=>{},onAttempt=()=>{},getRecord=()=>({})}){
  let disposed=false,spots=[],popover=null,anchor=null,drag=null,selected=-1,origin=null;
  const pageFrames=new WeakMap();
  const signal=new AbortController(),zoom=document.getElementById('zoom');
@@ -40,19 +40,33 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
  const button=(label,action)=>{const el=text('button',label);el.type='button';el.onclick=action;return el};
  function highlight(){pane.querySelectorAll('[data-blank]').forEach(el=>{const active=Number(el.dataset.blank)===selected;el.setAttribute('aria-expanded',String(active));el.classList.toggle('blank-selected',active);});}
  function close(restore=false){
-  const target=anchor,saved=origin;popover?.remove();popover=null;selected=-1;highlight();pane.classList.remove('context-open');
-  if(saved){paper.scrollLeft=saved.x;paper.scrollTop=saved.y;}origin=null;anchor=null;
+  const target=anchor,saved=origin;popover?.close();popover?.remove();popover=null;selected=-1;highlight();pane.classList.remove('context-open');
+  if(saved){paper.scrollLeft=saved.x;paper.scrollTop=saved.y;window.scrollTo(saved.wx,saved.wy);}origin=null;anchor=null;
   if(restore&&target?.isConnected)target.focus({preventScroll:true});
  }
  function peek(slot,trigger,practice=getMode()==='practice'){
   if(!spec?.[slot])return;
-  if(!popover)origin={x:paper.scrollLeft,y:paper.scrollTop};
+  if(!popover)origin={x:paper.scrollLeft,y:paper.scrollTop,wx:window.scrollX,wy:window.scrollY};
   popover?.remove();anchor=trigger;selected=slot;highlight();pane.classList.add('context-open');
-  popover=text('section','', 'quick-answer');popover.setAttribute('role','region');popover.setAttribute('aria-label',`空欄 ${slot+1} の学習`);popover.tabIndex=-1;
+  popover=text('dialog','', 'quick-answer');popover.addEventListener('cancel',e=>{e.preventDefault();close(true)});popover.setAttribute('aria-label',`空欄 ${slot+1} の学習`);popover.tabIndex=-1;
   const head=text('div','', 'quick-answer-head');head.append(text('strong',`選択中 (${slot+1})`),button('閉じる ×',()=>close(true)));popover.append(head);
-  const body=text('div','', 'quick-answer-body');popover.append(body);
-  paper.after(popover);
-  const addDetails=(title,content)=>{const d=text('details','');d.append(text('summary',title),text('p',content));body.append(d);};
+  const readingArea=text('div','', 'quick-answer-reading');popover.append(readingArea);
+  const context=text('details','', 'quick-answer-context');context.open=true;
+  context.append(text('summary',`空欄 (${slot+1}) の問題文・図を確認`));
+  const original=text('div','', 'quick-answer-original');
+  for(const page of paper.querySelectorAll('.paper-page')){
+   const copy=page.cloneNode(true);copy.querySelectorAll('button').forEach(b=>{
+    if(Number(b.dataset.blank)===slot){const mark=text('span',`(${slot+1}) 選択中`,'context-blank');mark.style.left=b.style.left;mark.style.top=b.style.top;b.replaceWith(mark)}else b.remove();
+   });
+   copy.removeAttribute('id');
+   const ids=new Map();copy.querySelectorAll('[id]').forEach(el=>{const old=el.id,next=`context-${slot}-${page.dataset.page}-${old}`;ids.set(old,next);el.id=next;});
+   copy.querySelectorAll('*').forEach(el=>{for(const attr of [...el.attributes]){let value=attr.value;for(const [old,next] of ids){if(value===`#${old}`)value=`#${next}`;value=value.replaceAll(`url(#${old})`,`url(#${next})`);}if(value!==attr.value)el.setAttribute(attr.name,value);}});
+   copy.className='context-paper-page';original.append(copy);
+  }
+  context.append(original);readingArea.append(context);
+  const body=text('div','', 'quick-answer-body');readingArea.append(body);
+  document.body.append(popover);popover.showModal();
+  const addDetails=(title,content)=>{const d=text('details','');d.open=true;d.append(text('summary',title),text('p',content));body.append(d);};
   let revealedHere=false;
   function explanation(){
    const brief=window.UkiwaStudyQuickNotes.brief(q,lesson,slot);
@@ -64,8 +78,9 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
    if(lesson?.basics?.length){const basics=text('details','');basics.append(text('summary','この問題に共通する公式・記号・基礎'));lesson.basics.forEach(b=>{const d=text('details','');d.append(text('summary',b.title),text('p',b.body));basics.append(d)});body.append(basics)}
    if(lesson?.pitfall)addDetails('この問題で間違えやすい点',lesson.pitfall);
    const link=text('a','問題の原本を確認 ↗');link.href=q.source;link.target='_blank';link.rel='noopener';body.append(link);
-   if(!brief)body.append(button('この問題の公式解答を開く',()=>onDetail(slot)));
-   body.append(button('この空欄を隠して解く',()=>peek(slot,trigger,true)));
+   if(!brief)body.append(button('この問題の公式解答を開く',()=>{close(true);onDetail(slot)}));
+   body.append(button('閉じて自分で解く',()=>{close(true);onPractice();}));
+   body.append(button('このウィンドウで答えを隠して解く',()=>peek(slot,trigger,true)));
    body.append(text('small','読むだけでも大丈夫です。24時間以内の解き直しは「再現できた」と記録します。'));
   }
   if(practice){
@@ -81,8 +96,9 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
    }),button('解説を見る',explanation),feedback);
   }else explanation();
   const r=getRecord(slot);if(r.lastOutcome)head.firstChild.textContent+=` · ${{unaided:'自力正解',assisted:'解説を使って正解',reproduced:'再現できた',retry:'要復習'}[r.lastOutcome]||''}`;
-  // Scroll only the original paper enough to keep the selected blank visible. Never crop its context.
-  requestAnimationFrame(()=>{if(disposed||!popover)return;const spot=trigger.classList.contains('blank-hotspot')?trigger:paper.querySelector(`[data-blank="${slot}"]`);if(spot){const a=spot.getBoundingClientRect(),v=paper.getBoundingClientRect();if(a.bottom>v.bottom-12)paper.scrollTop+=a.bottom-v.bottom+24;if(a.top<v.top+12)paper.scrollTop+=a.top-v.top-24;if(a.right>v.right-12)paper.scrollLeft+=a.right-v.right+24;if(a.left<v.left+12)paper.scrollLeft+=a.left-v.left-24;}popover.focus({preventScroll:true});});
+  popover.querySelector('button').focus({preventScroll:true});
+  const selectedContext=original.querySelector('.context-blank');
+  if(selectedContext){const a=selectedContext.getBoundingClientRect(),v=original.getBoundingClientRect();original.scrollTop+=a.top-v.top-120;original.scrollLeft+=a.left-v.left-original.clientWidth/2;}
  }
  const shortcut=document.createElement('nav');shortcut.className='blank-shortcuts';shortcut.setAttribute('aria-label','問題を見ながら答えを確認');
  if(spec){const label=document.createElement('span');label.textContent='空欄を選ぶ';shortcut.append(label);spec.slice(0,5).forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.textContent=`(${i+1})`;b.dataset.blank=i;b.setAttribute('aria-label',`空欄 ${i+1} の答えをその場で見る`);b.setAttribute('aria-expanded','false');b.onclick=()=>peek(i,b);shortcut.append(b)});bar.after(shortcut)}
@@ -120,13 +136,15 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
   }catch{/* Keep the original page if analysis or image decoding fails. */}
  }
  function refresh(){
-  if(disposed)return;close();resize(false);
+  if(disposed)return;resize(false);
+  shortcut.querySelectorAll('button').forEach(b=>b.disabled=!paper.querySelector('.paper-page'));
   for(const page of paper.querySelectorAll('.paper-page')){
   balancePage(page);const frame=pageFrames.get(page.querySelector('svg'));
   page.querySelectorAll('.blank-hotspot').forEach(el=>el.remove());
   const index=Number(page.dataset.page??paper.dataset.page);shortcut.hidden=false;
   if(spec)spots.filter(s=>s.page===index&&s.slot<5).forEach(s=>{const b=document.createElement('button');b.type='button';b.className='blank-hotspot';b.dataset.blank=s.slot;b.textContent=`(${s.slot+1})`;b.style.left=(frame?(s.x/100*frame.W-frame.x)/frame.w*100:s.x)+'%';b.style.top=(frame?s.y*frame.H/frame.h:s.y)+'%';b.style.setProperty('--spot-width',(frame?s.w*frame.W/frame.w:s.w)+'%');b.setAttribute('aria-label',`本文の空欄 ${s.slot+1} の答えを見る`);b.setAttribute('aria-expanded','false');b.onclick=()=>peek(s.slot,b);page.append(b)});
   }
+  highlight();
  }
  loadHotspots().then(all=>{if(!disposed){spots=all[q.id]||[];refresh()}});
  const observer=new ResizeObserver(()=>resize());observer.observe(paper);
