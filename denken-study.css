@@ -70,7 +70,7 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 #paper{position:relative;overflow:auto;touch-action:pan-x pan-y pinch-zoom;overscroll-behavior-x:contain;overscroll-behavior-y:auto;scrollbar-width:auto;-webkit-overflow-scrolling:touch;cursor:grab;isolation:isolate}
 #paper.panning{cursor:grabbing}
 #paper .page-reader{width:var(--reader-width,740px)!important;min-width:0!important;height:auto!important;max-width:none;margin:0;background:#fff}
-#paper .paper-page{position:relative;width:100%;height:auto!important;margin:0;overflow:visible;background:#fff}
+#paper .paper-page{position:relative;width:100%;height:auto!important;margin:0 0 14px;overflow:visible;background:#fff}
 #paper .paper-page svg{width:100%;height:auto!important;display:block;pointer-events:none;user-select:none;-webkit-user-select:none}
 #paper .paper-page image{filter:contrast(1.08)}
 #paper[data-tone="warm"],#paper[data-tone="warm"] .page-reader,#paper[data-tone="warm"] .paper-page{background:#f8f4e9}

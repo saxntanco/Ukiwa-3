@@ -25,7 +25,7 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
  function resize(preserve=true){
   const reader=paper.querySelector('.page-reader'),svg=reader?.querySelector('svg');if(!reader||!svg)return;
   const box=svg.viewBox.baseVal;if(!box.width||!box.height)return;
-  shortcut.hidden=zoom.value!=='fit'&&spots.some(s=>s.page===Number(paper.dataset.page));
+  shortcut.hidden=false;
   const old=reader.getBoundingClientRect().width||1;
   const cx=(paper.scrollLeft+paper.clientWidth/2)/old,cy=(paper.scrollTop+paper.clientHeight/2)/old;
   const base=matchMedia('(max-width:680px)').matches?Math.max(620,paper.clientWidth-2):paper.clientWidth-2;
@@ -121,11 +121,12 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
  }
  function refresh(){
   if(disposed)return;close();resize(false);
-  const page=paper.querySelector('.paper-page');if(!page)return;
+  for(const page of paper.querySelectorAll('.paper-page')){
   balancePage(page);const frame=pageFrames.get(page.querySelector('svg'));
   page.querySelectorAll('.blank-hotspot').forEach(el=>el.remove());
-  const index=Number(paper.dataset.page);shortcut.hidden=zoom.value!=='fit'&&spots.some(s=>s.page===index);
+  const index=Number(page.dataset.page??paper.dataset.page);shortcut.hidden=false;
   if(spec)spots.filter(s=>s.page===index&&s.slot<5).forEach(s=>{const b=document.createElement('button');b.type='button';b.className='blank-hotspot';b.dataset.blank=s.slot;b.textContent=`(${s.slot+1})`;b.style.left=(frame?(s.x/100*frame.W-frame.x)/frame.w*100:s.x)+'%';b.style.top=(frame?s.y*frame.H/frame.h:s.y)+'%';b.style.setProperty('--spot-width',(frame?s.w*frame.W/frame.w:s.w)+'%');b.setAttribute('aria-label',`本文の空欄 ${s.slot+1} の答えを見る`);b.setAttribute('aria-expanded','false');b.onclick=()=>peek(s.slot,b);page.append(b)});
+  }
  }
  loadHotspots().then(all=>{if(!disposed){spots=all[q.id]||[];refresh()}});
  const observer=new ResizeObserver(()=>resize());observer.observe(paper);
