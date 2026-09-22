@@ -82,7 +82,16 @@ async function previewExplanation(){
 }
 function setPane(name){for(const item of ['answer','explanation','related']){$(item+'-pane').hidden=name!==item;$(item+'-tab').setAttribute('aria-pressed',String(name===item))}}
 function pages(node,list,start,end){
- const selected=list.slice(start,end);let page=0;if(!node.dataset.zoom)node.dataset.zoom='width';
+ const selected=list.slice(start,end);
+ if(node.id==='paper'){
+  const wrapper=document.createElement('div');wrapper.className='page-reader';
+  selected.forEach((svg,i)=>{const page=document.createElement('div');page.className='paper-page';page.dataset.page=String(start+i);page.setAttribute('role','group');page.setAttribute('aria-label',`問題 ${i+1} / ${selected.length} ページ`);page.innerHTML=svg;wrapper.append(page);});
+  node.replaceChildren(wrapper);node.dataset.page=String(start);node.scrollTop=0;node.scrollLeft=0;
+  const old=node.previousElementSibling;if(old?.classList.contains('page-nav'))old.remove();
+  const hint=document.createElement('div');hint.className='page-nav';hint.textContent=`全${selected.length}ページ · 下へスクロールして続けて読めます`;node.before(hint);
+  paperReader?.refresh();return;
+ }
+ let page=0;if(!node.dataset.zoom)node.dataset.zoom='width';
  const wrapper=document.createElement('div');wrapper.className='page-reader';
  const toolbar=document.createElement('div');toolbar.className='page-nav';
  const prev=document.createElement('button'),next=document.createElement('button'),label=document.createElement('span');prev.textContent='←';next.textContent='→';prev.setAttribute('aria-label',node.id==='paper'?'問題の前のページ':'解答の前のページ');next.setAttribute('aria-label',node.id==='paper'?'問題の次のページ':'解答の次のページ');
