@@ -53,18 +53,43 @@ function selectQuestion(x){
  $('question-position').textContent=`${n+1} / ${filtered.length} 問`;help(x);persist();render();
 }
 async function paint(side,serial){
- const seg=(side==='q'?current.question:answerSegments())[side==='q'?qpos:apos],view=$(side+'view');
+ const segments=side==='q'?current.question:[answerSegments()[apos]],view=$(side+'view');
  if(!view.clientWidth||!view.clientHeight)return;
- const pos={...viewPositions[side]};const page=await pdf.getPage(seg.page);if(serial!==token)return;
- const z=+$(side==='q'?'zoom':'azoom').value,base=page.getViewport({scale:1}),r=seg.rect;
+ const pos={...viewPositions[side]},questionId=current.id,rendered=[];
+ if(side==='q'&&view.dataset.question!==questionId){view.dataset.question=questionId;view.textContent='問題を読み込んでいます…';}
+ const z=+$(side==='q'?'zoom':'azoom').value;
  const targetWidth=Math.max(80,view.clientWidth-parseFloat(getComputedStyle(view).paddingLeft)-parseFloat(getComputedStyle(view).paddingRight))*z;
- const scale=targetWidth/(base.width*(r[2]-r[0]));
- const dpr=Math.min(devicePixelRatio||1,2),vp=page.getViewport({scale:scale*dpr});
- const canvas=document.createElement('canvas');canvas.width=Math.ceil(vp.width*(r[2]-r[0]));canvas.height=Math.ceil(vp.height*(r[3]-r[1]));
- canvas.style.width=targetWidth+'px';canvas.style.height=canvas.height/dpr+'px';canvas.setAttribute('role','img');canvas.setAttribute('aria-label',`${current.year}年度 問${current.number} ${side==='q'?'問題':'解答と解説'} 原本${seg.page}ページの該当部分`);
- await page.render({canvasContext:canvas.getContext('2d'),viewport:vp,transform:[1,0,0,1,-vp.width*r[0],-vp.height*r[1]]}).promise;
- if(serial!==token)return;view.replaceChildren(canvas);view.scrollTop=pos.y*canvas.clientHeight;view.scrollLeft=pos.x*canvas.clientWidth;
+ for(const seg of segments){
+  if(serial!==token)return;
+  const page=await pdf.getPage(seg.page);if(serial!==token)return;
+  const base=page.getViewport({scale:1}),r=seg.rect,scale=targetWidth/(base.width*(r[2]-r[0]));
+  const cssHeight=base.height*(r[3]-r[1])*scale;
+  const dpr=Math.min(devicePixelRatio||1,3,Math.sqrt(16000000/(segments.length*targetWidth*cssHeight))),vp=page.getViewport({scale:scale*dpr});
+  const canvas=document.createElement('canvas');canvas.width=Math.ceil(vp.width*(r[2]-r[0]));canvas.height=Math.ceil(vp.height*(r[3]-r[1]));
+  canvas.style.width=targetWidth+'px';canvas.style.height=canvas.height/dpr+'px';canvas.setAttribute('role','img');canvas.setAttribute('aria-label',`${current.year}年度 問${current.number} ${side==='q'?'問題':'解答と解説'} 原本${seg.page}ページの該当部分`);
+  await page.render({canvasContext:canvas.getContext('2d'),viewport:vp,transform:[1,0,0,1,-vp.width*r[0],-vp.height*r[1]]}).promise;
+  if(serial!==token)return;rendered.push({canvas,seg});
+ }
+ if(serial!==token||questionId!==current.id)return;
+ if(side==='q'){
+  if($('tap-jump-list'))$('tap-jump-list').replaceChildren();
+  view.replaceChildren(...rendered.map(({canvas,seg},i)=>{const part=document.createElement('section');part.className='question-part';part.dataset.part=i;part.style.width=targetWidth+'px';part.setAttribute('aria-label',`問題の続き ${i+1} / ${segments.length}`);part.append(canvas);return part;}));
+ }else view.replaceChildren(rendered[0].canvas);
+ const first=rendered[0].canvas;view.scrollTop=pos.y*first.clientHeight;view.scrollLeft=pos.x*first.clientWidth;
+ if(side==='q')updateQuestionPosition();
 }
+function updateQuestionPosition(){
+ const view=$('qview'),parts=[...view.querySelectorAll('.question-part')];if(!parts.length)return;
+ const top=view.getBoundingClientRect().top+36;let active=0;
+ parts.forEach((part,i)=>{if(part.getBoundingClientRect().top<=top)active=i;});if(view.scrollHeight-view.clientHeight>5&&view.scrollTop>=view.scrollHeight-view.clientHeight-2)active=parts.length-1;qpos=active;
+ $('qpage').textContent=`${qpos+1} / ${parts.length}`;$('qprev').disabled=qpos===0;$('qnext').disabled=qpos===parts.length-1;
+}
+function jumpQuestionPart(delta){
+ const view=$('qview'),parts=view.querySelectorAll('.question-part'),next=Math.max(0,Math.min(parts.length-1,qpos+delta)),part=parts[next];if(!part)return;
+ view.scrollTop+=part.getBoundingClientRect().top-view.getBoundingClientRect().top-5;updateQuestionPosition();
+}
+$('qview').addEventListener('scroll',updateQuestionPosition,{passive:true});
+
 function render(){
  if(!started||!pdf||!current)return;const serial=++token;
  for(const [s,list,pos] of [['q',current.question,qpos],['a',answerSegments(),apos]]){$(s+'page').textContent=`${pos+1} / ${list.length}`;$(s+'prev').disabled=pos===0;$(s+'next').disabled=pos===list.length-1;}
@@ -106,7 +131,8 @@ function help(x){
 for(const id of ['year','subject','filter'])$(id).addEventListener('change',()=>applyFilters(current?.id));
 $('question').onchange=()=>selectQuestion(filtered.find(x=>x.id===$('question').value));
 for(const [id,delta] of [['prev',-1],['next',1]])$(id).onclick=()=>{const x=filtered[filtered.findIndex(x=>x.id===current.id)+delta];if(x){$('question').value=x.id;selectQuestion(x);}};
-for(const [id,s,d] of [['qprev','q',-1],['qnext','q',1],['aprev','a',-1],['anext','a',1]])$(id).onclick=()=>{if(s==='q')qpos+=d;else apos+=d;resetView(s);render();};
+$('qprev').onclick=()=>jumpQuestionPart(-1);$('qnext').onclick=()=>jumpQuestionPart(1);
+for(const [id,d] of [['aprev',-1],['anext',1]])$(id).onclick=()=>{apos+=d;resetView('a');render();};
 $('learn').onclick=()=>setMode('learn');$('practice').onclick=()=>setMode('practice');$('zoom').onchange=render;
 $('draft').oninput=()=>{if(current){rec().draft=$('draft').value;draftEdited=true;persist();}};
 $('reveal').onclick=()=>{if($('desk').dataset.layout==='question')setLayout('split');attempted=draftEdited&&!!$('draft').value.trim();revealed=true;if(attempted){rec().attempted=true;rec().lastAttempt=new Date().toISOString();persist();}$('evaluation').textContent=attempted?'原本と照合して、下のボタンで自己評価してください。':'解説を読んでから、もう一度挑戦できます。';render();};
@@ -154,7 +180,7 @@ function updateStart(){
 function beginStudy(){
  if(!pdf||!current)return;
  started=true;startPending=false;document.body.classList.add('ready');$('library').hidden=true;filters(false);$('storage').open=false;
- $('workspace').hidden=false;setLayout('split');setTab('answer');setMode('learn');
+ $('workspace').hidden=false;setLayout(matchMedia('(max-width:800px)').matches?'question':'split');setTab('answer');setMode('learn');
  $('lesson-title').setAttribute('tabindex','-1');$('lesson-title').focus({preventScroll:true});
 }
 $('start').onclick=()=>{
@@ -166,3 +192,5 @@ $('field').onchange=()=>switchField($('field').value);
 let initialField='thermal';try{initialField=localStorage.getItem('ukiwa-energy-field')||'thermal';}catch{}
 const requestedField=new URL(location.href).searchParams.get('field');
 await switchField(fields[requestedField]?requestedField:fields[initialField]?initialField:'thermal');
+
+const focusButton=document.createElement('button');focusButton.id='reading-focus';focusButton.textContent='大きく読む';focusButton.setAttribute('aria-pressed','false');document.querySelector('.question-pane .pane-head').prepend(focusButton);focusButton.onclick=()=>{const active=document.body.classList.toggle('reading-focus');focusButton.textContent=active?'操作を戻す':'大きく読む';focusButton.setAttribute('aria-pressed',String(active));if(active&&matchMedia('(max-width:800px)').matches&&+$('zoom').value<1.6)$('zoom').value='1.6';requestAnimationFrame(()=>render());};

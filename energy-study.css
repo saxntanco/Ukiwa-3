@@ -18,3 +18,28 @@ body:not(.ready) #filters-panel{position:static;box-shadow:none;margin:0;display
 .ready #launch,.ready #start-actions{display:none}
 @media(max-width:600px){.launch h2{font-size:20px}#start{width:100%}#start-actions{padding:14px 0}.hero{padding-bottom:8px}}
 .open-public-link{display:inline-block;padding:12px 16px;border-radius:9px;text-decoration:none}.open-public-note{font-size:13px;color:#506b70}
+
+/* Consecutive problem excerpts: no viewport-sized blank between printed pages. */
+#qview{display:block;scroll-behavior:auto;background:#f7f5ee}
+.question-part{height:auto;min-height:0;margin:0 auto 10px;position:relative;flex:none}
+.question-part:last-child{margin-bottom:0}.question-part canvas{display:block;margin:0;box-shadow:none}
+@media(max-width:800px){
+ .ready .progress-row:has(#notice:empty),.ready .lesson-head>div:first-child,.ready .paper-caption{display:none}
+ .ready .lesson-head{padding:2px 0 5px}.ready .study-toolbar{padding:4px 0}
+ .ready .question-pane .paper{padding:5px}
+ .question-part{margin-bottom:8px}
+}
+
+/* Reading focus keeps the question, zoom, page navigation and inline answers available. */
+#reading-focus{font-size:14px;min-height:44px;padding:7px 10px}.question-pane .pane-head h3{display:none}
+body.ready.reading-focus .study-toolbar,body.ready.reading-focus .progress-row,body.ready.reading-focus .lesson-head,body.ready.reading-focus .hideout-navigation,body.ready.reading-focus .paper-caption{display:none}
+body.ready.reading-focus main{padding-top:5px}
+@media(max-width:800px){
+ .ready .question-pane .paper-tools{padding:2px 6px}
+ .ready .question-pane .pane-head{flex-shrink:0}
+ .ready .paper{background:#f5f3ec}
+ .ready .paper canvas{box-shadow:none}
+ .ready .tap-panel{line-height:1.85}
+ .ready.reading-focus .question-footer{padding-top:3px}
+}
+
