@@ -78,12 +78,19 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 #paper[data-tone="white"],#paper[data-tone="white"] .page-reader,#paper[data-tone="white"] .paper-page{background:#fff}
 .blank-hotspot{position:absolute;transform:translate(-50%,-50%);width:max(44px,var(--spot-width));min-height:36px;height:36px;padding:0 5px;font-size:16px;line-height:1;font-weight:700;color:#07575e;background:#e8f8f5f0;border:2px solid #2e8a88;border-radius:8px;box-shadow:0 1px 3px #124a4b24;cursor:pointer;z-index:1;touch-action:pan-x pan-y pinch-zoom}
 .blank-hotspot[aria-expanded="true"],.blank-shortcuts button[aria-expanded="true"]{background:#165c60;color:#fff}
-.quick-answer{position:fixed;z-index:1000;display:flex;flex-direction:column;max-height:min(470px,65dvh);padding:14px;border:2px solid #397e7e;border-radius:16px;box-shadow:0 16px 50px #0f2b3d3b;background:#fffdf8;color:#17252b;font-size:18px}
-.quick-answer-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:10px;flex-shrink:0}
-.quick-answer-head button{font-size:14px;padding:6px 10px;min-height:44px;white-space:nowrap}
-.quick-answer-body{overflow:auto;overscroll-behavior:contain;min-height:0;line-height:1.9;touch-action:pan-y pinch-zoom}
-.quick-answer-body p{white-space:pre-wrap;margin:0;overflow-wrap:anywhere}
-.quick-answer>small{font-size:12px;color:#52636a;margin-top:8px}.quick-detail{margin-top:10px;flex-shrink:0;font-size:14px}
+/* Adjacent explanation region: separate from the original page/marker coordinate system. */
+.quick-answer{flex:0 0 240px;min-height:220px;max-height:44dvh;display:flex;flex-direction:column;border:2px solid #397e7e;border-radius:12px;background:#fffdf8;color:#17252b;padding:12px;font-size:18px;margin-top:8px;overflow:hidden}
+.quick-answer-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:15px;flex-shrink:0}
+.quick-answer-head button{font-size:14px;padding:6px 10px;min-height:44px}
+.quick-answer-body{overflow:auto;min-height:0;line-height:1.8;touch-action:pan-y pinch-zoom}
+.quick-answer-body p{white-space:pre-wrap;overflow-wrap:anywhere;margin:10px 0}
+.quick-answer-body details{margin:12px 0;border-top:1px solid #d1dfdb;padding-top:10px}
+.quick-answer-body summary{cursor:pointer;font-weight:700}
+.quick-answer-body button{display:block;margin:12px 0;min-height:44px}
+.quick-answer-body small{display:block;font-size:13px;line-height:1.6}
+.blank-selected{outline:3px solid #a95b00!important;outline-offset:2px;background:#fff2ca!important;color:#402400!important}
+.context-open #paper{min-height:200px}.problem-pane.context-open{min-height:620px}.exercise:has(.context-open){height:auto!important;min-height:620px}.exercise:has(.context-open) .study-side{max-height:620px}
+
 #explanation-pane .explanation-steps p,#explanation-pane .explanation-idea,#explanation-pane .beginner-goal p,#explanation-pane .foundations p{font-size:var(--reading-text);line-height:1.95}
 .page-nav button,.paper-tools button{min-height:44px}
 .exercise{min-height:540px}.source{line-height:1.5}
@@ -98,8 +105,13 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 #desk{scroll-margin-top:60px}
 
 /* A quick answer gives the result and one thought, not the entire derivation. */
-.quick-answer{max-height:min(410px,58dvh);padding:14px 16px}
+
 .quick-answer-body{line-height:1.7}
 .quick-answer-body .quick-answer-result{font-weight:700;color:#104f56;background:#eaf5f0;border-radius:8px;padding:10px 12px;margin:0 0 10px;line-height:1.65}
 .quick-answer-reason{line-height:1.75}
 .quick-detail{background:#edf5f4;border-color:#a2c0ba;min-height:44px}
+
+/* Phones and portrait tablets use one full-width paper, never a shrunken desktop split. */
+@media(max-width:900px){.exercise{display:flex;flex-direction:column;height:auto!important;min-height:0}.problem-pane,.wide-paper .problem-pane{height:calc(100dvh - 190px);min-height:520px}.study-side{max-height:70dvh;min-height:200px}.quick-answer{font-size:17px}.reader-help{display:none}.context-open .source{display:none}}
+
+.inline-mode{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:14px}.inline-mode select{width:auto;margin:0;padding:7px;min-height:44px}

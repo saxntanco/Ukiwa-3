@@ -7,7 +7,16 @@ const fields={
 };
 let field='thermal',KEY=fields.thermal.key,switching=false,started=false,startPending=false;
 let index, pdf, current, filtered=[], qpos=0, apos=0, mode='learn', revealed=true, attempted=false, token=0, db, importing=false;
+let blankPositions={};try{blankPositions=(await (await fetch('./energy-blank-positions.json')).json()).items||{};}catch{}
+let activeBlank=null,focusBlank=false,restoreFocusKey=null;
+let inlineOpen=false,returnPosition=null,returnButton=null,pendingOutcome=null;
 let records={},last='', readerTab='answer', columns=false, draftEdited=false;
+const evidence=window.UkiwaStudyEvidence;
+try{mode=localStorage.getItem('ukiwa-energy-approach')==='practice'?'practice':'learn';}catch{}
+function exposeCurrent(){if(!current)return;Object.assign(rec(),evidence.expose(rec()));persist();}
+function closeContext(restore=true){inlineOpen=false;activeBlank=null;document.querySelectorAll('.energy-blank').forEach(b=>b.setAttribute('aria-expanded','false'));document.querySelector('.question-pane').classList.remove('context-open');document.querySelector('.answer-pane').hidden=true;if(returnPosition){$('qview').scrollLeft=returnPosition.x;$('qview').scrollTop=returnPosition.y;viewPositions.q={...returnPosition.normalized};}returnPosition=null;if(restore){restoreFocusKey=returnButton?.dataset.blank||null;render();const target=$('open-context');target.focus({preventScroll:true});}}
+
+function openContext(trigger){if(!current)return;if(!inlineOpen)returnPosition={x:$('qview').scrollLeft,y:$('qview').scrollTop,normalized:{...viewPositions.q}};returnButton=trigger||$('open-context');inlineOpen=true;document.querySelector('.question-pane').classList.add('context-open');document.querySelector('.answer-pane').hidden=false;render();$('context-heading').focus({preventScroll:true});}
 const viewPositions={q:{x:0,y:0},a:{x:0,y:0}};
 function resetView(side){viewPositions[side]={x:0,y:0};const v=$(side+'view');v.scrollLeft=v.scrollTop=0;}
 function readProgress(){records={};last='';try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');records=d.records&&typeof d.records==='object'?d.records:{};last=typeof d.last==='string'?d.last:'';}catch{notice('保存記録を読み込めませんでした。記録のバックアップがあれば読み込んでください。');}}
@@ -15,7 +24,7 @@ function readProgress(){records={};last='';try{const d=JSON.parse(localStorage.g
 const notice=t=>$('notice').textContent=t;
 const rec=()=>records[current.id]||(records[current.id]={});
 function persist(){try{localStorage.setItem(KEY,JSON.stringify({version:1,records,last:current?.id||last}));}catch{notice('記録を保存できません。記録の書き出しを利用してください。');}stats();}
-function stats(){if(!index)return;const known=index.items.map(x=>records[x.id]||{}),read=known.filter(x=>x.read).length,correct=known.filter(x=>x.correct).length,retry=known.filter(x=>x.retry).length;$('stats').textContent=`${fields[field].label}・全${index.items.length}問 ／ 読了 ${read} ／ 自力で解けた ${correct} ／ 要復習 ${retry}`;$('progress').max=index.items.length;$('progress').value=correct;}
+function stats(){if(!index)return;const known=index.items.map(x=>records[x.id]||{}),read=known.filter(x=>x.read).length,correct=known.filter(x=>x.correct).length,retry=known.filter(x=>x.retry).length;$('stats').textContent=`${fields[field].label}・全${index.items.length}問 ／ 読了 ${read} ／ 自力で解けた ${correct} ／ 再現 ${known.filter(x=>x.reproducedAt).length} ／ 解説使用 ${known.filter(x=>x.assistedAt).length} ／ 要復習 ${retry}`;$('progress').max=index.items.length;$('progress').value=correct;}
 function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open('ukiwa-energy-library',1);r.onupgradeneeded=()=>r.result.createObjectStore('books');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
 function getBook(){return new Promise((resolve,reject)=>{const r=db.transaction('books').objectStore('books').get(field);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
 function putBook(blob){return new Promise((resolve,reject)=>{const t=db.transaction('books','readwrite');t.objectStore('books').put(blob,field);t.oncomplete=resolve;t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error);});}
@@ -44,12 +53,12 @@ function applyFilters(wanted){
  const next=filtered.find(x=>x.id===wanted)||filtered[0];$('question').value=next.id;selectQuestion(next);
 }
 function selectQuestion(x){
- current=x;last=x.id;qpos=0;apos=0;draftEdited=false;resetView('q');resetView('a');revealed=mode==='learn';attempted=false;token++;
+ closeContext(false);pendingOutcome=null;current=x;last=x.id;qpos=0;apos=0;draftEdited=false;resetView('q');resetView('a');revealed=mode==='learn';attempted=false;token++;
  $('lesson-meta').textContent=`${x.year}年度 / 課目${['','Ⅰ','Ⅱ','Ⅲ','Ⅳ'][x.subject]}${x.optional?' / 選択問題':''}`;
  $('lesson-title').textContent=`問${x.number}　${x.title}`;$('draft').value=rec().draft||'';
  $('bookmark').setAttribute('aria-label',rec().saved?'あとで解くを解除':'あとで解くに登録');$('bookmark').setAttribute('aria-pressed',!!rec().saved);$('bookmark').textContent=rec().saved?'★':'☆';
  const n=filtered.findIndex(y=>y.id===x.id);$('prev').disabled=n===0;$('next').disabled=n===filtered.length-1;
- $('evaluation').textContent=rec().retry?'この問題は要復習です。':rec().correct?'以前、自力で解けた問題です。':rec().read?'解説を読んだ記録があります。':'';
+ $('evaluation').textContent=rec().retry?'この問題は要復習です。':rec().correct?'以前、自力で解けた問題です。':rec().lastOutcome==='reproduced'?'解説を読んだ後、再現できた記録があります。':rec().lastOutcome==='assisted'?'解説を使って解けた記録があります。':rec().read?'解説を読んだ記録があります。':'';
  $('question-position').textContent=`${n+1} / ${filtered.length} 問`;help(x);persist();render();
 }
 async function paint(side,serial){
@@ -73,10 +82,18 @@ async function paint(side,serial){
  if(serial!==token||questionId!==current.id)return;
  if(side==='q'){
   if($('tap-jump-list'))$('tap-jump-list').replaceChildren();
-  view.replaceChildren(...rendered.map(({canvas,seg},i)=>{const part=document.createElement('section');part.className='question-part';part.dataset.part=i;part.style.width=targetWidth+'px';part.setAttribute('aria-label',`問題の続き ${i+1} / ${segments.length}`);part.append(canvas);return part;}));
+  view.replaceChildren(...rendered.map(({canvas,seg},i)=>{const part=document.createElement('section');part.className='question-part';part.dataset.part=i;part.style.width=targetWidth+'px';part.setAttribute('aria-label',`問題の続き ${i+1} / ${segments.length}`);part.append(canvas);decorateBlanks(part,seg,questionId);return part;}));
  }else view.replaceChildren(rendered[0].canvas);
  const first=rendered[0].canvas;view.scrollTop=pos.y*first.clientHeight;view.scrollLeft=pos.x*first.clientWidth;
- if(side==='q')updateQuestionPosition();
+ if(side==='q'){if(restoreFocusKey){view.querySelector(`[data-blank="${restoreFocusKey}"]`)?.focus({preventScroll:true});restoreFocusKey=null;}updateQuestionPosition();if(focusBlank&&activeBlank){focusBlank=false;const b=view.querySelector(`[data-blank="${activeBlank}"]`);if(b){view.scrollTop+=b.getBoundingClientRect().top-view.getBoundingClientRect().top-view.clientHeight/2;view.scrollLeft+=b.getBoundingClientRect().left-view.getBoundingClientRect().left-view.clientWidth/2;}}}
+}
+function decorateBlanks(part,seg,id){
+ for(const [key,spots] of Object.entries(blankPositions[id]||{}))for(const spot of spots){
+  const [x,y,right,bottom]=seg.rect;if(spot.page!==seg.page||spot.x<x||spot.x>right||spot.y<y||spot.y>bottom)continue;
+  const b=document.createElement('button');b.className='energy-blank';b.type='button';b.textContent=`(${key})`;b.dataset.blank=key;b.style.left=((spot.x-x)/(right-x)*100)+'%';b.style.top=((spot.y-y)/(bottom-y)*100)+'%';
+  b.setAttribute('aria-label',`空欄 ${key} を選び、この問題の解説を開く`);b.setAttribute('aria-expanded',String(activeBlank===key));
+  b.onclick=()=>{if(current?.id!==id)return;activeBlank=key;focusBlank=true;$('context-heading').textContent=`選択中 (${key}) · この問題の解説`;openContext(b);};part.append(b);
+ }
 }
 function updateQuestionPosition(){
  const view=$('qview'),parts=[...view.querySelectorAll('.question-part')];if(!parts.length)return;
@@ -91,17 +108,18 @@ function jumpQuestionPart(delta){
 $('qview').addEventListener('scroll',updateQuestionPosition,{passive:true});
 
 function render(){
- if(!started||!pdf||!current)return;const serial=++token;
+ if(!started||!pdf||!current)return;const serial=++token;if(inlineOpen&&revealed&&readerTab==='answer')exposeCurrent();
  for(const [s,list,pos] of [['q',current.question,qpos],['a',answerSegments(),apos]]){$(s+'page').textContent=`${pos+1} / ${list.length}`;$(s+'prev').disabled=pos===0;$(s+'next').disabled=pos===list.length-1;}
  $('aview').hidden=!revealed;$('answer-cover').hidden=revealed;
  $('aprev').disabled=!revealed||apos===0;$('anext').disabled=!revealed||apos===answerSegments().length-1;
- $('read').disabled=!revealed;$('correct').disabled=!(mode==='practice'&&attempted&&revealed);
+ $('read').disabled=!revealed;$('correct').disabled=!(mode==='practice'&&attempted&&revealed&&pendingOutcome);
+ $('correct').textContent=pendingOutcome==='unaided'?'自力で解けた':pendingOutcome==='reproduced'?'再現できた':'解説を使って解けた';
  $('correct').title=$('correct').disabled?'解説を隠して解答を記入し、答え合わせしてから記録できます。':'';
- Promise.all([paint('q',serial),revealed&&readerTab==='answer'?paint('a',serial):Promise.resolve()]).catch(e=>{if(serial===token)notice('ページを表示できませんでした。教材を開き直してください。'+e.message);});
+ Promise.all([paint('q',serial),inlineOpen&&revealed&&readerTab==='answer'?paint('a',serial):Promise.resolve()]).catch(e=>{if(serial===token)notice('ページを表示できませんでした。教材を開き直してください。'+e.message);});
 }
-function setMode(m){mode=m;revealed=m==='learn';attempted=false;draftEdited=false;for(const id of ['learn','practice'])$(id).setAttribute('aria-pressed',id===m);render();}
+function setMode(m){pendingOutcome=null;try{localStorage.setItem('ukiwa-energy-approach',m);}catch{}mode=m;revealed=m==='learn';attempted=false;draftEdited=false;for(const id of ['learn','practice'])$(id).setAttribute('aria-pressed',id===m);render();}
 function answerSegments(){return current.answer.flatMap(seg=>{if(!columns||seg.rect[2]-seg.rect[0]<.6)return [seg];const [x,y,r,b]=seg.rect,mid=(x+r)/2;return [{...seg,rect:[x,y,mid,b]},{...seg,rect:[mid,y,r,b]}];});}
-function setLayout(layout){$('desk').dataset.layout=layout;document.querySelectorAll('[data-layout]').forEach(b=>{if(b.tagName==='BUTTON')b.setAttribute('aria-pressed',b.dataset.layout===layout);});render();}
+function setLayout(layout){$('desk').dataset.layout='question';if(layout==='question')closeContext();else openContext(document.querySelector(`[data-layout="${layout}"]`));document.querySelectorAll('button[data-layout]').forEach(b=>b.setAttribute('aria-pressed',String((layout==='question')===(b.dataset.layout==='question'))));render();}
 function setTab(tab){readerTab=tab;for(const name of ['answer','note','basics']){$(name+'-panel').hidden=name!==tab;$('tab-'+name).setAttribute('aria-selected',name===tab);$('tab-'+name).tabIndex=name===tab?0:-1;}render();}
 function filters(open){if(!started)open=true;$('filters-panel').hidden=!open;$('filters-toggle').setAttribute('aria-expanded',open);}
 $('filters-toggle').onclick=()=>filters($('filters-panel').hidden);$('filters-close').onclick=()=>filters(false);
@@ -114,7 +132,7 @@ for(const [side,id] of [['q','zoom'],['a','azoom']]){
  $(id).onchange=render;
  for(const [suffix,d] of [['minus',-1],['plus',1]])$(side+suffix).onclick=()=>{const select=$(id);select.selectedIndex=Math.max(0,Math.min(select.options.length-1,select.selectedIndex+d));render();};
  const view=$(side+'view');view.addEventListener('scroll',()=>{const c=view.querySelector('canvas');if(c)viewPositions[side]={x:view.scrollLeft/c.clientWidth,y:view.scrollTop/c.clientHeight};});
- let drag=null;view.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.button!==0)return;drag={x:e.clientX,y:e.clientY,left:view.scrollLeft,top:view.scrollTop};view.setPointerCapture(e.pointerId);view.classList.add('dragging');e.preventDefault();});
+ let drag=null;view.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.button!==0||e.target.closest('button,a,input,select,textarea'))return;drag={x:e.clientX,y:e.clientY,left:view.scrollLeft,top:view.scrollTop};view.setPointerCapture(e.pointerId);view.classList.add('dragging');e.preventDefault();});
  view.addEventListener('pointermove',e=>{if(!drag)return;view.scrollLeft=drag.left+drag.x-e.clientX;view.scrollTop=drag.top+drag.y-e.clientY;});
  for(const event of ['pointerup','pointercancel','lostpointercapture'])view.addEventListener(event,()=>{drag=null;view.classList.remove('dragging');});
 }
@@ -135,10 +153,10 @@ $('qprev').onclick=()=>jumpQuestionPart(-1);$('qnext').onclick=()=>jumpQuestionP
 for(const [id,d] of [['aprev',-1],['anext',1]])$(id).onclick=()=>{apos+=d;resetView('a');render();};
 $('learn').onclick=()=>setMode('learn');$('practice').onclick=()=>setMode('practice');$('zoom').onchange=render;
 $('draft').oninput=()=>{if(current){rec().draft=$('draft').value;draftEdited=true;persist();}};
-$('reveal').onclick=()=>{if($('desk').dataset.layout==='question')setLayout('split');attempted=draftEdited&&!!$('draft').value.trim();revealed=true;if(attempted){rec().attempted=true;rec().lastAttempt=new Date().toISOString();persist();}$('evaluation').textContent=attempted?'原本と照合して、下のボタンで自己評価してください。':'解説を読んでから、もう一度挑戦できます。';render();};
+$('reveal').onclick=()=>{attempted=draftEdited&&!!$('draft').value.trim();pendingOutcome=attempted?evidence.result(rec(),true,revealed).lastOutcome:null;revealed=true;if(attempted){rec().attempted=true;rec().lastAttempt=new Date().toISOString();persist();}$('evaluation').textContent=attempted?'原本と照合してください。正解だった場合も直近の解説閲覧を区別して記録します。':'解説を使った学習です。読むだけでも進められます。';exposeCurrent();render();};
 $('bookmark').onclick=()=>{rec().saved=!rec().saved;$('bookmark').setAttribute('aria-label',rec().saved?'あとで解くを解除':'あとで解くに登録');$('bookmark').setAttribute('aria-pressed',!!rec().saved);$('bookmark').textContent=rec().saved?'★':'☆';persist();};
 $('read').onclick=()=>{rec().read=true;persist();$('evaluation').textContent='読了を記録しました。次は「自力で解く」で確かめましょう。';};
-$('correct').onclick=()=>{if(!(mode==='practice'&&attempted&&revealed))return;Object.assign(rec(),{correct:true,retry:false,read:true,attempted:true});persist();$('evaluation').textContent='自力で解けた記録を保存しました。';};
+$('correct').onclick=()=>{if(!(mode==='practice'&&attempted&&revealed&&pendingOutcome))return;const outcome=pendingOutcome;Object.assign(rec(),{correct:outcome==='unaided'||!!rec().correct,retry:false,read:true,attempted:true,lastOutcome:outcome,[outcome+'At']:new Date().toISOString()});pendingOutcome=null;persist();render();$('evaluation').textContent=({unaided:'自力で解けた',reproduced:'再現できた',assisted:'解説を使って解けた'}[outcome])+'記録を保存しました（自己評価）。';};
 $('retry').onclick=()=>{rec().retry=true;rec().correct=false;persist();$('evaluation').textContent='要復習に登録しました。絞り込みでまとめて開けます。';};
 $('resume').onclick=()=>{const x=index.items.find(x=>x.id===last);if(x){$('year').value=x.year;$('subject').value='';$('filter').value='all';applyFilters(x.id);}};
 $('settings').onclick=()=>{$('storage').open=!$('storage').open;$('settings').setAttribute('aria-expanded',$('storage').open);};
@@ -147,7 +165,7 @@ $('change-book').onclick=()=>{$('library').hidden=false;$('library').scrollIntoV
 $('file').onchange=()=>{if($('file').files[0])loadPDF($('file').files[0],true);};
 $('remove-book').onclick=async()=>{if(importing||switching)return;if(!confirm(`${fields[field].label}の保存教材PDFを削除しますか？他分野の教材と学習記録は残ります。`))return;try{if(db){await new Promise((res,rej)=>{const t=db.transaction('books','readwrite');t.objectStore('books').delete(field);t.oncomplete=res;t.onerror=()=>rej(t.error);});}token++;if(pdf)await pdf.destroy();pdf=null;started=false;startPending=false;document.body.classList.remove('ready');filters(true);updateStart();$('workspace').hidden=true;$('library').hidden=false;$('load-state').textContent='保存教材を削除しました。記録は残っています。';}catch{notice('教材の削除に失敗しました。');}};
 $('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:1,book:index.book.id,records,last},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ukiwa-energy-${field}-progress.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
-$('import').onchange=async()=>{try{const f=$('import').files[0];if(!f)return;if(f.size>5e6)throw Error('記録ファイルが大きすぎます。');const d=JSON.parse(await f.text());if(d.version!==1||d.book!==index.book.id||!d.records||typeof d.records!=='object')throw Error('この学習室の記録ファイルではありません。');for(const x of index.items){const r=d.records[x.id];if(r&&typeof r==='object'){const clean={};for(const k of ['read','correct','retry','saved','attempted'])clean[k]=r[k]===true;clean.draft=typeof r.draft==='string'?r.draft.slice(0,50000):'';records[x.id]=clean;}}last=index.items.some(x=>x.id===d.last)?d.last:last;persist();applyFilters(current?.id);notice('記録を読み込みました。');}catch(e){notice(e.message);}finally{$('import').value='';}};
+$('import').onchange=async()=>{try{const f=$('import').files[0];if(!f)return;if(f.size>5e6)throw Error('記録ファイルが大きすぎます。');const d=JSON.parse(await f.text());if(d.version!==1||d.book!==index.book.id||!d.records||typeof d.records!=='object')throw Error('この学習室の記録ファイルではありません。');for(const x of index.items){const r=d.records[x.id];if(r&&typeof r==='object'){const clean={};for(const k of ['read','correct','retry','saved','attempted'])clean[k]=r[k]===true;for(const k of ['exposedAt','readAt','unaidedAt','reproducedAt','assistedAt'])if(typeof r[k]==='string'&&Number.isFinite(Date.parse(r[k])))clean[k]=r[k];if(['unaided','reproduced','assisted','retry'].includes(r.lastOutcome))clean.lastOutcome=r.lastOutcome;clean.draft=typeof r.draft==='string'?r.draft.slice(0,50000):'';records[x.id]=clean;}}last=index.items.some(x=>x.id===d.last)?d.last:last;persist();applyFilters(current?.id);notice('記録を読み込みました。');}catch(e){notice(e.message);}finally{$('import').value='';}};
 let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(render,200);});
 async function switchField(next){
  if(switching||importing||!fields[next])return;
@@ -175,20 +193,32 @@ async function switchField(next){
 function updateStart(){
  $('start').disabled=switching||importing||!index;
  $('start').textContent=switching||importing?'教材を確認しています…':'学習をはじめる';
- $('start-status').textContent=pdf?'教材は登録済みです。開始すると問題と解説を左右に表示します。':'初回は、この端末で教材PDFの登録が必要です。登録済みなら次回からボタン一つで開始できます。';
+ $('start-status').textContent=pdf?'教材は登録済みです。問題のそばで、対応する解説を開けます。':'初回は、この端末で教材PDFの登録が必要です。登録済みなら次回からボタン一つで開始できます。';
 }
 function beginStudy(){
  if(!pdf||!current)return;
+ if(!started&&matchMedia('(max-width:800px)').matches){$('zoom').value='1.6';$('azoom').value='1.6';}
  started=true;startPending=false;document.body.classList.add('ready');$('library').hidden=true;filters(false);$('storage').open=false;
- $('workspace').hidden=false;setLayout(matchMedia('(max-width:800px)').matches?'question':'split');setTab('answer');setMode('learn');
+ $('workspace').hidden=false;setLayout('question');setTab('answer');setMode(mode);
  $('lesson-title').setAttribute('tabindex','-1');$('lesson-title').focus({preventScroll:true});
 }
 $('start').onclick=()=>{
  if(!filtered.length){$('start-status').textContent='条件に合う問題がありません。絞り込みを変更してください。';return;}
  if(pdf){beginStudy();return;}
- startPending=true;$('library').hidden=false;$('load-state').textContent='この端末に教材が未登録です。PDFを選ぶと、そのまま左右の学習画面が開きます。';$('file').click();
+ startPending=true;$('library').hidden=false;$('load-state').textContent='この端末に教材が未登録です。PDFを選ぶと、そのまま学習画面が開きます。';$('file').click();
 };
 $('field').onchange=()=>switchField($('field').value);
+const answerPane=document.querySelector('.answer-pane');
+$('qview').after(answerPane);answerPane.hidden=true;
+const contextHead=document.createElement('div');contextHead.className='context-head';contextHead.innerHTML='<strong id="context-heading" tabindex="-1">この問題の解説</strong><button id="close-context" type="button">閉じる ×</button>';
+answerPane.prepend(contextHead);
+const scope=document.createElement('p');scope.className='context-scope';scope.textContent='大問全体に対応する教材原本です。空欄ごとの解説対応は未整備です。';contextHead.after(scope);
+const modebar=document.querySelector('.modebar');document.querySelector('.question-pane .pane-head').before(modebar);$('practice').textContent='自力で解く';
+const openButton=document.createElement('button');openButton.id='open-context';openButton.textContent='この問題の解説・解答';openButton.onclick=()=>{activeBlank=null;$('context-heading').textContent='この問題の解説';openContext(openButton);};document.querySelector('.question-pane .paper-tools').append(openButton);
+$('close-context').onclick=()=>closeContext();
+answerPane.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closeContext();}});
+const hideButton=document.createElement('button');hideButton.textContent='解説を隠して解く';hideButton.onclick=()=>{setMode('practice');setTab('note');};document.querySelector('.assessment').prepend(hideButton);
+document.querySelector('button[data-layout="split"]').textContent='解説も表示';document.querySelector('button[data-layout="answer"]').remove();
 let initialField='thermal';try{initialField=localStorage.getItem('ukiwa-energy-field')||'thermal';}catch{}
 const requestedField=new URL(location.href).searchParams.get('field');
 await switchField(fields[requestedField]?requestedField:fields[initialField]?initialField:'thermal');
