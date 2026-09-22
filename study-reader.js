@@ -40,7 +40,7 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
  const button=(label,action)=>{const el=text('button',label);el.type='button';el.onclick=action;return el};
  function highlight(){pane.querySelectorAll('[data-blank]').forEach(el=>{const active=Number(el.dataset.blank)===selected;el.setAttribute('aria-expanded',String(active));el.classList.toggle('blank-selected',active);});}
  function close(restore=false){
-  const target=anchor,saved=origin;popover?.remove();popover=null;selected=-1;highlight();pane.classList.remove('context-open');
+  const target=anchor,saved=origin;popover?.close();popover?.remove();popover=null;selected=-1;highlight();pane.classList.remove('context-open');
   if(saved){paper.scrollLeft=saved.x;paper.scrollTop=saved.y;}origin=null;anchor=null;
   if(restore&&target?.isConnected)target.focus({preventScroll:true});
  }
@@ -48,11 +48,11 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
   if(!spec?.[slot])return;
   if(!popover)origin={x:paper.scrollLeft,y:paper.scrollTop};
   popover?.remove();anchor=trigger;selected=slot;highlight();pane.classList.add('context-open');
-  popover=text('section','', 'quick-answer');popover.setAttribute('role','region');popover.setAttribute('aria-label',`空欄 ${slot+1} の学習`);popover.tabIndex=-1;
+  popover=text('dialog','', 'quick-answer');popover.addEventListener('cancel',e=>{e.preventDefault();close(true)});popover.setAttribute('aria-label',`空欄 ${slot+1} の学習`);popover.tabIndex=-1;
   const head=text('div','', 'quick-answer-head');head.append(text('strong',`選択中 (${slot+1})`),button('閉じる ×',()=>close(true)));popover.append(head);
   const body=text('div','', 'quick-answer-body');popover.append(body);
-  paper.after(popover);
-  const addDetails=(title,content)=>{const d=text('details','');d.append(text('summary',title),text('p',content));body.append(d);};
+  document.body.append(popover);popover.showModal();
+  const addDetails=(title,content)=>{const d=text('details','');d.open=true;d.append(text('summary',title),text('p',content));body.append(d);};
   let revealedHere=false;
   function explanation(){
    const brief=window.UkiwaStudyQuickNotes.brief(q,lesson,slot);
@@ -64,7 +64,7 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
    if(lesson?.basics?.length){const basics=text('details','');basics.append(text('summary','この問題に共通する公式・記号・基礎'));lesson.basics.forEach(b=>{const d=text('details','');d.append(text('summary',b.title),text('p',b.body));basics.append(d)});body.append(basics)}
    if(lesson?.pitfall)addDetails('この問題で間違えやすい点',lesson.pitfall);
    const link=text('a','問題の原本を確認 ↗');link.href=q.source;link.target='_blank';link.rel='noopener';body.append(link);
-   if(!brief)body.append(button('この問題の公式解答を開く',()=>onDetail(slot)));
+   if(!brief)body.append(button('この問題の公式解答を開く',()=>{close(true);onDetail(slot)}));
    body.append(button('この空欄を隠して解く',()=>peek(slot,trigger,true)));
    body.append(text('small','読むだけでも大丈夫です。24時間以内の解き直しは「再現できた」と記録します。'));
   }
@@ -81,8 +81,7 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
    }),button('解説を見る',explanation),feedback);
   }else explanation();
   const r=getRecord(slot);if(r.lastOutcome)head.firstChild.textContent+=` · ${{unaided:'自力正解',assisted:'解説を使って正解',reproduced:'再現できた',retry:'要復習'}[r.lastOutcome]||''}`;
-  // Scroll only the original paper enough to keep the selected blank visible. Never crop its context.
-  requestAnimationFrame(()=>{if(disposed||!popover)return;const spot=trigger.classList.contains('blank-hotspot')?trigger:paper.querySelector(`[data-blank="${slot}"]`);if(spot){const a=spot.getBoundingClientRect(),v=paper.getBoundingClientRect();if(a.bottom>v.bottom-12)paper.scrollTop+=a.bottom-v.bottom+24;if(a.top<v.top+12)paper.scrollTop+=a.top-v.top-24;if(a.right>v.right-12)paper.scrollLeft+=a.right-v.right+24;if(a.left<v.left+12)paper.scrollLeft+=a.left-v.left-24;}popover.focus({preventScroll:true});});
+  popover.querySelector('button').focus({preventScroll:true});
  }
  const shortcut=document.createElement('nav');shortcut.className='blank-shortcuts';shortcut.setAttribute('aria-label','問題を見ながら答えを確認');
  if(spec){const label=document.createElement('span');label.textContent='空欄を選ぶ';shortcut.append(label);spec.slice(0,5).forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.textContent=`(${i+1})`;b.dataset.blank=i;b.setAttribute('aria-label',`空欄 ${i+1} の答えをその場で見る`);b.setAttribute('aria-expanded','false');b.onclick=()=>peek(i,b);shortcut.append(b)});bar.after(shortcut)}

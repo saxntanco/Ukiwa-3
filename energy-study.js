@@ -14,9 +14,9 @@ let records={},last='', readerTab='answer', columns=false, draftEdited=false;
 const evidence=window.UkiwaStudyEvidence;
 try{mode=localStorage.getItem('ukiwa-energy-approach')==='practice'?'practice':'learn';}catch{}
 function exposeCurrent(){if(!current)return;Object.assign(rec(),evidence.expose(rec()));persist();}
-function closeContext(restore=true){inlineOpen=false;activeBlank=null;document.querySelectorAll('.energy-blank').forEach(b=>b.setAttribute('aria-expanded','false'));document.querySelector('.question-pane').classList.remove('context-open');document.querySelector('.answer-pane').hidden=true;if(returnPosition){$('qview').scrollLeft=returnPosition.x;$('qview').scrollTop=returnPosition.y;viewPositions.q={...returnPosition.normalized};}returnPosition=null;if(restore){restoreFocusKey=returnButton?.dataset.blank||null;render();const target=$('open-context');target.focus({preventScroll:true});}}
+function closeContext(restore=true){answerDialog.close();inlineOpen=false;activeBlank=null;document.querySelectorAll('.energy-blank').forEach(b=>b.setAttribute('aria-expanded','false'));document.querySelector('.question-pane').classList.remove('context-open');document.querySelector('.answer-pane').hidden=true;if(returnPosition){$('qview').scrollLeft=returnPosition.x;$('qview').scrollTop=returnPosition.y;viewPositions.q={...returnPosition.normalized};}returnPosition=null;if(restore){restoreFocusKey=returnButton?.dataset.blank||null;render();const target=$('open-context');target.focus({preventScroll:true});}}
 
-function openContext(trigger){if(!current)return;if(!inlineOpen)returnPosition={x:$('qview').scrollLeft,y:$('qview').scrollTop,normalized:{...viewPositions.q}};returnButton=trigger||$('open-context');inlineOpen=true;document.querySelector('.question-pane').classList.add('context-open');document.querySelector('.answer-pane').hidden=false;render();$('context-heading').focus({preventScroll:true});}
+function openContext(trigger){if(!current)return;if(!inlineOpen)returnPosition={x:$('qview').scrollLeft,y:$('qview').scrollTop,normalized:{...viewPositions.q}};returnButton=trigger||$('open-context');inlineOpen=true;document.querySelector('.question-pane').classList.add('context-open');document.querySelector('.answer-pane').hidden=false;if(!answerDialog.open)answerDialog.showModal();render();$('context-heading').focus({preventScroll:true});}
 const viewPositions={q:{x:0,y:0},a:{x:0,y:0}};
 function resetView(side){viewPositions[side]={x:0,y:0};const v=$(side+'view');v.scrollLeft=v.scrollTop=0;}
 function readProgress(){records={};last='';try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');records=d.records&&typeof d.records==='object'?d.records:{};last=typeof d.last==='string'?d.last:'';}catch{notice('保存記録を読み込めませんでした。記録のバックアップがあれば読み込んでください。');}}
@@ -209,7 +209,7 @@ $('start').onclick=()=>{
 };
 $('field').onchange=()=>switchField($('field').value);
 const answerPane=document.querySelector('.answer-pane');
-$('qview').after(answerPane);answerPane.hidden=true;
+const answerDialog=document.createElement('dialog');answerDialog.className='energy-answer-dialog';answerDialog.setAttribute('aria-label','Explanation');document.body.append(answerDialog);answerDialog.append(answerPane);answerPane.hidden=true;answerDialog.addEventListener('cancel',e=>{e.preventDefault();closeContext()});
 const contextHead=document.createElement('div');contextHead.className='context-head';contextHead.innerHTML='<strong id="context-heading" tabindex="-1">この問題の解説</strong><button id="close-context" type="button">閉じる ×</button>';
 answerPane.prepend(contextHead);
 const scope=document.createElement('p');scope.className='context-scope';scope.textContent='大問全体に対応する教材原本です。空欄ごとの解説対応は未整備です。';contextHead.after(scope);

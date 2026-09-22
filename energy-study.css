@@ -45,7 +45,6 @@ body.ready.reading-focus main{padding-top:5px}
 
 
 /* In-context answer reader: reuse the registered PDF renderer directly below the problem. */
-.desk[data-layout=question] .question-pane.context-open>.answer-pane{display:flex;flex:0 0 380px;min-height:360px;border:2px solid #397e7e;border-radius:10px;margin:6px}
 .question-pane>.modebar{padding:5px 10px;flex-shrink:0}
 .context-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 10px;flex-shrink:0}
 .context-head button{font-size:14px;min-height:44px}
@@ -60,16 +59,4 @@ body.ready.reading-focus main{padding-top:5px}
 
 .energy-blank{position:absolute;transform:translate(-50%,-50%);min-width:32px;min-height:32px;padding:2px 4px;font-size:14px;line-height:1;background:#e8f7f4eb;border:1px solid #277267;border-radius:6px}.energy-blank[aria-expanded=true]{outline:3px solid #a95b00;background:#fff2ca;color:#402400}
 
-/* Keep enough space for the original explanation after its controls. */
-.ready .desk:has(.context-open){min-height:760px}
-.context-open #qview{min-height:220px}
-.context-open .modebar{justify-content:flex-start}
-@media(min-width:901px){
- .ready .desk:has(.context-open){min-height:640px}
- .question-pane.context-open{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);grid-template-rows:auto auto auto minmax(420px,1fr) auto}
- .question-pane.context-open>.modebar,.question-pane.context-open>.pane-head,.question-pane.context-open>.paper-tools,.question-pane.context-open>.paper-caption{grid-column:1/-1}
- .question-pane.context-open>#qview{grid-column:1;grid-row:4}
- .desk[data-layout=question] .question-pane.context-open>.answer-pane{grid-column:2;grid-row:4;margin:0 6px 6px;min-height:420px}
- body.ready:has(.context-open){overflow:auto}
- .ready:has(.context-open) main{flex:none}
-}
+.energy-answer-dialog{position:fixed;inset:0;margin:auto;width:min(1000px,calc(100vw - 16px));height:92dvh;max-width:none;max-height:92dvh;padding:0;border:2px solid #397e7e;border-radius:14px;background:#f8fbfa;color:#17252b;overflow:hidden}.energy-answer-dialog::backdrop{background:#10232bb3}.energy-answer-dialog .answer-pane{display:flex;height:100%;min-height:0;border:0}.energy-answer-dialog .reader-panel{min-height:0;flex:1}.energy-answer-dialog .context-head{padding:10px;font-size:18px}.energy-answer-dialog .context-scope{font-size:14px}.energy-answer-dialog .assessment{flex-shrink:0}
