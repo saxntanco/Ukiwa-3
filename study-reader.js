@@ -81,10 +81,10 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail}){
    const pad=18,x=(left-pad)*W/800,w=(right-left+2*pad)*W/800,cut=end*W/800;
    if(w>W*1.05)return;
    const ns='http://www.w3.org/2000/svg',body=document.createElementNS(ns,'svg');
-   body.setAttribute('viewBox',`${x} 0 ${w} ${cut}`);body.setAttribute('width',w);body.setAttribute('height',cut);body.style.setProperty('width',w+'px','important');body.style.setProperty('height',cut+'px','important');body.append(image.cloneNode(true));
+   body.dataset.uvZoom='true';body.setAttribute('viewBox',`${x} 0 ${w} ${cut}`);body.setAttribute('width',w);body.setAttribute('height',cut);body.style.setProperty('width',w+'px','important');body.style.setProperty('height',cut+'px','important');body.append(image.cloneNode(true));
    let height=cut;
    svg.replaceChildren(body);
-   if(end<rows.length){const footer=document.createElementNS(ns,'svg'),fh=(H-cut)*w/W;footer.setAttribute('viewBox',`0 ${cut} ${W} ${H-cut}`);footer.setAttribute('y',cut);footer.setAttribute('width',w);footer.setAttribute('height',fh);footer.style.setProperty('width',w+'px','important');footer.style.setProperty('height',fh+'px','important');footer.append(image.cloneNode(true));svg.append(footer);height+=fh;}
+   if(end<rows.length){const footer=document.createElementNS(ns,'svg'),fh=(H-cut)*w/W;footer.dataset.uvZoom='true';footer.setAttribute('viewBox',`0 ${cut} ${W} ${H-cut}`);footer.setAttribute('y',cut);footer.setAttribute('width',w);footer.setAttribute('height',fh);footer.style.setProperty('width',w+'px','important');footer.style.setProperty('height',fh+'px','important');footer.append(image.cloneNode(true));svg.append(footer);height+=fh;}
    svg.setAttribute('viewBox',`0 0 ${w} ${height}`);svg.setAttribute('width',w);svg.setAttribute('height',height);
    pageFrames.set(svg,{x,w,h:height,W,H});refresh();
   }catch{/* Keep the original page if analysis or image decoding fails. */}
