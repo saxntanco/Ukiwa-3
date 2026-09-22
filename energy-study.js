@@ -16,7 +16,12 @@ try{mode=localStorage.getItem('ukiwa-energy-approach')==='practice'?'practice':'
 function exposeCurrent(){if(!current)return;Object.assign(rec(),evidence.expose(rec()));persist();}
 function closeContext(restore=true){answerDialog.close();inlineOpen=false;activeBlank=null;document.querySelectorAll('.energy-blank').forEach(b=>b.setAttribute('aria-expanded','false'));document.querySelector('.question-pane').classList.remove('context-open');document.querySelector('.answer-pane').hidden=true;if(returnPosition){$('qview').scrollLeft=returnPosition.x;$('qview').scrollTop=returnPosition.y;viewPositions.q={...returnPosition.normalized};}returnPosition=null;if(restore){restoreFocusKey=returnButton?.dataset.blank||null;render();const target=$('open-context');target.focus({preventScroll:true});}}
 
-function openContext(trigger){if(!current)return;if(!inlineOpen)returnPosition={x:$('qview').scrollLeft,y:$('qview').scrollTop,normalized:{...viewPositions.q}};returnButton=trigger||$('open-context');inlineOpen=true;document.querySelector('.question-pane').classList.add('context-open');document.querySelector('.answer-pane').hidden=false;if(!answerDialog.open)answerDialog.showModal();render();$('context-heading').focus({preventScroll:true});}
+function copyProblemContext(){
+ const originals=answerDialog.querySelector('.context-originals');originals.replaceChildren();
+ for(const source of $('qview').querySelectorAll('canvas')){const copy=document.createElement('canvas');copy.width=source.width;copy.height=source.height;copy.getContext('2d').drawImage(source,0,0);originals.append(copy);}
+}
+function openContext(trigger){if(!current)return;if(!inlineOpen)returnPosition={x:$('qview').scrollLeft,y:$('qview').scrollTop,normalized:{...viewPositions.q}};returnButton=trigger||$('open-context');copyProblemContext();
+ inlineOpen=true;document.querySelector('.question-pane').classList.add('context-open');document.querySelector('.answer-pane').hidden=false;if(!answerDialog.open)answerDialog.showModal();render();$('context-heading').focus({preventScroll:true});}
 const viewPositions={q:{x:0,y:0},a:{x:0,y:0}};
 function resetView(side){viewPositions[side]={x:0,y:0};const v=$(side+'view');v.scrollLeft=v.scrollTop=0;}
 function readProgress(){records={};last='';try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');records=d.records&&typeof d.records==='object'?d.records:{};last=typeof d.last==='string'?d.last:'';}catch{notice('保存記録を読み込めませんでした。記録のバックアップがあれば読み込んでください。');}}
@@ -83,6 +88,7 @@ async function paint(side,serial){
  if(side==='q'){
   if($('tap-jump-list'))$('tap-jump-list').replaceChildren();
   view.replaceChildren(...rendered.map(({canvas,seg},i)=>{const part=document.createElement('section');part.className='question-part';part.dataset.part=i;part.style.width=targetWidth+'px';part.setAttribute('aria-label',`問題の続き ${i+1} / ${segments.length}`);part.append(canvas);decorateBlanks(part,seg,questionId);return part;}));
+  if(inlineOpen&&!answerDialog.querySelector('.context-originals canvas'))copyProblemContext();
  }else view.replaceChildren(rendered[0].canvas);
  const first=rendered[0].canvas;view.scrollTop=pos.y*first.clientHeight;view.scrollLeft=pos.x*first.clientWidth;
  if(side==='q'){if(restoreFocusKey){view.querySelector(`[data-blank="${restoreFocusKey}"]`)?.focus({preventScroll:true});restoreFocusKey=null;}updateQuestionPosition();if(focusBlank&&activeBlank){focusBlank=false;const b=view.querySelector(`[data-blank="${activeBlank}"]`);if(b){view.scrollTop+=b.getBoundingClientRect().top-view.getBoundingClientRect().top-view.clientHeight/2;view.scrollLeft+=b.getBoundingClientRect().left-view.getBoundingClientRect().left-view.clientWidth/2;}}}
@@ -209,15 +215,16 @@ $('start').onclick=()=>{
 };
 $('field').onchange=()=>switchField($('field').value);
 const answerPane=document.querySelector('.answer-pane');
-const answerDialog=document.createElement('dialog');answerDialog.className='energy-answer-dialog';answerDialog.setAttribute('aria-label','Explanation');document.body.append(answerDialog);answerDialog.append(answerPane);answerPane.hidden=true;answerDialog.addEventListener('cancel',e=>{e.preventDefault();closeContext()});
+const answerDialog=document.createElement('dialog');answerDialog.className='energy-answer-dialog';answerDialog.setAttribute('aria-label','問題と詳細解説');document.body.append(answerDialog);answerDialog.append(answerPane);answerPane.hidden=true;answerDialog.addEventListener('cancel',e=>{e.preventDefault();closeContext()});
 const contextHead=document.createElement('div');contextHead.className='context-head';contextHead.innerHTML='<strong id="context-heading" tabindex="-1">この問題の解説</strong><button id="close-context" type="button">閉じる ×</button>';
 answerPane.prepend(contextHead);
 const scope=document.createElement('p');scope.className='context-scope';scope.textContent='大問全体に対応する教材原本です。空欄ごとの解説対応は未整備です。';contextHead.after(scope);
+const problemContext=document.createElement('details');problemContext.className='energy-problem-context';problemContext.open=true;problemContext.innerHTML='<summary>問題文・条件・図を確認</summary><div class="context-originals"></div>';scope.after(problemContext);
 const modebar=document.querySelector('.modebar');document.querySelector('.question-pane .pane-head').before(modebar);$('practice').textContent='自力で解く';
 const openButton=document.createElement('button');openButton.id='open-context';openButton.textContent='この問題の解説・解答';openButton.onclick=()=>{activeBlank=null;$('context-heading').textContent='この問題の解説';openContext(openButton);};document.querySelector('.question-pane .paper-tools').append(openButton);
 $('close-context').onclick=()=>closeContext();
 answerPane.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closeContext();}});
-const hideButton=document.createElement('button');hideButton.textContent='解説を隠して解く';hideButton.onclick=()=>{setMode('practice');setTab('note');};document.querySelector('.assessment').prepend(hideButton);
+const hideButton=document.createElement('button');hideButton.textContent='閉じて自分で解く';hideButton.onclick=()=>{closeContext();setMode('practice');setTab('note');};document.querySelector('.assessment').prepend(hideButton);
 document.querySelector('button[data-layout="split"]').textContent='解説も表示';document.querySelector('button[data-layout="answer"]').remove();
 let initialField='thermal';try{initialField=localStorage.getItem('ukiwa-energy-field')||'thermal';}catch{}
 const requestedField=new URL(location.href).searchParams.get('field');

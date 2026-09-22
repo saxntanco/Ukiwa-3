@@ -80,9 +80,16 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 .blank-hotspot[aria-expanded="true"],.blank-shortcuts button[aria-expanded="true"]{background:#165c60;color:#fff}
 /* Adjacent explanation region: separate from the original page/marker coordinate system. */
 .quick-answer{position:fixed;inset:0;margin:auto;width:min(850px,calc(100vw - 24px));max-width:none;height:min(850px,90dvh);max-height:90dvh;box-sizing:border-box;border:2px solid #397e7e;border-radius:16px;background:#fffdf8;color:#17252b;padding:20px;font-size:20px;overflow:hidden}.quick-answer[open]{display:flex;flex-direction:column}.quick-answer::backdrop{background:#10232bb3}.quick-answer-body{padding:12px 6px}
-.quick-answer-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:15px;flex-shrink:0}
+.quick-answer-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:20px;flex-shrink:0}
 .quick-answer-head button{font-size:14px;padding:6px 10px;min-height:44px}
-.quick-answer-body{overflow:auto;min-height:0;line-height:1.8;touch-action:pan-y pinch-zoom}
+.quick-answer-reading{overflow:auto;min-height:0;overscroll-behavior:contain;line-height:1.8;touch-action:pan-y pinch-zoom}
+.quick-answer-context{margin:12px 0;border:1px solid #cadbd7;border-radius:10px;padding:8px}
+.quick-answer-original{max-height:30dvh;overflow:auto;background:#faf7ee}
+.context-paper-page{position:relative;margin:8px auto;width:100%;min-width:620px}
+.context-paper-page>svg{display:block;width:100%;height:auto}
+.context-blank{position:absolute;transform:translate(-50%,-50%);background:#fff2ca;color:#402400;outline:2px solid #a95b00;border-radius:4px;font-size:14px;line-height:1.4;white-space:nowrap;pointer-events:none}
+.quick-answer-context summary{font-size:16px;font-weight:700;cursor:pointer}
+@media(min-width:901px){dialog.quick-answer{width:80vw;max-width:1200px}}
 .quick-answer-body p{white-space:pre-wrap;overflow-wrap:anywhere;margin:10px 0}
 .quick-answer-body details{margin:12px 0;border-top:1px solid #d1dfdb;padding-top:10px}
 .quick-answer-body summary{cursor:pointer;font-weight:700}
