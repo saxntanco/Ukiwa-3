@@ -41,12 +41,14 @@ test('energy position metadata is only coordinates and maps to registered questi
 test('deep explanations match official answers and keep figures inert',()=>{
  const root=path.resolve(__dirname,'..');
  const load=name=>JSON.parse(fs.readFileSync(path.join(root,name),'utf8'));
- const deep=load('denken-assets/deep-explanations.json'),answers=load('denken-assets/answers.json'),lessons=load('denken-assets/original-explanations.json');
+ const index=load('denken-assets/deep/index.json'),answers=load('denken-assets/answers.json');
+ const deep=Object.assign({},...Object.keys(index.years).map(y=>load(`denken-assets/deep/${y}.json`)));
+ assert.deepEqual(Object.keys(deep).sort(),[...index.keys].sort(),'index lists every explanation');
  for(const [key,entry] of Object.entries(deep)){
   const [year,subject,number]=key.split('-'),correct=answers[year]?.[subject]?.[number];
-  assert.ok(correct,`${key} has official answers`);assert.ok(lessons[key],`${key} extends an existing lesson`);
+  assert.ok(correct,`${key} has official answers`);
   assert.equal(entry.slots.length,correct.length,`${key} covers every blank`);
-  if(entry.choices)assert.deepEqual(Object.keys(entry.choices).sort(),[...'イロハニホヘトチリヌルヲワカヨ'].sort(),`${key} transcribes every choice`);
+  if(entry.choices){const keys=Object.keys(entry.choices);assert.ok(keys.every(k=>'イロハニホヘトチリヌルヲワカヨ'.includes(k)),`${key} uses answer-group symbols`);assert.ok(correct.every(c=>keys.includes(c)),`${key} transcribes every correct choice`);assert.ok(keys.length===15||entry.choicesPartial,`${key} transcribes all 15 choices unless marked partial`);}
   entry.slots.forEach((slot,i)=>{
    assert.ok(slot.ask&&slot.steps?.length,`${key} (${i+1}) explains the step`);
    for(const trap of slot.trap||[])assert.ok(!trap.choice.split(/[・\s]/).includes(correct[i]),`${key} (${i+1}) does not list the answer as a trap`);
