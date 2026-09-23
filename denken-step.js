@@ -102,7 +102,7 @@ function blank(i){
  if(part.steps?.[0]){hint.append(el('strong',null,'ヒント：'+part.steps[0].title),el('p',null,part.steps[0].body||''));}
  card.append(hint);
  const group=el('div','step-choices');group.setAttribute('role','radiogroup');group.setAttribute('aria-label',`空欄 (${i+1}) の解答群`);
- symbols.forEach(sym=>{const b=el('button','step-choice');b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked',String(s.selected===sym));
+ (deep.choices?symbols.filter(sym=>sym in deep.choices):symbols).forEach(sym=>{const b=el('button','step-choice');b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked',String(s.selected===sym));
   b.append(el('span','step-sym',sym),el('span','step-formula',deep.choices?.[sym]||'（原本の解答群を参照）'));
   if(s.checked){b.disabled=true;if(sym===correct[i])b.dataset.result='correct';else if(sym===s.selected)b.dataset.result='wrong';}
   b.onclick=()=>{s.selected=sym;render()};group.append(b)});
@@ -162,11 +162,12 @@ function render(){dots();if(step===0)intro();else if(step>correct.length)result(
 
 (async()=>{try{
  const paper=qid.replace(/-\d+$/,''),number=Number(qid.match(/-(\d+)$/)?.[1]);
- const [catalog,answers,lessons,deepAll,hotspots]=await Promise.all([json('denken-assets/catalog.json'),json('denken-assets/answers.json'),json('denken-assets/original-explanations.json?v=9'),json('denken-assets/deep-explanations.json?v=4'),json('denken-assets/blank-hotspots.json?v=2')]);
+ const [catalog,answers,lessons,deepIndex,hotspots]=await Promise.all([json('denken-assets/catalog.json'),json('denken-assets/answers.json'),json('denken-assets/original-explanations.json?v=9'),json('denken-assets/deep/index.json?v='+Date.now().toString(36).slice(0,-4)),json('denken-assets/blank-hotspots.json?v=2')]);
  const p=catalog.find(x=>x.id===paper),i=p?.starts.findIndex(s=>s.number===number);
  if(!p||i<0)throw Error('問題が見つかりません');
  q={...p,id:qid,paper,number,page:p.starts[i].page,end:(p.starts[i+1]?.page??p.pages)-1};
  const k=`${q.year}-${q.subject}-${q.number}`;
+ const year=String(q.year),deepAll=deepIndex.years?.[year]?await json('denken-assets/deep/'+year+'.json?v='+deepIndex.years[year]):{};
  correct=answers[q.year]?.[q.subject]?.[q.number];lesson=lessons[k];deep=deepAll[k];spots=hotspots[q.id]||[];
  $('title').textContent=`${q.year} ${q.subject} 問${q.number}`;document.title=`${q.year} ${q.subject} 問${q.number}｜1空欄ずつ解く（試作）`;
  $('back').href='denken-study.html?q='+encodeURIComponent(q.id);
