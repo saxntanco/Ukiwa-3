@@ -4,6 +4,8 @@ const $=id=>document.getElementById(id);
 const key='ukiwa-denken-study-v2',evidence=window.UkiwaStudyEvidence,symbols=[...'イロハニホヘトチリヌルヲワカヨ'];
 const qid=new URLSearchParams(location.search).get('q')||'20260830_ch_second_q01-1';
 let state={records:{}};
+// Follow the study room's paper colour setting (default: warm paper).
+try{document.documentElement.dataset.tone=JSON.parse(localStorage.getItem('ukiwa-study-reader-v1')||'{}').paper==='white'?'white':'warm'}catch{document.documentElement.dataset.tone='warm'}
 try{const s=JSON.parse(localStorage.getItem(key));if(s?.records&&typeof s.records==='object')state=s}catch{}
 let q,correct,lesson,deep,spots=[],pages=[],step=0;
 const slots=[];// per blank: {selected,checked,ok,hint,revealed,wide}
@@ -21,6 +23,21 @@ function attemptSlot(slot,ok,assisted){const r=state.records[q.id]||{},old=slotR
 async function json(url){const r=await fetch(url);if(!r.ok)throw Error(url);return r.json()}
 async function unpack(name){const r=await fetch('denken-assets/'+name+'.pack?v=readable-1');if(!r.ok)throw Error('pack');const b=Uint8Array.from(atob((await r.text()).trim()),c=>c.charCodeAt(0));return JSON.parse(await new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'))).text())}
 
+/* Left/right extent of the printed text, so crops are centred whatever the booklet's gutter side. */
+const bounds=new Map();
+async function measure(index){
+ if(bounds.has(index))return;bounds.set(index,null);
+ try{const image=pageSvg(index)?.querySelector('image');if(!image)return;
+  const IW=Number(image.getAttribute('width')),IH=Number(image.getAttribute('height')),bitmap=new Image();
+  bitmap.src=image.getAttribute('href');await bitmap.decode();
+  const c=document.createElement('canvas');c.width=800;c.height=Math.round(800*IH/IW);
+  const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(bitmap,0,0,c.width,c.height);
+  const {data}=ctx.getImageData(0,0,c.width,c.height);let lo=800,hi=-1;
+  // Skip the page number and print code at the foot of the page.
+  for(let y=0;y<c.height*.93;y++)for(let x=2;x<798;x++){const i=(y*800+x)*4;if(data[i+3]>200&&Math.max(data[i],data[i+1],data[i+2])<120){if(x<lo)lo=x;if(x>hi)hi=x;}}
+  if(hi-lo>200)bounds.set(index,{left:lo*IW/800,right:(hi+1)*IW/800});
+ }catch{/* Fall back to a fixed crop. */}
+}
 function pageSvg(index){const t=document.createElement('template');t.innerHTML=pages[index]||'';return t.content.querySelector('svg')}
 /* Show only the lines around one blank, with the blank highlighted. */
 function crop(slot,wide){
@@ -28,12 +45,12 @@ function crop(slot,wide){
  const box=svg.viewBox.baseVal,W=box.width,H=box.height;
  // Hotspot x/y are the blank's centre, as percentages of the original page (see .blank-hotspot).
  const top=(spot.y/100-(wide?.2:.075))*H,bottom=(spot.y/100+(wide?.12:.045))*H;
- const y0=Math.max(0,top),h=Math.min(H,bottom)-y0,x0=W*.11,w=W*.8;
+ const ink=bounds.get(spot.page),pad=W*.02,y0=Math.max(0,top),h=Math.min(H,bottom)-y0,x0=ink?Math.max(0,ink.left-pad):W*.08,w=ink?Math.min(W,ink.right+pad)-x0:W*.84;
  svg.setAttribute('viewBox',`${x0} ${y0} ${w} ${h}`);svg.removeAttribute('width');svg.removeAttribute('height');
  svg.setAttribute('role','img');svg.setAttribute('aria-label',`問題文の空欄 (${slot+1}) のまわり`);
  const mark=document.createElementNS('http://www.w3.org/2000/svg','rect');
- const pad=W*.006;
- mark.setAttribute('x',(spot.x-spot.w/2)/100*W-pad);mark.setAttribute('y',(spot.y-spot.h/2)/100*H-pad);mark.setAttribute('width',spot.w/100*W+2*pad);mark.setAttribute('height',spot.h/100*H+2*pad);
+ const mpad=W*.006;
+ mark.setAttribute('x',(spot.x-spot.w/2)/100*W-mpad);mark.setAttribute('y',(spot.y-spot.h/2)/100*H-mpad);mark.setAttribute('width',spot.w/100*W+2*mpad);mark.setAttribute('height',spot.h/100*H+2*mpad);
  mark.setAttribute('rx',W*.004);mark.setAttribute('class','step-mark');svg.append(mark);
  return svg;
 }
@@ -157,6 +174,7 @@ function render(){dots();if(step===0)intro();else if(step>correct.length)result(
  correct.forEach(()=>slots.push({wide:false}));
  render();
  pages=(await unpack(q.year))[q.paper]||[];
+ await Promise.all([...new Set(spots.map(s=>s.page))].map(measure));
  render();
 }catch(e){$('main').replaceChildren(el('p','step-loading','読み込めませんでした。再読み込みしてください。'));console.error(e)}})();
 $('main').tabIndex=-1;
