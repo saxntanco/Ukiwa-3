@@ -145,3 +145,4 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 .deep-nav{display:flex;gap:8px;margin:14px 0}
 .deep-nav button{flex:1}
 @media(max-width:680px){.deep-words{grid-template-columns:1fr}.deep-words dt{white-space:normal}}
+.step-link{font-weight:700;background:#226c70;color:#fff;border-radius:10px;padding:8px 12px;text-decoration:none}

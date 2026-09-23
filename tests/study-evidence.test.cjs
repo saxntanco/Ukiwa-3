@@ -46,6 +46,7 @@ test('deep explanations match official answers and keep figures inert',()=>{
   const [year,subject,number]=key.split('-'),correct=answers[year]?.[subject]?.[number];
   assert.ok(correct,`${key} has official answers`);assert.ok(lessons[key],`${key} extends an existing lesson`);
   assert.equal(entry.slots.length,correct.length,`${key} covers every blank`);
+  if(entry.choices)assert.deepEqual(Object.keys(entry.choices).sort(),[...'イロハニホヘトチリヌルヲワカヨ'].sort(),`${key} transcribes every choice`);
   entry.slots.forEach((slot,i)=>{
    assert.ok(slot.ask&&slot.steps?.length,`${key} (${i+1}) explains the step`);
    for(const trap of slot.trap||[])assert.ok(!trap.choice.split(/[・\s]/).includes(correct[i]),`${key} (${i+1}) does not list the answer as a trap`);
