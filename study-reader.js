@@ -66,19 +66,46 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
   context.append(original);readingArea.append(context);
   const body=text('div','', 'quick-answer-body');readingArea.append(body);
   document.body.append(popover);popover.showModal();
-  const addDetails=(title,content)=>{const d=text('details','');d.open=true;d.append(text('summary',title),text('p',content));body.append(d);};
+  const addDetails=(title,content,open=true)=>{const d=text('details','');d.open=open;d.append(text('summary',title),text('p',content));body.append(d);};
+  const go=n=>peek(n,pane.querySelector(`[data-blank="${n}"]`)||trigger,false);
+  function deepExplanation(deep,part){
+   if(deep.story){
+    const story=text('details','', 'deep-story');story.open=slot===0;story.append(text('summary',deep.story.title||'この問題、何の話？'));
+    (deep.story.body||[]).forEach(v=>story.append(text('p',v)));
+    if(deep.story.words?.length){const list=text('dl','', 'deep-words');deep.story.words.forEach(w=>list.append(text('dt',w.term),text('dd',w.meaning)));story.append(list);}
+    body.append(story);
+   }
+   const box=text('section','', 'deep-slot');box.setAttribute('aria-label',`空欄 (${slot+1}) のくわしい解説`);
+   box.append(text('h3',`(${slot+1}) をくわしく`));
+   if(part.ask){const ask=text('p','', 'deep-ask');ask.append(text('strong','聞かれていること：'),document.createTextNode(part.ask));box.append(ask);}
+   if(part.figure){const fig=text('figure','', 'deep-figure');fig.innerHTML=part.figure;box.append(fig);}
+   if(part.steps?.length){const ol=text('ol','', 'deep-steps');part.steps.forEach(st=>{const li=text('li','');li.append(text('strong',st.title));if(st.body)li.append(text('p',st.body));if(st.math)li.append(text('div',st.math,'deep-math'));ol.append(li)});box.append(ol);}
+   if(part.trap?.length){const d=text('details','', 'deep-trap');d.open=true;d.append(text('summary','ほかの選択肢が違う理由'));const ul=text('ul','');part.trap.forEach(t=>{const li=text('li','');li.append(text('strong',`(${t.choice}) `),document.createTextNode(t.why));ul.append(li)});d.append(ul);box.append(d);}
+   if(part.check){const c=text('p','', 'deep-check');c.append(text('strong','確かめ：'),document.createTextNode(part.check));box.append(c);}
+   body.append(box);
+  }
+  function slotNav(){
+   const count=spec.length===10?5:spec.length;if(count<2)return;
+   const nav=text('nav','', 'deep-nav');nav.setAttribute('aria-label','空欄を移動');
+   const prev=button(slot>0?`← (${slot})`:'← 前はありません',()=>go(slot-1));prev.disabled=slot===0;
+   const next=button(slot<count-1?`(${slot+2}) へ →`:'最後の空欄です',()=>go(slot+1));next.disabled=slot>=count-1;
+   nav.append(prev,next);body.append(nav);
+  }
   let revealedHere=false;
   function explanation(){
    const brief=window.UkiwaStudyQuickNotes.brief(q,lesson,slot);
    if(!revealedHere){onReveal(slot,!!brief);revealedHere=true;}
    body.replaceChildren();
-   body.append(text('p',`正答：${brief?.answer||'記号 '+spec[slot].correct+'（語句・式の短答は未収録）'}${spec.length===10?' ／ 単位の記号 '+spec[slot+5].correct:''}`,'quick-answer-result'));
+   const deepPart=lesson?.deep?.slots?.[slot];
+   body.append(text('p',`正答：${brief?.answer?`（${spec[slot].correct}）${brief.answer}`:'記号 '+spec[slot].correct+'（語句・式の短答は未収録）'}${spec.length===10?' ／ 単位の記号 '+spec[slot+5].correct:''}`,'quick-answer-result'));
    body.append(text('p',(brief?.completeStep?'この空欄の説明：':'理由：')+(brief?.reason||'この空欄の解説は未収録です。原本の選択肢と公式正答を照合してください。'),'quick-answer-reason'));
-   if(brief?.answer&&lesson?.steps?.[slot]&&lesson.steps[slot]!==brief.reason)addDetails('考え方・途中式を開く',lesson.steps[slot]);
+   if(deepPart)deepExplanation(lesson.deep,deepPart);
+   if(brief?.answer&&lesson?.steps?.[slot]&&lesson.steps[slot]!==brief.reason)addDetails(deepPart?'別の説明（文章でまとめた版）':'考え方・途中式を開く',lesson.steps[slot],!deepPart);
    if(lesson?.basics?.length){const basics=text('details','');basics.append(text('summary','この問題に共通する公式・記号・基礎'));lesson.basics.forEach(b=>{const d=text('details','');d.append(text('summary',b.title),text('p',b.body));basics.append(d)});body.append(basics)}
    if(lesson?.pitfall)addDetails('この問題で間違えやすい点',lesson.pitfall);
    const link=text('a','問題の原本を確認 ↗');link.href=q.source;link.target='_blank';link.rel='noopener';body.append(link);
    if(!brief)body.append(button('この問題の公式解答を開く',()=>{close(true);onDetail(slot)}));
+   slotNav();
    body.append(button('閉じて自分で解く',()=>{close(true);onPractice();}));
    body.append(button('このウィンドウで答えを隠して解く',()=>peek(slot,trigger,true)));
    body.append(text('small','読むだけでも大丈夫です。24時間以内の解き直しは「再現できた」と記録します。'));

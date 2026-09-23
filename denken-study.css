@@ -126,3 +126,23 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 @media(max-width:900px){.exercise{display:flex;flex-direction:column;height:auto!important;min-height:0}.problem-pane,.wide-paper .problem-pane{height:calc(100dvh - 190px);min-height:520px}.study-side{max-height:70dvh;min-height:200px}.quick-answer{font-size:20px}.reader-help{display:none}.context-open .source{display:none}}
 
 .inline-mode{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:14px}.inline-mode select{width:auto;margin:0;padding:7px;min-height:44px}
+.deep-story{margin:14px 0;border:1px solid #cadbd7;border-radius:10px;padding:10px 12px;background:#f4faf8}
+.deep-story summary{font-weight:700;color:#104f56}
+.deep-words{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:8px 0 0}
+.deep-words dt{font-weight:700;white-space:nowrap}
+.deep-words dd{margin:0}
+.deep-slot{margin:16px 0;border-top:3px solid #397e7e;padding-top:10px}
+.deep-slot h3{margin:0 0 8px;font-size:1.05em;color:#104f56}
+.deep-ask{background:#fff3d6;border-radius:8px;padding:8px 12px}
+.deep-figure{margin:12px 0;padding:8px;background:#fff;border:1px solid #e3dccb;border-radius:10px}
+.deep-figure svg{display:block;width:100%;max-width:420px;height:auto;margin:auto}
+.deep-steps{padding-left:1.4em;margin:10px 0}
+.deep-steps li{margin:0 0 12px}
+.deep-steps p{margin:2px 0}
+.deep-math{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;background:#eef4f7;border-left:4px solid #176b87;border-radius:4px;padding:6px 10px;margin:6px 0;overflow-x:auto;white-space:nowrap}
+.deep-trap ul{margin:6px 0;padding-left:1.2em}
+.deep-check{background:#eaf5f0;border-radius:8px;padding:8px 12px}
+.deep-nav{display:flex;gap:8px;margin:14px 0}
+.deep-nav button{flex:1}
+@media(max-width:680px){.deep-words{grid-template-columns:1fr}.deep-words dt{white-space:normal}}
+.step-link{font-weight:700;background:#226c70;color:#fff;border-radius:10px;padding:8px 12px;text-decoration:none}

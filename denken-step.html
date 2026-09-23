@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>1空欄ずつ解く（試作）｜うきわメモ</title><meta name="robots" content="noindex"><link rel="stylesheet" href="denken-step.css?v=2">
+<script src="study-evidence.js?v=1"></script></head>
+<body>
+<header class="step-top">
+ <a class="step-back" id="back" href="denken-study.html">← 学習室</a>
+ <div class="step-title"><strong id="title">読み込み中…</strong><span class="step-badge">試作</span></div>
+ <nav class="step-dots" id="dots" aria-label="空欄の進み具合"></nav>
+</header>
+<main id="main" class="step-main" aria-live="polite"><p class="step-loading">問題と解説を読み込んでいます…</p></main>
+<div class="step-bar" id="bar" hidden>
+ <button type="button" id="whole">原本全体</button>
+ <button type="button" id="hint">ヒント</button>
+ <button type="button" id="action" class="primary">答え合わせ</button>
+</div>
+<dialog id="whole-dialog" class="step-whole" aria-label="問題の原本全体">
+ <div class="step-whole-head"><strong>問題の原本（全ページ）</strong><button type="button" id="whole-close">閉じる ×</button></div>
+ <div id="whole-pages" class="step-whole-pages"></div>
+</dialog>
+<p id="note" class="step-note" role="status"></p>
+<script src="denken-step.js?v=3"></script>
+<script src="hideout-nav.js?v=1"></script>
+</body></html>
