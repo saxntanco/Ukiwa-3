@@ -48,9 +48,10 @@ test('deep explanations match official answers and keep figures inert',()=>{
   const [year,subject,number]=key.split('-'),correct=answers[year]?.[subject]?.[number];
   assert.ok(correct,`${key} has official answers`);
   assert.equal(entry.slots.length,correct.length,`${key} covers every blank`);
-  if(entry.choices){const keys=Object.keys(entry.choices);assert.ok(keys.every(k=>'イロハニホヘトチリヌルヲワカヨ'.includes(k)),`${key} uses answer-group symbols`);assert.ok(correct.every(c=>keys.includes(c)),`${key} transcribes every correct choice`);assert.ok(keys.length===15||entry.choicesPartial,`${key} transcribes all 15 choices unless marked partial`);}
+  if(entry.choices){const keys=Object.keys(entry.choices);assert.ok(keys.every(k=>'イロハニホヘトチリヌルヲワカヨ'.includes(k)),`${key} uses answer-group symbols`);assert.ok(correct.every((c,i)=>keys.includes(c)||entry.slots[i].choices),`${key} transcribes every correct choice`);assert.ok(keys.length===15||entry.choicesPartial,`${key} transcribes all 15 choices unless marked partial`);}
   entry.slots.forEach((slot,i)=>{
    assert.ok(slot.ask&&slot.steps?.length,`${key} (${i+1}) explains the step`);
+   if(slot.choices)assert.ok(correct[i] in slot.choices,`${key} (${i+1}) per-blank choices include the answer`);
    for(const trap of slot.trap||[])assert.ok(!trap.choice.split(/[・\s]/).includes(correct[i]),`${key} (${i+1}) does not list the answer as a trap`);
    if(slot.figure){assert.match(slot.figure,/^<svg[\s>]/);assert.doesNotMatch(slot.figure,/<script|\son\w+=|javascript:|<foreignObject|href=/i);}
   });
