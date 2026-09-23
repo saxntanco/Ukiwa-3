@@ -48,7 +48,7 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
   if(!spec?.[slot])return;
   if(!popover)origin={x:paper.scrollLeft,y:paper.scrollTop,wx:window.scrollX,wy:window.scrollY};
   popover?.remove();anchor=trigger;selected=slot;highlight();pane.classList.add('context-open');
-  popover=text('dialog','', 'quick-answer');popover.addEventListener('cancel',e=>{e.preventDefault();close(true)});popover.setAttribute('aria-label',`空欄 ${slot+1} の学習`);popover.tabIndex=-1;
+  popover=text('dialog','', 'quick-answer');popover.dataset.tone=preferences.paper;popover.addEventListener('cancel',e=>{e.preventDefault();close(true)});popover.setAttribute('aria-label',`空欄 ${slot+1} の学習`);popover.tabIndex=-1;
   const head=text('div','', 'quick-answer-head');head.append(text('strong',`選択中 (${slot+1})`),button('閉じる ×',()=>close(true)));popover.append(head);
   const readingArea=text('div','', 'quick-answer-reading');popover.append(readingArea);
   const context=text('details','', 'quick-answer-context');context.open=true;
@@ -137,8 +137,10 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
    const bitmap=new Image();bitmap.src=image.getAttribute('href')||image.getAttributeNS('http://www.w3.org/1999/xlink','href');await bitmap.decode();
    if(disposed||!svg.isConnected)return;
    const original=svg.viewBox.baseVal,W=original.width,H=original.height;
-   if(original.x||original.y||image.hasAttribute('transform')||Number(image.getAttribute('width'))!==W||Math.abs(Number(image.getAttribute('height'))-H)>1)return;
-   const canvas=document.createElement('canvas');canvas.width=800;canvas.height=Math.round(800*H/W);
+   // Some pages' viewBox is a few units smaller than the embedded image; measure in image units.
+   const IW=Number(image.getAttribute('width')),IH=Number(image.getAttribute('height'));
+   if(original.x||original.y||image.hasAttribute('transform')||!(Math.abs(IW-W)<=W*.01)||!(Math.abs(IH-H)<=H*.01))return;
+   const canvas=document.createElement('canvas');canvas.width=800;canvas.height=Math.round(800*IH/IW);
    const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
    const {data}=ctx.getImageData(0,0,canvas.width,canvas.height),rows=[];
    for(let y=0;y<canvas.height;y++){let lo=800,hi=-1;for(let x=2;x<798;x++){const i=(y*800+x)*4;if(data[i+3]>200&&Math.max(data[i],data[i+1],data[i+2])<120){lo=Math.min(lo,x);hi=x}}rows.push({lo,hi});}
@@ -148,10 +150,11 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
    const merged=[];for(const group of groups){const tail=merged.at(-1);if(tail&&group[0]-tail[1]<=20)tail[1]=group[1];else merged.push([...group]);}groups=merged;
    const last=groups.at(-1),previous=groups.at(-2);
    if(last&&previous&&last[0]>rows.length*.85&&last[1]-last[0]<rows.length*.035&&last[0]-previous[1]>rows.length*.035)end=Math.floor((last[0]+previous[1])/2);
-   const ink=rows.slice(0,end).filter(r=>r.hi>=0);if(!ink.length)return;
+   // Width is measured above the page number and print code, which sit in the bottom 7% of booklet pages.
+   const ink=rows.slice(0,Math.min(end,Math.floor(rows.length*.93))).filter(r=>r.hi>=0);if(!ink.length)return;
    const left=Math.min(...ink.map(r=>r.lo)),right=Math.max(...ink.map(r=>r.hi));
    if(right-left<360)return;
-   const pad=18,x=(left-pad)*W/800,w=(right-left+2*pad)*W/800,cut=end*W/800;
+   const pad=18,x=(left-pad)*IW/800,w=(right-left+2*pad)*IW/800,cut=Math.min(H,end*IW/800);
    if(w>W*1.05)return;
    const ns='http://www.w3.org/2000/svg',body=document.createElementNS(ns,'svg');
    body.dataset.uvZoom='true';body.setAttribute('viewBox',`${x} 0 ${w} ${cut}`);body.setAttribute('width',w);body.setAttribute('height',cut);body.style.setProperty('width',w+'px','important');body.style.setProperty('height',cut+'px','important');body.append(image.cloneNode(true));

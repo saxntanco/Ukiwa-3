@@ -68,3 +68,6 @@ a{color:#236b70}
 @media(min-width:1000px){.step-main{max-width:980px}.step-card{padding:24px 28px}.step-choices{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:400px){.step-choices{grid-template-columns:1fr 1fr}.step-formula{font-size:15px}.step-words dl{grid-template-columns:1fr}}
 @media(max-width:700px){.step-crop{overflow-x:auto;overscroll-behavior-x:contain}.step-crop svg{width:200%;max-width:none}.step-swipe{margin:0;font-size:13px}}
+:root[data-tone="warm"] .step-crop,:root[data-tone="warm"] .step-whole-page{background:#f8f4e9}
+:root[data-tone="warm"] .step-crop svg,:root[data-tone="warm"] .step-whole-page svg{mix-blend-mode:multiply}
+:root[data-tone="white"] .step-crop,:root[data-tone="white"] .step-whole-page{background:#fff}
