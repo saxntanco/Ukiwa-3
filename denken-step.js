@@ -102,8 +102,9 @@ function blank(i){
  if(part.steps?.[0]){hint.append(el('strong',null,'ヒント：'+part.steps[0].title),el('p',null,part.steps[0].body||''));}
  card.append(hint);
  const group=el('div','step-choices');group.setAttribute('role','radiogroup');group.setAttribute('aria-label',`空欄 (${i+1}) の解答群`);
- (deep.choices?symbols.filter(sym=>sym in deep.choices):symbols).forEach(sym=>{const b=el('button','step-choice');b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked',String(s.selected===sym));
-  b.append(el('span','step-sym',sym),el('span','step-formula',deep.choices?.[sym]||'（原本の解答群を参照）'));
+ const choiceSet=part.choices||deep.choices;
+ (choiceSet?symbols.filter(sym=>sym in choiceSet):symbols).forEach(sym=>{const b=el('button','step-choice');b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked',String(s.selected===sym));
+  b.append(el('span','step-sym',sym),el('span','step-formula',choiceSet?.[sym]||'（原本の解答群を参照）'));
   if(s.checked){b.disabled=true;if(sym===correct[i])b.dataset.result='correct';else if(sym===s.selected)b.dataset.result='wrong';}
   b.onclick=()=>{s.selected=sym;render()};group.append(b)});
  card.append(group);

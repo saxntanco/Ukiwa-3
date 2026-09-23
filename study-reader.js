@@ -97,7 +97,7 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
    if(!revealedHere){onReveal(slot,!!brief);revealedHere=true;}
    body.replaceChildren();
    const deepPart=lesson?.deep?.slots?.[slot];
-   const choiceText=lesson?.deep?.choices?.[spec[slot].correct];
+   const choiceText=(deepPart?.choices||lesson?.deep?.choices)?.[spec[slot].correct];
    body.append(text('p',`正答：${brief?.answer?`（${spec[slot].correct}）${brief.answer}`:choiceText?`（${spec[slot].correct}）${choiceText}`:'記号 '+spec[slot].correct+'（語句・式の短答は未収録）'}${spec.length===10?' ／ 単位の記号 '+spec[slot+5].correct:''}`,'quick-answer-result'));
    body.append(text('p',(brief?.answer?'理由：':deepPart?.gist?'ひとことで：':brief?.completeStep?'この空欄の説明：':'理由：')+(brief?.answer?brief.reason:deepPart?.gist||brief?.reason||'この空欄の解説は未収録です。原本の選択肢と公式正答を照合してください。'),'quick-answer-reason'));
    if(deepPart)deepExplanation(lesson.deep,deepPart);
