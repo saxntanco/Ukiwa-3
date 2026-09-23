@@ -50,13 +50,18 @@ window.UkiwaStudyReader={setup({paper,pane,q,spec,lesson,onReveal,onDetail,getMo
   popover?.remove();anchor=trigger;selected=slot;highlight();pane.classList.add('context-open');
   popover=text('dialog','', 'quick-answer');popover.dataset.tone=preferences.paper;popover.addEventListener('cancel',e=>{e.preventDefault();close(true)});popover.setAttribute('aria-label',`空欄 ${slot+1} の学習`);popover.tabIndex=-1;
   const head=text('div','', 'quick-answer-head');head.append(text('strong',`選択中 (${slot+1})`),button('閉じる ×',()=>close(true)));popover.append(head);
+  const blankCount=spec.length===10?5:spec.length;
+  if(blankCount>1){const tabs=text('nav','', 'quick-answer-tabs');tabs.setAttribute('aria-label','ほかの空欄に切り替え');tabs.append(text('span','空欄を切り替え'));for(let n=0;n<blankCount;n++){const t=button(`(${n+1})`,()=>{if(n!==slot)go(n)});t.setAttribute('aria-label',`空欄 ${n+1} の解説に切り替え`);if(n===slot)t.setAttribute('aria-current','true');tabs.append(t);}popover.append(tabs);}
   const readingArea=text('div','', 'quick-answer-reading');popover.append(readingArea);
   const context=text('details','', 'quick-answer-context');context.open=true;
   context.append(text('summary',`空欄 (${slot+1}) の問題文・図を確認`));
   const original=text('div','', 'quick-answer-original');
   for(const page of paper.querySelectorAll('.paper-page')){
    const copy=page.cloneNode(true);copy.querySelectorAll('button').forEach(b=>{
-    if(Number(b.dataset.blank)===slot){const mark=text('span','','context-blank');mark.setAttribute('aria-label',`(${slot+1}) 選択中`);mark.style.cssText=b.style.cssText;b.replaceWith(mark)}else b.remove();
+    const n=Number(b.dataset.blank);
+    if(n===slot){const mark=text('span','','context-blank');mark.setAttribute('aria-label',`(${slot+1}) 選択中`);mark.style.cssText=b.style.cssText;b.replaceWith(mark)}
+    else if(b.classList.contains('blank-hotspot')&&n<blankCount){const jump=button(`(${n+1})`,()=>go(n));jump.className='context-jump';jump.style.cssText=b.style.cssText;jump.setAttribute('aria-label',`空欄 ${n+1} の解説に切り替え`);b.replaceWith(jump)}
+    else b.remove();
    });
    copy.removeAttribute('id');
    const ids=new Map();copy.querySelectorAll('[id]').forEach(el=>{const old=el.id,next=`context-${slot}-${page.dataset.page}-${old}`;ids.set(old,next);el.id=next;});
