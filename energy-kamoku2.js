@@ -2,11 +2,11 @@
 // 問題画像・解答群の文言・書籍の解説は持たない。正解は ECCJ 標準解答で照合済みの値
 const $ = id => document.getElementById(id);
 function el(tag, text, cls) { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
-const YEARS = { r07: '令和7年度', r06: '令和6年度' };
+const YEARS = { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度' };
 const LS_UI = 'ukiwa-kamoku2-ui';
-let ui = { year: 'r07', q: 4, filter: 'all', theme: '' };
+let ui = { year: 'r08', q: 4, filter: 'all', theme: '' };
 try { Object.assign(ui, JSON.parse(localStorage.getItem(LS_UI) || '{}')); } catch {}
-if (!YEARS[ui.year]) ui.year = 'r07';
+if (!YEARS[ui.year]) ui.year = 'r08';
 let D = null, rec = {}, cur = null, view = 'solve';
 const cache = {};
 
