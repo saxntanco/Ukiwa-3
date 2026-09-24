@@ -1,0 +1,65 @@
+/* 熱分野 課目Ⅱ 空欄トレーニング（energy-study.css の上に重ねる） */
+.k2-notice{background:#fff;border:1px solid #c9dbd6;border-radius:14px;padding:6px 18px;margin:0 0 16px}
+.k2-notice p{margin:10px 0}
+.k2-links{display:flex;flex-wrap:wrap;gap:8px 18px}
+.k2-private{font-size:14px;color:#3a6167}
+.k2-private a{overflow-wrap:anywhere}
+.k2-controls{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 10px}
+.k2-controls label{display:grid;gap:6px;flex:1;min-width:150px}
+.k2-controls select{width:100%;min-width:0}
+.k2-list h2{font-size:22px;margin:14px 0 4px}
+.k2-help{margin:0 0 10px;font-size:14px;color:#3a6167}
+.k2-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.k2-grid button{display:grid;gap:2px;text-align:left;padding:10px 12px;min-height:64px}
+.k2-grid button b{font-size:18px}
+.k2-grid button small{font-size:12px;color:#50727c}
+.k2-grid button.ok{background:#e3f4e7;border-color:#2f7d45}
+.k2-grid button.ng{background:#fff0e0;border-color:#b35a12}
+.k2-grid button .st{font-size:12px;font-weight:bold}
+.k2-grid button.ok .st{color:#1d5a30}.k2-grid button.ng .st{color:#7a3a05}
+.k2-empty{color:#50727c}
+.k2-record{margin:24px 0}
+.k2-record summary{cursor:pointer;font-weight:bold}
+/* 全画面ウィンドウ */
+#dlg{position:fixed;inset:0;margin:0;width:100vw;height:100dvh;max-width:none;max-height:none;padding:0;border:0;background:#f8fbfa;color:#193541;overflow:hidden}
+#dlg::backdrop{background:#10232bb3}
+.k2-dlg{display:flex;flex-direction:column;height:100%}
+.k2-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px;background:#155d58;color:#fff}
+.k2-head strong{font-size:18px}
+.k2-head button{background:#fff;color:#155d58;border-color:#fff;font-weight:bold}
+.k2-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-bottom:1px solid #d1dfdb;background:#fff;flex-shrink:0}
+.k2-tabs button{min-width:48px;min-height:40px;padding:4px 8px;white-space:nowrap}
+.k2-tabs button[aria-current=true]{background:#155d58;color:#fff}
+.k2-tabs button.ok::after{content:" ✓"}.k2-tabs button.ng::after{content:" ✗"}
+.k2-body{flex:1;overflow:auto;padding:12px 16px 24px;font-size:17px;line-height:1.8}
+.k2-inner{max-width:900px;margin:0 auto}
+.k2-meta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.k2-meta span{font-size:13px;background:#e8f4ed;color:#175848;border-radius:12px;padding:2px 10px}
+.k2-ask{background:#fffdf5;border:1px solid #d8d2bc;border-radius:10px;padding:10px 14px;margin:6px 0 12px}
+.k2-ask small{display:block;font-size:13px;color:#50727c}
+.k2-choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px;max-width:640px}
+.k2-choices button{font-size:20px;min-height:52px}
+.k2-num{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.k2-num input{font-size:20px;padding:8px 10px;border:2px solid #7ea3aa;border-radius:9px;width:12em;max-width:100%}
+.k2-hint{font-size:14px;color:#3a6167;margin:6px 0}
+.k2-later{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.k2-result{border-radius:12px;padding:10px 14px;margin:4px 0 12px;font-size:20px;font-weight:700}
+.k2-result.ok{background:#e3f4e7;border:2px solid #2f7d45}
+.k2-result.ng{background:#fff0e0;border:2px solid #c0600f}
+.k2-result.seen{background:#eaf5f0;border:2px solid #79a6a6}
+.k2-result small{display:block;font-size:15px;font-weight:normal}
+.k2-sec{margin:14px 0;padding-top:8px;border-top:1px solid #d1dfdb}
+.k2-sec h4{margin:0 0 6px;font-size:18px;color:#155d58}
+.k2-sec h4 .n{display:inline-block;min-width:1.6em;height:1.6em;border-radius:50%;background:#155d58;color:#fff;text-align:center;font-size:14px;line-height:1.6em;margin-right:6px}
+.k2-math{white-space:pre-wrap;font-family:"Cambria Math","Times New Roman",serif;background:#eef5f3;border-radius:8px;padding:6px 10px;margin:4px 0;overflow-wrap:anywhere}
+.k2-sym{border-collapse:collapse;width:100%;font-size:15px}
+.k2-sym td{border-top:1px solid #d9e4e2;padding:4px 6px;vertical-align:top}
+.k2-sym td:first-child{white-space:nowrap;font-weight:bold}
+.k2-sec ol,.k2-sec ul{padding-left:1.3em;margin:4px 0}
+.k2-sec li{margin:3px 0;overflow-wrap:anywhere}
+.k2-check{background:#fff6de;border-radius:8px;padding:8px 10px}
+.k2-src dl{display:grid;grid-template-columns:max-content 1fr;gap:2px 10px;margin:0;font-size:14px}
+.k2-src dt{font-weight:bold}.k2-src dd{margin:0;overflow-wrap:anywhere}
+.k2-nav{display:flex;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid #d1dfdb;background:#fff;flex-shrink:0}
+.k2-nav button{flex:1}
+@media(max-width:700px){.k2-body{padding:10px 12px 20px;font-size:16px}.k2-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
