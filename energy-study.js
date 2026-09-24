@@ -9,6 +9,31 @@ let field='thermal',KEY=fields.thermal.key,switching=false,started=false,startPe
 let index, pdf, current, filtered=[], qpos=0, apos=0, mode='learn', revealed=true, attempted=false, token=0, db, importing=false;
 let blankPositions={};try{blankPositions=(await (await fetch('./energy-blank-positions.json')).json()).items||{};}catch{}
 let activeBlank=null,focusBlank=false,restoreFocusKey=null;
+let deepIndex={};try{deepIndex=(await (await fetch('./energy-deep/index.json')).json()).files||{};}catch{}
+const deepFiles={};
+async function loadDeep(id){const f=deepIndex[id];if(!f)return null;try{deepFiles[f]??=fetch('./energy-deep/'+f).then(r=>r.json());return (await deepFiles[f]).items?.[id]||null;}catch{return null;}}
+const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!=null)e.textContent=text;if(cls)e.className=cls;return e;};
+async function showDeepFor(key){if(!current)return;const d=await loadDeep(current.id);if(d?.slots?.[key]){activeBlank=key;setTab('deep');}}
+async function renderDeep(){const panel=$('deep-panel');if(!panel||!current)return;const id=current.id;const d=await loadDeep(id);if(current?.id!==id)return;panel.replaceChildren();
+ if(!d){panel.append(el('p','この問題の空欄ごとの解説は準備中です。「解答・解説」タブで教材の解説を確認できます。','muted'));return;}
+ const keys=Object.keys(d.slots);const key=d.slots[activeBlank]?activeBlank:keys[0];
+ const nav=el('nav',null,'deep-tabs');nav.setAttribute('aria-label','空欄を切り替え');nav.append(el('span','空欄を切り替え'));
+ for(const k of keys){const t=el('button',`(${k})`);t.type='button';t.setAttribute('aria-label',`空欄 ${k} の解説に切り替え`);if(k===key)t.setAttribute('aria-current','true');t.onclick=()=>{activeBlank=k;$('context-heading').textContent=`選択中 (${k})`;document.querySelectorAll('.energy-blank').forEach(b=>b.setAttribute('aria-expanded',String(b.dataset.blank===k)));renderDeep();panel.scrollTop=0;};nav.append(t);}
+ panel.append(nav);
+ const s=d.slots[key];
+ panel.append(el('p',`正答：（${s.answer}）${s.choices?.[s.answer]??''}`,'deep-result'));
+ if(s.gist)panel.append(el('p','ひとことで：'+s.gist,'deep-gist'));
+ if(d.story){const st=el('details',null,'deep-story');st.open=key===keys[0];st.append(el('summary',d.story.title||'この問題、何の話？'));(d.story.body||[]).forEach(v=>st.append(el('p',v)));if(d.story.words?.length){const dl=el('dl',null,'deep-words');d.story.words.forEach(w=>dl.append(el('dt',w.term),el('dd',w.meaning)));st.append(dl);}panel.append(st);}
+ const box=el('section',null,'deep-slot');box.append(el('h3',`(${key}) をくわしく`));
+ if(s.ask){const p=el('p',null,'deep-ask');p.append(el('strong','聞かれていること：'),document.createTextNode(s.ask));box.append(p);}
+ if(s.steps?.length){const ol=el('ol',null,'deep-steps');s.steps.forEach(x=>{const li=el('li');li.append(el('strong',x.title));if(x.body)li.append(el('p',x.body));if(x.math)li.append(el('div',x.math,'deep-math'));ol.append(li);});box.append(ol);}
+ if(s.trap?.length){const dt=el('details',null,'deep-trap');dt.open=true;dt.append(el('summary','ほかの選択肢が違う理由'));const ul=el('ul');s.trap.forEach(t=>{const li=el('li');li.append(el('strong',`（${t.choice}）${s.choices?.[t.choice]??''}：`),document.createTextNode(t.why));ul.append(li);});dt.append(ul);box.append(dt);}
+ if(s.choices){const dc=el('details',null,'deep-choices');dc.append(el('summary','この空欄の解答群'));const ul=el('ul');for(const [c,v] of Object.entries(s.choices)){const li=el('li',`（${c}）${v}`);if(c===s.answer)li.className='is-answer';ul.append(li);}dc.append(ul);box.append(dc);}
+ if(s.check){const p=el('p',null,'deep-check');p.append(el('strong','確かめ：'),document.createTextNode(s.check));box.append(p);}
+ panel.append(box);
+ const i=keys.indexOf(key),np=el('nav',null,'deep-nav');const prev=el('button',i>0?`← (${keys[i-1]})`:'← 前はありません');prev.type='button';prev.disabled=i===0;prev.onclick=()=>nav.children[i].click();const next=el('button',i<keys.length-1?`(${keys[i+1]}) へ →`:'最後の空欄です');next.type='button';next.disabled=i>=keys.length-1;next.onclick=()=>nav.children[i+2].click();np.append(prev,next);panel.append(np);
+ panel.append(el('small','解説は、うきわメモが問題を解いて書いたものです。教材の解説は「解答・解説」タブで確認できます。','muted'));
+}
 let inlineOpen=false,returnPosition=null,returnButton=null,pendingOutcome=null;
 let records={},last='', readerTab='answer', columns=false, draftEdited=false;
 const evidence=window.UkiwaStudyEvidence;
@@ -21,7 +46,7 @@ function copyProblemContext(){
  for(const source of $('qview').querySelectorAll('canvas')){const copy=document.createElement('canvas');copy.width=source.width;copy.height=source.height;copy.getContext('2d').drawImage(source,0,0);originals.append(copy);}
 }
 function openContext(trigger){if(!current)return;if(!inlineOpen)returnPosition={x:$('qview').scrollLeft,y:$('qview').scrollTop,normalized:{...viewPositions.q}};returnButton=trigger||$('open-context');copyProblemContext();
- inlineOpen=true;document.querySelector('.question-pane').classList.add('context-open');document.querySelector('.answer-pane').hidden=false;if(!answerDialog.open)answerDialog.showModal();render();$('context-heading').focus({preventScroll:true});}
+ inlineOpen=true;document.querySelector('.question-pane').classList.add('context-open');document.querySelector('.answer-pane').hidden=false;if(!answerDialog.open)answerDialog.showModal();if(readerTab==='deep')renderDeep();render();$('context-heading').focus({preventScroll:true});}
 const viewPositions={q:{x:0,y:0},a:{x:0,y:0}};
 function resetView(side){viewPositions[side]={x:0,y:0};const v=$(side+'view');v.scrollLeft=v.scrollTop=0;}
 function readProgress(){records={};last='';try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');records=d.records&&typeof d.records==='object'?d.records:{};last=typeof d.last==='string'?d.last:'';}catch{notice('保存記録を読み込めませんでした。記録のバックアップがあれば読み込んでください。');}}
@@ -98,7 +123,7 @@ function decorateBlanks(part,seg,id){
   const [x,y,right,bottom]=seg.rect;if(spot.page!==seg.page||spot.x<x||spot.x>right||spot.y<y||spot.y>bottom)continue;
   const b=document.createElement('button');b.className='energy-blank';b.type='button';b.textContent=`(${key})`;b.dataset.blank=key;b.style.left=((spot.x-x)/(right-x)*100)+'%';b.style.top=((spot.y-y)/(bottom-y)*100)+'%';
   b.setAttribute('aria-label',`空欄 ${key} を選び、この問題の解説を開く`);b.setAttribute('aria-expanded',String(activeBlank===key));
-  b.onclick=()=>{if(current?.id!==id)return;activeBlank=key;focusBlank=true;$('context-heading').textContent=`選択中 (${key}) · この問題の解説`;openContext(b);};part.append(b);
+  b.onclick=()=>{if(current?.id!==id)return;activeBlank=key;focusBlank=true;$('context-heading').textContent=`選択中 (${key})`;openContext(b);showDeepFor(key);};part.append(b);
  }
 }
 function updateQuestionPosition(){
@@ -126,11 +151,11 @@ function render(){
 function setMode(m){pendingOutcome=null;try{localStorage.setItem('ukiwa-energy-approach',m);}catch{}mode=m;revealed=m==='learn';attempted=false;draftEdited=false;for(const id of ['learn','practice'])$(id).setAttribute('aria-pressed',id===m);render();}
 function answerSegments(){return current.answer.flatMap(seg=>{if(!columns||seg.rect[2]-seg.rect[0]<.6)return [seg];const [x,y,r,b]=seg.rect,mid=(x+r)/2;return [{...seg,rect:[x,y,mid,b]},{...seg,rect:[mid,y,r,b]}];});}
 function setLayout(layout){$('desk').dataset.layout='question';if(layout==='question')closeContext();else openContext(document.querySelector(`[data-layout="${layout}"]`));document.querySelectorAll('button[data-layout]').forEach(b=>b.setAttribute('aria-pressed',String((layout==='question')===(b.dataset.layout==='question'))));render();}
-function setTab(tab){readerTab=tab;for(const name of ['answer','note','basics']){$(name+'-panel').hidden=name!==tab;$('tab-'+name).setAttribute('aria-selected',name===tab);$('tab-'+name).tabIndex=name===tab?0:-1;}render();}
+function setTab(tab){readerTab=tab;for(const name of ['deep','answer','note','basics']){$(name+'-panel').hidden=name!==tab;$('tab-'+name).setAttribute('aria-selected',name===tab);$('tab-'+name).tabIndex=name===tab?0:-1;}if(tab==='deep')renderDeep();render();}
 function filters(open){if(!started)open=true;$('filters-panel').hidden=!open;$('filters-toggle').setAttribute('aria-expanded',open);}
 $('filters-toggle').onclick=()=>filters($('filters-panel').hidden);$('filters-close').onclick=()=>filters(false);
 document.querySelectorAll('button[data-layout]').forEach(b=>b.onclick=()=>setLayout(b.dataset.layout));
-for(const [i,name] of ['answer','note','basics'].entries()){$('tab-'+name).onclick=()=>setTab(name);$('tab-'+name).onkeydown=e=>{const names=['answer','note','basics'];let j;if(e.key==='ArrowRight')j=(i+1)%3;else if(e.key==='ArrowLeft')j=(i+2)%3;else if(e.key==='Home')j=0;else if(e.key==='End')j=2;else return;e.preventDefault();setTab(names[j]);$('tab-'+names[j]).focus();};}
+for(const [i,name] of ['deep','answer','note','basics'].entries()){$('tab-'+name).onclick=()=>setTab(name);$('tab-'+name).onkeydown=e=>{const names=['deep','answer','note','basics'];let j;if(e.key==='ArrowRight')j=(i+1)%4;else if(e.key==='ArrowLeft')j=(i+3)%4;else if(e.key==='Home')j=0;else if(e.key==='End')j=3;else return;e.preventDefault();setTab(names[j]);$('tab-'+names[j]).focus();};}
 $('write-answer').onclick=()=>{setTab('note');$('draft').focus();};
 $('note-reveal').onclick=()=>{$('reveal').click();setTab('answer');};
 $('column-toggle').onclick=()=>{columns=!columns;apos=0;resetView('a');$('column-toggle').setAttribute('aria-pressed',columns);$('column-toggle').textContent=columns?'ページ全体へ':'一段ずつ読む';$('answer-caption').textContent=columns?'左段→右段の順。図表が切れるときは「ページ全体へ」。':'教材原本の解答・解説';render();};
@@ -218,7 +243,7 @@ const answerPane=document.querySelector('.answer-pane');
 const answerDialog=document.createElement('dialog');answerDialog.className='energy-answer-dialog';answerDialog.setAttribute('aria-label','問題と詳細解説');document.body.append(answerDialog);answerDialog.append(answerPane);answerPane.hidden=true;answerDialog.addEventListener('cancel',e=>{e.preventDefault();closeContext()});
 const contextHead=document.createElement('div');contextHead.className='context-head';contextHead.innerHTML='<strong id="context-heading" tabindex="-1">この問題の解説</strong><button id="close-context" type="button">閉じる ×</button>';
 answerPane.prepend(contextHead);
-const scope=document.createElement('p');scope.className='context-scope';scope.textContent='大問全体に対応する教材原本です。空欄ごとの解説対応は未整備です。';contextHead.after(scope);
+const scope=document.createElement('p');scope.className='context-scope';scope.textContent='「空欄の解説」はうきわメモが解いて書いた空欄ごとの解説、「解答・解説」は教材原本（大問全体）です。';contextHead.after(scope);
 const problemContext=document.createElement('details');problemContext.className='energy-problem-context';problemContext.open=true;problemContext.innerHTML='<summary>問題文・条件・図を確認</summary><div class="context-originals"></div>';scope.after(problemContext);
 const modebar=document.querySelector('.modebar');document.querySelector('.question-pane .pane-head').before(modebar);$('practice').textContent='自力で解く';
 const openButton=document.createElement('button');openButton.id='open-context';openButton.textContent='この問題の解説・解答';openButton.onclick=()=>{activeBlank=null;$('context-heading').textContent='この問題の解説';openContext(openButton);};document.querySelector('.question-pane .paper-tools').append(openButton);
