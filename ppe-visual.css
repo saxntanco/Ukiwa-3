@@ -1,0 +1,49 @@
+/* 防具耐圧：図鑑カードと電圧のものさし */
+.pv-defs{position:absolute;width:0;height:0;overflow:hidden}
+.pv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin:20px 0}
+.pv-card{margin:0;border:1px solid var(--island-line-cbdbe4-100,var(--line));border-radius:18px;overflow:hidden;background:var(--island-bg-ffffff-100,var(--paper));display:flex;flex-direction:column}
+.pv-card svg{display:block;width:100%;height:auto;background:linear-gradient(180deg,#f3fbff,#e3f1f8)}
+.pv-card svg text{font:600 14px system-ui,'Yu Gothic',sans-serif;fill:#1d3a4f}
+.pv-card svg .pv-s{font-weight:500;font-size:12.5px;fill:#40627a}
+.pv-card svg .pv-w{fill:#fff;paint-order:stroke;stroke:#1f6f93;stroke-width:3px;stroke-linejoin:round}
+.pv-card svg .pv-hv{fill:#b3261e}
+.pv-card svg .pv-ea{fill:#1f6b45}
+.pv-card figcaption{padding:14px 16px 16px;display:grid;gap:8px;flex:1}
+.pv-card h3{margin:0;font-size:19px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pv-card h3 small{font-size:12px;font-weight:600;opacity:.75}
+.pv-card p{margin:0;font-size:14.5px;line-height:1.7}
+.pv-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px}
+.pv-chip{display:inline-flex;align-items:baseline;gap:6px;border-radius:999px;padding:3px 11px;font-size:13px;border:1px solid #9cc7d4;background:#eef8fb;color:#17465a}
+.pv-chip b{font-size:15px}
+.pv-chip.is-std{border-color:#d9c08a;background:#fff8e8;color:#5d4312}
+.pv-chip.is-note{border-style:dashed;background:transparent;color:inherit}
+.pv-key{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;margin:6px 0 0}
+.pv-key span{display:inline-flex;align-items:center;gap:6px}
+.pv-key i{display:inline-block;width:22px;height:8px;border-radius:4px}
+.pv-key .k-hv{background:#d9412f}.pv-key .k-ea{background:#2d8a5b}.pv-key .k-wt{background:#56b9da}.pv-key .k-dry{background:repeating-linear-gradient(45deg,#e2a13a 0 3px,transparent 3px 6px);border:1px solid #c98a24}
+/* 電圧のものさし */
+.pv-ruler{margin:22px 0 10px;display:grid;gap:12px}
+.pv-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:14px;align-items:center}
+.pv-row .lbl{font-size:14px;line-height:1.45}
+.pv-row .lbl b{display:block;font-size:15.5px}
+.pv-track{position:relative;height:30px;border-radius:4px;background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),var(--island-line-cbdbe4-100,var(--line)) calc(25% - 1px) 25%)}
+.pv-bar{position:absolute;left:0;top:5px;bottom:5px;border-radius:0 4px 4px 0;background:#2a86a8;width:var(--w)}
+.pv-bar.is-use{background:#8fb9c9}
+.pv-bar.is-std{background:#155d78}
+.pv-bar.is-other{background:repeating-linear-gradient(135deg,#b9c3c9 0 5px,#dfe5e8 5px 10px)}
+.pv-val{position:absolute;top:50%;transform:translateY(-50%);left:calc(var(--w) + 8px);font-weight:800;font-size:14px;white-space:nowrap}
+.pv-axis{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:14px;font-size:12px;opacity:.75}
+.pv-axis div{display:flex;justify-content:space-between}
+.pv-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;counter-reset:pv}
+.pv-flow div{border:1px solid var(--island-line-cbdbe4-100,var(--line));border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.6;position:relative}
+.pv-flow div b{display:block;font-size:16px}
+@media(min-width:700px){.pv-card.is-wide{grid-column:span 2;display:grid;grid-template-columns:56% 1fr;grid-template-rows:1fr auto}.pv-card.is-wide svg{grid-column:1;grid-row:1;height:100%}.pv-card.is-wide .uv-zoom-button{grid-column:1;grid-row:2;margin:8px 12px 12px}.pv-card.is-wide figcaption{grid-column:2;grid-row:1/span 2;align-content:center}}
+@media(max-width:680px){
+  .pv-grid{grid-template-columns:1fr}
+  .pv-row,.pv-axis{grid-template-columns:1fr;gap:4px}
+  .pv-axis>span{display:none}
+  .pv-flow{grid-template-columns:1fr}
+  .pv-val{font-size:13px}
+}
+@media print{.pv-card{break-inside:avoid}.pv-card svg{background:#fff}}
+.pv-card .uv-zoom-button{margin:8px 12px 0}
