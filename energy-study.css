@@ -65,3 +65,20 @@ body.ready.reading-focus main{padding-top:5px}
 .context-originals canvas{display:block;width:100%;min-width:620px;height:auto;margin-bottom:10px}
 .energy-answer-dialog .paper-tools button,.energy-answer-dialog .reader-tabs button,.energy-answer-dialog .assessment button{font-size:14px;min-height:40px}
 @media(max-width:800px){.energy-answer-dialog{width:calc(100vw - 8px);height:98dvh}.context-originals{max-height:20dvh}}
+.energy-deep{overflow:auto;padding:10px 14px 18px;font-size:17px;line-height:1.8}
+.energy-deep .deep-tabs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 10px}
+.energy-deep .deep-tabs span{font-size:13px;color:#44565b;margin-right:2px}
+.energy-deep .deep-tabs button{min-width:44px;min-height:40px;padding:4px 8px;font-size:16px;border:1px solid #397e7e;border-radius:8px;background:#fff;color:#17252b;cursor:pointer}
+.energy-deep .deep-tabs button[aria-current="true"]{background:#397e7e;color:#fff;font-weight:700}
+.energy-deep .deep-result{font-size:20px;font-weight:700;margin:6px 0}
+.energy-deep .deep-gist{margin:6px 0 10px}
+.energy-deep details{margin:10px 0;border-top:1px solid #d1dfdb;padding-top:8px}
+.energy-deep summary{cursor:pointer;font-weight:700}
+.energy-deep .deep-words dt{font-weight:700;margin-top:6px}.energy-deep .deep-words dd{margin:0 0 0 1em}
+.energy-deep .deep-slot h3{margin:14px 0 6px;font-size:19px}
+.energy-deep .deep-steps{padding-left:1.4em}.energy-deep .deep-steps li{margin:8px 0}.energy-deep .deep-steps p{margin:4px 0}
+.energy-deep .deep-math{white-space:pre-wrap;font-family:"Cambria Math","Times New Roman",serif;background:#eef5f3;border-radius:8px;padding:6px 10px;margin:4px 0;overflow-wrap:anywhere}
+.energy-deep .deep-choices li.is-answer{font-weight:700}.energy-deep .deep-choices li.is-answer::after{content:"　← 正答"}
+.energy-deep .deep-check{background:#fff6de;border-radius:8px;padding:8px 10px}
+.energy-deep .deep-nav{display:flex;gap:8px;margin:14px 0}.energy-deep .deep-nav button{flex:1;min-height:44px}
+.energy-deep p,.energy-deep li{overflow-wrap:anywhere}
