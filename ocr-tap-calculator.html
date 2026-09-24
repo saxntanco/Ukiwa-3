@@ -20,27 +20,101 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
 <style id="ocr-start-style">.ocr-start{padding:24px;margin-top:14px;font-size:16px;line-height:1.8}.ocr-start h1{font-size:clamp(26px,4vw,38px);line-height:1.4;margin:8px 0}.ocr-start>small{font-weight:800;letter-spacing:.08em}.ocr-start .start-lead{font-size:18px}.start-premise,.start-bottom{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--island-bg-f8fcfd-100,#f8fcfd)}.start-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;padding:0;counter-reset:none}.start-cards>li{min-width:0;padding:18px;border:1px solid var(--line);border-radius:16px;border-top:5px solid #2785a0}.start-cards>li:nth-child(2){border-top-color:#b75a47}.start-cards>li:nth-child(3){border-top-color:#aa761f}.start-number{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#145774;color:white;font-weight:800}.ocr-start .start-cards h2{font-size:21px;margin:8px 0}.start-key{font-weight:800;font-size:17px}.start-cards p{margin:10px 0}.ocr-start a{color:var(--island-fg-155b7e-100,#155b7e);font-weight:800;text-underline-offset:3px}.ocr-start details{margin:10px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}.ocr-start summary{padding:14px;font-size:16px;cursor:pointer;line-height:1.6}.start-detail{padding:0 16px 16px;font-size:16px}.start-detail li{margin:12px 0}.start-detail dt{font-weight:800;margin-top:12px}.start-detail dd{margin:3px 0 16px}.start-chain{display:flex;align-items:center;justify-content:center;gap:10px;margin:15px 0}.start-chain span:not([aria-hidden]){flex:1;text-align:center;border:1px solid var(--line);border-radius:12px;padding:12px 6px}.start-go{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}.start-go a{display:inline-block;padding:12px;border:2px solid currentColor;border-radius:12px}.start-go span{font-size:14px}@media(max-width:700px){.ocr-start{padding:17px}.start-cards{grid-template-columns:1fr}.start-chain{flex-direction:column}.start-chain span:not([aria-hidden]){width:100%}.start-chain span[aria-hidden]{transform:rotate(90deg)}.start-detail{padding:0 12px 12px}.start-detail ol{padding-left:24px}}@media print{.ocr-start{break-inside:auto}.start-cards{display:block}}
+</style><style id="ocr-map-style">
+.om-k{padding:0 .15em;border-bottom:3px solid}.om-k.tap{border-color:var(--tap)}.om-k.inst{border-color:var(--inst)}.om-k.time{border-color:var(--time)}
+.om-banner{font-size:14.5px;line-height:1.7;margin:14px 0}.om-banner strong{margin-right:4px}
+.om-map{margin:18px 0 22px;padding:14px 10px 8px;border:1px solid var(--line);border-radius:18px}
+.om-scroll{overflow-x:auto}.om-svg{display:block;width:100%;min-width:600px;height:auto;color:inherit}
+.om-svg text{fill:currentColor;font:600 15px system-ui,'Yu Gothic',sans-serif}
+.om-svg .om-zone text{font-size:14px;opacity:.75}.om-svg .om-tick{font-weight:500;font-size:13px;opacity:.8}.om-svg .om-small{font-weight:500;font-size:13px;opacity:.85}
+.om-axis{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.6}.om-grid{fill:none;stroke:currentColor;stroke-width:1;opacity:.13}
+.om-load{fill:currentColor;opacity:.07}
+.om-curve{fill:none;stroke:var(--time);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+.om-ghost{fill:none;stroke:var(--time);stroke-width:2;stroke-dasharray:6 5;opacity:.55}
+.om-inst-line{fill:none;stroke:var(--inst);stroke-width:4.5;stroke-linejoin:round}
+.om-tap-mark,.om-inst-mark{fill:none;stroke-width:2;stroke-dasharray:4 5}.om-tap-mark{stroke:var(--tap)}.om-inst-mark{stroke:var(--inst)}
+.om-svg .om-tap-t{fill:var(--tap)}.om-svg .om-inst-t{fill:var(--inst)}.om-svg .om-time-t{fill:var(--time)}
+.om-arrow{fill:none;stroke:var(--time);stroke-width:2.5;marker-start:url(#omHead);marker-end:url(#omHead)}
+.om-pt{fill:var(--time);stroke:var(--island-bg-ffffff-100,#fff);stroke-width:3}.om-leader{stroke:currentColor;stroke-width:1.2;opacity:.6}
+.om-hint{display:none;font-weight:700}.om-map figcaption{font-size:13px;opacity:.85;margin:6px 6px 0}
+.om-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;list-style:none;padding:0;margin:0 0 16px}
+.om-card{--c:var(--tap);display:flex;flex-direction:column;gap:10px;min-width:0;padding:18px;border:1px solid var(--line);border-top:6px solid var(--c);border-radius:18px}
+.om-card.is-inst{--c:var(--inst)}.om-card.is-time{--c:var(--time)}
+.om-card header{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.om-num{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--c);color:#fff;font-weight:900;font-size:18px}
+.ocr-start .om-card h2{margin:0;font-size:22px;line-height:1.3}.om-q{margin:0;font-size:14px;font-weight:700;opacity:.8}
+.om-ans{font-size:12px;text-align:center;line-height:1.3;border:1.5px solid var(--c);border-radius:12px;padding:5px 9px}.om-ans b{display:block;font-size:20px}
+.om-role{margin:0;font-size:15px;line-height:1.7}
+.om-steps{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.om-steps li{display:grid;grid-template-columns:26px 1fr;gap:8px;padding:10px;border-radius:12px;background:color-mix(in srgb,var(--c) 9%,transparent)}
+.om-step-n{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2px solid var(--c);font-weight:900;font-size:13px}
+.om-steps b{display:block;font-size:14.5px;line-height:1.5}
+.om-steps code{display:block;margin:4px 0 2px;font:700 15px/1.5 ui-monospace,'SFMono-Regular',Consolas,monospace;overflow-wrap:anywhere}
+.om-calc{display:block;font-size:14px;line-height:1.6}
+.om-alt{margin:0;font-size:14px;line-height:1.7;padding:10px 12px;border-left:4px solid var(--c);border-radius:4px;background:color-mix(in srgb,currentColor 5%,transparent)}
+.ocr-start .om-src{margin:0}.ocr-start .om-src summary{padding:10px 12px;font-size:14.5px}.om-src ul{margin:0;padding:0 14px 12px 32px;font-size:14px;line-height:1.7}
+.ocr-start .om-go{margin-top:auto;display:block;text-align:center;padding:11px;border:2px solid var(--c);border-radius:12px;text-decoration:none}
+@media(max-width:900px){.om-cards{grid-template-columns:1fr}}
+@media(max-width:700px){.om-map{padding:10px 4px 6px}.om-svg{min-width:500px}.om-hint{display:inline}.om-svg text{font-size:18px}.om-svg .om-zone text,.om-svg .om-tick,.om-svg .om-small{font-size:16px}.om-card{padding:15px}}
+@media print{.om-cards{display:block}.om-card{break-inside:avoid;margin-bottom:10px}.om-svg{min-width:0}}
 </style>
 </head>
 <body>
 <header class="top"><a class="brand" href="index.html">🌊 うきわメモ<small>OCR / 51 SETTING NAVI</small></a><div class="badge">v7.1 根拠付き計算</div></header>
 <main>
 <section class="panel ocr-start" id="ocr-start" aria-labelledby="ocr-start-title">
-<small>OCR SETTING GUIDE / まずここだけ</small><h1 id="ocr-start-title">OCRの整定、まずはこの順番。</h1>
-<aside id="demoBanner" class="start-premise" role="status"><strong>学習用の仮入力で表示中</strong><p>6.6kV・契約200kW・CT50/5Aの架空設備です。限時3A、瞬時30A、確認するダイヤル2を見本の初期値にしています。下位の時間・事故電流なども説明用の仮定で、実設備の推奨値ではありません。</p><p><a href="?blank=1#commonPanel">仮入力を消して、空欄から始める</a> ／ <a href="?demo=1#summaryBar">見本の数値・結果へ</a></p><details><summary>この見本の結果を、順に読む</summary><p>① 限時：契約200kWからのK2OC簡便式では、200÷(√3×6.6)×5÷50×1.5 ≈ 2.62A。設定目盛では3Aが候補です。これは力率項のないメーカー簡便式で、別に力率0.90による負荷電流との照合も行います。</p><p>② 瞬時：避けたい電流を一次200A、拾いたい最小事故電流を一次500Aと仮定。見本の30Aは一次300A相当。±7％だけを含む参考比較でも279～321Aなので、200Aより大きく500Aより小さい範囲です。突入の継続時間や時間協調まで確認した結果ではありません。</p><p>③ ダイヤル：一次90Aは二次9A＝限時3Aの300％。EI・D2の公称時間は2秒です。この点で下位の全遮断0.5秒＋余裕0.2秒＝0.7秒より遅く、自OCR2秒＋VCB0.06秒＝2.06秒は、仮の遮断完了上限3秒−余裕0.2秒＝2.8秒以内です。1点で関係を学ぶ例であり、曲線全体の協調成立ではありません。</p></details></aside><p class="start-lead">決めるのは<strong>「何Aから」「大きな電流なら」「どれくらい待つか」</strong>。<br>最初から下の項目を全部埋める必要はありません。</p>
-<div class="start-premise"><strong>点検で動作を確認したいだけ？</strong> その場合は承認済み整定表と現状を照合し、その値で試験します。試験のために新しい整定値を決め直すこととは別です。</div>
-<ol class="start-cards">
-<li><span class="start-number">1</span><h2>限時タップ</h2><p class="start-key">普段の電流で、切れないように。</p><p>負荷の電流をCT比でリレー側の電流へ換算し、負荷変動や動作値の誤差を考えて候補を選びます。大きすぎると必要な過電流を拾いにくくなります。</p><p><b>先に見るもの</b><br>実際のCT比・負荷電流・実機の設定目盛</p><a href="#tapPanel">限時タップの入力へ →</a></li>
-<li><span class="start-number">2</span><h2>瞬時タップ</h2><p class="start-key">始動は通す。対象の短絡は拾う。</p><p>変圧器の投入やモータ始動で誤動作せず、保護したい範囲の最小短絡電流には動作する候補を探します。電流の大小だけでなく、継続時間と下位保護も照合します。</p><p><b>先に見るもの</b><br>突入・始動の資料、最小短絡電流、下位保護特性</p><a href="#instPanel">瞬時タップの入力へ →</a></li>
-<li><span class="start-number">3</span><h2>ダイヤル（時間）</h2><p class="start-key">末端を先に。受電OCRは後から。</p><p>下位で処理できる事故は下位を先に切らせ、処理できなければ受電側が後備保護します。上位より先に、かつ機器の耐量を超える前に切れる時間か確認します。</p><p><b>先に見るもの</b><br>特性曲線・上下の整定・遮断器の時間・必要な時間差</p><a href="#dialPanel">ダイヤルの検討へ →</a></li>
+<small>OCR SETTING GUIDE / 3つのつまみ</small><h1 id="ocr-start-title">OCRの整定は、<br>3つのつまみで決まる。</h1>
+<p class="start-lead"><b class="om-k tap">限時タップ</b>で「何Aから」、<b class="om-k time">ダイヤル</b>で「どれくらい待つか」、<b class="om-k inst">瞬時タップ</b>で「どこからは待たないか」。<br>1枚のグラフに重ねると、3つの役割が見えます。</p>
+<aside id="demoBanner" class="start-premise om-banner" role="status"><strong>見本の数値で表示中</strong> 6.6kV・契約200kW・力率0.90・CT50/5A（K2OC）の架空設備です。下位の時間や事故電流も説明用の仮定で、実設備の推奨値ではありません。 <a href="?blank=1#commonPanel">空欄から始める</a></aside>
+<figure class="om-map"><div class="om-scroll" tabindex="0" aria-label="横にスクロールできるグラフ"><svg class="om-svg" viewBox="0 0 720 372" role="img" aria-labelledby="om-t om-d"><title id="om-t">OCRの動作時間と電流のグラフ（見本の整定）</title><desc id="om-d">横軸はCT二次電流、縦軸は動作時間で、どちらも対数目盛。普段の負荷電流1.94Aは限時タップ3Aより左で動作しない。3Aから30Aの間は超反限時EI・ダイヤル2の曲線に沿って、電流が大きいほど早く動作する。一次90A（二次9A、タップの3倍）では2.0秒。30A以上は瞬時要素ですぐ動作する。ダイヤルを変えると曲線が上下する。</desc>
+<defs><marker id="omHead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="context-stroke"/></marker></defs><g class="om-zone"><text x="142" y="22" text-anchor="middle">動かない</text><text x="363" y="22" text-anchor="middle">待ってから動く（限時）</text><text x="592" y="22" text-anchor="middle">すぐ動く（瞬時）</text></g>
+<rect class="om-load" x="70" y="34" width="86.6" height="270.0"/>
+<path class="om-grid" d="M70 76.9 H670 M70 166.9 H670 M70 256.9 H670 M370.0 34 V304.0"/>
+<path class="om-axis" d="M70 34 V304.0 H670"/>
+<text class="om-tick" x="62" y="81.9" text-anchor="end">10秒</text><text class="om-tick" x="62" y="171.9" text-anchor="end">1秒</text><text class="om-tick" x="62" y="261.9" text-anchor="end">0.1秒</text>
+<text class="om-tick" x="70" y="324.0" text-anchor="middle">1A</text><text class="om-tick" x="370.0" y="324.0" text-anchor="middle">10A</text><text class="om-tick" x="670" y="324.0" text-anchor="end">100A</text>
+<text class="om-tick" x="670" y="366" text-anchor="end">CT二次電流 → 大きいほど右（対数）</text>
+<text class="om-small" x="113" y="278.0" text-anchor="middle">普段の負荷</text><text class="om-small" x="113" y="295.0" text-anchor="middle">1.94A</text>
+<path class="om-ghost" d="M231.0 40.7 L234.9 49.5 L238.7 57.1 L242.6 63.8 L246.5 69.9 L250.3 75.4 L254.2 80.5 L258.0 85.3 L261.9 89.8 L265.7 94.1 L269.6 98.2 L273.4 102.1 L277.3 105.8 L281.1 109.5 L285.0 113.0 L288.8 116.4 L292.7 119.7 L296.5 123.0 L300.4 126.1 L304.2 129.2 L308.1 132.3 L311.9 135.2 L315.8 138.2 L319.6 141.1 L323.5 143.9 L327.3 146.7 L331.2 149.5 L335.0 152.3 L338.9 155.0 L342.7 157.7 L346.6 160.3 L350.4 163.0 L354.3 165.6 L358.1 168.2 L362.0 170.8 L365.8 173.3 L369.7 175.9 L373.5 178.4 L377.4 180.9 L381.2 183.4 L385.1 185.9 L388.9 188.4 L392.8 190.9 L396.6 193.4 L400.5 195.8 L404.3 198.3 L408.2 200.7 L412.1 203.1 L415.9 205.5 L419.8 208.0 L423.6 210.4 L427.5 212.8 L431.3 215.2 L435.2 217.6 L439.0 219.9 L442.9 222.3 L446.7 224.7 L450.6 227.1 L454.4 229.5 L458.3 231.8 L462.1 234.2 L466.0 236.5 L469.8 238.9 L473.7 241.3 L477.5 243.6 L481.4 246.0 L485.2 248.3 L489.1 250.7 L492.9 253.0 L496.8 255.3 L500.6 257.7 L504.5 260.0 L508.3 262.4 L512.2 264.7 L513.1 265.3"/><path class="om-ghost" d="M269.6 35.3 L273.4 39.2 L277.3 42.9 L281.1 46.6 L285.0 50.1 L288.8 53.5 L292.7 56.8 L296.5 60.0 L300.4 63.2 L304.2 66.3 L308.1 69.4 L311.9 72.3 L315.8 75.3 L319.6 78.2 L323.5 81.0 L327.3 83.8 L331.2 86.6 L335.0 89.4 L338.9 92.1 L342.7 94.8 L346.6 97.4 L350.4 100.1 L354.3 102.7 L358.1 105.3 L362.0 107.9 L365.8 110.4 L369.7 113.0 L373.5 115.5 L377.4 118.0 L381.2 120.5 L385.1 123.0 L388.9 125.5 L392.8 128.0 L396.6 130.5 L400.5 132.9 L404.3 135.3 L408.2 137.8 L412.1 140.2 L415.9 142.6 L419.8 145.1 L423.6 147.5 L427.5 149.9 L431.3 152.3 L435.2 154.7 L439.0 157.0 L442.9 159.4 L446.7 161.8 L450.6 164.2 L454.4 166.5 L458.3 168.9 L462.1 171.3 L466.0 173.6 L469.8 176.0 L473.7 178.4 L477.5 180.7 L481.4 183.1 L485.2 185.4 L489.1 187.7 L492.9 190.1 L496.8 192.4 L500.6 194.8 L504.5 197.1 L508.3 199.4 L512.2 201.8 L513.1 202.4"/>
+<path class="om-curve" d="M242.6 36.7 L246.5 42.8 L250.3 48.3 L254.2 53.4 L258.0 58.2 L261.9 62.7 L265.7 67.0 L269.6 71.1 L273.4 75.0 L277.3 78.8 L281.1 82.4 L285.0 85.9 L288.8 89.3 L292.7 92.6 L296.5 95.9 L300.4 99.0 L304.2 102.1 L308.1 105.2 L311.9 108.2 L315.8 111.1 L319.6 114.0 L323.5 116.8 L327.3 119.6 L331.2 122.4 L335.0 125.2 L338.9 127.9 L342.7 130.6 L346.6 133.2 L350.4 135.9 L354.3 138.5 L358.1 141.1 L362.0 143.7 L365.8 146.2 L369.7 148.8 L373.5 151.3 L377.4 153.8 L381.2 156.4 L385.1 158.8 L388.9 161.3 L392.8 163.8 L396.6 166.3 L400.5 168.7 L404.3 171.2 L408.2 173.6 L412.1 176.0 L415.9 178.5 L419.8 180.9 L423.6 183.3 L427.5 185.7 L431.3 188.1 L435.2 190.5 L439.0 192.9 L442.9 195.2 L446.7 197.6 L450.6 200.0 L454.4 202.4 L458.3 204.7 L462.1 207.1 L466.0 209.5 L469.8 211.8 L473.7 214.2 L477.5 216.5 L481.4 218.9 L485.2 221.2 L489.1 223.6 L492.9 225.9 L496.8 228.2 L500.6 230.6 L504.5 232.9 L508.3 235.3 L512.2 237.6 L513.1 238.2"/>
+<path class="om-inst-line" d="M513.1 238.2 V284.0 H670"/>
+<path class="om-tap-mark" d="M213.1 34 V304.0"/><path class="om-inst-mark" d="M513.1 34 V304.0"/>
+<text class="om-lab om-tap-t" x="213.1" y="324.0" text-anchor="middle">3A</text><text class="om-lab om-tap-t" x="213.1" y="342.0" text-anchor="middle">①限時タップ</text>
+<text class="om-lab om-inst-t" x="513.1" y="324.0" text-anchor="middle">30A</text><text class="om-lab om-inst-t" x="513.1" y="342.0" text-anchor="middle">②瞬時タップ</text>
+<text class="om-small" x="589" y="276.0" text-anchor="middle">瞬時要素で動作</text>
+<path class="om-arrow" d="M455 175.9 V220.8"/>
+<text class="om-lab om-time-t" x="502" y="64" text-anchor="end">③ダイヤルD</text><text class="om-small" x="502" y="83" text-anchor="end">曲線を上下させる</text><text class="om-small" x="502" y="101" text-anchor="end">（図はD1・D2・D5）</text>
+<circle class="om-pt" cx="356.3" cy="139.8" r="7"/>
+<path class="om-leader" d="M350.3 145.8 L292 206"/>
+<text class="om-lab" x="226" y="224">一次90A → 二次9A</text><text class="om-small" x="226" y="242">タップの3倍（M=3）</text><text class="om-lab om-time-t" x="226" y="261">D2なら 2.0秒</text>
+</svg></div><figcaption><span class="om-hint">← グラフは横にスクロールできます →<br></span>見本の整定をK2OCの超反限時（EI）の公称式で描いた学習用の図です。実機の許容差・定時間下限・瞬時の動作時間は描き分けていません。</figcaption></figure>
+<ol class="om-cards">
+<li class="om-card is-tap"><header><span class="om-num">1</span><div><h2>限時タップ</h2><p class="om-q">何Aから数え始める？</p></div><span class="om-ans">見本 <b>3A</b></span></header>
+<p class="om-role">普段の負荷では動かず、それを超えた過電流から時間をかけて動かす「入口」の電流です。</p>
+<ol class="om-steps"><li><span class="om-step-n">1</span><div><b>負荷電流を求める</b><code>I₁ = P ÷ (√3 × V × cosφ)</code><span class="om-calc">200kW ÷ (√3 × 6.6kV × 0.90) = 19.4A</span></div></li><li><span class="om-step-n">2</span><div><b>CT比でリレー側へ</b><code>I₂ = I₁ × CT二次 ÷ CT一次</code><span class="om-calc">19.4A × 5 ÷ 50 = 1.94A</span></div></li><li><span class="om-step-n">3</span><div><b>余裕をかけ、目盛に合わせる</b><code>Tap ≧ I₂ × 1.2〜1.5</code><span class="om-calc">2.33〜2.92A → 目盛（3〜6A）の最小 3A</span></div></li></ol>
+<p class="om-alt"><b>メーカー簡便式でも確認</b>：Tap ≧ P÷(√3V) × 5÷CT一次 × 1.5 = 17.5 × 0.1 × 1.5 = 2.62A → 3A。力率項がない式なので、①の負荷電流とは分けて扱います。</p>
+<details class="om-src"><summary>根拠</summary><ul><li>120〜150％：<a href="#source-jeea" data-source-jump="">日本電気技術者協会の技術解説</a>（契約負荷電流に対する目安）</li><li>簡便式・目盛3/3.5/4/4.5/5/6A：<a href="#source-k2-tap" data-source-jump="">オムロン K2OC データシート p.14・pp.2–3</a></li><li>I = P/(√3V cosφ)、CT換算：<a href="#learning">公式を自分で復元する</a></li></ul></details>
+<a class="om-go" href="#tapPanel">限時タップを計算する →</a></li>
+<li class="om-card is-inst"><header><span class="om-num">2</span><div><h2>瞬時タップ</h2><p class="om-q">大電流なら、待たずに切る？</p></div><span class="om-ans">見本 <b>30A</b></span></header>
+<p class="om-role">短絡のような大電流は、時間をかけずに切ります。ただし変圧器の投入電流などで切れてはいけません。</p>
+<ol class="om-steps"><li><span class="om-step-n">1</span><div><b>倍率の目安で当たりをつける</b><code>I₂ × 10〜15</code><span class="om-calc">1.94A × 10〜15 = 19.4〜29.2A → 目盛 20A・25A</span></div></li><li><span class="om-step-n">2</span><div><b>投入・始動では動かない</b><code>瞬時 × CT比 ＞ 避けたい電流</code><span class="om-calc">例：避けたい電流 一次200A 以下では動かない</span></div></li><li><span class="om-step-n">3</span><div><b>守りたい短絡は必ず拾う</b><code>瞬時 × CT比 ＜ 最小短絡電流</code><span class="om-calc">例：一次500Aの事故は拾う</span></div></li></ol>
+<p class="om-alt"><b>見本の30A</b>は一次300A。動作値の誤差±7％を含めても279〜321Aで、②③を満たします（25A・40Aも条件内）。倍率の目安①は出発点で、最後は②③の電流と、突入が続く時間・上位との協調で決めます。</p>
+<details class="om-src"><summary>根拠</summary><ul><li>1000〜1500％：<a href="#source-jeea" data-source-jump="">日本電気技術者協会の技術解説</a></li><li>突入の参考点（変圧器定格一次×10・0.1秒）：<a href="#source-omron-guide" data-source-jump="">オムロン 保護継電器の技術解説</a></li><li>目盛10〜80A・動作値±7％：<a href="#source-k2-spec" data-source-jump="">K2OC データシート pp.2–3</a></li></ul></details>
+<a class="om-go" href="#instPanel">瞬時タップを計算する →</a></li>
+<li class="om-card is-time"><header><span class="om-num">3</span><div><h2>ダイヤル</h2><p class="om-q">どれくらい待ってから切る？</p></div><span class="om-ans">見本 <b>D2</b></span></header>
+<p class="om-role">タップの何倍流れたかで、動作時間が決まります。ダイヤルはその時間を全体に何倍するかのつまみです。</p>
+<ol class="om-steps"><li><span class="om-step-n">1</span><div><b>タップの何倍かを出す</b><code>M = 事故時のCT二次電流 ÷ 限時タップ</code><span class="om-calc">一次90A → 二次9A ÷ 3A = 3</span></div></li><li><span class="om-step-n">2</span><div><b>特性式で時間にする（EI）</b><code>t = 80 ÷ (M² − 1) × D ÷ 10</code><span class="om-calc">80 ÷ 8 × 2 ÷ 10 = 2.0秒</span></div></li><li><span class="om-step-n">3</span><div><b>上下の保護と時間をくらべる</b><code>下位 ＋ 余裕 ≦ t ／ t ＋ 遮断器 ≦ 上限 − 余裕</code><span class="om-calc">0.5＋0.2 ≦ 2.0 ／ 2.0＋0.06 ≦ 3.0−0.2</span></div></li></ol>
+<p class="om-alt"><b>逆算もできる</b>：目標時間が決まっていれば D = 10 × t × (M² − 1) ÷ 80。ただし1点で合っても、曲線全体での協調は別に確認します。</p>
+<details class="om-src"><summary>根拠</summary><ul><li>EI・VI・NI・DT・DOの特性式と定時間下限：<a href="#source-k2-time" data-source-jump="">K2OC データシート pp.7–9</a></li><li>下位より遅く、上限より早く：<a href="#source-omron-guide" data-source-jump="">オムロン 過電流保護協調の解説</a></li><li>不等式の意味：<a href="#learning">時間協調の不等式を忘れたら</a></li></ul></details>
+<a class="om-go" href="#dialPanel">ダイヤルを検討する →</a></li>
 </ol>
-<p class="start-bottom"><strong>この順で候補を作り、最後は3つを一緒に確認。</strong> 合わなければ前に戻ります。契約電力や変圧器容量だけから、3つ全部を確定する方法ではありません。</p>
+<p class="start-bottom"><strong>①→②→③の順に候補を作り、最後は3つを一緒に確認。</strong> 合わなければ前に戻ります。契約電力や変圧器容量だけで、3つ全部が決まるわけではありません。</p>
+<div class="start-premise"><strong>点検で動作を確認したいだけ？</strong> その場合は承認済み整定表と現状を照合し、その値で試験します。試験のために新しい整定値を決め直すこととは別です。</div>
 <details><summary>図で見る：どこの装置より先に／後に切るの？</summary><div class="start-detail">
 <div class="start-chain"><span>電力会社側<br><b>上位の保護装置</b></span><span aria-hidden="true">→</span><span>受電設備<br><b>CT → OCR → VCB</b></span><span aria-hidden="true">→</span><span>負荷側<br><b>下位の保護装置 → 負荷</b></span></div>
 <p>上位は電源寄り、下位は負荷寄りです。矢印は電源から負荷への関係で、実際の端子結線図ではありません。CTが電流を取り出し、OCRが判断し、VCBが主回路を切ります。</p>
 <p>例えば下位のブレーカーで切れる事故なら、まずそこだけを切りたい。受電VCBまで同時に切れると、関係のない負荷も停電します。この順番を電流と時間で合わせるのが<strong>保護協調</strong>です。ただし、受電OCRが直接保護する範囲の事故まで待たせる、という意味ではありません。</p>
 </div></details>
-
 <details><summary>分からない項目は、どこで調べればいい？</summary><div class="start-detail"><dl>
 <dt>CT比・OCR型式・今の整定</dt><dd>単線結線図、銘板、承認済み整定表を照合。CT比を推測すると、一次と二次の換算から間違います。</dd>
 <dt>普段の負荷電流</dt><dd>需要・電流の記録や設計資料。契約電力からの簡便式は、その式の対象と条件を確認して使います。</dd>
