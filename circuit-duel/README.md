@@ -41,4 +41,4 @@ BGM: “Cipher” Kevin MacLeod (incompetech.com), licensed under Creative Commo
 https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100844
 https://creativecommons.org/licenses/by/4.0/
 音源は改変せず公式配信URLから再生します。BGMのみネット接続が必要で、配信側にアクセス情報が渡ります。効果音は独自生成です。
-秘密のラウンジはトップの浮き輪5秒長押しから。ゲーム・学習室・図鑑を選べます。
+秘密のラウンジはトップの浮き輪をすばやく3回タップ。ゲーム・学習室・図鑑を選べます。
