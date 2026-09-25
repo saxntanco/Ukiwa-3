@@ -5,7 +5,7 @@ const $ = id => document.getElementById(id);
 function el(tag, text, cls) { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
 const K = document.body.dataset.kamoku === '4' ? '4' : '2';
 const KJ = K === '4' ? '課目Ⅳ' : '課目Ⅱ';
-const YEARS = K === '4' ? { r08: '令和8年度' } : { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度' };
+const YEARS = K === '4' ? { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度' } : { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度' };
 const LS_UI = `ukiwa-kamoku${K}-ui`;
 let ui = { year: 'r08', q: K === '4' ? 11 : 4, filter: 'all', theme: '' };
 try { Object.assign(ui, JSON.parse(localStorage.getItem(LS_UI) || '{}')); } catch {}
