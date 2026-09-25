@@ -1,17 +1,20 @@
-// 熱分野 課目Ⅱ 空欄トレーニング（公開版）。データは energy-kamoku2/{年度}.json
+// 熱分野 課目Ⅱ・課目Ⅳ 空欄トレーニング（公開版）。データは energy-kamoku{課目}/{年度}.json
+// 課目は body の data-kamoku（2 または 4）で決まる。記録の保存キーは課目ごとに別
 // 問題画像・解答群の文言・書籍の解説は持たない。正解は ECCJ 標準解答で照合済みの値
 const $ = id => document.getElementById(id);
 function el(tag, text, cls) { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
-const YEARS = { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度' };
-const LS_UI = 'ukiwa-kamoku2-ui';
-let ui = { year: 'r08', q: 4, filter: 'all', theme: '' };
+const K = document.body.dataset.kamoku === '4' ? '4' : '2';
+const KJ = K === '4' ? '課目Ⅳ' : '課目Ⅱ';
+const YEARS = K === '4' ? { r08: '令和8年度' } : { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度' };
+const LS_UI = `ukiwa-kamoku${K}-ui`;
+let ui = { year: 'r08', q: K === '4' ? 11 : 4, filter: 'all', theme: '' };
 try { Object.assign(ui, JSON.parse(localStorage.getItem(LS_UI) || '{}')); } catch {}
 if (!YEARS[ui.year]) ui.year = 'r08';
 let D = null, rec = {}, cur = null, view = 'solve';
 const cache = {};
 
 function saveUi() { try { localStorage.setItem(LS_UI, JSON.stringify(ui)); } catch {} }
-function lsKey() { return `ukiwa-kamoku2-${ui.year}-v1`; }
+function lsKey() { return `ukiwa-kamoku${K}-${ui.year}-v1`; }
 function loadRec() { try { rec = JSON.parse(localStorage.getItem(lsKey()) || '{}'); } catch { rec = {}; } }
 function saveRec() { try { localStorage.setItem(lsKey(), JSON.stringify(rec)); } catch {} }
 function lab(x) { return `(${x.blank})`; }
@@ -31,7 +34,7 @@ function visible() {
 
 async function loadYear() {
   if (!cache[ui.year]) {
-    const res = await fetch(`energy-kamoku2/${ui.year}.json?v=1`);
+    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=1`);
     if (!res.ok) throw new Error(res.status);
     cache[ui.year] = await res.json();
   }
@@ -41,7 +44,7 @@ async function loadYear() {
   $('q').replaceChildren(...qs.map(q => { const o = el('option', `問題${q}　${D.qtitle[q] || ''}`); o.value = q; return o; }));
   $('q').value = ui.q;
   [['pdf-problem', D.problemUrl], ['pdf-answer', D.answerUrl], ['pdf-list', D.listUrl]].forEach(([id, u]) => { $(id).href = u; });
-  $('private-link').href = D.privateUrl; $('private-link').textContent = `${YEARS[ui.year]} 課目Ⅱ（claude.ai）↗`;
+  $('private-link').href = D.privateUrl; $('private-link').textContent = `${YEARS[ui.year]} ${KJ}（claude.ai）↗`;
   $('scope-year').textContent = YEARS[ui.year];
   render();
 }
@@ -54,11 +57,18 @@ function fillTheme() {
   $('theme').value = ui.theme;
 }
 
+// 課目Ⅳは必須（問題11〜14）と選択（問題15〜18、本番は4問中2問）を分けて数える
+function ptsText(okN, pts, total) {
+  if (K !== '4') return `${pts}/${total}点`;
+  const sum = (a, f) => a.filter(f).reduce((s, x) => s + x.points, 0);
+  return `必須 ${sum(okN, x => x.q <= 14)}/${sum(D.blanks, x => x.q <= 14)}点・選択 ${sum(okN, x => x.q >= 15)}/${sum(D.blanks, x => x.q >= 15)}点（本番は選択4問中2問を解答）`;
+}
+
 function render() {
   fillTheme();
   const all = D.blanks, done = all.filter(x => stateOf(x.id) !== 'new'), okN = all.filter(x => stateOf(x.id) === 'ok');
   const pts = okN.reduce((s, x) => s + x.points, 0), total = all.reduce((s, x) => s + x.points, 0);
-  $('stats').textContent = `${YEARS[ui.year]}　空欄 ${all.length} ／ 回答済み ${done.length} ／ 正解 ${okN.length} ／ 要復習 ${all.filter(x => stateOf(x.id) === 'ng').length} ／ 直近の正解で ${pts}/${total}点`;
+  $('stats').textContent = `${YEARS[ui.year]}　空欄 ${all.length} ／ 回答済み ${done.length} ／ 正解 ${okN.length} ／ 要復習 ${all.filter(x => stateOf(x.id) === 'ng').length} ／ 直近の正解で ${ptsText(okN, pts, total)}`;
   $('scope-count').textContent = `空欄 ${all.length}・${total}点`;
   $('list-title').textContent = `問題${ui.q}　${D.qtitle[ui.q] || ''}`;
   const list = visible();
