@@ -5,7 +5,7 @@ const $ = id => document.getElementById(id);
 function el(tag, text, cls) { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
 const K = document.body.dataset.kamoku === '4' ? '4' : '2';
 const KJ = K === '4' ? '課目Ⅳ' : '課目Ⅱ';
-const YEARS = K === '4' ? { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度' } : { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度', r05: '令和5年度' };
+const YEARS = K === '4' ? { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度', r05: '令和5年度' } : { r08: '令和8年度', r07: '令和7年度', r06: '令和6年度', r05: '令和5年度' };
 const LS_UI = `ukiwa-kamoku${K}-ui`;
 let ui = { year: 'r08', q: K === '4' ? 11 : 4, filter: 'all', theme: '', themeAll: false };
 try { Object.assign(ui, JSON.parse(localStorage.getItem(LS_UI) || '{}')); } catch {}
@@ -123,7 +123,7 @@ function solve(inner, x) {
   if (x.type === 'choice') {
     inner.append(el('p', `解答群の記号から選ぶ（${x.symbols[0]}〜${x.symbols[x.symbols.length - 1]}）。選択肢の内容は問題PDFの「〈${x.blank}〉の解答群」で確認してください。`, 'k2-hint'));
     const box = el('div', null, 'k2-choices');
-    x.symbols.forEach(s => { const b = el('button', s); b.type = 'button'; b.setAttribute('aria-label', `${s} を選ぶ`); b.onclick = () => { record(x, s === x.answer, s); view = 'result'; renderDlg(); }; box.append(b); });
+    x.symbols.forEach(s => { const b = el('button', s); b.type = 'button'; b.setAttribute('aria-label', `${s} を選ぶ`); b.onclick = () => { record(x, s === x.answer || (x.alt || []).includes(s), s); view = 'result'; renderDlg(); }; box.append(b); });
     inner.append(box);
   } else {
     const row = el('div', null, 'k2-num'), inp = el('input');
