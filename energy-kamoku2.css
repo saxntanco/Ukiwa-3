@@ -63,3 +63,6 @@
 .k2-nav{display:flex;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid #d1dfdb;background:#fff;flex-shrink:0}
 .k2-nav button{flex:1}
 @media(max-width:700px){.k2-body{padding:10px 12px 20px;font-size:16px}.k2-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+
+/* 記号の下付き（c_p → c と小さい p） */
+i.sym{font-family:"Times New Roman","Noto Serif JP",serif;font-style:italic;padding-right:.04em}sub.sym-sub{font-size:.72em;line-height:0;vertical-align:-.28em;font-style:normal}
