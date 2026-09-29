@@ -173,3 +173,10 @@ $('reset').onclick = () => {
 };
 function showError() { $('blanks').replaceChildren(el('p', '空欄データを読み込めませんでした。ページを再読み込みしてください。', 'k2-empty')); }
 loadYear().catch(showError);
+// 記号の下付き：解説データの「c_p」「q_H」「T_h1」などを、問題文と同じ形（斜体の文字＋下付きの添字）で表示する。リンク・入力欄の中は変えない
+(()=>{const RE=/(^|[^A-Za-z0-9_]|(?=\)))([A-Za-zΑ-Ωα-ω]|\))_([A-Za-z0-9]+)/g,SKIP=new Set(['SCRIPT','STYLE','TEXTAREA','OPTION','SELECT','INPUT','SUB','SUP','A','CODE']);
+ function fix(n){if(n.nodeType===3){const t=n.nodeValue;if(!t||t.indexOf('_')<0||(n.parentNode&&SKIP.has(n.parentNode.nodeName)))return;RE.lastIndex=0;let m,i=0,hit=false;const f=document.createDocumentFragment();
+   while((m=RE.exec(t))){hit=true;const s=m.index+m[1].length,b=m[2];f.append(t.slice(i,s));if(/[A-Za-z]/.test(b)){const v=document.createElement('i');v.className='sym';v.textContent=b;f.append(v)}else f.append(b);const u=document.createElement('sub');u.className='sym-sub';u.textContent=m[3];f.append(u);i=s+b.length+1+m[3].length}
+   if(hit){f.append(t.slice(i));n.replaceWith(f)}return}
+  if(n.nodeType===1&&!SKIP.has(n.nodeName))[...n.childNodes].forEach(fix)}
+ fix(document.body);new MutationObserver(ms=>{for(const r of ms){if(r.type==='characterData')fix(r.target);else r.addedNodes.forEach(fix)}}).observe(document.body,{childList:true,subtree:true,characterData:true})})();
