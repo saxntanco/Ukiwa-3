@@ -30,7 +30,11 @@ function parseNum(s) {
   const m = s.match(/^([-+]?\d*\.?\d+)(?:(?:[×xX*]10\^?|e|E)([-+]?\d+))?$/);
   return m ? parseFloat(m[1]) * (m[2] ? 10 ** parseInt(m[2], 10) : 1) : null;
 }
-function answerText(x) { return x.type === 'choice' ? x.answer : `${x.answerDisp}${x.unit ? ' [' + x.unit + ']' : ''}`; }
+function answerText(x) {
+  if (x.type === 'choice') return x.answer;
+  const quantity = `${x.answerDisp}${x.answerScale || ''}${x.unit ? ' [' + x.unit + ']' : ''}`;
+  return x.answerScale ? `解答欄：${x.answerDisp} ／ 値：${quantity}` : quantity;
+}
 function blanksOfQ() { return D.blanks.filter(x => x.q === ui.q); }
 function visible() {
   const base = ui.filter === 'due' ? D.blanks.filter(isDue) : ui.themeAll && ui.theme ? D.blanks.filter(x => x.theme === ui.theme) : blanksOfQ();
@@ -40,7 +44,7 @@ function visible() {
 
 async function loadYear() {
   if (!cache[ui.year]) {
-    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=1`);
+    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=2`);
     if (!res.ok) throw new Error(res.status);
     cache[ui.year] = await res.json();
   }
@@ -127,12 +131,12 @@ function solve(inner, x) {
     inner.append(box);
   } else {
     const row = el('div', null, 'k2-num'), inp = el('input');
-    inp.inputMode = 'decimal'; inp.autocomplete = 'off'; inp.setAttribute('aria-label', `空欄 ${lab(x)} の値`); inp.placeholder = x.fmt.includes('10^d') ? '例 1.23e3 / 1230' : '数値';
+    inp.inputMode = 'decimal'; inp.autocomplete = 'off'; inp.setAttribute('aria-label', `空欄 ${lab(x)} の値`); inp.placeholder = /10\^[cd]/.test(x.fmt) ? '例 1.23e3 / 1230' : '数値';
     const go = el('button', '判定する', 'primary'); go.type = 'button';
-    const hint = el('p', `解答の形：${x.fmt}${x.unit ? '　単位 [' + x.unit + ']' : ''}${x.fmt.includes('10^d') ? '（指数を含めた値で入力。例：3.45×10³ なら 3.45e3 か 3450）' : ''}。最小位の一つ下で四捨五入。`, 'k2-hint');
+    const hint = el('p', `解答の形：${x.fmt}${x.unit ? '　単位 [' + x.unit + ']' : ''}${x.answerScale ? '（固定倍率の前の係数だけを入力）' : /10\^[cd]/.test(x.fmt) ? '（指数を含めた値で入力。例：3.45×10³ なら 3.45e3 か 3450）' : ''}。最小位の一つ下で四捨五入。`, 'k2-hint');
     go.onclick = () => { const v = parseNum(inp.value); if (v == null) { hint.textContent = '数値として読めませんでした。例：3.45、3.45e3、3.45×10^3'; inp.focus(); return; } record(x, isOk(x, v), inp.value); view = 'result'; renderDlg(); };
     inp.onkeydown = e => { if (e.key === 'Enter') go.click(); };
-    row.append(inp, el('span', x.unit ? `[${x.unit}]` : ''), go); inner.append(row, hint);
+    row.append(inp, el('span', `${x.answerScale || ''}${x.unit ? ' [' + x.unit + ']' : ''}`), go); inner.append(row, hint);
   }
   const later = el('div', null, 'k2-later'), see = el('button', 'わからない → 解説を見る'); see.type = 'button';
   see.onclick = () => { const r = rec[x.id] || { n: 0 }; r.n++; r.box = 0; r.due = today(); rec[x.id] = r; saveRec(); view = 'learn'; renderDlg(); }; later.append(see); inner.append(later);
