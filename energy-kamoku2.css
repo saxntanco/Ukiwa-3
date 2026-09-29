@@ -64,5 +64,27 @@
 .k2-nav button{flex:1}
 @media(max-width:700px){.k2-body{padding:10px 12px 20px;font-size:16px}.k2-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
 
+/* 学習しやすい形：要点カード・手応え・今日の復習・テーマ別正答率・公式まとめ */
+.k2-keycard{border:2px solid #155d58;background:#f1f8f6;border-radius:12px;padding:10px 14px;margin:10px 0 12px}
+.k2-keycard h4{margin:0 0 6px;font-size:16px;color:#155d58}
+.k2-keycard dl{display:grid;grid-template-columns:5.2em 1fr;gap:4px 10px;margin:0;font-size:15px}
+.k2-keycard dt{font-weight:700;color:#155d58}.k2-keycard dd{margin:0;overflow-wrap:anywhere}
+.k2-feel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 12px;font-size:15px}
+.k2-feel button{padding:8px 12px;border-radius:10px;border:2px solid #9bbcb8;background:#fff;font:inherit;cursor:pointer;min-height:44px}
+.k2-feel button[aria-pressed=true]{background:#155d58;color:#fff;border-color:#155d58}
+details.k2-sec>summary{cursor:pointer;list-style:none}details.k2-sec>summary::-webkit-details-marker{display:none}
+details.k2-sec>summary h4{display:inline-block;margin:0}
+details.k2-sec>summary::after{content:" ▾";color:#5b7f7e}details.k2-sec:not([open])>summary::after{content:" ▸"}
+.k2-foldbar{display:flex;gap:8px;justify-content:flex-end;margin:0 0 6px}.k2-foldbar button{font:inherit;font-size:14px;padding:6px 10px;border-radius:8px;border:1px solid #9bbcb8;background:#fff;cursor:pointer}
+.k2-review{margin:16px 0}.k2-review summary{cursor:pointer;font-weight:bold}
+.k2-due{border:2px solid #c0600f;background:#fff6ea;border-radius:12px;padding:10px 14px;margin:8px 0}
+.k2-due.none{border-color:#9bbcb8;background:#f1f8f6}.k2-due h3{margin:0 0 4px;font-size:18px}
+.k2-thstat{width:100%;border-collapse:collapse;font-size:14px}.k2-thstat td,.k2-thstat th{padding:6px 4px;border-bottom:1px solid #dde7e4;text-align:left;vertical-align:middle}
+.k2-bar{display:inline-block;width:70px;height:10px;background:#e3ebe9;border-radius:5px;overflow:hidden;vertical-align:middle}.k2-bar i{display:block;height:100%;background:#2f7d45}
+.k2-thstat .weak{color:#a34a00;font-weight:700}.k2-thstat button{font:inherit;font-size:13px;padding:4px 8px;border-radius:8px;border:1px solid #9bbcb8;background:#fff;cursor:pointer}
+#sheet-body details{margin:8px 0;border:1px solid #cfe0dc;border-radius:10px;padding:6px 10px}#sheet-body summary{cursor:pointer;font-weight:700}
+#sheet-body h4{font-size:15px;margin:10px 0 4px;color:#155d58}
+.k2-fm{margin:6px 0;padding:6px 8px;border-left:4px solid #9bbcb8;background:#f6faf9}.k2-fm small{display:block;color:#5b7f7e}
+
 /* 記号の下付き（c_p → c と小さい p） */
 i.sym{font-family:"Times New Roman","Noto Serif JP",serif;font-style:italic;padding-right:.04em}sub.sym-sub{font-size:.72em;line-height:0;vertical-align:-.28em;font-style:normal}
