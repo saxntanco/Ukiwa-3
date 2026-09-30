@@ -29,3 +29,6 @@
   .menu-layout .menu-shortcuts { display: none; }
   .menu-layout .menu-fold > :not(summary) { display: block !important; }
 }
+
+/* Standalone disclosures use the same readable width as the page contents. */
+.menu-layout > .menu-fold { max-width: 1180px; margin: 14px auto; width: calc(100% - 32px); }

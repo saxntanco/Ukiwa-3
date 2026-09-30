@@ -62,6 +62,7 @@
     }
     if (page === 'test-measurement.html') {
       fold($('.field-start'), '試験方法の探し方');
+      fold($('.hero .safe'), '安全上の前提（実設備の操作前に確認）');
       const tabs = $('.switch');
       const links = tabs?.querySelectorAll('a');
       if (links?.length === 2) { links[0].textContent = '試験名から探す'; links[0].href = '#method-search'; links[1].textContent = '器具型式から探す'; }
@@ -72,6 +73,7 @@
     if (page === 'ocr-tap-calculator.html') {
       const intro = $('#ocr-start');
       const content = document.createElement('div');
+      content.className = 'ocr-start';
       const nodes = [...intro.children].filter(n => !n.matches('small,h1,.start-lead,#demoBanner'));
       intro.append(content); nodes.forEach(n => content.append(n));
       const details = fold(content, '3つのつまみを図で学ぶ');
