@@ -4,7 +4,7 @@
 <label>ページ <select id="page"></select></label><label>表示幅 <select id="width"><option>320</option><option selected>390</option><option>768</option><option>1280</option></select> px</label>
 <div id="stage"><iframe id="preview" title="選択したページのプレビュー" width="390" src="../protective-relay.html"></iframe></div>
 <script>
-const pages=['protective-relay','test-measurement','ocr-tap-calculator','ac-withstand-test-simulator','generator-rescue-island','sequence-basics','vcb-inspection-guide','instrument-calibration-guide','ppe-withstand-guide','cable-size-simulator','equipment-map'];
+const pages=['protective-relay','index','insulation-resistance-principle','earth-resistance-et5','energy-open-practice','energy-kamoku2','energy-kamoku4','hidden-menu','island-game','test-measurement','ocr-tap-calculator','ac-withstand-test-simulator','generator-rescue-island','sequence-basics','vcb-inspection-guide','instrument-calibration-guide','ppe-withstand-guide','cable-size-simulator','equipment-map'];
 const page=document.getElementById('page'),frame=document.getElementById('preview');
 for(const name of pages){const option=document.createElement('option');option.value=name;option.textContent=name;page.append(option)}
 page.addEventListener('change',()=>frame.src='../'+page.value+'.html');

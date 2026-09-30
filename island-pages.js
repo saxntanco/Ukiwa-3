@@ -8,3 +8,5 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 (()=>{const s=document.createElement('script');s.src='ukiwa-analytics.js?v=footer-2';s.defer=true;document.head.append(s)})();
 (()=>{const s=document.createElement('script');s.src='island-weather.js?v=2';document.head.append(s)})();
+
+(()=>{const s=document.createElement("script");s.src=new URL("content-guide.js?v=20260930b",document.currentScript.src);s.defer=true;document.head.append(s)})();
