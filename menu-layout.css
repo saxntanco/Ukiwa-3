@@ -1,0 +1,36 @@
+/* Keep the island palette; give the task controls priority over long introductions. */
+.menu-layout .hero { min-height: 0; padding-top: 28px; padding-bottom: 24px; }
+.menu-layout .hero h1, .menu-layout .intro h1, .menu-layout #ocr-start h1 { font-size: clamp(1.75rem, 4vw, 2.8rem); line-height: 1.35; }
+.menu-layout .hero p { margin-block: 12px; }
+.menu-layout .menu-shortcuts { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.menu-layout .menu-shortcuts a { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 10px 18px; border: 2px solid #319a9f; border-radius: 14px; background: #e4f7f4; color: #123f4c; font-size: 1rem; font-weight: 800; text-decoration: none; }
+.menu-layout .menu-shortcuts a:hover { background: #c9efea; }
+.menu-layout .menu-shortcuts a:focus-visible, .menu-layout summary:focus-visible { outline: 3px solid #e8a437; outline-offset: 3px; }
+.menu-layout .menu-fold { margin: 12px 0; padding: 12px 16px; border: 1px solid #78a6ad; border-radius: 14px; background: var(--island-bg-ffffff-100, #fff); color: inherit; }
+.menu-layout .menu-fold > summary { cursor: pointer; font-weight: 750; min-height: 28px; line-height: 1.7; }
+.menu-layout .menu-fold[open] > summary { margin-bottom: 12px; }
+.menu-layout .menu-fold .field-start { margin: 0; }
+.menu-layout .menu-fold .guide { width: auto; margin: 12px 0; }
+.menu-layout [hidden] { display: none !important; }
+.menu-layout :where(section[id], figure[id], #lesson, details[id]) { scroll-margin-top: 80px; }
+.menu-layout #ocr-start { padding: 24px; }
+.menu-layout .dbHero { padding-block: 26px; }
+.menu-layout .dbHero h1 { margin-block: 10px; }
+.menu-layout .catalog > summary { line-height: 1.8; }
+@media (max-width: 600px) {
+  .menu-layout .hero { padding-block: 20px; }
+  .menu-layout .menu-shortcuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .menu-layout .menu-shortcuts a { padding: 10px; overflow-wrap: anywhere; }
+  .menu-layout .menu-fold { padding: 10px 12px; }
+  .menu-layout #ocr-start { padding: 18px; }
+  .menu-layout .catalog > summary { font-size: .95rem; }
+}
+@media print {
+  .menu-layout .menu-shortcuts { display: none; }
+  .menu-layout .menu-fold > :not(summary) { display: block !important; }
+}
+
+/* Standalone disclosures use the same readable width as the page contents. */
+.menu-layout > .menu-fold { max-width: 1180px; margin: 14px auto; width: calc(100% - 32px); }
+.menu-layout :is(#ocr-introduction, #commonPanel, #tapPanel, #instPanel, #dialPanel) { scroll-margin-top: 112px; }
+.menu-layout #ocr-introduction > .ocr-start { padding: 0; margin: 0; }
