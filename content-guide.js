@@ -57,7 +57,7 @@
     const thermalSource = el('a', '東邦大学「ボイル‐シャルルの法則」'); thermalSource.href = 'https://www.toho-u.ac.jp/sci/biomol/glossary/chem/Boyle_Charles_law.html'; thermalSource.target = '_blank'; thermalSource.rel = 'noopener'; credit.append(thermalSource); terms.append(credit);
     dialog.append(head, intro, label, search, tabs, status, results, terms); document.body.append(dialog);
     const normalize = s => s.normalize('NFKC').toLowerCase().replace(/[‐‑–—−ー]/g, '-').replace(/\s+/g, ' ').trim();
-    const aliases = s => s.replace(/めが[ー-]|ゼロメグ/g,'絶縁抵抗').replace(/エネ管/g,'エネルギー').replace(/うきわめも/g,'うきわメモ').replace(/科目/g,'課目').replace(/ct二次/g,'ct 二次').replace(/ct一次/g,'ct 一次');
+    const aliases = s => s.replace(/めが[ー-]|ゼロメグ/g,'絶縁抵抗').replace(/エネ管/g,'エネルギ-').replace(/うきわめも/g,'うきわメモ').replace(/科目/g,'課目').replace(/ct二次/g,'ct 二次').replace(/ct一次/g,'ct 一次');
     function render() {
       const words = aliases(normalize(search.value)).split(' ').filter(Boolean);
       const filtered = items.filter(x => (category === 'すべて' || x.category === category) && words.every(w => aliases(normalize([x.title, x.description, x.tags, x.category].join(' '))).includes(w)));
@@ -72,7 +72,7 @@
     dialog.addEventListener('close', () => { if (opener?.isConnected) opener.focus({preventScroll:true}); });
     dialog.addEventListener('click', e => { if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); } });
     const button = el('button', '教材を探す', 'uc-entry'); button.type = 'button'; button.setAttribute('aria-haspopup', 'dialog'); button.addEventListener('click', () => open(button));
-    const nav = document.querySelector('.hideout-navigation') || document.querySelector('header nav') || document.querySelector('header .shell') || document.querySelector('header');
+    const nav = document.querySelector('.hideout-navigation') || document.querySelector('header .topActions') || document.querySelector('header .topin') || document.querySelector('header .shell') || document.querySelector('header nav') || document.querySelector('header');
     if (nav) nav.append(button);
     else { const bar = el('nav', '', 'uc-entry-bar'); bar.setAttribute('aria-label', '教材検索'); bar.append(button); document.body.prepend(bar); }
     // Private study/game screens manage their own scrolling and view height.
