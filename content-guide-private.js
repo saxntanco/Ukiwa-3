@@ -73,6 +73,18 @@ window.UkiwaPrivateContents = [
     ]
   },
   {
+    "path": "energy-trend.html",
+    "title": "熱分野 課目Ⅱ・Ⅳ：傾向と対策",
+    "category": "学習・遊び",
+    "description": "平成30～令和8年度の9年分から、出題トピックと必要な年数を分析。",
+    "tags": "エネ管 課目2 課目4 傾向 対策 過去問 何年分 選択問題 学習計画",
+    "related": [
+      "energy-kamoku2.html",
+      "energy-kamoku4.html",
+      "energy-study.html"
+    ]
+  },
+  {
     "path": "energy-open-practice.html",
     "title": "熱・電気のオリジナル基礎8問",
     "category": "学習・遊び",
