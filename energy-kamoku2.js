@@ -15,7 +15,7 @@ const cache = {};
 
 function saveUi() { try { localStorage.setItem(LS_UI, JSON.stringify(ui)); } catch {} }
 function lsKey() { return `ukiwa-kamoku${K}-${ui.year}-v1`; }
-function loadRec() { try { rec = JSON.parse(localStorage.getItem(lsKey()) || '{}'); } catch { rec = {}; } }
+function loadRec() { try { rec = JSON.parse(localStorage.getItem(lsKey()) || '{}'); if (!rec || typeof rec !== 'object' || Array.isArray(rec)) rec = {}; } catch { rec = {}; } }
 function saveRec() { try { localStorage.setItem(lsKey(), JSON.stringify(rec)); } catch {} }
 function lab(x) { return `(${x.blank})`; }
 function stateOf(id) { const r = rec[id]; return !r || !r.tried ? 'new' : r.last ? 'ok' : 'ng'; }
@@ -28,7 +28,8 @@ function isOk(x, v) { return Math.abs(v - x.answerNum) <= x.step / 2 + 1e-9 * Ma
 function parseNum(s) {
   s = String(s).trim().replace(/，/g, '.').replace(/[０-９．－]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).replace(/\s/g, '');
   const m = s.match(/^([-+]?\d*\.?\d+)(?:(?:[×xX*]10\^?|e|E)([-+]?\d+))?$/);
-  return m ? parseFloat(m[1]) * (m[2] ? 10 ** parseInt(m[2], 10) : 1) : null;
+  const value = m ? Number(m[1]) * (m[2] ? 10 ** Number(m[2]) : 1) : NaN;
+  return Number.isFinite(value) ? value : null;
 }
 function answerText(x) {
   if (x.type === 'choice') return x.answer;
