@@ -103,7 +103,8 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
 @media(max-width:700px){.flow-nav{grid-template-columns:repeat(2,1fr)}.flow-nav a{font-size:13px!important}#cbArea .step h2{font-size:21px}.step-key code{font-size:14.5px}#cbArea .dualbox b{font-size:19px}}
 @media(min-width:560px) and (max-width:700px){.summary{grid-template-columns:repeat(3,1fr)!important}.summary .sum{display:flex!important;flex-direction:column}.summary .sum b{text-align:left!important;max-width:none!important}}
 @media print{.flow-nav{position:static}}
-</style></head>
+</style><link rel="stylesheet" href="menu-layout.css?v=20260930">
+</head>
 <body>
 <header class="top"><a class="brand" href="index.html">🌊 うきわメモ<small>OCR / 51 SETTING NAVI</small></a><div class="badge">v7.1 根拠付き計算</div></header>
 <main>
@@ -636,4 +637,5 @@ body{font-size:16px;line-height:1.65}main{width:min(1100px,calc(100% - 28px))}.t
  if(new URLSearchParams(location.search).get('blank')==='1'){$('#demoBanner').hidden=true;}else loadDemo();
 })();
 </script><script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-source-jump]');if(a){var target=document.querySelector(a.getAttribute('href'));if(target)target.open=true;}});document.getElementById('downType').addEventListener('change',function(){document.getElementById('pfOnly').hidden=!['pf','pcfuse'].includes(this.value);});</script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
+<script src="menu-layout.js?v=20260930"></script>
 </body></html>

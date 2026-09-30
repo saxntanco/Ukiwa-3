@@ -323,6 +323,7 @@ body{background:var(--island-bg-eff6f8-100,#eff6f8)}.intro{padding:24px 0 8px}.s
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
 <link rel="stylesheet" href="field-start.css?v=20260920"><link rel="stylesheet" href="visual-learning.css?v=1">
+<link rel="stylesheet" href="menu-layout.css?v=20260930">
 </head>
 <body>
 <header class="topbar">
@@ -349,7 +350,7 @@ body{background:var(--island-bg-eff6f8-100,#eff6f8)}.intro{padding:24px 0 8px}.s
 <label class="check"><input id="measureConfirm" type="checkbox">測定対象・一括結線・含まれる機器が今回の試験対象と一致する</label>
 <p class="hint">計算結果とリアクトル台数は下の「実測静電容量から計算」に表示します。</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
 </form>
-<section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading"><span class="step-number">2</span> 計算結果を比較</h2><p class="hint">充電電流 → リアクトル台数 → トランス負担電流の順に確認できます。</p><p class="hint">台数計算の前提：R-1220K・許容167mA・10分、2Kは最大4台・5Kは最大3台で比較。損失電流は含みません。</p><p id="conditions" class="hint"></p><div class="result-grid" id="cards" aria-live="polite"></div>
+<section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading"><span class="step-number">2</span> 計算結果を比較</h2><p class="hint">充電電流 → リアクトル台数 → トランス負担電流の順に確認できます。</p><p class="hint">台数計算の前提：R-1220K・許容167mA・10分、2Kは最大4台・5Kは最大3台で比較。損失電流は含みません。</p><p id="conditions" class="hint"></p><details class="menu-fold"><summary>全方式に共通する電流・台数の読み方</summary><p>許容167mAなどの設定値は、常に流れる電流ではありません。トランス負担はケーブル電流とリアクトル電流の差（絶対値）で計算します。各機種0台を含めて検討しています。損失電流は未評価。5K使用・混在の実機適合は別途確認してください。</p></details><div class="result-grid" id="cards" aria-live="polite"></div>
 <details><summary>結果の差を確認する</summary><div id="difference" class="difference"></div></details>
 <details><summary>同じ原資料の「JIS規格」欄も確認する</summary><p id="jisReference"></p><p class="hint">双興電機の資料が「JIS規格」として掲載する値です。適用する規格の版は当該ページで確認できないため、現行JISへの適合判定や保証最大値には使いません。</p></details>
 <details><summary>結果の選び方・違いを確認する</summary><h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
@@ -502,7 +503,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
            +(chosen.b>0&&preset?'<p class="error">R-1220Kとの組合せ適合は未確認（5K取説の適応トランスはR-1250H/R-1250）。数値比較のみ。</p>':'')+(chosen.over?'<p class="error">過補償：リアクトル電流がケーブル電流を上回る候補</p>':'')+'<p class="residual-summary">トランス負担（損失除外） <strong>'+format(chosen.residual)+' mA</strong><br><small>L公差込み最大 '+format(chosen.worst)+' mA'+(rr.allowed===null?' ／ 許容値未入力':' ／ 許容 '+format(rr.allowed)+' mA')+'</small></p><details class="current-breakdown"><summary>電流の内訳</summary><p class="calc-trace">リアクトル電流：'+format(i2)+' × '+chosen.a+' ＋ '+format(i5)+' × '+chosen.b+' ＝ '+format(chosen.IL)+' mA<br>残留：|'+format(r.value)+' − '+format(chosen.IL)+'| ＝ <b>'+format(chosen.residual)+' mA</b><br>L公差込み最大：<b>'+format(chosen.worst)+' mA</b>'
            +(rr.allowed===null?'':' ／ 許容 '+format(rr.allowed)+' mA')+'</p></details>';
         });
-        panel.innerHTML+='<p class="hint">許容167mAなどの設定値は、常に流れる電流ではありません。トランス負担はケーブル電流とリアクトル電流の差（絶対値）で計算します。</p><small>損失電流は未評価。5K使用・混在の実機適合は別途確認。各機種0台を含めて検討。</small>';
+        panel.innerHTML+='<small>損失電流は未評価。5K使用・混在の実機適合は別途確認。</small>';
       }catch(e){panel.textContent=e.message;}
     });
   }
@@ -530,5 +531,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
 </script>
 
 <script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
+<script src="menu-layout.js?v=20260930"></script>
 </body></html>
 

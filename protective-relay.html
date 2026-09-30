@@ -44,6 +44,7 @@ dialog{width:min(720px,calc(100% - 20px));max-height:88vh;padding:0;border:0;bor
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260918"></script>
 <link rel="stylesheet" href="relay-field.css?v=20260920-status"><link rel="stylesheet" href="field-start.css?v=20260920"><link rel="stylesheet" href="visual-learning.css?v=1">
+<link rel="stylesheet" href="menu-layout.css?v=20260930">
 </head>
 <body>
 <header class="topbar"><a class="brand" href="./index.html"><img src="./icon-192.png" alt="" onerror="this.style.display='none'"><span><b>ぷかぷかうきわメモ</b><small>FIELD NOTE FOR ELECTRICAL SAFETY</small></span></a><div class="top-actions"><a class="home" href="./measuring-instruments.html">⌕ 測定器</a><a class="home" href="./index.html">⌂ ホーム</a></div></header>
@@ -177,4 +178,5 @@ function renderMakerAudit(){const g=$('#makerAuditGrid'),s=$('#makerAuditSummary
 (function init(){const p=new URLSearchParams(location.search);state.q=p.get('q')||'';state.maker=p.get('maker')||'すべて';state.func=p.get('func')||'すべて';state.life=p.get('life')||'すべて';state.special=p.get('view')||'';$('#q').value=state.q;initDatalist();$('#statModels').textContent=RELAYS.length;$('#statMakers').textContent=new Set(RELAYS.map(x=>x.maker)).size;$('#statManual').textContent=RELAYS.filter(x=>x.manualUrl||x.productUrl||x.catalogUrl).length;$('#statOld').textContent=RELAYS.filter(x=>['discontinued','replacement','legacy'].includes(x.life)||x.successor||x.predecessor).length;renderMakerAudit();render();renderFieldCoverage();const model=p.get('model')||(location.hash.startsWith('#model=')?decodeURIComponent(location.hash.slice(7)):'');if(model){const nm=normalize(model);const i=RELAYS.findIndex(x=>normalize(x.model)===nm);if(i>=0)setTimeout(()=>openDetail(i),0)}})();
 </script>
 <script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
+<script src="menu-layout.js?v=20260930"></script>
 </body></html>
