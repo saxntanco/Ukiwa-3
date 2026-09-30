@@ -53,7 +53,7 @@ window.UkiwaPrivateContents = [
     "title": "熱分野 課目Ⅱ：熱と流体",
     "category": "学習・遊び",
     "description": "令和元～8年度の465空欄を、テーマと親公式で復習。",
-    "tags": "エネ管 科目2 課目2 熱力学 流体 伝熱",
+    "tags": "エネ管 科目2 課目2 熱力学 流体 伝熱 一定 絶対温度 状態方程式 断熱",
     "related": [
       "energy-kamoku4.html",
       "energy-open-practice.html",

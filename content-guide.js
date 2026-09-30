@@ -75,7 +75,7 @@
     const button = el('button', '教材を探す', 'uc-entry'); button.type = 'button'; button.setAttribute('aria-haspopup', 'dialog'); button.addEventListener('click', () => open(button));
     const nav = document.querySelector('.hideout-navigation') || document.querySelector('header .topActions') || document.querySelector('header .topin') || document.querySelector('header .shell') || document.querySelector('header nav') || document.querySelector('header');
     const homeSearch = current?.path === 'index.html' && document.querySelector('#search .core');
-    if (homeSearch) { const bar = el('nav', '', 'uc-home-search'); bar.setAttribute('aria-label', '教材検索'); bar.append(button); homeSearch.append(bar); }
+    if (homeSearch) { const bar = el('nav', '', 'uc-home-search'); bar.setAttribute('aria-label', '教材検索'); bar.append(button); const anchor = homeSearch.querySelector('.quick') || homeSearch.querySelector('.search'); if (anchor) anchor.after(bar); else homeSearch.append(bar); }
     else if (nav) nav.append(button);
     else { const bar = el('nav', '', 'uc-entry-bar'); bar.setAttribute('aria-label', '教材検索'); bar.append(button); document.body.prepend(bar); }
     // Private study/game screens manage their own scrolling and view height.
