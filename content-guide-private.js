@@ -52,7 +52,7 @@ window.UkiwaPrivateContents = [
     "path": "energy-kamoku2.html",
     "title": "熱分野 課目Ⅱ：熱と流体",
     "category": "学習・遊び",
-    "description": "令和元～8年度の465空欄を、テーマと親公式で復習。",
+    "description": "平成30～令和8年度の534空欄を、テーマと親公式で復習。",
     "tags": "エネ管 科目2 課目2 熱力学 流体 伝熱 一定 絶対温度 状態方程式 断熱",
     "related": [
       "energy-kamoku4.html",
@@ -64,7 +64,7 @@ window.UkiwaPrivateContents = [
     "path": "energy-kamoku4.html",
     "title": "熱分野 課目Ⅳ：熱利用設備",
     "category": "学習・遊び",
-    "description": "令和元～8年度の921空欄を、必須・選択とテーマから復習。",
+    "description": "平成30～令和8年度の1057空欄を、必須・選択とテーマから復習。",
     "tags": "エネ管 科目4 課目4 ボイラ 制御 冷凍 熱交換",
     "related": [
       "energy-kamoku2.html",
