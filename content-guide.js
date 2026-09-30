@@ -69,11 +69,14 @@
     search.addEventListener('input', render); render();
     let opener;
     const open = button => { opener = button; dialog.showModal(); search.focus(); };
+    dialog.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); dialog.close(); } });
     dialog.addEventListener('close', () => { if (opener?.isConnected) opener.focus({preventScroll:true}); });
     dialog.addEventListener('click', e => { if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); } });
     const button = el('button', '教材を探す', 'uc-entry'); button.type = 'button'; button.setAttribute('aria-haspopup', 'dialog'); button.addEventListener('click', () => open(button));
     const nav = document.querySelector('.hideout-navigation') || document.querySelector('header .topActions') || document.querySelector('header .topin') || document.querySelector('header .shell') || document.querySelector('header nav') || document.querySelector('header');
-    if (nav) nav.append(button);
+    const homeSearch = current?.path === 'index.html' && document.querySelector('#search .core');
+    if (homeSearch) { const bar = el('nav', '', 'uc-home-search'); bar.setAttribute('aria-label', '教材検索'); bar.append(button); homeSearch.append(bar); }
+    else if (nav) nav.append(button);
     else { const bar = el('nav', '', 'uc-entry-bar'); bar.setAttribute('aria-label', '教材検索'); bar.append(button); document.body.prepend(bar); }
     // Private study/game screens manage their own scrolling and view height.
     if (current && !isPrivate && current.related.length) {
