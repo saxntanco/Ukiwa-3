@@ -13,7 +13,7 @@ const privateItems = scope.window.UkiwaPrivateContents;
 
 test('catalogue paths and related links exist, without exposing private pages in public results', () => {
   assert.equal(publicItems.length, 41);
-  assert.equal(privateItems.length, 12);
+  assert.equal(privateItems.length, 13);
   const all = [...publicItems, ...privateItems];
   assert.equal(new Set(all.map(x => x.path)).size, all.length);
   for (const list of [publicItems, privateItems]) {

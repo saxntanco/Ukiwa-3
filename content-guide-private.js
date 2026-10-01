@@ -85,6 +85,18 @@ window.UkiwaPrivateContents = [
     ]
   },
   {
+    "path": "energy-formulas.html",
+    "title": "エネルギー管理士：親公式から覚える",
+    "category": "学習・遊び",
+    "description": "熱分野の12セットを、親公式・条件・式変形で理解。2022〜2026年の公式過去問60大問との対応も確認。",
+    "tags": "エネ管 親公式 公式 導出 ボイル シャルル 熱力学 状態方程式 第一法則 ベルヌーイ ポンプ 伝熱 熱交換器 PID COP",
+    "related": [
+      "energy-study.html",
+      "energy-kamoku2.html",
+      "energy-kamoku4.html"
+    ]
+  },
+  {
     "path": "energy-trend.html",
     "title": "熱分野 課目Ⅱ・Ⅳ：傾向と対策",
     "category": "学習・遊び",
