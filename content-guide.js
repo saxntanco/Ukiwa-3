@@ -15,7 +15,7 @@
     node.onload = resolve; node.onerror = reject; document.head.append(node);
   });
   const ready = document.readyState === 'loading' ? new Promise(r => document.addEventListener('DOMContentLoaded', r, {once:true})) : Promise.resolve();
-  Promise.all([ready, asset('content-guide.css?v=20260930b', 'css'), asset('content-guide-data.js?v=20260930b'), ...(isPrivate ? [asset('content-guide-private.js?v=20260930b')] : [])]).then(init).catch(() => {});
+  Promise.all([ready, asset('content-guide.css?v=20260930b', 'css'), asset('content-guide-data.js?v=20260930b'), ...(isPrivate ? [asset('content-guide-private.js?v=20261002-parent')] : [])]).then(init).catch(() => {});
   function init() {
     const items = [...window.UkiwaContents, ...(isPrivate ? window.UkiwaPrivateContents : [])];
     const current = items.find(x => decodeURIComponent(new URL(x.path, base).pathname).replace(/index\.html$/, '') === decodeURIComponent(here.pathname).replace(/index\.html$/, ''));
