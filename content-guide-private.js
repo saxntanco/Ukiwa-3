@@ -28,8 +28,8 @@ window.UkiwaPrivateContents = [
     "path": "denken-trend.html",
     "title": "電験二種：傾向と対策",
     "category": "学習・遊び",
-    "description": "一次18年・二次17年の710問から、必要な年数と二次の選択問題の準備を分析。",
-    "tags": "電験 二種 傾向 対策 過去問 何年分 二次 選択問題 定位置",
+    "description": "一次18年・二次17年の710問から、必要な年数、固めるテーマ数、マークの仕組み、二次の計算と論述の選び方を分析。",
+    "tags": "電験 二種 傾向 対策 過去問 何年分 二次 選択問題 定位置 合格確率 計算 論述 模試",
     "related": [
       "denken-study.html",
       "denken-step.html",

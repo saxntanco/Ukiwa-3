@@ -39,3 +39,22 @@
 .dt details summary{cursor:pointer;font-weight:600;min-height:32px}
 .dt details>*:not(summary){margin-top:10px}
 @media (max-width:520px){.dt{padding-inline:16px}}
+.dt section[id],.dt details[id]{scroll-margin-top:76px}
+.dt .toc{display:flex;flex-wrap:wrap;gap:8px}
+.dt .toc a{display:inline-flex;align-items:center;min-height:38px;padding:6px 14px;border:1px solid #b9cfcb;border-radius:999px;background:#fff;color:#226c70;text-decoration:none;font-size:14px}
+.dt .toc a:hover{background:#e7f3ef}
+.dt .side{background:#fff;border:1px solid #d1dfdb;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.dt .side h3{margin:0;font-size:16px}
+.dt .side p{font-size:14.5px}
+.dt .side .tw{border-radius:10px}
+.dt .side table{min-width:0}
+.dt .bars svg{display:block;width:100%;height:auto}
+.dt .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.dt .grid2 h3{margin:0 0 6px}
+.dt table.wide{min-width:720px}
+.dt p.sm{font-size:12.5px;line-height:1.7}
+.dt .charts{align-items:start}
+.dt table.compact{min-width:0}
+.dt table.wrap1 td:first-child{white-space:normal;min-width:5.5em}
+.dt .grid2>.side p{font-size:14px}
+.dt table.compact th,.dt table.compact td{padding:7px 8px}
