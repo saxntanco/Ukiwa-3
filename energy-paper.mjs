@@ -24,7 +24,7 @@ function updateContext(next) {
   if (!changed) return;
   $('paper-load').disabled = false; docVersion++; renderVersion++; renderTask?.cancel(); pdf = loaded.get(next.url) || null; page = 1;
   $('paper-view').replaceChildren(); $('paper-status').textContent = pdf ? 'この年度のPDFを表示できます。' : '公式PDFを表示するか、公式サイトから保存したPDFを選んでください。';
-  $('paper-file').value = ''; controls();
+  $('paper-file').value = ''; $('paper-source-controls').open = !pdf; controls();
   if (!$('paper-panel').hidden && pdf) renderPage();
 }
 async function renderPage() {
@@ -54,7 +54,7 @@ async function loadDocument(source, isLocal) {
   try {
     const loadedPdf = await pdfjs.getDocument({...source, isEvalSupported:false}).promise;
     if (version !== docVersion) { await loadedPdf.destroy(); return; }
-    pdf = loadedPdf; loaded.set(url,pdf); page = 1; controls();
+    pdf = loadedPdf; loaded.set(url,pdf); page = 1; $('paper-source-controls').open = false; controls();
     $('paper-status').textContent = isLocal ? '選択したPDFはこの画面だけで使用します。年度と課目を表紙で確認してください。' : '公式サイトのPDFを読み込みました。';
     await renderPage();
   } catch {

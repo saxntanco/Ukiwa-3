@@ -71,3 +71,5 @@ a{color:#236b70}
 :root[data-tone="warm"] .step-crop,:root[data-tone="warm"] .step-whole-page{background:#f8f4e9}
 :root[data-tone="warm"] .step-crop svg,:root[data-tone="warm"] .step-whole-page svg{mix-blend-mode:multiply}
 :root[data-tone="white"] .step-crop,:root[data-tone="white"] .step-whole-page{background:#fff}
+
+.step-foundation{padding:8px 20px 0;max-width:1300px;margin:auto}.denken-foundation-link{display:inline-flex;align-items:center;min-height:42px;padding:7px 12px;border:1px solid #7ba7b6;border-radius:9px;background:#edf7f7;color:#174a5f;font-size:13px;text-decoration:none;overflow-wrap:anywhere;max-width:100%;box-sizing:border-box}.denken-foundation-link:focus-visible{outline:3px solid #bf7830;outline-offset:3px}@media(max-width:680px){.step-foundation{padding:7px 12px 0}}

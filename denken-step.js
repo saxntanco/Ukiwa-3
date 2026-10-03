@@ -172,6 +172,7 @@ function render(){dots();if(step===0)intro();else if(step>correct.length)result(
  correct=answers[q.year]?.[q.subject]?.[q.number];lesson=lessons[k];deep=deepAll[k];spots=hotspots[q.id]||[];
  $('title').textContent=`${q.year} ${q.subject} 問${q.number}`;document.title=`${q.year} ${q.subject} 問${q.number}｜1空欄ずつ解く（試作）`;
  $('back').href='denken-study.html?q='+encodeURIComponent(q.id);
+ window.UkiwaDenkenFoundations?.attach($('step-foundation'),q.id,'step');
  if(!deep||!Array.isArray(correct)||deep.slots?.length!==correct.length){$('main').replaceChildren(el('p','step-loading','この問題はまだ「1空欄ずつ解く」に対応していません。学習室の通常画面で学べます。'));return;}
  correct.forEach(()=>slots.push({wide:false}));
  render();
