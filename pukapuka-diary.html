@@ -12,10 +12,41 @@
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.08.29 18:07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.03</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="ct-excitation-saturation-20260829" data-update-date="2026/08/29">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="tokko-oil-ground-20261003" data-update-date="2026/10/03">
+<div class="date">2026.10.03｜特高変電所・点検</div>
+<h2>特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。<br>接地極側と設備側を分けて測る理由。</h2>
+<div class="danger audit-preconditions"><strong>作業の前に確認すること</strong><br>これは当日の経験記録です。採油は変圧器メーカー・分析会社の手順と専用容器に従い、充電部との離隔・停電範囲を責任者と確認してから行います。接地線を外すと、その間は設備側が接地されていない状態になります。外せる条件（停電範囲・作業区域・外している時間）を事前に責任者と決め、測定後は確実に再接続して締付けを確認します。</div>
+<p class="lead">今日は<b>特高変電所</b>で、<b>変圧器の採油（油中ガス分析用）</b>と<b>接地抵抗測定</b>をしました。</p>
+
+<h3>🛢️ 変圧器の採油：油の中のガスで「中の様子」を見る</h3>
+<p>変圧器の中は絶縁油で満たされていて、外から巻線や鉄心を直接見ることはできません。そこで<b>絶縁油を少し採って、油に溶けているガスを分析</b>します（油中ガス分析）。</p>
+<p>変圧器の内部で過熱や放電などの異常があると、絶縁油や絶縁紙が分解してガスが出て、そのガスが油に溶け込みます。<b>どんなガスがどれくらい増えたか</b>を前回の分析値と比べることで、外からは見えない内部の状態を推定する、という考え方です。</p>
+<div class="flow">採油<br>↓<br>専用容器に密閉して分析会社へ<br>↓<br>油中ガスの成分・量を分析<br>↓<br>前回までの値と比べて傾向を見る</div>
+<div class="tool"><b>参考動画</b><br>採油の流れは、こちらの動画が参考になります：<a href="https://www.yuka.co.jp/wp-content/uploads/2021/12/%E6%8E%A1%E6%B2%B9%E3%83%93%E3%83%87%E3%82%AAwmv.mp4" target="_blank" rel="noopener">採油ビデオ（mp4）</a></div>
+<div class="panic"><b>⚠️ 採った油が「中の油」を表していないと意味がない</b><p>ガスは空気に触れると抜けたり混ざったりします。採油口にたまった古い油や気泡が入ると、分析結果が変わってしまいます。採油の手順・容器は分析会社の指定に従うのが基本です。</p></div>
+
+<h3>🌍 接地抵抗測定：接地極側と設備側を分けて測る</h3>
+<p>今日の接地は、<b>接地極側</b>と<b>設備側</b>が分かれていて、その間が<b>ボルトコネクタ</b>でつながっていました。測定は次の順番です。</p>
+<div class="flow">ボルトコネクタを外す<br>↓<br>接地極側を測定<br>↓<br>設備側を測定<br>↓<br>ボルトコネクタを再接続<br>↓<br>つないだ状態で接地抵抗を測定</div>
+
+<h3>🤔 なぜ一度外して、それぞれ測るのか</h3>
+<p>つないだままだと、測っている値には<b>設備側から先の別の経路（ほかの接地や構造物など）が並列に入る</b>可能性があります。並列の経路が入ると、接地極そのものの抵抗より低く見えてしまいます。</p>
+<p>いったん外して<b>接地極側だけ</b>を測れば、その接地極自体がどれくらいの抵抗なのかが分かります。設備側も単独で測ることで、それぞれの状態を切り分けられます。</p>
+<p>最後に<b>再接続してからもう一度測る</b>のは、元どおりにつながっていること（コネクタの締め忘れや接触不良がないこと）を、数値で確かめる意味もあります。</p>
+<div class="tool"><b>外して測る</b><br>→ 接地極そのものの値を、ほかの経路の影響なしで確認する。</div>
+<div class="tool"><b>つないで測る</b><br>→ 実際に使う状態の値と、再接続が確実かを確認する。</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>油中ガス分析は「見えない変圧器の中」を油で見る点検。前回との比較で傾向を見る。</b></p>
+<p><b>接地抵抗は「どこからどこまでを測っているか」が大事。外して単独、つないで全体。最後は必ず再接続を確認。</b></p>
+</section>
+<div class="note">※ 採油の方法、分析項目と判定、接地の構成や測定方法は、設備や機器、分析会社によって異なります。実際の作業では、メーカー資料、社内手順、現場責任者の指示を確認します。本記事は現場経験を残す日誌であり、作業手順書ではありません。</div>
+</article>
+<article class="entry" id="ct-excitation-saturation-20260829" data-update-date="2026/08/29">
 <div class="date">2026.08.29｜今日のなんで？・CT / 保護継電器</div>
 <h2>CTの磁気飽和は、結局なにが起きている？<br>B-H・ヒステリシス・励磁特性・膝点を一本につなげる</h2>
 <div class="danger audit-preconditions" data-audit="2026-09-12"><strong>作業の前に確認すること</strong><br>励磁特性の原理を学ぶ記事です。実試験の前に対象CTを一次・二次の両回路から試験に必要な状態へ分離し、無電圧・放電・再充電防止、許容試験電圧をメーカー手順と照合します。一次通電中のCT二次開放はできません。</div>
