@@ -15,7 +15,11 @@
     node.onload = resolve; node.onerror = reject; document.head.append(node);
   });
   const ready = document.readyState === 'loading' ? new Promise(r => document.addEventListener('DOMContentLoaded', r, {once:true})) : Promise.resolve();
-  Promise.all([ready, asset('content-guide.css?v=20260930b', 'css'), asset('content-guide-data.js?v=20260930b'), ...(isPrivate ? [asset('content-guide-private.js?v=20261002-parent')] : [])]).then(init).catch(() => {});
+  Promise.all([ready, asset('content-guide.css?v=20260930b', 'css'), asset('content-guide-data.js?v=20260930b'), ...(isPrivate ? [asset('content-guide-private.js?v=20261004')] : [])]).then(init).catch(() => {});
+  ready.then(() => {
+    const excluded = ['ac-withstand-test-simulator.html', 'ac-withstand-test-simulator (1).html', 'ukiwamemo_kyounonande_taiatsu_reactor_ic.html'];
+    if (!excluded.includes(localPath)) asset('learning-workbench.js?v=20261004').catch(() => {});
+  });
   function init() {
     const items = [...window.UkiwaContents, ...(isPrivate ? window.UkiwaPrivateContents : [])];
     const current = items.find(x => decodeURIComponent(new URL(x.path, base).pathname).replace(/index\.html$/, '') === decodeURIComponent(here.pathname).replace(/index\.html$/, ''));
@@ -68,7 +72,13 @@
     }
     search.addEventListener('input', render); render();
     let opener;
-    const open = button => { opener = button; dialog.showModal(); search.focus(); };
+    const open = button => { opener = button; if (!dialog.open) dialog.showModal(); search.focus(); };
+    window.ukiwaOpenContentSearch = query => {
+      category = 'すべて';
+      for (const b of tabs.children) b.setAttribute('aria-pressed', String(b.textContent === category));
+      search.value = String(query || ''); render(); open(document.activeElement);
+    };
+    if (window.ukiwaPendingContentQuery != null) { window.ukiwaOpenContentSearch(window.ukiwaPendingContentQuery); delete window.ukiwaPendingContentQuery; }
     dialog.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); dialog.close(); } });
     dialog.addEventListener('close', () => { if (opener?.isConnected) opener.focus({preventScroll:true}); });
     dialog.addEventListener('click', e => { if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); } });

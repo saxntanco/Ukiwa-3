@@ -325,11 +325,12 @@ th{background:var(--island-bg-ffffff-100,#ffffff)}.activeRow{background:var(--is
 
         <div class="card">
           <h2>整定</h2>
+          <details class="small"><summary>12% / 12.5%タップは資料照合が必要</summary><p>取扱説明書 <a href="https://socialsolution.omron.com/jp/ja/products_service/energy/doc/mnu/5671766-2c_inst_kp-prrv-cpc.pdf#page=1" target="_blank" rel="noopener">5671766-2C・PDF1頁</a>の表1は12.5%、表3「機能説明」は12%と記載が異なります。該当タップは計算を保留します。実機の目盛・製造仕様とメーカー訂正情報で確認してください。確認日：2026-10-04。</p></details>
           <div class="controls">
             <label>試験入力の方式<select id="opath"><option value="primary" selected>ZPD一次側の三相一括</option><option value="te">T-E試験端子（適用条件を照合）</option></select></label><label>OVGR整定
               <select id="op">
                 <option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option>
-                <option>5</option><option>6</option><option>7.5</option><option selected>10</option><option>12.5</option>
+                <option>5</option><option>6</option><option>7.5</option><option selected>10</option><option value="conflict">12 / 12.5（資料不一致）</option>
                 <option>15</option><option>20</option><option>25</option><option>30</option>
               </select> %
             </label>
@@ -396,7 +397,7 @@ const rdata=[
 ];
 const fmtA=v=>v.toFixed(6)+'A', fmtV=v=>v.toFixed(1)+'V';
 const timeTaps=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.2,1.5,2,2.5,3,5];
-const ovgrTaps=[2,2.5,3,3.5,4,4.5,5,6,7.5,10,12.5,15,20,25,30];
+const ovgrTaps=[2,2.5,3,3.5,4,4.5,5,6,7.5,10,15,20,25,30];
 function clearResults(ids){ids.forEach(id=>document.getElementById(id).textContent='— 未計算（整定を選択）');}
 
 function renderTester(){
@@ -441,6 +442,13 @@ function rr(){
 }
 function oo(){
   const p=Number(op.value),t=Number(ot.value);
+  if(op.value==='conflict'){
+    clearResults(['obase','obase2','orange','o150','otset','otrange','ocapacity','oerr']);
+    oerr.textContent='計算保留：12% / 12.5%の資料不一致';
+    orange.textContent='許容範囲は未確定。整定率を推測して計算しません。';
+    ocapacity.textContent='取扱説明書5671766-2C（PDF1頁）の表1は12.5%、表3は12%。実機の目盛・製造仕様とメーカー訂正情報を照合してください。他のタップは選び直すと計算できます。';
+    return;
+  }
   if(!ovgrTaps.includes(p)||!timeTaps.includes(t)||!['primary','te'].includes(opath.value)){clearResults(['obase','obase2','orange','o150','otset','otrange','ocapacity','oerr']);return;}
   const base=3810*p/100;
   oerr.textContent=opath.value==='te'?'T-E：判定条件を要照合':'三相一括：±25%';

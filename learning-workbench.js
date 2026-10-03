@@ -64,7 +64,7 @@
     });
     const progress = el('p', null, 'lw-progress'); progress.setAttribute('role', 'status');
     const storage = el('p', '確認の記録はこの端末・ブラウザーに保存。現場の試験記録や資格試験の得点とは別です。', 'lw-small');
-    const updateProgress = () => { const checked = guide.checks.filter((_, i) => typeof record[i]?.correct === 'boolean'); const correct = checked.filter((_, i) => false); progress.textContent = '回答済み ' + checked.length + ' / ' + guide.checks.length + '問 · 直近正解 ' + guide.checks.filter((_, i) => record[i]?.correct === true).length + '問'; };
+    const updateProgress = () => { const checked = guide.checks.filter((_, i) => typeof record[i]?.correct === 'boolean'); progress.textContent = '回答済み ' + checked.length + ' / ' + guide.checks.length + '問 · 直近正解 ' + guide.checks.filter((_, i) => record[i]?.correct === true).length + '問'; };
     panels.quiz.append(el('h3', '条件から、自分で説明できるか'), storage, progress);
     guide.checks.forEach((check, i) => {
       const form = el('form', null, 'lw-question'); const field = el('fieldset'); field.append(el('legend', 'Q' + (i + 1) + '  ' + check.question));

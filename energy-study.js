@@ -1,5 +1,6 @@
+import './energy-pdf-compat.mjs';
 import * as pdfjs from './vendor/pdfjs/pdf.min.mjs';
-pdfjs.GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.min.mjs', import.meta.url).href;
+pdfjs.GlobalWorkerOptions.workerSrc = new URL('./energy-pdf-worker.mjs', import.meta.url).href;
 const $=id=>document.getElementById(id);
 const fields={
  thermal:{label:'熱分野',title:'熱を、理解する。',index:'energy-study-index.json',key:'ukiwa-energy-progress-v1',book:'2026年版 エネルギー管理士 熱分野',subjects:['総合管理・法規','熱・流体の基礎','燃料・燃焼','熱利用設備']},

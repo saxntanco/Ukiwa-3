@@ -1,0 +1,1168 @@
+{
+  "version": 1,
+  "checked": "2026-10-04",
+  "scope": "自作の基礎教材12テーマ・12例題・24確認問題。公式過去問の解説とは別教材。全710問の個別解説や全出題範囲を網羅したものではありません。",
+  "themes": [
+    {
+      "id": "electric",
+      "title": "電界・コンデンサ",
+      "topics": [
+        "es",
+        "cap",
+        "image"
+      ],
+      "parent": "∮ D・dS = Q ／ ΔV = −∫ E・dl ／ C = Q/V",
+      "meaning": "電荷が電界を作り、電界を距離で積み重ねると電位差になる。形が決まれば静電容量を復元できる。",
+      "symbols": [
+        {
+          "symbol": "Q",
+          "meaning": "自由電荷",
+          "unit": "C"
+        },
+        {
+          "symbol": "D",
+          "meaning": "電束密度",
+          "unit": "C/m²"
+        },
+        {
+          "symbol": "E",
+          "meaning": "電界",
+          "unit": "V/m"
+        },
+        {
+          "symbol": "ε",
+          "meaning": "誘電率",
+          "unit": "F/m"
+        },
+        {
+          "symbol": "A, d",
+          "meaning": "極板面積・間隔",
+          "unit": "m², m"
+        },
+        {
+          "symbol": "C, V",
+          "meaning": "静電容量・極板間電圧",
+          "unit": "F, V"
+        }
+      ],
+      "conditions": [
+        "平行平板では端の電界を無視し、極板間を一様な線形誘電体で満たす。",
+        "E=V/d は電界が一様な区間の大きさの関係。どんな形でも使える式ではない。"
+      ],
+      "steps": [
+        "極板上の面電荷密度は Q/A。ガウスの法則から極板間で D=Q/A。",
+        "D=εE より E=Q/(εA)。",
+        "一様電界なので V=Ed=Qd/(εA)。",
+        "C=Q/V に代入すると C=εA/d。"
+      ],
+      "derived": [
+        "Q=CV：C 一定なら Q と V が比例。",
+        "W=∫₀Q (q/C)dq=Q²/(2C)=CV²/2。",
+        "電源接続中は V 一定、切り離して電荷が逃げなければ Q 一定。容量を変える問題はここで分岐する。"
+      ],
+      "pitfalls": [
+        "面積を cm² のまま代入しない。1 cm²=10⁻⁴ m²。",
+        "C が変わる問題で Q と V を両方固定しない。"
+      ],
+      "example": {
+        "question": "C=2 μF のコンデンサを100 Vに充電した。電荷と蓄積エネルギーは？",
+        "steps": [
+          "Q=2×10⁻⁶×100=2×10⁻⁴ C。",
+          "W=(1/2)×2×10⁻⁶×100²=0.010 J。"
+        ],
+        "answer": "Q=200 μC、W=0.010 J。"
+      },
+      "checks": [
+        {
+          "question": "同じ誘電体・面積で極板間隔を2倍にすると静電容量は？",
+          "choices": [
+            "2倍",
+            "1/2倍",
+            "変わらない"
+          ],
+          "answer": 1,
+          "explanation": "C=εA/d。分母の d が2倍なので容量は半分。"
+        },
+        {
+          "question": "2 μF、100 V を電源から切り離し、電荷を保って容量を4 μFにすると電圧は？",
+          "choices": [
+            "50 V",
+            "100 V",
+            "200 V"
+          ],
+          "answer": 0,
+          "explanation": "Q=200 μC を保持。V=Q/C=200/4=50 V。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：静電容量・誘電体（8.02 Chapter 5）",
+          "url": "https://ocw.mit.edu/courses/8-02-physics-ii-electricity-and-magnetism-spring-2007/resources/chap5capacitance/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "magnetic",
+      "title": "磁界・磁気回路",
+      "topics": [
+        "mag",
+        "mc",
+        "mat"
+      ],
+      "parent": "∮ H・dl = NI ／ B = μH ／ Φ = BA",
+      "meaning": "電流と巻数が磁界を作る。磁路ごとに必要な起磁力を足し、磁束との関係を作る。",
+      "symbols": [
+        {
+          "symbol": "N, I",
+          "meaning": "巻数・電流",
+          "unit": "無次元, A"
+        },
+        {
+          "symbol": "H, B",
+          "meaning": "磁界・磁束密度",
+          "unit": "A/m, T"
+        },
+        {
+          "symbol": "Φ",
+          "meaning": "磁束",
+          "unit": "Wb"
+        },
+        {
+          "symbol": "μ",
+          "meaning": "透磁率",
+          "unit": "H/m"
+        },
+        {
+          "symbol": "ℓ, A",
+          "meaning": "磁路長・断面積",
+          "unit": "m, m²"
+        },
+        {
+          "symbol": "ℛ",
+          "meaning": "磁気抵抗",
+          "unit": "A/Wb"
+        }
+      ],
+      "conditions": [
+        "閉じた磁路の断面積を一定、漏れ磁束と端効果を無視する。",
+        "μ 一定は線形近似。飽和した鉄心で同じ値をそのまま使わない。"
+      ],
+      "steps": [
+        "磁路内 H が一様なら Hℓ=NI。",
+        "H=B/μ=Φ/(μA) に置き換える。",
+        "NI=Φℓ/(μA) となるので ℛ=ℓ/(μA) と定義する。",
+        "Φ=NI/ℛ。直列の鉄心と空隙は ℛ を足す。"
+      ],
+      "derived": [
+        "鎖交磁束 λ=NΦ=LI から L=N²/ℛ。",
+        "線形なコイルの蓄積エネルギー W=LI²/2。",
+        "空隙の μ は小さいので、短い空隙でも磁気抵抗を左右する。"
+      ],
+      "pitfalls": [
+        "B と Φ を混同しない。B は面積当たり、Φ は面全体。",
+        "巻数2倍で L は4倍になるが、同じ磁気回路・線形範囲という条件付き。"
+      ],
+      "example": {
+        "question": "N=200、I=0.5 A、ℛ=2.0×10⁵ A/Wb。磁束とインダクタンスは？",
+        "steps": [
+          "NI=100 A。Φ=100/(2.0×10⁵)=5.0×10⁻⁴ Wb。",
+          "L=N²/ℛ=200²/(2.0×10⁵)=0.20 H。"
+        ],
+        "answer": "Φ=0.50 mWb、L=0.20 H。"
+      },
+      "checks": [
+        {
+          "question": "同じ線形磁気回路で巻数を2倍にすると L は？",
+          "choices": [
+            "2倍",
+            "4倍",
+            "1/2倍"
+          ],
+          "answer": 1,
+          "explanation": "L=N²/ℛ。磁気抵抗が一定なら巻数の2乗に比例。"
+        },
+        {
+          "question": "N=100、I=2 A、ℛ=10⁵ A/Wb の磁束は？",
+          "choices": [
+            "0.2 mWb",
+            "2 mWb",
+            "20 mWb"
+          ],
+          "answer": 1,
+          "explanation": "Φ=NI/ℛ=200/100000=0.002 Wb=2 mWb。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：磁気回路（6.061 Chapter 6）",
+          "url": "https://ocw.mit.edu/courses/6-061-introduction-to-electric-power-systems-spring-2011/resources/mit6_061s11_ch6/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "ac",
+      "title": "交流・複素電力",
+      "topics": [
+        "dc",
+        "ac",
+        "res",
+        "bridge",
+        "meter"
+      ],
+      "parent": "V̇ = Z İ ／ Ṡ = V̇ İ* = P + jQ",
+      "meaning": "電圧と電流は大きさだけでなく位相を持つ。電力には電流の複素共役を掛ける。",
+      "symbols": [
+        {
+          "symbol": "V̇, İ",
+          "meaning": "実効値フェーザ",
+          "unit": "V, A"
+        },
+        {
+          "symbol": "Z=R+jX",
+          "meaning": "インピーダンス",
+          "unit": "Ω"
+        },
+        {
+          "symbol": "P, Q",
+          "meaning": "有効・無効電力",
+          "unit": "W, var"
+        },
+        {
+          "symbol": "φ",
+          "meaning": "電圧に対する電流の遅れ角",
+          "unit": "rad または °"
+        },
+        {
+          "symbol": "ω",
+          "meaning": "角周波数 2πf",
+          "unit": "rad/s"
+        }
+      ],
+      "conditions": [
+        "正弦波定常状態・同一周波数。V̇ と İ は実効値。",
+        "受動符号規約：負荷へ入る電流を正。遅れの誘導性負荷は Q>0。"
+      ],
+      "steps": [
+        "R と L の直列なら Z=R+jωL。容量性は −j/(ωC)。",
+        "İ=V̇/Z から電流の大きさと位相を求める。",
+        "Ṡ=V̇İ*=(R+jX)|İ|²。",
+        "実部 P=R|İ|²=|V̇||İ|cosφ、虚部 Q=X|İ|²。"
+      ],
+      "derived": [
+        "|Z|=√(R²+X²)、力率 cosφ=R/|Z|。",
+        "|Ṡ|=√(P²+Q²)=|V̇||İ|。",
+        "直列共振は ωL=1/(ωC) → f₀=1/(2π√LC)。"
+      ],
+      "pitfalls": [
+        "P=VI としてよいのは力率1の場合。複素数の V̇İ をそのまま有効電力にしない。",
+        "最大値で計算した場合は平均電力に1/2が必要。ここでは実効値で統一。"
+      ],
+      "example": {
+        "question": "実効値100 V を R=6 Ω、X=8 Ω の直列負荷に加える。電流と電力は？",
+        "steps": [
+          "|Z|=√(6²+8²)=10 Ω。|İ|=100/10=10 A。",
+          "P=10²×6=600 W。Q=10²×8=800 var。",
+          "力率=6/10=0.60（遅れ）。"
+        ],
+        "answer": "10 A、600 W、800 var、力率0.60（遅れ）。"
+      },
+      "checks": [
+        {
+          "question": "実効値200 V、10 A、力率0.8の単相負荷の有効電力は？",
+          "choices": [
+            "2.0 kW",
+            "1.6 kW",
+            "2.5 kW"
+          ],
+          "answer": 1,
+          "explanation": "P=VIcosφ=200×10×0.8=1600 W。"
+        },
+        {
+          "question": "Z=3−j4 Ω はどちら？",
+          "choices": [
+            "誘導性・遅れ",
+            "抵抗のみ",
+            "容量性・進み"
+          ],
+          "answer": 2,
+          "explanation": "X<0 は容量性。İ=V̇/Z のため電流位相は電圧より進む。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：交流電力（6.061 Chapter 2）",
+          "url": "https://ocw.mit.edu/courses/6-061-introduction-to-electric-power-systems-spring-2011/resources/mit6_061s11_ch2/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "three-phase",
+      "title": "三相回路",
+      "topics": [
+        "three",
+        "distribution",
+        "loss",
+        "volt"
+      ],
+      "parent": "Ṡ₃ = 3 V̇相 İ相*",
+      "meaning": "平衡三相なら1相を解き、電力を3倍する。√3 は線間量と相量の変換から出る。",
+      "symbols": [
+        {
+          "symbol": "V_L, I_L",
+          "meaning": "線間電圧・線電流（実効値）",
+          "unit": "V, A"
+        },
+        {
+          "symbol": "V相, I相",
+          "meaning": "負荷1相の電圧・電流（実効値）",
+          "unit": "V, A"
+        },
+        {
+          "symbol": "P₃, Q₃, S₃",
+          "meaning": "三相合計の有効・無効・皮相電力",
+          "unit": "W, var, VA"
+        },
+        {
+          "symbol": "φ",
+          "meaning": "負荷1相の電圧電流位相差",
+          "unit": "rad または °"
+        }
+      ],
+      "conditions": [
+        "電源・負荷が平衡し、正弦波である。",
+        "√3 V_L I_L は皮相電力の大きさ。P₃には負荷の力率が必要。"
+      ],
+      "steps": [
+        "Y結線：120°離れた相電圧の差が線間電圧。大きさ V_L=√3 V相、I_L=I相。",
+        "Δ結線：V_L=V相、線電流は相電流の差なので I_L=√3 I相。",
+        "どちらも 3V相I相=√3 V_LI_L。",
+        "P₃=√3 V_LI_Lcosφ、Q₃=√3 V_LI_Lsinφ。"
+      ],
+      "derived": [
+        "I_L=P₃/(√3 V_Lcosφ)。",
+        "平衡Yの1相抵抗 R による損失は 3I_L²R。",
+        "同じ相インピーダンスを同じ線間電圧にY/Δ接続すると、Δの線電流はYの3倍。"
+      ],
+      "pitfalls": [
+        "線間電圧と線電流の位相差をそのまま φ にしない。",
+        "不平衡のときは各相の複素電力を足す。平衡公式だけで処理しない。"
+      ],
+      "example": {
+        "question": "平衡三相200 V、10 A、力率0.8（遅れ）。合計有効電力と無効電力は？",
+        "steps": [
+          "sinφ=√(1−0.8²)=0.6。",
+          "P₃=√3×200×10×0.8=2771 W。",
+          "Q₃=√3×200×10×0.6=2078 var。"
+        ],
+        "answer": "P₃≈2.77 kW、Q₃≈2.08 kvar。"
+      },
+      "checks": [
+        {
+          "question": "平衡Y結線、線間200 V の相電圧は？",
+          "choices": [
+            "200 V",
+            "約115 V",
+            "約346 V"
+          ],
+          "answer": 1,
+          "explanation": "V相=V_L/√3=200/√3≈115.5 V。"
+        },
+        {
+          "question": "同じ抵抗3本を、同じ線間電圧でYからΔへ変更。線電流は？",
+          "choices": [
+            "1/3倍",
+            "√3倍",
+            "3倍"
+          ],
+          "answer": 2,
+          "explanation": "Yは V_L/(√3R)、Δは√3V_L/R。比は3。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：三相回路・単位法（6.061 Chapter 3）",
+          "url": "https://ocw.mit.edu/courses/6-061-introduction-to-electric-power-systems-spring-2011/resources/mit6_061s11_ch3/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "transient",
+      "title": "過渡現象",
+      "topics": [
+        "trans"
+      ],
+      "parent": "i_C = C dv_C/dt ／ v_L = L di_L/dt",
+      "meaning": "コンデンサの電圧とコイルの電流は状態量。切替直前・直後・十分後を先に決める。",
+      "symbols": [
+        {
+          "symbol": "v_C, i_L",
+          "meaning": "容量電圧・コイル電流",
+          "unit": "V, A"
+        },
+        {
+          "symbol": "C, L, R",
+          "meaning": "静電容量・インダクタンス・抵抗",
+          "unit": "F, H, Ω"
+        },
+        {
+          "symbol": "τ, t",
+          "meaning": "時定数・時間",
+          "unit": "s"
+        },
+        {
+          "symbol": "x₀, x∞",
+          "meaning": "初期値・最終値",
+          "unit": "対象量の単位"
+        }
+      ],
+      "conditions": [
+        "線形なRCまたはRLの一次回路。切替後の電源・定数は一定。",
+        "理想インパルス電流・電圧がなければ v_C と i_L は瞬時に飛ばない。Rは対象素子から見た等価抵抗。"
+      ],
+      "steps": [
+        "RC直列充電では KVL より E=Ri+v_C。",
+        "i=C dv_C/dt を代入して RC dv_C/dt+v_C=E。",
+        "定常値 E を引くと、差が毎時定数で e⁻¹ 倍になる方程式。",
+        "v_C(t)=E+(v_C(0+)−E)e^(−t/RC)。一般形は x=x∞+(x₀−x∞)e^(−t/τ)。"
+      ],
+      "derived": [
+        "RC：τ=RC。RL：τ=L/R。",
+        "初期0の充電は1τで最終値の約63.2%、放電は初期値の約36.8%。",
+        "t→∞ を代入して最終値に一致するか、t=0 で初期値に一致するか確認。"
+      ],
+      "pitfalls": [
+        "0+ のコンデンサを常に短絡と見なさない。初期電圧が0のときの限定。",
+        "独立電源を止めて等価抵抗を求める際、理想電圧源は短絡、理想電流源は開放。制御電源は残す。"
+      ],
+      "example": {
+        "question": "未充電の10 μFと100 kΩを直列にし、10 V直流で充電。1秒後の電圧は？",
+        "steps": [
+          "τ=100×10³×10×10⁻⁶=1.0 s。",
+          "v_C(1)=10(1−e⁻¹)=6.321… V。"
+        ],
+        "answer": "約6.32 V。初期0 Vと最終10 Vの間にある。"
+      },
+      "checks": [
+        {
+          "question": "R=20 Ω、L=0.10 H のRL回路の時定数は？",
+          "choices": [
+            "2 s",
+            "5 ms",
+            "0.5 ms"
+          ],
+          "answer": 1,
+          "explanation": "τ=L/R=0.10/20=0.005 s=5 ms。"
+        },
+        {
+          "question": "10 VからRC自然放電。1時定数後の電圧は？",
+          "choices": [
+            "約3.68 V",
+            "約6.32 V",
+            "0 V"
+          ],
+          "answer": 0,
+          "explanation": "v_C=10e⁻¹≈3.68 V。6.32 Vは初期0から10 Vへ充電する場合。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：電磁気学・回路の講義資料",
+          "url": "https://ocw.mit.edu/courses/8-02t-electricity-and-magnetism-spring-2005/pages/lecture-notes/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "transformer",
+      "title": "変圧器",
+      "topics": [
+        "trac",
+        "transformer",
+        "trconnect"
+      ],
+      "parent": "e = −N dΦ/dt ／ a = N₁/N₂",
+      "meaning": "同じ磁束が両巻線を鎖交するので電圧比は巻数比。電力保存から電流比は逆になる。",
+      "symbols": [
+        {
+          "symbol": "N₁, N₂, a",
+          "meaning": "一次・二次巻数、巻数比",
+          "unit": "無次元"
+        },
+        {
+          "symbol": "V₁, V₂, I₁, I₂",
+          "meaning": "電圧・電流の大きさ",
+          "unit": "V, A"
+        },
+        {
+          "symbol": "Z₂, Z₂′",
+          "meaning": "二次負荷・一次換算インピーダンス",
+          "unit": "Ω"
+        },
+        {
+          "symbol": "P₀, Pcu,n",
+          "meaning": "鉄損等の一定損・定格銅損",
+          "unit": "W"
+        },
+        {
+          "symbol": "x",
+          "meaning": "定格に対する負荷率",
+          "unit": "無次元"
+        }
+      ],
+      "conditions": [
+        "比の導出は理想変圧器。漏れ磁束、励磁電流、巻線損失を無視。",
+        "実機の効率では損失を別途加える。三相結線の線間電圧比は巻数比だけで決まらない場合がある。"
+      ],
+      "steps": [
+        "同じ dΦ/dt なので電圧の大きさの比 V₁/V₂=N₁/N₂=a。",
+        "理想の電力保存から V₁I₁=V₂I₂。よって I₁/I₂=1/a。",
+        "一次から見た負荷 Z₂′=V₁/I₁。",
+        "V₁=aV₂、I₁=I₂/a を代入し Z₂′=a²Z₂。"
+      ],
+      "derived": [
+        "二次換算は Z₁/a²。どちらへ換算したか添字で示す。",
+        "負荷率 x の銅損は x²Pcu,n。効率 η=P出/(P出+P₀+x²Pcu,n)。",
+        "電圧・周波数・力率一定で最大効率の条件は x²Pcu,n=P₀。"
+      ],
+      "pitfalls": [
+        "巻数比を電流比へそのまま掛けない。",
+        "定格容量 kVA と出力 kW を混ぜない。力率が必要。"
+      ],
+      "example": {
+        "question": "理想単相変圧器の巻数比10、一次1000 V、二次に5 Ωの抵抗。各電流は？",
+        "steps": [
+          "V₂=1000/10=100 V。",
+          "I₂=100/5=20 A、I₁=20/10=2 A。",
+          "一次換算負荷=10²×5=500 Ω。1000/500=2 Aで一致。"
+        ],
+        "answer": "二次20 A、一次2 A、一次換算500 Ω。"
+      },
+      "checks": [
+        {
+          "question": "巻数比20、二次2 Ωの負荷を一次換算すると？",
+          "choices": [
+            "40 Ω",
+            "800 Ω",
+            "0.005 Ω"
+          ],
+          "answer": 1,
+          "explanation": "Z₂′=a²Z₂=20²×2=800 Ω。"
+        },
+        {
+          "question": "一定損100 W、定格銅損400 W。最大効率の負荷率は？",
+          "choices": [
+            "25%",
+            "50%",
+            "100%"
+          ],
+          "answer": 1,
+          "explanation": "x²×400=100 → x=0.5。電圧・周波数・力率一定の近似。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：磁気回路（6.061 Chapter 6）",
+          "url": "https://ocw.mit.edu/courses/6-061-introduction-to-electric-power-systems-spring-2011/resources/mit6_061s11_ch6/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "short-circuit",
+      "title": "短絡・単位法",
+      "topics": [
+        "fault",
+        "protection",
+        "neutral"
+      ],
+      "parent": "Z_b = V_b²/S_b ／ I_b = S_b/(√3 V_b) ／ I_pu = V_pu/Z_pu",
+      "meaning": "まず電圧と容量の物差しをそろえる。％値はその物差しに対する比であり、Ωそのものではない。",
+      "symbols": [
+        {
+          "symbol": "V_b",
+          "meaning": "基準線間電圧",
+          "unit": "V または kV"
+        },
+        {
+          "symbol": "S_b",
+          "meaning": "三相基準容量",
+          "unit": "VA または MVA"
+        },
+        {
+          "symbol": "Z_b, I_b",
+          "meaning": "基準インピーダンス・電流",
+          "unit": "Ω, A"
+        },
+        {
+          "symbol": "Z_pu, V_pu",
+          "meaning": "基準値に対する比",
+          "unit": "pu"
+        },
+        {
+          "symbol": "%Z",
+          "meaning": "インピーダンス百分率",
+          "unit": "%"
+        }
+      ],
+      "conditions": [
+        "ここでは平衡三相の対称短絡と事故前電圧1 pu、故障点インピーダンス0の簡略モデル。",
+        "電源・変圧器・線路のインピーダンスを同じ容量・対応電圧の基準へ換算。"
+      ],
+      "steps": [
+        "S_b=√3 V_bI_b から I_b=S_b/(√3 V_b)。",
+        "1相の基準電圧 V_b/√3 を I_b で割り Z_b=V_b²/S_b。",
+        "%Z=100 Z_pu。合成 Z_pu を求め、I_pu=1/Z_pu。",
+        "実電流の大きさは |I_pu|I_b。電源を無限大母線とした変圧器単独なら I短絡≈I定格×100/%Z。"
+      ],
+      "derived": [
+        "Z_b：V²/VA=Ω。数値を kV²/MVA としてもΩになる。kV²/kVAなら1000倍の換算が必要。",
+        "新 Z_pu=旧 Z_pu×(S_b新/S_b旧)×(V_b旧/V_b新)²。",
+        "三相短絡容量 S短絡=√3 V_L I短絡。"
+      ],
+      "pitfalls": [
+        "地絡計算へこの三相短絡の式をそのまま適用しない。零相回路・接地条件が必要。",
+        "計算値は対称実効値。直流分を含む最大瞬時値や遮断器選定の全条件とは異なる。"
+      ],
+      "example": {
+        "question": "三相1000 kVA、二次6.6 kV、%Z=5%。一次電源と線路のインピーダンスを無視した二次三相短絡電流は？",
+        "steps": [
+          "I定格=1000/(√3×6.6)=87.48 A。",
+          "I短絡=87.48/0.05=1749.5 A。",
+          "Z_b=6.6²/1=43.56 Ω、|Z|=0.05×43.56=2.178 Ωでも照合。"
+        ],
+        "answer": "約1.75 kA（対称実効値・上記の簡略条件）。"
+      },
+      "checks": [
+        {
+          "question": "6.6 kV、10 MVA基準の Z_b は？",
+          "choices": [
+            "4.356 Ω",
+            "4356 Ω",
+            "0.004356 Ω"
+          ],
+          "answer": 0,
+          "explanation": "Z_b=6.6²/10=4.356 Ω。kV²/MVA はそのままΩ。"
+        },
+        {
+          "question": "同じ基準電圧、10 MVA基準で0.10 puを20 MVA基準にすると？",
+          "choices": [
+            "0.05 pu",
+            "0.10 pu",
+            "0.20 pu"
+          ],
+          "answer": 2,
+          "explanation": "Z_pu新=0.10×20/10=0.20。実物のΩは変わらない。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：三相回路・単位法（6.061 Chapter 3）",
+          "url": "https://ocw.mit.edu/courses/6-061-introduction-to-electric-power-systems-spring-2011/resources/mit6_061s11_ch3/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "induction",
+      "title": "誘導機",
+      "topics": [
+        "im",
+        "rail",
+        "rotloss"
+      ],
+      "parent": "n_s = 120f/p ／ s = (n_s−n)/n_s ／ Pcu₂ = sP₂",
+      "meaning": "回転磁界との速度差が回転子電流を生む。二次入力を銅損と機械出力へ分ける。",
+      "symbols": [
+        {
+          "symbol": "f, p",
+          "meaning": "電源周波数・極数（極対数ではない）",
+          "unit": "Hz, 無次元"
+        },
+        {
+          "symbol": "n_s, n",
+          "meaning": "同期速度・回転速度",
+          "unit": "min⁻¹"
+        },
+        {
+          "symbol": "s",
+          "meaning": "滑り",
+          "unit": "無次元"
+        },
+        {
+          "symbol": "P₂",
+          "meaning": "二次入力（空隙電力）",
+          "unit": "W"
+        },
+        {
+          "symbol": "Pcu₂, Pm",
+          "meaning": "二次銅損・発生機械出力",
+          "unit": "W"
+        }
+      ],
+      "conditions": [
+        "平衡三相の定常運転。ここでは電動機領域 0<s<1。",
+        "Pmは機械損を引く前。軸出力とは区別する。"
+      ],
+      "steps": [
+        "極対数 p/2 なので1回転当たり p/2 周期。n_s=60f/(p/2)=120f/p。",
+        "滑りの定義を n について解き、n=(1−s)n_s。",
+        "回転子の周波数は f₂=sf。",
+        "二次銅損=sP₂、残る発生機械出力 Pm=(1−s)P₂。"
+      ],
+      "derived": [
+        "軸出力 P軸=Pm−機械損。",
+        "トルク T=Pm/ω_m=P₂/ω_s、ω=2πn/60。",
+        "始動時 n=0 は s=1。n>n_s なら s<0で誘導発電の領域。"
+      ],
+      "pitfalls": [
+        "3% は s=0.03。3を代入しない。",
+        "二次入力を一次入力と同一視しない。一次銅損・鉄損をすでに差し引いた量。"
+      ],
+      "example": {
+        "question": "50 Hz、4極、回転速度1440 min⁻¹、二次入力10 kW。滑りと二次銅損・発生機械出力は？",
+        "steps": [
+          "n_s=120×50/4=1500 min⁻¹。",
+          "s=(1500−1440)/1500=0.04。",
+          "Pcu₂=0.04×10=0.4 kW、Pm=0.96×10=9.6 kW。"
+        ],
+        "answer": "滑り4%、二次銅損0.4 kW、発生機械出力9.6 kW。"
+      },
+      "checks": [
+        {
+          "question": "60 Hz、6極の同期速度は？",
+          "choices": [
+            "600 min⁻¹",
+            "1200 min⁻¹",
+            "1800 min⁻¹"
+          ],
+          "answer": 1,
+          "explanation": "n_s=120×60/6=1200 min⁻¹。極数と極対数を区別。"
+        },
+        {
+          "question": "二次入力20 kW、滑り0.05、機械損0.5 kW。軸出力は？",
+          "choices": [
+            "19.5 kW",
+            "19.0 kW",
+            "18.5 kW"
+          ],
+          "answer": 2,
+          "explanation": "発生機械出力=0.95×20=19 kW。軸出力=19−0.5=18.5 kW。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "JEEA：誘導電動機の入力と出力",
+          "url": "https://www.jeea.or.jp/course/contents/12130/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "synchronous",
+      "title": "同期機",
+      "topics": [
+        "sync",
+        "excite",
+        "stability",
+        "gencool"
+      ],
+      "parent": "Ė = V̇ + (R_a+jX_s)İ",
+      "meaning": "発電機から外へ流れる電流を正にとり、内部起電力から内部の電圧降下を引いて端子電圧へつなぐ。",
+      "symbols": [
+        {
+          "symbol": "Ė, V̇",
+          "meaning": "1相当たり内部起電力・端子電圧",
+          "unit": "V（実効値）"
+        },
+        {
+          "symbol": "İ",
+          "meaning": "発電機から負荷へ流出する相電流",
+          "unit": "A"
+        },
+        {
+          "symbol": "R_a, X_s",
+          "meaning": "電機子抵抗・同期リアクタンス",
+          "unit": "Ω/相"
+        },
+        {
+          "symbol": "δ",
+          "meaning": "Ė が V̇ に対して進む内部相差角",
+          "unit": "rad または °"
+        },
+        {
+          "symbol": "P₃",
+          "meaning": "三相有効出力",
+          "unit": "W"
+        }
+      ],
+      "conditions": [
+        "平衡三相・円筒形同期発電機の定常モデル。電動機の電流方向を採ると式の符号が変わる。",
+        "以下の電力相差角式は R_a≈0、突極性を無視する。E と V は相電圧の大きさ。"
+      ],
+      "steps": [
+        "R_a=0 として İ=(Ė−V̇)/(jX_s)。",
+        "V̇を基準角0、Ė=E(cosδ+j sinδ)と書く。",
+        "İの実部は E sinδ/X_s。",
+        "P₃=3Re(V̇İ*)=3VE sinδ/X_s。"
+      ],
+      "derived": [
+        "同じモデルで Q₃=3V(E cosδ−V)/X_s（発電機から供給を正）。",
+        "E,V,X_s一定なら、P₃の理論最大値は3VE/X_s（δ=90°）。",
+        "実機の許容出力は電機子電流・界磁電流・安定度などの制約で決まる。"
+      ],
+      "pitfalls": [
+        "線間電圧を E,V に入れて、さらに3倍しない。",
+        "δ=90°まで運転してよいという許容値ではない。実用の安定余裕とは別。"
+      ],
+      "example": {
+        "question": "1相当たり E=120 V、V=100 V、X_s=2 Ω、δ=30°。抵抗を無視した三相有効出力は？",
+        "steps": [
+          "P₃=3×100×120×sin30°/2。",
+          "sin30°=0.5 を代入。"
+        ],
+        "answer": "P₃=9000 W=9.0 kW。"
+      },
+      "checks": [
+        {
+          "question": "同じ E,V,X_s で δ=0°。このモデルの有効電力は？",
+          "choices": [
+            "0 W",
+            "最大値",
+            "常に定格値"
+          ],
+          "answer": 0,
+          "explanation": "sin0°=0 なのでP₃=0。励磁差による無効電力は残りうる。"
+        },
+        {
+          "question": "E=V=100 V（相）、X_s=5 Ω、δ=30°の三相有効出力は？",
+          "choices": [
+            "1 kW",
+            "3 kW",
+            "6 kW"
+          ],
+          "answer": 1,
+          "explanation": "P₃=3×100×100×0.5/5=3000 W。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：同期機（6.061 Chapter 9）",
+          "url": "https://ocw.mit.edu/courses/6-061-introduction-to-electric-power-systems-spring-2011/resources/mit6_061s11_ch9/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "control",
+      "title": "制御・フィードバック",
+      "topics": [
+        "control",
+        "amp",
+        "sensor"
+      ],
+      "parent": "e = r−Hy ／ y = Ge",
+      "meaning": "ブロック線図を、信号の足し引きと入出力の式へ戻す。閉ループ公式を忘れても2式から復元できる。",
+      "symbols": [
+        {
+          "symbol": "r, e, y",
+          "meaning": "目標値・偏差・出力",
+          "unit": "信号に応じた単位"
+        },
+        {
+          "symbol": "G(s), H(s)",
+          "meaning": "前向き要素・帰還要素",
+          "unit": "入出力の単位比"
+        },
+        {
+          "symbol": "s",
+          "meaning": "ラプラス演算子",
+          "unit": "s⁻¹"
+        },
+        {
+          "symbol": "T",
+          "meaning": "時定数",
+          "unit": "s"
+        },
+        {
+          "symbol": "K",
+          "meaning": "ゲイン",
+          "unit": "ここでは無次元"
+        }
+      ],
+      "conditions": [
+        "線形時不変系・初期値0の伝達関数。加算点は負帰還。",
+        "1+GHを作る前に帰還の符号を確認。安定性は閉ループの極から別途調べる。"
+      ],
+      "steps": [
+        "y=G(r−Hy) と代入する。",
+        "y+GHy=Gr と出力を同じ側へ集める。",
+        "(1+GH)y=Gr。",
+        "y/r=G/(1+GH)、e/r=1/(1+GH)。"
+      ],
+      "derived": [
+        "単位負帰還 H=1、G=K/(Ts+1)なら y/r=K/(Ts+1+K)。",
+        "同じ式を [K/(1+K)]/[Ts/(1+K)+1] と書けば、定常ゲインと時定数が読める。",
+        "安定な閉ループで単位ステップを入れると、上の例の e∞=1/(1+K)。"
+      ],
+      "pitfalls": [
+        "正帰還は分母1−GH。図を見ずに1+GHと暗記しない。",
+        "最終値定理は適用条件を確認。発散・持続振動する系へ機械的に使わない。"
+      ],
+      "example": {
+        "question": "単位負帰還、G=4/(2s+1)。閉ループ伝達関数と単位ステップ最終値は？",
+        "steps": [
+          "G/(1+G)=4/(2s+5)。",
+          "0.8/(0.4s+1) に整理する。",
+          "極は−2.5で安定。定常出力0.8、偏差1−0.8=0.2。"
+        ],
+        "answer": "閉ループ4/(2s+5)、時定数0.4 s、最終出力0.8。"
+      },
+      "checks": [
+        {
+          "question": "単位負帰還で G=9（定数）。y/r は？",
+          "choices": [
+            "9",
+            "0.9",
+            "0.1"
+          ],
+          "answer": 1,
+          "explanation": "G/(1+G)=9/10=0.9。0.1は偏差比e/r。"
+        },
+        {
+          "question": "単位負帰還 G=2/(3s+1) の閉ループ時定数は？",
+          "choices": [
+            "1 s",
+            "3 s",
+            "9 s"
+          ],
+          "answer": 0,
+          "explanation": "2/(3s+3)=(2/3)/(s+1)。時定数1 s。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MIT OCW：閉ループ伝達関数（2.004 Lecture 4）",
+          "url": "https://ocw.mit.edu/courses/2-004-dynamics-and-control-ii-spring-2008/resources/lecture_04/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "generation",
+      "title": "発電・エネルギー変換",
+      "topics": [
+        "hydro",
+        "waterhammer",
+        "thermal",
+        "emissions",
+        "solar",
+        "wind",
+        "geo",
+        "nuclear",
+        "storage",
+        "aux"
+      ],
+      "parent": "エネルギー = 出力 × 時間 ／ η = 有効出力/入力",
+      "meaning": "何が入力で何が出力かを先に置く。水の位置エネルギー・燃料の熱・電力量を同じ収支にまとめる。",
+      "symbols": [
+        {
+          "symbol": "ρ",
+          "meaning": "水の密度",
+          "unit": "kg/m³"
+        },
+        {
+          "symbol": "g",
+          "meaning": "重力加速度",
+          "unit": "m/s²"
+        },
+        {
+          "symbol": "Q",
+          "meaning": "体積流量",
+          "unit": "m³/s"
+        },
+        {
+          "symbol": "H_e, H_p",
+          "meaning": "発電有効落差・揚水全揚程",
+          "unit": "m"
+        },
+        {
+          "symbol": "P, W",
+          "meaning": "出力・エネルギー",
+          "unit": "W, J または kW, kWh"
+        },
+        {
+          "symbol": "η",
+          "meaning": "効率",
+          "unit": "無次元"
+        }
+      ],
+      "conditions": [
+        "流量と落差が一定の定常計算。ρ=1000 kg/m³、g=9.8 m/s²を使用。",
+        "発電は有効落差 H_e（総落差から水路損失を引く）。揚水は全揚程 H_p（実揚程に水路損失を足す）。両者を同じ H と決めつけない。"
+      ],
+      "steps": [
+        "水1 kgの位置エネルギーは gH J/kg。",
+        "毎秒流れる質量は ρQ kg/s。掛けると水力 ρgQH W。",
+        "発電電力は P発=ρgQH_eη_tη_g。kW表示なら9.8QH_eη_tη_g。",
+        "揚水の電気入力は P揚=ρgQH_p/(η_pη_m)。有効出力を入力に戻すので効率で割る。"
+      ],
+      "derived": [
+        "一定出力なら電力量[kWh]=電力[kW]×時間[h]。",
+        "熱機関も η=P電気/P熱入力。発熱量と燃料流量から熱入力を作る。",
+        "往復効率は同じ水量・運転条件を明示して計算する。各効率に加え、発電と揚水の落差・揚程も異なる。"
+      ],
+      "pitfalls": [
+        "効率80%を80で代入しない。",
+        "発電で効率を割る、揚水入力で効率を掛ける、と向きを逆にしない。"
+      ],
+      "example": {
+        "question": "水力発電でQ=2 m³/s、有効落差50 m、水車効率0.90、発電機効率0.95。出力と3時間の電力量は？",
+        "steps": [
+          "P=9.8×2×50×0.90×0.95=837.9 kW。",
+          "W=837.9×3=2513.7 kWh。"
+        ],
+        "answer": "約838 kW、約2514 kWh。"
+      },
+      "checks": [
+        {
+          "question": "揚水Q=1 m³/s、全揚程100 m、総合効率0.8。電気入力は？",
+          "choices": [
+            "784 kW",
+            "980 kW",
+            "1225 kW"
+          ],
+          "answer": 2,
+          "explanation": "P揚=9.8×1×100/0.8=1225 kW。"
+        },
+        {
+          "question": "発電出力500 kWを4時間保った電力量は？",
+          "choices": [
+            "125 kWh",
+            "2000 kWh",
+            "2 kWh"
+          ],
+          "answer": 1,
+          "explanation": "W=Pt=500×4=2000 kWh=2 MWh。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "JEEA：揚水式水力発電所の出力",
+          "url": "https://www.jeea.or.jp/course/contents/12104/",
+          "accessed": "2026-10-04"
+        }
+      ]
+    },
+    {
+      "id": "demand-law",
+      "title": "需要・施設管理・法規",
+      "topics": [
+        "demand",
+        "frequency",
+        "law-safety",
+        "law-work",
+        "law-report",
+        "law-general",
+        "law-earth",
+        "law-lines",
+        "law-wiring",
+        "law-renew",
+        "law-connect",
+        "law-terms",
+        "law-products",
+        "law-protect",
+        "law-equipment"
+      ],
+      "parent": "平均電力 = 電力量/時間 ／ 比率 = 比べる量/基準の量",
+      "meaning": "需要率・負荷率・不等率は「何を分母にするか」で復元する。法令の数値は物理法則からは導けないので適用条件と対で覚える。",
+      "symbols": [
+        {
+          "symbol": "P設備",
+          "meaning": "設備容量の合計（有効電力基準）",
+          "unit": "kW"
+        },
+        {
+          "symbol": "P最大, P平均",
+          "meaning": "同じ対象・期間の最大需要電力と平均電力",
+          "unit": "kW"
+        },
+        {
+          "symbol": "W, t",
+          "meaning": "電力量・対象期間",
+          "unit": "kWh, h"
+        },
+        {
+          "symbol": "d, f_L, D",
+          "meaning": "需要率・負荷率・不等率",
+          "unit": "無次元"
+        }
+      ],
+      "conditions": [
+        "容量はkWでそろえる。kVA容量へ換えるには力率が必要。",
+        "負荷率の平均と最大は同じ集計期間・対象。不等率の各最大と合成最大も同じ期間。"
+      ],
+      "steps": [
+        "需要率 d=P最大/P設備 → P最大=dP設備。",
+        "負荷率 f_L=P平均/P最大 → P平均=f_LP最大。",
+        "P平均=W/t より W=f_LP最大t。",
+        "不等率 D=ΣP各最大/P合成最大 → P合成最大=ΣP各最大/D。"
+      ],
+      "derived": [
+        "100%表示は比率に100を掛ける。計算への代入時は60%=0.60。",
+        "合成平均電力は各平均電力の和。最大電力は同時刻とは限らないので単純合計と区別。",
+        "法規は「対象設備→電圧・容量→原則→例外→出題時点」の順で条文を照合する。数値だけの暗記を避ける。"
+      ],
+      "pitfalls": [
+        "不等率の分子・分母を逆にしない。非負の需要の同一期間なら通常D≥1。",
+        "古い問題の正解を現在の設備の適用規定として使わない。出題当時の条件と現行条文を分けて確認する。"
+      ],
+      "example": {
+        "question": "設備容量500 kW、需要率0.6、1日の負荷率0.5。最大需要電力と1日電力量は？",
+        "steps": [
+          "P最大=500×0.6=300 kW。",
+          "P平均=300×0.5=150 kW。",
+          "W=150×24=3600 kWh。"
+        ],
+        "answer": "最大300 kW、1日3600 kWh。"
+      },
+      "checks": [
+        {
+          "question": "2需要家の最大が200 kWと300 kW、合成最大が400 kW。不等率は？",
+          "choices": [
+            "0.8",
+            "1.25",
+            "1.5"
+          ],
+          "answer": 1,
+          "explanation": "D=(200+300)/400=1.25。"
+        },
+        {
+          "question": "24時間の電力量2400 kWh、同期間の最大200 kW。負荷率は？",
+          "choices": [
+            "20%",
+            "50%",
+            "100%"
+          ],
+          "answer": 1,
+          "explanation": "P平均=2400/24=100 kW。負荷率=100/200=0.5=50%。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "JEEA：需要率・不等率・負荷率",
+          "url": "https://www.jeea.or.jp/course/contents/12144/",
+          "accessed": "2026-10-04"
+        },
+        {
+          "label": "電気技術者試験センター：第二種 過去の問題と解答",
+          "url": "https://www.shiken.or.jp/chief/second/qa/index.html",
+          "accessed": "2026-10-04"
+        }
+      ]
+    }
+  ]
+}
