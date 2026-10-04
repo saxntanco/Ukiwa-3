@@ -56,7 +56,7 @@ async function loadYear() {
   $('q').value = ui.q;
   [['pdf-problem', D.problemUrl], ['pdf-answer', D.answerUrl], ['pdf-list', D.listUrl]].forEach(([id, u]) => { $(id).href = u; });
   $('private-link').href = D.privateUrl; $('private-link').textContent = `${YEARS[ui.year]} ${KJ}（claude.ai）↗`;
-  $('scope-year').textContent = YEARS[ui.year];
+  $('scope-year').textContent = YEARS[ui.year]; notifyPaper();
   render();
 }
 
@@ -98,12 +98,16 @@ function render() {
 // 全画面ウィンドウ
 function openBlank(id) {
   cur = id; view = stateOf(id) === 'new' ? 'solve' : 'result';
-  if (!$('dlg').open) $('dlg').showModal();
+  if (!$('dlg').open) { $('dlg').showModal(); window.ukiwaEnergySetPane?.('answer'); }
   renderDlg(); $('dhead').focus({ preventScroll: true });
 }
 function closeDlg() { $('dlg').close(); cur = null; render(); }
 function record(x, ok, your) { const r = rec[x.id] || { n: 0 }; r.n++; r.tried = true; sr(r, ok); delete r.feel; r.last = ok; r.your = your; r.t = Date.now(); rec[x.id] = r; saveRec(); }
 
+function notifyPaper(x) {
+ window.ukiwaEnergyPaper = {url:D.problemUrl,year:YEARS[ui.year],subject:KJ,question:x ? x.q : ui.q};
+ window.dispatchEvent(new CustomEvent("ukiwa-energy-paper",{detail:window.ukiwaEnergyPaper}));
+}
 function renderDlg() {
   const x = D.blanks.find(b => b.id === cur), list = visible().some(b => b.id === cur) ? visible() : blanksOfQ();
   $('dhead').textContent = `${YEARS[ui.year]}　問題${x.q}　${x.path}　空欄 ${lab(x)}`;
@@ -115,6 +119,7 @@ function renderDlg() {
   const i = list.findIndex(b => b.id === cur), prev = list[i - 1], next = list[i + 1];
   $('dprev').textContent = prev ? `← ${lab(prev)}` : '最初の空欄です'; $('dprev').disabled = !prev; $('dprev').onclick = () => prev && openBlank(prev.id);
   $('dnext').textContent = next ? `${lab(next)} へ →` : '最後の空欄です'; $('dnext').disabled = !next; $('dnext').onclick = () => next && openBlank(next.id);
+  notifyPaper(x);
   const inner = $('dinner'); inner.replaceChildren();
   const meta = el('div', null, 'k2-meta');
   [YEARS[ui.year], `問題${x.q}`, `小問 ${x.path}`, x.field, x.theme, `難易度 ${x.level}`, `配点 ${x.points}点`, `回答 ${(rec[x.id] || {}).n || 0}回`].forEach(t => meta.append(el('span', t)));

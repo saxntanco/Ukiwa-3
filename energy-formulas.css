@@ -15,3 +15,5 @@
 
 .ef-equation[data-scroll="true"]::before,.ef-table-wrap[data-scroll="true"]::before{content:"左右にスクロール →";display:block;position:sticky;left:0;width:max-content;max-width:100%;padding:3px 8px 9px;color:#54756e;font:12px/1.5 system-ui,sans-serif}
 @media print{.ef-equation::before,.ef-table-wrap::before{display:none!important}}
+
+.ef-rebuild{margin:22px 0 4px;padding:16px;border:1px solid #8bb4ab;border-radius:12px;background:#f0f8f4}.ef-rebuild h4{margin:0 0 8px}.ef-rebuild details{background:#fff;border-radius:8px;padding:10px 12px;margin:10px 0}.ef-rebuild summary{cursor:pointer;font-weight:700}.ef-rebuild p{overflow-wrap:anywhere}

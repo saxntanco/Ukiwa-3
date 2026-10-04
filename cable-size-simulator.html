@@ -19,7 +19,7 @@
 @media(max-width:420px){.load-card .pair{grid-template-columns:1fr;gap:10px}.current-box strong{font-size:18px}.voltage-table{font-size:12px}.result-body{padding:18px 15px}.topnav{font-size:12px}}
 .voltage-track strong{white-space:normal;overflow-wrap:anywhere}
 @media print{.current-grid,.voltage-table{break-inside:avoid}.size-number.word{font-size:26px}#singleResults{margin:12px 0}.result{break-inside:auto}}
-</style>
+.preset-learning{margin:0 0 14px}.preset-learning summary{cursor:pointer;font-weight:800}.preset-learning .choices{display:flex;flex-wrap:wrap;gap:8px}.preset-learning button{max-width:100%;white-space:normal;min-height:44px}</style>
 
 <style id="ukiwa-readable-theme">
 :root{color-scheme:light}html,body{background:var(--island-bg-eaf3f7-100,#eaf3f7)!important;color:var(--island-fg-173749-100,#173749)!important}body{background-image:none!important}input,select,textarea{color:var(--island-fg-173749-100,#173749)!important;background-color:var(--island-bg-ffffff-100,#fff)!important;border-color:var(--island-line-a9c2d0-100,#a9c2d0)!important}input::placeholder,textarea::placeholder{color:var(--island-fg-617888-100,#617888)!important}a{color:var(--island-fg-096e92-100,#096e92)}body:before,body:after{background-image:none!important}pre,code{color:var(--island-fg-23475b-100,#23475b)}::selection{background:var(--island-bg-bce3ed-100,#bce3ed);color:var(--island-fg-12374b-100,#12374b)}
@@ -34,7 +34,7 @@
 <div class="heading"><div><p class="eyebrow">低圧 CV・CVD・CVT</p><h1>電線の太さ相談</h1><p>単相3線・単相2線・三相3線。電流と距離から太さを比べる。</p></div></div>
 <noscript><p class="errorbox">計算にはJavaScriptを有効にしてください。</p></noscript>
 <div class="layout">
-<form class="panel input-panel" id="form" novalidate>
+<form class="panel input-panel" id="form" novalidate><details class="preset-learning"><summary>計算の入力例（値を置き換えます）</summary><p class="help">原理を比べる学習用の条件です。採用断面積を指定するものではありません。</p><div class="choices"><button type="button" data-cable-example="single">単相2線：30A・30m</button><button type="button" data-cable-example="three">三相：50A・80m</button><button type="button" data-cable-example="uneven">単相3線：50A／30A</button></div><p id="cable-example-note" class="help" aria-live="polite"></p></details>
 <div class="input-head"><h2>どんな回路？</h2><button class="textbtn" type="button" id="reset">入力例に戻す</button></div>
 <p class="help" style="margin-bottom:14px"><span class="sampletag" id="sampleTag">初期値は入力例</span> 入力例を実際の条件に置き換えてください。</p>
 <div class="pair"><div class="field"><label for="supply">電源</label><select id="supply"><option value="single3">単相3線 100/200V</option><option value="three200">三相3線 200V</option><option value="three400">三相3線 400V</option><option value="single100">単相2線 100V</option><option value="single200">単相2線 200V</option></select></div><div class="field"><label for="cable">ケーブル</label><select id="cable"><option value="CVT">CVT（単心3個より）</option><option value="CV">CV（3心）</option></select></div></div>
@@ -455,9 +455,15 @@ const CableCalc = (() => {
   document.querySelectorAll('[data-limit]').forEach(b=>b.addEventListener('click',()=>{$('limit').value=b.dataset.limit;isSample=false;render();}));
   $('showAll').addEventListener('click',()=>{all=!all;if(last&&shown)renderTable(last,shown);});
   $('rows').addEventListener('click',e=>{const b=e.target.closest('[data-size]');if(!b)return;$('existing').value=b.dataset.size;setMode('check');render();$('results').scrollIntoView({block:'start'});});
-  $('reset').addEventListener('click',()=>{form.reset();isSample=true;all=false;setMode('find');cableOptions();$('cable').value='CVT';sizeOptions();$('existing').value=22;render();});
+  $('reset').addEventListener('click',()=>{HTMLFormElement.prototype.reset.call(form);$('cable-example-note').textContent='';isSample=true;all=false;setMode('find');cableOptions();$('cable').value='CVT';sizeOptions();$('existing').value=22;render();});
   $('copy').addEventListener('click',async()=>{const s=brief();if(!s)return;try{if(!navigator.clipboard)throw new Error('clipboard unavailable');await navigator.clipboard.writeText(s);text('copyStatus','条件・結果・出典をコピーしました。');}catch(e){$('copyFallback').value=s;$('copyFallback').hidden=false;$('copyFallback').focus();$('copyFallback').select();text('copyStatus','下の文章を選択してコピーできます。');}});
   $('print').addEventListener('click',()=>{if(last&&shown){$('copyFallback').hidden=true;window.print();}});
+  document.querySelectorAll('[data-cable-example]').forEach(b=>b.addEventListener('click',()=>{
+    HTMLFormElement.prototype.reset.call(form);
+    const samples={single:{supply:'single100',voltage:100,load:30,length:30,note:'CV 22mm²・50Hz・力率1、片道30m。電圧降下1.944Vを確認できます。'},three:{supply:'three200',voltage:200,load:50,length:80,note:'CV 22mm²・50Hz・力率0.9。電圧降下約6.98V。38mm²と比較してみよう。'},uneven:{supply:'single3',voltage:200,load:50,length:30,note:'左右線電流50A／30A、力率は両側1。中性線20A。200V負荷の重複加算はしません。'}};
+    const p=samples[b.dataset.cableExample];Object.entries({supply:p.supply,voltage:p.voltage,loadMode:'A',load:p.load,length:p.length,pf:b.dataset.cableExample==='three'?'0.9':'1',singleInput:'lines',line1:50,line2:30,line1Pf:'1',line2Pf:'1',installation:'air',frequency:50,ambient:40,limit:3}).forEach(([id,v])=>$(id).value=v);
+    cableOptions();$('cable').value=b.dataset.cableExample==='uneven'?'CVT':'CV';sizeOptions();$('existing').value=22;setMode('check');isSample=true;all=false;$('cable-example-note').textContent=p.note;render();
+  }));
   cableOptions();render();
 })();
 

@@ -52,3 +52,5 @@
 .tr-go{display:flex;flex-wrap:wrap;gap:10px}
 .tr-go a{display:inline-block;padding:10px 16px;border-radius:9px;background:#155d58;color:#fff;text-decoration:none;font-weight:600}
 @media (max-width:520px){.hero{flex-direction:column;align-items:flex-start}.scope{text-align:left}.tr-stat b{font-size:26px}.tr-pair{grid-template-columns:1fr}}
+
+.tr-assumption{padding:12px 15px;border-left:4px solid #b77924;background:#fff6e2;border-radius:8px;margin:14px 0;font-size:14px;line-height:1.75;color:#574117}.tr-assumption p{margin:6px 0 0}

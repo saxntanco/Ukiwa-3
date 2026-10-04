@@ -1,5 +1,17 @@
 /* Curated page purposes; not equipment operating instructions. */
 window.UkiwaPrivateContents = [
+{
+  "path": "denken-foundations.html",
+  "title": "電験二種：親公式から復元する12テーマ",
+  "category": "学習・遊び",
+  "description": "記号・条件・短い導出から復元し、自作例題12題・確認24問で確かめる。",
+  "tags": "電験 二種 親公式 導出 電界 磁界 交流 三相 過渡 変圧器 短絡 誘導機 同期機 制御 発電 需要率",
+  "related": [
+    "denken-study.html",
+    "denken-step.html",
+    "hidden-menu.html"
+  ]
+},
   {
     "path": "hidden-menu.html",
     "title": "うきわの隠れ家",
@@ -19,8 +31,8 @@ window.UkiwaPrivateContents = [
     "description": "過去問・空欄・独自解説・学習記録から復習。",
     "tags": "電験 二種 理論 電力 機械 法規",
     "related": [
+      "denken-foundations.html",
       "denken-step.html",
-      "energy-study.html",
       "hidden-menu.html"
     ]
   },
@@ -110,9 +122,9 @@ window.UkiwaPrivateContents = [
   },
   {
     "path": "energy-open-practice.html",
-    "title": "熱・電気のオリジナル基礎8問",
+    "title": "熱・電気のオリジナル基礎26問",
     "category": "学習・遊び",
-    "description": "PDF不要の基礎演習で、単位・親公式・途中式を確認。",
+    "description": "熱20問・電気6問で、条件・単位・親公式・途中式・検算を確認。",
     "tags": "エネ管 基礎 熱 電気 単位",
     "related": [
       "energy-kamoku2.html",
