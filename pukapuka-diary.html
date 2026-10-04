@@ -12,10 +12,159 @@
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.03</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.04</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="tokko-oil-ground-20261003" data-update-date="2026/10/03">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="evt-zpd-backfeed-20261004" data-update-date="2026/10/04">
+<div class="date">2026.10.04｜今日のなんで？・DGR / 零相電圧</div>
+<h2>T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？<br>電磁形EVTとコンデンサ形ZPDで答えが逆になる</h2>
+<div class="danger audit-preconditions"><strong>作業の前に確認すること</strong><br>原理を整理する記事です。実際の試験では、対象の零相電圧検出装置（EVT・ZPD・零相電圧変換器）と継電器の型式、展開接続図、取扱説明書で入力位置と切り離し箇所を確認します。高圧側の停電・検電・放電、作業用短絡接地の状態、制御用直流電源の状態を責任者と確認し、不明点が残る場合は試験電圧を入れません。</div>
+<p class="lead"><a href="#first-medimul">「初めてMEDIMULを触った日のこと」</a>で未解決にしていた疑問、<b>「接地用コンデンサや大型EVTを切り離さずに零相電圧を入れると、高圧側へステップアップするのか？」</b>を、原理から整理しました。</p>
+
+<h3 id="evt-zpd-conclusion">まず結論</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>電磁形EVT（変圧器）</b><br>つないだまま三次側から入れると、<b>巻数比のぶんステップアップして高圧側に出る</b>。三次190/3Vの例なら約20倍。190V入れると、高圧の各相に約3,800Vが出る計算。</div>
+<div class="checkcard"><b>コンデンサ形ZPD（分圧）</b><br>つないだまま接地用コンデンサ側から入れても、<b>入れた電圧より大きくはならない</b>。高圧の線路側にはほとんど電圧が出ない。切り離す理由は「昇圧」ではなく別にある。</div>
+</div>
+<p>つまり、<b>「切り離さないとステップアップするか」は、その先にあるのが変圧器かコンデンサかで答えが逆</b>になります。日誌で「逆励磁するのでは？」と考えたのは、電磁形EVTについては正解でした。</p>
+
+<h3 id="evt-zpd-evt">1. 電磁形EVTってどんなもの？</h3>
+<p>EVT（接地形計器用変圧器）は、<b>鉄心に巻線を巻いた変圧器</b>です。一次側を高圧の各相と大地の間（Y結線・中性点接地）につなぎ、三次側を<b>オープンデルタ（三角形の一か所を開いた結線）</b>にして、そこから零相電圧を取り出します。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 360" role="img" aria-label="電磁形EVTの外観イメージ。上部に高圧端子のがいし3本、本体、側面に低圧端子箱と銘板">
+<rect x="0" y="0" width="760" height="360" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">電磁形EVTの外観イメージ（説明用イラスト）</text>
+<g>
+<rect x="215" y="40" width="22" height="70" rx="6" fill="#cfe3ef"/><rect x="209" y="56" width="34" height="8" rx="4" fill="#a9c6d8"/><rect x="209" y="74" width="34" height="8" rx="4" fill="#a9c6d8"/><rect x="209" y="92" width="34" height="8" rx="4" fill="#a9c6d8"/>
+<rect x="285" y="40" width="22" height="70" rx="6" fill="#cfe3ef"/><rect x="279" y="56" width="34" height="8" rx="4" fill="#a9c6d8"/><rect x="279" y="74" width="34" height="8" rx="4" fill="#a9c6d8"/><rect x="279" y="92" width="34" height="8" rx="4" fill="#a9c6d8"/>
+<rect x="355" y="40" width="22" height="70" rx="6" fill="#cfe3ef"/><rect x="349" y="56" width="34" height="8" rx="4" fill="#a9c6d8"/><rect x="349" y="74" width="34" height="8" rx="4" fill="#a9c6d8"/><rect x="349" y="92" width="34" height="8" rx="4" fill="#a9c6d8"/>
+<text x="192" y="104" fill="#ffd27a" font-size="15" font-weight="800">U</text><text x="262" y="104" fill="#ffd27a" font-size="15" font-weight="800">V</text><text x="330" y="104" fill="#ffd27a" font-size="15" font-weight="800">W</text>
+<rect x="170" y="110" width="250" height="190" rx="14" fill="#5f7f95" stroke="#9fc0d4" stroke-width="3"/>
+<rect x="190" y="130" width="210" height="150" rx="10" fill="#4c6b80"/>
+<line x1="200" y1="150" x2="390" y2="150" stroke="#6f90a6" stroke-width="2"/><line x1="200" y1="175" x2="390" y2="175" stroke="#6f90a6" stroke-width="2"/><line x1="200" y1="200" x2="390" y2="200" stroke="#6f90a6" stroke-width="2"/><line x1="200" y1="225" x2="390" y2="225" stroke="#6f90a6" stroke-width="2"/><line x1="200" y1="250" x2="390" y2="250" stroke="#6f90a6" stroke-width="2"/>
+<rect x="420" y="170" width="70" height="90" rx="8" fill="#3f5c70" stroke="#9fc0d4" stroke-width="2"/>
+<circle cx="440" cy="195" r="5" fill="#ffd27a"/><circle cx="470" cy="195" r="5" fill="#ffd27a"/><circle cx="440" cy="220" r="5" fill="#ffd27a"/><circle cx="470" cy="220" r="5" fill="#ffd27a"/><circle cx="440" cy="245" r="5" fill="#8ed0fa"/><circle cx="470" cy="245" r="5" fill="#8ed0fa"/>
+<rect x="230" y="300" width="130" height="14" fill="#3f5c70"/><line x1="295" y1="314" x2="295" y2="336" stroke="#7ee08a" stroke-width="4"/><line x1="275" y1="336" x2="315" y2="336" stroke="#7ee08a" stroke-width="4"/><line x1="282" y1="343" x2="308" y2="343" stroke="#7ee08a" stroke-width="3"/><line x1="289" y1="350" x2="301" y2="350" stroke="#7ee08a" stroke-width="2"/>
+</g>
+<path d="M392 70 L520 70" stroke="#ffd27a" stroke-width="2"/><text x="526" y="75" fill="#ffd27a" font-size="15" font-weight="700">高圧端子（各相へ）</text>
+<path d="M490 215 L540 215" stroke="#dff4ff" stroke-width="2"/><text x="546" y="210" fill="#dff4ff" font-size="15" font-weight="700">低圧端子箱</text><text x="546" y="230" fill="#9fc0d4" font-size="13">二次・三次（オープンデルタ）</text>
+<path d="M315 336 L520 336" stroke="#7ee08a" stroke-width="2"/><text x="526" y="341" fill="#7ee08a" font-size="15" font-weight="700">一次の中性点・ケースは接地</text>
+<rect x="526" y="100" width="210" height="76" rx="8" fill="#0b2b4b" stroke="#3a79a3"/>
+<text x="538" y="122" fill="#dff4ff" font-size="13" font-weight="700">銘板の電圧（例）</text>
+<text x="538" y="142" fill="#cfe3ef" font-size="13">一次 6600/√3 V</text>
+<text x="538" y="160" fill="#cfe3ef" font-size="13">二次 110/√3 V・三次 190/3 V</text>
+<text x="24" y="352" fill="#9fc0d4" font-size="12">実物の形はメーカー・定格で異なります（モールド形・油入形など）。</text>
+</svg>
+</div>
+<p>見た目の特徴は、<b>上に高圧端子が3つ並び、本体の中に鉄心と巻線</b>が入っていること。ずっしり重い「変圧器」です。銘板に<b>一次・二次・三次の電圧</b>が書いてあれば、まず電磁形を疑えます。</p>
+
+<h3 id="evt-zpd-evtwire">2. EVTの結線と、三次側から入れたときに起きること</h3>
+<div class="diagram-card">
+<svg viewBox="0 0 760 380" role="img" aria-label="EVTの結線図。一次はY結線で中性点接地、三次はオープンデルタ。三次側から試験電圧を入れると高圧側に約20倍の電圧が出る">
+<defs><marker id="arrEVT" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#ff8f8f"/></marker></defs>
+<rect x="0" y="0" width="760" height="380" rx="14" fill="#06213a"/>
+<text x="24" y="32" fill="#dff4ff" font-size="19" font-weight="800">電磁形EVT：つないだまま三次側から入れると</text>
+<line x1="40" y1="70" x2="420" y2="70" stroke="#ffd27a" stroke-width="4"/><line x1="40" y1="95" x2="420" y2="95" stroke="#ffd27a" stroke-width="4"/><line x1="40" y1="120" x2="420" y2="120" stroke="#ffd27a" stroke-width="4"/>
+<text x="430" y="76" fill="#ffd27a" font-size="14">U</text><text x="430" y="101" fill="#ffd27a" font-size="14">V</text><text x="430" y="126" fill="#ffd27a" font-size="14">W</text>
+<line x1="110" y1="70" x2="110" y2="150" stroke="#ffd27a" stroke-width="3"/><line x1="200" y1="95" x2="200" y2="150" stroke="#ffd27a" stroke-width="3"/><line x1="290" y1="120" x2="290" y2="150" stroke="#ffd27a" stroke-width="3"/>
+<rect x="95" y="150" width="30" height="50" rx="6" fill="none" stroke="#ffd27a" stroke-width="3"/><rect x="185" y="150" width="30" height="50" rx="6" fill="none" stroke="#ffd27a" stroke-width="3"/><rect x="275" y="150" width="30" height="50" rx="6" fill="none" stroke="#ffd27a" stroke-width="3"/>
+<text x="140" y="180" fill="#cfe3ef" font-size="13">一次（Y結線）</text>
+<line x1="110" y1="200" x2="110" y2="215" stroke="#ffd27a" stroke-width="3"/><line x1="200" y1="200" x2="200" y2="215" stroke="#ffd27a" stroke-width="3"/><line x1="290" y1="200" x2="290" y2="215" stroke="#ffd27a" stroke-width="3"/>
+<line x1="110" y1="215" x2="290" y2="215" stroke="#ffd27a" stroke-width="3"/><line x1="200" y1="215" x2="200" y2="232" stroke="#7ee08a" stroke-width="3"/><line x1="186" y1="232" x2="214" y2="232" stroke="#7ee08a" stroke-width="3"/><line x1="192" y1="238" x2="208" y2="238" stroke="#7ee08a" stroke-width="3"/>
+<text x="220" y="236" fill="#7ee08a" font-size="13">中性点接地</text>
+<line x1="70" y1="262" x2="330" y2="262" stroke="#7a97ab" stroke-width="2" stroke-dasharray="6 5"/><text x="340" y="267" fill="#9fc0d4" font-size="13">同じ鉄心（磁気でつながる）</text>
+<rect x="95" y="280" width="30" height="40" rx="6" fill="none" stroke="#8ed0fa" stroke-width="3"/><rect x="185" y="280" width="30" height="40" rx="6" fill="none" stroke="#8ed0fa" stroke-width="3"/><rect x="275" y="280" width="30" height="40" rx="6" fill="none" stroke="#8ed0fa" stroke-width="3"/>
+<line x1="125" y1="300" x2="185" y2="300" stroke="#8ed0fa" stroke-width="3"/><line x1="215" y1="300" x2="275" y2="300" stroke="#8ed0fa" stroke-width="3"/>
+<line x1="95" y1="300" x2="70" y2="300" stroke="#8ed0fa" stroke-width="3"/><line x1="70" y1="300" x2="70" y2="350" stroke="#8ed0fa" stroke-width="3"/><line x1="305" y1="300" x2="330" y2="300" stroke="#8ed0fa" stroke-width="3"/><line x1="330" y1="300" x2="330" y2="350" stroke="#8ed0fa" stroke-width="3"/>
+<text x="120" y="345" fill="#8ed0fa" font-size="13">三次（オープンデルタ）</text>
+<rect x="470" y="300" width="250" height="56" rx="10" fill="#0b2b4b" stroke="#3a79a3"/><text x="484" y="324" fill="#dff4ff" font-size="15" font-weight="700">試験器（T-E相当へ入力）</text><text x="484" y="344" fill="#cfe3ef" font-size="13">例：V₀ = 190 V を印加</text>
+<line x1="330" y1="350" x2="470" y2="335" stroke="#8ed0fa" stroke-width="2"/>
+<path d="M470 290 C 430 220, 400 160, 330 140" fill="none" stroke="#ff8f8f" stroke-width="4" marker-end="url(#arrEVT)"/>
+<rect x="470" y="140" width="270" height="110" rx="10" fill="#3b1420" stroke="#ff8f8f"/>
+<text x="484" y="166" fill="#ffd0d0" font-size="15" font-weight="800">高圧側の各相に</text>
+<text x="484" y="190" fill="#ffd0d0" font-size="15">190V ÷ 3 × (6600/√3) ÷ (190/3)</text>
+<text x="484" y="214" fill="#ffffff" font-size="19" font-weight="800">≒ 3,810 V（対地）</text>
+<text x="484" y="238" fill="#ffd0d0" font-size="13">完全地絡と同じ大きさ（三次190/3Vの例）</text>
+</svg>
+</div>
+<p>EVTは一次と三次が<b>同じ鉄心でつながった変圧器</b>です。変圧器は向きを問わず働くので、三次側に電圧を入れると、一次側に<b>巻数比のぶん大きな電圧</b>が出ます（逆加圧・逆励磁）。</p>
+<div class="flow">オープンデルタに 190 V を入れる<br>↓<br>三次巻線1個あたり 190 ÷ 3 ≒ 63 V<br>↓<br>巻数比（6600/√3）÷（190/3）≒ 60 倍<br>↓<br>一次巻線1個あたり（高圧の各相－大地間）≒ 3,810 V</div>
+<p>入れた電圧のざっと<b>20倍</b>が、高圧の各相と大地の間に出る計算です（三次190/3Vの例。三次の定格が違えば倍率も変わります）。10V入れただけでも約200Vです。</p>
+<div class="panic"><b>⚠️ 電磁形EVTをつないだまま入れると、危ないことが2つある</b>
+<p><b>① 停電しているはずの高圧側が充電される</b>：高圧側で作業している人がいれば感電の危険。高圧ケーブルが長ければ充電電流も流れます。</p>
+<p><b>② 高圧側が作業用短絡接地されていたら、逆に試験器から大電流</b>：一次側が短絡されているので、三次側から見ると短絡に近い状態。試験器や配線に大きな電流が流れます。</p>
+<p>どちらにしても、<b>EVTは試験回路から切り離してから入れる</b>のが筋。<a href="#ovr-ovgr-mistake">OVR/OVGRの記事</a>で書いた「V₀端子に10Vを入れてしまった」も、先にEVTがつながっていたら同じことが起きます。</p></div>
+
+<h3 id="evt-zpd-zpd">3. コンデンサ形ZPDは「分ける」だけ</h3>
+<p>ZPD（零相電圧検出器）は、高圧の各相に<b>小さな容量のコンデンサ（C1）</b>をつなぎ、その共通点と大地の間の<b>接地用コンデンサ（C2、容量が大きい）</b>で分圧して、小さな零相電圧を取り出します。ZPDと継電器の間に<b>零相電圧変換器</b>が入る構成もあります。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 380" role="img" aria-label="ZPDの結線図。各相の小さなコンデンサC1が中性点Nに集まり、接地用コンデンサC2で大地へ。C2側から試験電圧を入れても線路側には小さな電圧しか出ない">
+<rect x="0" y="0" width="760" height="380" rx="14" fill="#06213a"/>
+<text x="24" y="32" fill="#dff4ff" font-size="19" font-weight="800">コンデンサ形ZPD：つないだまま接地用コンデンサ側から入れると</text>
+<line x1="40" y1="70" x2="420" y2="70" stroke="#ffd27a" stroke-width="4"/><line x1="40" y1="95" x2="420" y2="95" stroke="#ffd27a" stroke-width="4"/><line x1="40" y1="120" x2="420" y2="120" stroke="#ffd27a" stroke-width="4"/>
+<text x="430" y="76" fill="#ffd27a" font-size="14">U</text><text x="430" y="101" fill="#ffd27a" font-size="14">V</text><text x="430" y="126" fill="#ffd27a" font-size="14">W</text>
+<line x1="110" y1="70" x2="110" y2="160" stroke="#ffd27a" stroke-width="3"/><line x1="200" y1="95" x2="200" y2="160" stroke="#ffd27a" stroke-width="3"/><line x1="290" y1="120" x2="290" y2="160" stroke="#ffd27a" stroke-width="3"/>
+<line x1="96" y1="160" x2="124" y2="160" stroke="#cfe3ef" stroke-width="4"/><line x1="96" y1="170" x2="124" y2="170" stroke="#cfe3ef" stroke-width="4"/>
+<line x1="186" y1="160" x2="214" y2="160" stroke="#cfe3ef" stroke-width="4"/><line x1="186" y1="170" x2="214" y2="170" stroke="#cfe3ef" stroke-width="4"/>
+<line x1="276" y1="160" x2="304" y2="160" stroke="#cfe3ef" stroke-width="4"/><line x1="276" y1="170" x2="304" y2="170" stroke="#cfe3ef" stroke-width="4"/>
+<text x="130" y="168" fill="#cfe3ef" font-size="13">C1</text><text x="220" y="168" fill="#cfe3ef" font-size="13">C1</text><text x="310" y="168" fill="#cfe3ef" font-size="13">C1</text>
+<line x1="110" y1="170" x2="110" y2="200" stroke="#cfe3ef" stroke-width="3"/><line x1="200" y1="170" x2="200" y2="200" stroke="#cfe3ef" stroke-width="3"/><line x1="290" y1="170" x2="290" y2="200" stroke="#cfe3ef" stroke-width="3"/>
+<line x1="110" y1="200" x2="290" y2="200" stroke="#cfe3ef" stroke-width="3"/><circle cx="200" cy="200" r="6" fill="#ffd27a"/><text x="212" y="196" fill="#ffd27a" font-size="14" font-weight="800">N</text>
+<line x1="200" y1="200" x2="200" y2="260" stroke="#cfe3ef" stroke-width="3"/>
+<line x1="176" y1="260" x2="224" y2="260" stroke="#8ed0fa" stroke-width="5"/><line x1="176" y1="272" x2="224" y2="272" stroke="#8ed0fa" stroke-width="5"/><text x="232" y="270" fill="#8ed0fa" font-size="14" font-weight="700">C2 接地用コンデンサ</text>
+<line x1="200" y1="272" x2="200" y2="320" stroke="#cfe3ef" stroke-width="3"/><line x1="182" y1="320" x2="218" y2="320" stroke="#7ee08a" stroke-width="3"/><line x1="189" y1="327" x2="211" y2="327" stroke="#7ee08a" stroke-width="3"/><line x1="195" y1="334" x2="205" y2="334" stroke="#7ee08a" stroke-width="3"/>
+
+<rect x="470" y="250" width="260" height="70" rx="10" fill="#0b2b4b" stroke="#3a79a3"/><text x="484" y="276" fill="#dff4ff" font-size="15" font-weight="700">試験器 → C2の両端（T-E相当）</text><text x="484" y="298" fill="#cfe3ef" font-size="13">Nの電圧 = 入れた電圧 V</text>
+<line x1="230" y1="285" x2="470" y2="285" stroke="#8ed0fa" stroke-width="2"/>
+<rect x="470" y="110" width="260" height="110" rx="10" fill="#0f3a2c" stroke="#7ee08a"/>
+<text x="484" y="136" fill="#d3ffd9" font-size="15" font-weight="800">線路側に出る電圧</text>
+<text x="484" y="160" fill="#d3ffd9" font-size="15">V × C1 ÷ (C1 ＋ 線路の対地容量)</text>
+<text x="484" y="186" fill="#ffffff" font-size="18" font-weight="800">→ いつも V より小さい</text>
+<text x="484" y="208" fill="#d3ffd9" font-size="13">コンデンサの分圧は「分ける」だけ</text>
+</svg>
+</div>
+<p>C2の両端に電圧 V を入れると、中性点Nが V になります。そこから先は、<b>小さなC1と、線路の大きな対地静電容量の分圧</b>です。</p>
+<div class="tool"><b>仮の値で計算してみる</b><br>C1 = 250 pF（各相）、線路（高圧ケーブル）の対地静電容量 = 4,500 pF（各相）とすると、<br>線路側の電圧 ＝ V × 250 ÷（250 ＋ 4,500）≒ <b>V の約 1/19</b>。<br>線路がごく短く対地容量が小さくても、近づくのは<b>最大で V まで</b>。V を超えることはありません。</div>
+<p>コンデンサだけの回路には<b>巻数比のような「増やす仕組み」がない</b>ので、ステップアップは起きません。ここがEVTとの決定的な違いです。</p>
+
+<h3 id="evt-zpd-why">4. それでも切り離す手順があるのはなぜ？</h3>
+<p>ZPDで昇圧しないなら、切り離さなくてもいい？　そう単純ではありません。理由として考えられるのは、次のようなものです。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>① 試験器の負担</b><br>C2は容量が大きいので、つないだままだと試験器から充電電流が流れます。試験器の出力が足りないと電圧が上がらない・ふらつくことがあります。</div>
+<div class="checkcard"><b>② 系統側の影響</b><br>高圧側に残留電圧や誘導があると、C1→C2経由で試験回路に入り、試験値が乱れることがあります。</div>
+<div class="checkcard"><b>③ 換算の前提がずれる</b><br>継電器のT-E端子は「どの回路につながった状態で、何Vが整定値の何%に当たるか」を決めて作られています。ZPDや変換器をつないだままにするかどうかで、その前提が変わる機種があります。</div>
+<div class="checkcard"><b>④ ほかの機器へも入る</b><br>同じ零相電圧を複数の継電器・表示器が使っていると、そちらにも試験電圧が入って動作・表示します。</div>
+</div>
+<p>どれが当てはまるか、そもそも切り離しが必要かは<b>機種ごとの取扱説明書が答え</b>です。「T-Eだからこう」と一つに覚えないこと。</p>
+
+<h3 id="evt-zpd-compare">5. EVTとZPDの違いを一枚で</h3>
+<div class="table-scroll"><table>
+<tr><th></th><th>電磁形EVT</th><th>コンデンサ形ZPD</th></tr>
+<tr><td>中身</td><td>鉄心＋巻線（変圧器）</td><td>コンデンサ（＋変換器）</td></tr>
+<tr><td>零相電圧の取り出し</td><td>三次オープンデルタ</td><td>C1とC2の分圧</td></tr>
+<tr><td>低圧側から入れると</td><td><b>巻数比でステップアップ</b>（例：約20倍）</td><td><b>ステップアップしない</b>（入れた電圧以下）</td></tr>
+<tr><td>つないだまま入れる主な問題</td><td>高圧側の充電・短絡接地時の大電流</td><td>試験器の負担・系統の影響・換算のずれ</td></tr>
+<tr><td>見分けるヒント</td><td>重い本体、銘板に一次・二次・三次電圧</td><td>小型、銘板に容量（pF）や「零相電圧検出」</td></tr>
+</table></div>
+
+<h3 id="evt-zpd-medimul">6. MEDIMULの現場に当てはめると</h3>
+<p>あのとき切り離した<b>大型の機器が電磁形EVTだったなら</b>、切り離しの一番の理由は<b>逆加圧によるステップアップを防ぐため</b>で筋が通ります。その先の<b>小型の機器（ZPD系や変換器）のT-E</b>から入れたのは、継電器が見る零相電圧をそこで作っていたからだと考えられます。</p>
+<p>ただし、当時の機器の型式と展開接続図はまだ確認できていないので、<b>「たぶんこう」止まり</b>です。次に同じ設備を見るときの確認ポイントはこれです。</p>
+<div class="flow">大型機器の銘板：一次・二次・三次電圧があるか（＝電磁形EVT）<br>↓<br>小型機器の銘板：容量（pF）や零相電圧変換器の表示<br>↓<br>展開接続図：T-Eの先がどこにつながっているか<br>↓<br>取扱説明書：試験時の切り離し箇所と試験電圧の換算</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>変圧器（EVT）は逆からでも巻数比で昇圧する。コンデンサ（ZPD）は分けるだけで昇圧しない。</b></p>
+<p>「切り離さないとステップアップするか」の答えは、T-Eの先にあるのが<b>変圧器かコンデンサか</b>で決まる。分からなければ、銘板と展開接続図で確かめてから入れる。</p>
+</section>
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
+<li>EVTの逆加圧の倍率は、変圧器の電圧比（巻数比）からの計算です。三次190/3 Vは例で、実機の定格は銘板で確認してください。</li>
+<li>ZPDの計算は、コンデンサの直列分圧の原理による仮の値です。C1・C2の実際の容量、零相電圧変換器の有無、T-E端子の換算は機種で異なります。</li>
+<li>参考にしようとした解説記事（<a href="https://jinden-tool.com/zpd/" target="_blank" rel="noopener">jinden-tool.com「ZPD」</a>）とメーカー資料は、この記事を書いた環境から閲覧できなかったため、内容は照合していません。</li>
+</ul></div>
+<div class="note">※ 本記事は原理を整理した日誌です。実際の保護継電器試験では、現場責任者、社内手順、操作票、展開接続図、機器の取扱説明書を確認してください。作業手順書ではありません。</div>
+</article>
+<article class="entry" id="tokko-oil-ground-20261003" data-update-date="2026/10/03">
 <div class="date">2026.10.03｜特高変電所・点検</div>
 <h2>特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。<br>接地極側と設備側を分けて測る理由。</h2>
 <div class="danger audit-preconditions"><strong>作業の前に確認すること</strong><br>これは当日の経験記録です。採油は変圧器メーカー・分析会社の手順と専用容器に従い、充電部との離隔・停電範囲を責任者と確認してから行います。接地線を外すと、その間は設備側が接地されていない状態になります。外せる条件（停電範囲・作業区域・外している時間）を事前に責任者と決め、測定後は確実に再接続して締付けを確認します。</div>
@@ -1022,6 +1171,7 @@ Vb ── [過電流側：閉] ── Vc</div></div>
 
 <section class="memo">
   <h3>🛟 この疑問は、まだ「未解決」にしておく</h3>
+  <div class="tool"><b>2026.10.04 追記：途中まで分かった</b><br>電磁形EVTなら、つないだまま入れると巻数比でステップアップする。コンデンサ形ZPDならステップアップはしない。続きは <a href="#evt-zpd-backfeed-20261004">「T-Eから零相電圧を入れると、高圧側へステップアップする？」</a> に整理しました。</div>
   <p>この部分については、今のところ無理に答えを出さないことにしました。</p>
 
   <p>当時の現場では、</p>
