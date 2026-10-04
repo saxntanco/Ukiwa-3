@@ -6,7 +6,7 @@
   <meta name="description" content="2022〜2026年の熱分野・課目ⅡとⅣ、60大問をもとに整理。12の親公式セットから、条件と式変形でボイル・シャルル、ポンプ動力、熱交換器、制御を復元する学習ガイド。">
   <title>エネルギー管理士 親公式から覚える｜うきわメモ</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="energy-formulas.css?v=1">
+  <link rel="stylesheet" href="energy-formulas.css?v=20261004-1">
   <script src="energy-formulas.js?v=1" defer></script>
 </head>
 <body>
@@ -48,6 +48,7 @@
 <p class="ef-muted">mを使うRと、物質量nを使う一般気体定数は単位が異なる。mRとnR̄を混同しない。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2022・2025年のⅡ問4で気体の状態量。2023・2026年のⅡ問4では、気体サイクルの各状態を結ぶ基本になる。</p>
 <a class="ef-next" href="#formula-02">次：02 第一法則と比熱 →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>PV=mRTで、Pとmを一定にしたら、VとTのどんな比が一定になる？</p><details><summary>考え方を確かめる</summary><p>両辺をPTで割るとV/T=mR/P。右辺が一定だからV/Tが一定。Tは絶対温度K。V・T自体が一定なのではない。</p></details><a class="ef-next" href="energy-open-practice.html#gas-charles">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-02">
 <summary><span class="ef-number">02</span><span class="ef-summary-text"><span class="ef-topic-label">熱力学 <span class="ef-badge">基本</span></span><strong>第一法則と比熱</strong><span class="ef-preview">Q = ΔU + W → 熱量・仕事・比熱</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -65,6 +66,7 @@
 <p class="ef-muted">等温の準静的変化なら W = mRT ln(V₂/V₁)。「温度が変わらない」は「熱の出入りがない」と同じではない。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2022・2025年のⅡ問4で比熱、定積／定圧変化、内部エネルギー、仕事。2026年のⅡ問4でも定積受熱・放熱を使う。</p>
 <a class="ef-next" href="#formula-03">次：03 流れる系のエネルギー →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>Q=ΔU+Wから、理想気体を定積で温める熱量を作るには？</p><details><summary>考え方を確かめる</summary><p>閉じた系で体積仕事のみなら定積でW=0。Q=ΔU=mcᵥΔT。比熱一定が必要。cₚではなくcᵥを使う。</p></details><a class="ef-next" href="energy-open-practice.html#heat-cv">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-03">
 <summary><span class="ef-number">03</span><span class="ef-summary-text"><span class="ef-topic-label">熱力学 <span class="ef-badge">基本</span></span><strong>流れる系のエネルギー</strong><span class="ef-preview">流量 × hの差 → ボイラ・タービン・冷凍</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -81,6 +83,7 @@
 <p class="ef-muted">熱源側と受熱側の外部損失が無視できれば、放出した熱量＝受け取った熱量。これが熱交換器・空調へつながる。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>5年ともⅡ問5で蒸気または冷媒のhを扱う。Ⅳ問13はボイラ、問15は熱交換器、問16は冷凍・空調でこの考え方を使う。</p>
 <a class="ef-next" href="#formula-04">次：04 エントロピーと可逆断熱 →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>流れる系の第一法則で、断熱タービンの出力に残る項は？</p><details><summary>考え方を確かめる</summary><p>定常、一入口一出口、断熱、運動・位置エネルギー変化を無視するとw=h₁−h₂。質量流量を掛ければ軸出力ṁ(h₁−h₂)。</p></details><a class="ef-next" href="energy-open-practice.html#flow-turbine">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-04">
 <summary><span class="ef-number">04</span><span class="ef-summary-text"><span class="ef-topic-label">熱力学 <span class="ef-badge">展開</span></span><strong>エントロピーと可逆断熱</strong><span class="ef-preview">ds = δq_rev / T → 断熱の関係・カルノー</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -100,6 +103,7 @@
 <p class="ef-muted">成立条件は「理想気体・可逆断熱・比熱一定」。断熱だけでは等エントロピーとは限らない。絞り弁は通常h一定であり、s一定ではない。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>Ⅱ問4：2022・2025年は気体のエントロピー、2024年はカルノー、2026年はオットー。Ⅱ問5の理想タービン／圧縮機でもs一定を使う。</p>
 <a class="ef-next" href="#formula-05">次：05 効率・COP →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>PV=mRTに何を追加すれば、可逆断熱のTV^(κ−1)=一定を作れる？</p><details><summary>考え方を確かめる</summary><p>可逆断熱なのでds=0。理想気体でds=cᵥdT/T+RdV/Vを積分し、R/cᵥ=κ−1を使う。比熱一定。状態方程式だけでは出ない。</p></details><a class="ef-next" href="energy-open-practice.html#gas-adiabatic">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-05">
 <summary><span class="ef-number">05</span><span class="ef-summary-text"><span class="ef-topic-label">熱力学 <span class="ef-badge">基本</span></span><strong>効率・COP</strong><span class="ef-preview">欲しいもの ÷ 払ったもの → サイクル効率</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -119,6 +123,7 @@
 <p class="ef-muted">カルノーなら可逆な二熱源間で Q_H/T_H=Q_L/T_L を使い、η=1−T_L/T_H、COP_R=T_L/(T_H−T_L)へ。ここでも温度はK。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2023・2026年Ⅱ問4：オットー効率の導出。2024年Ⅱ問4：カルノーとヒートポンプ。2022・2026年Ⅱ問5：冷凍。5年ともⅣ問13：ボイラの熱収支。</p>
 <a class="ef-next" href="#formula-06">次：06 質量保存 →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>冷凍COPが3なら、同じ境界で暖房COPはいくつ？なぜ？</p><details><summary>考え方を確かめる</summary><p>QH=QL+WをWで割るとCOPH=COPR+1。したがって4。熱漏れ・補機を含める境界が同じという条件が必要。</p></details><a class="ef-next" href="energy-open-practice.html#heat-cop">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-06">
 <summary><span class="ef-number">06</span><span class="ef-summary-text"><span class="ef-topic-label">流体・収支 <span class="ef-badge">基本</span></span><strong>質量保存</strong><span class="ef-preview">入る量 − 出る量 → 流量・乾燥・蒸留</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -138,6 +143,7 @@
 <p class="ef-muted">蒸留も同じ考え方。全体でF=D+B、低沸点成分でFz_F=Dx_D+Bx_B。F・D・Bをモル流量でそろえるなら、z・xもモル分率にそろえる。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2024〜2026年Ⅱ問6の差圧式流量計。2023年Ⅳ問18の蒸留収支、2024・2026年Ⅳ問18の乾燥収支。</p>
 <a class="ef-next" href="#formula-07">次：07 ベルヌーイとポンプ →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>湿量基準の含水率が変わる乾燥で、最初に保存すべき量は？</p><details><summary>考え方を確かめる</summary><p>固形分が失われないならm₁(1−w₁)=m₂(1−w₂)。蒸発水=m₁−m₂。全体質量が変わるので含水率の差だけを掛けない。</p></details><a class="ef-next" href="energy-open-practice.html#flow-drying">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-07">
 <summary><span class="ef-number">07</span><span class="ef-summary-text"><span class="ef-topic-label">流体・収支 <span class="ef-badge">基本</span></span><strong>ベルヌーイとポンプ</strong><span class="ef-preview">圧力・速さ・高さ → 揚程・動力・差圧</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -157,6 +163,7 @@
 <p class="ef-muted">相似運転では、同じ羽根車・同じ流体・効率一定の近似で V̇∝N、H∝N²、L∝N³。Nは回転速度。実際の運転点や静水頭の影響は別に確認する。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>5年ともⅡ問6に管路・ポンプ・流量測定。2022・2025年Ⅳ問11はピトー管、2023年Ⅳ問12は流量制御。</p>
 <a class="ef-next" href="#formula-08">次：08 熱伝導・熱伝達 →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>水動力ρgQvHから、ポンプの軸入力を作るには？</p><details><summary>考え方を確かめる</summary><p>効率ηp=水動力/軸入力なので、軸入力=ρgQvH/ηp。Hは全揚程。電気入力ならさらに電動機効率で割る。</p></details><a class="ef-next" href="energy-open-practice.html#flow-pump">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-08">
 <summary><span class="ef-number">08</span><span class="ef-summary-text"><span class="ef-topic-label">伝熱 <span class="ef-badge">基本</span></span><strong>熱伝導・熱伝達</strong><span class="ef-preview">温度差 ÷ 熱抵抗 → 断熱・熱通過率</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -176,6 +183,7 @@
 <p class="ef-muted">厚くする→熱抵抗が増える（平板）。面積を増やす→熱抵抗が減る。温度差が同じなら、熱抵抗が大きいほど熱量は小さい。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2023・2026年Ⅱ問7：二重ガラス。2024年Ⅱ問7：炉壁・円柱の放熱。2025年Ⅱ問7：平板、Ⅳ問15：フィンと熱抵抗。</p>
 <a class="ef-next" href="#formula-09">次：09 熱交換器 →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>平板の熱伝導で、厚さを2倍にしたら放熱の速さはどう変わる？</p><details><summary>考え方を確かめる</summary><p>定常一次元、λ一定、面積と両表面温度差一定ならR=δ/(λA)が2倍。Q̇=ΔT/Rなので半分になる。</p></details><a class="ef-next" href="energy-open-practice.html#heat-conduction">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-09">
 <summary><span class="ef-number">09</span><span class="ef-summary-text"><span class="ef-topic-label">伝熱 <span class="ef-badge">組合せ</span></span><strong>熱交換器</strong><span class="ef-preview">熱収支 ＋ 伝熱 → 出口温度・伝熱面積</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -195,6 +203,7 @@
 <p class="ef-muted">C：熱容量流量 [W/K]、C_min：両側の小さい方。質量流量だけの大小では決めない。低温側の温度効率は(T_C,out−T_C,in)/(T_H,in−T_C,in)で、常に有効度と同じではない。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2022・2025・2026年Ⅱ問7、5年ともⅣ問15。2026年Ⅳ問15は最大交換熱量と熱容量流量から有効度を求める。</p>
 <a class="ef-next" href="#formula-10">次：10 放射 →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>熱交換器の低温側出口温度を出すには、まず何を等しく置く？</p><details><summary>考え方を確かめる</summary><p>外部放熱のない定常状態で、高温側の放熱ṁHcH(TH,in−TH,out)と低温側の受熱ṁCcC(TC,out−TC,in)を等しく置く。相変化なし・比熱一定。</p></details><a class="ef-next" href="energy-open-practice.html#heat-exchanger">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-10">
 <summary><span class="ef-number">10</span><span class="ef-summary-text"><span class="ef-topic-label">伝熱 <span class="ef-badge">展開</span></span><strong>放射</strong><span class="ef-preview">E_b = σT⁴ → 周囲への正味の放熱</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -215,6 +224,7 @@
 <p class="ef-muted">検算では「℃のまま4乗していないか」「T₁⁴−T₂⁴を(T₁−T₂)⁴にしていないか」を確認する。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2022〜2025年Ⅱ問7に放射のテーマ。2024年Ⅱ問7は黒体の波長分布・ウィーン・プランク、2022年Ⅳ問11は放射温度計。</p>
 <a class="ef-next" href="#formula-11">次：11 無次元数 →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>正味の放射放熱で、Ts⁴−Tsur⁴を(Ts−Tsur)⁴にしてよい？</p><details><summary>考え方を確かめる</summary><p>できない。二つの温度それぞれの4乗の差。温度はK。εσA(Ts⁴−Tsur⁴)は小物体と大きい等温周囲・形態係数1などの条件で使う。</p></details><a class="ef-next" href="energy-open-practice.html#heat-radiation">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-11">
 <summary><span class="ef-number">11</span><span class="ef-summary-text"><span class="ef-topic-label">伝熱 <span class="ef-badge">展開</span></span><strong>無次元数</strong><span class="ef-preview">何と何の比？ → 流れ・伝熱・渦流量計</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -232,6 +242,7 @@
 <p class="ef-muted">非円形管の水力直径はD_h=4A/P_w。P_wは流体が接する断面の周長。面積Aと周長P_wを図から作れば、形ごとの暗記を減らせる。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>5年のⅡ問6・7でReや伝熱の無次元数。2024年Ⅱ問6は水力直径、2026年Ⅳ問11はストローハル数を使う渦流量計。</p>
 <a class="ef-next" href="#formula-12">次：12 比例・PID・フィードバック →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>Re=ρvD/μとRe=vD/νはなぜ同じ？単位も消せる？</p><details><summary>考え方を確かめる</summary><p>ν=μ/ρだから同じ。vD/νの単位は(m/s)×m÷(m²/s)=1。μとνは単位も違うので混ぜない。</p></details><a class="ef-next" href="energy-open-practice.html#flow-reynolds">この式を使うオリジナル練習 →</a></section>
 </div></details>
 <details class="ef-topic" id="formula-12">
 <summary><span class="ef-number">12</span><span class="ef-summary-text"><span class="ef-topic-label">制御 <span class="ef-badge">基本</span></span><strong>比例・PID・フィードバック</strong><span class="ef-preview">偏差 → 比例帯・操作量・負帰還</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
@@ -252,6 +263,7 @@
 <p class="ef-copy">R：目標信号、Y：出力信号、G：順方向の伝達関数、H：検出・戻り経路の伝達関数。各式はラプラス領域。帰還の符号・センサの位置を図で確認して立式する。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>5年ともⅣ問12が制御。2023・2026年は比例動作の偏差計算、2025年はPIDの伝達関数表現。制御方式の名称・構成理解も別途必要。</p>
 <a class="ef-next" href="#past-papers">過去問の対応表へ →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>比例帯PBを半分にするとKpと同じ偏差への操作量変化はどうなる？</p><details><summary>考え方を確かめる</summary><p>同じ入出力の正規化ならKp=100/PB[%]で2倍。比例部分の操作量変化Kpeも2倍。ただし飽和しない範囲。</p></details><a class="ef-next" href="energy-open-practice.html#control-proportional">この式を使うオリジナル練習 →</a></section>
 </div></details>
 </div></section>
 <section id="past-papers" class="ef-past" aria-labelledby="past-title"><p class="ef-eyebrow">OFFICIAL PAST PAPERS</p><h2 id="past-title">どの過去問で使う？</h2><p>2022〜2026年の課目Ⅱ・Ⅳ、計10冊・60大問をテーマで整理。小問別の出題頻度や得点率の集計ではなく、<b>複数分野へ使い回せる範囲と、理解の前提関係</b>から学習順を決めている。</p>

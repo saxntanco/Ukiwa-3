@@ -1,0 +1,88 @@
+{
+  "page": "ukiwamemo_kyounonande_shg_df3_ic_io.html",
+  "title": "SHG-DF3のIcとIoを混同しない",
+  "lead": "電流抑制方式の役割と、入力の場所・基準を整理します。",
+  "sections": [
+    {
+      "title": "Ioは検出、Icは抑制・方向の基準",
+      "body": [
+        "SHG-DF3は電流抑制方式です。主ZCT側のIoと、零相基準入力側のIcを使います。Vo-Io方式の継電器の説明だけで動作条件を決められません。",
+        "この記事でのIcは抑制電流です。別分野の同じ記号を持ち込まず、mAの数値に「どの検出器のどの側か」を添えて読みます。"
+      ]
+    },
+    {
+      "title": "二次信号端子と一次側試験電流を分ける",
+      "body": [
+        "Io整定をmAへ直す算術と、継電器の二次入力端子へ実際に流れる電流は別です。ZCTの試験巻線・貫通導線・極性・巻数と指定結線図を対応させます。"
+      ],
+      "example": {
+        "question": "Io整定0.2Aの130%という条件が指定された。AとmAで表すと？",
+        "steps": [
+          "0.2×1.3＝0.26A。",
+          "0.26×1000＝260mA。",
+          "この値は記載された試験側の値として扱い、Z1-Z2の二次入力電流へそのまま読み替えない。"
+        ],
+        "answer": "0.26A＝260mA。入力場所・検出器・換算関係は別途確認する。"
+      }
+    },
+    {
+      "title": "資料不一致は、境界条件を未確定のまま残す",
+      "body": [
+        "既存記事に示すIc抑制試験の位相、400%試験の手順、AF3/DF3の端子表などの相違は、推測でどちらかへ統一しません。",
+        "学習上は「何を一定にし、何を変化させるか」を理解し、実行値は対象機種・資料版・試験器に対して整合した根拠をそろえます。Ic基準とVo基準の位相角も無条件に転記しません。"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "question": "このSHG-DF3教材でIcが表すのは？",
+      "choices": [
+        "充電電流計算の記号と必ず同じ量",
+        "抑制・方向の基準として使う電流",
+        "通常の負荷電流そのもの"
+      ],
+      "answer": 1,
+      "explanation": "同じ記号でも、機種資料での定義が優先です。"
+    },
+    {
+      "question": "0.2Aの130%は？",
+      "choices": [
+        "26mA",
+        "2600mA",
+        "260mA"
+      ],
+      "answer": 2,
+      "explanation": "0.2×1.3＝0.26A＝260mAです。"
+    },
+    {
+      "question": "Ic基準の位相値をVo基準の試験へ転記してよい？",
+      "choices": [
+        "基準の関係と指定条件を照合する必要がある",
+        "常に同じ角度なのでよい",
+        "数字が小さければよい"
+      ],
+      "answer": 0,
+      "explanation": "位相角は基準量に依存し、適用系統もそろえる必要があります。"
+    }
+  ],
+  "sources": [
+    {
+      "label": "泰和電気 SHG-DF3 取扱説明書",
+      "url": "https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69D%2dM%2d%20SHG%2dDF3%81%40%8E%E6%88%B5%90%E0%96%BE%8F%91%282024%2e7a%81j%2epdf&name=RH69D%2dM%2d%20SHG%2dDF3%81%40%8E%E6%88%B5%90%E0%96%BE%8F%91%282024%2e7a%81j%2epdf",
+      "date": "2024.7a",
+      "accessed": "2026-10-04"
+    },
+    {
+      "label": "泰和電気 SHG-DF3 仕様書",
+      "url": "https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69B%2dS%201201%2d102c%81%40SHG%2dDF3%81%40%8Ed%97l%8F%91%81%40%282024%2d7a%81j%2epdf&name=RH69B%2dS%201201%2d102c%81%40SHG%2dDF3%81%40%8Ed%97l%8F%91%81%40%282024%2d7a%81j%2epdf",
+      "date": "1201-102c・2024-07-06改訂",
+      "accessed": "2026-10-04"
+    },
+    {
+      "label": "泰和電気 SHG-DF3 試験管理値",
+      "url": "https://www.taiwadenki.co.jp/download.php?file=product/files/RH/RH69%2dT%20SHG%2dDF3%8E%8E%8C%B1%8A%C7%97%9D%92l%2epdf&name=RH69%2dT%20SHG%2dDF3%8E%8E%8C%B1%8A%C7%97%9D%92l%2epdf",
+      "date": "掲載版",
+      "accessed": "2026-10-04"
+    }
+  ]
+}

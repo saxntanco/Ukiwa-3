@@ -335,6 +335,7 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
   .another-ocean,.another-ocean__art{transition:none!important}
 }
 
+.card-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.card-actions button,.card-actions a{font:inherit;font-size:14px;padding:12px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:12px;color:inherit;background:var(--island-bg-ffffff-100,#fff);text-decoration:none}.learning-routes{width:min(1000px,calc(100% - 32px));margin:30px auto 60px;scroll-margin-top:110px}.learning-routes>p{line-height:1.8}.learning-route-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.learning-route-grid details{padding:18px;border-radius:18px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);background:var(--island-bg-ffffff-100,#fff);line-height:1.8}.learning-route-grid summary{cursor:pointer;font-weight:800}.learning-route-grid a{color:var(--island-fg-096e92-100,#096e92)}@media(max-width:600px){.learning-route-grid{grid-template-columns:1fr}.card-actions{justify-content:center}}
 </style>
 <link href="./icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
 <link href="./apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
@@ -838,9 +839,9 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
 <strong>最初の航路を選ぼう</strong>
 </div>
 <div class="nav-card-route-links">
-<a data-back-route="basics" data-home-construction="電気の基礎" data-route-modal="basics" href="#"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
+<a data-back-route="basics" href="./relay-basics.html"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
 <a data-back-route="guide" href="./protective-relay.html"><b>目的から探す</b><small>機器・試験・用語</small></a>
-<a data-back-route="map" href="#map"><b>海のマップへ</b><small>6つの修行島</small></a>
+<a data-back-route="map" href="#learning-routes"><b>海のマップへ</b><small>6つの修行島</small></a>
 </div>
 </div>
 <div class="nav-card-quote">
@@ -859,11 +860,12 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
 <div class="hero-copy">
 <span class="world-badge">CHARACTER COLLECTION</span>
 <h1><span>うきわちゃん</span><br/>カード図鑑</h1>
-<p>左右スワイプで裏面。<br/>長押しでANOTHER OCEAN。</p>
+<p>カードをめくって、この海の学び方を知ろう。<br/>スワイプ・長押しでも操作できます。</p><div class="card-actions"><button id="flipCard" type="button" aria-pressed="false">裏面を見る</button><button id="openOcean" type="button">別世界をのぞく</button><a href="#learning-routes">6つの学習航路へ ↓</a></div>
 <a class="hero-cta" href="./index.html">← 島のホームへ戻る</a>
 </div>
 </div>
 </section>
+<section id="learning-routes" class="learning-routes"><h2>6つの分野、どこから読む？</h2><p>今日はひとつ選び、読む前の問いを持って出発しよう。</p><div class="learning-route-grid"><details><summary>受変電設備</summary><p>電気がどこから入り、どの機器を通るかを追う。機器名の暗記より先に、役割と電源側・負荷側を対応させる。</p><a href="equipment-map.html">設備マップ →</a></details><details><summary>保護継電器</summary><p>入力→判定→接点出力→遮断器の動作を分けて読む。動作値と動作時間の違いを言葉にする。</p><a href="relay-basics.html">保護の基礎 →</a></details><details><summary>試験・測定</summary><p>測定器が何を加えて何を読んでいるかを確認。測定範囲と測定対象、切り分け条件をセットで考える。</p><a href="measurement-principles.html">測定の原理 →</a></details><details><summary>電気の基礎</summary><p>回路と式を往復する。比例・反比例だけでなく、何を一定としたか、単位が合うかを確かめる。</p><a href="ct-calculator.html">CT比と電流 →</a></details><details><summary>シーケンス</summary><p>接点の通常状態を決め、押す→離す→停止で回路を追う。自己保持とインターロックの目的を区別する。</p><a href="sequence-basics.html">接点と自己保持 →</a></details><details><summary>現場の疑問</summary><p>見た事実と原因の推測を分ける。似た症状でも測定条件が違えば、結論が変わることを確かめる。</p><a href="why-today.html">今日のなんで？ →</a></details></div></section>
 <section class="route-section" id="routes" style="display:none">
 <div aria-hidden="true" class="world-transition">
 <span class="world-transition-line"></span>
@@ -939,6 +941,8 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
     heroCard.classList.add('is-flipping');
     setTimeout(()=>heroCard.classList.remove('is-flipping'), 620);
     heroCard.classList.toggle('is-flipped', back);
+    document.getElementById('flipCard').textContent=back?'表面を見る':'裏面を見る';
+    document.getElementById('flipCard').setAttribute('aria-pressed',String(back));
     heroCard.setAttribute(
       'aria-label',
       back
@@ -977,6 +981,8 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
     anotherOcean.classList.remove('is-open'); anotherOcean.setAttribute('aria-hidden','true');
     document.body.style.overflow=''; holdTriggered=false; setTimeout(()=>heroCard.focus(),100);
   }
+  document.getElementById('flipCard').addEventListener('click',()=>setCardSide(!heroCard.classList.contains('is-flipped')));
+  document.getElementById('openOcean').addEventListener('click',openAnotherOcean);
   heroCard.addEventListener('contextmenu', e => e.preventDefault());
   heroCard.addEventListener('pointerdown', e => {
     cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdCancelledByMove=false; holdPointerId=e.pointerId;
@@ -1031,11 +1037,11 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
   // Ring carousel
   const routes = [
     ['耐圧シミュレータ','ケーブル耐圧試験をシミュレーション','./ac-withstand-test-simulator.html#calc'],
-    ['現場の記事','実務に役立つ現場の知識','#'],
-    ['RLC・タンス図','原理とシーケンスをやさしく解説','#'],
-    ['キャラクター図鑑','うきわちゃんと見て学ぶ','#'],
-    ['用語・公式集','基礎から応用まですぐに調べられる','#'],
-    ['海のマップ','6つの修行島から学ぶ','#map']
+    ['現場の記事','実務に役立つ現場の知識','./why-today.html'],
+    ['接点・シーケンス','自己保持の原理をやさしく解説','./sequence-basics.html'],
+    ['キャラクター図鑑','うきわちゃんと見て学ぶ','#home'],
+    ['保護の基礎','機器の役割と動作を学ぶ','./relay-basics.html'],
+    ['学習航路','6つの分野から学ぶ','#learning-routes']
   ];
   const shell = document.getElementById('routeRing');
   const cards = [...document.querySelectorAll('.route-card')];

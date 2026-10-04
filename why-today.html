@@ -33,7 +33,7 @@ a{color:inherit}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="現場の疑問から、接地・変圧器・耐圧電流の記事を選ぶ。"></head>
+<meta name="description" content="現場の疑問から、接地・変圧器・耐圧電流の記事を選ぶ。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head>
 <body>
 <div class="wrap">
   <div class="top"><a class="brand" href="index.html">🌊 うきわメモ</a><a class="back" href="index.html">← ホームへ</a></div>
@@ -64,9 +64,13 @@ a{color:inherit}
       <div class="date">更新：2026年8月15日</div>
       <div class="go">記事をひらく →</div>
     </a>
-  </main>
+  <section class="fn-notebook" aria-label="よくある疑問を原理から"><div class="fn-body"><h2>数字と名前を、原理へ戻してみる</h2>
+<details><summary>CTの「5A」は、いつも5A流れるという意味？</summary><p>50/5AのCTなら、定格での一次・二次の対応が50A：5Aです。理想的には I₂＝I₁×5/50。一次20Aなら二次は2Aです。5Aを実際の電流だと思い込まず、一次電流と変流比を分けます。</p><a href="ct-calculator.html">CT比の入力例と換算へ →</a></details>
+<details><summary>メガーがゼロなら、すぐ「絶縁が壊れた」？</summary><p>まず「どの二点を、何がつながった状態で測ったか」を戻します。絶縁以外の導通経路・負荷・接地された回路を含めていないかを図面と状態で整理します。表示だけで原因は一つに決まりません。</p><a href="insulation-resistance-principle.html">測った二点と並列経路を考える →</a></details>
+<details><summary>継電器と遮断器は、どちらも電気を切る装置？</summary><p>保護継電器は、電流や電圧などから条件を検出して信号を出す側。遮断器は、その信号や操作を受けて主回路を遮断する側です。継電器の表示が動いたことと、遮断器まで動いたことは分けて確認します。</p><a href="relay-basics.html">検出・判定・出力・遮断のつながりへ →</a></details>
+<details><summary>a接点・b接点の「普段」は、運転中のこと？</summary><p>一般の電磁リレーではコイルが消磁した基準状態を見ます。a接点は開、b接点は閉です。押しボタンなどは非操作状態が基準。「設備が普段動いている状態」と同じとは限りません。</p><a href="sequence-basics.html">状態を変えて接点を確かめる →</a></details></div></section></main>
   <div class="note">最終更新：2026年8月22日 10:52 JST<br>確認できない事項は断定せず、メーカー一次資料・公的資料と照合しながら更新します。</div>
 </div>
 <script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
-</body>
+<script src="field-notebook.js?v=20261004" defer></script></body>
 </html>

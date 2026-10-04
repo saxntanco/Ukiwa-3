@@ -156,3 +156,6 @@ body{background:linear-gradient(155deg,#edf3f1,#e8edf2)}
 .context-jump{position:absolute;transform:translate(-50%,-50%);width:var(--spot-width);height:var(--spot-height);min-width:0;min-height:0;margin:0;padding:0;font-size:0;color:transparent;border:2px dashed #277e80;border-radius:3px;background:transparent;cursor:pointer;pointer-events:auto;z-index:1}
 .context-jump::after{content:"";position:absolute;inset:-6px -4px}
 .context-jump:hover,.context-jump:focus-visible{background:#58bcb52a}
+
+/* Independent parent-formula route, separate from question scores. */
+.denken-foundation-link{display:inline-flex;align-items:center;min-height:44px;padding:9px 13px;border:1px solid #79a6b8;border-radius:9px;background:#edf7f7;color:#174a5f;font-size:14px;text-decoration:none;overflow-wrap:anywhere;max-width:100%;box-sizing:border-box}.denken-foundation-link:focus-visible{outline:3px solid #bf7830;outline-offset:3px}.study-hub{flex-wrap:wrap}

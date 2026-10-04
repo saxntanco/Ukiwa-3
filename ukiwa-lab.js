@@ -203,6 +203,24 @@ if (!configured()) {
   $('cancelBtn').addEventListener('click', closeEditor);
   $('searchInput').addEventListener('input', renderList);
 
+  const templates = {
+    learning: '【学ぶテーマ】\n\n【親公式・記号・単位】\n\n【成立条件】\n\n【条件を固定して式を変形】\n1. \n2. \n3. \n\n【数値例・桁と単位の確認】\n\n【見ずに復元して分からなかった所】\n\n【出典・ページ・確認日】\n',
+    field: '【日時・対象機器・型式】\n\n【観測した事実（測定条件・単位）】\n\n【予想と違った点】\n\n【考えられる原因（仮説）】\n\n【確認した根拠・図面・記録】\n\n【未確認事項と次回確認すること】\n\n【振り返り・改善】\n',
+    question: '【今日の疑問】\n\n【いまの予想とその理由】\n\n【調べた一次資料・ページ・確認日】\n\n【確認できた答え】\n\n【適用できる条件・まだ不明な点】\n\n【一文で説明すると】\n'
+  };
+  document.querySelectorAll('[data-template]').forEach(button => {
+    button.addEventListener('click', () => {
+      if (!user || $('appPanel').classList.contains('hidden') || $('editor').classList.contains('hidden')) return;
+      const template = templates[button.dataset.template];
+      if (!template) return;
+      const input = $('bodyInput');
+      input.value += (input.value ? '\n\n' : '') + template;
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+      status($('saveStatus'), '本文の末尾に追加しました。まだ保存されていません。');
+    });
+  });
+
   $('editor').addEventListener('submit', async (e) => {
     e.preventDefault();
     hideStatus($('saveStatus'));
