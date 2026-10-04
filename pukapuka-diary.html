@@ -15,7 +15,111 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.04</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="evt-zpd-backfeed-20261004" data-update-date="2026/10/04">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="ground-abcd-no-terminal-20261004" data-update-date="2026/10/04">
+<div class="date">2026.10.04｜今日のなんで？・接地抵抗測定</div>
+<h2>接地端子盤がないキュービクルで、<br>A・B・C・D種の接地はどこを測る？</h2>
+<div class="danger audit-preconditions"><strong>作業の前に確認すること</strong><br>接地線を外すと、その間はつながっている機器が接地されていない状態になります。外せる条件（停電範囲・外しておく時間）を責任者と決めてから外し、測定後は確実に再接続して締付けを確認します。<b>B種接地は、充電中に外しません。</b>CT・VTの二次回路の配線（接地線以外）は外しません。図と結線は一般的な構成の説明用で、実際の設備は単線結線図・展開接続図・前回の点検記録で確認します。</div>
+<p class="lead"><a href="#tokko-oil-ground-20261003">10/3の接地抵抗測定</a>では、接地極側と設備側がボルトコネクタで分かれていて、外して測ることができました。でも現場には、<b>接地端子盤（EA・EB・EC・EDの端子が並んだ箱）がないキュービクル</b>もあります。そのとき、どこにEをつなげばいいのかを整理しました。</p>
+
+<h3 id="abcd-conclusion">まず結論</h3>
+<div class="flow">種類ごとの接地線を「機器から接地極へ下りていく途中」でつかまえる<br>↓<br>その線のボルト端子を外し、接地極側にEをつなぐ<br>↓<br>補助極P・Cは地面に一直線</div>
+<p>どの種類も、<b>機器の端子台や外箱にクリップを当てるのではなく</b>、そこから接地極へ向かう<b>緑の接地線</b>で測ります。外箱や端子台で測ると、筐体やほかの接地とつながった値（並列の値）が出て、本当の値より低く見えるためです。</p>
+
+<h3 id="abcd-where">1. キュービクルの中の、A・B・C・Dの場所</h3>
+<div class="diagram-card">
+<svg viewBox="0 0 760 420" role="img" aria-label="キュービクルの中のA種・B種・C種・D種接地の場所。A種は変圧器外箱やLA、B種は変圧器二次側の中性点、D種はCTTの共通線やVTTの1線、C種は400V級の回路があるときだけ">
+<rect x="0" y="0" width="760" height="420" rx="14" fill="#06213a"/>
+<text x="20" y="30" fill="#dff4ff" font-size="18" font-weight="800">キュービクルの中の接地（接地端子盤がない例）</text>
+<rect x="20" y="48" width="230" height="300" rx="10" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
+<text x="34" y="72" fill="#cfe3ef" font-size="14" font-weight="700">受電盤</text>
+<rect x="44" y="90" width="80" height="44" rx="6" fill="#123b5e" stroke="#7fb2ec"/><text x="84" y="117" text-anchor="middle" fill="#dff4ff" font-size="14">VCB</text>
+<rect x="140" y="90" width="80" height="44" rx="6" fill="#123b5e" stroke="#7fb2ec"/><text x="180" y="117" text-anchor="middle" fill="#dff4ff" font-size="14">LA</text>
+<rect x="44" y="170" width="80" height="44" rx="6" fill="#123b5e" stroke="#7fb2ec"/><text x="84" y="197" text-anchor="middle" fill="#dff4ff" font-size="14">CTT</text>
+<rect x="140" y="170" width="80" height="44" rx="6" fill="#123b5e" stroke="#7fb2ec"/><text x="180" y="197" text-anchor="middle" fill="#dff4ff" font-size="14">VTT</text>
+<rect x="270" y="48" width="230" height="300" rx="10" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
+<text x="284" y="72" fill="#cfe3ef" font-size="14" font-weight="700">変圧器盤</text>
+<rect x="305" y="95" width="160" height="110" rx="8" fill="#5f7f95" stroke="#9fc0d4" stroke-width="2"/>
+<text x="385" y="140" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700">変圧器</text>
+<text x="385" y="162" text-anchor="middle" fill="#e8f2f8" font-size="12">6600 / 210-105V</text>
+<circle cx="440" cy="190" r="6" fill="#ffd27a"/><text x="416" y="194" text-anchor="end" fill="#ffd27a" font-size="12">中性点</text>
+<rect x="520" y="48" width="220" height="300" rx="10" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
+<text x="534" y="72" fill="#cfe3ef" font-size="14" font-weight="700">低圧盤</text>
+<rect x="545" y="95" width="170" height="60" rx="6" fill="#123b5e" stroke="#7fb2ec"/><text x="630" y="122" text-anchor="middle" fill="#dff4ff" font-size="13">210V・105V回路</text><text x="630" y="142" text-anchor="middle" fill="#9fc0d4" font-size="12">（300V以下）</text>
+<rect x="545" y="175" width="170" height="60" rx="6" fill="#2a2140" stroke="#c9a7ff" stroke-dasharray="5 4"/><text x="630" y="202" text-anchor="middle" fill="#e6d8ff" font-size="13">400V級の回路</text><text x="630" y="222" text-anchor="middle" fill="#c9b6ef" font-size="12">（ある設備だけ）</text>
+<!-- 接地線 -->
+<path d="M84 134 L84 150 M180 134 L180 150 M84 150 L235 150 L235 300" stroke="#ff9f6e" stroke-width="3" fill="none"/>
+<path d="M385 205 L385 225 L320 225 L320 300" stroke="#ff9f6e" stroke-width="3" fill="none"/>
+<text x="326" y="250" fill="#ff9f6e" font-size="13" font-weight="800">A</text>
+<text x="214" y="270" fill="#ff9f6e" font-size="13" font-weight="800">A</text>
+<path d="M440 196 L440 300" stroke="#ffd27a" stroke-width="3" fill="none"/><text x="448" y="250" fill="#ffd27a" font-size="13" font-weight="800">B</text>
+<path d="M84 214 L84 300" stroke="#7ee08a" stroke-width="3" fill="none"/><text x="92" y="250" fill="#7ee08a" font-size="13" font-weight="800">D</text>
+<path d="M180 214 L180 240 L96 240" stroke="#7ee08a" stroke-width="3" fill="none"/>
+<path d="M545 125 L530 125 L530 300" stroke="#7ee08a" stroke-width="3" fill="none"/><text x="538" y="285" fill="#7ee08a" font-size="13" font-weight="800">D</text>
+<path d="M715 205 L728 205 L728 300" stroke="#c9a7ff" stroke-width="3" stroke-dasharray="6 4" fill="none"/><text x="700" y="285" fill="#c9a7ff" font-size="13" font-weight="800">C</text>
+<!-- 床 -->
+<line x1="20" y1="300" x2="740" y2="300" stroke="#9fc0d4" stroke-width="2"/>
+<text x="24" y="320" fill="#9fc0d4" font-size="12">床・ピット（ここから接地極へ）</text>
+<circle cx="235" cy="285" r="10" fill="none" stroke="#ff6b5b" stroke-width="3"/><circle cx="320" cy="285" r="10" fill="none" stroke="#ff6b5b" stroke-width="3"/><circle cx="440" cy="285" r="10" fill="none" stroke="#ff6b5b" stroke-width="3"/><circle cx="84" cy="285" r="10" fill="none" stroke="#ff6b5b" stroke-width="3"/><circle cx="530" cy="270" r="10" fill="none" stroke="#ff6b5b" stroke-width="3"/>
+<text x="20" y="350" fill="#ff8f8f" font-size="14" font-weight="700">◯ 測る位置：接地線が床・ピットへ下りる手前のボルト端子（外して接地極側にE）</text>
+<text x="20" y="376" fill="#cfe3ef" font-size="13">A：変圧器外箱・LA・VCBなど高圧機器の金属部　B：変圧器二次側の中性点（または1端子）</text>
+<text x="20" y="398" fill="#cfe3ef" font-size="13">D：CTT・VTTの接地される線、300V以下の低圧機器の金属部　C：400V級の機器の外箱（ある設備だけ）</text>
+</svg>
+</div>
+<p class="small">接地線の色・本数・まとめ方は設備によって違います。図は配置の考え方を示すものです。</p>
+
+<h3 id="abcd-table">2. 種類ごとの「どこを測るか」</h3>
+<div class="table-scroll"><table>
+<tr><th>種類</th><th>つながっているもの</th><th>測る位置</th><th>外すときの注意</th></tr>
+<tr><td><b>A種</b></td><td>変圧器の外箱、LA（避雷器）、VCBの架台など高圧機器の金属部。高圧ケーブルの遮へい層をまとめている設備もある</td><td>それらの接地線がまとまって床・ピットへ下りる線のボルト端子</td><td>外している間、高圧機器の外箱が非接地。停電中に外す</td></tr>
+<tr><td><b>B種</b></td><td>変圧器の二次側の<b>中性点</b>（単相3線式）、三相210V（Δ結線）なら<b>1つの相の端子</b>（例：v相）</td><td>変圧器の二次端子から下りるB種線のボルト端子</td><td><b>充電中は絶対に外さない。</b>停電・検電・放電のあと</td></tr>
+<tr><td><b>C種</b></td><td><b>300Vを超える低圧</b>（400V級）の機器の外箱。400V級の回路がある設備だけ</td><td>400V級の機器（低圧盤の400V回路、400Vの進相コンデンサの外箱など）から下りるC種線。機器がキュービクルの外にあることも多い</td><td>外している間、その機器が非接地</td></tr>
+<tr><td><b>D種</b></td><td>CTT（CTの試験端子）の共通線、VTT（VTの試験端子）の1線、300V以下の低圧機器の金属部</td><td>それらがまとまって床・ピットへ下りるD種線のボルト端子。<b>CTT・VTTの端子そのものではない</b></td><td>CT・VTの二次配線は外さない。外すのは緑の接地線だけ</td></tr>
+</table></div>
+
+<h3 id="abcd-c">3. C種が見つからないとき</h3>
+<p>C種は、<b>300Vを超える低圧（400V級：415V・420V・440Vなど）の回路があるときだけ</b>必要です。見つからないのは、多くの場合「そもそもない」からです。</p>
+<div class="flow">変圧器の銘板の二次電圧を見る<br>↓<br>210/105V・210Vだけ → C種の対象なし<br>400V級の変圧器がある → その先の機器の外箱がC種</div>
+<div class="checkgrid">
+<div class="checkcard"><b>キュービクルの中の候補</b><br>400V回路の低圧盤（配電盤・MCCB盤）の金属部、400Vの低圧進相コンデンサの外箱など。</div>
+<div class="checkcard"><b>キュービクルの外の候補</b><br>400Vのモーター、動力制御盤、動力分電盤など。C種の線がキュービクルに来ていないこともある。</div>
+</div>
+<p>400V級の変圧器そのものの外箱は、高圧機器なので<b>A種</b>。二次側の中性点は<b>B種</b>です。C種はその先の<b>機器の外箱</b>です。前回の点検記録にC種の欄がなければ、その設備にはC種がない可能性が高いです。</p>
+
+<h3 id="abcd-d">4. D種：CTの「l端子」で測ると値が出ないことがある</h3>
+<p>CTTの共通線（l側）にクリップを噛んで測ったら、値が出なかったことがありました。考えられる原因はこれです。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>① D種の線を外していた</b><br>接地極側を測るために下りる線を外していたら、l端子はどこにもつながっていない。いちばんよくある原因。</div>
+<div class="checkcard"><b>② 接地点が別の場所</b><br>CTの二次回路は<b>1か所だけ</b>で接地する。その1か所が継電器盤側にあることもある。</div>
+<div class="checkcard"><b>③ 噛んだ端子が違う</b><br>共通線ではない線や、デジタル継電器の内部側（入力用CTで絶縁されている側）を噛んでいた。</div>
+<div class="checkcard"><b>④ 接地が外れている・緩んでいる</b><br>①〜③でなければ不具合。記録して責任者へ報告する。</div>
+</div>
+<p>CTの二次側は<b>D種接地が必要</b>です（電気設備技術基準の解釈 第28条）。接地しなくていいわけではありません。接地の有無は、停電中にl側とD種の接地線の間の<b>導通</b>で確かめ、接地抵抗の値は<b>下りる線</b>で測ります。</p>
+<div class="panic"><b>⚠️ CTの二次回路は開放しない</b><p>ねらうのは緑の接地線だけ。同じ端子台にあるCTの二次配線を外すと、二次側が開放になり、高い電圧が出て危険です。外す前に、どの線を外すかを指さしで確認します。また、接地を2か所以上にすると電流が回り込み、継電器が誤動作することがあります。</p></div>
+
+<h3 id="abcd-meter">5. 接地抵抗計のつなぎ方（3極法）</h3>
+<div class="flow">E：測る接地線の接地極側（外したボルト端子の下側）<br>↓ 5〜10m<br>P：補助極（電圧）<br>↓ 5〜10m<br>C：補助極（電流）</div>
+<p>E・P・Cはほぼ一直線に並べ、Pを間に置きます。補助極は、ほかの接地極や建物の鉄骨、埋設の金属管から離します。間隔は測定器の取扱説明書に従います。外せない線を測る場合は、つないだまま測り、記録に「接続状態で測定」と書きます。</p>
+
+<h3 id="abcd-values">6. 判定の目安（電気設備技術基準の解釈 第17条）</h3>
+<div class="table-scroll"><table>
+<tr><th>種類</th><th>接地抵抗値</th></tr>
+<tr><td>A種</td><td>10Ω以下</td></tr>
+<tr><td>B種</td><td>決まった値ではなく、<b>150 ÷ Ig</b>（Ig：高圧側の1線地絡電流）で計算。混触時に高圧側を自動遮断する装置の動作時間によって、分子が300・600になる</td></tr>
+<tr><td>C種</td><td>10Ω以下（地絡時に0.5秒以内に自動遮断する装置があれば500Ω以下）</td></tr>
+<tr><td>D種</td><td>100Ω以下（地絡時に0.5秒以内に自動遮断する装置があれば500Ω以下）</td></tr>
+</table></div>
+
+<h3 id="abcd-shared">7. 全部が1本にまとまっている場合</h3>
+<p>キュービクルの中の接地線が全部1本の接地母線にまとめられ、そこから1本で接地極へ下りている設備もあります（共用接地）。この場合は種類ごとに分けて測れません。母線から下りる線で測り、まとめた値で判定してよい設備かを、図面と前回の記録、責任者に確認します。</p>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>接地端子盤がなくても、測るのは「接地極へ下りていく線」。外箱や端子台にクリップを当てない。</b></p>
+<p>A＝高圧機器の外箱、B＝変圧器の中性点、D＝CTT・VTTと300V以下の低圧機器、C＝400V級があるときだけ。迷ったら、前回の点検記録と同じ場所で測る。見つけた測定点には名札を付けるか写真で残して、次回迷わないようにする。</p>
+</section>
+<div class="note">※ 接地の種類・まとめ方・測定方法は設備ごとに違います。実際の測定は、単線結線図・展開接続図・竣工図・前回の点検記録・測定器の取扱説明書と、現場責任者の指示に従ってください。本記事は経験と原理を整理した日誌で、作業手順書ではありません。</div>
+</article>
+<article class="entry" id="evt-zpd-backfeed-20261004" data-update-date="2026/10/04">
 <div class="date">2026.10.04｜今日のなんで？・DGR / 零相電圧</div>
 <h2>T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？<br>電磁形EVTとコンデンサ形ZPDで答えが逆になる</h2>
 <div class="danger audit-preconditions"><strong>作業の前に確認すること</strong><br>原理を整理する記事です。実際の試験では、対象の零相電圧検出装置（EVT・ZPD・零相電圧変換器）と継電器の型式、展開接続図、取扱説明書で入力位置と切り離し箇所を確認します。高圧側の停電・検電・放電、作業用短絡接地の状態、制御用直流電源の状態を責任者と確認し、不明点が残る場合は試験電圧を入れません。</div>
@@ -181,6 +285,7 @@
 <p>今日の接地は、<b>接地極側</b>と<b>設備側</b>が分かれていて、その間が<b>ボルトコネクタ</b>でつながっていました。測定は次の順番です。</p>
 <div class="flow">ボルトコネクタを外す<br>↓<br>接地極側を測定<br>↓<br>設備側を測定<br>↓<br>ボルトコネクタを再接続<br>↓<br>つないだ状態で接地抵抗を測定</div>
 
+<div class="tool"><b>関連</b><br>接地端子盤がないキュービクルで、A・B・C・D種をどこで測るかは <a href="#ground-abcd-no-terminal-20261004">こちらの記事</a> にまとめました。</div>
 <h3>🤔 なぜ一度外して、それぞれ測るのか</h3>
 <p>つないだままだと、測っている値には<b>設備側から先の別の経路（ほかの接地や構造物など）が並列に入る</b>可能性があります。並列の経路が入ると、接地極そのものの抵抗より低く見えてしまいます。</p>
 <p>いったん外して<b>接地極側だけ</b>を測れば、その接地極自体がどれくらいの抵抗なのかが分かります。設備側も単独で測ることで、それぞれの状態を切り分けられます。</p>
