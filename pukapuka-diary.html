@@ -164,7 +164,7 @@
 </ul></div>
 <div class="note">※ 本記事は原理を整理した日誌です。実際の保護継電器試験では、現場責任者、社内手順、操作票、展開接続図、機器の取扱説明書を確認してください。作業手順書ではありません。</div>
 </article>
-<article class="entry" id="tokko-oil-ground-20261003" data-update-date="2026/10/03">
+<article class="entry" id="tokko-oil-ground-20261003" data-update-date="2026/10/04">
 <div class="date">2026.10.03｜特高変電所・点検</div>
 <h2>特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。<br>接地極側と設備側を分けて測る理由。</h2>
 <div class="danger audit-preconditions"><strong>作業の前に確認すること</strong><br>これは当日の経験記録です。採油は変圧器メーカー・分析会社の手順と専用容器に従い、充電部との離隔・停電範囲を責任者と確認してから行います。接地線を外すと、その間は設備側が接地されていない状態になります。外せる条件（停電範囲・作業区域・外している時間）を事前に責任者と決め、測定後は確実に再接続して締付けを確認します。</div>
@@ -187,6 +187,42 @@
 <p>最後に<b>再接続してからもう一度測る</b>のは、元どおりにつながっていること（コネクタの締め忘れや接触不良がないこと）を、数値で確かめる意味もあります。</p>
 <div class="tool"><b>外して測る</b><br>→ 接地極そのものの値を、ほかの経路の影響なしで確認する。</div>
 <div class="tool"><b>つないで測る</b><br>→ 実際に使う状態の値と、再接続が確実かを確認する。</div>
+
+<h3 id="oil-sampling-photos">📷 追記：採油の道具とラベル（2026.10.04）</h3>
+<p>当日の写真を追加しました。お客さまの名称、製造番号、作業会社名、QRコードは伏せています。</p>
+<div class="diagram-card"><img src="assets/diary/oil-sampling-labels.jpg" alt="変圧器3台分の採油ラベル。定格15000kVA、66000V/6600V、1988年製などが書かれている" loading="lazy" style="display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:10px"><p class="small center">3台分（Tr.1〜Tr.3）の採油ラベル。容器に貼って分析会社へ送る</p></div>
+<p>ラベルには、分析に必要な情報を書き込みます。今回の主な内容はこうでした。</p>
+<div class="table-scroll"><table>
+<tr><th>欄</th><th>書いた内容</th><th>意味</th></tr>
+<tr><td>使用油・PCB</td><td>鉱油・不含</td><td>油の種類とPCBの有無</td></tr>
+<tr><td>容器</td><td>500ml</td><td>金属缶の容量</td></tr>
+<tr><td>分析項目</td><td>ガス・水分（Tr.1は酸価、絶縁破壊電圧、体積抵抗率、密度、動粘度、引火点も）</td><td>油中ガス分析と、油そのものの劣化を見る特性試験</td></tr>
+<tr><td>機器種別</td><td>変圧器・本体</td><td>LTC（負荷時タップ切換器）の油とは区別する</td></tr>
+<tr><td>定格</td><td>15,000kVA・66,000V／6,600V</td><td>銘板から</td></tr>
+<tr><td>劣化防止</td><td>隔膜</td><td>コンサベータの方式。油が空気に触れにくい構造</td></tr>
+<tr><td>製造</td><td>1988年・富士電機</td><td>銘板から</td></tr>
+</table></div>
+<div class="panic"><b>⚠️ ラベルに書いてあった採油の注意</b><p>ラベルの上部には、採油の注意も印刷されていました。<b>密閉式の変圧器は負圧の場合がある</b>こと、<b>油の飛散</b>に注意すること、<b>容器からオーバーフローさせて空気に極力触れないように採る</b>こと、<b>容器内は油で満たして空気を残さない</b>こと。ガスが抜けたり空気が混ざったりすると、分析結果が変わってしまうためです。</p></div>
+<div class="diagram-card"><img src="assets/diary/oil-sampling-cans.jpg" alt="採油用の金属缶3本" loading="lazy" style="display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:10px"><p class="small center">採油用の金属缶。1台につき1缶</p></div>
+<div class="diagram-card"><img src="assets/diary/oil-sampling-stoppers.jpg" alt="番号の付いたゴム栓とビニールチューブ" loading="lazy" style="display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:10px"><p class="small center">サイズ違いのゴム栓（数字が大きさ）とビニールチューブ。使い方は参考動画と手順書で確認</p></div>
+
+<h3 id="oil-sampling-volume">🤔 「放熱器 ℓ」が銘板に見当たらない</h3>
+<p>ラベルの<b>油量</b>欄は、<b>本体</b>と<b>放熱器</b>に分かれています。ところが銘板には、放熱器の油量が見当たりませんでした。</p>
+<p>変圧器の銘板には、油量が<b>総油量（全油量）だけ</b>書かれていることがよくあります。分けた数字は、<b>外形図（外形寸法図）</b>や<b>工場試験成績書・完成図書</b>に載っていることがあります。</p>
+<div class="tool"><b>分からないときの書き方</b><br>総油量を勝手に「本体」の欄に入れると、本体だけの油量だと誤解されます。空欄にするか、「銘板は総油量のみ」とメモを添えて、書き方は分析会社に確認するのが安全です。</div>
+
+<h3 id="oil-sampling-tr3">📝 Tr.3のメモを読み解く</h3>
+<div class="diagram-card"><img src="assets/diary/oil-sampling-tr3-memo.jpg" alt="Tr3のメモ。切換開閉器室油量120ℓ、ONAN、JEC-2200、%インピーダンスなど" loading="lazy" style="display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:10px"><p class="small center">作業用のメモ（Tr.3）</p></div>
+<div class="table-scroll"><table>
+<tr><th>メモ</th><th>意味</th></tr>
+<tr><td>切換開閉器室 油量 120ℓ</td><td>負荷時タップ切換器（LTC）の切換開閉器室の油量。<b>本体や放熱器の油量ではない</b>。LTCの油を別に採るとき、ラベルの「LTC」で使う数字</td></tr>
+<tr><td>ONAN</td><td>冷却方式。油も空気も自然に循環する油入自冷式</td></tr>
+<tr><td>一次 15000kVA 66000V</td><td>定格容量と一次の定格電圧</td></tr>
+<tr><td>12.28%</td><td>%インピーダンス（短絡インピーダンス）と思われる</td></tr>
+<tr><td>JEC-2200-…</td><td>電気学会の<b>変圧器の規格の番号</b>（末尾は年版）。<b>型番ではない</b>。製造年が1988年なので、銘板の表示は銘板そのもので確認する</td></tr>
+</table></div>
+<p>メモの一部（「Compound G… 0.005」）は、写真からは読み取れませんでした。</p>
+<div class="tool"><b>次回のチェック</b><br>採油日・天候・気温・油温・採油者の欄は、採ったその場で記入する。製造番号は、ラベルどうしで取り違えていないか銘板と照らし合わせる。</div>
 
 <section class="memo">
 <h3>🛟 今日のうきわメモ</h3>
