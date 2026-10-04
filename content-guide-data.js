@@ -1,6 +1,18 @@
 /* Curated page purposes; not equipment operating instructions. */
 window.UkiwaContents = [
   {
+    "path": "single-line-lab.html",
+    "title": "動く単線結線図",
+    "category": "機器・動作",
+    "description": "負荷・力率を変え、変圧器の一次・二次とCT二次の電流を図で比較。",
+    "tags": "三相平衡 単線結線図 PAS VCB CT 変圧器 kW kVA 力率 線間電圧 線電流",
+    "related": [
+      "ct-calculator.html",
+      "equipment-map.html",
+      "relay-basics.html"
+    ]
+  },
+  {
     "path": "ac-withstand-test-simulator.html",
     "title": "充電電流とリアクトルを比べる",
     "category": "計算",

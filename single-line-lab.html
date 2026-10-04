@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>動く単線結線図｜うきわメモ</title>
+  <meta name="description" content="負荷・力率・変圧器容量を変え、6,600V受電設備の一次電流・二次電流・CT二次電流の関係を図で確かめる三相平衡の学習教材。">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="island-pages.css">
+  <link rel="stylesheet" href="single-line-lab.css">
+  <script src="single-line-core.js" defer></script>
+  <script src="single-line-lab.js" defer></script>
+  <script src="island-pages.js" defer></script>
+</head>
+<body class="single-line-page">
+  <header class="lab-top"><a href="index.html" class="lab-brand"><span aria-hidden="true">◉</span> うきわメモ</a><label class="lab-theme"><span class="sr-only">島の景色</span><select id="sceneSelect" aria-label="島の景色"><option value="light">☀ 昼の島</option><option value="sunset">夕焼け</option><option value="dark">月夜</option></select></label></header>
+  <main class="lab-main">
+    <div class="lab-intro"><a class="lab-back" href="index.html#learn-menu">← 仕組みを学ぶ</a><p class="lab-eyebrow">設備をつなげて、電流を読む</p><h1>動く単線結線図</h1><p>負荷を変えると、変圧器の前後とCTでは何Aになる？</p><span class="lab-model">三相平衡 / 6,600V受電 / 理想変圧器・理想CT</span></div>
+    <noscript><p class="lab-error">この教材の計算にはJavaScriptが必要です。下の計算式と適用条件はそのまま読めます。</p></noscript>
+    <section class="lab-workspace" aria-label="条件を変えて電流を確認">
+      <form class="lab-controls" id="conditions" novalidate>
+        <h2><span class="step-dot">1</span> 負荷を変える</h2>
+        <div class="lab-input-group"><label for="kw">負荷の有効電力 <small>P</small></label><div class="lab-number"><input id="kw" name="kw" type="number" min="0" max="300" step="any" value="90" inputmode="decimal" aria-describedby="kw-hint input-error"><span>kW</span></div><input id="kw-range" type="range" min="0" max="300" step="1" value="90" aria-label="負荷の有効電力を調整"><small id="kw-hint">電気入力。モーターの軸出力ではありません。</small></div>
+        <div class="lab-input-group"><label for="pf">力率 <small>cos φ</small></label><div class="lab-number"><input id="pf" name="pf" type="number" min="0.5" max="1" step="any" value="0.9" inputmode="decimal" aria-describedby="pf-hint input-error"><span>0.5〜1</span></div><input id="pf-range" type="range" min="0.5" max="1" step="0.01" value="0.9" aria-label="力率を調整"><small id="pf-hint">0.9は90%。この教材では遅れ力率を想定。</small></div>
+        <details class="lab-settings"><summary>設備の条件を変える</summary><div class="lab-settings-fields"><label for="kva">変圧器容量<select id="kva" name="kva"><option>100</option><option selected>150</option><option>200</option><option>300</option><option>500</option></select><span>kVA</span></label><label for="lowVoltage">二次の線間電圧<select id="lowVoltage" name="lowVoltage"><option>200</option><option selected>210</option><option>400</option><option>420</option></select><span>V</span></label><label for="ctPrimary">高圧側CT比<select id="ctPrimary" name="ctPrimary"><option value="20">20 / 5</option><option value="30">30 / 5</option><option value="40">40 / 5</option><option value="50">50 / 5</option><option value="75">75 / 5</option><option value="100">100 / 5</option></select><span>A</span></label><p>学習用の条件です。実機の選定結果ではありません。</p></div></details>
+        <p class="lab-error" id="input-error" role="alert" hidden></p>
+        <div class="lab-power"><div><span>皮相電力 <small>S = P ÷ 力率</small></span><output id="apparent-power">—</output></div><div class="lab-loading"><span>変圧器の定格に対して</span><output id="loading">—</output></div><div class="lab-bar" aria-hidden="true"><span id="loading-bar"></span></div><p id="transformer-warning" class="lab-warning" hidden></p></div>
+        <div class="lab-experiments"><h3>同じ負荷で比べよう</h3><div class="lab-presets"><button type="button" data-preset="pf">力率だけ0.6に</button><button type="button" data-preset="capacity">容量だけ300kVAに</button><button type="button" data-preset="zero">負荷を0kWに</button><button type="button" data-preset="reset">初期値に戻す</button></div><p id="experiment-note">まず90kWのまま、力率を下げてみましょう。</p></div>
+      </form>
+      <div class="lab-board">
+        <div class="lab-board-heading"><h2><span class="step-dot">2</span> 電流を読む</h2><button id="flow-toggle" type="button" aria-pressed="false">動きを止める</button></div>
+        <p class="lab-board-note">1本の線で三相を表現。機器を押すと役割を表示。</p>
+        <svg class="lab-diagram" id="diagram" viewBox="0 0 500 535" role="group" aria-labelledby="diagram-title diagram-desc">
+          <title id="diagram-title">PAS、VCB、高圧側CT、変圧器、低圧負荷の単線結線図</title><desc id="diagram-desc">全機器は接続状態。一次・二次は線電流の実効値です。CTは高圧側の電流を計測する別回路です。点線の動きは負荷への電力伝達を表します。</desc>
+          <path class="lab-wire high-wire" d="M100 35V314"/><path class="lab-wire low-wire" d="M100 366V479"/>
+          <path class="lab-flow" d="M100 35V70M100 110V145M100 185V215M100 259V313M100 367V478"/>
+          <text class="svg-caption" x="100" y="23" text-anchor="middle">電力会社から</text>
+          <g class="lab-device" data-device="pas" role="button" tabindex="0" aria-label="PASの役割を読む"><rect class="device-hit" x="33" y="65" width="135" height="48" rx="10"/><circle class="device-terminal" cx="100" cy="77" r="3"/><circle class="device-terminal" cx="100" cy="102" r="3"/><path class="device-switch" d="M100 100V79"/><text x="45" y="94" class="svg-label">PAS</text></g>
+          <g class="lab-device" data-device="vcb" role="button" tabindex="0" aria-label="VCBの役割を読む"><rect class="device-hit" x="33" y="141" width="135" height="48" rx="10"/><rect class="breaker" x="88" y="151" width="24" height="28" rx="2"/><path class="device-switch" d="M100 154V176"/><text x="45" y="170" class="svg-label">VCB</text></g>
+          <g class="lab-device" data-device="ct" role="button" tabindex="0" aria-label="CTの役割を読む"><rect class="device-hit" x="33" y="212" width="135" height="51" rx="10"/><circle class="transformer-ring" cx="100" cy="237" r="20"/><text x="48" y="242" class="svg-label">CT</text></g>
+          <path class="ct-wire" d="M119 230H192V250M192 272V288H126V248H118"/><circle class="meter-ring" cx="192" cy="261" r="11"/><text class="meter-letter" x="192" y="266" text-anchor="middle">A</text>
+          <text class="svg-small" x="170" y="309" text-anchor="middle">計器につながる閉回路</text>
+          <g class="lab-device" data-device="transformer" role="button" tabindex="0" aria-label="変圧器の役割を読む"><rect class="device-hit" x="18" y="313" width="154" height="73" rx="10"/><circle class="transformer-ring" cx="100" cy="336" r="22"/><circle class="transformer-ring" cx="100" cy="360" r="22"/><text x="28" y="350" class="svg-label">Tr</text></g>
+          <text id="transformer-label" class="svg-small" x="100" y="405" text-anchor="middle">変圧器 — kVA</text>
+          <g class="lab-device" data-device="load" role="button" tabindex="0" aria-label="低圧負荷の役割を読む"><rect class="load-box" x="36" y="479" width="128" height="42" rx="12"/><text class="svg-label" x="100" y="505" text-anchor="middle">低圧負荷</text></g>
+          <g class="reading reading-high"><rect x="208" y="65" width="274" height="112" rx="16"/><text class="reading-label" x="224" y="88">一次側・高圧の線電流 I_H</text><text class="reading-value" x="224" y="127" id="high-current">— A</text><text class="reading-caption" x="224" y="153">線間電圧 6,600 V</text><path class="reading-leader" d="M208 119H175"/></g>
+          <g class="reading reading-ct"><rect x="230" y="222" width="252" height="102" rx="16"/><text class="reading-label" x="246" y="245">CT二次電流 I_CT</text><text class="reading-value" x="246" y="281" id="ct-current">— A</text><text class="reading-caption" x="246" y="308" id="ct-label">CT比 — / 5 A</text><path class="reading-leader" d="M230 261H208"/></g>
+          <g class="reading reading-low"><rect x="208" y="386" width="274" height="112" rx="16"/><text class="reading-label" x="224" y="409">二次側・低圧の線電流 I_L</text><text class="reading-value" x="224" y="448" id="low-current">— A</text><text class="reading-caption" x="224" y="474" id="low-voltage-label">線間電圧 — V</text><path class="reading-leader" d="M208 440H125"/></g>
+        </svg>
+        <p class="lab-warning" id="ct-warning" hidden></p><p class="lab-warning" id="zero-note" hidden>0 Aでも無電圧ではありません。図の回路は接続されたままで、電圧はかかっています。実機の無負荷電流はこのモデルでは省略しています。</p>
+        <p class="lab-legend"><span aria-hidden="true">↓</span> 動きは負荷へ伝わる電力のイメージ。交流電流の向き・速さ・大きさを表すものではありません。</p>
+      </div>
+    </section>
+    <p id="result-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+    <section class="lab-notes" aria-label="計算根拠と読み方">
+      <details><summary>なぜこの電流になる？ 計算式を見る</summary><div class="lab-detail-body"><p>三相平衡・正弦波では、<strong>S = √3 × 線間電圧 × 線電流 ÷ 1,000</strong>（kVA）、<strong>P = S × 力率</strong>（kW）。各相の電力を足した式を、線間電圧・線電流で表したものです。</p><dl class="lab-formulas"><dt>① 負荷から皮相電力</dt><dd id="formula-s">S = P ÷ 力率</dd><dt>② 変圧器の一次線電流</dt><dd id="formula-high">I_H = S × 1,000 ÷ (√3 × 6,600)</dd><dt>③ 変圧器の二次線電流</dt><dd id="formula-low">I_L = S × 1,000 ÷ (√3 × 二次線間電圧)</dd><dt>④ 高圧側CTの二次電流</dt><dd id="formula-ct">I_CT = I_H × 5 ÷ CT一次定格電流</dd></dl><p>理想変圧器では一次・二次の皮相電力が等しいため、電圧が低い側ほど線電流は大きくなります。CTはその高圧側電流を比率で縮小して、計器へ伝えます。</p><p><strong>√3は三相平衡の線間電圧・線電流を使うための係数です。</strong>たとえばY結線では相電圧 = 線間電圧 ÷ √3、線電流 = 相電流なので、3相分を足すと3 ÷ √3 = √3になります。Δ結線でも線量で表せば同じ式です。表示値は巻線の相電圧・相電流とは区別してください。</p></div></details>
+      <details><summary>容量・力率・CT比を変えると何が変わる？</summary><div class="lab-detail-body"><ul><li><strong>同じkWで力率を下げる：</strong>皮相電力が増え、一次・二次・CT二次の電流がすべて増えます。</li><li><strong>同じ負荷で変圧器容量だけ増やす：</strong>負荷電流は変わりません。変わるのは変圧器の定格電流と、定格に対する負荷の割合です。</li><li><strong>同じkW・力率で二次電圧を上げる：</strong>二次線電流は減ります。一次電流とCT二次電流は変わりません。</li><li><strong>CTを20/5から40/5に変える：</strong>CT二次電流は半分に。変圧器を流れる一次・二次電流は変わりません。</li></ul><p id="rated-currents">定格電流は設備条件を入力すると表示します。</p></div></details>
+      <details><summary>この図で省略しているもの・出典</summary><div class="lab-detail-body"><p>三相平衡の定常状態を扱う学習モデルです。変圧器の損失・励磁電流・インピーダンス・電圧変動、CTの誤差・負担・飽和、波形ひずみ・突入電流・事故電流は計算していません。定格超過時も比率計算を表示しますが、実機の挙動は再現しません。</p><p>図は役割の関係を示す概念図で、施工用の単線結線図ではありません。断路器、避雷器、保護継電器、VT、接地、低圧遮断器などは省略しています。PAS・VCBは接続状態を固定しており、開閉操作や保護協調の教材ではありません。CT二次は計器につながる閉回路として描いています。</p><ul class="lab-sources"><li><a href="https://fa-faq.mitsubishielectric.co.jp/faq/show/13022?site_domain=default" target="_blank" rel="noopener">三菱電機：変圧器の定格電流について</a> — 定格容量・定格電圧から線電流の実効値を算出する考え方。</li><li><a href="https://www.mitsubishielectric.co.jp/fa/ssl/learn/el/eln/course/fa_0220/cha_2/02030001.html" target="_blank" rel="noopener">三菱電機：電力管理用計器の基礎知識（変成器）</a> — CT比・定格・負担の確認先。</li></ul><p>確認日：2026年10月4日。6,600V・各容量・CT比は関係を比較するための設定値で、特定型式の採用や定格適合を示すものではありません。</p></div></details>
+    </section>
+    <nav class="lab-next" aria-label="次に学ぶ"><a href="ct-calculator.html">CT比と相別電流を詳しく →</a><a href="equipment-map.html">受変電設備の機器を探す →</a><a href="relay-basics.html">保護継電器の役割へ →</a></nav>
+  </main>
+  <footer class="lab-footer"><a href="index.html">うきわメモに戻る</a><span>図でつながる、現場の「なぜ？」</span></footer>
+  <dialog id="device-dialog" aria-labelledby="device-title"><button type="button" id="close-dialog" aria-label="説明を閉じる">×</button><p class="lab-eyebrow">単線結線図の機器</p><h2 id="device-title"></h2><p id="device-copy"></p><p id="device-detail"></p><a id="device-link" href="equipment-map.html">関連する教材を開く →</a></dialog>
+</body>
+</html>

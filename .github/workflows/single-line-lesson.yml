@@ -1,0 +1,35 @@
+name: Single-line lesson checks
+
+on:
+  push:
+    branches: [main, codex/single-line-lab]
+    paths: ['single-line-*', 'content-guide-data.js', 'tests/single-line-*', 'tests/content-guide.test.cjs', '.github/workflows/single-line-lesson.yml']
+  pull_request:
+    paths: ['single-line-*', 'content-guide-data.js', 'tests/single-line-*', 'tests/content-guide.test.cjs', '.github/workflows/single-line-lesson.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check calculations and catalogue
+        run: node --test tests/content-guide.test.cjs tests/single-line-core.test.cjs
+      - name: Install browser test dependency
+        run: |
+          npm install --no-save --package-lock=false --ignore-scripts playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Check desktop and mobile interactions
+        run: node tests/single-line-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: single-line-browser-screenshots
+          path: test-results/
+          retention-days: 14
