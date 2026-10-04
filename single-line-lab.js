@@ -33,6 +33,7 @@
     byId('input-error').hidden = result.ok;
     for (const id of ['transformer-warning', 'ct-warning', 'zero-note']) byId(id).hidden = true;
     document.querySelector('.lab-board').classList.remove('ct-over');
+    write('ct-reading-label', 'CT二次電流 I_CT');
     diagram.classList.toggle('no-flow', !result.ok || result.noLoad);
     clearTimeout(statusTimer);
     if (!result.ok) {
@@ -65,6 +66,7 @@
       write('transformer-warning', '変圧器の定格容量を超えています。表示は損失・温度上昇を含まない理想計算です。');
     }
     if (r.ctOver) {
+      write('ct-reading-label', 'CT二次電流：定格超過');
       byId('ct-warning').hidden = false;
       write('ct-warning', 'CT一次電流が定格' + r.ctPrimary + ' Aを超え、比率計算では二次5 A超です。実際のCTの誤差・飽和や計器の許容値は再現していません。');
       document.querySelector('.lab-board').classList.add('ct-over');
@@ -86,7 +88,7 @@
   form.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => {
     const preset = button.dataset.preset;
     if (preset === 'reset') { keys.forEach(key => byId(key).value = core.defaults[key]); write('experiment-note', '90kW・力率0.9・150kVAに戻しました。力率だけ変えて比べてみましょう。'); }
-    if (preset === 'pf') { byId('pf').value = '0.6'; write('experiment-note', '力率だけ0.6にしました。同じkWでも、必要な皮相電力と電流は増えます。'); }
+    if (preset === 'pf') { byId('pf').value = '0.6'; write('experiment-note', '力率だけ0.6にしました。同じkWなら、力率が低いほど必要な皮相電力と電流は大きくなります。'); }
     if (preset === 'capacity') { byId('kva').value = '300'; write('experiment-note', '変圧器容量だけ300kVAにしました。負荷電流は同じで、定格に対する割合が変わります。'); }
     if (preset === 'zero') { byId('kw').value = '0'; write('experiment-note', '負荷を0kWにしました。モデル上の負荷電流は0 Aですが、電圧はかかったままです。'); }
     render(true);

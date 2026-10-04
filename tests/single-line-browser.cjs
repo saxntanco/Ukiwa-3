@@ -30,6 +30,8 @@ const server = http.createServer((req, res) => {
   const preset = name => page.locator(`[data-preset="${name}"]`).click();
   try {
     await page.goto(url);
+    // Exercise the existing consent banner without enabling analytics in a test browser.
+    await page.getByRole('button', { name: '許可しない', exact: true }).click();
     await expectText('high-current', '8.75 A');
     await expectText('low-current', '274.9 A');
     await expectText('ct-current', '2.187 A');
