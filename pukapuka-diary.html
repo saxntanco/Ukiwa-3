@@ -12,10 +12,185 @@
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.04</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.05</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="ground-abcd-no-terminal-20261004" data-update-date="2026/10/04">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="relay-training-20261005" data-update-date="2026/10/05">
+<div class="date">2026.10.05｜研修・保護継電器</div>
+<h2>保護継電器の研修に行ってきた。<br>受電形式から継電器試験まで、一本の線でつなげて整理する。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>研修で学んだことを、自分の言葉で整理した記録です。研修資料は社内向けのため、資料の図・写真・手順表はそのまま載せていません。図は自分で描き直し、判定値は公開されている規格（JISなど）の値で書いています。計算例のうち「架空の設備」としたものは、この記事のために作った数字です。実際の試験は、対象リレー・試験器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
+<p class="lead">今日は一日、<b>保護継電器の研修</b>でした。内容は「受電形式」「保護協調」「遮断器の引外し方式」「電気計算」「配線演習」「継電器試験（OCR・DGR）」の6つ。参考としてUVR・OVRの試験も教わりました。明日は確認テストがあるので、その復習も兼ねてまとめます。</p>
+<p>バラバラの単元に見えたけれど、通して聞くと<b>1つの流れ</b>になっていました。</p>
+<div class="flow">① 受電形式：何が事故電流を切るのか<br>↓<br>② 保護協調：誰が、どの順番で切るのか<br>↓<br>③ 引外し方式：どうやって遮断器を動かすのか<br>↓<br>④ 電気計算：どこに整定するのか<br>↓<br>⑤ 配線：どうつながっているのか<br>↓<br>⑥ 継電器試験：本当にそのとおり動くのか</div>
+<div class="pillrow"><a class="pill" href="#training-receiving">1 受電形式</a><a class="pill" href="#training-coordination">2 保護協調</a><a class="pill" href="#training-trip">3 引外し方式</a><a class="pill" href="#training-calc">4 電気計算</a><a class="pill" href="#training-wiring">5 配線演習</a><a class="pill" href="#training-tests">6 継電器試験</a><a class="pill" href="#training-questions">持ち帰った疑問</a></div>
+
+<h3 id="training-receiving">🏗️ 1. 受電形式：主遮断装置で3つに分かれる</h3>
+<p>高圧の受電設備は、<b>主遮断装置（事故のときに受電を切る装置）が何か</b>で、<b>CB形・PF・CB形・PF・S形</b>の3つに分けられます。</p>
+<div class="table-scroll"><table>
+<tr><th>形式</th><th>短絡電流を切るもの</th><th>過負荷・地絡を切るもの</th><th>ポイント</th></tr>
+<tr><td><b>CB形</b></td><td>遮断器（CB）</td><td>OCR・GR（DGR）＋CB</td><td>保護継電器と遮断器の組み合わせで、過負荷・短絡・地絡をまとめて守る。容量の大きい設備向け</td></tr>
+<tr><td><b>PF・CB形</b></td><td>限流ヒューズ（PF）</td><td>OCR・GR（DGR）＋CB</td><td>大きな短絡電流はPFに受け持たせて、CBを小容量にする経済的な形。保護の機能はCB形と同じにできる。JIS C 4620（キュービクル）からは削除されていて、今は参考扱い</td></tr>
+<tr><td><b>PF・S形</b></td><td>限流ヒューズ（PF）</td><td>必要なときは引外し装置付きの負荷開閉器</td><td>小容量で単純な設備向けの経済的な形。負荷開閉器はPFとの協調を考えて、必要な遮断能力をもつものにする</td></tr>
+</table></div>
+<div class="checkgrid">
+<div class="checkcard"><b>キュービクルの容量の上限</b><br>JIS C 4620（キュービクル式高圧受電設備）は、平成4年の改正でCB形とPF・S形の2つに集約され、平成16年の改正で設備容量の上限が2,000kVAから<b>4,000kVA</b>に引き上げられた。キュービクルでは<b>CB形 4,000kVA</b>、<b>PF・S形 300kVA</b>まで。</div>
+<div class="checkcard"><b>PF・S形で気をつけること</b><br>負荷に<b>高圧電動機</b>がある設備では、始動電流でヒューズが溶断するおそれがあるので採用しない。主遮断装置に非限流ヒューズを使うと限流効果が期待できないので、設備の過電流強度に注意する。</div>
+</div>
+<p>どの形式でも、守るべき順番は同じです。需要家の高圧回路で短絡したら、<b>電力会社の配電用変電所のOCRが動く前に</b>、需要家のOCR＋CB（またはPF）が事故電流を切る。低圧回路の事故なら、<b>配線用遮断器（MCCB）が</b>上位のOCRやPFより先に切る。この「順番」が次の保護協調の話です。</p>
+
+<h3 id="training-coordination">🤝 2. 保護協調：事故は自分の構内で止める</h3>
+<p>保護協調は、<b>上位（電源に近い側）と下位（負荷に近い側）の保護装置の感度と動作時間を整えて、事故の回路だけを確実に切り、健全な回路には送電を続ける</b>こと。高圧需要家なら、構内の事故は構内の保護装置で処理して、<b>電力会社の配電線に波及させない</b>のが原則です。</p>
+<div class="flow">低圧の事故 → 配線用遮断器（MCCB）が先に切る<br>↓<br>高圧構内の事故 → 需要家のOCR＋CB（またはPF）が先に切る<br>↓<br>どちらも、電力会社の配電用変電所のOCRより先に</div>
+<h4>保護協調の種類</h4>
+<div class="table-scroll"><table>
+<tr><th>種類</th><th>中身</th></tr>
+<tr><td><b>過電流保護協調</b></td><td>過負荷保護と短絡保護。必要な箇所にOCRを置き、主遮断装置は配電用変電所の過電流保護と動作協調をとる。動作時限の整定は電気事業者と協議する。受電用変圧器の二次側の配線用遮断器・ヒューズとも協調をとるのが推奨</td></tr>
+<tr><td><b>地絡保護協調</b></td><td>地絡したら自動で切る地絡遮断装置を置き、配電用変電所の地絡保護と動作協調をとる。動作時限の整定は電気事業者と協議する。負荷側の高圧電路の対地静電容量が大きいときは、地絡方向継電器（DGR）が推奨</td></tr>
+<tr><td><b>動作協調</b></td><td>事故点のすぐ上位の保護装置だけが動き、ほかは動かないこと。自家用の短絡・地絡なら、電力会社のリレーより先に自家用のPFやCBが切って、波及事故にしない</td></tr>
+<tr><td><b>短絡強度協調</b></td><td>短絡電流が流れても、遮断されるまでの間に機器が熱的・機械的に壊れないこと。短絡電流から設備を守る</td></tr>
+</table></div>
+<p class="small">ほかに、雷などの異常電圧に対する絶縁協調もあります。</p>
+
+<h4>OCRの特性：反限時・定限時・瞬時</h4>
+<p>OCRは<b>反限時と定限時の両方の特性</b>をもつタイプです。電流が大きいほど速く動く<b>反限時</b>の部分が<b>過負荷</b>を、大電流の領域で動作時間がほぼ一定になる<b>定限時</b>の部分と<b>瞬時要素</b>が<b>短絡</b>を受け持ちます。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>瞬時要素で上位と協調</b><br>瞬時要素の整定で、配電用変電所のOCRとの協調をとる。両者の動作時間の間には余裕が必要で、研修では30ミリ秒以上の確保が必要と習った。</div>
+<div class="checkcard"><b>動いてはいけない電流</b><br>変圧器の励磁突入電流やコンデンサの突入電流では動かないように、限時・瞬時の特性を突入の領域より上に置く。</div>
+</div>
+<div class="tool"><b>反限時の時間を計算してみる</b><br>超反限時（EI）の公称式：t ＝ 80 ÷（M² − 1）× D ÷ 10<br><span class="small">M：タップ値の何倍の電流が流れたか、D：ダイヤル（レバー）</span><br>300%（M＝3）・ダイヤル10なら、80 ÷ 8 × 10 ÷ 10 ＝ <b>10秒</b>。ダイヤル3なら <b>3秒</b>。<br><span class="small">研修中のメモに「全メーカー同じ式」と書いたけれど、OCRタップ計算ページでは係数は機種ごとに確認する、としている。特性の種類と式は、対象リレーの資料で確かめる。→ <a href="ocr-tap-calculator.html#learning">OCRタップ計算：ダイヤルD・入力倍数M・5つの時間特性</a></span></div>
+
+<h4>地絡保護：ZCT・ZPD・DGR</h4>
+<p><b>ZCT（零相変流器）</b>は、3相の電線をまとめて通す変流器です。地絡がなければ Ia＋Ib＋Ic＝0 で磁束が打ち消し合うけれど、地絡で電流Igが大地へ漏れると打ち消しが崩れて、二次（k-l）に信号が出ます。<b>kt・ltは試験用の端子</b>で、継電器試験ではここから試験電流を入れます。</p>
+<p><b>ZPD（零相基準入力装置）</b>は、高圧の各相と大地の間をコンデンサで分圧して<b>零相電圧V₀</b>を取り出し、DGRへ送る装置です。完全地絡のときの零相電圧は 6,600 ÷ √3 ≒ <b>3,810V</b>。試験端子T-Eから電圧を入れたときにどうなるかは、<a href="#evt-zpd-backfeed-20261004">EVTとZPDの記事</a>にまとめています。</p>
+<p><b>なぜGRではなくDGRなのか。</b>地絡電流は、電線と大地の間の<b>対地静電容量</b>を通って戻ってきます。構内のケーブルが長いと、<b>構外（配電線側）で地絡したときにも、構内ケーブルの静電容量を通る電流がZCTを流れる</b>。方向を見ないGRだと、これで不要動作（もらい事故）することがあります。DGRは零相電圧V₀を基準に、ZCTを通る電流が<b>どちら向きか</b>を見て、構内の事故だけで動きます。</p>
+<div class="diagram-card"><svg viewBox="0 0 520 320" style="max-width:560px;margin:0 auto" role="img" aria-label="構内で地絡したとき、配電線側の対地静電容量C1を通る電流Ig1がZCTを構内向きに通り、DGRは動作する"><defs><marker id="rt1005-ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ff8a7a"/></marker><marker id="rt1005-ar-gold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f0c96b"/></marker></defs><rect x="0" y="0" width="520" height="320" rx="14" fill="#06213a"/><text x="24" y="36" fill="#ffb4a8" font-size="21" font-weight="800">① 構内で地絡 → DGRは動作</text><text x="140" y="76" text-anchor="middle" fill="#cfe3ef" font-size="18">配電線側</text><text x="380" y="76" text-anchor="middle" fill="#cfe3ef" font-size="18">構内</text><line x1="250" y1="58" x2="250" y2="262" stroke="#5d8db0" stroke-width="2" stroke-dasharray="6 4"/><line x1="24" y1="118" x2="496" y2="118" stroke="#9fc0d4" stroke-width="3"/><line x1="84" y1="100" x2="362" y2="100" stroke="#ff8a7a" stroke-width="4" marker-end="url(#rt1005-ar-red)"/><text x="200" y="93" fill="#ff8a7a" font-size="18" font-weight="800">Ig1</text><line x1="440" y1="140" x2="398" y2="140" stroke="#f0c96b" stroke-width="3" stroke-dasharray="5 4" marker-end="url(#rt1005-ar-gold)"/><text x="404" y="166" fill="#f0c96b" font-size="16" font-weight="700">Ig2</text><ellipse cx="286" cy="118" rx="13" ry="28" fill="none" stroke="#f0c96b" stroke-width="3"/><text x="286" y="168" text-anchor="middle" fill="#f0c96b" font-size="18" font-weight="800">ZCT</text><line x1="70" y1="118" x2="70" y2="174" stroke="#dff4ff" stroke-width="2"/><line x1="50" y1="174" x2="90" y2="174" stroke="#dff4ff" stroke-width="3"/><line x1="50" y1="186" x2="90" y2="186" stroke="#dff4ff" stroke-width="3"/><line x1="70" y1="186" x2="70" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="54" y1="236" x2="86" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="59" y1="243" x2="81" y2="243" stroke="#dff4ff" stroke-width="2"/><line x1="64" y1="250" x2="76" y2="250" stroke="#dff4ff" stroke-width="2"/><text x="18" y="190" fill="#dff4ff" font-size="20">C1</text><line x1="450" y1="118" x2="450" y2="174" stroke="#dff4ff" stroke-width="2"/><line x1="430" y1="174" x2="470" y2="174" stroke="#dff4ff" stroke-width="3"/><line x1="430" y1="186" x2="470" y2="186" stroke="#dff4ff" stroke-width="3"/><line x1="450" y1="186" x2="450" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="434" y1="236" x2="466" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="439" y1="243" x2="461" y2="243" stroke="#dff4ff" stroke-width="2"/><line x1="444" y1="250" x2="456" y2="250" stroke="#dff4ff" stroke-width="2"/><text x="474" y="190" fill="#dff4ff" font-size="20">C2</text><path d="M380,118 L380,160 L368,175 L392,190 L380,205 L380,236" stroke="#ff8a7a" stroke-width="3" fill="none"/><line x1="364" y1="236" x2="396" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="369" y1="243" x2="391" y2="243" stroke="#dff4ff" stroke-width="2"/><line x1="374" y1="250" x2="386" y2="250" stroke="#dff4ff" stroke-width="2"/><text x="368" y="216" text-anchor="end" fill="#ff8a7a" font-size="18" font-weight="800">✕ 地絡</text><text x="24" y="296" fill="#dff4ff" font-size="18" font-weight="700">ZCTを通るのは Ig1（構内向き）</text></svg><div style="height:10px"></div><svg viewBox="0 0 520 320" style="max-width:560px;margin:0 auto" role="img" aria-label="配電線側で地絡したとき、構内ケーブルの対地静電容量C2を通る電流Ig2がZCTを逆向きに通り、DGRは動作しない"><rect x="0" y="0" width="520" height="320" rx="14" fill="#06213a"/><text x="24" y="36" fill="#9fd8ff" font-size="21" font-weight="800">② 配電線側で地絡 → DGRは不動作</text><text x="140" y="76" text-anchor="middle" fill="#cfe3ef" font-size="18">配電線側</text><text x="380" y="76" text-anchor="middle" fill="#cfe3ef" font-size="18">構内</text><line x1="250" y1="58" x2="250" y2="262" stroke="#5d8db0" stroke-width="2" stroke-dasharray="6 4"/><line x1="24" y1="118" x2="496" y2="118" stroke="#9fc0d4" stroke-width="3"/><line x1="440" y1="100" x2="198" y2="100" stroke="#f0c96b" stroke-width="4" marker-end="url(#rt1005-ar-gold)"/><text x="318" y="93" fill="#f0c96b" font-size="18" font-weight="800">Ig2</text><line x1="84" y1="140" x2="164" y2="140" stroke="#ff8a7a" stroke-width="3" stroke-dasharray="5 4" marker-end="url(#rt1005-ar-red)"/><text x="108" y="166" fill="#ff8a7a" font-size="16" font-weight="700">Ig1</text><ellipse cx="286" cy="118" rx="13" ry="28" fill="none" stroke="#f0c96b" stroke-width="3"/><text x="286" y="168" text-anchor="middle" fill="#f0c96b" font-size="18" font-weight="800">ZCT</text><line x1="70" y1="118" x2="70" y2="174" stroke="#dff4ff" stroke-width="2"/><line x1="50" y1="174" x2="90" y2="174" stroke="#dff4ff" stroke-width="3"/><line x1="50" y1="186" x2="90" y2="186" stroke="#dff4ff" stroke-width="3"/><line x1="70" y1="186" x2="70" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="54" y1="236" x2="86" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="59" y1="243" x2="81" y2="243" stroke="#dff4ff" stroke-width="2"/><line x1="64" y1="250" x2="76" y2="250" stroke="#dff4ff" stroke-width="2"/><text x="18" y="190" fill="#dff4ff" font-size="20">C1</text><line x1="450" y1="118" x2="450" y2="174" stroke="#dff4ff" stroke-width="2"/><line x1="430" y1="174" x2="470" y2="174" stroke="#dff4ff" stroke-width="3"/><line x1="430" y1="186" x2="470" y2="186" stroke="#dff4ff" stroke-width="3"/><line x1="450" y1="186" x2="450" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="434" y1="236" x2="466" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="439" y1="243" x2="461" y2="243" stroke="#dff4ff" stroke-width="2"/><line x1="444" y1="250" x2="456" y2="250" stroke="#dff4ff" stroke-width="2"/><text x="474" y="190" fill="#dff4ff" font-size="20">C2</text><path d="M180,118 L180,160 L168,175 L192,190 L180,205 L180,236" stroke="#ff8a7a" stroke-width="3" fill="none"/><line x1="164" y1="236" x2="196" y2="236" stroke="#dff4ff" stroke-width="2"/><line x1="169" y1="243" x2="191" y2="243" stroke="#dff4ff" stroke-width="2"/><line x1="174" y1="250" x2="186" y2="250" stroke="#dff4ff" stroke-width="2"/><text x="170" y="216" text-anchor="end" fill="#ff8a7a" font-size="18" font-weight="800">✕ 地絡</text><text x="24" y="296" fill="#dff4ff" font-size="18" font-weight="700">ZCTを通るのは Ig2（逆向き）</text></svg><p class="small">C1：配電線側の対地静電容量、C2：構内ケーブルの対地静電容量。<b>①構内で地絡</b>すると、配電線側のC1を通って戻る電流Ig1がZCTを構内向きに通る（構内のC2を通る電流Ig2は構内だけで回り、ZCTを通らない）。<b>②配電線側で地絡</b>すると、構内ケーブルのC2を通る電流Ig2がZCTを逆向きに通る。V₀を基準にすると、①と②でI₀の向きが逆（位相が約180°ちがう）。方向を見ないGRは、②でもIg2が大きいと動いてしまう（もらい事故）。</p><p class="small center">自分で描き直した原理図。電流の向きだけを表していて、大きさの比ではない</p></div>
+<p>位相で見ると、構内事故と配電線事故では零相電流の向きが逆で、<b>位相が約180°ちがいます</b>。DGRの位相特性は、構内事故の電流が来る側を<b>動作域</b>、配電線事故の電流が来る180°付近を<b>不動作域</b>にして、その間に許容範囲をとっています。だから試験でも、<b>同相（0°）で動くこと</b>と<b>180°で動かないこと</b>の両方を確かめます。</p>
+<p class="small">高圧受電設備規程では、地絡遮断装置から負荷側の対地静電容量が大きいときはDGRが推奨。構内ケーブルが一定の長さ以内ならGRでよいという目安もあると聞いた（数字は規程で確認する）。</p>
+
+<h4>SOG制御装置の「SO」</h4>
+<p>SOは <b>Storage Over Current</b> の略で、「蓄勢＋過電流」という意味。PASやUGSは負荷電流の開閉はできても、<b>短絡電流は遮断できません</b>。そこで短絡電流が流れたときは、次の順番で動きます。</p>
+<div class="flow">過電流を検出して「開放する」を記憶し、待機<br>↓<br>電力会社の配電用遮断器が短絡電流を遮断（配電線が停電）<br>↓<br>停電を検知してから、PAS・UGSが開放（事故点を切り離す）<br>↓<br>約1分後に電力会社が再送電して、配電線は復電</div>
+<p>1分後の再送電が成功すれば、<b>波及事故の扱いにはならない</b>。PASの中で実際にどう動くかは、<a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックの記事</a>で整理しています。</p>
+
+<h3 id="training-trip">⚡ 3. 遮断器の引外し方式：どうやって遮断器を動かすか</h3>
+<p>保護継電器のしくみは、<b>検出部</b>（CT・VTで電流をおおむね5A、電圧を110Vに変成）→ <b>判定部</b>（保護継電器）→ <b>動作部</b>（遮断器の引外し）の3つに分けられます。継電器が「切れ」と判断したあと、遮断器の引外しコイル（TC）を<b>何のエネルギーで</b>動かすかで、引外し方式が分かれます。</p>
+<div class="table-scroll"><table>
+<tr><th>方式</th><th>別名</th><th>引外しのエネルギー</th><th>特徴</th></tr>
+<tr><td>① 変流器二次電流引外し方式</td><td>電流トリップ</td><td>事故電流そのもの（CTの二次電流）</td><td>いちばん一般的。引外し用の電源がいらない</td></tr>
+<tr><td>② 直流引外し方式</td><td>DCトリップ</td><td>蓄電池などの直流電源</td><td>信頼性が高い。受電設備に蓄電池が必要</td></tr>
+<tr><td>③ 不足電圧引外し方式</td><td>UVトリップ</td><td>電圧がなくなること自体が合図</td><td>引外し装置に電圧をかけておき、電圧がなくなったことを検出して遮断器を動かす</td></tr>
+<tr><td>④ コンデンサ引外し方式</td><td>キャパシタトリップ（通称「コントリ」）</td><td>常時充電しておいたコンデンサ</td><td>VTの電圧で引外し用コンデンサを充電しておき、その放電で引き外す</td></tr>
+</table></div>
+<div class="checkgrid"><div class="diagram-card" style="margin:0"><svg viewBox="0 0 400 300" role="img" aria-label="ふだんはOCRのb接点が閉じて引外しコイルTCを短絡し、CT二次電流はb接点を通ってTCを通らない"><rect x="0" y="0" width="400" height="300" rx="14" fill="#06213a"/><text x="22" y="36" fill="#7ee0a1" font-size="22" font-weight="800">ふだん</text><path d="M60,80 H250 V230 H60 Z" fill="none" stroke="#7ee0a1" stroke-width="14" stroke-opacity=".35" stroke-linejoin="round"/><line x1="60" y1="80" x2="340" y2="80" stroke="#9fc0d4" stroke-width="3"/><line x1="60" y1="230" x2="340" y2="230" stroke="#9fc0d4" stroke-width="3"/><path d="M60,80 L60,125 a10,10 0 0 1 0,20 a10,10 0 0 1 0,20 a10,10 0 0 1 0,20 L60,230" fill="none" stroke="#dff4ff" stroke-width="3"/><text x="18" y="162" fill="#dff4ff" font-size="20" font-weight="700">CT</text><rect x="100" y="62" width="80" height="36" rx="6" fill="#123b5e" stroke="#7fb2ec" stroke-width="2"/><text x="140" y="87" text-anchor="middle" fill="#dff4ff" font-size="19" font-weight="700">OCR</text><line x1="250" y1="80" x2="250" y2="132" stroke="#9fc0d4" stroke-width="3"/><line x1="250" y1="180" x2="250" y2="230" stroke="#9fc0d4" stroke-width="3"/><circle cx="250" cy="136" r="5" fill="#dff4ff"/><circle cx="250" cy="176" r="5" fill="#dff4ff"/><line x1="250" y1="136" x2="252" y2="176" stroke="#dff4ff" stroke-width="3"/><text x="238" y="162" text-anchor="end" fill="#dff4ff" font-size="18">b接点</text><line x1="340" y1="80" x2="340" y2="120" stroke="#9fc0d4" stroke-width="3"/><rect x="328" y="120" width="24" height="66" rx="4" fill="#5f7f95" stroke="#9fc0d4" stroke-width="2"/><line x1="340" y1="186" x2="340" y2="230" stroke="#9fc0d4" stroke-width="3"/><text x="360" y="160" fill="#dff4ff" font-size="18" font-weight="700">TC</text><text x="22" y="276" fill="#7ee0a1" font-size="17">電流はb接点を通り、TCを通らない</text></svg></div><div class="diagram-card" style="margin:0"><svg viewBox="0 0 400 300" role="img" aria-label="OCRが動作するとb接点が開き、CT二次電流が引外しコイルTCに流れて遮断器が引き外れる"><rect x="0" y="0" width="400" height="300" rx="14" fill="#06213a"/><text x="22" y="36" fill="#ff8a7a" font-size="22" font-weight="800">OCRが動作したとき</text><path d="M60,80 H340 V230 H60 Z" fill="none" stroke="#ff8a7a" stroke-width="14" stroke-opacity=".35" stroke-linejoin="round"/><line x1="60" y1="80" x2="340" y2="80" stroke="#9fc0d4" stroke-width="3"/><line x1="60" y1="230" x2="340" y2="230" stroke="#9fc0d4" stroke-width="3"/><path d="M60,80 L60,125 a10,10 0 0 1 0,20 a10,10 0 0 1 0,20 a10,10 0 0 1 0,20 L60,230" fill="none" stroke="#dff4ff" stroke-width="3"/><text x="18" y="162" fill="#dff4ff" font-size="20" font-weight="700">CT</text><rect x="100" y="62" width="80" height="36" rx="6" fill="#123b5e" stroke="#ff8a7a" stroke-width="2"/><text x="140" y="87" text-anchor="middle" fill="#dff4ff" font-size="19" font-weight="700">OCR</text><line x1="250" y1="80" x2="250" y2="132" stroke="#9fc0d4" stroke-width="3"/><line x1="250" y1="180" x2="250" y2="230" stroke="#9fc0d4" stroke-width="3"/><circle cx="250" cy="136" r="5" fill="#dff4ff"/><circle cx="250" cy="176" r="5" fill="#dff4ff"/><line x1="250" y1="136" x2="276" y2="168" stroke="#dff4ff" stroke-width="3"/><text x="238" y="162" text-anchor="end" fill="#dff4ff" font-size="18">b接点</text><line x1="340" y1="80" x2="340" y2="120" stroke="#9fc0d4" stroke-width="3"/><rect x="328" y="120" width="24" height="66" rx="4" fill="#ff8a7a" stroke="#ffd2cb" stroke-width="2"/><line x1="340" y1="186" x2="340" y2="230" stroke="#9fc0d4" stroke-width="3"/><text x="360" y="160" fill="#ff8a7a" font-size="18" font-weight="700">TC</text><text x="22" y="276" fill="#ff8a7a" font-size="17">b接点が開き、電流がTCへ → 引外し</text></svg></div></div><p class="small center">自分で描き直した原理図（TC：遮断器の引外しコイル）。実際の端子の名前や内部の配線は、機種ごとの展開接続図で確認する</p>
+<p>電流引外しは、ふだんは<b>OCRのb接点（ふだん閉じている接点）</b>がTCを短絡していて、CT二次電流はTCを通らずにCTへ戻っています。OCRが動作するとb接点が開き、行き場を失ったCT二次電流がTCに流れて遮断器を引き外す。<b>事故電流そのものが引外しのエネルギー</b>なので、引外し用の電源がなくても動くのがポイントです。</p>
+
+<h3 id="training-calc">🧮 4. 電気計算</h3>
+<h4>変圧器の定格電流</h4>
+<div class="tool"><b>単相</b>　I ＝ S ÷ V<br><b>三相</b>　I ＝ S ÷（√3 × V）<span class="small">　V：線間電圧、I：線電流</span><br>例：単相 50kVA・210V → 50,000 ÷ 210 ≒ <b>238 A</b><br>例：三相 150kVA・210V → 150,000 ÷（√3 × 210）≒ <b>412 A</b></div>
+<p class="small">研修中のメモ：低圧側の定格電流に0.052を掛けると、B種接地線の太さの目安（mm²）になり、その直近上位の電線サイズを選ぶ（例：238A × 0.052 ≒ 12.4 → 14mm²）。根拠の式と表は内線規程で確認する。</p>
+<h4>V結線の容量</h4>
+<p>V結線は、線間電圧＝相電圧、線電流＝相電流になるので、S ＝ √3 × E（相電圧）× I（相電流）。<b>同じ容量の2台なら、√3 × 1台分の容量</b>です。</p>
+<p><b>容量がちがう2台</b>なら、<b>√3 ×（小さい方）＋（大きい方 − 小さい方）</b>。三相として使える分は小さい方で決まり、大きい方の残りを足す、と覚えました。</p>
+<div class="tool">例：75kVA × 2台 → √3 × 75 ≒ 129.9 → <b>129kVA</b><br>例：50kVA と 100kVA → √3 × 50 ＋（100 − 50）≒ 86.6 ＋ 50 ＝ 136.6 → <b>136kVA</b><br><span class="small">契約に使う容量は、小数点以下を切り捨て。</span></div>
+<h4>OCRタップ計算（Imax方式）</h4>
+<p>単相Trと三相Trが混ざっていると、相によって流れる電流がちがいます。<b>いちばん大きい相</b>に合わせてタップを決めるのがImax方式です。</p>
+<div class="flow">三相Trは容量を3等分して各相間へ、単相Trはつないだ相間へ<br>↓<br>相間容量を大きい順に A ≧ B ≧ C（各相間の差が小さくなるようにつなぐのが基本）<br>↓<br>Imax ＝ √(A² ＋ AB ＋ B²) ÷ 6.6［A］<br>↓<br>CT比で二次へ：Imax × 5 ÷ CT一次<br>↓<br>計算値の直近上位のタップ（研修では3〜5Aの範囲。5Aを超えたらCTを交換）</div>
+<div class="tool"><b>例（架空の設備）</b>：三相Tr 150kVA、単相Tr 100kVA（RS間）、単相Tr 50kVA（TR間）、CT 50/5A<br>相間容量：RS ＝ 50 ＋ 100 ＝ 150、TR ＝ 50 ＋ 50 ＝ 100、ST ＝ 50 kVA<br>Imax ＝ √(150² ＋ 150 × 100 ＋ 100²) ÷ 6.6 ≒ 33.0 A → 二次 33.0 × 5 ÷ 50 ≒ 3.30 A<br>0.5A刻みの目盛（静止形）なら <b>3.5A</b>、1A刻みの目盛（誘導形に多い）なら <b>4A</b></div>
+<p>なぜ大きい2つだけを使うのか、全部を三相とみなして計算すると何がまずいのかは、OCRタップ計算ページに追記しました。同じ例を計算機に入れるボタンもあります。→ <a href="ocr-tap-calculator.html#imax-method">OCRタップ計算：Imax方式</a></p>
+<p>契約電力（kW）から求める式も紹介されました。I ＝ 契約電力 ÷（√3 × 6.6 × 力率0.9）× 余裕の倍率 × 5 ÷ CT一次。余裕の倍率を掛けて直近上位のタップを選ぶ考え方は、OCRタップ計算ページの「契約電力」ルートと同じです。</p>
+<h4>容量圧縮（設備容量kVA → 最大電力kW）</h4>
+<p>設備容量をそのまま最大電力とすると大きすぎるので、容量が大きくなるほど低い割合を掛けて「最大でもこのくらい」と見込む計算です。契約設備容量の計算や、CT・OCRの整定のときに使います（研修では参考として紹介）。</p>
+<div class="table-scroll"><table>
+<tr><th>設備容量の区分</th><th>計算方法1（区分ごとの割合を足す）</th><th>計算方法2（まとめた式）</th></tr>
+<tr><td>最初の50kVA</td><td>80%</td><td>50kVA以下：S × 0.8</td></tr>
+<tr><td>次の50kVA（100kVAまで）</td><td>70%</td><td>100kVA以下：S × 0.7 ＋ 5</td></tr>
+<tr><td>次の200kVA（300kVAまで）</td><td>60%</td><td>300kVA以下：S × 0.6 ＋ 15</td></tr>
+<tr><td>次の300kVA（600kVAまで）</td><td>50%</td><td>600kVA以下：S × 0.5 ＋ 45</td></tr>
+<tr><td>600kVAを超える部分</td><td>40%</td><td>600kVA超：S × 0.4 ＋ 105</td></tr>
+</table></div>
+<p>計算方法2の「＋5」「＋15」「＋45」「＋105」は、手前の区分を高い割合で数えたぶんの差をまとめた数です。たとえば100kVAまでの式は全体を70%で数えているので、最初の50kVAを80%で数えたぶんの差 50 × 0.1 ＝ 5 を足している。だから<b>どちらの方法で計算しても同じ答え</b>になります。</p>
+<div class="tool">例：400kVA → 方法1：40 ＋ 35 ＋ 120 ＋ 50 ＝ <b>245kW</b>／方法2：400 × 0.5 ＋ 45 ＝ <b>245kW</b><br>例：800kVA → 方法1：40 ＋ 35 ＋ 120 ＋ 150 ＋ 80 ＝ <b>425kW</b>／方法2：800 × 0.4 ＋ 105 ＝ <b>425kW</b><br><span class="small">小数点以下は四捨五入。V結線の契約容量（切り捨て）と丸め方がちがうので注意。</span></div>
+
+<h3 id="training-wiring">🔌 5. 配線演習：CTからOCR、そしてTCへ</h3>
+<p>電流引外し方式のOCRを、<b>静止形（オムロン K2CA形）</b>と<b>誘導形（日立 IO形）</b>で、CTからの配線を実際にたどりました。</p>
+<div class="flow">CT二次<br>↓<br>CTT（電流試験端子）<br>↓<br>OCRの電流端子・電流計切換スイッチ（AS）と電流計<br>↓<br>CTへ戻る（CT二次はD種接地）<br><br>電流引外しなので、遮断器の引外しコイル（TC）もOCRの端子を通ってCT二次の回路につながる</div>
+<div class="checkgrid">
+<div class="checkcard"><b>静止形が電源なしで動く理由</b><br>静止形OCRの中には、電流を測る<b>検出用</b>の変流器と、自分の回路を動かす<b>電源用</b>の変流器がある。CT二次電流から自分の電源も作るので、引外し用の電源がなくても動ける。</div>
+<div class="checkcard"><b>CTTの役割</b><br>CTTで<b>CT側を短絡してからOCR側と切り離す</b>と、CT二次を開放せずに、OCR側へ試験電流を入れられる。</div>
+<div class="checkcard"><b>線を外すなら線番札</b><br>配線を外す前に線番札をつけて番号を書き、作業責任者と確認してから外す。戻したあとも確認する。</div>
+</div>
+
+<h3 id="training-tests">🧪 6. 継電器試験：本当にそのとおり動くか</h3>
+<h4>どの試験にも共通する注意</h4>
+<div class="checkgrid">
+<div class="checkcard"><b>停電と電源</b><br>継電器試験は原則として<b>全停電</b>で、試験器から電源を供給する<b>他電源方式</b>で行う。商用電源から試験器の電源をとるときは<b>極性</b>に注意する。</div>
+<div class="checkcard"><b>整定値は作業の前と後</b><br>整定値（タップ・レバー・瞬時など）は、<b>作業前と作業後に作業責任者と作業者で相互確認</b>する。試験で動かした値を戻し忘れない。</div>
+<div class="checkcard"><b>線を外すとき</b><br>配線を外す場合も、作業前と作業後に相互確認。端子の取り外しに危険があるときは、試験を中止する。</div>
+<div class="checkcard"><b>連動と接点を先に知る</b><br>遮断器・開閉器と保護継電器が連動するかどうか、遮断器・開閉器・継電器の接点の構造を、事前に図面で確認しておく。</div>
+</div>
+<p>実習は、<b>作業指示係</b>（作業責任者として準備と試験を指示し、判定する）・<b>測定器操作係</b>・<b>継電器・遮断器操作係</b>・<b>記録係</b>を、グループで順番に担当しました。ほかの人は試験中に助言する役です。</p>
+
+<h4>OCR（過電流継電器）試験 ── JIS C 4602</h4>
+<p>準備では、整定値を確認したあと、CTTの接続を外して<b>CT側を短絡用バーで短絡</b>し、OCR側の端子に試験器の電流コードをつなぎます。遮断器が動いたタイミングは、遮断器に取り付けた<b>振動センサ</b>で試験器に伝えて、時間を測ります。</p>
+<div class="table-scroll"><table>
+<tr><th>試験</th><th>やり方</th><th>判定（JIS C 4602）</th></tr>
+<tr><td><b>最小動作電流</b></td><td>レバー（時間目盛）を<b>1</b>にして、電流を少しずつ上げ、継電器・遮断器が動作したときの電流を読む</td><td>整定値の <b>±10%</b></td></tr>
+<tr><td><b>限時動作時間</b></td><td><b>レバー10</b>と<b>実際の整定レバー</b>の2回。動作をロックしたまま整定値の<b>300%</b>に合わせ、いったん止めてロックを離し、一気に流して時間を測る</td><td>下の式で <b>17%以内</b></td></tr>
+<tr><td><b>瞬時要素</b></td><td>動作をロックしたまま、電流を素早く上げて、瞬時要素が動作したときの電流を読む</td><td>整定値の <b>±15%</b></td></tr>
+</table></div>
+<p class="small">R相とT相の両方で行い、最後に整定値（タップ・レバー・瞬時）を確認して終了。</p>
+<div class="panic"><b>⚠️ 最小動作電流と始動電流はちがう</b><p><b>始動電流</b>：誘導形OCRの円板が<b>動き始める</b>電流。<br><b>最小動作電流</b>：円板が回って<b>主接点が閉じる</b>最小の電流。試験で測るのは最小動作電流。静止形なら、経過時間のインジケータが100%まで進んで動作したときの電流。</p></div>
+<div class="checkgrid">
+<div class="checkcard"><b>誘導形</b><br>始動すると、円板が時計回りに動き出す。動作ロックは<b>円板を指で軽く押さえる</b>。</div>
+<div class="checkcard"><b>静止形</b><br>始動すると、始動表示・経過時間のインジケータが点灯する。動作ロックは<b>ロックボタンを指で軽く押さえる</b>（ダイヤルにロック位置がある機種もある）。</div>
+</div>
+<p>ロックするのは、300%に合わせている途中で動作してしまうと時間が測れないから。合わせ終わったら出力を止め、カウンタをリセットしてから一気に流します。</p>
+<div class="tool"><b>限時動作時間の判定式</b><br>|（t<sub>N3</sub> − N/10 × T<sub>10.3</sub>）÷ T<sub>10.3</sub> × 100| ≦ 17%<br><span class="small">T<sub>10.3</sub>：レバー10で300%を流したときの公称動作時間（銘板の特性曲線）<br>t<sub>N3</sub>：レバーNで300%を流したときの実測時間<br>最小タップの700%で試す場合は、同じ形の式で12%以内</span></div>
+<div class="tool"><b>実習のOCR（静止形）：タップ4A・ダイヤル3・瞬時20A</b><br>最小動作電流：4A ± 10% → <b>3.6〜4.4A</b><br>瞬時要素：20A ± 15% → <b>17〜23A</b><br>レバー10（T<sub>10.3</sub>＝10秒）：10 ± 1.7秒 → <b>8.3〜11.7秒</b><br>ダイヤル3：3 ± 1.7秒 → <b>約1.3〜4.7秒</b></div>
+<p><b>気づいたこと：</b>許容幅は「レバー10のときの時間の17%」なので、レバーを小さくしても幅は±1.7秒のまま。ダイヤル3なら公称3秒に対して±57%くらいになります。「±17%」と割合で覚えるより、式で覚えたほうが迷いません。</p>
+
+<h4>DGR（地絡方向継電器）試験 ── JIS C 4609</h4>
+<p>準備では整定値（零相電圧・零相電流・動作時間）を確認し、DGRの試験用端子（電圧：T・E、電流：kt・lt）に試験器の電圧・電流のコードをつなぎます。</p>
+<div class="table-scroll"><table>
+<tr><th>試験</th><th>やり方</th><th>判定（JIS C 4609）</th></tr>
+<tr><td><b>最小動作電圧</b></td><td>零相電流を整定値の<b>150%</b>流し、電流と<b>同相</b>（0°、または最大感度角）の零相電圧を少しずつ上げて、動作した電圧を読む</td><td>整定値の <b>±25%</b></td></tr>
+<tr><td><b>不動作</b></td><td>零相電圧を整定値の<b>150%</b>、零相電流を<b>1000%</b>、位相を<b>180°</b>にする（配電線側の事故のまね）</td><td>継電器・遮断器が<b>動作しないこと</b></td></tr>
+<tr><td><b>最小動作電流</b></td><td>零相電圧を整定値の<b>150%</b>かけ、電圧と同相の零相電流を少しずつ上げて、動作した電流を読む</td><td>整定値の <b>±10%</b></td></tr>
+<tr><td><b>位相特性</b></td><td>動作する位相と、動作しない位相の境目を調べる</td><td>製造者が示す範囲内</td></tr>
+<tr><td><b>動作時間</b></td><td>整定値の<b>130%</b>と<b>400%</b>の電流で時間を測る</td><td>130%：<b>0.1〜0.3秒</b>／400%：<b>0.1〜0.2秒</b></td></tr>
+</table></div>
+<div class="tool"><b>実習のDGR：V₀ 5%・I₀ 0.2A・0.2秒</b><br>完全地絡のV₀ ＝ 6,600 ÷ √3 ≒ 3,810V<br>整定5% → 3,810 × 0.05 ≒ <b>190V</b>（判定 ±25% → <b>約143〜238V</b>）<br>試験で入れる150% → 190 × 1.5 ＝ <b>285V</b><br>I₀ 0.2A → 判定 ±10% → <b>0.18〜0.22A</b>。150%は0.3A、不動作試験の1000%は2A</div>
+<p class="small">零相電圧の検出表示（ランプなど）がある機種は、電流を流さずに電圧だけを上げて、表示が点いたときの電圧を読む方法もある。GR（JIS C 4601）は、動作電流が整定値の±10%、動作時間は130%で0.1〜0.3秒、400%で0.1〜0.2秒。PAS（SOG制御装置）を単体で試験するときは、既設の制御電源の線を外して試験器から補助電源を入れ、電流・電圧・トリップの端子に試験器をつなぐ。</p>
+
+<h4>UVR・OVR（参考）</h4>
+<div class="table-scroll"><table>
+<tr><th>試験</th><th>UVR（不足電圧継電器）</th><th>OVR（過電圧継電器）</th></tr>
+<tr><td><b>動作電圧</b></td><td>定格電圧から少しずつ<b>下げて</b>、動作した電圧</td><td>定格電圧から少しずつ<b>上げて</b>、動作した電圧</td></tr>
+<tr><td><b>復帰電圧</b></td><td>動作値より10%ほど<b>下げて</b>から少しずつ上げ、復帰した電圧</td><td>動作値より10%ほど<b>上げて</b>から少しずつ下げ、復帰した電圧</td></tr>
+<tr><td><b>動作時間</b></td><td>実習では整定値の70%の電圧を急にかけて測定（一般には70%・50%・0%など）</td><td>実習では整定値の120%の電圧を急にかけて測定（一般には130%・150%など）</td></tr>
+<tr><td><b>判定</b></td><td colspan="2">製造者の示す値が基本。参考として規格（JEC-174B）の許容誤差があり、動作電圧は誘導形・静止形などで±5%、可動鉄心形で±10%</td></tr>
+</table></div>
+
+<h4>記録書の書き方</h4>
+<p>記録書は、<b>整定値の欄</b>と<b>測定値の欄</b>が分かれていて、それぞれに判定を書き、最後に<b>連動・表示</b>（遮断器が動いたか、表示が出たか）と<b>総合判定</b>を書きます。整定値は作業前に記録書へ書いておくと、作業後の戻し確認にも使えます。</p>
+<div class="tool"><b>関連ページ</b><br><a href="ocr-tap-calculator.html#imax-method">OCRタップ計算（Imax方式・ダイヤルと時間協調）</a><br><a href="relay-test-reference.html">型式別の試験早見表</a><br><a href="protective-relay.html">保護継電器 メーカー・型式DB</a><br><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？</a><br><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？</a></div>
+
+<h3 id="training-questions">🤔 持ち帰った疑問</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>上位との時間の余裕は何秒？</b><br>メモには「電力側0.9秒・需要家0.2秒。0.3秒くらい間があればいい？」と書いた。未確認。OCRタップ計算ページの時間協調の不等式（下位の時間＋余裕 ≦ 上位）で整理し直す。</div>
+<div class="checkcard"><b>GRでよいケーブルの長さ</b><br>構内ケーブルが一定の長さ以内ならGRでよい、という目安の数字を高圧受電設備規程で確認する。</div>
+<div class="checkcard"><b>OCRの式は本当に共通？</b><br>メモの「全メーカー同じ式」。特性（超反限時・強反限時など）ごとに式が決まっているのか、機種ごとにちがうのか、メーカー資料で確かめる。</div>
+<div class="checkcard"><b>B種接地線の0.052</b><br>係数の根拠と、どの表から選ぶのかを内線規程で確認する。</div>
+</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>受電形式で「何が切るか」、保護協調で「どの順番で切るか」、引外し方式で「どうやって切らせるか」、計算で「どこに合わせるか」、試験で「本当にそう動くか」。</b></p>
+<p><b>継電器試験は「整定値の相互確認」で始まって、「整定値を戻して相互確認」で終わる。</b></p>
+</section>
+<div class="note">※ 受電設備の形式、保護協調の整定、引外し方式、試験の方法と判定は、設備・機種・電気事業者との協議内容によって異なります。実際の作業では、メーカー資料、社内手順、現場責任者の指示を確認します。本記事は研修の内容を自分用に整理した日誌であり、作業手順書ではありません。</div>
+</article>
+<article class="entry" id="ground-abcd-no-terminal-20261004" data-update-date="2026/10/04">
 <div class="date">2026.10.04｜今日のなんで？・接地抵抗測定</div>
 <h2>接地端子盤がないキュービクルで、<br>A・B・C・D種の接地はどこを測る？</h2>
 <div class="danger audit-preconditions"><strong>作業の前に確認すること</strong><br>接地線を外すと、その間はつながっている機器が接地されていない状態になります。外せる条件（停電範囲・外しておく時間）を責任者と決めてから外し、測定後は確実に再接続して締付けを確認します。<b>B種接地は、充電中に外しません。</b>CT・VTの二次回路の配線（接地線以外）は外しません。図と結線は一般的な構成の説明用で、実際の設備は単線結線図・展開接続図・前回の点検記録で確認します。</div>
