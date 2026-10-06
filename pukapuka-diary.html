@@ -12,10 +12,244 @@
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.05</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="relay-training-20261005" data-update-date="2026/10/05">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="leak-search-training-20261007" data-update-date="2026/10/07">
+<div class="date">2026.10.07｜研修・絶縁監視と漏電探査</div>
+<h2>絶縁監視と漏電探査の研修に行ってきた。<br>漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>研修で学んだことを、自分の言葉で整理した記録です。研修テキストは社内向けのため、テキストの図・写真・表、社内の基準や運用、システムの操作手順、事故事例の詳細は載せていません。図はすべて自分で描き直しました。数値や定義は、公開されている資料（国の様式、メーカー資料、学会誌）で確認できたものだけを書き、確認できなかったところはそう書いています。<br><strong>活線での測定を含む話です。</strong>実際の作業は、測定器の取扱説明書、社内手順、現場責任者の指示に従います。</div>
+<p class="lead">今日は一日、<b>絶縁監視装置と漏電探査の研修</b>でした。絶縁監視装置のしくみ、警報が出たときの考え方、漏電探査の進め方、探査のヒント、探査中の事故事例、という流れ。</p>
+<p>8月に<a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置の記事</a>を書いたけれど、今回は<b>その手前の「漏れ電流はそもそもどこを通るのか」</b>から、もう一度つなげ直します。</p>
+<div class="flow">① 漏れ電流はどこを通る？<br>↓<br>② どこで、何を測って見張る？（Io・Ior・Igr）<br>↓<br>③ 警報が出たら、まず何をする？<br>↓<br>④ どこから探す？（大きい範囲 → 小さい範囲）<br>↓<br>⑤ 何をヒントに探す？（天気・時間・季節・作業）<br>↓<br>⑥ 探査中にけがをしない</div>
+<div class="pillrow"><a class="pill" href="#leak-path">1 漏れ電流の通り道</a><a class="pill" href="#leak-ct-zct">2 検出用CTとZCT</a><a class="pill" href="#leak-methods">3 Io・Ior・Igr</a><a class="pill" href="#leak-alarm">4 警報が出たら</a><a class="pill" href="#leak-search">5 探査の進め方</a><a class="pill" href="#leak-hints">6 探査のヒント</a><a class="pill" href="#leak-safety">7 探査中の事故</a><a class="pill" href="#leak-questions">持ち帰った疑問</a></div>
+<p class="small"><span class="badge official">🟢 公開資料で確認</span><span class="badge field">🔵 研修で聞いた</span><span class="badge infer">🟡 自分の考え・例</span></p>
+
+<h3 id="leak-path">🌍 1. 漏れ電流の通り道：最後は必ずB種接地線を通って帰る</h3>
+<p>使っている機器の絶縁が悪くなると、電気が機器の外箱へ漏れます。漏れた電流は、<b>機器の接地（D種など）→ 大地 → 変圧器のB種接地 → 変圧器</b>の順に流れて、変圧器へ帰ってきます。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 340" role="img" aria-label="漏れ電流の通り道。変圧器の低圧側から使用機器へ電線が2本。機器で絶縁不良が起きると、機器の接地EDから大地を通り、変圧器のB種接地EBから変圧器へ戻る。B種接地線に検出用CTが付いている">
+<rect x="0" y="0" width="760" height="340" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">漏れ電流の通り道（説明用の図）</text>
+<rect x="60" y="70" width="90" height="90" rx="10" fill="#4c6b80" stroke="#9fc0d4" stroke-width="2"/>
+<text x="105" y="112" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">変圧器</text>
+<text x="105" y="132" fill="#9fc0d4" font-size="12" text-anchor="middle">低圧側</text>
+<line x1="150" y1="88" x2="560" y2="88" stroke="#cfe3ef" stroke-width="3"/>
+<line x1="150" y1="142" x2="560" y2="142" stroke="#cfe3ef" stroke-width="3"/>
+<text x="300" y="80" fill="#9fc0d4" font-size="13">非接地側（対地電圧あり）</text>
+<text x="300" y="160" fill="#9fc0d4" font-size="13">接地側（対地電圧 0V）</text>
+<rect x="560" y="64" width="110" height="102" rx="10" fill="#3f5c70" stroke="#9fc0d4" stroke-width="2"/>
+<text x="615" y="108" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">使用機器</text>
+<text x="615" y="128" fill="#ffd27a" font-size="12" text-anchor="middle">絶縁不良</text>
+<line x1="105" y1="160" x2="105" y2="270" stroke="#7ee08a" stroke-width="3"/>
+<line x1="85" y1="270" x2="125" y2="270" stroke="#7ee08a" stroke-width="3"/><line x1="92" y1="278" x2="118" y2="278" stroke="#7ee08a" stroke-width="2"/><line x1="99" y1="286" x2="111" y2="286" stroke="#7ee08a" stroke-width="2"/>
+<text x="130" y="276" fill="#7ee08a" font-size="15" font-weight="800">E<tspan font-size="11" dy="4">B</tspan></text>
+<line x1="640" y1="166" x2="640" y2="270" stroke="#7ee08a" stroke-width="3"/>
+<line x1="620" y1="270" x2="660" y2="270" stroke="#7ee08a" stroke-width="3"/><line x1="627" y1="278" x2="653" y2="278" stroke="#7ee08a" stroke-width="2"/><line x1="634" y1="286" x2="646" y2="286" stroke="#7ee08a" stroke-width="2"/>
+<text x="665" y="276" fill="#7ee08a" font-size="15" font-weight="800">E<tspan font-size="11" dy="4">D</tspan></text>
+<ellipse cx="105" cy="215" rx="26" ry="11" fill="none" stroke="#ffd27a" stroke-width="3"/>
+<text x="140" y="212" fill="#ffd27a" font-size="13" font-weight="800">検出用CT</text>
+<text x="140" y="230" fill="#ffd27a" font-size="12">（B種接地線1本を挟む）</text>
+<path d="M600 166 L620 240" stroke="#ff8f7a" stroke-width="3" fill="none" marker-end="url(#ah1)"/>
+<path d="M620 300 L130 300" stroke="#ff8f7a" stroke-width="3" fill="none" marker-end="url(#ah1)"/>
+<path d="M80 250 L80 175" stroke="#ff8f7a" stroke-width="3" fill="none" marker-end="url(#ah1)"/>
+<text x="300" y="322" fill="#ff8f7a" font-size="14" font-weight="800">漏れ電流：機器 → E<tspan font-size="10" dy="3">D</tspan><tspan dy="-3"> → 大地 → E</tspan><tspan font-size="10" dy="3">B</tspan><tspan dy="-3"> → 変圧器</tspan></text>
+<defs><marker id="ah1" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ff8f7a"/></marker></defs>
+</svg>
+</div>
+<p>ここが大事なところで、<b>どの機器から漏れても、帰り道はB種接地線の1本にまとまります</b>。だから、B種接地線に1つCTを付けておけば、その変圧器から先の低圧電路全体の漏れ電流（Io）を見張れます。絶縁監視装置がB種接地線にCTを付けるのはこのためです。<span class="badge field">🔵 研修</span></p>
+<div class="panic"><b>⚠️ 接地側で地絡しても、漏れ電流は流れない</b><p>B種接地は、低圧電路の1線（単相3線なら中性線、三相3線なら1つの相）を大地とつないでいます。その線は<b>大地との電圧が0V</b>なので、そこで絶縁が悪くなっても、電流を押し出す電圧がなく、漏れ電流は流れません。<span class="badge field">🔵 研修</span></p><p>つまり<b>Io（漏れ電流）を見る方式では、接地側の絶縁不良は見えません</b>。これが後で出てくるIgr方式との大きな違いになります。</p></div>
+<div class="tool"><b>B種接地はそもそも何のため？</b><br>高圧と低圧が変圧器の中で接触（混触）したときに、低圧側の電圧が上がりすぎないように抑えるための接地です。接地抵抗の上限は「150 ÷ 1線地絡電流」などで決まります（電気設備技術基準の解釈 第17条）。<span class="badge official">🟢 公開資料</span><br><a href="#ground-abcd-no-terminal-20261004">→ A・B・C・D種の接地はどこを測る？（10/4の日誌）</a></div>
+
+<h3 id="leak-ct-zct">🔍 2. 「検出用CT」と「ZCT」はどう違う？</h3>
+<p>テキストでは、B種接地線に付けるものを<b>「検出用CT」</b>と書いていました。漏電遮断器の中にあるのは<b>ZCT（零相変流器）</b>。どちらも漏れ電流を測るのに、名前がちがうのが気になったので調べました。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 300" role="img" aria-label="左：B種接地線1本だけを通したCT。流れているのは漏れ電流だけ。右：電路の全部の線を通したZCT。行きと帰りの電流は打ち消し合い、差の零相電流だけが出てくる">
+<rect x="0" y="0" width="760" height="300" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">CTとZCT：何本の線を通すか（説明用の図）</text>
+<line x1="380" y1="52" x2="380" y2="284" stroke="#3a79a3" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="190" y="70" fill="#ffd27a" font-size="16" font-weight="800" text-anchor="middle">B種接地線に付けるCT</text>
+<line x1="190" y1="88" x2="190" y2="240" stroke="#7ee08a" stroke-width="5"/>
+<ellipse cx="190" cy="160" rx="62" ry="22" fill="none" stroke="#ffd27a" stroke-width="5"/>
+<path d="M206 130 L206 102" stroke="#ff8f7a" stroke-width="3" marker-end="url(#ah2)"/>
+<text x="222" y="118" fill="#ff8f7a" font-size="13" font-weight="700">Io</text>
+<text x="190" y="266" fill="#dff4ff" font-size="13" text-anchor="middle">通すのは接地線1本だけ</text>
+<text x="190" y="284" fill="#9fc0d4" font-size="12" text-anchor="middle">流れているのが漏れ電流そのもの</text>
+<text x="570" y="70" fill="#ffd27a" font-size="16" font-weight="800" text-anchor="middle">ZCT（零相変流器）</text>
+<line x1="540" y1="88" x2="540" y2="240" stroke="#cfe3ef" stroke-width="4"/>
+<line x1="570" y1="88" x2="570" y2="240" stroke="#cfe3ef" stroke-width="4"/>
+<line x1="600" y1="88" x2="600" y2="240" stroke="#cfe3ef" stroke-width="4"/>
+<ellipse cx="570" cy="160" rx="72" ry="24" fill="none" stroke="#ffd27a" stroke-width="5"/>
+<path d="M528 104 L528 132" stroke="#8ed0fa" stroke-width="3" marker-end="url(#ah3)"/>
+<path d="M582 132 L582 104" stroke="#8ed0fa" stroke-width="3" marker-end="url(#ah3)"/>
+<path d="M612 104 L612 132" stroke="#8ed0fa" stroke-width="3" marker-end="url(#ah3)"/>
+<text x="570" y="266" fill="#dff4ff" font-size="13" text-anchor="middle">電路の全部の線をまとめて通す</text>
+<text x="570" y="284" fill="#9fc0d4" font-size="12" text-anchor="middle">行き・帰りは打ち消し、差（零相電流）だけ残る</text>
+<defs><marker id="ah2" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ff8f7a"/></marker><marker id="ah3" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#8ed0fa"/></marker></defs>
+</svg>
+</div>
+<div class="table-scroll"><table>
+<tr><th></th><th>B種接地線のCT</th><th>ZCT（零相変流器）</th></tr>
+<tr><td><b>通す線</b></td><td>B種接地線<b>1本</b></td><td>電路の<b>全部の線</b>（三相なら3本、単相3線なら3本）</td></tr>
+<tr><td><b>出てくるもの</b></td><td>接地線に流れる電流＝漏れ電流の合計</td><td>各線の電流のベクトル和（零相電流）。正常なら打ち消し合ってほぼ0、漏電するとその分だけ残る</td></tr>
+<tr><td><b>主な使いどころ</b></td><td>絶縁監視装置、漏電探査の最初の測定</td><td>漏電遮断器、漏電リレー、幹線・分岐での一括測定</td></tr>
+</table></div>
+<p><b>自分の結論：</b>B種接地線には漏れ電流しか流れないので、<b>打ち消し合いのしくみは要らず、1本を測るふつうのCT（分割形）で足ります</b>。だから「検出用CT」という呼び方は構造としては正確です。<span class="badge infer">🟡 自分の考え</span></p>
+<p>ただ、測っている中身は結局<b>同じ零相電流（Io）</b>で、mAを測る高感度のCTは作りもZCTとよく似ています。資料やメーカーによっては接地線用のものもZCTと呼んでいるので、<b>「ZCTと書いてあったら間違い」というほどの話ではありません</b>。8月の記事でもZCTと書いています。</p>
+<p>リーククランプで測るときも同じ考え方です。<b>接地線1本を挟む</b>ときは普通のCTの使い方、<b>幹線や分岐の全部の線をまとめて挟む</b>ときはZCTと同じ原理です。まとめて挟むときに1本でも外れていると、負荷電流がそのまま表示されてしまいます。</p>
+<p class="small">ZCTの説明は三菱電機の製品ページ「全ての一次側電線を貫通させて地絡事故時の零相電流（各相電流のベクトル和）の検出に使用」で確認しました。</p>
+
+<h3 id="leak-methods">📐 3. Io・Ior・Igr：何を測って見張るか</h3>
+<h4>Io は「抵抗ぶん」と「静電容量ぶん」の合計</h4>
+<p>電線と大地の間には、<b>絶縁抵抗 R</b> と <b>対地静電容量 C</b> の両方があります。だから漏れ電流 Io には2種類が混ざっています。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 320" role="img" aria-label="電流ベクトル図。横軸が電圧Vの向き。Irは電圧と同じ向き、Icは90度進んだ上向き。IoはIrとIcを合わせた斜めの矢印">
+<rect x="0" y="0" width="760" height="320" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">Io をベクトルで見る（説明用の図）</text>
+<line x1="90" y1="260" x2="470" y2="260" stroke="#9fc0d4" stroke-width="2"/>
+<text x="478" y="265" fill="#9fc0d4" font-size="14">電圧 V の向き</text>
+<line x1="90" y1="260" x2="90" y2="64" stroke="#9fc0d4" stroke-width="2"/>
+<text x="98" y="62" fill="#9fc0d4" font-size="13">90°進み</text>
+<path d="M90 260 L330 260" stroke="#ff8f7a" stroke-width="5" marker-end="url(#ah4)"/>
+<text x="210" y="288" fill="#ff8f7a" font-size="15" font-weight="800" text-anchor="middle">Ir：絶縁抵抗ぶん</text>
+<path d="M90 260 L90 110" stroke="#8ed0fa" stroke-width="5" marker-end="url(#ah5)"/>
+<text x="100" y="98" fill="#8ed0fa" font-size="15" font-weight="800">Ic：静電容量ぶん</text>
+<path d="M90 260 L326 114" stroke="#ffd27a" stroke-width="5" marker-end="url(#ah6)"/>
+<text x="250" y="142" fill="#ffd27a" font-size="16" font-weight="800">Io</text>
+<line x1="330" y1="260" x2="330" y2="112" stroke="#3a79a3" stroke-width="2" stroke-dasharray="6 5"/>
+<line x1="90" y1="110" x2="330" y2="110" stroke="#3a79a3" stroke-width="2" stroke-dasharray="6 5"/>
+<rect x="500" y="80" width="236" height="150" rx="10" fill="#0b2b4b" stroke="#3a79a3"/>
+<text x="516" y="106" fill="#dff4ff" font-size="14" font-weight="800">見るべきなのは Ir</text>
+<text x="516" y="132" fill="#cfe3ef" font-size="13">Ir：絶縁が悪いと増える</text>
+<text x="516" y="154" fill="#cfe3ef" font-size="13">Ic：絶縁が良くても流れる</text>
+<text x="516" y="176" fill="#cfe3ef" font-size="13">（長いケーブル、ノイズフィルタ、</text>
+<text x="516" y="196" fill="#cfe3ef" font-size="13">インバータ機器などで増える）</text>
+<text x="516" y="218" fill="#ffd27a" font-size="13" font-weight="700">Io ＝ Ir と Ic のベクトル和</text>
+<defs><marker id="ah4" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ff8f7a"/></marker><marker id="ah5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#8ed0fa"/></marker><marker id="ah6" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ffd27a"/></marker></defs>
+</svg>
+</div>
+<p>絶縁が悪くなって増えるのは <b>Ir</b> のほう。ところが Io だけを見る方式では Ic も一緒に測ってしまうので、<b>静電容量の大きい設備では、絶縁が悪くなくても警報値に届いてしまう</b>ことがあります。研修では、NC工作機械・コンピュータ・無停電電源装置のような機器が増えて、こういう設備が多くなっている、という説明でした。<span class="badge field">🔵 研修</span></p>
+<p>そこで「抵抗ぶんだけを取り出したい」という考えから、<b>Ior方式</b>と<b>Igr方式</b>があります。</p>
+
+<div class="table-scroll"><table>
+<tr><th>方式</th><th>どうやって抵抗ぶんを見る？</th><th>接地側の絶縁不良</th><th>弱いところ</th></tr>
+<tr><td><b>Io</b></td><td>見ない（合計をそのまま測る）</td><td>見えない</td><td>静電容量が大きいと、絶縁が良くても値が大きくなる</td></tr>
+<tr><td><b>Ior</b></td><td>商用周波数のまま、<b>電圧を基準にした位相</b>から、電圧と同じ向きの成分だけを計算で取り出す</td><td>見えない</td><td>非接地側の各相の静電容量が<b>等しい</b>ことを前提に計算するので、かたよっていると誤差が出る</td></tr>
+<tr><td><b>Igr</b></td><td>B種接地線から<b>商用とちがう周波数の小さな監視電圧</b>を重ねて入れ、その周波数の電流から抵抗ぶんを取り出す</td><td><b>見える</b></td><td>監視信号がうまく入らない・拾えない状態（大きな地絡、CTや注入トランスの不具合など）だと監視できない</td></tr>
+</table></div>
+<p class="small">表の「接地側」と「弱いところ」は研修の説明と、下の公開資料をもとに自分でまとめたものです。</p>
+
+<h4>Ior：位相を使って計算する</h4>
+<p>三和電気計器の資料では、<b>Io ＝ Ior ＋ Ioc</b>（ベクトルの和）として、次の式が示されています。θ は基準電圧と Io の位相角です。<span class="badge official">🟢 メーカー資料</span></p>
+<div class="eq">単相：Ior ＝ Io × cosθ
+三相：Ior ＝ Io × sinθ ÷ cos30°</div>
+<p>単相なら「電圧と同じ向きの成分＝cos」でわかりやすい。三相の式に sin と cos30° が出てくるのは、どの電圧を基準に取るかによるもので、式は機器ごとの決まりに従います。<span class="badge infer">🟡 自分の考え</span></p>
+<p>三相3線（1線接地）では、接地していない2つの相がそれぞれ大地へ静電容量の電流を流します。2つの相の静電容量が等しければ、その合計の向きが決まるので、計算で取り除けます。<b>かたよっていると、静電容量ぶんの一部が抵抗ぶんのように見えてしまう</b>。これが「不平衡だと誤差が出る」の理由だと理解しました。<span class="badge infer">🟡 自分の考え</span></p>
+
+<h4>Igr：目印の付いた電気を流して追う</h4>
+<div class="flow">監視電源：商用（50/60Hz）とちがう低い周波数の、小さな電圧<br>↓<br>注入トランスで、B種接地線に重ねて入れる<br>↓<br>電路全体が、大地から見て監視電圧のぶんだけ持ち上がる<br>↓<br>絶縁抵抗と静電容量を通って、監視周波数の電流が流れる<br>↓<br>B種接地線のCTで、その周波数の電流だけを取り出す<br>↓<br>電圧と同じ向きの成分（Igr）と、静電容量の成分（Igc）に分ける</div>
+<p><b>なぜ接地側の絶縁不良も見えるのか：</b>監視電圧はB種接地線（電路と大地の間）に入れるので、監視信号から見ると、<b>接地側の線も含めて全部の線が大地に対して同じ監視電圧</b>になります。三相でも単相でも、監視電源から見れば単相の回路と同じ。だから接地側で絶縁が悪くなっても、監視周波数の電流は流れて見えます。<span class="badge field">🔵 研修</span></p>
+<h4>小さな監視電圧で測って、実際の電圧に換算する</h4>
+<p>絶縁抵抗 R が同じなら、抵抗ぶんの電流は電圧に比例します（I ＝ V ÷ R）。だから、監視電圧で測った値（igr）を、実際の対地電圧の値に<b>換算</b>します。</p>
+<div class="eq">Igr ＝ igr × （電路の対地電圧 ÷ 監視電圧）</div>
+<div class="tool"><b>例：監視電圧 0.1V の機種</b><br>100V回路：igr × 100 ÷ 0.1 ＝ igr × <b>1000</b><br>200V回路：igr × 200 ÷ 0.1 ＝ igr × <b>2000</b><br><span class="small">監視電圧が機種でちがえば倍率も変わります。周波数・電圧は機種ごとに確認（8月の記事の「20.3Hz・0.1Vは共通仕様ではない」）。「200V回路」は、三相3線200V（1線接地）のように非接地側の対地電圧が200Vになる回路のこと。単相3線100/200Vは線間200Vでも対地は100Vです。</span></div>
+<p>クランプ式の探査器には、監視周波数の電流をそのまま測る <b>Ig</b>（抵抗ぶん＋静電容量ぶんの合成）と、そこから抵抗ぶんだけを分けた <b>Igr</b> があります。<b>Ig が大きくても Igr が小さければ、それは静電容量ぶん</b>。探査器の表示がどちらなのかを意識して読みます。<span class="badge field">🔵 研修</span></p>
+<p>Igrの監視信号の作り方・異常表示の切り分けは、<a href="#igr-insulation-monitor-20260829">8月の記事</a>に詳しく書いたので、そちらへ。</p>
+
+<h3 id="leak-alarm">🚨 4. 警報が出たら：いきなり復帰しない</h3>
+<p>絶縁監視装置は、漏れ電流が設定値を超えると警報を出します。国の様式（設備条件確認書）では、点検の間隔を延ばす条件の1つとして、低圧電路の絶縁状態を監視する装置の<b>警報設定値は50mAを上限</b>とされています。<span class="badge official">🟢 公開資料</span></p>
+<p>研修で教わった考え方を、自分の言葉で並べるとこうなります。<span class="badge field">🔵 研修</span></p>
+<div class="flow">① どの装置（Io / Igr）の、どのCH（変圧器）で、どんな警報か確認<br>↓<br>② 表示を記録してから、復帰・試験をする<br>↓<br>③ もう一度表示を見る。出なければ、今は漏れていない（探査を終える）<br>↓<br>④ まだ出るなら、そのCHの変圧器のB種接地線を測る（Io・Ig・Igr）<br>↓<br>⑤ その変圧器の幹線を測って、分電盤を絞る<br>↓<br>⑥ 分電盤の中で、幹線 → 各回路を測る</div>
+<p>復帰する前の表示には、「いつ・どのくらい続いたか」の手がかりが残っています。消してしまうと原因を追う情報がなくなるので、<b>まず記録</b>。</p>
+<div class="warning"><strong>漏れが大きすぎるときは Igr が使えないことがある</strong><br>完全地絡のように漏れ電流がとても大きいと、監視装置を守るために監視信号を止める機種があります。そのときは監視周波数の信号がないので、<b>商用周波数の Io で探します</b>。<span class="badge field">🔵 研修</span>（大電流で監視出力を止める機能は、8月の記事で書いたメーカー資料にもあります）</div>
+
+<h3 id="leak-search">🧭 5. 探査の進め方：幹から枝へ</h3>
+<p>漏電探査は、<b>大きい範囲から小さい範囲へ</b>。いきなり分電盤の回路を一つずつ当たるのではなく、まず「どの変圧器か」を決めます。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 330" role="img" aria-label="探査の順番の例。変圧器が3台あり、B種接地線の値は5mA、150mA、4mA。150mAの変圧器の幹線を測ると、分電盤Bが140mA。分電盤Bの中で回路を測ると、回路3が130mA">
+<rect x="0" y="0" width="760" height="330" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">幹から枝へ絞る（数値は説明用の架空の例）</text>
+<text x="24" y="70" fill="#9fc0d4" font-size="13" font-weight="700">① B種接地線</text>
+<rect x="140" y="50" width="150" height="34" rx="8" fill="#3f5c70"/><text x="215" y="73" fill="#cfe3ef" font-size="14" text-anchor="middle">Tr1　5mA</text>
+<rect x="320" y="50" width="150" height="34" rx="8" fill="#a5432f" stroke="#ff8f7a" stroke-width="2"/><text x="395" y="73" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">Tr2　150mA</text>
+<rect x="500" y="50" width="150" height="34" rx="8" fill="#3f5c70"/><text x="575" y="73" fill="#cfe3ef" font-size="14" text-anchor="middle">Tr3　4mA</text>
+<path d="M395 84 L395 118" stroke="#ff8f7a" stroke-width="3" marker-end="url(#ah7)"/>
+<text x="24" y="146" fill="#9fc0d4" font-size="13" font-weight="700">② 幹線</text>
+<rect x="190" y="124" width="150" height="34" rx="8" fill="#3f5c70"/><text x="265" y="147" fill="#cfe3ef" font-size="14" text-anchor="middle">分電盤A　6mA</text>
+<rect x="370" y="124" width="150" height="34" rx="8" fill="#a5432f" stroke="#ff8f7a" stroke-width="2"/><text x="445" y="147" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">分電盤B　140mA</text>
+<rect x="550" y="124" width="150" height="34" rx="8" fill="#3f5c70"/><text x="625" y="147" fill="#cfe3ef" font-size="14" text-anchor="middle">分電盤C　3mA</text>
+<path d="M445 158 L445 192" stroke="#ff8f7a" stroke-width="3" marker-end="url(#ah7)"/>
+<text x="24" y="220" fill="#9fc0d4" font-size="13" font-weight="700">③ 分岐回路</text>
+<rect x="190" y="198" width="120" height="34" rx="8" fill="#3f5c70"/><text x="250" y="221" fill="#cfe3ef" font-size="14" text-anchor="middle">回路1　2mA</text>
+<rect x="320" y="198" width="120" height="34" rx="8" fill="#3f5c70"/><text x="380" y="221" fill="#cfe3ef" font-size="14" text-anchor="middle">回路2　3mA</text>
+<rect x="450" y="198" width="120" height="34" rx="8" fill="#a5432f" stroke="#ff8f7a" stroke-width="2"/><text x="510" y="221" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">回路3　130mA</text>
+<rect x="580" y="198" width="120" height="34" rx="8" fill="#3f5c70"/><text x="640" y="221" fill="#cfe3ef" font-size="14" text-anchor="middle">回路4　2mA</text>
+<path d="M510 232 L510 262" stroke="#ff8f7a" stroke-width="3" marker-end="url(#ah7)"/>
+<text x="24" y="290" fill="#9fc0d4" font-size="13" font-weight="700">④ 負荷</text>
+<text x="510" y="290" fill="#ffd27a" font-size="14" font-weight="800" text-anchor="middle">回路3の先の機器・配線を調べる</text>
+<text x="24" y="318" fill="#9fc0d4" font-size="12">合計が合わないときは、測っていない回路や、別の接地経路がないかも疑う。</text>
+<defs><marker id="ah7" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ff8f7a"/></marker></defs>
+</svg>
+</div>
+<div class="checkgrid">
+<div class="checkcard"><b>レンジは回路の電圧に合わせる</b><br>Ig・Igrは換算値なので、100V系の回路か200V系の回路かで設定を変える。動力（三相200V）の幹線は200V、電灯（単相100/200V）の幹線は100V、という考え方。<span class="badge field">🔵 研修</span></div>
+<div class="checkcard"><b>CTの向きをそろえる</b><br>クランプには矢印（向き）がある。向きを決めて測る。<span class="badge field">🔵 研修</span></div>
+<div class="checkcard"><b>注入トランスから離して挟む</b><br>Igrの探査器は、注入トランスのすぐ近くで挟むと監視信号を直接拾うことがある。離す距離は探査器の取扱説明書で確認。<span class="badge field">🔵 研修</span></div>
+<div class="checkcard"><b>全部の線をまとめて挟む</b><br>幹線・分岐を測るときは、接地側も含めて全部の線を一括で（ZCTの使い方）。1本でも外れると負荷電流が出てしまう。<span class="badge infer">🟡 自分の考え</span></div>
+</div>
+<p>探査器には、その場で測るクランプのほかに、<b>何時間も記録できる記録型</b>や、<b>設定値を超えたらランプが点く表示器</b>もあります。いつ漏れているか分からない「たまにしか出ない警報」には、記録型を置いて時間の傾向を見る、という使い方。<span class="badge field">🔵 研修</span></p>
+
+<h3 id="leak-hints">🌦️ 6. 探査のヒント：警報が「いつ」出ているか</h3>
+<p>測ったときに漏れていないと、探査で見つけられません。そこで、<b>警報が出るタイミングと設備の様子</b>から原因を推理します。研修では次の5つに分けていました。<span class="badge field">🔵 研修</span></p>
+<div class="table-scroll"><table>
+<tr><th>手がかり</th><th>疑うもの（例）</th></tr>
+<tr><td><b>(1) 雨などの天気</b></td><td>外灯、屋外の機器、屋外に置いた延長コード（移動電線）、屋外コンセント。雨の日・雨のあとにだけ警報が出る</td></tr>
+<tr><td><b>(2) 時間・曜日・季節</b></td><td>決まった時間に動くタイマーの機器、営業日だけ使う機器、冬だけ使うヒーター類など <span class="badge infer">🟡 例</span></td></tr>
+<tr><td><b>(3) 水位・温度など</b></td><td>水位で動く排水ポンプ、温度で動く機器や結露など <span class="badge infer">🟡 例</span></td></tr>
+<tr><td><b>(4) 清掃作業</b></td><td>床のコンセント付近を水で掃除したとき、機器を水で洗ったとき、洗車機など</td></tr>
+<tr><td><b>(5) その他</b></td><td>上のどれにも当てはまらないもの。工事・機器の入れ替えなど <span class="badge infer">🟡 例</span></td></tr>
+</table></div>
+<p><b>お客さまにお話を伺うと、ヒントになることが多い。</b>「最近つないだ機器はありますか」「雨の日に何か変わったことは」「その時間に何をしていますか」。警報の時刻と、お客さまの生活や作業のリズムを重ねると、測る場所がぐっと絞れます。</p>
+<p>研修では、ビルの平面図に分電盤の位置を書き込んで、「この分電盤の先には何があるか」を考える練習もありました（図面は社内資料なので載せません）。</p>
+
+<h3 id="leak-safety">⚠️ 7. 探査中の事故：測ることに集中すると、手元の危険を見落とす</h3>
+<p>研修では、探査中に<b>受電設備の中で手が高圧の充電部に触れてしまった事例</b>を教わりました。CTを付け直そうとしていたときのことで、手を伸ばした先に高圧の端子があった、という内容でした。<span class="badge field">🔵 研修</span>（事例の詳細は社内資料なので書きません）</p>
+<div class="checkgrid">
+<div class="checkcard"><b>手を入れる前に見る</b><br>CTを付ける・動かす前に、手と腕が通る範囲に充電部がないかを目で確かめる。見えない場所に手を入れない。</div>
+<div class="checkcard"><b>保護具を着ける</b><br>受電設備の中、分電盤の中の測定は、感電のおそれがあれば保護具を着ける。低圧の分電盤も充電部だらけ。</div>
+<div class="checkcard"><b>無理な姿勢でやらない</b><br>届きにくい場所のCTを動かすのは、停電の範囲や手順を相談してから。</div>
+<div class="checkcard"><b>数字を追っているときが危ない</b><br>探査は「次はどこを測る？」に頭がいっぱいになる。測る前に一度手を止めて、周りを見る。</div>
+</div>
+
+<h3 id="leak-questions">🤔 持ち帰った疑問</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>検出用CTとZCT</b><br>→ この記事の2で整理した。接地線1本ならCT、全部の線をまとめるならZCTの使い方。測っている中身はどちらも零相電流。</div>
+<div class="checkcard"><b>Iorの三相の式</b><br>sinθ ÷ cos30° は、どの電圧を基準にしたときの式なのか。メーカーの取扱説明書で基準電圧の取り方を確かめる。</div>
+<div class="checkcard"><b>Iorの誤差はどれくらい？</b><br>2つの相の静電容量がどのくらいかたよると、どのくらいずれるのか。ベクトルで計算してみる。</div>
+<div class="checkcard"><b>電技解釈の「1mA」とIor</b><br>低圧電路の絶縁性能を漏えい電流で判断するとき、静電容量ぶんを除いた値で見てよいのか。電気設備技術基準の解釈の原文で確認する。</div>
+</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>漏れ電流は、どこから漏れても最後はB種接地線を通って帰る。だから接地線を測れば全体が見える。</b></p>
+<p><b>Ioは「抵抗ぶん＋静電容量ぶん」。見たいのは抵抗ぶん。Iorは位相で計算、Igrは目印の電気で追う。接地側まで見えるのはIgrだけ。</b></p>
+<p><b>探査は幹から枝へ。そして、数字を追う前に手元を見る。</b></p>
+</section>
+
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
+<li><span class="badge official">🟢</span>警報設定値50mA上限、点検間隔を延ばす設備条件、Igr方式の説明：<a href="https://www.safety-kanto.meti.go.jp/electric/data/jikayou/08_03.pdf" target="_blank" rel="noopener">関東東北産業保安監督部「設備条件確認書（隔月1回以上／3ヶ月に1回以上）」</a></li>
+<li><span class="badge official">🟢</span>ZCTの原理（全部の一次側電線を通し、各相電流のベクトル和を検出）：<a href="https://www.mitsubishielectric.co.jp/fa/products/pmng/pmd/pmerit/itr/index_5.html" target="_blank" rel="noopener">三菱電機 計器用変成器（零相変流器）</a></li>
+<li><span class="badge official">🟢</span>Io ＝ Ior ＋ Ioc、Iorの単相・三相の式：<a href="https://www.sanwa-meter.co.jp/japan/pdf/chirashi/clamp/I0R500_JP_tira.pdf" target="_blank" rel="noopener">三和電気計器 I0R500 チラシ</a></li>
+<li><span class="badge official">🟢</span>Io・Ior・Igrの区別と、Igrの監視の考え方：<a href="https://www.jstage.jst.go.jp/article/ieiej/43/4/43_234/_article/-char/ja/" target="_blank" rel="noopener">鈴木正美「低圧電路の絶縁状態監視システム」電気設備学会誌 43巻4号（2023）</a>（8月の記事で確認したもの。今回は再確認できていません）</li>
+<li><span class="badge official">🟢</span>B種接地の目的（混触時の低圧側の電位上昇を抑える）と150÷Ig：<a href="https://www2.panasonic.biz/jp/terasu/skill/dictionary/Btypegrounding.html" target="_blank" rel="noopener">パナソニック「B種接地工事」</a></li>
+<li><span class="badge official">🟢</span>Igrの監視周波数・電圧が機種でちがう例：<a href="https://www.midori-em.com/01/igr-500-series/igrs-500.html" target="_blank" rel="noopener">ミドリ安全 IGRS-500</a></li>
+<li><span class="badge field">🔵</span>接地側の地絡で漏れ電流が流れないこと、Igrが接地側も監視できること、探査の順番、レンジ・CTの向き、探査のヒント5分類、事故事例：研修の説明。原理は上の公開資料と矛盾しないことを確認しました。</li>
+<li><span class="badge infer">🟡</span>Iorの誤差の理由、表の(2)(3)(5)の例、「全部の線をまとめて挟む」の注意：自分の考え。</li>
+<li>電気設備技術基準の解釈の「漏えい電流1mA」とIorの関係は、この記事を書いた環境から原文を開けなかったため、書いていません。</li>
+</ul></div>
+<div class="note">※ 絶縁監視装置の方式・警報の設定・監視周波数・換算のしかた・探査器の使い方は、機種とメーカーによって異なります。実際の探査では、測定器の取扱説明書、社内手順、現場責任者の指示を確認してください。本記事は研修の内容を自分用に整理した日誌であり、作業手順書ではありません。</div>
+</article>
+<article class="entry" id="relay-training-20261005" data-update-date="2026/10/05">
 <div class="date">2026.10.05｜研修・保護継電器</div>
 <h2>保護継電器の研修に行ってきた。<br>受電形式から継電器試験まで、一本の線でつなげて整理する。</h2>
 <div class="danger audit-preconditions"><strong>この記事について</strong><br>研修で学んだことを、自分の言葉で整理した記録です。研修資料は社内向けのため、資料の図・写真・手順表はそのまま載せていません。図は自分で描き直し、判定値は公開されている規格（JISなど）の値で書いています。計算例のうち「架空の設備」としたものは、この記事のために作った数字です。実際の試験は、対象リレー・試験器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
