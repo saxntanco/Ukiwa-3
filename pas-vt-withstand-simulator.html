@@ -51,6 +51,33 @@
 <p class="caption" style="margin:-6px 0 10px">3相一括以外は、選んだ相に試験電圧をかけ、残りの相は開放（何もつながない）にしたときの図です。内蔵VTは R−S間に1台。</p>
 <div class="simfig" id="pasBFig"></div>
 <div class="table-wrap"><table class="rtab" id="pasBTab"></table></div>
+<details open id="why-s"><summary>なぜ、開放したS相のほうへ電流が流れる？（R相だけのとき）</summary>
+<p><b>① 開放した電線も「コンデンサ」</b><br>S相は開放（何もつながない）でも、S相の心線と、まわりの遮へい層（接地）のあいだはコンデンサです。電線の電圧が変わるには、このコンデンサに電荷を出し入れする電流（充電電流）が必要です。</p>
+<p><b>② S相へ電荷を運べる道は、VTの巻線だけ</b><br>試験器はS相に直接つながっていません。S相につながっているのは、R相とのあいだのVTの一次巻線だけです。だから、S相のコンデンサを充電する電流は <b>試験器 → R相 → VTの一次巻線 → S相 → S相ケーブルのC → 大地 → 試験器</b> と通るしかありません。T相はVTにもつながっていないので、電荷が入る道がなく、0Vのままで電流も流れません。</p>
+<div class="simfig"><svg viewBox="0 0 680 250" role="img" aria-label="R相だけに試験電圧をかけたときの等価回路。試験器からR相、VTの一次巻線を通ってS相、S相ケーブルの静電容量を通って大地へ戻る。T相はどこにもつながらない">
+<defs><marker id="eqa" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
+<circle cx="70" cy="125" r="26" fill="#fde9e5" stroke="#c0392b" stroke-width="2"/><path d="M56 125 Q63 112 70 125 T84 125" fill="none" stroke="#7a2118" stroke-width="2"/>
+<text x="104" y="120" font-size="12" fill="#7a2118">試験器</text><text x="104" y="136" font-size="12" fill="#7a2118">10,350V</text>
+<path d="M70 99 V50 H380 M70 151 V210 H520" fill="none" stroke="#7d8b94" stroke-width="2"/>
+<path d="M70 99 V50 H230" fill="none" stroke="#D85A30" stroke-width="3"/>
+<circle cx="190" cy="50" r="4" fill="#203b50"/><text x="160" y="40" font-size="13" font-weight="800" fill="#203b50">R相</text>
+<path d="M190 50 V112 M176 112 H204 M176 120 H204 M190 120 V210" fill="none" stroke="#4b6475" stroke-width="2"/><text x="200" y="150" font-size="12" fill="#4b6475">R相ケーブルのC</text>
+<path d="M230 50 q8 -16 16 0 q8 -16 16 0 q8 -16 16 0 q8 -16 16 0 q8 -16 16 0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="270" y="24" text-anchor="middle" font-size="12" fill="#c0392b">VTの一次巻線（L）</text>
+<circle cx="380" cy="50" r="4" fill="#203b50"/><text x="392" y="44" font-size="13" font-weight="800" fill="#203b50">S相（開放）</text>
+<path d="M380 50 V112 M366 112 H394 M366 120 H394 M380 120 V210" fill="none" stroke="#4b6475" stroke-width="2"/><text x="360" y="104" text-anchor="end" font-size="12" fill="#4b6475">S相ケーブルのC</text><text x="360" y="120" text-anchor="end" font-size="12" fill="#4b6475">（心線と遮へいの間）</text>
+<circle cx="520" cy="80" r="4" fill="#203b50"/><text x="532" y="74" font-size="13" font-weight="800" fill="#203b50">T相（開放）</text>
+<path d="M520 80 V112 M506 112 H534 M506 120 H534 M520 120 V210" fill="none" stroke="#7d8b94" stroke-width="2"/><text x="544" y="112" font-size="12" fill="#4b6475">どこにもつながらない</text><text x="544" y="128" font-size="12" fill="#4b6475">→ 0V・電流なし</text>
+<path class="fl" d="M84 50 H226 M298 50 H372 M380 60 V200 M370 210 H70 V155" fill="none" stroke="#c0392b" stroke-width="2" style="--d:1s"/>
+<text x="230" y="232" text-anchor="middle" font-size="12" fill="#4b6475">大地（遮へい接地・試験器の接地）</text>
+</svg></div>
+<p><b>③ 「VTのコイル」と「S相のコンデンサ」の直列に、10,350Vがかかる</b><br>回路にすると、VTの一次巻線（インダクタンス L）とS相ケーブルの静電容量 C が直列になって、そこに試験電圧がかかった形です。コイルとコンデンサは電圧の向きが逆なので、分かれ方は次のようになります。</p>
+<div class="takeaway" style="font-size:16px">VTにかかる電圧 ＝ 10,350V × X<sub>L</sub> ÷（X<sub>L</sub> − X<sub>C</sub>）<br><span class="caption">X<sub>L</sub>：VTの励磁リアクタンス、X<sub>C</sub>：S相ケーブルの容量リアクタンス ＝ 1 ÷（2πfC）</span></div>
+<p>例：CV38mm²・30m なら C ≒ 9.6nF、X<sub>C</sub> ≒ 330kΩ（50Hz）。VTの X<sub>L</sub> を仮に 3.3MΩ（定格電圧で励磁電流2mA）とすると、<br>10,350 × 3.3 ÷（3.3 − 0.33）≒ <b>11,500V</b>（定格6,600Vの約1.7倍。上のシミュレーターの値と同じ）<br>S相は試験電圧と<b>逆向き</b>に約1,150Vになり、VTには試験電圧より大きい電圧がかかります。</p>
+<p><b>④ 過励磁 → 飽和 → 電流が増える</b><br>VTは定格の1.2倍くらいを超えると鉄心が飽和し、X<sub>L</sub> が急に小さくなります。すると電流は増え、上限の目安は「S相ケーブルを試験電圧で充電する電流」＝ 2πfCV ≒ <b>31mA</b>。25VAのVTの定格一次電流 約3.8mAの<b>約8倍</b>で、10分間で巻線が焼けます。</p>
+<p><b>⑤ 交流なので、往復し続ける</b><br>電流は半周期ごとに向きが入れかわり、S相のコンデンサの充電と放電をくり返します。「一度流れて終わり」ではなく、試験のあいだずっとVTの巻線の中を往復します。</p>
+<p class="caption">ケーブルがとても短い（Cが小さく X<sub>C</sub> が X<sub>L</sub> より大きい）ときは逆に、S相はR相に引っぱられて近い電圧になり、VTにかかる電圧は小さくなります（シミュレーターでケーブル長を0mにすると確かめられます）。X<sub>L</sub> の値はメーカー資料で確認できなかった仮の値です。S相だけ・S＋T短絡などのパターンも、「VTの片側だけに電圧がかかり、反対側の相のケーブルをVT経由で充電する」という同じ仕組みです。</p>
+</details>
 <p class="caption">図は原理を説明するための模式図で、実物の部品配置ではありません。メーカーにより、VTの台数・つなぐ相、ZCT・LAの有無と位置は異なります。お使いのPASの銘板と取扱説明書で確認してください。</p>
 </section>
 <section class="sheet" id="sim"><h2>つなぎ方を変えてみる</h2>
@@ -406,7 +433,7 @@ function drawPasB(k){const st={R:k[0],S:k[1],T:k[2]},PHS=['R','S','T'],hvs=PHS.f
  if(vtCur){s+=flow('M150 '+YP[vtFrom]+' H420 V'+YP[vtTo]+' H575 V'+(YP[vtTo]-9),RED,3.5,'.7s')+tx(520,204,'VTに過大な電流',{s:12,b:1,c:RED})}
  s+='</svg>';document.getElementById('pasBFig').innerHTML=s;
  const rows=[['試験される相',hvs.join('・')+'相'+(fs.length?'（'+fs.join('・')+'相は開放で、この回は試験されない）':'（3相とも）')]];
- rows.push(['内蔵VT（R−S間）',vtCur?vtTo+'相のケーブルの充電電流（例：約31mA）が、'+vtFrom+' → VTの一次巻線 → '+vtTo+'相 と通る。25VAのVTの定格一次電流 約3.8mAの約8倍で、焼損のおそれ':vr==='H'?'R・Sが同じ電圧なので、巻線に電流は流れない（無事）':'R・Sどちらにも試験電圧がかからないので、電流は流れない（無事）']);
+ rows.push(['内蔵VT（R−S間）',vtCur?vtTo+'相（電圧をかけていない側）のケーブルを充電する電流（例：最大で約31mA）が、'+vtFrom+' → VTの一次巻線 → '+vtTo+'相 と通る（理由は下の「なぜ…？」）。25VAのVTの定格一次電流 約3.8mAの約8倍で、焼損のおそれ':vr==='H'?'R・Sが同じ電圧なので、巻線に電流は流れない（無事）':'R・Sどちらにも試験電圧がかからないので、電流は流れない（無事）']);
  if(all)rows.push(['電流の通り道','① PAS内部の絶縁（がいし・空気）→ 外箱 → 外箱の接地線　② 負荷側ケーブルの絶縁体 → 遮へい層 → 遮へい接地線。どちらも大地を通って試験器へ戻る'],['大きさ','ほとんどがケーブルの充電電流（例：38mm²・30mなら3相で約94mA）。PAS内部を通る分はごくわずか'],['結果','正しい。3相とも1回で試験でき、VTも無事']);
  else if(vtCur)rows.push(['結果',hvs.length===1?'VTが焼損のおそれ。メーカーの取扱説明書が「一相ごとの試験は行わない」としているのはこの形':'VTが焼損のおそれ。2相をまとめても、VTの両端（R・S）が別々の扱いになっていると同じことが起きる']);
  else rows.push(['結果','VTは無事。ただし'+fs.join('・')+'相は別にもう一度試験が必要'],['注意','VTが無事なのは、VTがR−S間にあるから。VTがつながる相はメーカー・型式で違い、取り違えると焼損する。だからメーカーは「三相一括で実施」と指示している']);
