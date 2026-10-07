@@ -33,7 +33,7 @@
 @media(max-width:640px){.simfig{overflow-x:auto}.simfig svg{min-width:640px}.simfig:after{content:'← 図は横にスクロールできます →';display:block;font-size:12px;color:#4b6475;text-align:center;position:sticky;left:0}.ctrl .lbl{min-width:0;width:100%}.rtab{font-size:13px}.rtab .hide-sm{display:none}}
 </style>
 </head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="test-measurement.html">試験・測定器具</a></nav></header><main>
-<section class="hero"><span class="eyebrow">SIMULATOR / PAS・VT内蔵</span><h1>VT内蔵PASの耐圧試験、<br>つなぎ方を間違えるとどうなる？</h1><p class="lead">R・S・Tのどれに試験電圧をかけ、どれを接地・開放するか。つなぎ方を変えると、内蔵VTと他の相にかかる電圧がどう変わるかを計算します。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#basics">何を見ている？</a><a href="#sim">シミュレーター</a><a href="#flow">電流の流れ</a><a href="#flow-evt">EVT</a><a href="#why">なぜそうなる？</a><a href="#model">計算モデル</a><a href="#sources">根拠資料</a></nav><p class="caption">試験電圧は6,600V系の10,350V（最大使用電圧6,900V×1.5）、PASは「入」の状態で負荷側ケーブルを含めて試験する想定です。VTの特性は仮定の値で、実機の数値ではありません。実際の試験はPASの取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
+<section class="hero"><span class="eyebrow">SIMULATOR / PAS・VT内蔵</span><h1>VT内蔵PASの耐圧試験、<br>つなぎ方を間違えるとどうなる？</h1><p class="lead">U・V・Wのどれに試験電圧をかけ、どれを接地・開放するか。つなぎ方を変えると、内蔵VTと他の相にかかる電圧がどう変わるかを計算します。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#basics">何を見ている？</a><a href="#sim">シミュレーター</a><a href="#flow">電流の流れ</a><a href="#flow-evt">EVT</a><a href="#why">なぜそうなる？</a><a href="#model">計算モデル</a><a href="#sources">根拠資料</a></nav><p class="caption">相の呼び方は U・V・W にしています（R・S・T と書く資料もあります）。試験電圧は6,600V系の10,350V（最大使用電圧6,900V×1.5）、PASは「入」の状態で負荷側ケーブルを含めて試験する想定です。VTの特性は仮定の値で、実機の数値ではありません。実際の試験はPASの取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
 
 <section class="sheet" id="basics"><h2>そもそも、耐圧試験は何を見ている？</h2>
 <p class="takeaway">試験電圧を10分間かけても、<b>絶縁が破れないか</b>を確かめる試験。電流計に出る電流の大部分は、絶縁体を通る<b>充電電流</b>。</p>
@@ -46,52 +46,52 @@
 <p class="caption">例：CV38mm²の1心・30m（1心の静電容量 約9.6nF）、50Hz。絶縁抵抗は健全 10,000MΩ・劣化 5MΩとした仮の値です。交流なので、実際の電流は1秒に100回（60Hzなら120回）向きが入れかわります。シース（外側のビニル）は電流の通り道ではないので描いていません。シースの絶縁は、遮へいの接地を外して絶縁抵抗計で測る別の試験で確かめます。</p>
 
 <h3 id="basics-pas" style="margin-top:30px">PASの中の電流</h3>
-<p>PASを「入」にして、電源側の端子から負荷側ケーブルまで一緒に試験するときの図です。主要メーカーの取扱説明書では、内蔵VT（SOGの制御電源用）は<b>負荷側</b>の<b>U相−V相の間</b>に1台つながっています（このページでは U・V・W を R・S・T と書くので、<b>R相−S相の間</b>）。</p>
-<div class="pickers" id="pasBBtns"><button data-k="HHH" aria-pressed="true">正しい：3相一括</button><button data-k="HFF" aria-pressed="false">R相だけ</button><button data-k="FHF" aria-pressed="false">S相だけ</button><button data-k="FFH" aria-pressed="false">T相だけ</button><button data-k="HHF" aria-pressed="false">R＋S短絡</button><button data-k="FHH" aria-pressed="false">S＋T短絡</button><button data-k="HFH" aria-pressed="false">R＋T短絡</button></div>
-<p class="caption" style="margin:-6px 0 10px">3相一括以外は、選んだ相に試験電圧をかけ、残りの相は開放（何もつながない）にしたときの図です。内蔵VTは R−S間に1台。</p>
+<p>PASを「入」にして、電源側の端子から負荷側ケーブルまで一緒に試験するときの図です。主要メーカーの取扱説明書では、内蔵VT（SOGの制御電源用）は<b>負荷側</b>の<b>U相−V相の間</b>に1台つながっています。</p>
+<div class="pickers" id="pasBBtns"><button data-k="HHH" aria-pressed="true">正しい：3相一括</button><button data-k="HFF" aria-pressed="false">U相だけ</button><button data-k="FHF" aria-pressed="false">V相だけ</button><button data-k="FFH" aria-pressed="false">W相だけ</button><button data-k="HHF" aria-pressed="false">U＋V短絡</button><button data-k="FHH" aria-pressed="false">V＋W短絡</button><button data-k="HFH" aria-pressed="false">U＋W短絡</button></div>
+<p class="caption" style="margin:-6px 0 10px">3相一括以外は、選んだ相に試験電圧をかけ、残りの相は開放（何もつながない）にしたときの図です。内蔵VTは U−V間に1台。</p>
 <div class="simfig" id="pasBFig"></div>
 <div class="table-wrap"><table class="rtab" id="pasBTab"></table></div>
-<details open id="why-s"><summary>なぜ、開放したS相のほうへ電流が流れる？（R相だけのとき）</summary>
-<p class="keyline">電流はR相にもS相にも流れる。<b>R相のケーブルの電流（青）はVTを通らずに直接大地へ</b>、<b>S相のケーブルの電流（赤）はVTを通らないとたどり着けない</b>。VTを焼くのは赤のほう。2つの道は試験器に並列につながっていて、どちらも同時に流れる。</p>
-<p><b>① 開放した電線も「コンデンサ」</b><br>S相は開放（何もつながない）でも、S相の心線と、まわりの遮へい層（接地）のあいだはコンデンサです。電線の電圧が変わるには、このコンデンサに電荷を出し入れする電流（充電電流）が必要です。</p>
-<p><b>② S相へ電荷を運べる道は、VTの巻線だけ</b><br>試験器はS相に直接つながっていません。S相につながっているのは、R相とのあいだのVTの一次巻線だけです。だから、S相のコンデンサを充電する電流は <b>試験器 → R相 → VTの一次巻線 → S相 → S相ケーブルのC → 大地 → 試験器</b> と通るしかありません。T相はVTにもつながっていないので、電荷が入る道がなく、0Vのままで電流も流れません。</p>
-<div class="simfig"><svg viewBox="0 0 680 250" role="img" aria-label="R相だけに試験電圧をかけたときの等価回路。試験器からR相、VTの一次巻線を通ってS相、S相ケーブルの静電容量を通って大地へ戻る。T相はどこにもつながらない">
+<details open id="why-s"><summary>なぜ、開放したV相のほうへ電流が流れる？（U相だけのとき）</summary>
+<p class="keyline">電流はU相にもV相にも流れる。<b>U相のケーブルの電流（青）はVTを通らずに直接大地へ</b>、<b>V相のケーブルの電流（赤）はVTを通らないとたどり着けない</b>。VTを焼くのは赤のほう。2つの道は試験器に並列につながっていて、どちらも同時に流れる。</p>
+<p><b>① 開放した電線も「コンデンサ」</b><br>V相は開放（何もつながない）でも、V相の心線と、まわりの遮へい層（接地）のあいだはコンデンサです。電線の電圧が変わるには、このコンデンサに電荷を出し入れする電流（充電電流）が必要です。</p>
+<p><b>② V相へ電荷を運べる道は、VTの巻線だけ</b><br>試験器はV相に直接つながっていません。V相につながっているのは、U相とのあいだのVTの一次巻線だけです。だから、V相のコンデンサを充電する電流は <b>試験器 → U相 → VTの一次巻線 → V相 → V相ケーブルのC → 大地 → 試験器</b> と通るしかありません。W相はVTにもつながっていないので、電荷が入る道がなく、0Vのままで電流も流れません。</p>
+<div class="simfig"><svg viewBox="0 0 680 250" role="img" aria-label="U相だけに試験電圧をかけたときの等価回路。試験器からU相、VTの一次巻線を通ってV相、V相ケーブルの静電容量を通って大地へ戻る。W相はどこにもつながらない">
 <defs><marker id="eqa" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
 <circle cx="70" cy="125" r="26" fill="#fde9e5" stroke="#c0392b" stroke-width="2"/><path d="M56 125 Q63 112 70 125 T84 125" fill="none" stroke="#7a2118" stroke-width="2"/>
 <text x="104" y="120" font-size="12" fill="#7a2118">試験器</text><text x="104" y="136" font-size="12" fill="#7a2118">10,350V</text>
 <path d="M70 99 V50 H380 M70 151 V210 H520" fill="none" stroke="#7d8b94" stroke-width="2"/>
 <path d="M70 99 V50 H230" fill="none" stroke="#D85A30" stroke-width="3"/>
-<circle cx="190" cy="50" r="4" fill="#203b50"/><text x="160" y="40" font-size="13" font-weight="800" fill="#203b50">R相</text>
-<path d="M190 50 V112 M176 112 H204 M176 120 H204 M190 120 V210" fill="none" stroke="#4b6475" stroke-width="2"/><text x="200" y="150" font-size="12" fill="#4b6475">R相ケーブルのC</text><text x="200" y="166" font-size="12" fill="#1f6fb2">VTを通らずに大地へ</text><path class="fl" d="M190 58 V106 M190 126 V202" fill="none" stroke="#1f6fb2" stroke-width="2" style="--d:1s"/>
+<circle cx="190" cy="50" r="4" fill="#203b50"/><text x="160" y="40" font-size="13" font-weight="800" fill="#203b50">U相</text>
+<path d="M190 50 V112 M176 112 H204 M176 120 H204 M190 120 V210" fill="none" stroke="#4b6475" stroke-width="2"/><text x="200" y="150" font-size="12" fill="#4b6475">U相ケーブルのC</text><text x="200" y="166" font-size="12" fill="#1f6fb2">VTを通らずに大地へ</text><path class="fl" d="M190 58 V106 M190 126 V202" fill="none" stroke="#1f6fb2" stroke-width="2" style="--d:1s"/>
 <path d="M230 50 q8 -16 16 0 q8 -16 16 0 q8 -16 16 0 q8 -16 16 0 q8 -16 16 0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
 <text x="270" y="24" text-anchor="middle" font-size="12" fill="#c0392b">VTの一次巻線（L）</text>
-<circle cx="380" cy="50" r="4" fill="#203b50"/><text x="392" y="44" font-size="13" font-weight="800" fill="#203b50">S相（開放）</text>
-<path d="M380 50 V112 M366 112 H394 M366 120 H394 M380 120 V210" fill="none" stroke="#4b6475" stroke-width="2"/><text x="360" y="104" text-anchor="end" font-size="12" fill="#4b6475">S相ケーブルのC</text><text x="360" y="120" text-anchor="end" font-size="12" fill="#4b6475">（心線と遮へいの間）</text>
-<circle cx="520" cy="80" r="4" fill="#203b50"/><text x="532" y="74" font-size="13" font-weight="800" fill="#203b50">T相（開放）</text>
+<circle cx="380" cy="50" r="4" fill="#203b50"/><text x="392" y="44" font-size="13" font-weight="800" fill="#203b50">V相（開放）</text>
+<path d="M380 50 V112 M366 112 H394 M366 120 H394 M380 120 V210" fill="none" stroke="#4b6475" stroke-width="2"/><text x="360" y="104" text-anchor="end" font-size="12" fill="#4b6475">V相ケーブルのC</text><text x="360" y="120" text-anchor="end" font-size="12" fill="#4b6475">（心線と遮へいの間）</text>
+<circle cx="520" cy="80" r="4" fill="#203b50"/><text x="532" y="74" font-size="13" font-weight="800" fill="#203b50">W相（開放）</text>
 <path d="M520 80 V112 M506 112 H534 M506 120 H534 M520 120 V210" fill="none" stroke="#7d8b94" stroke-width="2"/><text x="544" y="112" font-size="12" fill="#4b6475">どこにもつながらない</text><text x="544" y="128" font-size="12" fill="#4b6475">→ 0V・電流なし</text>
 <path class="fl" d="M84 50 H226 M298 50 H372 M380 60 V200 M370 210 H70 V155" fill="none" stroke="#c0392b" stroke-width="2" style="--d:1s"/>
 <text x="230" y="232" text-anchor="middle" font-size="12" fill="#4b6475">大地（遮へい接地・試験器の接地）</text>
 </svg></div>
-<p><b>③ 「VTのコイル」と「S相のコンデンサ」の直列に、10,350Vがかかる</b><br>回路にすると、VTの一次巻線（インダクタンス L）とS相ケーブルの静電容量 C が直列になって、そこに試験電圧がかかった形です。コイルとコンデンサは電圧の向きが逆なので、分かれ方は次のようになります。</p>
-<div class="takeaway" style="font-size:16px">VTにかかる電圧 ＝ 10,350V × X<sub>L</sub> ÷（X<sub>L</sub> − X<sub>C</sub>）<br><span class="caption">X<sub>L</sub>：VTの励磁リアクタンス、X<sub>C</sub>：S相ケーブルの容量リアクタンス ＝ 1 ÷（2πfC）</span></div>
-<p>例：CV38mm²・30m なら C ≒ 9.6nF、X<sub>C</sub> ≒ 330kΩ（50Hz）。VTの X<sub>L</sub> を仮に 3.3MΩ（定格電圧で励磁電流2mA）とすると、<br>10,350 × 3.3 ÷（3.3 − 0.33）≒ <b>11,500V</b>（定格6,600Vの約1.7倍。上のシミュレーターの値と同じ）<br>S相は試験電圧と<b>逆向き</b>に約1,150Vになり、VTには試験電圧より大きい電圧がかかります。</p>
-<p><b>④ 過励磁 → 飽和 → 電流が増える</b><br>VTは定格の1.2倍くらいを超えると鉄心が飽和し、X<sub>L</sub> が急に小さくなります。すると電流は増え、上限の目安は「S相ケーブルを試験電圧で充電する電流」＝ 2πfCV ≒ <b>31mA</b>。25VAのVTの定格一次電流 約3.8mAの<b>約8倍</b>で、10分間で巻線が焼けます。</p>
-<p><b>VTの二次側の接地は関係ある？</b><br>関係ありません。電流は<b>ぐるっと一周できる道（閉じた回路）</b>がないと流れません。VTの一次巻線と二次巻線は電気的には絶縁されていて、つながっているのは鉄心の磁気だけです。二次側を1点で接地しても、一次側から二次側を通って大地へ抜ける道はできません。一次巻線の電流は、一次の端子（R・S）から入って出るしかなく、その先の道を作っているのはS相ケーブルの静電容量です。試験のときに制御線（二次側）を外しても、一括接地しても、一次巻線に流れる電流は同じです。（二次側を短絡すると一次から見たVTのインピーダンスが変わり、電流の大きさは変わります。下の「VT単体」の図を参照。）</p>
-<p><b>⑤ 交流なので、往復し続ける</b><br>電流は半周期ごとに向きが入れかわり、S相のコンデンサの充電と放電をくり返します。「一度流れて終わり」ではなく、試験のあいだずっとVTの巻線の中を往復します。</p>
-<p class="caption">ケーブルがとても短い（Cが小さく X<sub>C</sub> が X<sub>L</sub> より大きい）ときは逆に、S相はR相に引っぱられて近い電圧になり、VTにかかる電圧は小さくなります（シミュレーターでケーブル長を0mにすると確かめられます）。X<sub>L</sub> の値はメーカー資料で確認できなかった仮の値です。S相だけ・S＋T短絡などのパターンも、「VTの片側だけに電圧がかかり、反対側の相のケーブルをVT経由で充電する」という同じ仕組みです。</p>
+<p><b>③ 「VTのコイル」と「V相のコンデンサ」の直列に、10,350Vがかかる</b><br>回路にすると、VTの一次巻線（インダクタンス L）とV相ケーブルの静電容量 C が直列になって、そこに試験電圧がかかった形です。コイルとコンデンサは電圧の向きが逆なので、分かれ方は次のようになります。</p>
+<div class="takeaway" style="font-size:16px">VTにかかる電圧 ＝ 10,350V × X<sub>L</sub> ÷（X<sub>L</sub> − X<sub>C</sub>）<br><span class="caption">X<sub>L</sub>：VTの励磁リアクタンス、X<sub>C</sub>：V相ケーブルの容量リアクタンス ＝ 1 ÷（2πfC）</span></div>
+<p>例：CV38mm²・30m なら C ≒ 9.6nF、X<sub>C</sub> ≒ 330kΩ（50Hz）。VTの X<sub>L</sub> を仮に 3.3MΩ（定格電圧で励磁電流2mA）とすると、<br>10,350 × 3.3 ÷（3.3 − 0.33）≒ <b>11,500V</b>（定格6,600Vの約1.7倍。上のシミュレーターの値と同じ）<br>V相は試験電圧と<b>逆向き</b>に約1,150Vになり、VTには試験電圧より大きい電圧がかかります。</p>
+<p><b>④ 過励磁 → 飽和 → 電流が増える</b><br>VTは定格の1.2倍くらいを超えると鉄心が飽和し、X<sub>L</sub> が急に小さくなります。すると電流は増え、上限の目安は「V相ケーブルを試験電圧で充電する電流」＝ 2πfCV ≒ <b>31mA</b>。25VAのVTの定格一次電流 約3.8mAの<b>約8倍</b>で、10分間で巻線が焼けます。</p>
+<p><b>VTの二次側の接地は関係ある？</b><br>関係ありません。電流は<b>ぐるっと一周できる道（閉じた回路）</b>がないと流れません。VTの一次巻線と二次巻線は電気的には絶縁されていて、つながっているのは鉄心の磁気だけです。二次側を1点で接地しても、一次側から二次側を通って大地へ抜ける道はできません。一次巻線の電流は、一次の端子（U・V）から入って出るしかなく、その先の道を作っているのはV相ケーブルの静電容量です。試験のときに制御線（二次側）を外しても、一括接地しても、一次巻線に流れる電流は同じです。（二次側を短絡すると一次から見たVTのインピーダンスが変わり、電流の大きさは変わります。下の「VT単体」の図を参照。）</p>
+<p><b>⑤ 交流なので、往復し続ける</b><br>電流は半周期ごとに向きが入れかわり、V相のコンデンサの充電と放電をくり返します。「一度流れて終わり」ではなく、試験のあいだずっとVTの巻線の中を往復します。</p>
+<p class="caption">ケーブルがとても短い（Cが小さく X<sub>C</sub> が X<sub>L</sub> より大きい）ときは逆に、V相はU相に引っぱられて近い電圧になり、VTにかかる電圧は小さくなります（シミュレーターでケーブル長を0mにすると確かめられます）。X<sub>L</sub> の値はメーカー資料で確認できなかった仮の値です。V相だけ・V＋W短絡などのパターンも、「VTの片側だけに電圧がかかり、反対側の相のケーブルをVT経由で充電する」という同じ仕組みです。</p>
 </details>
 <p class="caption">図は原理を説明するための模式図で、実物の部品配置ではありません。メーカーにより、VTの台数・つなぐ相、ZCT・LAの有無と位置は異なります。お使いのPASの銘板と取扱説明書で確認してください。</p>
 </section>
 <section class="sheet" id="sim"><h2>つなぎ方を変えてみる</h2>
 <div class="ctrl">
 <div class="grp"><span class="lbl">正しいやり方</span><div class="pickers" id="presets" style="margin:0"><button data-p="HHH" aria-pressed="true">3相一括（三線短絡）</button></div></div>
-<div class="grp"><span class="lbl">間違いの例</span><div class="pickers" id="presets2" style="margin:0"><button data-p="HGG" aria-pressed="false">1相・他相を接地</button><button data-p="HFF" aria-pressed="false">1相・他相を開放</button><button data-p="HHG" aria-pressed="false">2相（R＋S）・T接地</button><button data-p="HGH" aria-pressed="false">2相（R＋T）・S接地</button><button data-p="HHF" aria-pressed="false">2相（R＋S）・T開放</button></div></div>
+<div class="grp"><span class="lbl">間違いの例</span><div class="pickers" id="presets2" style="margin:0"><button data-p="HGG" aria-pressed="false">1相・他相を接地</button><button data-p="HFF" aria-pressed="false">1相・他相を開放</button><button data-p="HHG" aria-pressed="false">2相（U＋V）・W接地</button><button data-p="HGH" aria-pressed="false">2相（U＋W）・V接地</button><button data-p="HHF" aria-pressed="false">2相（U＋V）・W開放</button></div></div>
 <p class="caption" style="margin:-4px 0 0">基本は三線短絡の3相一括です。間違いの例は、作業用接地（短絡接地器具）の外し忘れ、短絡線の付け忘れ・外れ、VT内蔵と知らずにケーブル試験の感覚で1相ずつ試験した、などで起きる形です。「接地」は試験のときに電線（その相）を大地につないだ状態で、VTの接地ではありません。</p>
-<div class="grp"><span class="lbl">R相</span><div class="seg" data-ph="R"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
-<div class="grp"><span class="lbl">S相</span><div class="seg" data-ph="S"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
-<div class="grp"><span class="lbl">T相</span><div class="seg" data-ph="T"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
+<div class="grp"><span class="lbl">U相</span><div class="seg" data-ph="U"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
+<div class="grp"><span class="lbl">V相</span><div class="seg" data-ph="V"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
+<div class="grp"><span class="lbl">W相</span><div class="seg" data-ph="W"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
 <div class="grp"><span class="lbl">負荷側ケーブル</span><select id="size" aria-label="ケーブルサイズ"><option value="0.27">CV 22mm²</option><option value="0.32" selected>CV 38mm²</option><option value="0.37">CV 60mm²</option><option value="0.45">CV 100mm²</option><option value="0.52">CV 150mm²</option><option value="0.55">CV 250mm²</option></select><input id="len" type="number" min="0" max="500" step="1" value="30" aria-label="ケーブル長さ m"><span>m</span><input id="lenr" type="range" min="0" max="300" step="1" value="30" aria-label="ケーブル長さのスライダー"></div>
-<div class="grp"><span class="lbl">内蔵VT</span><div class="seg" id="vtn"><button data-n="1">1台（R−S間）</button><button data-n="2">2台（V結線）</button></div><span class="caption">主要メーカーの取説は1台（負荷側のU−V間＝R−S間）</span></div>
+<div class="grp"><span class="lbl">内蔵VT</span><div class="seg" id="vtn"><button data-n="1">1台（U−V間）</button><button data-n="2">2台（V結線）</button></div><span class="caption">主要メーカーの取説は1台（負荷側のU−V間）</span></div>
 <div class="grp"><span class="lbl">周波数</span><div class="seg" id="freq"><button data-f="50">50Hz</button><button data-f="60">60Hz</button></div></div>
 </div>
 <div class="simfig" id="fig"></div>
@@ -116,8 +116,8 @@
 <p class="takeaway">焼損するのは、<b>VTの一次巻線が「試験電圧から大地への通り道」の一部になってしまう</b>とき。3相一括なら、電流は巻線の外側を回る。</p>
 <p class="caption">図の見方：<span style="color:#c0392b;font-weight:800">赤い動く線</span>＝VTの巻線を通ってしまう電流、<span style="color:#1f6fb2;font-weight:800">青い動く線</span>＝ケーブルの充電電流（巻線の外を通る、正常な電流）。オレンジの線は試験電圧がかかっている部分です。</p>
 <h3 id="flow-pas">PASの内蔵VT</h3>
-<div class="ctrl" style="margin:0 0 6px"><div class="grp"><span class="lbl">内蔵VT</span><div class="seg" id="flowVtn"><button data-n="1" aria-pressed="true">1台（R−S間）</button><button data-n="2" aria-pressed="false">2台（V結線）</button></div></div></div>
-<div class="pickers" id="pasFlowBtns"><button data-k="0" aria-pressed="true">正しい：3相一括</button><button data-k="1" aria-pressed="false">1相（R）・他相を接地</button><button data-k="2" aria-pressed="false">1相（R）・他相を開放</button><button data-k="3" aria-pressed="false">2相（R＋S）・T接地</button><button data-k="4" aria-pressed="false">2相（R＋T）・S接地</button></div>
+<div class="ctrl" style="margin:0 0 6px"><div class="grp"><span class="lbl">内蔵VT</span><div class="seg" id="flowVtn"><button data-n="1" aria-pressed="true">1台（U−V間）</button><button data-n="2" aria-pressed="false">2台（V結線）</button></div></div></div>
+<div class="pickers" id="pasFlowBtns"><button data-k="0" aria-pressed="true">正しい：3相一括</button><button data-k="1" aria-pressed="false">1相（U）・他相を接地</button><button data-k="2" aria-pressed="false">1相（U）・他相を開放</button><button data-k="3" aria-pressed="false">2相（U＋V）・W接地</button><button data-k="4" aria-pressed="false">2相（U＋W）・V接地</button></div>
 <div class="simfig" id="pasFlowFig"></div>
 <div class="table-wrap"><table class="rtab" id="pasFlowTab"></table></div>
 <p class="caption">図の「電線を接地」は、試験のときにその相の電線を大地につないだ状態（作業用接地の外し忘れ、1相ずつ試験するときの試験しない相など）です。VTの一次側には接地する点がありません。接地するのは二次側で、V結線なら2台の二次をつないだ共通端子にD種接地をします（電気設備技術基準の解釈 第28条）。PAS内蔵VTの二次側（制御線）は、試験のときは外して端末を一括接地します（取扱説明書の指定）。二次側の接地は一次巻線とは絶縁で隔てられているので、ここでの話には影響しません。</p>
@@ -136,9 +136,9 @@
 </section>
 <section class="sheet" id="why"><h2>なぜそうなる？</h2>
 <p class="takeaway">VTは相と相の間につながっている。<b>VTの両端が同じ電圧なら、VTに電圧はかからない。</b>それができるのは3相一括だけ。</p>
-<details open><summary>内蔵VTは相と相の間：1台ならR−S間、2台ならV結線</summary><p>PASの内蔵VTは、SOG制御装置の制御電源用です。主要メーカーの取扱説明書では、<b>負荷側のU相−V相の間に1台</b>（このページの R相−S相）つながっています（6,600/105V・25VA の例）。2台をV結線にする場合は、VT1がR−S間、VT2がS−T間です。どちらも、つながっている2つの相の電圧の差がそのまま一次巻線にかかります。</p></details>
-<details><summary>3相一括：3本が同じ電圧なのでVTは0V</summary><p>R・S・Tを短絡して試験電圧をかけると、3本とも10,350Vで、VTの両端に差がありません。VTは励磁されず、試験されるのは3相とも「電路と大地の間」の絶縁だけになります。</p></details>
-<details><summary>他の相を接地：相間に試験電圧がそのままかかる</summary><p>R相に10,350V、S相を接地すると、VT1の両端の差は10,350V。定格6,600Vの約1.57倍です。VTは定格の1.2倍くらいまでを連続で使う前提で作られているので、それを大きく超えて過励磁になり、試験の10分間で過熱・焼損のおそれがあります。二次側も同じ割合で上がり、制御装置にも響きます。</p></details>
+<details open><summary>内蔵VTは相と相の間：1台ならU−V間、2台ならV結線</summary><p>PASの内蔵VTは、SOG制御装置の制御電源用です。主要メーカーの取扱説明書では、<b>負荷側のU相−V相の間に1台</b>つながっています（6,600/105V・25VA の例）。2台をV結線にする場合は、VT1がU−V間、VT2がV−W間です。どちらも、つながっている2つの相の電圧の差がそのまま一次巻線にかかります。</p></details>
+<details><summary>3相一括：3本が同じ電圧なのでVTは0V</summary><p>U・V・Wを短絡して試験電圧をかけると、3本とも10,350Vで、VTの両端に差がありません。VTは励磁されず、試験されるのは3相とも「電路と大地の間」の絶縁だけになります。</p></details>
+<details><summary>他の相を接地：相間に試験電圧がそのままかかる</summary><p>U相に10,350V、V相を接地すると、VT1の両端の差は10,350V。定格6,600Vの約1.57倍です。VTは定格の1.2倍くらいまでを連続で使う前提で作られているので、それを大きく超えて過励磁になり、試験の10分間で過熱・焼損のおそれがあります。二次側も同じ割合で上がり、制御装置にも響きます。</p></details>
 <details><summary>他の相を開放：電圧が決まらない（ケーブル次第）</summary><p>開放した相は、VTの巻線（インダクタンス）とその相の対地静電容量（ケーブル）が直列になった回路で電圧が決まります。</p><ul><li>ケーブルがない・短い：開放した相はVTに引っぱられて試験電圧に近づく。条件によっては試験電圧より少し高くなる</li><li>ケーブルが長い：開放した相は大地側に引っぱられ、逆向きの電圧になることもある。VTに試験電圧以上がかかり、過励磁・焼損のおそれ</li><li>その間：インダクタンスと静電容量が共振に近づき、異常な電圧になりうる</li></ul><p>「電圧バランスが崩れて、つないでいない相に思わぬ電圧がかかる」のはこのためです。</p></details>
 <details><summary>接地した相は、その回は試験されていない</summary><p>1相ずつ・2相ずつのつなぎ方では、接地した相の対地絶縁は試験されていません。3相一括なら、3相とも一度に試験できます。</p></details>
 <details><summary>3相一括でも守れないもの：EVT・ZPD・LAなど</summary><p>相と大地の間につながるものは、3相を短絡しても試験電圧がそのままかかります。</p><ul><li><b>EVT（接地形計器用変圧器）</b>：一次はY結線で中性点を接地。各巻線（定格 約3,810V）に10,350Vがかかり約2.7倍。三次のオープンデルタにも約520Vが出る。切り離すか、中性点の接地を外す（<a href="#flow-evt">上の図</a>）</li><li><b>ZPD（コンデンサ形の零相電圧検出器）</b>：相と大地の間につながる。扱いは取扱説明書で確認</li><li><b>LA内蔵形のPAS</b>：交流10,350Vの3相一括はできる。ただし AC12kV以上・DC17kV以上はかけられない（戸上電機）、直流耐電圧試験（DC20,700V）はLAが壊れるので行わない（日本高圧電気）</li></ul><p>どれも、扱いは機器とPASの取扱説明書で確認します。</p></details>
@@ -160,14 +160,14 @@
 <script>
 (()=>{
 const $=id=>document.getElementById(id);
-const VT=10350,VR=6600,PH=['R','S','T'],Y={R:150,S:230,T:310};
-let st={R:'H',S:'H',T:'H'},f=50,vtn=1;
+const VT=10350,VR=6600,PH=['U','V','W'],Y={U:150,V:230,W:310};
+let st={U:'H',V:'H',W:'H'},f=50,vtn=1;
 const C=(re,im=0)=>({re,im}),add=(a,b)=>C(a.re+b.re,a.im+b.im),sub=(a,b)=>C(a.re-b.re,a.im-b.im),mul=(a,b)=>C(a.re*b.re-a.im*b.im,a.re*b.im+a.im*b.re),div=(a,b)=>{const d=b.re*b.re+b.im*b.im;return C((a.re*b.re+a.im*b.im)/d,(a.im*b.re-a.re*b.im)/d)},abs=a=>Math.hypot(a.re,a.im);
 function num(id,def,min,max){const v=Number($(id).value);return Number.isFinite(v)&&v>=min&&v<=max?v:def}
 function solve(){
  const iex=num('iex',2,0.1,50)/1000,rk=num('rk',10,1,100),cs=num('cs',50,1,5000)*1e-12,len=num('len',30,0,500),c1=Number($('size').value);
  const w=2*Math.PI*f,Xm=VR/iex,Yvt=C(1/(rk*Xm),-1/Xm),Cph=c1*1e-6*len/1000+cs,Yg=C(0,w*Cph);
- const edges=vtn===2?[['R','S'],['S','T']]:[['R','S']];
+ const edges=vtn===2?[['U','V'],['V','W']]:[['U','V']];
  const V={};PH.forEach(p=>{if(st[p]==='H')V[p]=C(VT);else if(st[p]==='G')V[p]=C(0)});
  const hasH=PH.some(p=>st[p]==='H');
  const fl=PH.filter(p=>st[p]==='F');
@@ -195,7 +195,7 @@ function draw(R){
  const busEnd=hs.length?Y[hs[hs.length-1]]:120;
  s+='<path d="M130 96 V120 H200 V'+busEnd+'" stroke="#c0392b" stroke-width="3" fill="none"/>';
  if(hs.length>1)s+='<text x="208" y="'+((Y[hs[0]]+busEnd)/2+5)+'" font-size="13" fill="#7a2118">短絡</text>';
- s+='<rect x="320" y="110" width="320" height="296" rx="10" fill="none" stroke="#7d8b94" stroke-dasharray="6 5"/><text x="332" y="398" font-size="13" fill="#4b6475">PAS（入）／内蔵VT '+(vtn===2?'2台（V結線）':'1台（R−S間）')+'</text>';
+ s+='<rect x="320" y="110" width="320" height="296" rx="10" fill="none" stroke="#7d8b94" stroke-dasharray="6 5"/><text x="332" y="398" font-size="13" fill="#4b6475">PAS（入）／内蔵VT '+(vtn===2?'2台（V結線）':'1台（U−V間）')+'</text>';
  s+='<text x="700" y="104" font-size="13" fill="#4b6475">負荷側ケーブル '+fmt(R.len)+'m</text>';
  PH.forEach(p=>{const y=Y[p],t=st[p],v=abs(R.V[p]),col=t==='H'?COL.H:t==='G'?COL.G:COL.F,wd=t==='H'?4:2.5;
   if(t==='H')s+='<path d="M200 '+y+' H260" stroke="#c0392b" stroke-width="3"/><circle cx="200" cy="'+y+'" r="5" fill="#c0392b"/>';
@@ -206,12 +206,12 @@ function draw(R){
   const rev=v>50&&R.V[p].re<0;
   s+='<text x="652" y="'+(y-10)+'" font-size="14" font-weight="700" fill="'+(t==='G'?'#4b6475':t==='H'?'#7a2118':'#6b4510')+'">対地 '+fmt(v)+'V'+(rev?'（逆向き）':'')+'</text>';
   const cy=y+14;s+='<path d="M760 '+y+' V'+cy+' M748 '+cy+' H772 M748 '+(cy+6)+' H772 M760 '+(cy+6)+' V'+(cy+18)+' M752 '+(cy+18)+' H768 M755 '+(cy+22)+' H765" stroke="#4b6475" stroke-width="1.5" fill="none"/>';});
- s+='<text x="782" y="'+(Y.T+40)+'" font-size="12" fill="#4b6475">対地静電容量</text>';
- R.vt.forEach((x,i)=>{const top=i?Y.S:Y.R,bot=i?Y.T:Y.S,by=top+20,L=lvl(vr[i]),fc=L==='ok'?'#eaf6ee':L==='warn'?'#fdf4e3':'#fcebe8',sc=COL[L];
+ s+='<text x="782" y="'+(Y.W+40)+'" font-size="12" fill="#4b6475">対地静電容量</text>';
+ R.vt.forEach((x,i)=>{const top=i?Y.V:Y.U,bot=i?Y.W:Y.V,by=top+20,L=lvl(vr[i]),fc=L==='ok'?'#eaf6ee':L==='warn'?'#fdf4e3':'#fcebe8',sc=COL[L];
   s+='<path d="M400 '+top+' V'+by+' M400 '+(by+40)+' V'+bot+'" stroke="#203b50" stroke-width="2"/>';
   s+='<rect x="370" y="'+by+'" width="60" height="40" rx="6" fill="'+fc+'" stroke="'+sc+'" stroke-width="2.5"/><text x="400" y="'+(by+26)+'" text-anchor="middle" font-size="15" font-weight="800" fill="#203b50">'+vname(i)+'</text>';
   s+='<text x="440" y="'+(by+17)+'" font-size="14" font-weight="800" fill="'+sc+'">'+fmt(abs(x.v))+'V</text><text x="440" y="'+(by+35)+'" font-size="12" fill="#4b6475">'+x.a+'−'+x.c+'間／定格の'+vr[i].toFixed(2)+'倍</text>';});
- if(vtn===2)s+='<circle cx="400" cy="'+Y.S+'" r="4" fill="#203b50"/>';
+ if(vtn===2)s+='<circle cx="400" cy="'+Y.V+'" r="4" fill="#203b50"/>';
  s+='</svg>';$('fig').innerHTML=s;
  return vr;
 }
@@ -221,14 +221,14 @@ function render(){
  const gs=PH.filter(p=>st[p]==='G'),fs=PH.filter(p=>st[p]==='F');
  const fv=fs.map(p=>abs(R.V[p])),dev=p=>abs(sub(R.V[p],C(VT)))/VT,rev=p=>abs(R.V[p])>50&&R.V[p].re<0;
  let cls='ok',head='',det='';
- if(!R.hasH){cls='warn';head='試験電圧をかける相がありません。';det='R・S・Tのどれかを「試験電圧」にしてください。'}
+ if(!R.hasH){cls='warn';head='試験電圧をかける相がありません。';det='U・V・Wのどれかを「試験電圧」にしてください。'}
  else if(allH){cls='ok';head='正しいつなぎ方。3本とも同じ電圧なので、VTに電圧はかかりません。';det='3相とも「電路と大地の間」の絶縁を試験できています。'}
  else{
   const worst=vr.indexOf(maxr),nm=vname(worst);
   if(maxr>=1.2){cls='ng';head=nm+'に定格の'+maxr.toFixed(2)+'倍（'+fmt(maxr*VR)+'V）。過励磁で焼損のおそれ。';det='鉄心が飽和して励磁電流が急に増え、試験の10分間で過熱します。二次側にも約'+fmt(maxr*v2)+'Vが出て、制御装置を壊すおそれ。'+(maxr>2?'2倍を超える値は線形モデルの計算値で、実際は飽和や鉄共振で計算どおりにはなりません。':'')}
   else if(maxr>=1){cls='ng';head=nm+'に定格を超える電圧（'+maxr.toFixed(2)+'倍）。';det='VTを定格以上で励磁している状態です。'}
   else if(maxr>=0.05){cls='warn';head=nm+'に、本来かからない電圧（定格の'+maxr.toFixed(2)+'倍）がかかっています。';det='二次側にも約'+fmt(maxr*v2)+'Vが出ます。ケーブル長や条件が変わると大きくなります。'}
-  else{cls='warn';head='VTの電圧はほぼ0V。VTは無事ですが、正しいつなぎ方ではありません。';det='VTが無事なのは、VTがつながっている相（'+(vtn===1?'R−S':'R−S・S−T')+'）が同じ扱いになっているから。VTがつながる相はメーカー・型式で違うので、取り違えると焼損します。メーカーの取扱説明書は「三相一括で実施」と指示しています。'}
+  else{cls='warn';head='VTの電圧はほぼ0V。VTは無事ですが、正しいつなぎ方ではありません。';det='VTが無事なのは、VTがつながっている相（'+(vtn===1?'U−V':'U−V・V−W')+'）が同じ扱いになっているから。VTがつながる相はメーカー・型式で違うので、取り違えると焼損します。メーカーの取扱説明書は「三相一括で実施」と指示しています。'}
   if(fs.length&&fs.some(p=>dev(p)>0.05))det+='　開放した相（'+fs.join('・')+'）の電圧が試験電圧とずれて、電圧バランスが崩れています。';
   if(fv.some(v=>v>VT*1.02))det+='　開放した相に、試験電圧より高い電圧がかかっています。';
   if(fs.some(rev))det+='　開放した相の電圧が試験電圧と逆向きになり、相の間に大きな電圧差ができています。';
@@ -272,21 +272,21 @@ const tester='<rect x="20" y="24" width="120" height="52" rx="8" fill="#fde9e5" 
 function table(id,rows){document.getElementById(id).innerHTML=rows.map(r=>'<tr><th style="width:9em">'+r[0]+'</th><td>'+r[1]+'</td></tr>').join('')}
 function bind(btns,fn){const bs=document.querySelectorAll('#'+btns+' button');bs.forEach(b=>b.addEventListener('click',()=>{bs.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));fn(+b.dataset.k)}))}
 
-const Y={R:130,S:250,T:370};
+const Y={U:130,V:250,W:370};
 const cable=p=>({d:'M140 50 H170 V'+Y[p]+' H590 V'+(Y[p]+30),c:BLUE,w:3,t:'1.4s'});
 const PAS=[
- {st:'HHH',vt:['hv','hv'],v2:['0V','0V'],f:[cable('R'),cable('S'),cable('T')],rows:[['VT1（R−S）','両端が同じ電圧。巻線に電流は流れない'],['VT2（S−T）','同じく電流は流れない'],['充電電流','3相とも、VTより手前で各相のケーブルから大地へ流れる（巻線の外側）'],['結果','正しい。3相とも対地絶縁を試験できる']]},
- {st:'HGG',vt:['cur','g'],v2:['約165V（過励磁）','0V'],f:[cable('R'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT1（R−S）','R → VT1の一次巻線 → S（接地）へ電流が通る。相間に10,350V（定格の約1.57倍）で過励磁'],['VT2（S−T）','両端とも接地で0V'],['充電電流','R相のケーブルの分だけ'],['結果','VT1が焼損のおそれ。S・T相の対地絶縁は試験されていない']]},
- {st:'HFF',vt:['cur','cur'],v2:['定格を超える電圧','電圧が出る'],f:[cable('R'),{d:'M140 50 H170 V130 H266 V250 H590 V280',c:RED,w:4,t:'.7s'},{d:'M266 250 V370 H590 V400',c:RED,w:3,t:'.9s'}],rows:[['VT1（R−S）','S相とT相のケーブルの充電電流が、まとめてVT1の一次巻線を通る（定格 約3.8mAの何倍も）'],['VT2（S−T）','T相のケーブルの充電電流が通る'],['充電電流','S・T相の分は、VTの巻線を通ってから大地へ'],['結果','過熱・焼損のおそれ。参考記事の「1相ずつ試験して焼損」はこの状況']]},
- {st:'HHG',vt:['hv','cur'],v2:['0V','約165V（過励磁）'],f:[cable('R'),cable('S'),{d:'M140 50 H170 V250 H266 V370 H190 V390',c:RED,w:4,t:'.6s'}],rows:[['VT1（R−S）','両端とも試験電圧で0V'],['VT2（S−T）','S → VT2の一次巻線 → T（接地）へ電流が通る。10,350Vで過励磁'],['充電電流','R・S相のケーブルの分'],['結果','VT2が焼損のおそれ。T相の対地絶縁は試験されていない']]},
- {st:'HGH',vt:['cur','cur'],v2:['約165V（過励磁）','約165V（過励磁）'],f:[cable('R'),cable('T'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'},{d:'M140 50 H170 V370 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT1（R−S）','R → VT1 → S（接地）へ電流が通る。10,350Vで過励磁'],['VT2（S−T）','T → VT2 → S（接地）へ電流が通る。10,350Vで過励磁'],['充電電流','R・T相のケーブルの分'],['結果','2台とも焼損のおそれ。S相の対地絶縁は試験されていない']]}];
+ {st:'HHH',vt:['hv','hv'],v2:['0V','0V'],f:[cable('U'),cable('V'),cable('W')],rows:[['VT1（U−V）','両端が同じ電圧。巻線に電流は流れない'],['VT2（V−W）','同じく電流は流れない'],['充電電流','3相とも、VTより手前で各相のケーブルから大地へ流れる（巻線の外側）'],['結果','正しい。3相とも対地絶縁を試験できる']]},
+ {st:'HGG',vt:['cur','g'],v2:['約165V（過励磁）','0V'],f:[cable('U'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT1（U−V）','U → VT1の一次巻線 → V（接地）へ電流が通る。相間に10,350V（定格の約1.57倍）で過励磁'],['VT2（V−W）','両端とも接地で0V'],['充電電流','U相のケーブルの分だけ'],['結果','VT1が焼損のおそれ。V・W相の対地絶縁は試験されていない']]},
+ {st:'HFF',vt:['cur','cur'],v2:['定格を超える電圧','電圧が出る'],f:[cable('U'),{d:'M140 50 H170 V130 H266 V250 H590 V280',c:RED,w:4,t:'.7s'},{d:'M266 250 V370 H590 V400',c:RED,w:3,t:'.9s'}],rows:[['VT1（U−V）','V相とW相のケーブルの充電電流が、まとめてVT1の一次巻線を通る（定格 約3.8mAの何倍も）'],['VT2（V−W）','W相のケーブルの充電電流が通る'],['充電電流','V・W相の分は、VTの巻線を通ってから大地へ'],['結果','過熱・焼損のおそれ。参考記事の「1相ずつ試験して焼損」はこの状況']]},
+ {st:'HHG',vt:['hv','cur'],v2:['0V','約165V（過励磁）'],f:[cable('U'),cable('V'),{d:'M140 50 H170 V250 H266 V370 H190 V390',c:RED,w:4,t:'.6s'}],rows:[['VT1（U−V）','両端とも試験電圧で0V'],['VT2（V−W）','V → VT2の一次巻線 → W（接地）へ電流が通る。10,350Vで過励磁'],['充電電流','U・V相のケーブルの分'],['結果','VT2が焼損のおそれ。W相の対地絶縁は試験されていない']]},
+ {st:'HGH',vt:['cur','cur'],v2:['約165V（過励磁）','約165V（過励磁）'],f:[cable('U'),cable('W'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'},{d:'M140 50 H170 V370 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT1（U−V）','U → VT1 → V（接地）へ電流が通る。10,350Vで過励磁'],['VT2（V−W）','W → VT2 → V（接地）へ電流が通る。10,350Vで過励磁'],['充電電流','U・W相のケーブルの分'],['結果','2台とも焼損のおそれ。V相の対地絶縁は試験されていない']]}];
 
 const PAS1=[
- {vt:['hv'],v2:['0V'],f:[cable('R'),cable('S'),cable('T')],rows:[['VT（R−S）','両端が同じ電圧。巻線に電流は流れない'],['充電電流','3相とも、VTより手前で各相のケーブルから大地へ流れる（巻線の外側）'],['結果','正しい。3相とも対地絶縁を試験できる']]},
- {vt:['cur'],v2:['約165V（過励磁）'],f:[cable('R'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT（R−S）','R → VTの一次巻線 → S（接地）へ電流が通る。相間に10,350V（定格の約1.57倍）で過励磁'],['充電電流','R相のケーブルの分だけ'],['結果','VTが焼損のおそれ。S・T相の対地絶縁は試験されていない']]},
- {vt:['cur'],v2:['定格を超える電圧'],f:[cable('R'),{d:'M140 50 H170 V130 H266 V250 H590 V280',c:RED,w:4,t:'.7s'}],rows:[['VT（R−S）','S相のケーブルの充電電流がVTの一次巻線を通る（例：約31mA。25VAのVTの定格一次電流 約3.8mAの約8倍）'],['T相','どこにもつながらず、試験されない'],['結果','焼損のおそれ。メーカーの取扱説明書が「一相ごとの試験は行わない」としているのはこの状況']]},
- {vt:['hv'],v2:['0V'],f:[cable('R'),cable('S')],rows:[['VT（R−S）','両端とも試験電圧で0V。VTは無事'],['T相','接地されていて、この回は試験されていない'],['結果','VTは壊れないが、正しいつなぎ方ではない']]},
- {vt:['cur'],v2:['約165V（過励磁）'],f:[cable('R'),cable('T'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT（R−S）','R → VT → S（接地）へ電流が通る。10,350Vで過励磁'],['充電電流','R・T相のケーブルの分'],['結果','VTが焼損のおそれ。S相の対地絶縁は試験されていない']]}];
+ {vt:['hv'],v2:['0V'],f:[cable('U'),cable('V'),cable('W')],rows:[['VT（U−V）','両端が同じ電圧。巻線に電流は流れない'],['充電電流','3相とも、VTより手前で各相のケーブルから大地へ流れる（巻線の外側）'],['結果','正しい。3相とも対地絶縁を試験できる']]},
+ {vt:['cur'],v2:['約165V（過励磁）'],f:[cable('U'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT（U−V）','U → VTの一次巻線 → V（接地）へ電流が通る。相間に10,350V（定格の約1.57倍）で過励磁'],['充電電流','U相のケーブルの分だけ'],['結果','VTが焼損のおそれ。V・W相の対地絶縁は試験されていない']]},
+ {vt:['cur'],v2:['定格を超える電圧'],f:[cable('U'),{d:'M140 50 H170 V130 H266 V250 H590 V280',c:RED,w:4,t:'.7s'}],rows:[['VT（U−V）','V相のケーブルの充電電流がVTの一次巻線を通る（例：約31mA。25VAのVTの定格一次電流 約3.8mAの約8倍）'],['W相','どこにもつながらず、試験されない'],['結果','焼損のおそれ。メーカーの取扱説明書が「一相ごとの試験は行わない」としているのはこの状況']]},
+ {vt:['hv'],v2:['0V'],f:[cable('U'),cable('V')],rows:[['VT（U−V）','両端とも試験電圧で0V。VTは無事'],['W相','接地されていて、この回は試験されていない'],['結果','VTは壊れないが、正しいつなぎ方ではない']]},
+ {vt:['cur'],v2:['約165V（過励磁）'],f:[cable('U'),cable('W'),{d:'M140 50 H170 V130 H266 V250 H190 V270',c:RED,w:4,t:'.6s'}],rows:[['VT（U−V）','U → VT → V（接地）へ電流が通る。10,350Vで過励磁'],['充電電流','U・W相のケーブルの分'],['結果','VTが焼損のおそれ。V相の対地絶縁は試験されていない']]}];
 let flowVtn=1,pasK=0;
 function vtDraw(y0,state,v2,n){
  const col=state==='cur'?RED:state==='hv'?HV:G;let s='';
@@ -299,15 +299,15 @@ function vtDraw(y0,state,v2,n){
  s+=tx(408,y0+76,v2,{b:1,c:state==='cur'?RED:SB});
  s+='<circle cx="266" cy="'+y0+'" r="3.5" fill="'+TX+'"/><circle cx="266" cy="'+(y0+120)+'" r="3.5" fill="'+TX+'"/>';
  return s}
-function drawPAS(k){pasK=k;const c0=PAS[k],c=flowVtn===1?Object.assign({st:c0.st},PAS1[k]):c0,st={R:c.st[0],S:c.st[1],T:c.st[2]};
+function drawPAS(k){pasK=k;const c0=PAS[k],c=flowVtn===1?Object.assign({st:c0.st},PAS1[k]):c0,st={U:c.st[0],V:c.st[1],W:c.st[2]};
  let s='<svg viewBox="0 0 680 470" role="img" aria-label="PAS内蔵VT（V結線）の耐圧試験と電流の流れ">'+tester;
  s+='<path d="M40 76 V440" stroke="'+G+'" stroke-width="1.5" fill="none"/>'+gnd(40,440);
- const hv=['R','S','T'].filter(p=>st[p]==='H');
+ const hv=['U','V','W'].filter(p=>st[p]==='H');
  s+='<path d="M140 50 H170 V'+Y[hv[hv.length-1]]+'" stroke="'+HV+'" stroke-width="3" fill="none"/>';
  if(hv.length>1)s+=tx(150,(Y[hv[0]]+Y[hv[hv.length-1]])/2+4,'短絡',{c:'#7a2118',a:'end'});
  s+='<rect x="240" y="96" width="230" height="342" rx="10" fill="none" stroke="'+G+'" stroke-dasharray="6 5"/>'+tx(250,430,'PAS（入）／VTは負荷側');
  s+=tx(486,112,'負荷側ケーブルの対地静電容量');
- ['R','S','T'].forEach(p=>{const y=Y[p],t=st[p],col=t==='H'?HV:t==='G'?G:AMB;
+ ['U','V','W'].forEach(p=>{const y=Y[p],t=st[p],col=t==='H'?HV:t==='G'?G:AMB;
   if(t==='H')s+='<path d="M170 '+y+' H200" stroke="'+HV+'" stroke-width="3"/><circle cx="170" cy="'+y+'" r="4.5" fill="'+HV+'"/>';
   if(t==='G')s+='<path d="M200 '+y+' H190 V'+(y+20)+'" stroke="'+G+'" stroke-width="2" fill="none"/>'+gnd(190,y+20)+tx(200,y+36,'電線を接地',{s:12});
   if(t==='F')s+='<circle cx="200" cy="'+y+'" r="4" fill="#fff" stroke="'+AMB+'" stroke-width="2"/>'+tx(194,y-8,'開放',{a:'end',c:'#6b4510'});
@@ -347,14 +347,14 @@ const EV=[
  {m:'g',rows:[['EVTの巻線','相と大地（中性点）の間につながる。3相一括でも、各巻線に10,350Vがかかる'],['定格との比','巻線の定格は約3,810V（6,600/√3）なので約2.7倍。過励磁で焼損のおそれ'],['三次側','3相に同じ電圧がかかる＝完全地絡と同じ形なので、オープンデルタに約520V（完全地絡時190Vの約2.7倍）が出て、地絡継電器などにかかる'],['結果','間違い。EVTも、つながる継電器も壊すおそれ']]},
  {m:'cut',rows:[['EVT','一次側のヒューズなどで電路から切り離すので、試験電圧がかからない'],['結果','EVTを守れる。そのかわりEVTの絶縁はこの試験では確認していない'],['注意','切り離し方・戻し方は取扱説明書と社内手順に従う。試験後の戻し忘れに注意']]},
  {m:'open',rows:[['中性点','接地を外すと、中性点もほぼ10,350Vまで上がる'],['EVTの巻線','両端がほぼ同じ電圧になり、巻線に電圧はかからない'],['注意','中性点の端子や配線にも10,350Vがかかる。それに耐える設計か、この方法でよいかは取扱説明書で確認。試験後に接地を戻す']]}];
-function drawEVT(k){const c=EV[k],YE={R:110,S:150,T:190},X={R:360,S:420,T:480};
+function drawEVT(k){const c=EV[k],YE={U:110,V:150,W:190},X={U:360,V:420,W:480};
  let s='<svg viewBox="0 0 680 440" role="img" aria-label="EVT（Y結線）の耐圧試験と電流の流れ">'+tester;
  s+='<path d="M40 76 V420" stroke="'+G+'" stroke-width="1.5" fill="none"/>'+gnd(40,420);
  s+='<path d="M140 50 H170 V190" stroke="'+HV+'" stroke-width="3" fill="none"/>'+tx(160,154,'短絡',{c:'#7a2118',a:'end'});
- ['R','S','T'].forEach(p=>{const y=YE[p];s+='<path d="M170 '+y+' H640" stroke="'+HV+'" stroke-width="3.5"/><circle cx="170" cy="'+y+'" r="4.5" fill="'+HV+'"/>'+tx(190,y-8,p,{s:16,b:1,c:TX})+'<circle cx="'+X[p]+'" cy="'+y+'" r="3.5" fill="'+TX+'"/>';});
+ ['U','V','W'].forEach(p=>{const y=YE[p];s+='<path d="M170 '+y+' H640" stroke="'+HV+'" stroke-width="3.5"/><circle cx="170" cy="'+y+'" r="4.5" fill="'+HV+'"/>'+tx(190,y-8,p,{s:16,b:1,c:TX})+'<circle cx="'+X[p]+'" cy="'+y+'" r="3.5" fill="'+TX+'"/>';});
  s+='<rect x="330" y="236" width="180" height="156" rx="10" fill="none" stroke="'+G+'" stroke-dasharray="6 5"/>'+tx(336,410,'EVT（一次はY結線）');
  const col=c.m==='g'?RED:c.m==='open'?HV:G;
- ['R','S','T'].forEach(p=>{const x=X[p],y=YE[p];
+ ['U','V','W'].forEach(p=>{const x=X[p],y=YE[p];
   if(c.m==='cut')s+='<path d="M'+x+' '+y+' V212 M'+x+' 232 V244" stroke="'+(p?HV:HV)+'" stroke-width="2.5" fill="none"/><path d="M'+x+' 232 V244" stroke="'+G+'" stroke-width="2.5"/><circle cx="'+x+'" cy="212" r="3" fill="'+HV+'"/><circle cx="'+x+'" cy="232" r="3" fill="#fff" stroke="'+G+'" stroke-width="1.5"/>';
   else s+='<path d="M'+x+' '+y+' V244" stroke="'+HV+'" stroke-width="2.5" fill="none"/>';
   s+=ell(x,250,5,14,14,col)+'<path d="M'+x+' 312 V340" stroke="'+col+'" stroke-width="2.5" fill="none"/>';});
@@ -362,7 +362,7 @@ function drawEVT(k){const c=EV[k],YE={R:110,S:150,T:190},X={R:360,S:420,T:480};
  s+='<path d="M360 340 H480 M420 340 V362" stroke="'+col+'" stroke-width="2.5" fill="none"/>'+tx(488,345,'中性点 N',{s:12});
  if(c.m==='open')s+='<circle cx="420" cy="366" r="4" fill="#fff" stroke="'+AMB+'" stroke-width="2"/>'+tx(430,372,'接地を外す',{s:12,c:'#6b4510'});
  else s+='<path d="M420 362 V372" stroke="'+G+'" stroke-width="2"/>'+gnd(420,372);
- if(c.m==='g'){['R','S','T'].forEach(p=>{s+=flow({d:'M140 50 H170 V'+YE[p]+' H'+X[p]+' V340 H420 V372',c:RED,w:3,t:'.7s'})});
+ if(c.m==='g'){['U','V','W'].forEach(p=>{s+=flow({d:'M140 50 H170 V'+YE[p]+' H'+X[p]+' V340 H420 V372',c:RED,w:3,t:'.7s'})});
   s+=tx(540,270,'各巻線に 10,350V',{s:14,b:1,c:RED})+tx(540,290,'定格 約3,810Vの',{c:RED})+tx(540,308,'約2.7倍',{c:RED});}
  else s+=tx(540,280,'巻線に電圧は',{s:14,b:1,c:'#2f8a4e'})+tx(540,300,'かからない',{s:14,b:1,c:'#2f8a4e'});
  s+='</svg>';document.getElementById('evtFlowFig').innerHTML=s;table('evtFlowTab',c.rows)}
@@ -407,9 +407,9 @@ function drawCab(){
 }
 bind('cabBtns',k=>{cs=k;drawCab()});document.getElementById('cabV').addEventListener('input',drawCab);drawCab();
 
-const YP={R:170,S:230,T:290};
-function drawPasB(k){const st={R:k[0],S:k[1],T:k[2]},PHS=['R','S','T'],hvs=PHS.filter(p=>st[p]==='H'),fs=PHS.filter(p=>st[p]!=='H'),all=hvs.length===3;
- const vr=st.R,vs=st.S,vtCur=(vr==='H')!==(vs==='H'),vtFrom=vr==='H'?'R':'S',vtTo=vr==='H'?'S':'R';
+const YP={U:170,V:230,W:290};
+function drawPasB(k){const st={U:k[0],V:k[1],W:k[2]},PHS=['U','V','W'],hvs=PHS.filter(p=>st[p]==='H'),fs=PHS.filter(p=>st[p]!=='H'),all=hvs.length===3;
+ const vr=st.U,vs=st.V,vtCur=(vr==='H')!==(vs==='H'),vtFrom=vr==='H'?'U':'V',vtTo=vr==='H'?'V':'U';
  let s='<svg viewBox="0 0 680 470" role="img" aria-label="PASの耐圧試験で電流が流れる道（外箱・主接点・ZCT・内蔵VT・負荷側ケーブル）">'+tester(20,24,110,'10,350V');
  s+='<path d="M40 74 V440 H645" fill="none" stroke="'+G+'" stroke-width="1.5"/>'+gnd(345,440);
  s+='<path d="M130 48 H150 V'+YP[hvs[hvs.length-1]]+'" stroke="'+HV+'" stroke-width="3" fill="none"/>';
@@ -430,15 +430,15 @@ function drawPasB(k){const st={R:k[0],S:k[1],T:k[2]},PHS=['R','S','T'],hvs=PHS.f
  s+='<path d="M465 200 H485 V60 H510" fill="none" stroke="'+G+'" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M510 60 V76" stroke="'+G+'" stroke-width="1.5"/>'+gnd(510,76);
  s+='<rect x="540" y="38" width="100" height="40" rx="6" fill="#fff" stroke="'+G+'"/>'+tx(590,63,'SOG制御装置',{a:'middle',s:12,c:TX})+tx(520,100,'制御線は外して',{s:12})+tx(520,116,'端末を一括接地',{s:12})+tx(522,152,'負荷側ケーブル',{s:12,c:TX,b:1});
  hvs.forEach(p=>{const y=YP[p];s+=flow('M130 48 H150 V'+y+' H575 V'+(y-9),BLUE,3,'1.3s')});
- if(st.R==='H')s+=flow('M380 166 V126',BLUE,1.2,'1.6s');if(st.T==='H')s+=flow('M380 294 V346',BLUE,1.2,'1.6s');
+ if(st.U==='H')s+=flow('M380 166 V126',BLUE,1.2,'1.6s');if(st.W==='H')s+=flow('M380 294 V346',BLUE,1.2,'1.6s');
  s+=flow('M355 350 V440',BLUE,1.2,'1.6s')+flow('M645 161 V440 H40 V74',PU,Math.max(2,hvs.length*1.4),'1.1s');
  if(vtCur){s+=flow('M150 '+YP[vtFrom]+' H420 V'+YP[vtTo]+' H575 V'+(YP[vtTo]-9),RED,3.5,'.7s')+tx(520,204,'VTに過大な電流',{s:12,b:1,c:RED})}
  s+='</svg>';document.getElementById('pasBFig').innerHTML=s;
  const rows=[['試験される相',hvs.join('・')+'相'+(fs.length?'（'+fs.join('・')+'相は開放で、この回は試験されない）':'（3相とも）')]];
- rows.push(['内蔵VT（R−S間）',vtCur?vtTo+'相（電圧をかけていない側）のケーブルを充電する電流（例：最大で約31mA）が、'+vtFrom+' → VTの一次巻線 → '+vtTo+'相 と通る（理由は下の「なぜ…？」）。25VAのVTの定格一次電流 約3.8mAの約8倍で、焼損のおそれ':vr==='H'?'R・Sが同じ電圧なので、巻線に電流は流れない（無事）':'R・Sどちらにも試験電圧がかからないので、電流は流れない（無事）']);
+ rows.push(['内蔵VT（U−V間）',vtCur?vtTo+'相（電圧をかけていない側）のケーブルを充電する電流（例：最大で約31mA）が、'+vtFrom+' → VTの一次巻線 → '+vtTo+'相 と通る（理由は下の「なぜ…？」）。25VAのVTの定格一次電流 約3.8mAの約8倍で、焼損のおそれ':vr==='H'?'U・Vが同じ電圧なので、巻線に電流は流れない（無事）':'U・Vどちらにも試験電圧がかからないので、電流は流れない（無事）']);
  if(all)rows.push(['電流の通り道','① PAS内部の絶縁（がいし・空気）→ 外箱 → 外箱の接地線　② 負荷側ケーブルの絶縁体 → 遮へい層 → 遮へい接地線。どちらも大地を通って試験器へ戻る'],['大きさ','ほとんどがケーブルの充電電流（例：38mm²・30mなら3相で約94mA）。PAS内部を通る分はごくわずか'],['結果','正しい。3相とも1回で試験でき、VTも無事']);
- else if(vtCur)rows.push(['結果',hvs.length===1?'VTが焼損のおそれ。メーカーの取扱説明書が「一相ごとの試験は行わない」としているのはこの形':'VTが焼損のおそれ。2相をまとめても、VTの両端（R・S）が別々の扱いになっていると同じことが起きる']);
- else rows.push(['結果','VTは無事。ただし'+fs.join('・')+'相は別にもう一度試験が必要'],['注意','VTが無事なのは、VTがR−S間にあるから。VTがつながる相はメーカー・型式で違い、取り違えると焼損する。だからメーカーは「三相一括で実施」と指示している']);
+ else if(vtCur)rows.push(['結果',hvs.length===1?'VTが焼損のおそれ。メーカーの取扱説明書が「一相ごとの試験は行わない」としているのはこの形':'VTが焼損のおそれ。2相をまとめても、VTの両端（U・V）が別々の扱いになっていると同じことが起きる']);
+ else rows.push(['結果','VTは無事。ただし'+fs.join('・')+'相は別にもう一度試験が必要'],['注意','VTが無事なのは、VTがU−V間にあるから。VTがつながる相はメーカー・型式で違い、取り違えると焼損する。だからメーカーは「三相一括で実施」と指示している']);
  rows.push(['制御線','外して、端末を一括接地する（取扱説明書の指定）']);
  table('pasBTab',rows);
 }
