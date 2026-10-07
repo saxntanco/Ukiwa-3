@@ -47,7 +47,8 @@
 
 <h3 id="basics-pas" style="margin-top:30px">PASの中の電流</h3>
 <p>PASを「入」にして、電源側の端子から負荷側ケーブルまで一緒に試験するときの図です。主要メーカーの取扱説明書では、内蔵VT（SOGの制御電源用）は<b>負荷側</b>の<b>U相−V相の間</b>に1台つながっています（このページでは U・V・W を R・S・T と書くので、<b>R相−S相の間</b>）。</p>
-<div class="pickers" id="pasBBtns"><button data-k="all" aria-pressed="true">正しい：3相一括</button><button data-k="one" aria-pressed="false">間違い：R相だけ（S・Tは開放）</button></div>
+<div class="pickers" id="pasBBtns"><button data-k="HHH" aria-pressed="true">正しい：3相一括</button><button data-k="HFF" aria-pressed="false">R相だけ</button><button data-k="FHF" aria-pressed="false">S相だけ</button><button data-k="FFH" aria-pressed="false">T相だけ</button><button data-k="HHF" aria-pressed="false">R＋S短絡</button><button data-k="FHH" aria-pressed="false">S＋T短絡</button><button data-k="HFH" aria-pressed="false">R＋T短絡</button></div>
+<p class="caption" style="margin:-6px 0 10px">3相一括以外は、選んだ相に試験電圧をかけ、残りの相は開放（何もつながない）にしたときの図です。内蔵VTは R−S間に1台。</p>
 <div class="simfig" id="pasBFig"></div>
 <div class="table-wrap"><table class="rtab" id="pasBTab"></table></div>
 <p class="caption">図は原理を説明するための模式図で、実物の部品配置ではありません。メーカーにより、VTの台数・つなぐ相、ZCT・LAの有無と位置は異なります。お使いのPASの銘板と取扱説明書で確認してください。</p>
@@ -198,7 +199,7 @@ function render(){
   if(maxr>=1.2){cls='ng';head=nm+'に定格の'+maxr.toFixed(2)+'倍（'+fmt(maxr*VR)+'V）。過励磁で焼損のおそれ。';det='鉄心が飽和して励磁電流が急に増え、試験の10分間で過熱します。二次側にも約'+fmt(maxr*v2)+'Vが出て、制御装置を壊すおそれ。'+(maxr>2?'2倍を超える値は線形モデルの計算値で、実際は飽和や鉄共振で計算どおりにはなりません。':'')}
   else if(maxr>=1){cls='ng';head=nm+'に定格を超える電圧（'+maxr.toFixed(2)+'倍）。';det='VTを定格以上で励磁している状態です。'}
   else if(maxr>=0.05){cls='warn';head=nm+'に、本来かからない電圧（定格の'+maxr.toFixed(2)+'倍）がかかっています。';det='二次側にも約'+fmt(maxr*v2)+'Vが出ます。ケーブル長や条件が変わると大きくなります。'}
-  else{cls='warn';head='VTの電圧はほぼ0Vですが、正しいつなぎ方ではありません。'}
+  else{cls='warn';head='VTの電圧はほぼ0V。VTは無事ですが、正しいつなぎ方ではありません。';det='VTが無事なのは、VTがつながっている相（'+(vtn===1?'R−S':'R−S・S−T')+'）が同じ扱いになっているから。VTがつながる相はメーカー・型式で違うので、取り違えると焼損します。メーカーの取扱説明書は「三相一括で実施」と指示しています。'}
   if(fs.length&&fs.some(p=>dev(p)>0.05))det+='　開放した相（'+fs.join('・')+'）の電圧が試験電圧とずれて、電圧バランスが崩れています。';
   if(fv.some(v=>v>VT*1.02))det+='　開放した相に、試験電圧より高い電圧がかかっています。';
   if(fs.some(rev))det+='　開放した相の電圧が試験電圧と逆向きになり、相の間に大きな電圧差ができています。';
@@ -378,35 +379,41 @@ function drawCab(){
 bind('cabBtns',k=>{cs=k;drawCab()});document.getElementById('cabV').addEventListener('input',drawCab);drawCab();
 
 const YP={R:170,S:230,T:290};
-function drawPasB(k){const all=k==='all';
+function drawPasB(k){const st={R:k[0],S:k[1],T:k[2]},PHS=['R','S','T'],hvs=PHS.filter(p=>st[p]==='H'),fs=PHS.filter(p=>st[p]!=='H'),all=hvs.length===3;
+ const vr=st.R,vs=st.S,vtCur=(vr==='H')!==(vs==='H'),vtFrom=vr==='H'?'R':'S',vtTo=vr==='H'?'S':'R';
  let s='<svg viewBox="0 0 680 470" role="img" aria-label="PASの耐圧試験で電流が流れる道（外箱・主接点・ZCT・内蔵VT・負荷側ケーブル）">'+tester(20,24,110,'10,350V');
  s+='<path d="M40 74 V440 H645" fill="none" stroke="'+G+'" stroke-width="1.5"/>'+gnd(345,440);
- s+='<path d="M130 48 H150 V'+(all?290:170)+'" stroke="'+HV+'" stroke-width="3" fill="none"/>';
- if(all)s+=tx(144,234,'短絡',{a:'end',c:'#7a2118'});
+ s+='<path d="M130 48 H150 V'+YP[hvs[hvs.length-1]]+'" stroke="'+HV+'" stroke-width="3" fill="none"/>';
+ if(hvs.length>1)s+=tx(144,(YP[hvs[0]]+YP[hvs[hvs.length-1]])/2+4,'短絡',{a:'end',c:'#7a2118'});
  s+='<rect x="210" y="120" width="290" height="230" rx="14" fill="#e9eef1" stroke="#5f7180" stroke-width="3"/>'+tx(222,140,'外箱（A種接地）',{c:TX,b:1});
  s+='<path d="M355 350 V440" stroke="'+GW+'" stroke-width="2.5" fill="none"/>'+tx(362,400,'外箱の接地線',{c:GW});
- ['R','S','T'].forEach(p=>{const y=YP[p],hv=all||p==='R',x0=hv?150:170,col=hv?HV:AMB;
-  if(hv)s+='<circle cx="150" cy="'+y+'" r="4.5" fill="'+HV+'"/>';else s+='<circle cx="170" cy="'+y+'" r="4" fill="#fff" stroke="'+AMB+'" stroke-width="2"/>'+tx(164,y+18,'開放',{a:'end',c:'#6b4510',s:12});
+ PHS.forEach(p=>{const y=YP[p],hv=st[p]==='H',x0=hv?150:170,col=hv?HV:AMB;
+  if(hv)s+='<circle cx="150" cy="'+y+'" r="4.5" fill="'+HV+'"/>';else s+='<circle cx="170" cy="'+y+'" r="4" fill="#fff" stroke="'+AMB+'" stroke-width="2"/>'+tx(178,y+20,'開放',{c:'#6b4510',s:12});
   s+='<path d="M'+x0+' '+y+' H630" stroke="'+col+'" stroke-width="'+(hv?3.5:2.5)+'"/>'+tx(178,y-8,p,{s:15,b:1,c:TX});
   s+='<rect x="204" y="'+(y-8)+'" width="12" height="16" fill="#fff" stroke="'+G+'"/><rect x="494" y="'+(y-8)+'" width="12" height="16" fill="#fff" stroke="'+G+'"/>';
   s+='<circle cx="255" cy="'+y+'" r="3.5" fill="'+TX+'"/><circle cx="285" cy="'+y+'" r="3.5" fill="'+TX+'"/><path d="M255 '+y+' L285 '+(y-1)+'" stroke="'+TX+'" stroke-width="5"/>';
   s+='<path d="M520 '+(y-9)+' H630 V'+(y+9)+' H520 M630 '+y+' H645" fill="none" stroke="'+CU+'" stroke-width="2.5"/>';});
  s+='<path d="M645 161 V440" stroke="'+GW+'" stroke-width="2.5" fill="none"/>'+tx(560,425,'遮へい接地',{c:GW});
  s+=tx(270,322,'主接点（入）',{a:'middle',s:12})+'<ellipse cx="330" cy="230" rx="13" ry="85" fill="none" stroke="'+SB+'" stroke-width="5"/>'+tx(330,334,'ZCT',{a:'middle',s:12,b:1});
- const vc=all?HV:RED;
+ const vc=vtCur?RED:(vr==='H'?HV:G);
  s+='<path d="M420 170 V184 M420 216 V230" stroke="'+vc+'" stroke-width="2.5"/><circle cx="420" cy="170" r="3.5" fill="'+TX+'"/><circle cx="420" cy="230" r="3.5" fill="'+TX+'"/>';
  s+='<rect x="405" y="184" width="60" height="32" rx="5" fill="#fff" stroke="'+vc+'" stroke-width="2.5"/>'+tx(435,205,'VT',{a:'middle',b:1,c:TX});
  s+='<path d="M465 200 H485 V60 H510" fill="none" stroke="'+G+'" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M510 60 V76" stroke="'+G+'" stroke-width="1.5"/>'+gnd(510,76);
  s+='<rect x="540" y="38" width="100" height="40" rx="6" fill="#fff" stroke="'+G+'"/>'+tx(590,63,'SOG制御装置',{a:'middle',s:12,c:TX})+tx(520,100,'制御線は外して',{s:12})+tx(520,116,'端末を一括接地',{s:12})+tx(522,152,'負荷側ケーブル',{s:12,c:TX,b:1});
- const ph=all?['R','S','T']:['R'];
- ph.forEach(p=>{const y=YP[p];s+=flow('M130 48 H150 V'+y+' H575 V'+(y-9),BLUE,3,'1.3s')});
- s+=flow('M380 166 V126',BLUE,1.2,'1.6s')+(all?flow('M380 294 V346',BLUE,1.2,'1.6s'):'')+flow('M355 350 V440',BLUE,1.2,'1.6s');
- s+=flow('M645 161 V440 H40 V74',PU,all?4:2.5,'1.1s');
- if(!all){s+=flow('M150 170 H420 V230 H575 V221',RED,3.5,'.7s')+tx(520,266,'VTに過大な電流',{s:12,b:1,c:RED})}
+ hvs.forEach(p=>{const y=YP[p];s+=flow('M130 48 H150 V'+y+' H575 V'+(y-9),BLUE,3,'1.3s')});
+ if(st.R==='H')s+=flow('M380 166 V126',BLUE,1.2,'1.6s');if(st.T==='H')s+=flow('M380 294 V346',BLUE,1.2,'1.6s');
+ s+=flow('M355 350 V440',BLUE,1.2,'1.6s')+flow('M645 161 V440 H40 V74',PU,Math.max(2,hvs.length*1.4),'1.1s');
+ if(vtCur){s+=flow('M150 '+YP[vtFrom]+' H420 V'+YP[vtTo]+' H575 V'+(YP[vtTo]-9),RED,3.5,'.7s')+tx(520,204,'VTに過大な電流',{s:12,b:1,c:RED})}
  s+='</svg>';document.getElementById('pasBFig').innerHTML=s;
- table('pasBTab',all?[['電流の通り道','① PAS内部の絶縁（がいし・空気）→ 外箱 → 外箱の接地線　② 負荷側ケーブルの絶縁体 → 遮へい層 → 遮へい接地線。どちらも大地を通って試験器へ戻る'],['大きさ','ほとんどがケーブルの充電電流（例：38mm²・30mなら3相で約94mA）。PAS内部を通る分はごくわずか'],['内蔵VT','R・Sが同じ電圧なので、巻線に電流は流れない'],['制御線','外して、端末を一括接地する（取扱説明書の指定）']]:[['電流の通り道','R相のケーブルと、R → VTの一次巻線 → S相 → S相のケーブル → 遮へい → 大地'],['内蔵VT','S相のケーブルの充電電流（例：約31mA）がVTの一次巻線を通る。25VAのVTの定格一次電流は約3.8mAなので、約8倍。焼損のおそれ'],['T相','どこにもつながらず、試験されない'],['メーカーの注意','一相ごとの商用周波耐電圧試験はVTが焼損するので行わない（戸上電機・日本高圧電気の取扱説明書）']]);
+ const rows=[['試験される相',hvs.join('・')+'相'+(fs.length?'（'+fs.join('・')+'相は開放で、この回は試験されない）':'（3相とも）')]];
+ rows.push(['内蔵VT（R−S間）',vtCur?vtTo+'相のケーブルの充電電流（例：約31mA）が、'+vtFrom+' → VTの一次巻線 → '+vtTo+'相 と通る。25VAのVTの定格一次電流 約3.8mAの約8倍で、焼損のおそれ':vr==='H'?'R・Sが同じ電圧なので、巻線に電流は流れない（無事）':'R・Sどちらにも試験電圧がかからないので、電流は流れない（無事）']);
+ if(all)rows.push(['電流の通り道','① PAS内部の絶縁（がいし・空気）→ 外箱 → 外箱の接地線　② 負荷側ケーブルの絶縁体 → 遮へい層 → 遮へい接地線。どちらも大地を通って試験器へ戻る'],['大きさ','ほとんどがケーブルの充電電流（例：38mm²・30mなら3相で約94mA）。PAS内部を通る分はごくわずか'],['結果','正しい。3相とも1回で試験でき、VTも無事']);
+ else if(vtCur)rows.push(['結果',hvs.length===1?'VTが焼損のおそれ。メーカーの取扱説明書が「一相ごとの試験は行わない」としているのはこの形':'VTが焼損のおそれ。2相をまとめても、VTの両端（R・S）が別々の扱いになっていると同じことが起きる']);
+ else rows.push(['結果','VTは無事。ただし'+fs.join('・')+'相は別にもう一度試験が必要'],['注意','VTが無事なのは、VTがR−S間にあるから。VTがつながる相はメーカー・型式で違い、取り違えると焼損する。だからメーカーは「三相一括で実施」と指示している']);
+ rows.push(['制御線','外して、端末を一括接地する（取扱説明書の指定）']);
+ table('pasBTab',rows);
 }
-bind('pasBBtns',drawPasB);drawPasB('all');
+bind('pasBBtns',drawPasB);drawPasB('HHH');
 })();
 </script>
 <script src="menu-layout.js?v=20260930"></script>
