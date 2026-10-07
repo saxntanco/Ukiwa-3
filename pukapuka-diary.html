@@ -15,7 +15,156 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="pas-vt-simulator-20261007" data-update-date="2026/10/07">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。 「容量が足りない」の正体は、試験器が電流を押し込む力だった。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="autov-ocr-tester-capacity-20261007" data-update-date="2026/10/07">
+<div class="date">2026.10.07｜継電器試験・試験器の容量</div>
+<h2>AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。<br>「容量が足りない」の正体は、試験器が電流を押し込む力だった。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>現場で言われた「AUTO.Vの51（OCR）で遮断器との連動を見るなら、VSだと容量が足りないからIPでやる」の理由を、メーカーの取扱説明書（富士電機 AUTO.V、ムサシインテック GCR-mini VS・IP-R2000）の仕様から確かめた記録です。数値のうち「目安」「推定」と書いたものは自分の計算です。実際の試験は、遮断器・試験器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
+<p class="lead">GR・DGRの試験ではいつも使っている<b>GCR-mini VS</b>。それなのに、AUTO.Vの51の<b>連動試験</b>だけは「VSじゃ容量が足りないから<b>IP（IP-R2000）</b>で」と言われました。容量って、VAのこと？　VSはそんなに小さい？　調べてみると、足りないのは<b>VAというより「電圧」</b>でした。</p>
+<div class="pillrow"><a class="pill" href="#autov-answer">1 結論</a><a class="pill" href="#autov-trip">2 電流引外し</a><a class="pill" href="#autov-push">3 押す力</a><a class="pill" href="#autov-ip">4 IPならできる</a><a class="pill" href="#autov-green">5 緑のコード</a><a class="pill" href="#autov-source">6 電源の容量</a><a class="pill" href="#autov-check">確認すること</a></div>
+
+<h3 id="autov-answer">🎯 1. まず結論</h3>
+<p class="keyline">AUTO.Vは、CTの電流そのもので遮断器を引き外す「電流引外し式」。連動試験では、<b>試験器の電流がそのまま引外しコイルを動かす動力</b>になる。VSは押し込める電圧が約6Vしかないので、コイルまで電流を押し込めない。IPは100V級の電圧を抵抗で絞って出しているので、押し込める。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 300" role="img" aria-label="2つの容量。左からエコフロー（電源）、試験器、AUTO.V。電源から試験器への矢印が電源の容量、試験器からAUTO.Vへの矢印が出力の押す力。AUTO.Vの連動で足りなくなるのは出力の押す力">
+<rect x="0" y="0" width="760" height="300" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">「容量」は2か所ある</text>
+<rect x="24" y="80" width="150" height="120" rx="12" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
+<text x="99" y="118" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">電源</text>
+<text x="99" y="142" fill="#9fc0d4" font-size="13" text-anchor="middle">エコフローなど</text>
+<text x="99" y="170" fill="#ffd27a" font-size="14" font-weight="800" text-anchor="middle">例：1500VA</text>
+<rect x="290" y="64" width="190" height="152" rx="12" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
+<text x="385" y="94" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">試験器</text>
+<text x="306" y="128" fill="#7ee08a" font-size="13" font-weight="800">IP-R2000</text>
+<text x="306" y="148" fill="#cfe3ef" font-size="12">スライダック → 抵抗</text>
+<text x="306" y="166" fill="#7ee08a" font-size="12">後ろに100V級</text>
+<text x="306" y="190" fill="#ff8f7a" font-size="13" font-weight="800">GCR-mini VS</text>
+<text x="306" y="208" fill="#ff8f7a" font-size="12">電子回路・約6Vまで</text>
+<rect x="596" y="64" width="140" height="152" rx="12" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
+<text x="666" y="94" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">AUTO.V</text>
+<text x="666" y="124" fill="#cfe3ef" font-size="12" text-anchor="middle">内蔵OCR</text>
+<text x="666" y="142" fill="#cfe3ef" font-size="12" text-anchor="middle">0.1Aで約7V</text>
+<text x="666" y="172" fill="#cfe3ef" font-size="12" text-anchor="middle">＋ 引外しコイル</text>
+<text x="666" y="190" fill="#cfe3ef" font-size="12" text-anchor="middle">（動作の瞬間に</text>
+<text x="666" y="206" fill="#cfe3ef" font-size="12" text-anchor="middle">加わる）</text>
+<path d="M176 140 H282" stroke="#8ed0fa" stroke-width="3" marker-end="url(#avA)"/>
+<text x="230" y="124" fill="#8ed0fa" font-size="13" font-weight="800" text-anchor="middle">① 電源の容量</text>
+<text x="230" y="164" fill="#9fc0d4" font-size="11" text-anchor="middle">何VA供給できるか</text>
+<path d="M482 140 H588" stroke="#ffd27a" stroke-width="4" marker-end="url(#avB)"/>
+<text x="535" y="124" fill="#ffd27a" font-size="13" font-weight="800" text-anchor="middle">② 出力の押す力</text>
+<text x="535" y="164" fill="#9fc0d4" font-size="11" text-anchor="middle">何Vで押し込めるか</text>
+<rect x="24" y="236" width="712" height="46" rx="10" fill="#10324f"/>
+<text x="40" y="258" fill="#ffd27a" font-size="13" font-weight="800">AUTO.Vの連動で足りなくなるのは ②。</text>
+<text x="40" y="275" fill="#cfe3ef" font-size="12">① が効いてくるのは、20〜50Aを流す大電流のOCR試験や、耐圧試験のとき。</text>
+<defs><marker id="avA" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#8ed0fa"/></marker><marker id="avB" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ffd27a"/></marker></defs>
+</svg>
+</div>
+
+<h3 id="autov-trip">⚡ 2. AUTO.Vは「CTの電流で遮断器を引き外す」</h3>
+<p>AUTO.Vは、富士電機の真空遮断器（MULTI.VCBシリーズ）で、<b>CTとOCRを内蔵</b>しています。取扱説明書の仕様から、関係するところを抜き出すとこうです。<span class="badge official">🟢 取扱説明書</span></p>
+<div class="table-scroll"><table>
+<tr><th>項目</th><th>仕様</th><th>意味</th></tr>
+<tr><td>引外し方式</td><td>CT, OCR内蔵<b>電流引外し式</b>（形式 HA□A□-□<b>6</b>）</td><td>電池や制御電源ではなく、CTの電流で引き外す</td></tr>
+<tr><td>OCRの定格電流</td><td><b>0.1A</b>（CTの二次は5Aではなく0.1A）</td><td>試験電流がとても小さい</td></tr>
+<tr><td>OCRの負担</td><td><b>0.7VA以下</b></td><td>0.1Aを流すのに 0.7 ÷ 0.1 ＝ 約7V 要る（目安）</td></tr>
+<tr><td>試験電流の例</td><td>始動 0.1A、限時300% 0.3A、700% 0.7A、瞬時200% 2.0A</td><td>1A未満はGCR試験コネクタ、1A以上はOCR試験コネクタ</td></tr>
+</table></div>
+<p>連動試験では、<b>CTの役を試験器がする</b>ことになります。試験器の電流で、OCRを動かして、さらに引外しコイルまで動かさないといけません。</p>
+<div class="flow">① OCRが動作するまで：電流はOCRの入力だけを流れる（約7V）<br>↓<br>② OCRが動作した瞬間：電流の通り道に<b>引外しコイル</b>が加わる<br>↓<br>③ コイルはインピーダンスが大きい。同じ電流を流すのに、<b>ずっと大きな電圧</b>が要る<br>↓<br>④ 試験器がその電圧を出せないと、電流が落ちて、コイルに必要な電力が届かない<br>↓<br>⑤ 遮断器が開かない・うなる・チャタリング・動作時間がばらつく</div>
+
+<h3 id="autov-push">💪 3. 「容量」の正体は、電流を押し込む力</h3>
+<p>GCR-mini VSの電流出力の仕様はこうです。<span class="badge official">🟢 取扱説明書 1.5.2</span></p>
+<div class="table-scroll"><table>
+<tr><th>レンジ</th><th>容量</th><th>定格端子電圧</th></tr>
+<tr><td>25mA</td><td>10mVA（16Ω以下）</td><td>0.4V</td></tr>
+<tr><td><b>0.5A</b></td><td><b>3VA</b></td><td><b>6V</b></td></tr>
+<tr><td>2.5A</td><td>15VA</td><td>6V</td></tr>
+<tr><td>5A</td><td>25VA</td><td>5V</td></tr>
+</table></div>
+<p>3VAと聞くと、AUTO.Vの0.7VAより大きいので足りそうに見えます。でも3VAは「<b>0.5A × 6V</b>」のこと。押し込める電圧の上限が<b>約6V</b>なので、0.1Aしか流さないときは、0.1A × 6V ＝ <b>0.6VA</b>しか使えません。<span class="badge infer">🟡 計算</span></p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 270" role="img" aria-label="押し込める電圧の比較。GCR-mini VSは約6V、AUTO.VのOCRに要る電圧は定格0.1Aで約7Vでさらに引外しコイルの分が上乗せ、IP-R2000は100V級">
+<rect x="0" y="0" width="760" height="270" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">押し込める電圧（目安）</text>
+<g stroke="#2a5577" stroke-width="1"><path d="M220 60 V214"/><path d="M307 60 V214"/><path d="M393 60 V214"/><path d="M480 60 V214"/><path d="M567 60 V214"/><path d="M653 60 V214"/><path d="M740 60 V214"/></g>
+<g fill="#9fc0d4" font-size="11" text-anchor="middle"><text x="220" y="230">0V</text><text x="307" y="230">20</text><text x="393" y="230">40</text><text x="480" y="230">60</text><text x="567" y="230">80</text><text x="653" y="230">100</text><text x="740" y="230">120V</text></g>
+<text x="24" y="88" fill="#ff8f7a" font-size="13" font-weight="800">GCR-mini VS</text><text x="24" y="104" fill="#9fc0d4" font-size="11">0.5Aレンジ</text>
+<rect x="220" y="78" width="26" height="22" rx="4" fill="#ff8f7a"/><text x="254" y="94" fill="#ff8f7a" font-size="13" font-weight="800">約6V</text>
+<text x="24" y="138" fill="#ffd27a" font-size="13" font-weight="800">AUTO.Vに要る</text><text x="24" y="154" fill="#9fc0d4" font-size="11">定格0.1A＋コイル</text>
+<rect x="220" y="128" width="30" height="22" rx="4" fill="#ffd27a"/><path d="M252 139 H330" stroke="#ffd27a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#avC)"/><text x="338" y="144" fill="#ffd27a" font-size="12">約7V ＋ 引外しコイルの分</text>
+<text x="24" y="188" fill="#7ee08a" font-size="13" font-weight="800">IP-R2000</text><text x="24" y="204" fill="#9fc0d4" font-size="11">抵抗の後ろの電圧</text>
+<rect x="220" y="178" width="433" height="22" rx="4" fill="#7ee08a"/><text x="562" y="194" fill="#06213a" font-size="13" font-weight="800">100V級</text>
+<text x="24" y="256" fill="#9fc0d4" font-size="11">7Vは「負担0.7VA ÷ 0.1A」の目安。100V級はOCR出力（20Ωレンジで6A）からの推定。</text>
+<defs><marker id="avC" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd27a"/></marker></defs>
+</svg>
+</div>
+<p>定格の0.1Aですら、押し込む電圧がぎりぎり足りません。そこに引外しコイルが加わると、まったく足りなくなります。VSは、負荷のインピーダンスが大きすぎると<b>「A.OPEN」</b>（電流出力が開放状態もしくは容量オーバー）を出して、出力を止める作りです。<span class="badge official">🟢 取扱説明書 2.3</span></p>
+<p class="small">負担の0.7VAは「以下」という上限の値です。電流が大きいときの負担が比例して増えるとは限らないので、7Vは目安です。</p>
+
+<h3 id="autov-ip">🔧 4. IP-R2000ならできる理由</h3>
+<p>IP-R2000は、<b>スライダックで100V級まで上げた電圧を、直列の抵抗（0.5〜20Ω）で絞って電流にする</b>方式です。抵抗が負荷より十分大きいので、引外しコイルが加わって負荷のインピーダンスが増えても、電流がほとんど落ちません。</p>
+<div class="tool"><b>IP-R2000の取扱説明書より</b> <span class="badge official">🟢</span><br>「過電流継電器OCRと、電流引きはずし式真空遮断器VCBの連動試験におきましては、VCB引きはずしコイルのインピーダンスの影響により、引きはずしコイルの動作に必要な電力が得られず、VCBがうなり音やチャタリング等の不安定動作となる場合があります。このような場合は、OCR出力電流切り換えスイッチの抵抗レンジを1レンジ高い抵抗値に切り換えて試験をしてください。抵抗値を高くすることにより、電圧も高くなり、VCBの引きはずしに必要な電力を得られます。」</div>
+<div class="checkgrid">
+<div class="checkcard"><b>不安定なら抵抗レンジを1つ上げる</b><br>抵抗を上げると、同じ電流にするのにスライダックの電圧が高くなる。そのぶん押す力が増える。</div>
+<div class="checkcard"><b>それでもばらつくなら</b><br>取扱説明書には「OCRの内部接点を磨くなど対処」とある。</div>
+</div>
+
+<h3 id="autov-green">🟢 5. でも、IPでもDGR用の緑のコードを使うよね？</h3>
+<p>使います。IP-R2000の緑のコードは「<b>No.2516 電流コード GCR/DGR</b>」。AUTO.Vの取扱説明書でも、1A未満の試験電流は<b>GCR試験コネクタ</b>から流す、とあります。</p>
+<p>ただ、同じ「DGR用の電流出力」でも、<b>中身がまったく違います</b>。IP-R2000のブロック図（1.7.2 地絡継電器試験）では、GCRの出力もOCRと同じく <b>AC100V → スライダック → 抵抗器 → 電流計 → GCR端子</b> という道を通っています。0.5A・2.4Aのレンジは抵抗で電流の上限を決めているだけで、後ろにある電圧は100V級のままです。<span class="badge official">🟢 ブロック図</span></p>
+<div class="table-scroll"><table>
+<tr><th></th><th>IP-R2000 GCR/DGR出力</th><th>GCR-mini VS 電流出力</th></tr>
+<tr><td>コード</td><td><b>緑</b>（No.2516 電流コード GCR/DGR）</td><td><b>赤</b>（電流コード）※VSの緑はアースコード</td></tr>
+<tr><td>電流の作り方</td><td>スライダック → 抵抗器</td><td>電子回路</td></tr>
+<tr><td>後ろにある電圧</td><td><b>100V級</b>（推定）</td><td><b>約5〜6V</b></td></tr>
+<tr><td>得意な相手</td><td>GR・DGR、AUTO.Vの小電流OCR</td><td>GR・DGR（負担が小さい）</td></tr>
+</table></div>
+<p>呼び名は同じ「DGR用」でも、押す力が20倍くらい違う。これが「VSでは容量が足りない」の正体です。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>GR・DGRはなぜVSでいい？</b><br>GR・DGRは継電器自体がP1・P2の制御電源で動き、遮断器を引き外すのも別の電源（電圧引外し）。試験器の電流はZCTの入力（kt・lt）に入るだけで負担がとても小さいので、約6Vで足りる。</div>
+<div class="checkcard"><b>AUTO.Vの51は違う</b><br>試験電流そのものが、OCRの電源であり、引外しコイルの動力でもある。だから押す力が要る。</div>
+</div>
+
+<h3 id="autov-source">🔋 6. もうひとつの容量：電源（エコフロー）</h3>
+<p>エコフローのようなポータブル電源が1500VAで、IP-R2000の仕様が「消費電力 最大2kVA」なら、電源がボトルネックになる？　→ <b>試験が1500VAを超える電力を要求したときだけ</b>なります。2kVAは<b>最大値</b>で、いつも2kVA使うわけではありません。</p>
+<div class="table-scroll"><table>
+<tr><th>試験</th><th>出力電流</th><th>電源から引く電力の目安</th><th>1500VAの電源</th></tr>
+<tr><td>AUTO.VのOCR</td><td>0.1〜2A</td><td>数十〜200VA程度</td><td>余裕あり</td></tr>
+<tr><td>GR・DGR</td><td>1A以下</td><td>小さい</td><td>余裕あり</td></tr>
+<tr><td>5A系OCRの700%・瞬時</td><td>20〜35A</td><td>1kVA前後</td><td>ぎりぎり</td></tr>
+<tr><td>OCRの最大（0.5Ωレンジ）</td><td>50A</td><td>1.3kVA以上</td><td><b>足りない</b></td></tr>
+<tr><td>絶縁耐力（耐圧トランス）</td><td>最大20A（103.5V時）</td><td>最大約2kVA</td><td><b>足りない</b></td></tr>
+<tr><td>＋補助電源 AC100V</td><td>―</td><td>最大500VAが上乗せ</td><td>注意</td></tr>
+</table></div>
+<p class="small">「電源から引く電力 ≒ スライダックの電圧 × 出力電流」として見積もった目安です。<span class="badge infer">🟡</span></p>
+<div class="warning"><strong>メーカーの推奨は2.4kVA以上</strong><br>IP-R2000の取扱説明書では、発電機は<b>定格容量2.4kVA以上</b>を推奨。継電器試験では瞬時に20〜50Aを流すので、容量が小さいと電圧や周波数が変動して試験できないことがある、とあります。1500VAは推奨より小さいので、小さな電流の試験はできても、大電流のOCR試験や耐圧試験は大きい電源を用意するのが確実です。<span class="badge official">🟢</span></div>
+<div class="checkgrid">
+<div class="checkcard"><b>周波数を合わせる</b><br>ポータブル電源は50/60Hzを切り替えられる。取扱説明書にも「出力周波数が試験周波数であること」。</div>
+<div class="checkcard"><b>電圧を下げる機能は切る</b><br>大きな負荷で電圧を下げて動かす機能（X-Boostなど）が入っていると、試験の電圧・電流が狂う。<span class="badge infer">🟡</span></div>
+<div class="checkcard"><b>入力はAC90〜110V</b><br>IP-R2000の電圧計を「INPUT」にすると入力電圧が見られる。</div>
+<div class="checkcard"><b>WとVA</b><br>ポータブル電源の定格はWで書かれていることが多い。力率の低い負荷では電流の上限で効くので、定格の電流も見る。<span class="badge infer">🟡</span></div>
+</div>
+
+<h3 id="autov-check">📝 確認しておくこと</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>AUTO.Vの形式（HA□A□-□6 か -□7 か）</b><br>-□6が電流引外し式（AC100/110V電圧引外し機能付き）、-□7は電圧引外し式（DC100/110V、コンデンサ引外し電源装置）。7なら引外しのエネルギーは別の電源から来るので、事情が変わる。銘板で確かめる。</div>
+<div class="checkcard"><b>試験の前に一次電流整定を「テスト」へ</b><br>AUTO.Vの取扱説明書：テスト以外での試験は焼損のおそれ。電流整定は10秒以内。試験後は整定値を運転時に戻す。</div>
+</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>「容量が足りない」は、VAよりも電圧。試験器が何Vで押し込めるかを見る。</b></p>
+<p><b>電流引外し式の連動試験は、試験電流がそのまま遮断器を動かす動力。だから押す力のあるIPで。</b></p>
+<p><b>容量は2か所。電源 → 試験器（エコフローのVA）と、試験器 → 継電器（出力の押す力）。</b></p>
+</section>
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
+<li><span class="badge official">🟢</span>AUTO.Vの引外し方式・OCR定格0.1A・負担0.7VA以下・特性試験の方法（1A未満はGCR試験コネクタ）：富士電機「高圧真空遮断器 MULTI.VCB シリーズ AUTO.V（固定形）取扱説明書」INB-F8663c 表1・7.4</li>
+<li><span class="badge official">🟢</span>GCR-mini VSの電流出力の容量と定格端子電圧、A.OPENの意味、付属コードの色：ムサシインテック「GCR-mini VS 取扱説明書」第21版 1.3.1・1.5.2・2.3（<a href="https://www.musashi-in.co.jp/item/2237/2237.html" target="_blank" rel="noopener">製品ページ</a>）</li>
+<li><span class="badge official">🟢</span>IP-R2000の方式（電源抵抗部）、電流引外し式VCBとの連動試験の注意、ブロック図、付属コード（No.2516 緑）、発電機2.4kVA以上推奨：ムサシインテック「IP-R2000 マルチリレーテスタ 取扱説明書」第28版 1.3.1・1.6・1.7・2.1・3.3.6（<a href="https://www.musashi-in.co.jp/item/2000/2000.html" target="_blank" rel="noopener">製品ページ</a>）</li>
+<li><span class="badge infer">🟡</span>約7V（負担÷電流）、100V級（OCR出力の抵抗レンジと電流からの推定）、電源から引く電力の目安：自分の計算。</li>
+</ul></div>
+<div class="note">※ 試験器・遮断器の型式や版によって仕様は異なります。実際の試験は、遮断器・試験器の取扱説明書、社内手順、作業責任者の指示に従ってください。本記事は自分用に整理した日誌であり、作業手順書ではありません。</div>
+</article>
+<article class="entry" id="pas-vt-simulator-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜サイトづくり・耐圧試験</div>
 <h2>耐圧試験シミュレーターを作った。<br>VTの中を電流がどう流れるか、描いて確かめる。</h2>
 <div class="danger audit-preconditions"><strong>この記事について</strong><br>うきわメモに「VT内蔵PAS 耐圧試験シミュレーター」を作った記録と、作りながら分かったこと・間違えて直したことのまとめです。図と計算は原理を説明するためのもので、実際の試験結線図・実測値ではありません。VTの励磁特性などは仮の値です。実際の試験は、PAS・試験器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
@@ -610,7 +759,7 @@
 
 <h4>記録書の書き方</h4>
 <p>記録書は、<b>整定値の欄</b>と<b>測定値の欄</b>が分かれていて、それぞれに判定を書き、最後に<b>連動・表示</b>（遮断器が動いたか、表示が出たか）と<b>総合判定</b>を書きます。整定値は作業前に記録書へ書いておくと、作業後の戻し確認にも使えます。</p>
-<div class="tool"><b>関連ページ</b><br><a href="ocr-tap-calculator.html#imax-method">OCRタップ計算（Imax方式・ダイヤルと時間協調）</a><br><a href="relay-test-reference.html">型式別の試験早見表</a><br><a href="protective-relay.html">保護継電器 メーカー・型式DB</a><br><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？</a><br><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？</a></div>
+<div class="tool"><b>関連ページ</b><br><a href="#autov-ocr-tester-capacity-20261007">AUTO.V（電流引外し式）の51連動試験と、試験器の「容量」（10/7の日誌）</a><br><a href="ocr-tap-calculator.html#imax-method">OCRタップ計算（Imax方式・ダイヤルと時間協調）</a><br><a href="relay-test-reference.html">型式別の試験早見表</a><br><a href="protective-relay.html">保護継電器 メーカー・型式DB</a><br><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？</a><br><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？</a></div>
 
 <h3 id="training-questions">🤔 持ち帰った疑問</h3>
 <div class="checkgrid">
