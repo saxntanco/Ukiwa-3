@@ -12,10 +12,246 @@
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。 「容量が足りない」の正体は、試験器が電流を押し込む力だった。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="autov-ocr-tester-capacity-20261007" data-update-date="2026/10/07">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。 「容量が足りない」の正体は、試験器が電流を押し込む力だった。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="ipr2000-contact-mode-20261007" data-update-date="2026/10/07">
+<div class="date">2026.10.07｜継電器試験・IP-R2000</div>
+<h2>IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。<br>「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>ムサシインテック「IP-R2000 マルチリレーテスタ 取扱説明書」（4104-000ST026 第28版）と、富士電機「AUTO.V 取扱説明書」（INB-F8663c）を読んで整理した記録です。「推定」と書いたところは、仕様の数字や手順から自分で読み取ったもので、メーカーが書いていることではありません。実際の試験は、取扱説明書、社内手順、作業責任者の指示に従います。</div>
+<p class="lead">「abトリップと、AC CTと、AC VT…だっけ？」とうろ覚えだったIP-R2000のつまみ。正しくは計器部の<b>CONTACT MODE（接点構造切換スイッチ）</b>で、左の<b>TRIP側に3つ</b>、右の<b>C.CHECK側に3つ</b>、ぜんぶで<b>6ポジション</b>ありました。「AC VT」と覚えていたのは<b>AC.DC.V</b>（電圧トリップ）です。</p>
+<div class="pillrow"><a class="pill" href="#cm-overview">1 全体像</a><a class="pill" href="#cm-side">2 止める／鳴らす</a><a class="pill" href="#cm-sense">3 何を見ている？</a><a class="pill" href="#cm-voltage">4 AC.DC.Vの境目</a><a class="pill" href="#cm-table">5 試験ごとの使い分け</a><a class="pill" href="#cm-autov">6 AUTO.Vのとき</a><a class="pill" href="#cm-tips">7 迷ったとき・注意</a></div>
+
+<h3 id="cm-overview">🎛️ 1. まず全体像：6つのポジション</h3>
+<p class="keyline">選び方は2段階。<b>① 動作したら試験器を止めたい（時間を測る）か、鳴らすだけでいい（値を読む）か。</b><b>② 継電器から出てくるのは「接点の開閉」「電流」「電圧」のどれか。</b></p>
+<div class="checkgrid">
+<div class="diagram-card" style="margin:0">
+<svg viewBox="16 66 316 240" role="img" aria-label="TRIP側は、継電器が動作したら試験器の出力を止める側。a/b(AUTO)は電圧のない接点の開閉、AC.CTは電流引外し形OCRの電流、AC.DC.Vは接点に出てきた電圧で止める。">
+<rect x="16" y="66" width="316" height="240" rx="14" fill="#06213a"/>
+<rect x="24" y="74" width="300" height="224" rx="12" fill="#0b2b4b" stroke="#ffd27a" stroke-width="2"/>
+<text x="40" y="102" fill="#ffd27a" font-size="16" font-weight="800">TRIP（トリップ）側</text>
+<text x="40" y="122" fill="#cfe3ef" font-size="12">動作したら試験器の出力を止める</text>
+<text x="40" y="158" fill="#dff4ff" font-size="15" font-weight="800">a/b (AUTO)</text>
+<text x="40" y="176" fill="#9fc0d4" font-size="12">電圧のない接点の「開⇄閉」で止める</text>
+<text x="40" y="204" fill="#dff4ff" font-size="15" font-weight="800">AC.CT</text>
+<text x="40" y="222" fill="#9fc0d4" font-size="12">電流引外し形OCRの「電流」で止める</text>
+<text x="40" y="250" fill="#dff4ff" font-size="15" font-weight="800">AC.DC.V</text>
+<text x="40" y="268" fill="#9fc0d4" font-size="12">接点に出てきた「電圧」で止める</text>
+<circle cx="296" cy="100" r="16" fill="#10324f" stroke="#dff4ff" stroke-width="2"/><path d="M296 100 L285 89" stroke="#ffd27a" stroke-width="3" stroke-linecap="round"/><circle cx="296" cy="100" r="3" fill="#dff4ff"/>
+</svg>
+</div>
+<div class="diagram-card" style="margin:0">
+<svg viewBox="428 66 316 240" role="img" aria-label="C.CHECK側は、止めずにブザーで知らせるだけの側。a/bは接点が閉じている間、AC.DC.Vは電圧が出ている間ブザーが鳴る。OFFはブザーを鳴らさない。">
+<rect x="428" y="66" width="316" height="240" rx="14" fill="#06213a"/>
+<rect x="436" y="74" width="300" height="224" rx="12" fill="#0b2b4b" stroke="#8ed0fa" stroke-width="2"/>
+<text x="452" y="102" fill="#8ed0fa" font-size="16" font-weight="800">C.CHECK（接点確認）側</text>
+<text x="452" y="122" fill="#cfe3ef" font-size="12">止めずに、ブザーで知らせるだけ</text>
+<text x="452" y="158" fill="#dff4ff" font-size="15" font-weight="800">a/b</text>
+<text x="452" y="176" fill="#9fc0d4" font-size="12">接点が閉じている間、ブザー</text>
+<text x="452" y="204" fill="#dff4ff" font-size="15" font-weight="800">OFF</text>
+<text x="452" y="222" fill="#9fc0d4" font-size="12">ブザーを鳴らさない（カウンタ不使用）</text>
+<text x="452" y="250" fill="#dff4ff" font-size="15" font-weight="800">AC.DC.V</text>
+<text x="452" y="268" fill="#9fc0d4" font-size="12">電圧が出ている間、ブザー</text>
+<circle cx="708" cy="100" r="16" fill="#10324f" stroke="#dff4ff" stroke-width="2"/><path d="M708 100 L719 89" stroke="#8ed0fa" stroke-width="3" stroke-linecap="round"/><circle cx="708" cy="100" r="3" fill="#dff4ff"/>
+</svg>
+</div>
+</div>
+<p class="small">CONTACT MODE（接点構造切換スイッチ）の模式図。1つのつまみで、左のTRIP側3つと右のC.CHECK側3つを選びます。つまみの形や目盛の位置は実機と同じではありません。</p>
+<p>取扱説明書の言葉では、TRIP側は「継電器の接点状態を内蔵マイコンが自動判定し、接点の状態が変化した時点で自動的に試験器出力を遮断」、C.CHECK側は「継電器が動作しても試験器の出力を遮断せずに、内蔵ブザーで動作の確認を行いたい時に使用」です。<span class="badge official">🟢 取扱説明書 2.2</span></p>
+
+<h3 id="cm-side">⏱️ 2. TRIP側とC.CHECK側：止めるか、鳴らすか</h3>
+<div class="table-scroll"><table>
+<tr><th></th><th>TRIP（トリップ）側</th><th>C.CHECK（接点確認）側</th></tr>
+<tr><td>継電器が動作したら</td><td>試験器の出力を<b>止める</b></td><td>出力は<b>止めない</b>。ブザーが「ピーーー」</td></tr>
+<tr><td>カウンタ</td><td>止まった時点の値が<b>動作時間</b>。表示に「TRIP」</td><td>接点が閉じている間・電圧が出ている間、「TRIP」を表示</td></tr>
+<tr><td>使う試験</td><td><b>動作時間</b>試験、<b>CB連動</b>試験</td><td><b>動作電流値・動作電圧値</b>など、値を読む試験</td></tr>
+<tr><td>ポジション</td><td>a/b (AUTO)、AC.CT、AC.DC.V</td><td>a/b、OFF、AC.DC.V</td></tr>
+</table></div>
+<p class="small">表の内容は取扱説明書 1.6.3・2.2 の記載です。<span class="badge official">🟢</span></p>
+<div class="checkgrid">
+<div class="checkcard"><b>OFFはC.CHECK側にある</b><br>ブザーを鳴らさない位置。取扱説明書では「カウンタを使用しない時は、C.CHECK側のOFFレンジに」。各試験の準備でも、まずOFFにしてから始めます。<span class="badge official">🟢</span></div>
+<div class="checkcard"><b>C.CHECK側にAC.CTはない</b><br>電流引外し形OCRは、動作したらすぐ止めないと継電器の接点を傷めます（3章で説明）。だから「止めずに鳴らすだけ」の側には用意されていないのだと思います。<span class="badge infer">🟡 推定</span></div>
+</div>
+
+<h3 id="cm-sense">🔍 3. 試験器は「何」を見て、動作したと判断するのか</h3>
+<p>TRIP側の3つは、<b>トリップコード（No.2522）の先で何を見るか</b>が違います。</p>
+<div class="checkgrid grid3">
+<div class="diagram-card" style="margin:0">
+<svg viewBox="8 44 248 292" role="img" aria-label="a/b(AUTO)は、電圧のない接点にDC約150V・約0.5mAをかけて、開閉が変わった瞬間に止める。相手は継電器のa–c、外したT1–T2、CBの主接点・補助a接点。">
+<rect x="8" y="44" width="248" height="292" rx="14" fill="#06213a"/>
+<rect x="16" y="52" width="232" height="276" rx="12" fill="#0b2b4b" stroke="#7ee08a" stroke-width="1.5"/>
+<text x="32" y="80" fill="#7ee08a" font-size="16" font-weight="800">a/b (AUTO)</text>
+<rect x="62" y="94" width="140" height="36" rx="8" fill="#10324f" stroke="#9fc0d4"/>
+<text x="132" y="117" fill="#dff4ff" font-size="12" text-anchor="middle">試験器のトリップ入力</text>
+<path d="M82 130 V196" stroke="#dff4ff" stroke-width="2"/><path d="M182 130 V196" stroke="#dff4ff" stroke-width="2"/>
+<text x="132" y="160" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">DC約150V</text>
+<text x="132" y="176" fill="#9fc0d4" font-size="11" text-anchor="middle">約0.5mA</text>
+<circle cx="82" cy="200" r="4" fill="#dff4ff"/><circle cx="182" cy="200" r="4" fill="#dff4ff"/>
+<path d="M86 200 L172 184" stroke="#dff4ff" stroke-width="3" stroke-linecap="round"/>
+<text x="132" y="226" fill="#cfe3ef" font-size="12" text-anchor="middle">電圧のない接点</text>
+<text x="28" y="256" fill="#dff4ff" font-size="12" font-weight="800">開⇄閉が変わった瞬間に止める</text>
+<text x="28" y="276" fill="#9fc0d4" font-size="11">例：継電器のa–c、外したT1–T2</text>
+<text x="28" y="294" fill="#9fc0d4" font-size="11">　　CBの主接点・補助a接点</text>
+<text x="28" y="312" fill="#9fc0d4" font-size="11">a接点かb接点かは自動で判定</text>
+</svg>
+</div>
+<div class="diagram-card" style="margin:0">
+<svg viewBox="256 44 248 292" role="img" aria-label="AC.CTは、電流引外し形OCR（C・T・CC）が動作してT端子へ回した試験電流がトリップコードを流れるのを見て、AC3.5A±10%で止める。">
+<rect x="256" y="44" width="248" height="292" rx="14" fill="#06213a"/>
+<rect x="264" y="52" width="232" height="276" rx="12" fill="#0b2b4b" stroke="#ffd27a" stroke-width="1.5"/>
+<text x="280" y="80" fill="#ffd27a" font-size="16" font-weight="800">AC.CT</text>
+<rect x="350" y="94" width="130" height="36" rx="8" fill="#10324f" stroke="#9fc0d4"/>
+<text x="415" y="117" fill="#dff4ff" font-size="12" text-anchor="middle">トリップ入力</text>
+<path d="M380 176 V130" stroke="#ffd27a" stroke-width="3" marker-end="url(#cmA)"/>
+<path d="M456 130 V176" stroke="#dff4ff" stroke-width="2"/>
+<text x="304" y="112" fill="#ffd27a" font-size="11" text-anchor="middle">試験電流</text>
+<path d="M304 118 V170" stroke="#ffd27a" stroke-width="3" marker-end="url(#cmA)"/>
+<text x="318" y="148" fill="#cfe3ef" font-size="11">動作すると</text>
+<text x="318" y="163" fill="#cfe3ef" font-size="11">Tへ回る</text>
+<rect x="284" y="176" width="192" height="50" rx="8" fill="#10324f" stroke="#9fc0d4"/>
+<circle cx="304" cy="176" r="4" fill="#dff4ff"/><circle cx="380" cy="176" r="4" fill="#dff4ff"/><circle cx="456" cy="176" r="4" fill="#dff4ff"/>
+<text x="304" y="196" fill="#dff4ff" font-size="12" font-weight="800" text-anchor="middle">C</text>
+<text x="380" y="196" fill="#dff4ff" font-size="12" font-weight="800" text-anchor="middle">T</text>
+<text x="456" y="196" fill="#dff4ff" font-size="12" font-weight="800" text-anchor="middle">CC</text>
+<text x="380" y="216" fill="#cfe3ef" font-size="11" text-anchor="middle">OCR（電流引外し形）</text>
+<text x="276" y="256" fill="#ffd27a" font-size="12" font-weight="800">AC3.5A±10% 流れたら止める</text>
+<text x="276" y="276" fill="#9fc0d4" font-size="11">トリップコードはT端子–CC端子へ</text>
+<text x="276" y="294" fill="#9fc0d4" font-size="11">止めないと、継電器の接点が</text>
+<text x="276" y="312" fill="#9fc0d4" font-size="11">開閉のアークで傷む</text>
+<defs><marker id="cmA" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ffd27a"/></marker></defs>
+</svg>
+</div>
+<div class="diagram-card" style="margin:0">
+<svg viewBox="504 44 248 292" role="img" aria-label="AC.DC.Vは、継電器の出力に出た電圧を約23kΩで聞くだけ。ACは30V以上、DCは24V以上で有電圧。入力はAC120V・DC150Vまで。">
+<rect x="504" y="44" width="248" height="292" rx="14" fill="#06213a"/>
+<rect x="512" y="52" width="232" height="276" rx="12" fill="#0b2b4b" stroke="#8ed0fa" stroke-width="1.5"/>
+<text x="528" y="80" fill="#8ed0fa" font-size="16" font-weight="800">AC.DC.V</text>
+<rect x="558" y="94" width="140" height="44" rx="8" fill="#10324f" stroke="#9fc0d4"/>
+<text x="628" y="113" fill="#dff4ff" font-size="12" text-anchor="middle">トリップ入力</text>
+<text x="628" y="129" fill="#9fc0d4" font-size="10" text-anchor="middle">約23kΩで聞くだけ</text>
+<path d="M578 138 V196" stroke="#dff4ff" stroke-width="2"/><path d="M678 138 V196" stroke="#dff4ff" stroke-width="2"/>
+<text x="628" y="166" fill="#8ed0fa" font-size="14" font-weight="800" text-anchor="middle">～ ／ ＋−</text>
+<text x="628" y="184" fill="#9fc0d4" font-size="11" text-anchor="middle">動作で電圧が出る</text>
+<rect x="548" y="196" width="160" height="34" rx="8" fill="#10324f" stroke="#9fc0d4"/>
+<circle cx="578" cy="196" r="4" fill="#dff4ff"/><circle cx="678" cy="196" r="4" fill="#dff4ff"/>
+<text x="628" y="218" fill="#cfe3ef" font-size="11" text-anchor="middle">継電器の出力</text>
+<text x="524" y="256" fill="#8ed0fa" font-size="12" font-weight="800">電圧が出たら止める</text>
+<text x="524" y="276" fill="#9fc0d4" font-size="11">AC：30V以上で有電圧</text>
+<text x="524" y="294" fill="#9fc0d4" font-size="11">DC：24V以上で有電圧</text>
+<text x="524" y="312" fill="#9fc0d4" font-size="11">入力はAC120V・DC150Vまで</text>
+</svg>
+</div>
+</div>
+<div class="table-scroll"><table>
+<tr><th>モード</th><th>使う相手（取扱説明書）</th><th>検出の仕様（取扱説明書 1.6.2）</th></tr>
+<tr><td><b>a/b (AUTO)</b></td><td>継電器からの接点出力が<b>無電圧接点のみ</b>の場合</td><td>入力インピーダンス 約23kΩ／検出電圧 DC140〜170V（電源AC100V±10%のとき）／検出電流 約0.5mA</td></tr>
+<tr><td><b>AC.CT</b><br>（電流トリップ）</td><td><b>OCR電流引き外しタイプ</b>の保護継電器の場合</td><td>検出電流 <b>AC3.5A±10%</b></td></tr>
+<tr><td><b>AC.DC.V</b><br>（電圧トリップ）</td><td>継電器の動作時に、<b>接点に電圧が出力される</b>場合（AC・DCどちらでも入力範囲内で共通）</td><td>入力インピーダンス 約23kΩ／AC 0〜120V、DC 0〜150V（判定の境目は次の章）</td></tr>
+</table></div>
+
+<h4>a/b (AUTO)：試験器が自分で電圧をかけて、接点の開閉を見る</h4>
+<p>トリップコードの先の接点に<b>DC約150V（流れる電流は約0.5mA）</b>をかけて、閉じているか開いているかを見ます。<b>a接点</b>（ふだん開いていて、動作で閉じる＝MAKE）でも、<b>b接点</b>（ふだん閉じていて、動作で開く＝BREAK）でも、状態が変わった瞬間に止めます。どちらの接点かは内蔵マイコンが判定するので「AUTO」です。<span class="badge official">🟢 取扱説明書 1.2・1.6.2・2.2</span></p>
+<p>CBの主接点も、閉じている（入）→ 引き外されて開く、なので同じように見られます。だから<b>CB連動試験はどの継電器でもa/b(AUTO)</b>です（5章）。</p>
+
+<h4>AC.CT：電流引外し形OCRが回してくる「電流」を見る</h4>
+<p>電流引外し形のOCRは、端子が <b>C・CC・T</b> の3つ（取扱説明書では「3端子OCR（電流引き外し式）」）。単体試験では、試験電流をC端子とCC端子の間に流し、トリップコードを <b>T端子とCC端子</b> につなぎます。<span class="badge official">🟢 取扱説明書 3.3</span></p>
+<p>電流引外し形は、ふだんCTの電流が C → コイル → CC と流れていて、動作すると内部の接点が切り替わり、その電流が <b>T</b>（引外しコイル側）へ回ります。試験では、動作した瞬間に<b>試験電流そのものがトリップコードへ流れ込んでくる</b>。それを試験器が電流として受けて、AC3.5A±10%を超えたら止める、という仕組みだと読み取れます。<span class="badge infer">🟡 推定</span></p>
+<div class="tool"><b>取扱説明書の警告（3.3.3）</b> <span class="badge official">🟢</span><br>「3端子OCR（電流引き外し式）で、試験器のトリップが確実に行われないと試験電流による接点開閉アークにより、継電器内の接点を焼損することがあります。」</div>
+<p>a/b(AUTO)は「小さなDC電圧をかけて開閉を見る」方式なので、数A〜数十Aの試験電流が回ってくるT–CC間には向きません。電流を見るAC.CTが用意されているのはこのためだと思います。<span class="badge infer">🟡 推定</span></p>
+<p class="small">検出の境目が3.5A±10%（3.15〜3.85A）なので、トリップコードを流れる試験電流が約3.9Aより小さいと、確実には止まらないと考えられます。5A定格のOCRなら、限時の300%・700%や瞬時の試験電流はこれより大きいので問題になりにくい。<span class="badge infer">🟡 推定</span></p>
+
+<h4>AC.DC.V：接点に出てくる「電圧」を聞くだけ</h4>
+<p>継電器が動作すると、出力の端子に<b>電圧が出てくる</b>タイプ（継電器側の電源で引外し電圧を出すものなど）に使います。入力は約23kΩで、試験器からは何もかけずに電圧を聞くだけです。ACでもDCでも、入力範囲内なら同じ位置で使えます。<span class="badge official">🟢 取扱説明書 1.6.2・2.2</span></p>
+
+<h3 id="cm-voltage">📏 4. AC.DC.Vの「有電圧／無電圧」の境目</h3>
+<p>AC.DC.Vには、有電圧とも無電圧とも決まらない<b>不確定領域</b>があります。<span class="badge official">🟢 取扱説明書 1.6.2</span></p>
+<div class="diagram-card scroll-x">
+<svg viewBox="0 0 600 236" role="img" aria-label="AC.DC.Vの判定の境目。ACは8V以下が無電圧、9から29Vが不確定、30から120Vが有電圧、120Vを超えると入力範囲外。DCは8V以下が無電圧、9から23Vが不確定、24から150Vが有電圧。DC24V系の出力はちょうど境目にある。">
+<rect x="0" y="0" width="600" height="236" rx="14" fill="#06213a"/>
+<text x="20" y="34" fill="#dff4ff" font-size="18" font-weight="800">AC.DC.Vの判定（入力インピーダンス 約23kΩ）</text>
+<text x="20" y="92" fill="#dff4ff" font-size="16" font-weight="800">AC</text>
+<text x="20" y="110" fill="#9fc0d4" font-size="11">0〜120V</text>
+<text x="122.8" y="66" fill="#cfe3ef" font-size="11" text-anchor="middle">無電圧</text>
+<text x="170.8" y="66" fill="#ffd27a" font-size="11" text-anchor="middle">不確定</text>
+<text x="350" y="66" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">有電圧</text>
+<rect x="110" y="74" width="25.6" height="30" fill="#3a5f7a"/>
+<rect x="138.8" y="74" width="64" height="30" fill="#8a6a22"/>
+<rect x="206" y="74" width="288" height="30" fill="#2f8f5b"/>
+<text x="350" y="94" fill="#eafff1" font-size="12" text-anchor="middle">30〜120V</text>
+<rect x="494" y="74" width="96" height="30" fill="none" stroke="#5c7f99" stroke-dasharray="4 4"/>
+<text x="542" y="94" fill="#9fc0d4" font-size="11" text-anchor="middle">入力範囲外</text>
+<g fill="#9fc0d4" font-size="11" text-anchor="middle"><text x="110" y="120">0</text><text x="135.6" y="120">8</text><text x="206" y="120">30</text><text x="494" y="120">120V</text></g>
+<text x="20" y="172" fill="#dff4ff" font-size="16" font-weight="800">DC</text>
+<text x="20" y="190" fill="#9fc0d4" font-size="11">0〜150V</text>
+<text x="122.8" y="146" fill="#cfe3ef" font-size="11" text-anchor="middle">無電圧</text>
+<text x="161.2" y="146" fill="#ffd27a" font-size="11" text-anchor="middle">不確定</text>
+<text x="388.4" y="146" fill="#7ee08a" font-size="12" font-weight="800" text-anchor="middle">有電圧</text>
+<rect x="110" y="154" width="25.6" height="30" fill="#3a5f7a"/>
+<rect x="138.8" y="154" width="44.8" height="30" fill="#8a6a22"/>
+<rect x="186.8" y="154" width="403.2" height="30" fill="#2f8f5b"/>
+<text x="388.4" y="174" fill="#eafff1" font-size="12" text-anchor="middle">24〜150V</text>
+<path d="M186.8 148 V190" stroke="#ffd27a" stroke-width="2" stroke-dasharray="3 3"/>
+<g fill="#9fc0d4" font-size="11" text-anchor="middle"><text x="110" y="200">0</text><text x="135.6" y="200">8</text><text x="186.8" y="200">24</text></g>
+<text x="590" y="200" fill="#9fc0d4" font-size="11" text-anchor="end">150V</text>
+<text x="196" y="222" fill="#ffd27a" font-size="12">← DC24V系の出力は、ちょうど境目。少し低いと不確定に入る（推定）</text>
+</svg>
+</div>
+<p class="small scroll-hint">スマホでは図を横にスクロールできます。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>小さい電圧の出力は苦手</b><br>DC24Vの出力は「24V以上で有電圧」の境目ちょうど。電源の電圧が少し下がると不確定領域に入るので、止まり方が安定しないことがありえます。<span class="badge infer">🟡 推定</span></div>
+<div class="checkcard"><b>上限を超える電圧はつながない</b><br>入力範囲はAC120V・DC150Vまで。DC200V系などの回路は範囲外です。<span class="badge official">🟢 仕様</span></div>
+</div>
+
+<h3 id="cm-table">📋 5. 試験ごとの使い分け（取扱説明書の手順から）</h3>
+<p>トリップコード（No.2522）は白・黒・赤の3本。手順書どおりに並べると、こうなります。<span class="badge official">🟢 取扱説明書 3.3〜3.7</span></p>
+<div class="table-scroll"><table>
+<tr><th>試験</th><th>トリップコードのつなぎ先</th><th>コンタクトモード</th></tr>
+<tr><td>OCR 単体<br>（瞬時の動作電流、限時・瞬時の動作時間）</td><td>白 → R相継電器のT端子<br>黒 → T相継電器のT端子<br>赤 → CC端子</td><td><b>継電器の接点構造に合わせる</b><br>電流引外し形（3端子）→ AC.CT<br>無電圧接点 → a/b(AUTO)<br>電圧が出る → AC.DC.V</td></tr>
+<tr><td>GR 動作時間</td><td>白 → 継電器のa端子／赤 → c端子</td><td>継電器の接点構造に合わせる</td></tr>
+<tr><td>DGR 動作時間</td><td>白 → 継電器のa1端子／赤 → c1端子</td><td>継電器の接点構造に合わせる</td></tr>
+<tr><td>OVR・UVR 動作時間</td><td>T1・T2の配線を外してから<br>白 → T1端子／赤 → T2端子</td><td><b>a/b(AUTO)</b></td></tr>
+<tr><td><b>CB連動</b><br>（OCR・GR・DGR・OVR・UVR）</td><td>白・黒 → CBの任意の1相の<b>電源側</b><br>赤 → 同じ相の<b>負荷側</b></td><td><b>a/b(AUTO)</b></td></tr>
+<tr><td>動作電流値・動作電圧値を読む</td><td>（手順書では使わない）</td><td>準備どおりOFF。ブザーで知らせてほしいときはC.CHECK側</td></tr>
+</table></div>
+<div class="flow">時間試験の流れ（取扱説明書の手順）<br>電流出力切換を<b>SET</b>にして試験電流を合わせる → STOP<br>↓<br>電流出力切換を<b>TEST</b>へ<br>↓<br>コンタクトモードを継電器に合わせる<br>↓<br>START → 継電器が動作すると、カウンタと出力が止まる → カウンタの値が動作時間</div>
+<p class="small">SETは0.25Ωの疑似負荷で電流を合わせる機能で、実際に継電器へ流れる電流とは少し違うことがある、と取扱説明書にあります。気になるときは継電器の動作をロックして、TEST側で電流を合わせます。<span class="badge official">🟢 取扱説明書 2.2</span></p>
+<div class="checkgrid">
+<div class="checkcard"><b>R相／T相切換スイッチ</b><br>OCRのときは電流を出す相を切り換え、さらに<b>トリップコードでどちらを見るか</b>（白＝R、黒＝T）も切り換えます。電流を流す相と見る相が、1つのスイッチで一緒に変わる。<span class="badge official">🟢 取扱説明書 2.2</span></div>
+<div class="checkcard"><b>CB連動は「主接点の開」を見る</b><br>CB連動では、継電器の端子ではなくCBの主接点の電源側と負荷側にトリップコードをつなぎます。継電器の動作時間＋CBの開極時間をまとめて測ることになります（AUTO.Vの取扱説明書でも「遮断器の開極時間を含む連動試験」）。</div>
+</div>
+
+<h3 id="cm-autov">🔗 6. AUTO.VのOCR（51）のときは？</h3>
+<p>同じ日に調べた<a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験</a>につながる話です。AUTO.VはCT・OCR内蔵の<b>電流引外し式</b>ですが、AUTO.Vの取扱説明書には、こう書いてあります。<span class="badge official">🟢 AUTO.V 取扱説明書 7.4.3</span></p>
+<div class="tool"><b>AUTO.V 取扱説明書（7.4.3 接続）</b> <span class="badge official">🟢</span><br>「TRIP−T は AUTO.V 主接点または補助開閉器 a 接点に接続し，コンタクトモード SW は Break にします。」</div>
+<p>電流引外し式なのに、AC.CTではなく<b>主接点（または補助開閉器のa接点）の開閉を見る</b>指定です。IP-R2000には「Break」という名前の位置はありませんが、a/b(AUTO)は閉→開（BREAK）の変化も見るので、<b>IP-R2000ではa/b(AUTO)</b>にあたると読みました。<span class="badge infer">🟡 推定</span></p>
+<div class="checkgrid">
+<div class="checkcard"><b>AC.CTでは見えない電流</b><br>AUTO.VのOCRは定格0.1A。試験電流は始動0.1A、300%で0.3A、700%で0.7A、瞬時200%でも2A。どれもAC.CTの検出3.5A±10%に届きません。だから主接点で見るのだと考えられます。<span class="badge infer">🟡 推定</span></div>
+<div class="checkcard"><b>主接点・a接点は「閉→開」</b><br>試験のときAUTO.Vは「入」。主接点も補助開閉器のa接点も閉じていて、引き外されると開く。だからBreakです。</div>
+</div>
+
+<h3 id="cm-tips">🧭 7. 迷ったとき・注意すること</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>接点構造が分からないとき</b><br>取扱説明書では <b>AC.DC.V → AC.CT → a/b(AUTO)</b> の順に切り換えて試験。<span class="badge official">🟢</span><br>聞くだけのAC.DC.Vから始めて、自分でDC約150Vをかけるa/b(AUTO)を最後にする順番だと読めます。<span class="badge infer">🟡 推定</span></div>
+<div class="checkcard"><b>電流を出したまま切り換えない</b><br>取扱説明書：スイッチの破損の原因。切り換えはSTOPしてから。<span class="badge official">🟢</span></div>
+<div class="checkcard"><b>所内電源で時間試験をするなら a/b(AUTO)</b><br>取扱説明書：所内電源が喪失してもカウンタに動作時間が表示される。表示器のバックアップは60秒。<span class="badge official">🟢</span></div>
+<div class="checkcard"><b>CB主接点にトリップコードをつなぐのは停電のときだけ</b><br>取扱説明書：無停電や所内電源で試験するときは、No.2522トリップコードを<b>絶対に接続しない</b>（高圧がかかっていて非常に危険）。<span class="badge official">🟢</span></div>
+</div>
+<div class="warning"><strong>OCRの単体試験で、試験器が止まらなかったら</strong><br>電流引外し形なのにAC.CT以外を選んでいる、試験している相の継電器にトリップコード（R相は白、T相は黒）がつながっていない、試験電流が小さすぎる、などが考えられます。止まらないまま流し続けると、継電器の接点やコイルを傷めます。すぐに電圧電流調整器を0に戻してSTOP。<span class="badge infer">🟡 推定</span></div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>コンタクトモードは6つ。時間を測るならTRIP側、値を読むだけならC.CHECK側。</b></p>
+<p><b>何を見て止めるか：接点の開閉はa/b(AUTO)、電流引外し形OCRの電流はAC.CT、出てくる電圧はAC.DC.V。</b></p>
+<p><b>CB連動とAUTO.Vは、主接点の「閉→開」を見るのでa/b(AUTO)。「AC VT」はなくて、AC.DC.V。</b></p>
+</section>
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
+<li><span class="badge official">🟢</span>接点構造切換スイッチの6ポジションと使い方、検出の仕様（a/b・AC.CT・AC.DC.V）、ブザーとカウンタの表示、接点構造が分からないときの順番、各試験のトリップコードのつなぎ先とモード、所内電源・無停電時の警告：ムサシインテック「IP-R2000 マルチリレーテスタ 取扱説明書」4104-000ST026 第28版 1.2・1.4・1.6・2.2・3.3〜3.7（<a href="https://www.musashi-in.co.jp/item/2000/2000.html" target="_blank" rel="noopener">製品ページ</a>）</li>
+<li><span class="badge official">🟢</span>AUTO.Vの試験でTRIP−Tを主接点または補助開閉器a接点につなぎ、コンタクトモードをBreakにすること、OCR定格0.1A：富士電機「高圧真空遮断器 MULTI.VCB シリーズ AUTO.V（固定形）取扱説明書」INB-F8663c 7.4</li>
+<li><span class="badge infer">🟡</span>AC.CTの仕組みの読み取り、C.CHECK側にAC.CTがない理由、AC.CTでは約3.9A未満を確実に検出できないこと、DC24V出力が境目にあること、IP-R2000でのBreakはa/b(AUTO)にあたること、迷ったときの順番の理由：自分の推定。</li>
+</ul></div>
+<div class="note">※ 試験器の型式や版によって、スイッチの表記や仕様は異なります。実際の試験は、継電器・遮断器・試験器の取扱説明書、社内手順、作業責任者の指示に従ってください。本記事は自分用に整理した日誌であり、作業手順書ではありません。</div>
+</article>
+<article class="entry" id="autov-ocr-tester-capacity-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜継電器試験・試験器の容量</div>
 <h2>AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。<br>「容量が足りない」の正体は、試験器が電流を押し込む力だった。</h2>
 <div class="danger audit-preconditions"><strong>この記事について</strong><br>現場で言われた「AUTO.Vの51（OCR）で遮断器との連動を見るなら、VSだと容量が足りないからIPでやる」の理由を、メーカーの取扱説明書（富士電機 AUTO.V、ムサシインテック GCR-mini VS・IP-R2000）の仕様から確かめた記録です。数値のうち「目安」「推定」と書いたものは自分の計算です。実際の試験は、遮断器・試験器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
@@ -148,6 +384,7 @@
 <div class="checkgrid">
 <div class="checkcard"><b>AUTO.Vの形式（HA□A□-□6 か -□7 か）</b><br>-□6が電流引外し式（AC100/110V電圧引外し機能付き）、-□7は電圧引外し式（DC100/110V、コンデンサ引外し電源装置）。7なら引外しのエネルギーは別の電源から来るので、事情が変わる。銘板で確かめる。</div>
 <div class="checkcard"><b>試験の前に一次電流整定を「テスト」へ</b><br>AUTO.Vの取扱説明書：テスト以外での試験は焼損のおそれ。電流整定は10秒以内。試験後は整定値を運転時に戻す。</div>
+<div class="checkcard"><b>トリップコードとコンタクトモード</b><br>AUTO.Vの取扱説明書：TRIP−Tは主接点または補助開閉器a接点へ、コンタクトモードはBreak。IP-R2000での読み替えは<a href="#ipr2000-contact-mode-20261007">コンタクトモードの記事</a>へ。</div>
 </div>
 
 <section class="memo">
