@@ -15,7 +15,78 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="withstand-ip1110-20261007" data-update-date="2026/10/07">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="pas-vt-simulator-20261007" data-update-date="2026/10/07">
+<div class="date">2026.10.07｜サイトづくり・耐圧試験</div>
+<h2>耐圧試験シミュレーターを作った。<br>VTの中を電流がどう流れるか、描いて確かめる。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>うきわメモに「VT内蔵PAS 耐圧試験シミュレーター」を作った記録と、作りながら分かったこと・間違えて直したことのまとめです。図と計算は原理を説明するためのもので、実際の試験結線図・実測値ではありません。VTの励磁特性などは仮の値です。実際の試験は、PAS・試験器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
+<p class="lead">きっかけは、「PASの耐圧試験で、内蔵VTがあるのに三線短絡しないでやるとどうなる？」という疑問でした。言葉で説明を読んでも、<b>1相・2相・3相</b>の違いや、<b>なぜVTに電流が流れるのか</b>がどうしてもイメージできない。そこで、<b>VTを実際に描いて、電流の通り道を動かして見る</b>ページを作りました。</p>
+<div class="tool"><b>🧪 ページはこちら</b><br><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a></div>
+<div class="pillrow"><a class="pill" href="#pvs-map">1 ページの中身</a><a class="pill" href="#pvs-try">2 まず試すこと</a><a class="pill" href="#pvs-core">3 一番の理屈</a><a class="pill" href="#pvs-fixed">4 作りながら直したこと</a><a class="pill" href="#pvs-limit">5 できないこと</a></div>
+
+<h3 id="pvs-map">🗺️ 1. ページの中身</h3>
+<div class="table-scroll"><table>
+<tr><th>節</th><th>何が分かる？</th></tr>
+<tr><td><a href="pas-vt-withstand-simulator.html#basics-cable">ケーブルの中の電流</a></td><td>導体 → 絶縁体 → 遮へい層 → 遮へい接地線 → 大地。健全・劣化・絶縁破壊を切り替えて、充電電流と漏れ電流の大きさを比べる</td></tr>
+<tr><td><a href="pas-vt-withstand-simulator.html#basics-pas">PASの中の電流</a></td><td>外箱・主接点・ZCT・負荷側の内蔵VT・制御線・負荷側ケーブル。3相一括／U・V・W相だけ／2相短絡の7パターンで、VTの巻線を電流が通るかどうか</td></tr>
+<tr><td><a href="pas-vt-withstand-simulator.html#why-s">なぜV相へ流れる？</a></td><td>等価回路と式で、電圧をかけていない相のケーブルへVT経由で電流が流れる理由</td></tr>
+<tr><td><a href="pas-vt-withstand-simulator.html#sim">つなぎ方を変えてみる</a></td><td>各相を「試験電圧／接地／開放」に切り替え、ケーブル長・周波数・VTの台数を変えて、各相の対地電圧とVTの電圧（定格の何倍か）を計算</td></tr>
+<tr><td><a href="pas-vt-withstand-simulator.html#flow">電流の流れ</a></td><td>PAS内蔵VTとVT単体の巻線・鉄心を描いて、つなぎ方ごとの電流の道を動きで見る</td></tr>
+<tr><td><a href="pas-vt-withstand-simulator.html#flow-evt">EVT</a></td><td>Y結線・中性点接地のEVTは、3相一括でも各巻線に試験電圧がかかる</td></tr>
+</table></div>
+
+<h3 id="pvs-try">👆 2. まず試すこと</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>① PASの中の電流で「U相だけ」</b><br>U相から入った電流が、VTの一次巻線を通ってV相のケーブルへ抜けていく（赤）。3相一括に戻すと、赤が消える。</div>
+<div class="checkcard"><b>② 「U＋V短絡」と「V＋W短絡」を比べる</b><br>VTの両端（U・V）が同じ扱いならVTは無事。片方だけに電圧がかかると焼ける。</div>
+<div class="checkcard"><b>③ シミュレーターで「1相・他相を開放」にして、ケーブル長を動かす</b><br>0mでは開放した相が試験電圧に近づき、30mでは逆向きになってVTに定格の約1.7倍。途中の数mで共振に近づいて大きな値が出る。</div>
+<div class="checkcard"><b>④ EVTで「中性点を接地したまま」</b><br>3相一括でも、3つの巻線すべてを通って中性点から大地へ抜ける。V結線のVTとの違いが一目で分かる。</div>
+</div>
+<figure style="margin:16px 0"><img src="assets/diary/pvs-pas-u-only.webp" alt="PASの中の電流の図。U相だけに試験電圧をかけると、U相から内蔵VTの一次巻線を通ってV相の負荷側ケーブルへ電流が流れる" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px"><figcaption class="small">① U相だけに試験電圧をかけたとき。赤い線がVTの巻線を通る電流、青い線はケーブルの充電電流（VTを通らない）。</figcaption></figure>
+
+<h3 id="pvs-core">💡 3. 一番大事な理屈</h3>
+<p class="keyline">VTは<b>相と相の間</b>につながっている。VTの両端を同じ電圧にすれば、巻線に電流は流れない。それができるのが<b>三線短絡の3相一括</b>。</p>
+<p>U相だけに試験電圧をかけると、なぜV相のほうへ電流が流れるのか。</p>
+<div class="flow">V相は開放でも、心線と遮へい層のあいだはコンデンサ<br>↓<br>V相を充電する電荷の通り道は、U相とのあいだの<b>VTの一次巻線だけ</b><br>↓<br>試験器 → U相 → VTの一次巻線 → V相 → V相ケーブルのC → 大地 → 試験器、と一周する<br>↓<br>VTのコイル（L）とケーブルのコンデンサ（C）の直列に10,350Vがかかり、VTが過励磁 → 飽和 → 電流が増えて焼損</div>
+<figure style="margin:16px 0"><img src="assets/diary/pvs-equivalent-circuit.webp" alt="U相だけに試験電圧をかけたときの等価回路。U相ケーブルのCの電流はVTを通らずに大地へ、V相ケーブルのCの電流はVTの一次巻線を通る。W相はどこにもつながらない" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px"><figcaption class="small">等価回路。U相のケーブルの電流（青）はVTを通らずに大地へ。V相のケーブルの電流（赤）はVTを通らないとたどり着けない。W相はどこにもつながらないので電流は流れない。</figcaption></figure>
+<p>くわしい式と数値は、今日の<a href="#withstand-ip1110-20261007">IP-1110の日誌</a>とシミュレーターのページの「<a href="pas-vt-withstand-simulator.html#why-s">なぜV相へ流れる？</a>」にまとめました。</p>
+
+<h3 id="pvs-fixed">🔧 4. 作りながら間違えて、直したこと</h3>
+<p>何度も「あれ？」と思って聞き直し、そのたびにページを直しました。同じところで迷う人もいると思うので、残しておきます。</p>
+<div class="table-scroll"><table>
+<tr><th>最初の思い込み・書き方</th><th>直したあと</th><th>根拠</th></tr>
+<tr><td>内蔵VTは2台（V結線）</td><td>主要メーカーの取扱説明書では<b>負荷側のU相−V相の間に1台</b>。ページは1台を基本にして、2台にも切り替えられるようにした</td><td><span class="badge official">🟢</span> 日本高圧電気・戸上電機の取扱説明書</td></tr>
+<tr><td>LA内蔵は試験電圧で動作してしまう</td><td><b>交流10,350Vの3相一括はできる</b>。AC12kV以上・DC17kV以上や直流耐電圧試験はできない</td><td><span class="badge official">🟢</span> 戸上電機・日本高圧電気</td></tr>
+<tr><td>「他相を接地」の「接地」がVTの接地に見える</td><td>VTの一次側に接地点はない。図の接地は<b>電線の接地</b>（作業用接地の外し忘れなど）。VTで接地するのは二次側（D種）</td><td><span class="badge official">🟢</span> 電技解釈 第28条（二次側の接地）</td></tr>
+<tr><td>U相の道もあるのに、なぜV相にだけ流れる？</td><td>電流は<b>U相にもV相にも</b>流れる。VTを通るのはV相側だけ。等価回路にU相の電流（青）を描き足した</td><td><span class="badge infer">🟡</span> 回路の考え方</td></tr>
+<tr><td>VTの二次側の接地があるから流れる？</td><td>関係ない。電流は<b>一周できる道</b>がないと流れない。一次と二次は磁気でしかつながっていない</td><td><span class="badge infer">🟡</span> 回路の考え方</td></tr>
+<tr><td>図にシースを描いていた</td><td>シースは電流の通り道ではないので外した。<b>遮へい層 → 遮へい接地線</b>で大地へ戻る形に直した</td><td><span class="badge infer">🟡</span> ケーブルの構造</td></tr>
+<tr><td>相をR・S・Tで書いていた</td><td>メーカーの取扱説明書（「U相とV相に接続」）とVT単体の端子名に合わせて<b>U・V・W</b>に統一</td><td><span class="badge official">🟢</span> 取扱説明書の表記</td></tr>
+<tr><td>「1相」と「単相」</td><td>この話の「1相」はU・V・Wのうち1本のこと。「単相」は回路の種類。耐圧試験器の出力はもともと単相で、違うのは<b>何本の相につなぐか</b></td><td><span class="badge infer">🟡</span> 用語の整理</td></tr>
+</table></div>
+
+<h3 id="pvs-limit">⚠️ 5. このシミュレーターでできないこと</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>鉄心の飽和は計算していない</b><br>VTは線形モデル。定格の1.2倍を超えたら「飽和域」と表示するだけで、そこから先の数値は目安。</div>
+<div class="checkcard"><b>VTの特性は仮の値</b><br>励磁電流・損失・PAS内部の静電容量はメーカー資料で確認できなかった。ページ下の「計算モデルと仮定」で変えられる。</div>
+<div class="checkcard"><b>実物の配置ではない</b><br>VTの台数・つなぐ相、ZCT・LAの有無と位置はメーカー・型式で違う。銘板と取扱説明書で確認する。</div>
+<div class="checkcard"><b>結論は仮の値によらない</b><br>「3相一括ならVTは0V」「他相を接地するとVTに10,350V」は、どの値でも変わらない。</div>
+</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>分からないときは、描いて電流を流してみる。電流は一周できる道にしか流れない。</b></p>
+<p><b>VTは相と相の間。両端をそろえれば無事。だから三線短絡で3相一括。</b></p>
+</section>
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
+<li><span class="badge official">🟢</span>内蔵VTの接続・三相一括・制御線の処置・LA内蔵形の直流耐圧不可：<a href="https://www.nkeco.co.jp/download/manual/PAS-07-B.pdf" target="_blank" rel="noopener">日本高圧電気 取扱説明書（取説-PAS-07）</a></li>
+<li><span class="badge official">🟢</span>VTは負荷側（6,600/105V・25VA）、一相のみの印加は焼損の原因、LA内蔵形の上限電圧：<a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_103.php" target="_blank" rel="noopener">戸上電機 VT内蔵GR付PAS</a>、<a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_104.php" target="_blank" rel="noopener">VT･LA内蔵GR付PAS</a></li>
+<li>きっかけになった記事：<a href="https://jinden-tool.com/pas-in-vt-withstand-voltage/" target="_blank" rel="noopener">電気屋の気まぐれ忘備録「VT内蔵PASの絶縁耐力試験を１相毎にしてはいけない理由」</a></li>
+<li>ケーブルの静電容量：<a href="https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=19" target="_blank" rel="noopener">SFCC 産業用電線・ケーブル カタログ</a></li>
+<li><span class="badge infer">🟡</span>VTの励磁特性・PAS内部の静電容量は仮の値。図は原理説明用。</li>
+</ul></div>
+<div class="note">※ 本記事はシミュレーターを作った記録と、理解したことの整理です。実際の試験では、PAS・試験器の取扱説明書、社内手順、作業責任者の指示を確認してください。作業手順書ではありません。</div>
+</article>
+<article class="entry" id="withstand-ip1110-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜現場・絶縁耐力試験</div>
 <h2>IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。<br>VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</h2>
 <div class="danger audit-preconditions"><strong>この記事について</strong><br>今日の試験の数値と、そのあと調べたことを自分の言葉で整理した記録です。現場名・お客さまの情報は書いていません。器具の定格はメーカーの公開資料、PASの扱いはメーカーの取扱説明書で確認したものを書き、確認できなかったところはそう書いています。実際の試験は、試験器・PASの取扱説明書、社内手順、作業責任者の指示に従います。</div>
@@ -109,7 +180,7 @@
 </table></div>
 <p>「U＋V短絡、そのあとW」で分けても無事なのは、<b>VTがU−V間にあると分かっているときだけ</b>。VTがつながる相はメーカー・型式で違うので、取り違えると焼損します。だからメーカーは<b>「三相一括で実施」「一相ごとの試験は行わない」</b>と指示しています。<span class="badge official">🟢</span></p>
 <div class="warning"><strong>「他の相を接地」になってしまう場面</strong><br>停電作業では、検電・放電のあと短絡接地器具で3相の電線を短絡接地します。これを<b>外し忘れたまま</b>1相だけ外して試験電圧をかけると、U相−V相のあいだに試験電圧がそのままかかり、VTが過励磁になります。ほかにも、リアクトルがなく容量が足りないからと1相ずつに分けた結果、VTが焼損してPASが爆発した事例が紹介されています（下の根拠資料）。</div>
-<div class="tool"><b>図で確かめる</b><br><a href="pas-vt-withstand-simulator.html#basics-pas">7パターンの電流の通り道</a><br><a href="pas-vt-withstand-simulator.html#why-s">なぜV相へ流れる？（等価回路）</a><br><a href="pas-vt-withstand-simulator.html#sim">つなぎ方とケーブル長を変えるシミュレーター</a></div>
+<div class="tool"><b>図で確かめる</b><br><a href="#pas-vt-simulator-20261007">シミュレーターを作った話（日誌）</a><br><a href="pas-vt-withstand-simulator.html#basics-pas">7パターンの電流の通り道</a><br><a href="pas-vt-withstand-simulator.html#why-s">なぜV相へ流れる？（等価回路）</a><br><a href="pas-vt-withstand-simulator.html#sim">つなぎ方とケーブル長を変えるシミュレーター</a></div>
 <h4>VT単体のとき</h4>
 <p>一次のU・Vを短絡して試験電圧をかけ、二次のu・vを短絡して外箱と一緒に接地。<b>試験が終わったら二次の短絡線を必ず外す</b>（付けたまま受電するとVTが焼ける）。U端子だけにかけると、V端子の先に何がつながっているかで結果が変わる「設備まかせ」の試験になってしまいます。<span class="badge infer">🟡 整理</span> <a href="pas-vt-withstand-simulator.html#flow-vt">→ VT単体の電流の流れ</a></p>
 
@@ -1669,7 +1740,7 @@ Vb ── [過電流側：閉] ── Vc</div></div>
 <div class="tool"><b>PAS電源側をまだ接続しない</b><br>→ 耐圧試験の範囲をPAS＋負荷側高圧ケーブルに限定する。</div>
 <p>この二つは似ているようで、<b>目的が別</b>です。</p>
 
-<div class="tool"><b>🧪 追記（2026.10.07）：VT内蔵PASは3相一括で</b><br>PASにVTが内蔵されているときは、1相ずつ・2相ずつではなく、U・V・Wを三線短絡して3相一括で試験します。内蔵VTは相と相の間（主要メーカーの取扱説明書では負荷側のU相−V相の間）につながっているので、両端を同じ電圧にしないとVTの巻線に電流が通り、過励磁・焼損のおそれがあります。<br>EVT（接地形計器用変圧器）は巻線が相と大地の間につながっているので、3相一括でも各巻線に試験電圧がかかります（定格 約3,810Vの約2.7倍）。<br><a href="#withstand-ip1110-20261007">→ くわしくは10/7の日誌：IP-1110で絶縁耐力試験</a><br><a href="pas-vt-withstand-simulator.html">→ 図とシミュレーターで確かめる：VT内蔵PAS 耐圧試験シミュレーター</a></div>
+<div class="tool"><b>🧪 追記（2026.10.07）：VT内蔵PASは3相一括で</b><br>PASにVTが内蔵されているときは、1相ずつ・2相ずつではなく、U・V・Wを三線短絡して3相一括で試験します。内蔵VTは相と相の間（主要メーカーの取扱説明書では負荷側のU相−V相の間）につながっているので、両端を同じ電圧にしないとVTの巻線に電流が通り、過励磁・焼損のおそれがあります。<br>EVT（接地形計器用変圧器）は巻線が相と大地の間につながっているので、3相一括でも各巻線に試験電圧がかかります（定格 約3,810Vの約2.7倍）。<br><a href="#withstand-ip1110-20261007">→ くわしくは10/7の日誌：IP-1110で絶縁耐力試験</a><br><a href="#pas-vt-simulator-20261007">→ 耐圧試験シミュレーターを作った話（10/7の日誌）</a><br><a href="pas-vt-withstand-simulator.html">→ 図とシミュレーターで確かめる：VT内蔵PAS 耐圧試験シミュレーター</a></div>
 <section class="memo">
 <h3>🛟 今日のうきわメモ</h3>
 <p>今回改めて確認できたのは、<b>耐圧試験では「何V掛けるか」だけでなく、「どこからどこまで掛けるのか」を結線の段階で明確にすることが大事</b>ということ。</p>
