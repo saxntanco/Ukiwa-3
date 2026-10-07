@@ -1,0 +1,181 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="VT内蔵PASの耐圧試験で、どの相に試験電圧をかけ、どの相を接地・開放するかを切り替えて、各相とVTにかかる電圧を確かめるシミュレーター。"><title>VT内蔵PAS 耐圧試験シミュレーター｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930">
+<style>
+.ctrl{display:grid;gap:14px;margin:6px 0 18px}
+.ctrl .grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctrl .lbl{min-width:96px;font-size:14px;font-weight:800}
+.seg{display:inline-flex;border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:12px;overflow:hidden}
+.seg button{border:0;border-right:1px solid var(--island-line-cbdbe4-100,#ccdfe7);background:var(--island-bg-ffffff-100,#fff);color:inherit;padding:8px 12px;font-size:14px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:#167888;color:#fff;font-weight:800}
+.ctrl select,.ctrl input[type=number]{border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:10px;padding:7px 10px;background:var(--island-bg-ffffff-100,#fff);color:inherit;max-width:130px}
+.ctrl input[type=range]{width:min(320px,100%)}
+.simfig{background:#f5f9fc;border:1px solid #cbdce5;border-radius:16px;padding:10px;margin:0 0 16px}
+.simfig svg{width:100%;height:auto;display:block}
+.verdict{border-radius:14px;padding:14px 16px;margin:0 0 14px;border:2px solid;font-weight:700;line-height:1.7}
+.verdict.ok{border-color:#2f8a4e;background:#eaf6ee;color:#1d5b33}
+.verdict.warn{border-color:#b7791f;background:#fdf4e3;color:#6b4510}
+.verdict.ng{border-color:#b83a2b;background:#fcebe8;color:#7a2118}
+.verdict small{display:block;font-weight:400;margin-top:4px}
+.rtab{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+.rtab th,.rtab td{padding:9px 8px;border-bottom:1px solid var(--island-line-cbdbe4-100,#ccdfe7);vertical-align:middle}
+.bar{height:12px;border-radius:6px;background:#dbe7ee;position:relative;min-width:90px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.bar b{position:absolute;top:-3px;bottom:-3px;width:2px;background:#203b50}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:800}
+.tagx{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;border:1px solid currentColor;white-space:nowrap}
+.assume{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:12px}
+.assume label{display:grid;gap:4px;font-size:14px}
+@media(max-width:640px){.simfig{overflow-x:auto}.simfig svg{min-width:640px}.simfig:after{content:'← 図は横にスクロールできます →';display:block;font-size:12px;color:#4b6475;text-align:center;position:sticky;left:0}.ctrl .lbl{min-width:0;width:100%}.rtab{font-size:13px}.rtab .hide-sm{display:none}}
+</style>
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="test-measurement.html">試験・測定器具</a></nav></header><main>
+<section class="hero"><span class="eyebrow">SIMULATOR / PAS・VT内蔵</span><h1>VT内蔵PASの耐圧試験、<br>つなぎ方を間違えるとどうなる？</h1><p class="lead">R・S・Tのどれに試験電圧をかけ、どれを接地・開放するか。つなぎ方を変えると、内蔵VT（V結線）と他の相にかかる電圧がどう変わるかを計算します。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#sim">シミュレーター</a><a href="#why">なぜそうなる？</a><a href="#model">計算モデル</a><a href="#sources">根拠資料</a></nav><p class="caption">試験電圧は6,600V系の10,350V（最大使用電圧6,900V×1.5）、PASは「入」の状態で負荷側ケーブルを含めて試験する想定です。VTの特性は仮定の値で、実機の数値ではありません。実際の試験はPASの取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
+
+<section class="sheet" id="sim"><h2>つなぎ方を変えてみる</h2>
+<div class="ctrl">
+<div class="grp"><span class="lbl">よくある例</span><div class="pickers" id="presets" style="margin:0"><button data-p="HHH" aria-pressed="true">正しい：3相一括</button><button data-p="HGG" aria-pressed="false">1相・他相を接地</button><button data-p="HFF" aria-pressed="false">1相・他相を開放</button><button data-p="HHG" aria-pressed="false">2相（R＋S）・T接地</button><button data-p="HGH" aria-pressed="false">2相（R＋T）・S接地</button><button data-p="HHF" aria-pressed="false">2相（R＋S）・T開放</button></div></div>
+<div class="grp"><span class="lbl">R相</span><div class="seg" data-ph="R"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
+<div class="grp"><span class="lbl">S相</span><div class="seg" data-ph="S"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
+<div class="grp"><span class="lbl">T相</span><div class="seg" data-ph="T"><button data-s="H">試験電圧</button><button data-s="G">接地</button><button data-s="F">開放</button></div></div>
+<div class="grp"><span class="lbl">負荷側ケーブル</span><select id="size" aria-label="ケーブルサイズ"><option value="0.27">CV 22mm²</option><option value="0.32" selected>CV 38mm²</option><option value="0.37">CV 60mm²</option><option value="0.45">CV 100mm²</option><option value="0.52">CV 150mm²</option><option value="0.55">CV 250mm²</option></select><input id="len" type="number" min="0" max="500" step="1" value="30" aria-label="ケーブル長さ m"><span>m</span><input id="lenr" type="range" min="0" max="300" step="1" value="30" aria-label="ケーブル長さのスライダー"></div>
+<div class="grp"><span class="lbl">周波数</span><div class="seg" id="freq"><button data-f="50">50Hz</button><button data-f="60">60Hz</button></div></div>
+</div>
+<div class="simfig" id="fig"></div>
+<div id="verdict" class="verdict ok" aria-live="polite"></div>
+<div class="table-wrap"><table class="rtab" id="phTab"></table></div>
+<div class="table-wrap" style="margin-top:14px"><table class="rtab" id="vtTab"></table></div>
+<p class="caption" id="current"></p>
+<details id="model"><summary>計算モデルと仮定（数値を変えられます）</summary>
+<p>電圧は交流の実効値で、試験器の電圧を基準（0°）にした複素数で計算しています。VTは「励磁インダクタンス」と「損失ぶんの抵抗」の並列、各相は「ケーブルとPASの対地静電容量」で大地につながる、という線形モデルです。</p>
+<p><b>鉄心の飽和は計算に入っていません。</b>VTの電圧が定格の約1.2倍を超えたら、実際には鉄心が飽和して励磁電流が急に増え、ここに出る数値どおりにはなりません（表では「飽和域」と表示）。ケーブル長によっては、VTのインダクタンスとケーブルの静電容量が共振に近づき、線形モデルでは大きな値が出ます。これは「鉄共振などの異常電圧が起きうる条件」の目安として見てください。</p>
+<div class="assume">
+<label>VTの励磁電流（定格6,600V時）[mA]<input id="iex" type="number" min="0.1" max="50" step="0.1" value="2"></label>
+<label>損失抵抗 ÷ 励磁リアクタンス [倍]<input id="rk" type="number" min="1" max="100" step="1" value="10"></label>
+<label>PAS内部の対地静電容量（1相）[pF]<input id="cs" type="number" min="1" max="5000" step="1" value="50"></label>
+<label>VTの二次定格電圧 [V]<input id="v2" type="number" min="1" max="250" step="1" value="110"></label>
+</div>
+<p class="caption">励磁電流・損失・PAS内部の静電容量は、メーカー資料で確認できなかったため仮の値です。値を変えると、異常電圧が出やすいケーブル長が変わります。「3相一括ならVTに電圧がかからない」「他相を接地するとVTに相間で試験電圧がかかる」という結論は、これらの値によりません。</p>
+</details>
+</section>
+
+<section class="sheet" id="why"><h2>なぜそうなる？</h2>
+<p class="takeaway">VTは相と相の間につながっている。<b>VTの両端が同じ電圧なら、VTに電圧はかからない。</b>それができるのは3相一括だけ。</p>
+<details open><summary>内蔵VTはV結線：R−S間とS−T間</summary><p>制御電源などに使う内蔵VTは2台で、VT1がR相−S相の間、VT2がS相−T相の間につながっています（S相が共通）。どちらのVTも、つながっている2つの相の電圧の差がそのまま一次巻線にかかります。</p></details>
+<details><summary>3相一括：3本が同じ電圧なのでVTは0V</summary><p>R・S・Tを短絡して試験電圧をかけると、3本とも10,350Vで、VTの両端に差がありません。VTは励磁されず、試験されるのは3相とも「電路と大地の間」の絶縁だけになります。</p></details>
+<details><summary>他の相を接地：相間に試験電圧がそのままかかる</summary><p>R相に10,350V、S相を接地すると、VT1の両端の差は10,350V。定格6,600Vの約1.57倍です。VTは定格の1.2倍くらいまでを連続で使う前提で作られているので、それを大きく超えて過励磁になり、試験の10分間で過熱・焼損のおそれがあります。二次側も同じ割合で上がり、制御装置にも響きます。</p></details>
+<details><summary>他の相を開放：電圧が決まらない（ケーブル次第）</summary><p>開放した相は、VTの巻線（インダクタンス）とその相の対地静電容量（ケーブル）が直列になった回路で電圧が決まります。</p><ul><li>ケーブルがない・短い：開放した相はVTに引っぱられて試験電圧に近づく。条件によっては試験電圧より少し高くなる</li><li>ケーブルが長い：開放した相は大地側に引っぱられ、逆向きの電圧になることもある。VTに試験電圧以上がかかり、過励磁・焼損のおそれ</li><li>その間：インダクタンスと静電容量が共振に近づき、異常な電圧になりうる</li></ul><p>「電圧バランスが崩れて、つないでいない相に思わぬ電圧がかかる」のはこのためです。</p></details>
+<details><summary>接地した相は、その回は試験されていない</summary><p>1相ずつ・2相ずつのつなぎ方では、接地した相の対地絶縁は試験されていません。3相一括なら、3相とも一度に試験できます。</p></details>
+<details><summary>3相一括でも守れないもの：ZPD・LAなど</summary><p>相と大地の間につながるもの（零相電圧検出用のZPD、避雷器LAなど）は、3相を短絡しても試験電圧がかかります。切り離しなどの扱いはPASの取扱説明書で確認します。このシミュレーターには入っていません。</p></details>
+</section>
+
+<section class="sheet" id="sources"><h2>根拠資料</h2><ul>
+<li><a href="https://jinden-tool.com/pas-in-vt-withstand-voltage/" target="_blank" rel="noopener">電気屋の気まぐれ忘備録「なぜ焼損するの？VT内蔵PASの絶縁耐力試験を１相毎にしてはいけない理由」</a> — 1相ずつでなく3相一括で試験すること（取扱説明書にも記載とのこと）、他相の高圧ケーブルの充電電流がVTを通って焼損する例。</li>
+<li><a href="https://www.swcc.co.jp/sfcc/products/pdf/SFCC_Catlog_S_web.pdf#page=19" target="_blank" rel="noopener">SFCC（SWCC）産業用電線・ケーブル カタログ 18〜19ページ</a> — 6,600V CVケーブル1心あたりの静電容量（このページのケーブル選択の値。<a href="ac-withstand-test-simulator.html">充電電流のページ</a>と同じ値）。</li>
+<li>VT内蔵PASのVTがV結線であること、VTの励磁特性は、メーカーの一次資料で確認できていません。実機の結線・定格は銘板と取扱説明書で確認してください。</li>
+</ul></section>
+
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="ac-withstand-test-simulator.html">充電電流を根拠で比べる</a><a href="pukapuka-diary.html#pas-withstand-20260822">PAS交換工事と耐圧試験（日誌）</a><a href="ppe-withstand-guide.html">防具耐圧試験</a></div></section>
+</main><footer>うきわメモ / 2026年10月7日作成 / 図と計算は原理説明用で、実設備の試験結線図・実測値ではありません。</footer>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const VT=10350,VR=6600,PH=['R','S','T'],Y={R:150,S:230,T:310};
+let st={R:'H',S:'H',T:'H'},f=50;
+const C=(re,im=0)=>({re,im}),add=(a,b)=>C(a.re+b.re,a.im+b.im),sub=(a,b)=>C(a.re-b.re,a.im-b.im),mul=(a,b)=>C(a.re*b.re-a.im*b.im,a.re*b.im+a.im*b.re),div=(a,b)=>{const d=b.re*b.re+b.im*b.im;return C((a.re*b.re+a.im*b.im)/d,(a.im*b.re-a.re*b.im)/d)},abs=a=>Math.hypot(a.re,a.im);
+function num(id,def,min,max){const v=Number($(id).value);return Number.isFinite(v)&&v>=min&&v<=max?v:def}
+function solve(){
+ const iex=num('iex',2,0.1,50)/1000,rk=num('rk',10,1,100),cs=num('cs',50,1,5000)*1e-12,len=num('len',30,0,500),c1=Number($('size').value);
+ const w=2*Math.PI*f,Xm=VR/iex,Yvt=C(1/(rk*Xm),-1/Xm),Cph=c1*1e-6*len/1000+cs,Yg=C(0,w*Cph);
+ const edges=[['R','S'],['S','T']];
+ const V={};PH.forEach(p=>{if(st[p]==='H')V[p]=C(VT);else if(st[p]==='G')V[p]=C(0)});
+ const hasH=PH.some(p=>st[p]==='H');
+ const fl=PH.filter(p=>st[p]==='F');
+ if(fl.length){
+  if(!hasH){fl.forEach(p=>V[p]=C(0))}else{
+  const n=fl.length,A=fl.map(()=>fl.map(()=>C(0))),b=fl.map(()=>C(0));
+  fl.forEach((p,i)=>{A[i][i]=add(A[i][i],Yg);edges.forEach(([a,c])=>{if(a!==p&&c!==p)return;const q=a===p?c:a;A[i][i]=add(A[i][i],Yvt);const j=fl.indexOf(q);if(j>=0)A[i][j]=sub(A[i][j],Yvt);else b[i]=add(b[i],mul(Yvt,V[q]))})});
+  for(let k=0;k<n;k++){for(let r=k+1;r<n;r++){const m=div(A[r][k],A[k][k]);for(let c=k;c<n;c++)A[r][c]=sub(A[r][c],mul(m,A[k][c]));b[r]=sub(b[r],mul(m,b[k]))}}
+  const x=Array(n);for(let r=n-1;r>=0;r--){let s=b[r];for(let c=r+1;c<n;c++)s=sub(s,mul(A[r][c],x[c]));x[r]=div(s,A[r][r])}
+  fl.forEach((p,i)=>V[p]=x[i])}}
+ const vt=edges.map(([a,c])=>({a,c,v:sub(V[a],V[c])}));
+ let I=C(0);PH.filter(p=>st[p]==='H').forEach(p=>{I=add(I,mul(Yg,V[p]));edges.forEach(([a,c])=>{if(a===p)I=add(I,mul(Yvt,sub(V[a],V[c])));if(c===p)I=add(I,mul(Yvt,sub(V[c],V[a])))})});
+ return{V,vt,I,hasH,len,v2:num('v2',110,1,250)};
+}
+const fmt=v=>Math.round(v).toLocaleString('ja-JP');
+function lvl(r){return r<0.05?'ok':r<1?'warn':'ng'}
+const COL={ok:'#2f8a4e',warn:'#c27c0e',ng:'#c0392b',H:'#c0392b',G:'#7d8b94',F:'#c27c0e'};
+function draw(R){
+ const vr=R.vt.map(x=>abs(x.v)/VR);
+ let s='<svg viewBox="0 0 900 420" role="img" aria-label="PAS内蔵VTのV結線と耐圧試験の接続図"><title>耐圧試験の接続とVTの電圧</title>';
+ s+='<rect x="20" y="30" width="150" height="66" rx="8" fill="#fde9e5" stroke="#c0392b"/><text x="95" y="58" text-anchor="middle" font-size="17" font-weight="700" fill="#7a2118">耐圧試験器</text><text x="95" y="82" text-anchor="middle" font-size="15" fill="#7a2118">10,350V</text>';
+ s+='<path d="M50 96 V380 M38 380 H62 M42 386 H58 M46 392 H54" stroke="#7d8b94" stroke-width="1.5" fill="none"/>';
+ const hs=PH.filter(p=>st[p]==='H');
+ const busEnd=hs.length?Y[hs[hs.length-1]]:120;
+ s+='<path d="M130 96 V120 H200 V'+busEnd+'" stroke="#c0392b" stroke-width="3" fill="none"/>';
+ if(hs.length>1)s+='<text x="208" y="'+((Y[hs[0]]+busEnd)/2+5)+'" font-size="13" fill="#7a2118">短絡</text>';
+ s+='<rect x="320" y="110" width="320" height="296" rx="10" fill="none" stroke="#7d8b94" stroke-dasharray="6 5"/><text x="332" y="398" font-size="13" fill="#4b6475">PAS（入）／内蔵VTはV結線</text>';
+ s+='<text x="700" y="104" font-size="13" fill="#4b6475">負荷側ケーブル '+fmt(R.len)+'m</text>';
+ PH.forEach(p=>{const y=Y[p],t=st[p],v=abs(R.V[p]),col=t==='H'?COL.H:t==='G'?COL.G:COL.F,wd=t==='H'?4:2.5;
+  if(t==='H')s+='<path d="M200 '+y+' H260" stroke="#c0392b" stroke-width="3"/><circle cx="200" cy="'+y+'" r="5" fill="#c0392b"/>';
+  if(t==='G')s+='<path d="M240 '+y+' V'+(y+24)+' M228 '+(y+24)+' H252 M232 '+(y+30)+' H248 M236 '+(y+36)+' H244" stroke="#7d8b94" stroke-width="1.5" fill="none"/><path d="M240 '+y+' H260" stroke="#7d8b94" stroke-width="2"/>';
+  if(t==='F')s+='<circle cx="256" cy="'+y+'" r="4" fill="#fff" stroke="#c27c0e" stroke-width="2"/><text x="224" y="'+(y-10)+'" font-size="13" fill="#6b4510">開放</text>';
+  s+='<path d="M260 '+y+' H860" stroke="'+col+'" stroke-width="'+wd+'"/>';
+  s+='<text x="270" y="'+(y-10)+'" font-size="17" font-weight="800" fill="#203b50">'+p+'</text>';
+  const rev=v>50&&R.V[p].re<0;
+  s+='<text x="652" y="'+(y-10)+'" font-size="14" font-weight="700" fill="'+(t==='G'?'#4b6475':t==='H'?'#7a2118':'#6b4510')+'">対地 '+fmt(v)+'V'+(rev?'（逆向き）':'')+'</text>';
+  const cy=y+14;s+='<path d="M760 '+y+' V'+cy+' M748 '+cy+' H772 M748 '+(cy+6)+' H772 M760 '+(cy+6)+' V'+(cy+18)+' M752 '+(cy+18)+' H768 M755 '+(cy+22)+' H765" stroke="#4b6475" stroke-width="1.5" fill="none"/>';});
+ s+='<text x="782" y="'+(Y.T+40)+'" font-size="12" fill="#4b6475">対地静電容量</text>';
+ R.vt.forEach((x,i)=>{const top=i?Y.S:Y.R,bot=i?Y.T:Y.S,by=top+20,L=lvl(vr[i]),fc=L==='ok'?'#eaf6ee':L==='warn'?'#fdf4e3':'#fcebe8',sc=COL[L];
+  s+='<path d="M400 '+top+' V'+by+' M400 '+(by+40)+' V'+bot+'" stroke="#203b50" stroke-width="2"/>';
+  s+='<rect x="370" y="'+by+'" width="60" height="40" rx="6" fill="'+fc+'" stroke="'+sc+'" stroke-width="2.5"/><text x="400" y="'+(by+26)+'" text-anchor="middle" font-size="15" font-weight="800" fill="#203b50">VT'+(i+1)+'</text>';
+  s+='<text x="440" y="'+(by+17)+'" font-size="14" font-weight="800" fill="'+sc+'">'+fmt(abs(x.v))+'V</text><text x="440" y="'+(by+35)+'" font-size="12" fill="#4b6475">'+x.a+'−'+x.c+'間／定格の'+vr[i].toFixed(2)+'倍</text>';});
+ s+='<circle cx="400" cy="'+Y.S+'" r="4" fill="#203b50"/>';
+ s+='</svg>';$('fig').innerHTML=s;
+ return vr;
+}
+function render(){
+ const R=solve(),vr=draw(R),v2=R.v2;
+ const maxr=Math.max(...vr),allH=PH.every(p=>st[p]==='H');
+ const gs=PH.filter(p=>st[p]==='G'),fs=PH.filter(p=>st[p]==='F');
+ const fv=fs.map(p=>abs(R.V[p])),dev=p=>abs(sub(R.V[p],C(VT)))/VT,rev=p=>abs(R.V[p])>50&&R.V[p].re<0;
+ let cls='ok',head='',det='';
+ if(!R.hasH){cls='warn';head='試験電圧をかける相がありません。';det='R・S・Tのどれかを「試験電圧」にしてください。'}
+ else if(allH){cls='ok';head='正しいつなぎ方。3本とも同じ電圧なので、VTに電圧はかかりません。';det='3相とも「電路と大地の間」の絶縁を試験できています。'}
+ else{
+  const worst=vr.indexOf(maxr),nm='VT'+(worst+1);
+  if(maxr>=1.2){cls='ng';head=nm+'に定格の'+maxr.toFixed(2)+'倍（'+fmt(maxr*VR)+'V）。過励磁で焼損のおそれ。';det='鉄心が飽和して励磁電流が急に増え、試験の10分間で過熱します。二次側にも約'+fmt(maxr*v2)+'Vが出て、制御装置を壊すおそれ。'+(maxr>2?'2倍を超える値は線形モデルの計算値で、実際は飽和や鉄共振で計算どおりにはなりません。':'')}
+  else if(maxr>=1){cls='ng';head=nm+'に定格を超える電圧（'+maxr.toFixed(2)+'倍）。';det='VTを定格以上で励磁している状態です。'}
+  else if(maxr>=0.05){cls='warn';head=nm+'に、本来かからない電圧（定格の'+maxr.toFixed(2)+'倍）がかかっています。';det='二次側にも約'+fmt(maxr*v2)+'Vが出ます。ケーブル長や条件が変わると大きくなります。'}
+  else{cls='warn';head='VTの電圧はほぼ0Vですが、正しいつなぎ方ではありません。'}
+  if(fs.length&&fs.some(p=>dev(p)>0.05))det+='　開放した相（'+fs.join('・')+'）の電圧が試験電圧とずれて、電圧バランスが崩れています。';
+  if(fv.some(v=>v>VT*1.02))det+='　開放した相に、試験電圧より高い電圧がかかっています。';
+  if(fs.some(rev))det+='　開放した相の電圧が試験電圧と逆向きになり、相の間に大きな電圧差ができています。';
+  if(gs.length)det+='　接地した'+gs.join('・')+'相の対地絶縁は、この回は試験されていません。';
+ }
+ const vd=$('verdict');vd.className='verdict '+cls;vd.innerHTML=head+(det?'<small>'+det+'</small>':'');
+ const sc=VT*1.3;
+ let t='<tr><th>相</th><th>つなぎ方</th><th>対地電圧</th><th class="hide-sm" style="width:34%">試験電圧（縦線）との比較</th><th>対地絶縁の試験</th></tr>';
+ PH.forEach(p=>{const v=abs(R.V[p]),k=st[p],col=k==='H'?COL.H:k==='G'?COL.G:COL.F,pct=Math.min(100,v/sc*100);
+  const tested=k==='H'?'できている':k==='G'?'されていない':(dev(p)<0.05?'ほぼ試験電圧':v<0.05*VT?'ほぼかかっていない':'電圧が決まらない');
+  t+='<tr><td><b>'+p+'</b></td><td><span class="tagx" style="color:'+col+'">'+(k==='H'?'試験電圧':k==='G'?'接地':'開放')+'</span></td><td class="num">'+fmt(v)+' V'+(k==='F'&&rev(p)?'<br><small>（逆向き）</small>':'')+'</td><td class="hide-sm"><div class="bar"><i style="width:'+pct+'%;background:'+col+'"></i><b style="left:'+(VT/sc*100)+'%"></b></div></td><td>'+tested+'</td></tr>'});
+ $('phTab').innerHTML=t;
+ let u='<tr><th>VT</th><th>一次電圧</th><th>定格比</th><th>二次電圧</th><th>状態</th></tr>';
+ R.vt.forEach((x,i)=>{const r=vr[i],L=lvl(r),stt=r>=1.2?'飽和域：焼損のおそれ':r>=1?'定格超え':r>=0.05?'本来かからない電圧':'ほぼ0V（正常）';
+  u+='<tr><td><b>VT'+(i+1)+'</b>（'+x.a+'−'+x.c+'）</td><td class="num">'+fmt(abs(x.v))+' V</td><td class="num">'+r.toFixed(2)+' 倍</td><td class="num">'+fmt(r*v2)+' V</td><td style="color:'+COL[L]+';font-weight:800">'+stt+'</td></tr>'});
+ $('vtTab').innerHTML=u;
+ $('current').textContent=R.hasH?'試験器から流れる電流（目安）：約'+(abs(R.I)*1000).toFixed(1)+' mA（ケーブルとPASの充電電流＋VTの電流。飽和は入っていません）':'';
+ document.querySelectorAll('#presets button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.p===PH.map(p=>st[p]).join(''))));
+ document.querySelectorAll('.seg[data-ph]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.s===st[g.dataset.ph]))));
+ document.querySelectorAll('#freq button').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.f)===f)));
+}
+document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>{PH.forEach((p,i)=>st[p]=b.dataset.p[i]);render()}));
+document.querySelectorAll('.seg[data-ph] button').forEach(b=>b.addEventListener('click',()=>{st[b.parentNode.dataset.ph]=b.dataset.s;render()}));
+document.querySelectorAll('#freq button').forEach(b=>b.addEventListener('click',()=>{f=Number(b.dataset.f);render()}));
+$('len').addEventListener('input',()=>{const v=Number($('len').value);if(Number.isFinite(v))$('lenr').value=Math.min(300,Math.max(0,v));render()});
+$('lenr').addEventListener('input',()=>{$('len').value=$('lenr').value;render()});
+['size','iex','rk','cs','v2'].forEach(id=>$(id).addEventListener('input',render));
+render();
+})();
+</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
