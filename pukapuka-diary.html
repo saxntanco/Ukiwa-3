@@ -15,7 +15,139 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.07</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="leak-search-training-20261007" data-update-date="2026/10/07">
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="withstand-ip1110-20261007" data-update-date="2026/10/07">
+<div class="date">2026.10.07｜現場・絶縁耐力試験</div>
+<h2>IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。<br>VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>今日の試験の数値と、そのあと調べたことを自分の言葉で整理した記録です。現場名・お客さまの情報は書いていません。器具の定格はメーカーの公開資料、PASの扱いはメーカーの取扱説明書で確認したものを書き、確認できなかったところはそう書いています。実際の試験は、試験器・PASの取扱説明書、社内手順、作業責任者の指示に従います。</div>
+<p class="lead">今日は、PASと負荷側ケーブルの<b>絶縁耐力試験</b>。試験器はムサシインテックの<b>IP-1110</b>（一体型の交流耐電圧試験器）を単体で使い、ケーブル端末の3心を黄色い線で<b>三線短絡</b>して、<b>3相一括</b>で10,350Vを10分間かけました。結果は異常なし。</p>
+<p>ただ、終わってから数字を見直すと、<b>試験器の容量がほぼいっぱい</b>だったことに気づきました。もうひとつ、午前中に調べていた「VT内蔵PASは、なぜ1相ずつ試験してはいけないのか」も、今日の試験とつながる話なので、まとめて整理します。</p>
+<div class="pillrow"><a class="pill" href="#ip1110-values">1 今日の数値</a><a class="pill" href="#ip1110-checker">2 チェッカーとの差</a><a class="pill" href="#ip1110-capacity">3 容量はぎりぎり</a><a class="pill" href="#ip1110-what">4 何を見ている？</a><a class="pill" href="#ip1110-vt">5 VT内蔵PAS</a><a class="pill" href="#ip1110-others">6 EVT・LA・制御線</a><a class="pill" href="#ip1110-questions">持ち帰った疑問</a></div>
+<p class="small"><span class="badge official">🟢 公開資料で確認</span><span class="badge field">🔵 今日の現場の値</span><span class="badge infer">🟡 自分の計算・考え</span></p>
+
+<h3 id="ip1110-values">📟 1. 今日の数値</h3>
+<div class="table-scroll"><table>
+<tr><th>器具</th><th>表示</th><th>値</th></tr>
+<tr><td rowspan="2"><b>充電電流チェッカー</b><br>CC-50MN（試験前）</td><td>静電容量（0.5μFレンジ）</td><td><b>0.028μF</b></td></tr>
+<tr><td>充電電流（10,350V・50Hz設定）</td><td><b>91mA</b></td></tr>
+<tr><td rowspan="4"><b>IP-1110</b>（試験中）</td><td>二次電圧</td><td><b>10.38kV</b></td></tr>
+<tr><td>二次電流</td><td><b>88.0mA</b></td></tr>
+<tr><td>一次電流</td><td><b>10.00A</b></td></tr>
+<tr><td>遮断電流の設定</td><td>100mA</td></tr>
+</table></div>
+<p class="small"><span class="badge field">🔵 現場の値</span> 試験時間は10分。PASは「入」、負荷側ケーブルを含めて試験。</p>
+
+<h3 id="ip1110-checker">🔍 2. チェッカーは91mA、実際は88mA。わざと高めに出している？</h3>
+<p>チェッカーの91mAは、測った静電容量からの<b>計算値</b>です。<span class="badge infer">🟡 計算</span></p>
+<div class="eq">I ＝ 2πfCV ＝ 2π × 50 × 0.028μF × 10,350V ≒ 91.0mA</div>
+<p>実測から逆に静電容量を出すと、10.38kVで88.0mAなので</p>
+<div class="eq">C ＝ 88.0mA ÷（2π × 50 × 10,380V）≒ 0.0270μF
+10,350Vに直すと ≒ 87.8mA（チェッカーより約3.5%少ない）</div>
+<div class="checkgrid">
+<div class="checkcard"><b>差の半分は「表示の丸め」</b><br>0.5μFレンジは小数第3位まで。「0.028」は実際には0.0275〜0.0285くらいの幅があり、電流にすると<b>89.4〜92.7mA</b>。これだけで±1.8%くらい動く。</div>
+<div class="checkcard"><b>残りは計器の誤差の範囲</b><br>IP-1110の二次電流計は ±0.5%＋20dgt <span class="badge official">🟢</span>。チェッカーは<b>DC15V</b>という低い電圧で容量を測っている <span class="badge official">🟢</span>。両方の誤差が重なれば、このくらいの差は出る。</div>
+</div>
+<p><b>わざと高めに出しているか</b>は、公開されている資料（メーカーの製品情報・販売店の仕様）では確認できませんでした。チェッカーの確度も見つからず。ただ、結果として高めに出るなら、<b>試験器の容量を見積もるときには安全側</b>です。</p>
+
+<h3 id="ip1110-capacity">⚡ 3. IP-1110の容量は、ほぼいっぱいだった</h3>
+<div class="table-scroll"><table>
+<tr><th>IP-1110の定格 <span class="badge official">🟢</span></th><th>値</th><th>今日</th></tr>
+<tr><td>定格容量</td><td><b>1kVA（10分定格）</b><br>10分使ったら10分休止</td><td>10.38kV × 88.0mA ≒ <b>913VA（約91%）</b></td></tr>
+<tr><td>定格二次電流</td><td><b>91mA</b></td><td>88.0mA（<b>約97%</b>）</td></tr>
+<tr><td>一次電流計の表示範囲</td><td>1.00〜10.00A</td><td><b>10.00A（表示の上限）</b></td></tr>
+<tr><td>遮断電流</td><td>10〜100mA（10レンジ）、動作は<b>設定値の±20%以内</b></td><td>100mA設定 → 80〜120mAのどこかで切れる</td></tr>
+<tr><td>電源</td><td>AC100V ±10%、50/60Hz</td><td></td></tr>
+</table></div>
+<div class="panic"><b>⚠️ 気になった2つのこと</b><p><b>一次電流10.00Aは「ちょうど10A」か「振り切れ」か分からない。</b>一次電流計は10.00Aまでしか表示しないので、それ以上流れていても10.00Aと出ている可能性がある。</p><p><b>遮断の余裕がほとんどない。</b>100mA設定でも、±20%なので<b>80mAで切れることもありうる</b>。88mA流れて切れなかったのは、この個体がたまたま80mAより上で動いているから。設定は100mAが上限なので、これ以上の余裕は作れない。</p></div>
+<p><b>1,000は「W」ではなく「VA」。</b>100V × 10A ＝ 1,000VA は皮相電力。負荷はほぼコンデンサなので、有効電力（W）はずっと小さい。出力913VAに対して入力が約1,000VAなのは、入力が100Vだとすると、理想なら約9.1Aのところに<b>変圧器の励磁電流や損失のぶん</b>が乗っているから。<span class="badge infer">🟡 計算</span></p>
+
+<h4>IP-1110だけで試験できる静電容量の上限</h4>
+<p>定格91mAから逆算すると <span class="badge infer">🟡 計算</span></p>
+<div class="eq">50Hz：C ＝ 91mA ÷（2π × 50 × 10,350V）≒ <b>0.028μF</b>
+60Hz：≒ <b>0.023μF</b></div>
+<p>今日のチェッカーの表示がちょうど<b>0.028μF</b>。まさに上限でした。ケーブルの長さに直すと、だいたいこのくらいです。</p>
+<div class="table-scroll"><table>
+<tr><th>CVケーブル（6,600V・3心）</th><th>1心の静電容量</th><th>50Hzの上限</th><th>60Hzの上限</th></tr>
+<tr><td>22mm²</td><td>0.27μF/km</td><td>約34m</td><td>約28m</td></tr>
+<tr><td><b>38mm²</b></td><td>0.32μF/km</td><td><b>約29m</b></td><td><b>約24m</b></td></tr>
+<tr><td>60mm²</td><td>0.37μF/km</td><td>約25m</td><td>約21m</td></tr>
+<tr><td>100mm²</td><td>0.45μF/km</td><td>約20m</td><td>約17m</td></tr>
+<tr><td>150mm²</td><td>0.52μF/km</td><td>約17m</td><td>約14m</td></tr>
+</table></div>
+<p class="small">1心の静電容量はSFCCカタログの値（<a href="ac-withstand-test-simulator.html">充電電流のページ</a>と同じ）。3心ぶん・試験電圧10,350V・PASや端末の容量は含まない目安。実際はチェッカーで測った値（PAS込み）で判断する。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>上限を超えそうならリアクトル</b><br>カタログの推奨はDR-1115MH、組合せ機種はDR-1200MHシリーズ <span class="badge official">🟢</span>。リアクトルで補償しても、ケーブルに流れる充電電流そのものは減らない（試験器側の電流が減る）。</div>
+<div class="checkcard"><b>続けて試験するなら10分休む</b><br>10分定格なので、別のバンクやケーブルを続けて試験するときは10分休止 <span class="badge official">🟢</span>。</div>
+<div class="checkcard"><b>電源は10A流しても下がらないところから</b><br>長い延長コードや小さい発電機だと、10A流したときに電圧が下がって試験電圧が上がらないことがある <span class="badge infer">🟡</span>。</div>
+<div class="checkcard"><b>次からの目安</b><br>チェッカーで <b>0.026μF（50Hz）</b>を超えたら、リアクトルを持っていく <span class="badge infer">🟡 自分の目安</span>。</div>
+</div>
+
+<h3 id="ip1110-what">🔬 4. そもそも、耐圧試験は何を見ている？</h3>
+<p>今日の88mAは、ほとんどが<b>充電電流</b>です。高圧ケーブルは、<b>導体と遮へい層が電極、絶縁体がそのあいだ</b>のコンデンサ。遮へい層は接地されているので、電流は 導体 → 絶縁体 → 遮へい層 → 遮へい接地線 → 大地 → 試験器 と一周します。</p>
+<p>絶縁体の悪いところから本当に漏れる電流（抵抗ぶん）は、健全ならμAの単位でごくわずか。しかも充電電流と直角に足し算されるので、多少増えても電流計の値はほとんど変わりません。耐圧試験は<b>「この電圧を10分かけても、絶縁が破れないか」</b>を確かめる試験で、破れると電流が急に増えて試験器が止まります。劣化の具合を見るのは、絶縁抵抗測定などの役割です。<span class="badge infer">🟡 整理</span></p>
+<div class="tool"><b>図で見る</b><br><a href="pas-vt-withstand-simulator.html#basics-cable">ケーブルの中の電流（健全・劣化・絶縁破壊）</a><br><a href="pas-vt-withstand-simulator.html#basics-pas">PASの中の電流（外箱・主接点・ZCT・内蔵VT・負荷側ケーブル）</a></div>
+
+<h3 id="ip1110-vt">🧲 5. VT内蔵PASは、三線短絡で3相一括</h3>
+<p>PASの内蔵VT（SOG制御装置の電源用）は、主要メーカーの取扱説明書では<b>負荷側のU相−V相の間に1台</b>つながっています（6,600/105V・25VA の例）。<span class="badge official">🟢</span></p>
+<p>3相一括なら、U・Vが同じ電圧なのでVTの巻線に電圧はかかりません。ところが<b>U相だけ</b>に試験電圧をかけると、VTが焼けます。</p>
+<h4>なぜ、電圧をかけていないV相のほうへ電流が流れるのか</h4>
+<div class="flow">① V相は開放でも、心線と遮へい層のあいだはコンデンサ<br>↓<br>② V相のコンデンサを充電するには電荷を運ぶ道が要る。V相につながっているのは、U相とのあいだの<b>VTの一次巻線だけ</b><br>↓<br>③ 試験器 → U相 → <b>VTの一次巻線</b> → V相 → V相ケーブルのC → 大地 → 試験器、と一周する<br>↓<br>④ VTのコイル（L）とV相のコンデンサ（C）の直列に10,350Vがかかる</div>
+<div class="eq">VTにかかる電圧 ＝ 10,350V × X<sub>L</sub> ÷（X<sub>L</sub> − X<sub>C</sub>）
+例：38mm²・30m（X<sub>C</sub> ≒ 330kΩ）、X<sub>L</sub>を仮に3.3MΩとすると ≒ 11,500V（定格6,600Vの約1.7倍）</div>
+<p>VTは定格の1.2倍くらいを超えると鉄心が飽和して、X<sub>L</sub>が急に小さくなり、電流が増えます。上限の目安は「V相ケーブルの充電電流」＝ 約31mA。<b>25VAのVTの定格一次電流 約3.8mAの約8倍</b>で、10分間で巻線が焼けます。<span class="badge infer">🟡 計算（X<sub>L</sub>は仮の値）</span></p>
+<div class="checkgrid">
+<div class="checkcard"><b>U相の電流はVTを通らない</b><br>U相のケーブルの充電電流も同時に流れるが、こちらはU相から直接大地へ抜けるのでVTには関係ない。VTを焼くのはV相側だけ。</div>
+<div class="checkcard"><b>VTの二次側の接地は関係ない</b><br>電流は一周できる道がないと流れない。一次と二次は磁気でしかつながっていないので、二次の1点接地は一次電流の道にならない。</div>
+</div>
+<h4>パターン別</h4>
+<div class="table-scroll"><table>
+<tr><th>試験電圧をかける相（残りは開放）</th><th>内蔵VT（U−V間）</th><th>結果</th></tr>
+<tr><td><b>3相一括（三線短絡）</b></td><td>無事</td><td><b>正しい。</b>1回で3相とも試験できる</td></tr>
+<tr><td>U相だけ／V相だけ</td><td><b>焼損のおそれ</b></td><td>間違い</td></tr>
+<tr><td>W相だけ</td><td>無事</td><td>U・Vが試験されない</td></tr>
+<tr><td>U＋V短絡</td><td>無事</td><td>Wが試験されない</td></tr>
+<tr><td>V＋W短絡／U＋W短絡</td><td><b>焼損のおそれ</b></td><td>間違い</td></tr>
+</table></div>
+<p>「U＋V短絡、そのあとW」で分けても無事なのは、<b>VTがU−V間にあると分かっているときだけ</b>。VTがつながる相はメーカー・型式で違うので、取り違えると焼損します。だからメーカーは<b>「三相一括で実施」「一相ごとの試験は行わない」</b>と指示しています。<span class="badge official">🟢</span></p>
+<div class="warning"><strong>「他の相を接地」になってしまう場面</strong><br>停電作業では、検電・放電のあと短絡接地器具で3相の電線を短絡接地します。これを<b>外し忘れたまま</b>1相だけ外して試験電圧をかけると、U相−V相のあいだに試験電圧がそのままかかり、VTが過励磁になります。ほかにも、リアクトルがなく容量が足りないからと1相ずつに分けた結果、VTが焼損してPASが爆発した事例が紹介されています（下の根拠資料）。</div>
+<div class="tool"><b>図で確かめる</b><br><a href="pas-vt-withstand-simulator.html#basics-pas">7パターンの電流の通り道</a><br><a href="pas-vt-withstand-simulator.html#why-s">なぜV相へ流れる？（等価回路）</a><br><a href="pas-vt-withstand-simulator.html#sim">つなぎ方とケーブル長を変えるシミュレーター</a></div>
+<h4>VT単体のとき</h4>
+<p>一次のU・Vを短絡して試験電圧をかけ、二次のu・vを短絡して外箱と一緒に接地。<b>試験が終わったら二次の短絡線を必ず外す</b>（付けたまま受電するとVTが焼ける）。U端子だけにかけると、V端子の先に何がつながっているかで結果が変わる「設備まかせ」の試験になってしまいます。<span class="badge infer">🟡 整理</span> <a href="pas-vt-withstand-simulator.html#flow-vt">→ VT単体の電流の流れ</a></p>
+
+<h3 id="ip1110-others">🧰 6. 3相一括でも気をつけるもの：EVT・LA・制御線</h3>
+<div class="table-scroll"><table>
+<tr><th>もの</th><th>つながり方</th><th>扱い</th></tr>
+<tr><td><b>EVT</b>（接地形計器用変圧器）</td><td>一次はY結線で中性点を接地。巻線は「相と大地の間」</td><td>3相一括でも各巻線（定格 約3,810V）に10,350V＝<b>約2.7倍</b>。三次のオープンデルタにも約520Vが出る。切り離すか、中性点の接地を外す（取扱説明書の指定による） <span class="badge infer">🟡</span></td></tr>
+<tr><td><b>LA内蔵形のPAS</b></td><td>相と大地の間</td><td><b>交流10,350Vの3相一括はできる</b>。ただしAC12kV以上・DC17kV以上はかけられない（戸上電機）、直流耐電圧試験は行わない（日本高圧電気） <span class="badge official">🟢</span></td></tr>
+<tr><td><b>制御線・SOG制御装置</b></td><td>VTの二次側など</td><td><b>全ての制御線を外し、端末を一括接地</b>（日本高圧電気）。SOG制御装置の端子間の耐電圧試験は行わない（戸上電機） <span class="badge official">🟢</span></td></tr>
+</table></div>
+<p class="small"><a href="pas-vt-withstand-simulator.html#flow-evt">→ EVTの電流の流れ</a>　<a href="#evt-zpd-backfeed-20261004">→ 10/4の日誌：電磁形EVTとコンデンサ形ZPD</a></p>
+
+<h3 id="ip1110-questions">🤔 持ち帰った疑問</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>一次電流10.00Aは振り切れ？</b><br>表示範囲を超えたときにどう表示されるか、IP-1110の取扱説明書で確認する。</div>
+<div class="checkcard"><b>CC-50MNの確度</b><br>静電容量の確度と、充電電流の計算に余裕を足しているかを、取扱説明書かメーカーに確認する。</div>
+<div class="checkcard"><b>リアクトルの手配</b><br>今日くらいの長さ（0.028μF）が上限。もう少し長い現場では、どのリアクトルを使えるかを確認しておく。</div>
+<div class="checkcard"><b>VTが2台のPASはある？</b><br>今回確認した2社の取扱説明書はVT 1台（U−V間）。2台のPASがあるなら、型式と結線を確かめる。</div>
+</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>IP-1110単体の上限は0.028μF（50Hz）。今日はちょうどそこだった。チェッカーで0.026μFを超えたらリアクトル。</b></p>
+<p><b>電流計の88mAは、ほとんどが充電電流。耐圧試験は「破れないか」を見る試験。</b></p>
+<p><b>VTは相と相の間。両端を同じ電圧にすれば無事。だから三線短絡で3相一括。</b></p>
+</section>
+
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
+<li><span class="badge official">🟢</span>IP-1110の定格（1kVA・10分定格・10分休止、定格91mA、一次電流計1.00〜10.00A、二次電流計の確度、遮断電流10〜100mA・±20%、推奨リアクトル）：<a href="https://www.musashi-in.co.jp/item/3805/3805.html" target="_blank" rel="noopener">ムサシインテック IP-1110 製品ページ</a>、<a href="https://www.musashi-in.co.jp/catalog_9/PDF/038.pdf" target="_blank" rel="noopener">総合カタログ</a></li>
+<li><span class="badge official">🟢</span>CC-50MNの測定範囲・測定電圧（DC15V）：<a href="https://www.techeyesonline.com/measuring-device/detail/HINCD-00539-CC-50MN/" target="_blank" rel="noopener">テクアイズ CC-50MN</a>。確度は公開資料で確認できませんでした。</li>
+<li><span class="badge official">🟢</span>内蔵VTの接続（負荷側U相−V相）、三相一括、制御線の処置、LA内蔵形の直流耐圧不可：<a href="https://www.nkeco.co.jp/download/manual/PAS-07-B.pdf" target="_blank" rel="noopener">日本高圧電気 取扱説明書（取説-PAS-07）</a></li>
+<li><span class="badge official">🟢</span>VTは負荷側（6,600/105V・25VA）、一相のみの印加はVT・SOG制御装置焼損の原因、LA内蔵形の上限電圧：<a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_103.php" target="_blank" rel="noopener">戸上電機 VT内蔵GR付PAS</a>、<a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_104.php" target="_blank" rel="noopener">VT･LA内蔵GR付PAS</a></li>
+<li>事例：<a href="https://blog.memo-labo.com/?p=3271" target="_blank" rel="noopener">でんきメモ「PASと引込ケーブルの耐圧試験時、１相ずつ行ったら内蔵VT焼損しPASが爆発」</a>、<a href="https://jinden-tool.com/pas-in-vt-withstand-voltage/" target="_blank" rel="noopener">電気屋の気まぐれ忘備録「VT内蔵PASの絶縁耐力試験を１相毎にしてはいけない理由」</a></li>
+<li><span class="badge infer">🟡</span>チェッカーとの差の分析、IP-1110単体の上限静電容量とケーブル長、VTにかかる電圧の式（X<sub>L</sub>は仮の値）、EVTの倍率：自分の計算。</li>
+</ul></div>
+<div class="note">※ 試験器の容量、試験の結線、VT・EVT・LA・制御線の扱いは、機器と型式によって異なります。実際の試験では、試験器・PAS・各機器の取扱説明書、社内手順、作業責任者の指示を確認してください。本記事は自分用に整理した日誌であり、作業手順書ではありません。</div>
+</article>
+<article class="entry" id="leak-search-training-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜研修・絶縁監視と漏電探査</div>
 <h2>絶縁監視と漏電探査の研修に行ってきた。<br>漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</h2>
 <div class="danger audit-preconditions"><strong>この記事について</strong><br>研修で学んだことを、自分の言葉で整理した記録です。研修テキストは社内向けのため、テキストの図・写真・表、社内の基準や運用、システムの操作手順、事故事例の詳細は載せていません。図はすべて自分で描き直しました。数値や定義は、公開されている資料（国の様式、メーカー資料、学会誌）で確認できたものだけを書き、確認できなかったところはそう書いています。<br><strong>活線での測定を含む話です。</strong>実際の作業は、測定器の取扱説明書、社内手順、現場責任者の指示に従います。</div>
@@ -1537,7 +1669,7 @@ Vb ── [過電流側：閉] ── Vc</div></div>
 <div class="tool"><b>PAS電源側をまだ接続しない</b><br>→ 耐圧試験の範囲をPAS＋負荷側高圧ケーブルに限定する。</div>
 <p>この二つは似ているようで、<b>目的が別</b>です。</p>
 
-<div class="tool"><b>🧪 追記（2026.10.07）：VT内蔵PASは3相一括で</b><br>PASにVTが内蔵されているときは、1相ずつ・2相ずつではなく、R・S・Tを短絡して3相一括で試験します。VTは相と相の間につながっているので、3本を同じ電圧にしないとVTに相間の電圧がかかり、過励磁・焼損のおそれがあります。<br>ただし<b>EVT（接地形計器用変圧器）</b>は巻線が相と大地の間につながっているので、3相一括でも各巻線に試験電圧がかかります（定格 約3,810Vの約2.7倍）。EVTは切り離すか、中性点の接地を外します（取扱説明書の指定による）。<br><a href="pas-vt-withstand-simulator.html">→ つなぎ方を変えて確かめる：VT内蔵PAS 耐圧試験シミュレーター</a><br><a href="pas-vt-withstand-simulator.html#flow-evt">→ EVTは3相一括でも危ない（電流の流れの図）</a></div>
+<div class="tool"><b>🧪 追記（2026.10.07）：VT内蔵PASは3相一括で</b><br>PASにVTが内蔵されているときは、1相ずつ・2相ずつではなく、U・V・Wを三線短絡して3相一括で試験します。内蔵VTは相と相の間（主要メーカーの取扱説明書では負荷側のU相−V相の間）につながっているので、両端を同じ電圧にしないとVTの巻線に電流が通り、過励磁・焼損のおそれがあります。<br>EVT（接地形計器用変圧器）は巻線が相と大地の間につながっているので、3相一括でも各巻線に試験電圧がかかります（定格 約3,810Vの約2.7倍）。<br><a href="#withstand-ip1110-20261007">→ くわしくは10/7の日誌：IP-1110で絶縁耐力試験</a><br><a href="pas-vt-withstand-simulator.html">→ 図とシミュレーターで確かめる：VT内蔵PAS 耐圧試験シミュレーター</a></div>
 <section class="memo">
 <h3>🛟 今日のうきわメモ</h3>
 <p>今回改めて確認できたのは、<b>耐圧試験では「何V掛けるか」だけでなく、「どこからどこまで掛けるのか」を結線の段階で明確にすることが大事</b>ということ。</p>
