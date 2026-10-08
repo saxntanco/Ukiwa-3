@@ -19,7 +19,7 @@
 <div class="date">2026.10.07｜継電器試験・IP-R2000</div>
 <h2>IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。<br>「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</h2>
 <div class="danger audit-preconditions"><strong>この記事について</strong><br>ムサシインテック「IP-R2000 マルチリレーテスタ 取扱説明書」（4104-000ST026 第28版）と、富士電機「AUTO.V 取扱説明書」（INB-F8663c）を読んで整理した記録です。「推定」と書いたところは、仕様の数字や手順から自分で読み取ったもので、メーカーが書いていることではありません。実際の試験は、取扱説明書、社内手順、作業責任者の指示に従います。</div>
-<p class="lead">「abトリップと、AC CTと、AC VT…だっけ？」とうろ覚えだったIP-R2000のつまみ。正しくは計器部の<b>CONTACT MODE（接点構造切換スイッチ）</b>で、左の<b>TRIP側に3つ</b>、右の<b>C.CHECK側に3つ</b>、ぜんぶで<b>6ポジション</b>ありました。「AC VT」と覚えていたのは<b>AC.DC.V</b>（電圧トリップ）です。</p>
+<p class="lead">IP-R2000の計器部にある<b>CONTACT MODE（接点構造切換スイッチ）</b>は、左の<b>TRIP側に3つ</b>、右の<b>C.CHECK側に3つ</b>、ぜんぶで<b>6ポジション</b>あります。</p>
 <div class="pillrow"><a class="pill" href="#cm-overview">1 全体像</a><a class="pill" href="#cm-side">2 止める／鳴らす</a><a class="pill" href="#cm-sense">3 何を見ている？</a><a class="pill" href="#cm-voltage">4 AC.DC.Vの境目</a><a class="pill" href="#cm-table">5 試験ごとの使い分け</a><a class="pill" href="#cm-autov">6 AUTO.Vのとき</a><a class="pill" href="#cm-tips">7 迷ったとき・注意</a></div>
 
 <h3 id="cm-overview">🎛️ 1. まず全体像：6つのポジション</h3>
@@ -242,7 +242,7 @@
 <h3>🛟 今日のうきわメモ</h3>
 <p><b>コンタクトモードは6つ。時間を測るならTRIP側、値を読むだけならC.CHECK側。</b></p>
 <p><b>何を見て止めるか：接点の開閉はa/b(AUTO)、電流引外し形OCRの電流はAC.CT、出てくる電圧はAC.DC.V。</b></p>
-<p><b>CB連動とAUTO.Vは、主接点の「閉→開」を見るのでa/b(AUTO)。「AC VT」はなくて、AC.DC.V。</b></p>
+<p><b>CB連動とAUTO.Vは、主接点の「閉→開」を見るのでa/b(AUTO)。</b></p>
 </section>
 <div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
 <li><span class="badge official">🟢</span>接点構造切換スイッチの6ポジションと使い方、検出の仕様（a/b・AC.CT・AC.DC.V）、ブザーとカウンタの表示、接点構造が分からないときの順番、各試験のトリップコードのつなぎ先とモード、所内電源・無停電時の警告：ムサシインテック「IP-R2000 マルチリレーテスタ 取扱説明書」4104-000ST026 第28版 1.2・1.4・1.6・2.2・3.3〜3.7（<a href="https://www.musashi-in.co.jp/item/2000/2000.html" target="_blank" rel="noopener">製品ページ</a>）</li>
