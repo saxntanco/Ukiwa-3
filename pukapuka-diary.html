@@ -15,137 +15,7 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.08</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#air-capacitance-withstand-20261008">空気もコンデンサになる？ 耐圧試験で効いてくる静電容量を「導体－すき間－導体」で全部さがす。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。 「容量が足りない」の正体は、試験器が電流を押し込む力だった。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav><article class="entry" id="air-capacitance-withstand-20261008" data-update-date="2026/10/08">
-<div class="date">2026.10.08｜今日のなんで？・耐圧試験</div>
-<h2>空気もコンデンサになる？<br>耐圧試験で効いてくる静電容量を「導体－すき間－導体」で全部さがす。</h2>
-<div class="danger audit-preconditions"><strong>この記事について</strong><br>一般的な電気の理屈（C＝εrε0A/d、Q＝CV）で、これまでの耐圧試験の記事を整理し直したメモです。「推定」と書いた数値の目安は、自分で計算・見積もりしたもので、メーカーの値ではありません。実際の試験は、試験器・対象機器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
-<p class="lead">8/29の記事で「ケーブルは、芯線－架橋ポリエチレン－金属遮へい層のコンデンサ」と書きました。じゃあ耐圧試験で効いてくるのは、そのコンデンサだけ？ 金属遮へい層と大地の間にも、空気をはさんだコンデンサがあるのでは？ という疑問を整理します。</p>
-<div class="pillrow"><a class="pill" href="#air-answer">1 結論</a><a class="pill" href="#air-why">2 空気がコンデンサ？</a><a class="pill" href="#air-formula">3 式で比べる</a><a class="pill" href="#air-list">4 耐圧試験で効くC</a><a class="pill" href="#air-c2">5 遮へい層－大地</a></div>
-
-<h3 id="air-answer">🎯 1. まず結論</h3>
-<p class="keyline">① コンデンサは「2つの導体が、すき間をはさんで向き合っている」ところなら、どこにでもある。すき間は空気でも真空でもいい。<br>② 耐圧試験で効いてくるのは、そのうち<b>両側に電圧の差がかかっているものだけ</b>。<br>③ 主役はケーブル（芯線－架橋ポリエチレン－遮へい層）。機器・端末・リード線の小さな容量が並列に足される。遮へい層－大地は、接地していれば電圧0なので効かない。</p>
-
-<h3 id="air-why">🫧 2. 「空気がコンデンサになる」がわからない</h3>
-<p>「空気がコンデンサ」と考えると分かりにくくなります。正しくは、<b>2つの導体がコンデンサで、空気はただのすき間</b>です。</p>
-<div class="diagram-card">
-<svg viewBox="0 0 420 230" role="img" aria-label="上の導体Aに＋、下の導体Bに－の電荷があり、空気のすき間をはさんで引き合っている。電荷は金属の表面にたまり、すき間を越えて合流はしない。">
-<rect x="0" y="0" width="420" height="230" rx="14" fill="#06213a"/>
-<defs><marker id="airA" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd27a"/></marker></defs>
-<rect x="70" y="40" width="240" height="22" rx="4" fill="#c9d6e0"/>
-<text x="190" y="57" fill="#06213a" font-size="13" font-weight="800" text-anchor="middle">導体A</text>
-<text x="190" y="80" fill="#ff8f7a" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="10">＋＋＋＋＋＋</text>
-<path d="M100 88 V138 M140 88 V138 M180 88 V138 M220 88 V138 M260 88 V138" stroke="#ffd27a" stroke-width="2" marker-end="url(#airA)"/>
-<text x="190" y="158" fill="#8ed0fa" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="10">－－－－－－</text>
-<rect x="70" y="166" width="240" height="22" rx="4" fill="#c9d6e0"/>
-<text x="190" y="183" fill="#06213a" font-size="13" font-weight="800" text-anchor="middle">導体B</text>
-<path d="M330 62 V166" stroke="#9fc0d4" stroke-width="1.5"/><path d="M324 62 H336 M324 166 H336" stroke="#9fc0d4" stroke-width="1.5"/>
-<text x="344" y="110" fill="#dff4ff" font-size="13" font-weight="800">d</text>
-<text x="344" y="128" fill="#9fc0d4" font-size="11">すき間</text>
-<text x="344" y="143" fill="#9fc0d4" font-size="11">（空気）</text>
-<text x="190" y="214" fill="#cfe3ef" font-size="12" text-anchor="middle">黄色の矢印＝＋と－が引き合う力（電界）。空気も真空も通り抜ける</text>
-</svg>
-</div>
-<div class="checkgrid">
-<div class="checkcard"><b>電荷がたまるのは金属の表面</b><br>片方に＋、もう片方に－を置くと、＋と－は引き合って、すき間をはさんで向き合ったまま止まる。これが「電荷がたまっている」状態。</div>
-<div class="checkcard"><b>引き合う力は、空気ごしに届く</b><br>磁石が空気ごしでも引き合うのと同じ。空気は電気を通さないので、＋と－は合流できずに向き合ったまま。必要なのは「近いけど、つながっていない」だけ。</div>
-</div>
-<p>身近な「空気をはさんだコンデンサ」もあります。</p>
-<ul>
-<li><b>冬の静電気：</b>自分の体と床・大地が、靴底や空気をはさんで電荷をためている。ドアノブに近づくと一気に流れる。</li>
-<li><b>雷：</b>雷雲と地面が、空気をはさんだ巨大なコンデンサ。</li>
-<li><b>静電誘導：</b>停電中の電線でも、隣に生きている電線があると、空気ごしのコンデンサで電圧が乗ってくる。作業前に接地するのは、これを逃がすためでもある。</li>
-</ul>
-
-<h3 id="air-formula">📐 3. C＝εrε0A/d で比べる</h3>
-<p class="eq">C ＝ εr × ε0 × A ÷ d</p>
-<p class="small">C：静電容量 [F]、εr：比誘電率（すき間の材料が真空の何倍ためられるか）[無次元]、ε0：真空の誘電率 約8.85×10⁻¹² [F/m]、A：向き合う面積 [m²]、d：すき間の距離 [m]。</p>
-<p>ε0は<b>「真空」の誘電率</b>です。すき間に何もない真空（εr＝1）でも、Cは ε0A/d の分だけあります。空気のεrはほぼ1なので、真空とほぼ同じ。架橋ポリエチレン（εr＝2.3）をはさむと、同じ形でも2.3倍ためられます。<b>絶縁物は「ためる量を増やす係数」で、絶縁物がないとコンデンサにならないわけではありません。</b></p>
-<div class="table-scroll"><table>
-<tr><th></th><th>ケーブル本体</th><th>機器の空気で絶縁された部分</th></tr>
-<tr><td>すき間の材料（εr）</td><td>架橋ポリエチレン（2.3）</td><td>空気（約1）</td></tr>
-<tr><td>すき間 d</td><td>数mm（絶縁体の厚さ）</td><td>cm単位（絶縁のためにわざと離してある）</td></tr>
-<tr><td>向き合う面積 A</td><td>ケーブル全長ぶん</td><td>充電部まわりだけ</td></tr>
-<tr><td>大きさの目安</td><td>nF〜数十nF<span class="badge infer">🟡 推定</span></td><td>pF〜数百pF<span class="badge infer">🟡 推定</span></td></tr>
-</table></div>
-<p>3つとも同じ向きに効くので、ケーブルのほうがケタ違いに大きくなります。だから「耐圧試験の充電電流 ≒ ケーブルの充電電流」と見て、だいたい合います。</p>
-<details class="tool"><summary><b>ケーブルは平らな板じゃないけど、この式でいい？</b></summary>
-<p>ケーブルは円筒が二重になった形なので、正式には次の式を使います（<a href="ac-withstand-test-simulator.html">充電電流の比較計算</a>もこの式）。</p>
-<p class="eq">C ＝ 2π × εr × ε0 × L ÷ ln(D/d)</p>
-<p class="small">L：ケーブルの長さ [m]、D：絶縁体の外径、d：導体の外径（同じ単位）、ln：自然対数。</p>
-<p>平板の式で「面積が大きい・すき間が薄い・εrが大きいほどCが大きい」とつかむのは問題ありません。ムサシの38mm²の計算例（d＝7.8mm、D＝15.8mm）で、面積を絶縁体の平均の直径でとって平板の式で計算すると、円筒の式との差は約4%でした。<span class="badge infer">🟡 自分で計算</span></p>
-</details>
-
-<h3 id="air-list">🔌 4. 耐圧試験で、どのCが効いてくる？</h3>
-<p>試験回路の中から「導体－すき間－導体」を全部さがして、<b>試験中に両側の電圧に差があるか</b>で分けます。</p>
-<div class="checkgrid grid3">
-<div class="checkcard"><b>◎ 主役（試験電圧がかかる）</b><ul>
-<li><b>ケーブル本体：</b>芯線－架橋ポリエチレン－金属遮へい層</li>
-</ul></div>
-<div class="checkcard"><b>○ 小さく足される（試験電圧がかかる）</b><ul>
-<li><b>端末部：</b>遮へい層をはいだ先の芯線－空気－周りの接地金属</li>
-<li><b>つながっている機器：</b>PAS・断路器・遮断器・母線・がいし・VT一次などの充電部－空気・がいし・樹脂－接地された外箱</li>
-<li><b>試験リード線・試験器の高圧側：</b>リード線－空気－大地</li>
-<li><b>母線などの相間：</b>1相ずつ試験して他の相を接地するとき</li>
-</ul></div>
-<div class="checkcard"><b>× 効かない（両側の電圧が同じ）</b><ul>
-<li><b>遮へい層と大地：</b>接地していれば両側0V（浮いていると効く→5章）</li>
-<li><b>ケーブルの相間：</b>各心にそれぞれ遮へい層があり、間で区切られる</li>
-<li><b>母線などの相間：</b>3相一括なら、どの相も同じ試験電圧</li>
-</ul></div>
-</div>
-<p>並列のコンデンサは足し算なので、試験器から見えるCは「ケーブル＋機器・端末・リード線の小さい分」です。ケーブルが短くて機器が多いと、小さい分の割合が増えます。計算値と実測値がずれる理由のひとつです。<span class="badge infer">🟡 推定</span></p>
-<div class="warning"><strong>容量以外にも流れる電流</strong><br>絶縁物の漏れ電流や誘電損による抵抗分の電流、VTが入っていればその励磁電流もあります（<a href="pas-vt-withstand-simulator.html">VT内蔵PASの耐圧試験シミュレーター</a>）。</div>
-
-<h3 id="air-c2">🧲 5. 遮へい層－大地のコンデンサは「消える」のではない</h3>
-<div class="diagram-card">
-<svg viewBox="0 0 420 260" role="img" aria-label="芯線から遮へい層の間にC1、遮へい層から大地の間にC2がある。遮へい接地線が遮へい層と大地を直接つなぐので、C2の両側はどちらも0Vになり、電荷はたまらない。">
-<rect x="0" y="0" width="420" height="260" rx="14" fill="#06213a"/>
-<text x="16" y="30" fill="#ffd27a" font-size="14" font-weight="800">芯線（試験電圧）</text>
-<path d="M120 40 V80" stroke="#dff4ff" stroke-width="2.5"/>
-<path d="M98 80 H142 M98 92 H142" stroke="#dff4ff" stroke-width="3"/>
-<text x="150" y="91" fill="#dff4ff" font-size="14" font-weight="800">C1</text>
-<text x="178" y="80" fill="#9fc0d4" font-size="12">芯線－架橋ポリエチレン－遮へい層</text>
-<text x="178" y="97" fill="#ffd27a" font-size="12" font-weight="800">試験電圧がかかる</text>
-<text x="178" y="113" fill="#ffd27a" font-size="12" font-weight="800">＝充電電流が流れる</text>
-<path d="M120 92 V134" stroke="#dff4ff" stroke-width="2.5"/>
-<circle cx="120" cy="134" r="4" fill="#dff4ff"/>
-<text x="16" y="130" fill="#dff4ff" font-size="12" font-weight="800">遮へい層</text>
-<path d="M120 134 V168" stroke="#dff4ff" stroke-width="2.5"/>
-<path d="M98 168 H142 M98 180 H142" stroke="#5f7d92" stroke-width="3"/>
-<text x="150" y="179" fill="#9fc0d4" font-size="14" font-weight="800">C2</text>
-<text x="178" y="168" fill="#9fc0d4" font-size="12">遮へい層－シース・空気－大地</text>
-<text x="178" y="185" fill="#8ed0fa" font-size="12" font-weight="800">両側0V</text>
-<text x="178" y="201" fill="#8ed0fa" font-size="12" font-weight="800">＝電荷がたまらない</text>
-<path d="M120 180 V218" stroke="#dff4ff" stroke-width="2.5"/>
-<path d="M120 134 H80 V218 H120" stroke="#7fdc9a" stroke-width="3" fill="none"/>
-<text x="16" y="176" fill="#7fdc9a" font-size="12" font-weight="800">遮へい</text>
-<text x="16" y="192" fill="#7fdc9a" font-size="12" font-weight="800">接地線</text>
-<path d="M102 218 H138 M108 226 H132 M115 234 H125" stroke="#dff4ff" stroke-width="2"/>
-<text x="146" y="232" fill="#dff4ff" font-size="12" font-weight="800">大地（0V）</text>
-</svg>
-</div>
-<p>C2は、接地してもしなくても<b>物理的にはずっとあります</b>。形が変わらないので、C＝εrε0A/d の値も変わりません。接地で変わるのは、C2の両側（遮へい層と大地）が接地線でつながって、どちらも0Vになることです。</p>
-<p class="keyline">Q ＝ C × V で V＝0 → 電荷0、電流0。<br>C2は「消える」のではなく、「電圧がかからないので効いてこない」。</p>
-<p>遮へい層が浮いていると、C1とC2が直列になってC2も効いてきます。遮へい層の電位が上がって、主絶縁に所定の電圧がかからなくなる話は、<a href="#cable-capacitance-shield-ground-20260829">8/29の記事</a>と<a href="ukiwamemo_kyounonande_taiatsu_reactor_ic.html#floating">耐圧試験の電流の通り道（8章）</a>に書きました。</p>
-<div class="warning"><strong>C2は「浮遊容量」だけど、小さいとは限らない</strong><br>
-<b>空中で周りの金属から離れている：</b>dが大きくεrも約1なので、C2はC1よりずっと小さい（C1の1/10以下くらい）。<span class="badge infer">🟡 推定</span><br>
-<b>金属管の中・濡れた管路・直接埋設：</b>遮へい層と大地の間がシース（ビニル）の数mmだけになることがある。ビニルのεrは架橋ポリエチレンより大きいので、C2がC1と同じくらいの大きさになることもありうる。<span class="badge infer">🟡 推定</span><br>
-C2が大きいと、遮へい層の接地を忘れても合成容量 C1×C2÷(C1＋C2) はC1とあまり変わらず、<b>充電電流がほとんど減らない</b>ことがあります。「電流が計算より小さい→接地忘れを疑う」は正しいけれど、<b>「電流が計算どおり→遮へい接地もOK」とは言えません</b>。遮へい層の接地は、目と導通で確認します。</div>
-
-<section class="memo">
-<h3>🛟 今日のうきわメモ</h3>
-<p><b>コンデンサは「導体－すき間－導体」。すき間は空気でも真空でもいい。空気がコンデンサなのではなく、空気をはさんだ2つの導体がコンデンサ。</b></p>
-<p><b>耐圧試験で効くのは、両側に電圧の差がかかっているCだけ。主役はケーブル、機器・端末・リード線の小さなCが並列に足される。</b></p>
-<p><b>遮へい層－大地のCは、接地すると消えるのではなく、両側0Vで効かなくなる。電流が計算どおりでも、遮へい接地の確認は別にする。</b></p>
-</section>
-<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
-<li><span class="badge field">一般理論</span>平行平板コンデンサ C＝εrε0A/d、同軸円筒 C＝2πεrε0L/ln(D/d)、Q＝CV、並列は足し算・直列は C1C2/(C1＋C2)。</li>
-<li><span class="badge official">🟢</span>38mm²の計算例（d＝7.8mm、D＝15.8mm、εr＝2.3）：ムサシインテック「R-1115K 取扱説明書」4.2.3（<a href="https://www.musashi-in.co.jp/manual/r-1115k_02.pdf#page=35" target="_blank" rel="noopener">PDF</a>）</li>
-<li><span class="badge infer">🟡</span>ケーブルと機器の空気部分の容量の大きさの目安、平板の式と円筒の式の差（約4%）、設置状態によるC2の大きさ、計算値と実測値がずれる理由：自分の計算・推定。実際の値は、ケーブル構造・長さ・設置状態・つながっている機器で変わります。</li>
-<li>関連：<a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？（8/29）</a>、<a href="ukiwamemo_kyounonande_taiatsu_reactor_ic.html">耐圧試験の電流は、どこを通って戻る？</a>、<a href="ac-withstand-test-simulator.html">充電電流の比較計算</a></li>
-</ul></div>
-<div class="note">※ 本記事は自分用に整理した日誌であり、作業手順書ではありません。実際の試験は、試験器・対象機器の取扱説明書、社内手順、作業責任者の指示に従ってください。</div>
-</article>
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。 「容量が足りない」の正体は、試験器が電流を押し込む力だった。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
 <article class="entry" id="ipr2000-contact-mode-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜継電器試験・IP-R2000</div>
 <h2>IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。<br>「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</h2>
@@ -1816,7 +1686,7 @@ C2が大きいと、遮へい層の接地を忘れても合成容量 C1×C2÷(C1
       │   │   │   │   │   │   │
 遮へい層━━━━━━━━━━━━━━━━━━━━━━━━━━━━●</div>
 <p>全長に分布している小さな静電容量は、電気的にはほぼ並列なので、</p>
-<div class="eq">Ctotal = C1 + C2 + C3 + …</div>
+<div class="eq">Ctotal = C + C + C + …（図の小さなCを全部足す）</div>
 <p>となります。単位長さ当たりの静電容量を <b>c [F/m]</b>、長さを <b>L [m]</b> とすれば、</p>
 <div class="eq">Ctotal = c × L</div>
 <p>です。メーカーのケーブルカタログにも、導体サイズごとの参考静電容量が <b>µF/km</b> で示されています。</p>
@@ -1861,6 +1731,8 @@ C2が大きいと、遮へい層の接地を忘れても合成容量 C1×C2÷(C1
 <div class="eq">芯線 ── C1 ── 金属遮へい層 ───── 大地
                          ↑
                       導体で直結</div>
+<div class="keyline">C2がなくなるわけではありません。遮へい層も大地も0Vなので、<b>C2の両側に電圧の差がありません</b>。Q＝C×V で V＝0 なので、C2には電荷がたまらず、電流も流れません。つまり<b>C2はコンデンサとして働きません</b>。</div>
+<p>電気力線で見ると、芯線から出た電気力線は絶縁体を通って、すべて遮へい層で止まります。接地された導体の外側には電界ができない（<b>静電遮蔽</b>）ので、遮へい層の外にあるシースや空気は、耐圧試験の充電電流に関係しません。<span class="badge official">🟢 大学講義資料・技術資料</span></p>
 <p>そのため、芯線から大地を見た主な容量はC1、つまり<b>芯線－絶縁体－金属遮へい層</b>になります。ケーブル単体で芯線－遮へい層を測った値と、設備で遮へい層を接地して芯線－アースを測った値が基本的に近くなるのはこのためです。</p>
 <p class="note">※実測値は端末部、測定リード、他相の処理、周囲金属、接続機器などの影響で多少変わります。</p>
 
@@ -1880,7 +1752,7 @@ C2が大きいと、遮へい層の接地を忘れても合成容量 C1×C2÷(C1
 <p>静電容量 <b>C</b> を測ったら、それで終わりではありません。試験電圧と周波数を使って、耐圧時に流れるはずの充電電流を先に計算しておくと、結線や接地の異常に気づくための強いチェックになります。</p>
 <div class="eq">Ic = 2π f C V</div>
 <p>ムサシインテック R-1220K の取扱説明書にも、この式による充電電流の計算方法とケーブルの参考静電容量が掲載されています。つまり、<b>「事前にCから予想電流を出し、試験中の電流と見比べる」</b>という考え方は、試験器の仕組みに沿った確認方法です。</p>
-<div class="warning"><strong>計算したIcと実測電流が大きくずれていたら、「何かがおかしい」と考える。</strong><br>そのまま数字だけ記録するのではなく、遮へい層接地、試験範囲、結線、ケーブル長・種類、周波数・印加電圧、計器の読み方などを再確認します。特に金属遮へい層が接地されていなければ、前述の容量分圧によって試験器から見える電流が小さくなる方向に働きます。</div>
+<div class="warning"><strong>計算したIcと実測電流が大きくずれていたら、「何かがおかしい」と考える。</strong><br>そのまま数字だけ記録するのではなく、遮へい層接地、試験範囲、結線、ケーブル長・種類、周波数・印加電圧、計器の読み方などを再確認します。特に金属遮へい層が接地されていなければ、12章の容量分圧によって試験器から見える電流が小さくなる方向に働きます。ただし、どれだけ小さくなるかはC2の大きさ（設置状態）しだいなので、<b>電流が計算どおりでも、遮へい層の接地は目と導通で別に確認</b>します。<span class="badge infer">🟡 推定</span></div>
 
 <h4>リアクトルを使わない場合</h4>
 <div class="eq">計算値 Ic  ≒  R-1220K 二次側電流計の値</div>
@@ -1915,11 +1787,11 @@ A1 ≒ |200 − 165|
 <h4>計算値と実測値が合わないときの確認ポイント</h4>
 <table><thead><tr><th>現象</th><th>確認すること</th></tr></thead><tbody>
 <tr><td>実測が計算よりかなり小さい</td><td>金属遮へい層の接地忘れ・接触不良、試験対象が途中で切り離されていないか、電圧・周波数、容量測定条件、電流計の経路</td></tr>
-<tr><td>実測が計算よりかなり大きい</td><td>想定外のケーブル・機器まで接続されていないか、ケーブル長・種類の取り違え、漏れ・損失成分、不要な接地経路</td></tr>
+<tr><td>実測が計算よりかなり大きい</td><td>想定外のケーブル・機器まで接続されていないか、ケーブル長・種類の取り違え、漏れ・損失成分</td></tr>
 <tr><td>A1が想定より大きい（リアクトル使用）</td><td>リアクトルの結線、台数・定格、50/60Hz、補償量、接続不良</td></tr>
 <tr><td>電流計の値だけ不自然</td><td>計器レンジ、コード接続、試験器本体の不要な接地・接触、計器回路の分流</td></tr>
 </tbody></table>
-<p class="note">※R-1220K取説では、トランス部筐体を大地から絶縁して使用するよう指定されており、筐体が大地に接触すると二次側電流計が正常に動作しない場合があると明記されています。またDR-1220MH取説では、電流計回路に分流が生じると正しい電流表示ができない旨が記載されています。</p>
+<p class="note">※R-1220K取説では、トランス部筐体を大地から絶縁して使用するよう指定されており、筐体が大地に接触すると二次側電流計が正常に動作しない場合があると明記されています。またDR-1220MH取説では、内蔵アレスターが導通状態になると電流計と並列に分流され、正しい電流表示ができない旨が記載されています。</p>
 
 <h3>11. 正常な耐圧試験では遮へい層を大地電位に固定する</h3>
 <div class="flow">耐圧試験器<br>↓<br>芯線（試験電圧）<br>↓<br>ケーブル絶縁体<br>↓<br><b>金属遮へい層（接地・0V側）</b><br>↓<br>接地系統<br>↓<br>試験器の戻り側</div>
@@ -1948,15 +1820,15 @@ Ceq &lt; C1</div>
 <p>本当に問題なのは<b>電流の大小ではなく、遮へい層の電位が0Vに固定されないこと</b>です。</p>
 <div class="flow">芯線：試験電圧<br>↓<br>C1<br>↓<br>遮へい層：？？？V<br>↓<br>C2<br>↓<br>大地：0V</div>
 <p>例えば遮へい層の電位が上昇すれば、芯線に10kVを印加していても、ケーブル主絶縁にかかる電圧は10kVより小さくなります。これでは<b>「主絶縁に所定電圧をかけた」ことを保証できず、正しい耐圧試験として評価できません。</b></p>
-<p><span class="badge official">技術資料</span> 日本電力ケーブル接続技術協会（JCAA）も、遮へい層の接地が不確実だと遮へい層に誘導電圧が発生し、近接する接地物へ充電電流が流れようとして、火災・感電の原因になり得ると注意喚起しています。実際に、遮へい層が接地されていなかった終端部で放電・焼損に至った事故事例も公開されています。</p>
+<p><span class="badge official">技術資料</span> 日本電力ケーブル接続技術協会（JCAA）も、遮へい層の接地が不確実だと遮へい層に誘導電圧が発生し、近接する接地物へ充電電流が流れようとして、火災・感電の原因になり得ると注意喚起しています。実際に、施工時に傷ついた接地線が使用中に断線し、充電電流がゴムスペーサを通ってブラケットへ流れ、ゴムスペーサが炭化・焼損した事故事例も公開されています。</p>
 
-<h3 id="cable-cap-grounding">12. 現場でいう「シース接地」は何を接地している？</h3>
+<h3 id="cable-cap-grounding">13. 現場でいう「シース接地」は何を接地している？</h3>
 <p>6.6kV CV/CVTで、実際に接地するのは<b>外側のビニルシースそのものではなく、内部の金属遮へい層</b>です。</p>
 <div class="eq">金属遮へい層（銅テープ等） ← 接地する導体
 ↓
 シース（ビニル等）          ← 外側の絶縁・保護外被</div>
 <p>現場で「シースアース」「シース接地」と呼ばれていても、構造としては<b>金属遮へい層の接地</b>と理解するほうが正確です。</p>
-<p><span class="badge official">規程・技術資料</span> 高圧ケーブルの遮へい層にはD種接地工事が必要とされます。JESCでは、高圧機器のA種接地とケーブル遮へい層側の接地を連接し、合成抵抗をA種接地抵抗値以下にする方式も規定されています。</p>
+<p><span class="badge official">規程・技術資料</span> 高圧ケーブルの遮へい層（ケーブルの被覆に使用する金属体）には接地工事が必要です。種類は施設場所で変わり、<b>地中電線路ではD種</b>（電技解釈 第123条）、<b>高圧屋内配線のケーブル工事ではA種</b>、ただし接触防護措置を施す場合はD種でよい（電技解釈 第168条）とされています。JESCでは、高圧機器のA種接地とケーブル遮へい層側の接地を連接し、合成抵抗をA種接地抵抗値以下にする方式も規定されています。</p>
 
 <h3>14. 片端接地・両端接地は勝手に決めない</h3>
 <p>需要家の引込用高圧ケーブルでは、一般に片端接地が採用されます。JCAAの資料では、</p>
@@ -1979,6 +1851,7 @@ Ceq &lt; C1</div>
 <tr><td>ケーブル単体でも容量は測れる？</td><td>芯線－金属遮へい層なら測れる。大地は不要。</td></tr>
 <tr><td>なぜ片端で全長分を測れる？</td><td>芯線・遮へい層が全長につながり、分布容量が並列に足されるから。</td></tr>
 <tr><td>遮へい層を接地すると？</td><td>遮へい層が大地電位になり、芯線－遮へい層容量を対地容量として扱える。</td></tr>
+<tr><td>遮へい層－大地（シース・空気）の容量は効く？</td><td>接地していれば両側0Vで電圧差がないので、<b>働かない</b>。遮へい層の外に電界はできない。</td></tr>
 <tr><td>「浮いている」とは？</td><td>物理的ではなく、電気的にどこにも接続されず電位が固定されていない状態。</td></tr>
 <tr><td>遮へい層非接地で耐圧すると？</td><td>容量分圧で遮へい層電位が上がり、主絶縁に所定電圧がかかった保証がなくなる。危険。</td></tr>
 <tr><td>遮へい層を接地しないと充電電流は？</td><td><b>小さくなる。C1とC2が直列となり、合成容量が小さくなるため。</b></td></tr>
@@ -1991,7 +1864,7 @@ Ceq &lt; C1</div>
 <section class="memo"><h3>🛟 覚え方</h3>
 <p><b>迷ったら「導体－絶縁体－導体」に分解する。</b></p>
 <p>芯線 → 絶縁体 → 金属遮へい層。これがケーブル本体のコンデンサ。</p>
-<p>金属遮へい層を接地すれば「大地電位の導体」になる。遮へい層と大地の間の「導体－絶縁体－導体」（浮遊容量）は、接地してもなくなるわけではなく、両側が0Vになるので効かなくなる。接地しなければ、そこに電圧がかかって効いてくる（<a href="#air-capacitance-withstand-20261008">10/8の記事</a>）。</p>
+<p>金属遮へい層を接地すれば「大地電位の導体」になる。遮へい層と大地の間（C2）は、両側とも0Vで電圧の差がないので、コンデンサとして働かない。接地を忘れると、C2に電圧がかかって効いてくる。</p>
 <p>この考え方だけで、静電容量測定・充電電流・耐圧試験・遮へい層接地が一本につながる。</p>
 </section>
 
@@ -1999,6 +1872,8 @@ Ceq &lt; C1</div>
 <p><b>ケーブル構造・参考静電容量</b><br><a href="https://www.swcc.co.jp/sfcc/products/detail/sfcc014_2041.html" target="_blank" rel="noopener">SFCC / SWCC「6600V CV・CVT」製品・仕様資料</a></p>
 <p><b>遮へい層接地・片端/両端接地</b><br><a href="https://www.jpcaa.or.jp/faq.html" target="_blank" rel="noopener">日本電力ケーブル接続技術協会（JCAA）FAQ「端末の接地のとり方」</a><br><a href="https://www.jpcaa.or.jp/pdf/gijyutu/technical5_wtt.pdf" target="_blank" rel="noopener">JCAA「高圧ケーブルしゃへい層の接地の必要性」</a></p>
 <p><b>遮へい層接地不良の危険・事故事例</b><br><a href="https://www.jpcaa.or.jp/pdf/gijyutu/technical2_wtt.pdf" target="_blank" rel="noopener">JCAA「電力ケーブル接続部を安全にお使い頂くために（施工・工事編その2）」</a></p>
+<p><b>静電遮蔽・静電容量の基本</b><br><a href="https://ocw.nagoya-u.jp/files/261/Amano_LN8.pdf" target="_blank" rel="noopener">名古屋大学OCW 天野浩「電磁気学Ⅰ 第9回」導体、金属による静電遮蔽、アースの意味</a><br><a href="https://www-het.phys.sci.osaka-u.ac.jp/~tanaka/emIge/2019/Section2_8.pdf" target="_blank" rel="noopener">大阪大学 田中実「電磁気学詳論I 2.8 コンデンサー」</a><br><a href="https://electrical-engineering-portal.com/shielding-of-power-cables" target="_blank" rel="noopener">Electrical Engineering Portal「Shielding of power cables」</a>（遮へい層が電界を内側に閉じ込める）</p>
+<p><b>遮へい層の接地工事の種類</b><br>電気設備の技術基準の解釈 第123条（地中電線の被覆金属体等の接地）・第168条（高圧配線の施設）</p>
 <p><b>連接接地</b><br><a href="https://www.jesc.gr.jp/jesc-assent/quotation/jesc_e2019_20.html" target="_blank" rel="noopener">JESC E2019「高圧ケーブルの遮へい層による高圧用機器の連接接地」</a></p>
 <p><b>耐圧時の充電電流・一次/二次・リアクトル</b><br>
 <a href="https://www.musashi-in.co.jp/manual/r-1220k_01.pdf" target="_blank" rel="noopener">ムサシインテック「R-1220K 取扱説明書」</a><br>
