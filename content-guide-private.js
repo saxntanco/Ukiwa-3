@@ -133,6 +133,18 @@ window.UkiwaPrivateContents = [
     ]
   },
   {
+    "path": "prize-encyclopedia.html",
+    "title": "賞の図鑑",
+    "category": "学習・遊び",
+    "description": "ノーベル賞・フィールズ賞・アーベル賞・チューリング賞・京都賞・日本国際賞などを解説つきで。最新の受賞者と日本人受賞者。",
+    "tags": "ノーベル賞 フィールズ賞 アーベル賞 チューリング賞 ラスカー賞 京都賞 日本国際賞 受賞者",
+    "related": [
+      "hidden-menu.html",
+      "island-game.html",
+      "denken-study.html"
+    ]
+  },
+  {
     "path": "island-game.html",
     "title": "幻想の島の図鑑",
     "category": "学習・遊び",
