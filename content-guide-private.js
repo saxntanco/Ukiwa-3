@@ -169,6 +169,18 @@ window.UkiwaPrivateContents = [
     ]
   },
   {
+    "path": "big-science.html",
+    "title": "巨大な実験装置の図鑑",
+    "category": "学習・遊び",
+    "description": "アイスキューブ・スーパーカミオカンデ・LHC・ITER・ジェイムズ・ウェッブ・富岳などの大きさと成果。",
+    "tags": "実験装置 アイスキューブ スーパーカミオカンデ ハイパーカミオカンデ KAGRA LIGO LHC ITER ジェイムズウェッブ すばる ALMA SPring-8 J-PARC 富岳",
+    "related": [
+      "library.html",
+      "prize-encyclopedia.html",
+      "hidden-menu.html"
+    ]
+  },
+  {
     "path": "island-game.html",
     "title": "幻想の島の図鑑",
     "category": "学習・遊び",
