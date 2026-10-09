@@ -4,9 +4,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const read = p => JSON.parse(fs.readFileSync(path.join(root, p), 'utf8'));
-test('31 page-specific lessons have usable examples, valid answers, and source links', () => {
+test('32 page-specific lessons have usable examples, valid answers, and source links', () => {
   const index = read('learning-guides/index.json');
-  assert.equal(Object.keys(index).length, 31);
+  assert.equal(Object.keys(index).length, 32);
   for (const protectedPage of ['ac-withstand-test-simulator.html', 'ac-withstand-test-simulator (1).html', 'ukiwamemo_kyounonande_taiatsu_reactor_ic.html']) assert.ok(!Object.hasOwn(index, protectedPage));
   for (const [page, file] of Object.entries(index)) {
     assert.ok(fs.existsSync(path.join(root, page)), page);

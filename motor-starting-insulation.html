@@ -1,0 +1,68 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#031326"><title>始動方式別 絶縁抵抗は何本当てる？｜うきわメモ</title><style>
+:root{--bg:#031326;--p:#071f3a;--p2:#0a2949;--line:#2b5d82;--text:#f7fbff;--muted:#abc9dc;--cyan:#5ecbff;--gold:#f0c75f;--green:#8fe09d;--orange:#ffab65;--red:#ff8585}*{box-sizing:border-box}body{margin:0;background:linear-gradient(var(--island-bg-ffffff-100,#ffffff),var(--island-bg-ffffff-100,#ffffff) 44%,var(--island-bg-ffffff-100,#ffffff));color:var(--island-fg-294d62-100,#294d62);font-family:"Hiragino Sans","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.7}a{color:inherit;text-decoration:none}.top{position:sticky;top:0;z-index:30;background:var(--island-bg-ffffff-92,rgba(255,255,255,.92));backdrop-filter:blur(14px);border-bottom:1px solid var(--island-line-cbdbe4-100,#cbdbe4)}.in{max-width:1140px;margin:auto;padding:0 18px}.top .in{height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px}.hero{padding:52px 0 25px}.hero h1{font-size:clamp(34px,6.5vw,60px);line-height:1.12;margin:7px 0 12px}.hero p{max-width:820px}.k{font-size:11px;font-weight:1000;letter-spacing:.12em}.safe{padding:14px 16px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:14px;background:var(--island-bg-f3f6f8-100,#f3f6f8);color:var(--island-fg-79571b-100,#79571b);font-size:13px}.card{padding:18px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:18px;background:var(--island-bg-ffffff-100,#ffffff);margin:24px 0}.card h2{margin-top:4px;font-size:clamp(24px,4vw,34px);line-height:1.35}.card h3{margin-top:0}.card a{text-decoration:underline}.card details{padding:14px 0;border-top:1px solid var(--island-line-cbdbe4-100,#cbdbe4)}.card summary{font-weight:700;cursor:pointer}.plain-answer{border-left:4px solid #168aa5;padding:14px 18px;background:var(--island-bg-f3f6f8-100,#f3f6f8);border-radius:8px}.note{font-size:13px}.footer{margin-top:36px;padding:25px 0 46px;border-top:1px solid var(--island-line-cbdbe4-100,#cbdbe4);font-size:11px}button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #168aa5;outline-offset:4px}section[id]{scroll-margin-top:80px}
+.learning-path ol{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 18px;padding-left:24px;margin:10px 0 0}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.rule{padding:14px 16px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:14px;background:var(--island-bg-f3f6f8-100,#f3f6f8)}.rule b{display:block;font-size:17px;margin-bottom:4px}.rule .ico{font-size:22px;display:block}
+.fig-wrap{overflow-x:auto;margin:14px 0 6px}.fig-wrap svg{display:block;width:100%;min-width:640px;height:auto;background:#f8fafc;border:1px solid #ccd7df;border-radius:16px;fill:#1f3a4f}.fig-wrap svg text{font-family:inherit;font-size:16px}
+.start-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0 4px}.start-tabs button{font:inherit;color:inherit;background:var(--island-bg-ffffff-100,#fff);border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:12px;padding:10px 12px;cursor:pointer;text-align:left}.start-tabs button[aria-pressed=true]{box-shadow:inset 0 0 0 2px #168aa5;font-weight:700}
+#start-answer h3{font-size:23px;margin:14px 0 4px}.badges{display:flex;flex-wrap:wrap;gap:8px}.badge{display:inline-block;padding:3px 12px;border-radius:999px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);font-weight:700}.badge.strong{box-shadow:inset 0 0 0 2px #168aa5}
+.table-wrap{overflow-x:auto}.quick-table{width:100%;min-width:720px;border-collapse:collapse}.quick-table th,.quick-table td{text-align:left;vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--island-line-cbdbe4-100,#cbdbe4)}.quick-table td:nth-child(3){font-weight:700;white-space:nowrap}
+.steps li{margin:12px 0}.refs li{margin:12px 0}.refs small{display:block}
+@media(max-width:760px){.rules{grid-template-columns:1fr}.start-tabs{grid-template-columns:1fr 1fr}.learning-path ol{grid-template-columns:1fr 1fr;font-size:14px}.hero{padding-top:30px}}
+</style>
+<link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="visual-learning.css?v=1">
+<meta name="description" content="直入れ・正逆・スターデルタ・リアクトル・コンドルファ・巻線形・インバーター。停止中につながっている「島」を数えて、マグネット二次側の絶縁抵抗測定で当てる点を決める。"></head><body><header class="top"><div class="in"><a href="index.html"><b>🛟 うきわメモ</b></a><a href="insulation-resistance-principle.html#motor-measurement">← 絶縁抵抗の原理</a></div></header><main class="in">
+<section class="hero"><span class="k">MOTOR CIRCUIT × INSULATION RESISTANCE</span><h1>マグネットの二次側、<br>何本当てればいい？</h1><p>直入れなら1本、スターデルタなら3本……と覚える前に。<b>停止して接触器が全部開いたとき、電気的につながっている「島」がいくつあるか</b>を数えれば、どの始動方式でも当てる点が決まります。</p></section>
+<div class="safe"><b>安全上の前提：</b>絶縁抵抗測定は、無電圧・切離し・誤投入防止・残留電荷の放電確認が前提です。このページは回路のつながりから測定範囲を考える教材で、試験結線図や操作手順ではありません。試験電圧・測定箇所・判定は、設備の図面、メーカーの取扱説明書、社内手順、責任者の作業計画を優先してください。</div>
+<nav class="card learning-path" aria-label="このページの順番"><b>この順番で読むと、現場の「何本？」に答えられます。</b><ol><li><a href="#islands">島の数え方</a></li><li><a href="#one-point">1本で済むとき</a></li><li><a href="#start-methods">始動方式別の図</a></li><li><a href="#quick-table">早見表</a></li><li><a href="#field-steps">現場での確かめ方</a></li><li><a href="#refs">図で学べるサイト</a></li></ol></nav>
+
+<section class="card" id="islands"><span class="k">01 考え方</span><h2>数えるのは、マグネットの数ではなく「島」。</h2><p class="plain-answer"><b>対地の絶縁抵抗なら、島1つにつき1点。</b><br>LINE側を当てた点と、直流的につながっている範囲だけに試験電圧が届きます。</p>
+<div class="rules"><div class="rule"><span class="ico" aria-hidden="true">✂</span><b>開いた接点は島を分ける</b>接触器・ブレーカー・スイッチが開いていれば、その両側は別の島。</div><div class="rule"><span class="ico" aria-hidden="true">🔗</span><b>巻線や抵抗は島をつなぐ</b>モーター巻線、サーマルのヒーター、リアクトル、単巻変圧器、始動抵抗は、直流では数Ω程度の導体。MΩを測るメガーから見れば導線と同じです。</div><div class="rule"><span class="ico" aria-hidden="true">⛔</span><b>電子機器は数えずに切り離す</b>インバーター、ソフトスタータ、サーミスタ等の検出回路は、島として扱わず、取説の指定で区分します。</div></div>
+<details><summary>交流をかけて XL＝2πfL で測ることはできない？</summary><p>邪魔になるのはXLよりも<b>静電容量</b>です。巻線のXLは50Hzでもせいぜい数Ω〜数十Ω程度で、MΩの世界から見れば巻線はほぼ素通りです。困るのは巻線と鉄心・外箱の間の静電容量で、交流では Xc＝1/(2πfC) を通る電流が流れ続けます。計器はそれを「絶縁を漏れた電流」と区別できず、絶縁抵抗が実際より低く見えてしまいます。</p><p>直流なら、容量を充電する電流は時間とともに減り、残るのは主に絶縁を漏れる電流です。絶縁抵抗計が直流を使うのはこのためです。なお、通電中に交流の漏れ電流から抵抗分（Ior）だけを取り出す方法は、<a href="insulation-monitoring-test.html">集合形絶縁監視の教材</a>で扱っています。</p></details>
+<details><summary>1点で測った値は「各相の値」？</summary><p>いいえ。島の中の対地漏れ経路が並列に入った<b>合成値</b>です。100MΩの経路が3つなら約33MΩ。どの相が悪いかは、この1回だけでは分かりません。詳しくは<a href="insulation-resistance-principle.html#read-result">絶縁抵抗の原理：結果の読み方</a>へ。</p></details></section>
+
+<section class="card" id="one-point"><span class="k">02 1本で済むとき</span><h2>マグネット1個とサーマル。<br>その先がモーターなら、たいてい1点。</h2><p>サーマルが付いていれば、負荷は三相モーターの可能性が高い。モーターの中で3相がY結線かΔ結線でつながっていれば、<b>1相に当てるだけで、巻線を通って三相分に試験電圧が届きます。</b>この推定は現場の手がかりとして有効です。</p><p>ただしサーマル自身は3相をつないでいません（各相が別々に通るだけ）。つながる理由は、その先の巻線の結線です。だから次の3つがそろって初めて「1点でよい」と言えます。</p><ol class="steps"><li><b>負荷が固定結線のモーター</b>：3本口出し、または端子箱の短絡片でY/Δに固定されている。</li><li><b>途中に開いた接点・断線がない</b>：手元スイッチ、断線、外した配線がない。</li><li><b>別の負荷が混ざっていない</b>：ヒーター、電子機器、別回路のブレーキなどが同じ二次側にない。</li></ol>
+<p class="plain-answer"><b>確かめ方：テスターでU–V・V–W・W–Uの導通を見る。</b><br>無電圧を確認したあと、3組とも巻線抵抗程度（数Ω前後）で導通していれば、3相は1つの島です。どこかが開放なら、島が割れています。</p>
+<div class="fig-wrap" id="one-figure"></div>
+<p class="note">Y結線で1つの巻線が断線すると、その端子だけが孤立した島になります。Δ結線なら1つの巻線が断線しても、残り2つの巻線で3端子はつながったままです（断線自体は別の不良として扱います）。</p></section>
+
+<section class="card" id="start-methods"><span class="k">03 始動方式別</span><h2>方式を選ぶと、停止中の島と当てる点が出ます。</h2><p>図は停止中・すべての接触器が開いた状態を、測定範囲が分かるように単純化した概念図です。色の違う線が別の島で、線の近くに「島A」などの名前も書いています。①②③はLINE側を当てる点の例です。</p><nav class="start-tabs" id="start-tabs" aria-label="始動方式を選ぶ"></nav><p class="note">小さい画面では図を左右にスクロールできます。</p><div class="fig-wrap" id="start-figure"></div><div id="start-answer" aria-live="polite"></div></section>
+
+<section class="card" id="quick-table"><span class="k">04 早見表</span><h2>方式と、見落としやすい島。</h2><div class="table-wrap"><table class="quick-table"><thead><tr><th>始動方式・回路</th><th>停止中の島</th><th>当てる点の例</th><th>見落としやすいところ</th></tr></thead><tbody>
+<tr><td><a href="#start-methods" data-open="dol">直入れ（MC＋THR）</a></td><td>1つ（巻線で3相がつながる）</td><td>1点</td><td>途中の断線・手元スイッチ。短絡片を外した6本口出し</td></tr>
+<tr><td><a href="#start-methods" data-open="rev">正逆（MCF・MCR）</a></td><td>1つ</td><td>1点</td><td>MCの数で数えない。負荷が2台なら別</td></tr>
+<tr><td><a href="#start-methods" data-open="yd3">スターデルタ 3コンタクタ</a></td><td>3つ＋スター点の渡り線</td><td>3点</td><td>V・W巻線の測り残し。MCSの渡り線は届かない</td></tr>
+<tr><td><a href="#start-methods" data-open="yd2">スターデルタ 2コンタクタ</a></td><td>3つ＋渡り線</td><td>3点</td><td>MCMがない。ブレーカー開放が先。停止中も巻線は充電</td></tr>
+<tr><td>クローズドトランジション Y–Δ</td><td>図面で確認</td><td>図面で決める</td><td>抵抗器と接触器が増える。抵抗器の接続先で島が変わる</td></tr>
+<tr><td><a href="#start-methods" data-open="reactor">リアクトル・一次抵抗</a></td><td>1つ（リアクトル・抵抗込み）</td><td>1点</td><td>値が低いときはリアクトルとモーターを切り分け</td></tr>
+<tr><td><a href="#start-methods" data-open="kondorfer">コンドルファ・補償器</a></td><td>1つ（変圧器込み）＋中性点の渡り線</td><td>1点</td><td>変圧器巻線を含んだ値。中性点側の渡り線</td></tr>
+<tr><td><a href="#start-methods" data-open="wound">巻線形（二次抵抗）</a></td><td>2つ（固定子／回転子）</td><td>2点</td><td>回転子・スリップリング・抵抗器の測り残し</td></tr>
+<tr><td>極数切替（2巻線）</td><td>巻線ごとに分かれる</td><td>巻線の数</td><td>切替用接触器の位置。1巻線式（ダランダ形）は図面で</td></tr>
+<tr><td>1台のMCで複数台</td><td>1つ（並列）</td><td>1点</td><td>全台の合成値。悪い値なら1台ずつ切り分け</td></tr>
+<tr><td><a href="#start-methods" data-open="inv">インバーター・ソフトスタータ</a></td><td>本体は数えない</td><td>区分して測る</td><td>接続したまま印加しない。制御端子のメガー禁止</td></tr>
+<tr><td>ブレーキ・ヒーター・温度検出</td><td>主回路とは別</td><td>別に計画</td><td>サーミスタ等は印加不可の場合あり。取説で確認</td></tr>
+</tbody></table></div><p class="note">「当てる点」は対地絶縁を島ごとに確認する場合の数です。メーカーが測定箇所を指定している場合はその指定を優先します。一括でまとめて測る方法は次の章へ。</p></section>
+
+<section class="card" id="field-steps"><span class="k">05 現場で</span><h2>迷ったら、この順番で島を確定する。</h2><ol class="steps">
+<li><b>図面と銘板で方式を確認する</b>：主回路図の接触器の数と位置、モーターの口出し線（3本か6本か）、端子箱の短絡片、巻線形かどうか。</li>
+<li><b>無電圧にして、誤投入を防ぐ</b>：上流のブレーカーを開放し、検電。2コンタクタのY–Δは、マグネットが止まっていても巻線が充電されている場合があります。</li>
+<li><b>テスターで導通を見て、島を数える</b>：U–V・V–W・W–U（6本口出しならX・Y・Zも）。導通するグループが1つの島です。</li>
+<li><b>島ごとにLINE側を1点</b>：EARTH側はモーター外箱につながる接地端子へ。インバーター等は取説どおり切り離してから。</li>
+<li><b>記録する</b>：島ごとの値、測定時の接点状態、除外・切り離した機器、試験電圧、測定時間。</li>
+<li><b>放電と復旧</b>：測定後は放電完了を確認。外した線・短絡線を戻し、取り外し忘れがないか照合します。</li></ol>
+<details><summary>U・V・W（X・Y・Z）をまとめて短絡すれば、1回で済む？</summary><p>作業計画で認められていれば、導体を短絡線でまとめて<b>1回で対地を測る方法</b>もあります。ただし、①まとめた導体どうし（相間・巻線間）の絶縁は見ていない、②値は全部の合成値、③<b>短絡線の外し忘れは、投入したときの短絡事故</b>につながります。取り付けた本数と取り外した本数を照合して記録します。</p></details>
+<details><summary>接触器を手で押し込んで、島をつなげて測ってもいい？</summary><p>このページでは手順にしません。機種によって構造や扱いが違い、押し込んだ接点の状態を測定中ずっと保証できないためです。測定範囲を広げたいときは、上の「島ごとに1点」か、作業計画で決めた一括測定にします。</p></details>
+<details><summary>Y–Δのモーターで、巻線どうし（相間）の絶縁も見たい</summary><p>全接触器が開き、6本口出しで巻線が分かれていれば、U–V間に当てると<b>U巻線とV巻線の間の絶縁</b>を見られます。直入れのように巻線がつながったモーターでは、線間に当てても巻線の導通を測るだけで、相間絶縁にはなりません。試験の要否と方法はメーカーの指定で決めます。</p></details>
+<details><summary>EARTH側をつないだのに、モーターの外箱が測れていないことがある？</summary><p>EARTH側を盤の接地端子につないだ場合、モーター外箱はモーターの接地線を通して初めて大地側になります。接地線が外れていると、巻線と外箱の間の絶縁が測定に入らず、高い値が出ることがあります。接地線の接続も一緒に確認します。</p></details>
+<details><summary>進相コンデンサが負荷側にあるときは？</summary><p>コンデンサが島に入っていると、充電に時間がかかって値が落ち着くのが遅く、測定後の残留電荷も大きくなります。コンデンサ用の接触器の位置と放電を確認し、必要なら切り離して区分します。</p></details></section>
+
+<section class="card" id="refs"><span class="k">06 図で学べるサイト</span><h2>始動方式そのものを、図で確かめる。</h2><p>このページの図は「島」を見るために簡略化しています。始動方式の主回路や動作の流れは、次の資料の図が参考になります。</p><ul class="refs">
+<li><a href="https://f-net.fujielectric.co.jp/Catalog/FCS_appli/EMS_Method%20Selection/%E9%9B%BB%E5%8B%95%E6%A9%9F%E3%81%AE%E5%A7%8B%E5%8B%95%E6%96%B9%E6%B3%95.pdf" target="_blank" rel="noopener">富士電機「電動機の始動方法」（PDF）</a><small>メーカー資料。直入れ、スターデルタ（3電磁接触器式・2電磁接触器式）、リアクトル、補償器、コンドルファ、二次抵抗、ソフトスタータ、インバーターの主回路と動作フロー。一番まとまっています。</small></li>
+<li><a href="https://www.mitsubishielectric.co.jp/fa/products/lvd/lvsw/ex/select/scale/index.html" target="_blank" rel="noopener">三菱電機「選定スケール」</a><small>じか入れとスターデルタ（3接触器方式）の結線図。MCM・MCS・MCDの選定表付き。</small></li>
+<li><a href="https://denki.forepon.com/denken3/machine/how-to-start-motor/" target="_blank" rel="noopener">でんき技術者の知識「三相誘導電動機の始動方法７選」</a><small>オープン／クローズドトランジションのY–Δ、リアクトル、コンドルファ、インバーター、二次抵抗を図で比較。</small></li>
+<li><a href="https://denki-nyumon.com/sidouhou.html" target="_blank" rel="noopener">電気☆入門「誘導電動機の始動法」</a><small>全電圧・スターデルタ・リアクトル始動の回路図と、Y/Δ結線の図。</small></li>
+<li><a href="https://denkikoujishi-roadmap.com/2128/" target="_blank" rel="noopener">電気工事士ロードマップ「三相誘導電動機の始動方式」</a><small>主・Y用・Δ用の3つの電磁接触器と、制御盤〜モーターの配線図。</small></li>
+<li><a href="https://www.jeea.or.jp/course/contents/07102/" target="_blank" rel="noopener">日本電気技術者協会「誘導電動機の各種始動法の特徴」</a><small>各始動法の始動電流・トルクの比較。</small></li></ul>
+<details><summary>根拠と適用範囲</summary><p><b>資料で確認した事項：</b>各始動方式の接触器構成と動作の概要、2電磁接触器式のスターデルタは停止中も巻線に電圧がかかるため推奨しにくいこと、コンドルファは中性点を開いてリアクトル状態を経て全電圧へ移ること（富士電機「電動機の始動方法」）。3接触器方式のMCM・MCS・MCDの名称（三菱電機「選定スケール」）。</p><p><b>回路の原理から整理した事項：</b>「島」の数え方と、方式別の島の数・当てる点。実際の盤では接触器の位置、渡り線、追加の回路で島が変わるため、図面と導通確認で確定してください。全方式を一律に「1本／3本」と定めたメーカー資料ではありません。</p><p>資料確認：2026年10月9日。関連：<a href="insulation-resistance-principle.html#motor-measurement">絶縁抵抗の原理：マグネットの負荷側</a>／<a href="insulation-resistance-principle.html#scope-inverter">インバーターがあるとき</a>／<a href="motor-protection-relays.html">1E・2E・3Eのモータ保護</a>／<a href="sequence-basics.html">リレーシーケンス</a></p></details></section>
+</main><footer class="footer"><div class="in">© 2026 うきわメモ｜教育用モデル。実測は図面・取説・社内手順・安全措置を優先。</div></footer><script src="motor-starting-insulation.js?v=20261009"></script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
+</body></html>

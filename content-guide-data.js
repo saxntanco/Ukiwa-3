@@ -272,8 +272,20 @@ window.UkiwaContents = [
     "tags": "メガー めがー MΩ ゼロ インバーター マグネット 二次側",
     "related": [
       "vcb-inspection-guide.html",
-      "earth-resistance-et5.html",
+      "motor-starting-insulation.html",
       "test-measurement.html"
+    ]
+  },
+  {
+    "path": "motor-starting-insulation.html",
+    "title": "始動方式別：絶縁抵抗は何本当てる？",
+    "category": "測定・点検",
+    "description": "停止中につながる「島」を数え、マグネット二次側で当てる点を決める。",
+    "tags": "メガー モーター 電動機 スターデルタ Y-Δ コンドルファ リアクトル 正逆 巻線形 二次抵抗 マグネット 二次側 何本 1本 3本 始動方式",
+    "related": [
+      "insulation-resistance-principle.html",
+      "motor-protection-relays.html",
+      "sequence-basics.html"
     ]
   },
   {

@@ -71,7 +71,7 @@ scenes.cal.photo={url:'https://upload.wikimedia.org/wikipedia/commons/a/aa/Multi
 window.UkiwaVisualData={scenes,pages:{
 'vcb-inspection-guide.html':'vcb','instrument-calibration-guide.html':'cal','field-essentials.html':'tools','ppe-withstand-guide.html':'ppe',
 'ct-calculator.html':'ct','ocr-tap-calculator.html':'relay','cable-size-simulator.html':'cable','ac-withstand-test-simulator.html':'cable',
-'insulation-resistance-principle.html':'insulation','earth-resistance-et5.html':'earth','sequence-basics.html':'switch','motor-protection-relays.html':'switch',
+'insulation-resistance-principle.html':'insulation','motor-starting-insulation.html':'insulation','earth-resistance-et5.html':'earth','sequence-basics.html':'switch','motor-protection-relays.html':'switch',
 'generator-rescue-island.html':'generator','pc-grounding-guide.html':'ground','ukiwamemo_kyounonande_b_ground_transformer.html':'ground',
 'ukiwamemo_kyounonande_taiatsu_reactor_ic.html':'cable','ukiwamemo_kyounonande_shg_df3_ic_io.html':'relay',
 'relay-basics.html':'relay','protective-relay.html':'relay','relay-test-reference.html':'relay','relay-quickref.html':'workflow',
