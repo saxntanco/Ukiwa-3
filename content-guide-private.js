@@ -205,6 +205,18 @@ window.UkiwaPrivateContents = [
     ]
   },
   {
+    "path": "science-calendar.html",
+    "title": "科学カレンダー",
+    "category": "学習・遊び",
+    "description": "流星群・日食・探査機の打ち上げ・賞の発表など、2026〜2027年の科学の予定。",
+    "tags": "カレンダー 流星群 日食 月食 打ち上げ MMX ノーベル賞 発表日 天文",
+    "related": [
+      "library.html",
+      "prize-encyclopedia.html",
+      "hidden-menu.html"
+    ]
+  },
+  {
     "path": "island-game.html",
     "title": "幻想の島の図鑑",
     "category": "学習・遊び",
