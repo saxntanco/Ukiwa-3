@@ -181,6 +181,30 @@ window.UkiwaPrivateContents = [
     ]
   },
   {
+    "path": "unit-people.html",
+    "title": "単位になった人の図鑑",
+    "category": "学習・遊び",
+    "description": "ボルト・アンペア・オーム・ワットなど、人名の単位と人物、2019年のSI改定。",
+    "tags": "単位 SI ボルト アンペア オーム ワット ジュール ファラド ヘンリー テスラ ウェーバ ジーメンス ヘルツ ケルビン 定義改定",
+    "related": [
+      "library.html",
+      "prize-encyclopedia.html",
+      "hidden-menu.html"
+    ]
+  },
+  {
+    "path": "named-laws.html",
+    "title": "法則の図鑑",
+    "category": "学習・遊び",
+    "description": "オームの法則からムーアの法則まで、名前のついた法則を誰が・いつ・ひとことで。",
+    "tags": "法則 オームの法則 キルヒホッフ ファラデー レンツ フレミング クーロン ドップラー ベルヌーイ ムーアの法則 パレートの法則 マーフィーの法則",
+    "related": [
+      "library.html",
+      "prize-encyclopedia.html",
+      "hidden-menu.html"
+    ]
+  },
+  {
     "path": "island-game.html",
     "title": "幻想の島の図鑑",
     "category": "学習・遊び",
