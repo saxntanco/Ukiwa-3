@@ -17,6 +17,7 @@ const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!=null)e.te
 async function showDeepFor(key){if(!current)return;const d=await loadDeep(current.id);if(d?.slots?.[key]){activeBlank=key;setTab('deep');}}
 async function renderDeep(){const panel=$('deep-panel');if(!panel||!current)return;const id=current.id;const d=await loadDeep(id);if(current?.id!==id)return;panel.replaceChildren();
  if(!d){panel.append(el('p','この問題の空欄ごとの解説は準備中です。「解答・解説」タブで教材の解説を確認できます。','muted'));return;}
+ if(current.subject===1)panel.append(el('p',`${current.year}年度の出題条件に基づく解説です。法令・制度・換算係数は問題で指定された基準時点を用います。現在の手続きや選任要件へ当てはめる際は、現行の公的資料で確認してください。`,'deep-check'));
  const keys=Object.keys(d.slots);const key=d.slots[activeBlank]?activeBlank:keys[0];
  const nav=el('nav',null,'deep-tabs');nav.setAttribute('aria-label','空欄を切り替え');nav.append(el('span','空欄を切り替え'));
  for(const k of keys){const t=el('button',`(${k})`);t.type='button';t.setAttribute('aria-label',`空欄 ${k} の解説に切り替え`);if(k===key)t.setAttribute('aria-current','true');t.onclick=()=>{activeBlank=k;$('context-heading').textContent=`選択中 (${k})`;document.querySelectorAll('.energy-blank').forEach(b=>b.setAttribute('aria-expanded',String(b.dataset.blank===k)));renderDeep();panel.scrollTop=0;};nav.append(t);}
@@ -85,7 +86,7 @@ function applyFilters(wanted){
 }
 function selectQuestion(x){
  closeContext(false);pendingOutcome=null;current=x;last=x.id;qpos=0;apos=0;draftEdited=false;resetView('q');resetView('a');revealed=mode==='learn';attempted=false;token++;
- $('lesson-meta').textContent=`${x.year}年度 / 課目${['','Ⅰ','Ⅱ','Ⅲ','Ⅳ'][x.subject]}${x.optional?' / 選択問題':''}`;
+ $('lesson-meta').textContent=`${x.year}年度 / 課目${['','Ⅰ','Ⅱ','Ⅲ','Ⅳ'][x.subject]}${x.optional?' / 選択問題':''}${x.subject===1?' / 法令・制度は出題時点の条件':''}`;
  $('lesson-title').textContent=`問${x.number}　${x.title}`;$('draft').value=rec().draft||'';
  $('bookmark').setAttribute('aria-label',rec().saved?'あとで解くを解除':'あとで解くに登録');$('bookmark').setAttribute('aria-pressed',!!rec().saved);$('bookmark').textContent=rec().saved?'★':'☆';
  const n=filtered.findIndex(y=>y.id===x.id);$('prev').disabled=n===0;$('next').disabled=n===filtered.length-1;

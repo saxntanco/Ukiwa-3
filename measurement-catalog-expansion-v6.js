@@ -263,7 +263,8 @@
       aliases: ['KEW2500','2500'], measures: ['DC 4-20mA', '非接触', '0.01～120mA'],
       summary: '4–20mA計装ループを回路切断せず測定できる高感度DCクランプメータ。',
       use: 'プロセス計装・ビル計装の4–20mA信号確認',
-      specs: {'測定範囲':'DC 0.01～120mA','分解能':'0.01mA','基本確度':'±0.2%','導体径':'φ6mm','表示':'4mA=0%、20mA=100%換算'},
+      specs: {'測定範囲':'DC 0.01～120mA（20/100mAオートレンジ）','分解能':'20mAレンジ：0.01mA／100mAレンジ：0.1mA','確度（20mAレンジ）':'±（0.2%rdg＋5dgt）、0.00～±21.49mA','確度（100mAレンジ）':'±（1.0%rdg＋5dgt）、±21.0～±120.0mA','確度の条件':'23℃±5℃、相対湿度75%以下、指定のゼロ調整実行後','導体径':'φ6mm','表示':'4mA=0%、20mA=100%換算'},
+      catalogChecked: '2026-10-09',
       mistakes: '制御出力・入力のどちらを測るか、ループ電源、クランプ方向、ゼロ調整を確認する。一般の負荷電流クランプとレンジを混同しない。',
       related: ['KEW 2510'], official: 'https://www.kew-ltd.co.jp/products/detail/00178/'
     }),
@@ -388,8 +389,8 @@
     priority: 0,
     main: true,
     manual: 'https://www.musashi-in.co.jp/manual/IP-1110_05.pdf',
-    confidence: '完全型式の公式取扱説明書確認済み',
-    checked: '2026-09-12',
+    confidence: '公式取扱説明書第5版確認済み（実機の適用版は要照合）',
+    checked: '2026-10-09',
     fieldThree: [
       'AC 0～11kV・1kVAの高圧変圧器と操作部を一体化した、小容量機器向け交流耐電圧試験器。',
       '最初に使用電源、被試験物の静電容量・充電電流、接地、試験区域、直結/リアクトル併用構成を確認。',
@@ -410,8 +411,8 @@
     methodIds: ['withstand-ac'],
     principles: '内部の可変交流電源と高圧変圧器で0～11kVを発生する。容量性負荷では被試験物へ充電電流が流れるため、定格容量を超えないか事前に確認し、必要時はメーカー指定リアクトルで試験トランス負担を補償する。',
     sources: [
-      ['IP-1110 公式製品ページ', 'https://www.musashi-in.co.jp/item/3805/3805.html', checked],
-      ['IP-1110 取扱説明書 第5版 6104-001ST005', 'https://www.musashi-in.co.jp/manual/IP-1110_05.pdf', '一覧掲載日2021/01（本文の発行年月は記載なし）・2026-09-12本文照合']
+      ['IP-1110 公式製品ページ', 'https://www.musashi-in.co.jp/item/3805/3805.html', '2026-10-09：LED計器の掲載仕様は第5版LCD仕様と区別'],
+      ['IP-1110 取扱説明書 第5版 6104-001ST005', 'https://www.musashi-in.co.jp/manual/IP-1110_05.pdf', '一覧掲載日2021/01（本文の発行年月は記載なし）・本文4～5ページの有効範囲／表示範囲・確度を2026-10-09再照合']
     ]
   });
 
@@ -424,11 +425,13 @@
   additions.forEach(item => {
     if (details[item.model]) return;
     const sourceRows = [];
-    if (item.official) sourceRows.push(['メーカー公式資料', item.official, checked]);
-    if (item.manual && item.manual !== item.official) sourceRows.push(['メーカー公式取扱説明書一覧', item.manual, checked]);
+    const itemChecked = item.catalogChecked || checked;
+    if (item.official) sourceRows.push(['メーカー公式資料', item.official, itemChecked]);
+    if (item.manual && item.manual !== item.official) sourceRows.push(['メーカー公式取扱説明書一覧', item.manual, itemChecked]);
+    if (item.model === 'KEW 2500') sourceRows.push(['KEW 2500 取扱説明書：3.仕様', 'https://www.kew-ltd.co.jp/download/dl/347/', '2026-10-09：レンジ別確度・表示桁・条件を照合']);
     details[item.model] = {
       confidence: 'メーカー公式資料で型式・用途確認済み',
-      checked,
+      checked: itemChecked,
       fieldThree: [item.summary, '完全型式、定格、必要センサ・付属品、校正期限、対象設備との適合を確認。', item.mistakes],
       completion: {
         level: 2,

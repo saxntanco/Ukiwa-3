@@ -82,7 +82,7 @@ footer{text-align:center;padding:5px 12px 28px;color:var(--island-fg-748d98-100,
     <h2>主回路と制御回路の関係</h2>
     <p class="lead">下図は動作原理を学ぶための代表回路です。特定型式の端子図ではありません。設備図面とメーカー取扱要項を優先してください。</p>
     <div class="state-controls"><button class="state-btn active" type="button" data-state="normal">通常時</button><button class="state-btn" type="button" data-state="trip">保護動作時</button></div>
-    <div class="state-note" id="stateNote">通常時：保護停止接点は導通側、MCコイルは励磁、MC主接点は閉、モータは運転中として示します。</div>
+    <div class="state-note" id="stateNote">通常時：始動操作後の運転中を示します。保護停止接点と停止PBは導通し、MC-aで自己保持、MCコイルは励磁、MC主接点は閉です。</div>
     <div class="diagram-grid mt9">
       <div class="diagram">
         <h3>主回路の代表模式図</h3>
@@ -107,23 +107,30 @@ footer{text-align:center;padding:5px 12px 28px;color:var(--island-fg-748d98-100,
       </div>
       <div class="diagram">
         <h3>制御回路の代表模式図</h3>
-        <p>電源側からMCコイルまで。a/bは無操作・正常復帰状態を基準に表します。</p>
-        <svg viewBox="0 0 520 300" role="img" aria-label="電磁接触器制御回路代表模式図">
+        <p>保護停止接点と停止PBは、始動PB・自己保持接点の分岐より電源側で共通に直列接続します。a/bは無操作・正常復帰状態を基準に表します。</p>
+        <svg viewBox="0 0 520 300" role="img" aria-label="電磁接触器制御回路代表模式図" id="motorControlCircuit">
+          <title>保護停止接点と停止PBの下流に、始動PBとMC自己保持接点を並列接続</title>
           <text x="18" y="31" class="label">制御電源 L</text><text x="435" y="31" class="label">N</text>
           <line x1="45" y1="55" x2="45" y2="252" class="wire control-wire"/><line x1="468" y1="55" x2="468" y2="252" class="wire control-wire"/>
           <line x1="45" y1="92" x2="92" y2="92" class="wire control-wire"/>
-          <rect x="92" y="67" width="110" height="50" rx="9" class="device stop-contact"/>
+          <rect id="motorProtectionContact" x="92" y="67" width="110" height="50" rx="9" class="device stop-contact"/>
           <text x="105" y="88" class="label">保護停止接点</text><text x="111" y="105" class="small-svg">正常時導通側</text>
           <line x1="202" y1="92" x2="245" y2="92" class="wire control-wire after-trip"/>
-          <rect x="245" y="67" width="82" height="50" rx="9" class="device"/>
+          <rect id="motorStopContact" x="245" y="67" width="82" height="50" rx="9" class="device"/>
           <text x="261" y="88" class="label">停止PB</text><text x="263" y="105" class="small-svg">b接点</text>
-          <line x1="327" y1="92" x2="360" y2="92" class="wire control-wire after-trip"/>
-          <rect x="360" y="67" width="78" height="50" rx="9" class="coil mc-coil"/>
-          <text x="377" y="88" class="label">MC</text><text x="367" y="105" class="small-svg">操作コイル</text>
-          <line x1="438" y1="92" x2="468" y2="92" class="wire control-wire after-trip"/>
-          <path d="M327 92 V170 H245" class="wire after-trip"/><rect x="158" y="145" width="87" height="50" rx="9" class="device"/><text x="174" y="166" class="label">始動PB</text><text x="178" y="183" class="small-svg">a接点</text><line x1="45" y1="170" x2="158" y2="170" class="wire after-trip"/>
-          <path d="M158 170 H112 V226 H327 V170" class="wire after-trip"/><rect x="174" y="201" width="96" height="48" rx="9" class="device mc-a"/><text x="197" y="222" class="label">MC-a</text><text x="182" y="239" class="small-svg">自己保持接点</text>
-          <text x="20" y="281" class="small-svg">※端子番号、停止接点の構成、PLC経由、外部自己保持の有無は設備ごとに確認。</text>
+          <path d="M327 92 H350 V135 H90 V185 H158" class="wire after-trip"/>
+          <rect id="motorStartContact" x="158" y="160" width="87" height="50" rx="9" class="device"/>
+          <text x="174" y="181" class="label">始動PB</text><text x="178" y="198" class="small-svg">a接点</text>
+          <line x1="245" y1="185" x2="360" y2="185" class="wire after-trip"/>
+          <path d="M90 185 V245 H158" class="wire after-trip"/>
+          <rect id="motorHoldContact" x="158" y="222" width="87" height="46" rx="9" class="device mc-a"/>
+          <text x="185" y="242" class="label">MC-a</text><text x="170" y="258" class="small-svg">自己保持接点</text>
+          <path d="M245 245 H327 V185" class="wire after-trip"/>
+          <circle cx="90" cy="185" r="5" fill="#24789d"/><circle cx="327" cy="185" r="5" fill="#24789d"/>
+          <rect id="motorControlCoil" x="360" y="160" width="78" height="50" rx="9" class="coil mc-coil"/>
+          <text x="377" y="181" class="label">MC</text><text x="367" y="198" class="small-svg">操作コイル</text>
+          <line x1="438" y1="185" x2="468" y2="185" class="wire control-wire after-trip"/>
+          <text x="20" y="289" class="small-svg">※端子番号、PLC経由、復帰・再始動条件は設備ごとに確認。</text>
         </svg>
       </div>
     </div>
@@ -194,6 +201,7 @@ footer{text-align:center;padding:5px 12px 28px;color:var(--island-fg-748d98-100,
     <h2>根拠資料</h2>
     <p class="lead">確認日：2026-08-10。端子番号・試験条件・管理値は完全型式の取扱要項を追加確認します。</p>
     <div class="source-list">
+      <a class="source" href="https://fa-faq.mitsubishielectric.co.jp/faq/show/15025?site_domain=default" target="_blank" rel="noopener">三菱電機｜自己保持とは<small>自器のa補助接点による保持、OFF・停電時の解除。制御模式図はこの原理を示す教材用回路（2026-10-09確認）</small></a>
       <a class="source" href="https://fa-faq.mitsubishielectric.co.jp/faq/show/15036?site_domain=default" target="_blank" rel="noopener">三菱電機｜1E・2E・3Eの定義<small>1E＝過負荷・拘束、2E＝1E＋欠相、3E＝2E＋反相</small></a>
       <a class="source" href="https://www.mitsubishielectric.co.jp/fa/products/lvd/lvsw/pmerit/thr/lineup.html" target="_blank" rel="noopener">三菱電機｜サーマルリレー形式一覧<small>TH-T18、TH-T18KP、3素子（2E）表記を確認</small></a>
       <a class="source" href="https://www.mitsubishielectric.co.jp/fa/products/lvd/lvsw/pmerit/comdev/phase.html" target="_blank" rel="noopener">三菱電機｜ET-N製品特長<small>保護モード、動作時間、反相検出位置を確認</small></a>
@@ -227,11 +235,11 @@ function setState(state){
   document.querySelectorAll(".state-btn").forEach(b=>b.classList.toggle("active",b.dataset.state===state));
   document.querySelectorAll(".main-wire,.control-wire,.after-trip").forEach(x=>x.classList.toggle("off",trip));
   document.querySelectorAll(".mc-main,.relay-device,.stop-contact").forEach(x=>x.classList.toggle("trip",trip));
-  document.querySelectorAll(".mc-coil,.motor-device").forEach(x=>x.classList.toggle("off",trip));
+  document.querySelectorAll(".mc-coil,.mc-a,.motor-device").forEach(x=>x.classList.toggle("off",trip));
   $(".signal-wire").classList.toggle("hot",trip);
   $("#stateNote").textContent=trip
-    ?"保護動作時：代表回路では停止接点が開き、MCコイルが消磁、MC主接点が開いてモータが停止します。実際の接点構成は型式・設備図面を確認します。"
-    :"通常時：保護停止接点は導通側、MCコイルは励磁、MC主接点は閉、モータは運転中として示します。";
+    ?"保護動作時：共通の保護停止接点が開き、始動PB・MC-aのどちらの経路でもMCコイルを励磁できず、MC主接点が開いて停止します。停止PBを押した場合も自己保持が解除されます。"
+    :"通常時：始動操作後の運転中を示します。保護停止接点と停止PBは導通し、MC-aで自己保持、MCコイルは励磁、MC主接点は閉です。";
 }
 (function(){
   $("#modelSelect").innerHTML=MOTOR_RELAYS.map(r=>`<option value="${esc(r.model)}">${esc(r.maker+"｜"+r.model)}</option>`).join("");

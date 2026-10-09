@@ -132,12 +132,17 @@ I = 150,000 / (1.732 × 210)
       <div class="table-wrap"><table>
         <thead><tr><th>低圧側遮断器等の定格電流</th><th>表2.13.2の接地線</th></tr></thead>
         <tbody>
-          <tr><td>250A以下</td><td>14mm²以上</td></tr>
-          <tr><td>400A以下</td><td>22mm²以上</td></tr>
-          <tr><td>600A以下</td><td>38mm²以上</td></tr>
-          <tr><td>1,000A以下</td><td>60mm²以上</td></tr>
+          <tr><td>30A以下</td><td>直径1.6mm以上＊</td></tr>
+          <tr><td>30A超〜60A以下</td><td>直径2.0mm以上＊</td></tr>
+          <tr><td>60A超〜100A以下</td><td>5.5mm²以上＊</td></tr>
+          <tr><td>100A超〜150A以下</td><td>8mm²以上</td></tr>
+          <tr><td>150A超〜250A以下</td><td>14mm²以上</td></tr>
+          <tr><td>250A超〜400A以下</td><td>22mm²以上</td></tr>
+          <tr><td>400A超〜600A以下</td><td>38mm²以上</td></tr>
+          <tr><td>600A超〜1,000A以下</td><td>60mm²以上</td></tr>
         </tbody>
       </table></div>
+      <p class="small">表2.13.2の全区分を掲載。「直径mm」と「断面積mm²」は別の量です。＊雷保護設備で内部雷保護の等電位ボンディングを行う場合は8mm²以上とし、適用は特記によります。B種は、この表の値だけで決めず、表2.13.1との太い側を比較します。</p>
       <div class="callout warn"><b>動力側は要確認：</b> 150kVA三相の二次定格電流は約412Aだが、写真から低圧側主遮断器の定格は分からない。もし適用する仕様がこの国交省令和7年版で、低圧側遮断器が400A超～600A以下なら、表2.13.2側は38mm²となる。したがって、<strong>写真の22mm²を現在の同仕様に対して「必ず適合」とは断定できない</strong>。</div>
       <p>設備は2005年製なので、施工当時の適用基準・設計条件が現在と同じとも限らない。現場で最終判断するなら、<strong>低圧主遮断器の定格、竣工図・接地系統図、適用仕様</strong>まで確認する。</p>
     </section>
@@ -163,9 +168,14 @@ I：その規程で基準とする電流 [A]</div>
         <div class="field"><label for="vclass">B種の電圧級</label><select id="vclass"><option value="100">100V級</option><option value="200" selected>200V級</option><option value="400">400V級</option></select></div>
         <div class="field"><label for="breaker-rating">低圧側を保護する遮断器等の定格 [A]（任意）</label><input id="breaker-rating" type="number" min="0" step="any" placeholder="銘板例：500。未確認なら空欄"><small>変圧器の二次電流を代入せず、適用する遮断器等の定格を確認。</small></div>
       </div>
+      <div class="callout" id="voltage-class-check">
+        <p id="voltage-class-status" aria-live="polite"></p>
+        <label style="display:flex;align-items:flex-start;gap:10px"><input id="voltage-class-confirmed" type="checkbox" style="width:20px;height:20px;min-height:20px;flex:none;margin-top:3px">図面・銘板と適用仕様で、二次電圧と電圧級の組合せを確認した</label>
+        <p class="small">電圧級は自動分類しません。単相3線式100/200V（銘板105/210V等）は、この表では200V級を適用します。単相は全巻線電圧、三相は線間電圧を入力し、相数・電圧・電圧級を変えたら再確認してください。</p>
+      </div>
       <div class="calc-actions"><button type="button" data-ex="light">💡 電灯100kVA</button><button type="button" data-ex="motor">⚙️ 動力150kVA</button><button class="primary" type="button" id="run">計算する</button></div>
       <div class="result" id="result" aria-live="polite"></div>
-      <div class="callout warn"><b>注意：</b> 同仕様を適用する場合の2表比較です。遮断器未入力・数値不正・表の範囲外では比較を確定しません。接地系統、設計図書、雷保護設備の等電位ボンディングに関する注記などは別途確認します。</div>
+      <div class="callout warn"><b>注意：</b> 同仕様を適用する場合の2表比較です。電圧級の組合せ未確認・遮断器未入力・数値不正・表の範囲外では比較を確定しません。接地系統、設計図書、雷保護設備の等電位ボンディングに関する注記などは別途確認します。</div>
     </section>
 
     <section id="summary">
@@ -179,7 +189,7 @@ I：その規程で基準とする電流 [A]</div>
         <li><a href="https://www.mlit.go.jp/gobuild/gobuild_tk4_000017.html" target="_blank" rel="noopener">国土交通省「公共建築工事標準仕様書（電気設備工事編）令和7年版」案内ページ</a> — 2025年5月12日改定。</li>
         <li><a href="https://www.mlit.go.jp/gobuild/content/001888825.pdf" target="_blank" rel="noopener">同 PDF</a> — 2.13.9 接地線、表2.13.1・表2.13.2を確認。</li>
       </ul>
-      <p class="small">本文・表の再確認日：2026年9月12日。メーカー仕様・設計仕様・社内基準が別途ある場合は、それらを優先して照合する。</p>
+      <p class="small">本文・表の再確認日：2026年10月9日。メーカー仕様・設計仕様・社内基準が別途ある場合は、それらを優先して照合する。</p>
     </section>
   </main>
 
@@ -188,31 +198,34 @@ I：その規程で基準とする電流 [A]</div>
 <script>
 (function(){
   const phase=document.getElementById('phase'),kva=document.getElementById('kva'),voltage=document.getElementById('voltage'),vclass=document.getElementById('vclass'),result=document.getElementById('result');
-  const breaker=document.getElementById('breaker-rating');
+  const breaker=document.getElementById('breaker-rating'),classConfirmed=document.getElementById('voltage-class-confirmed'),classStatus=document.getElementById('voltage-class-status');
   const sizes=[5.5,8,14,22,38,60,100,150];
   const limits={100:[5,10,20,40,60,100,175,250],200:[10,20,40,75,125,200,350,500],400:[20,40,75,150,250,400,700,1000]};
   function run(){
     const s=Number(kva.value),v=Number(voltage.value),ph=phase.value,vc=Number(vclass.value);
+    classStatus.textContent=`二次電圧 ${Number.isFinite(v)&&v>0?v+'V':'未入力・不正'} ／ 選択した表の電圧級 ${vc}V級。${classConfirmed.checked?'組合せの確認済み。':'組合せを確認するまで、B種接地線の表引き・2表比較は保留します。'}`;
     if(!Number.isFinite(s)||!Number.isFinite(v)||s<=0||v<=0||!['single','three'].includes(ph)||![100,200,400].includes(vc)){result.innerHTML='容量と電圧は0より大きい有限の数で入力し、相数と電圧級を確認してください。';return}
     const current=ph==='three'?s*1000/(Math.sqrt(3)*v):s*1000/v;
     const one=ph==='three'?s/3:s;
     if(!Number.isFinite(current)||current<=0){result.innerHTML='計算できる数値範囲を超えています。容量・電圧・単位を確認してください。';return}
     const arr=limits[vc];let size=null,limit=null;
-    for(let i=0;i<arr.length;i++){if(one<=arr[i]){size=sizes[i];limit=arr[i];break}}
+    if(classConfirmed.checked)for(let i=0;i<arr.length;i++){if(one<=arr[i]){size=sizes[i];limit=arr[i];break}}
     const rated=ph==='three'?'I = S / (√3 × V)':'I = S / V';
-    const b=size?`${vc}V級・1相分 ${one.toFixed(1)}kVA → ${limit}kVA以下の欄 → B種 ${size}mm²以上`:`1相分 ${one.toFixed(1)}kVA は表の範囲外。適用基準・設計図書で確認。`;
+    const b=!classConfirmed.checked?'二次電圧と電圧級の組合せが未確認のため保留。':size?`${vc}V級・1相分 ${one.toFixed(1)}kVA → ${limit}kVA以下の欄 → B種 ${size}mm²以上`:`1相分 ${one.toFixed(1)}kVA は表の範囲外。適用基準・設計図書で確認。`;
     const raw=breaker.value.trim(),rating=Number(raw);
     const breakerRows=[[30,Math.PI*1.6*1.6/4,'直径1.6mm以上'],[60,Math.PI,'直径2.0mm以上'],[100,5.5,'5.5mm²以上'],[150,8,'8mm²以上'],[250,14,'14mm²以上'],[400,22,'22mm²以上'],[600,38,'38mm²以上'],[1000,60,'60mm²以上']];
     const br=rating>0&&Number.isFinite(rating)?breakerRows.find(row=>rating<=row[0]):null;
     let compare=!raw?'遮断器等の定格が未入力：表2.13.2との比較は未完了。':!Number.isFinite(rating)||rating<=0?'遮断器等の定格は0より大きい有限の数で入力してください。比較は未確定。':!br?'遮断器等が1,000Aを超え、表2.13.2の収録範囲外。外挿せず適用基準を確認してください。':`遮断器等 ${rating}A → ${br[0]}A以下 → ${br[2]}。`;
     if(raw&&br&&size)compare+=` <strong>2表の比較結果：${Math.max(size,br[1])}mm²以上</strong>（太い側）。`;
-    else if(raw&&br&&!size)compare+=' 容量表が範囲外なので2表比較は未確定。';
+    else if(raw&&br&&!size)compare+=classConfirmed.checked?' 容量表が範囲外なので2表比較は未確定。':' 電圧級の組合せが未確認なので2表比較は未確定。';
     if(raw&&br&&rating<=100)compare+=' 表2.13.2の＊注記：内部雷保護の等電位ボンディングでは8mm²以上、適用は特記によるため別途確認。';
     result.innerHTML=`<strong>二次定格電流：</strong> ${current.toFixed(1)} A　（${rated}）<br><strong>変圧器1相分容量：</strong> ${one.toFixed(1)} kVA<br><strong>表2.13.1のB種接地線（参考）：</strong> ${b}<p>二次側の電流です。単相は全巻線電圧、三相は線間電圧を使用し、単相3線式の不平衡負荷電流は別途確認します。表引きは丸め前の容量で行い、容量・電流の表示だけ小数1桁に丸めています。</p><p><strong>低圧側遮断器等との比較：</strong> ${compare}</p><p>国交省令和7年版を適用する場合の比較。接地系統・適用仕様全体への適合判定ではありません。</p>`;
   }
   document.getElementById('run').addEventListener('click',run);
-  [phase,kva,voltage,vclass,breaker].forEach(input=>input.addEventListener('input',run));
-  document.querySelectorAll('[data-ex]').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.ex==='light'){phase.value='single';kva.value=100;voltage.value=210;vclass.value='200'}else{phase.value='three';kva.value=150;voltage.value=210;vclass.value='200'}breaker.value='';run()}));
+  [phase,voltage,vclass].forEach(input=>input.addEventListener('input',()=>{classConfirmed.checked=false;run()}));
+  [kva,breaker].forEach(input=>input.addEventListener('input',run));
+  classConfirmed.addEventListener('change',run);
+  document.querySelectorAll('[data-ex]').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.ex==='light'){phase.value='single';kva.value=100;voltage.value=210;vclass.value='200'}else{phase.value='three';kva.value=150;voltage.value=210;vclass.value='200'}breaker.value='';classConfirmed.checked=false;run()}));
   run();
 })();
 </script>

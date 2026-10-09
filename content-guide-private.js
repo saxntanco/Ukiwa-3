@@ -151,7 +151,7 @@ window.UkiwaPrivateContents = [
     "description": "分野をまたいでまとまっていないことを集めた図鑑の本棚。",
     "tags": "図書室 図鑑 まとめ 賞 未解決問題 実験装置 単位 法則 カレンダー",
     "related": [
-      "library.html",
+      "unsolved-problems.html",
       "prize-encyclopedia.html",
       "hidden-menu.html"
     ]

@@ -24,12 +24,37 @@ const SR = [0, 1, 3, 7, 14, 30], DAY = 864e5, today = () => Math.floor((Date.now
 function sr(r, ok) { r.box = ok ? Math.min((r.box || 0) + 1, 5) : 0; r.due = today() + SR[r.box]; }
 function isDue(x) { const r = rec[x.id]; if (!r || !r.n) return false; return r.due != null ? r.due <= today() : stateOf(x.id) === 'ng'; }
 function setFeel(x, k) { const r = rec[x.id]; if (!r) return; r.feel = k; if (k === 'bad') { r.box = 0; r.due = today(); } else if (k === 'mid') { r.box = Math.min(r.box || 0, 1); r.due = today() + 1; } else { r.box = Math.max(r.box || 0, 1); r.due = today() + SR[r.box]; } saveRec(); }
-function isOk(x, v) { return Math.abs(v - x.answerNum) <= x.step / 2 + 1e-9 * Math.abs(x.answerNum); }
+// 入力の十進桁を保ち、指定された最小位へ四捨五入して比べる。
+// Number の誤差や許容幅で 1.895 を 1.89 の正解にしない。
 function parseNum(s) {
-  s = String(s).trim().replace(/，/g, '.').replace(/[０-９．－]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).replace(/\s/g, '');
-  const m = s.match(/^([-+]?\d*\.?\d+)(?:(?:[×xX*]10\^?|e|E)([-+]?\d+))?$/);
-  const value = m ? Number(m[1]) * (m[2] ? 10 ** Number(m[2]) : 1) : NaN;
-  return Number.isFinite(value) ? value : null;
+  s = String(s).normalize('NFKC').trim().replace(/−/g, '-').replace(/\s/g, '');
+  if (s.length > 300) return null;
+  const m = s.match(/^([-+]?)(\d*\.?\d+)(?:(?:[×xX*]10\^?|e|E)([-+]?\d+))?$/);
+  if (!m) return null;
+  const power = Number(m[3] || 0);
+  if (!Number.isInteger(power) || Math.abs(power) > 1000) return null;
+  // 有限の数値として扱えない入力は従来どおり受け付けない。
+  // Number は範囲確認だけに使い、採点には元の十進桁を残す。
+  if (!Number.isFinite(Number(`${m[1]}${m[2]}e${power}`))) return null;
+  const [whole, fraction = ''] = m[2].split('.');
+  return { coefficient: BigInt((whole || '0') + fraction), exponent: power - fraction.length, negative: m[1] === '-' };
+}
+function roundedUnits(value, place) {
+  const shift = value.exponent - place;
+  let units;
+  if (shift >= 0) units = value.coefficient * 10n ** BigInt(shift);
+  else {
+    const divisor = 10n ** BigInt(-shift);
+    units = value.coefficient / divisor;
+    if (2n * (value.coefficient % divisor) >= divisor) units++;
+  }
+  return value.negative ? -units : units;
+}
+function isOk(x, value) {
+  const place = Math.round(Math.log10(x.step));
+  const expected = parseNum(x.answerNum);
+  return !!value && !!expected && Number.isFinite(place) && 10 ** place === x.step &&
+    roundedUnits(value, place) === roundedUnits(expected, place);
 }
 function answerText(x) {
   if (x.type === 'choice') return x.answer;
@@ -45,7 +70,7 @@ function visible() {
 
 async function loadYear() {
   if (!cache[ui.year]) {
-    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=2`);
+    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=20261009-audit`);
     if (!res.ok) throw new Error(res.status);
     cache[ui.year] = await res.json();
   }

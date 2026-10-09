@@ -350,7 +350,7 @@ body{background:var(--island-bg-eff6f8-100,#eff6f8)}.intro{padding:24px 0 8px}.s
 <label class="check"><input id="measureConfirm" type="checkbox">測定対象・一括結線・含まれる機器が今回の試験対象と一致する</label>
 <p class="hint">計算結果とリアクトル台数は下の「実測静電容量から計算」に表示します。</p><p class="hint">測定条件が合えば対象設備に即した判断材料になりますが、測定精度や低電圧測定と耐圧時の違いは残ります。実測Cから求める充電電流は、損失電流を含む試験器の全出力電流ではありません。</p></details></section>
 </form>
-<section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading"><span class="step-number">2</span> 計算結果を比較</h2><p class="hint">充電電流 → リアクトル台数 → トランス負担電流の順に確認できます。</p><p class="hint">台数計算の前提：R-1220K・許容167mA・10分、2Kは最大4台・5Kは最大3台で比較。損失電流は含みません。</p><p id="conditions" class="hint"></p><details class="menu-fold"><summary>全方式に共通する電流・台数の読み方</summary><p>許容167mAなどの設定値は、常に流れる電流ではありません。トランス負担はケーブル電流とリアクトル電流の差（絶対値）で計算します。各機種0台を含めて検討しています。損失電流は未評価。5K使用・混在の実機適合は別途確認してください。</p></details><div class="result-grid" id="cards" aria-live="polite"></div>
+<section class="surface" aria-labelledby="resultsHeading"><h2 id="resultsHeading"><span class="step-number">2</span> 計算結果を比較</h2><p class="hint">充電電流 → リアクトル台数 → トランス負担電流の順に確認できます。</p><p class="hint">台数計算の前提：R-1220K・許容167mA・10分、2Kは最大4台・5Kは最大3台で比較。損失電流は含みません。DR-1220MH標準A2の500mA測定範囲は、補償前の各方式の充電電流と別に照合します。</p><p id="conditions" class="hint"></p><details class="menu-fold"><summary>全方式に共通する電流・台数の読み方</summary><p>許容167mAなどの設定値は、常に流れる電流ではありません。トランス負担はケーブル電流とリアクトル電流の差（絶対値）で計算します。各機種0台を含めて検討しています。損失電流は未評価。5K使用・混在の実機適合は別途確認してください。</p></details><div class="result-grid" id="cards" aria-live="polite"></div>
 <details><summary>結果の差を確認する</summary><div id="difference" class="difference"></div></details>
 <details><summary>同じ原資料の「JIS規格」欄も確認する</summary><p id="jisReference"></p><p class="hint">双興電機の資料が「JIS規格」として掲載する値です。適用する規格の版は当該ページで確認できないため、現行JISへの適合判定や保証最大値には使いません。</p></details>
 <details><summary>結果の選び方・違いを確認する</summary><h3>なぜ値が違うの？</h3><p>基本となる公式は共通で、Ic = 2πfCV。違いは主に、静電容量Cの決め方です。メーカー掲載参考値、容量表の参考値、特定構造の理論値は、同じ意味の数値ではありません。</p><p>共通入力をそろえても、資料が想定するケーブルの構造・寸法・評価条件まで同一とは限りません。差は「誤差」やケーブルの良否を表しません。</p>
@@ -433,13 +433,17 @@ const ChargingComparison = (() => {
     const feasible=allowed===null?[]:rows.filter(x=>x.within).sort((a,b)=>(a.a+a.b)-(b.a+b.b)||a.worst-b.worst);
     return {rows,allowed,minimum:feasible[0]||null};
   }
+  function meterRange(Ic,limit=500){
+    Ic=positive(Ic,'採用充電電流',true);limit=positive(limit,'A2測定範囲');
+    return {current:Ic,limit,within:Ic<=limit,atLimit:Ic===limit};
+  }
   function manual(c,unit,len,lenUnit,basis,f,V){
     c=positive(c,'C');len=positive(len,'長さ');f=positive(f,'周波数');V=positive(V,'電圧');
     if(!['uFkm','nFm','uFm'].includes(unit)||!['m','km'].includes(lenUnit)||!['one','total','single'].includes(basis))throw Error('単位・範囲を選択してください。');
     const ufPerM=unit==='uFm'?c:c/1000,m=lenUnit==='km'?len*1000:len,cap=ufPerM*m*(basis==='one'?3:1);
     return {cap,value:current(f,cap,V)};
   }
-  return {sizes,reference50,reference60,jis50,jis60,capacitance,inner,outer,legacy,sources,positive,current,dimensions,compare,reactors,manual};
+  return {sizes,reference50,reference60,jis50,jis60,capacitance,inner,outer,legacy,sources,positive,current,dimensions,compare,reactors,meterRange,manual};
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison;
 </script>
@@ -486,9 +490,9 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
         if(preset&&(!limit.trim()||E.positive(limit,'許容出力電流')>167))throw Error('R-1220Kの許容電流は167mA以下で入力してください。');
         const minutes="10".trim()?E.positive("10",'連続印加時間'):null;
         if(minutes!==null&&minutes>(preset?10:30))throw Error('連続印加時間が登録機器の定格を超えています。');
-        const meter="".trim()?E.positive("",'A2許容電流'):null;
+        const meter=E.meterRange(r.value,500);
         panel.innerHTML='<p class="reactor-caption">リアクトル組合せ（公称負担最小） <span>トランス許容 '+(limit.trim()?format(Number(limit))+' mA':'未入力')+'</span></p>';
-        if(meter!==null&&r.value>meter)panel.innerHTML+='<p class="error">被試験物側A2の許容電流を超えています。</p>';
+        panel.innerHTML+='<p data-role="a2-range" class="'+(!meter.within||meter.atLimit?'error':'hint')+'">DR-1220MH標準A2使用時：測定範囲500mA。採用充電電流 '+format(meter.current)+'mA。'+(!meter.within?'標準A2の測定範囲外です。負荷電流に対応した別の電流計が必要です。':meter.atLimit?'範囲上限と同値で余裕がありません。損失を含む全電流を測れる計器が必要です。':'容量成分だけでは範囲内ですが、損失を含む実際の全電流も確認します。')+'</p><details><summary>A2の条件とメーカー根拠</summary><p>リアクトルを使用するとき、A2には補償前の被試験物電流が流れます。トランス負担が小さくてもA2の範囲内とは限りません。複数台接続時は負荷電流に対応した計器を使用します。別の計器を用いる場合の型式・範囲は、この画面では判定していません。</p><p class="source"><a href="https://www.musashi-in.co.jp/manual/DR-1220MH_J06.pdf" target="_blank" rel="noopener">ムサシDR-1220MH取説 第6版・本文2、5〜6ページ</a>（500mA f.s.、複数台時のA2条件。2026年10月9日確認、本文発行年月は未確認）</p></details>';
         const options=[['2Kのみ',"4",0],['2K・5Kから組み合わせ',"4","3"]];
         let previous=null;
         options.forEach(([title,n2,n5])=>{
@@ -499,7 +503,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=ChargingComparison
           panel.innerHTML+='<h4 class="choice-title">'+title+'</h4>';
           if(!chosen){panel.innerHTML+='<p>検討範囲内に許容電流を満たす候補がありません。</p>';return;}
           const i2=1000*result.V/(2*Math.PI*result.f*200),i5=1000*result.V/(2*Math.PI*result.f*80);
-          panel.innerHTML+='<p><b class="model1220">2K × '+chosen.a+'台</b> ＋ <b class="model1250">5K × '+chosen.b+'台</b><br>合計 <strong>'+ (chosen.a+chosen.b)+'台</strong>（'+(rr.allowed===null?'公称負担最小・許容未判定':'許容条件内で公称負担が最小')+'）</p>'
+          panel.innerHTML+='<p><b class="model1220">2K × '+chosen.a+'台</b> ＋ <b class="model1250">5K × '+chosen.b+'台</b><br>合計 <strong>'+ (chosen.a+chosen.b)+'台</strong>（'+(rr.allowed===null?'公称負担最小・許容未判定':'トランス電流条件内で公称負担が最小')+'）</p>'
            +(chosen.b>0&&preset?'<p class="error">R-1220Kとの組合せ適合は未確認（5K取説の適応トランスはR-1250H/R-1250）。数値比較のみ。</p>':'')+(chosen.over?'<p class="error">過補償：リアクトル電流がケーブル電流を上回る候補</p>':'')+'<p class="residual-summary">トランス負担（損失除外） <strong>'+format(chosen.residual)+' mA</strong><br><small>L公差込み最大 '+format(chosen.worst)+' mA'+(rr.allowed===null?' ／ 許容値未入力':' ／ 許容 '+format(rr.allowed)+' mA')+'</small></p><details class="current-breakdown"><summary>電流の内訳</summary><p class="calc-trace">リアクトル電流：'+format(i2)+' × '+chosen.a+' ＋ '+format(i5)+' × '+chosen.b+' ＝ '+format(chosen.IL)+' mA<br>残留：|'+format(r.value)+' − '+format(chosen.IL)+'| ＝ <b>'+format(chosen.residual)+' mA</b><br>L公差込み最大：<b>'+format(chosen.worst)+' mA</b>'
            +(rr.allowed===null?'':' ／ 許容 '+format(rr.allowed)+' mA')+'</p></details>';
         });

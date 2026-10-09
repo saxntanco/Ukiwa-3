@@ -15,7 +15,7 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.09</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。 「容量が足りない」の正体は、試験器が電流を押し込む力だった。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
 <article class="entry" id="ipr2000-contact-mode-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜継電器試験・IP-R2000</div>
 <h2>IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。<br>「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</h2>
@@ -190,13 +190,8 @@
 </div>
 <p><b>電圧と電流、どっちを見ている？</b><br>「両端に電圧が現れる」と「電流が流れなくなる」は、同じ出来事の裏と表です。どちらを見ても同じ瞬間に分かります。試験器が実際にどちらを測っているかは取扱説明書にありませんが、仕様が「検出電流 約0.5mA」なので、輪に流れる電流を見ていると読むのが自然です。<span class="badge infer">🟡 推定</span></p>
 <p>取扱説明書の言葉では「接点状態を内蔵マイコンが自動判定し、接点の状態が変化した時点で」止めます。スタート時が閉か開かを見ておいて、そこから変わったら止める、と読めます。これが「AUTO」です。<span class="badge infer">🟡 読み取り</span></p>
-<p><b>なぜ交流ではなく直流？</b><span class="badge infer">🟡 推定（取扱説明書に理由は書いていない）</span></p>
-<div class="checkgrid grid3">
-<div class="checkcard"><b>① 交流は1秒に100回0Vを通る</b><br>開いている接点でも、交流なら一瞬0Vになります。「0Vになった＝閉じた」とすぐには言えず、半サイクル（50Hzで10ms）ほど様子を見る必要があります。動作時間をms単位で測るので、それが誤差になります。直流なら開いている間ずっと150Vで、変わった瞬間がそのまま分かります。</div>
-<div class="checkcard"><b>② 交流はコンデンサを通る</b><br>トリップコードの2本の線どうしや、開いた接点のすき間は小さなコンデンサです。交流だと、開いていても少し流れて「閉じた」と見まちがえる原因になります。直流は最初に充電するだけで、その後は流れません。<a href="#cable-capacitance-shield-ground-20260829">耐圧試験の充電電流</a>と同じ話です。</div>
-<div class="checkcard"><b>③ 試験の交流と混ざらない</b><br>試験器は同時に、継電器へ交流の試験電流・試験電圧を出しています。検出を直流にしておけば、近くのケーブルから乗ってくる交流と区別しやすくなります。</div>
-</div>
-<p class="small">仕様の「検出電圧 DC140〜170V（電源AC100V±10%のとき）」は、電源の電圧に比例して変わります。中で電源の交流を整流して直流を作っている、つまり交流が手元にあるのにわざわざ直流にしている、と読めます。電圧が150Vと高めなのは、接点表面の薄い酸化膜や汚れがあっても「閉じた」を確実に見るため、電流が0.5mAと小さいのは、接点や継電器に負担をかけないためと考えられます。<span class="badge infer">🟡 推定</span></p>
+<p><b>なぜ交流ではなく直流？</b><br>取扱説明書で確認できるのは、検出電圧DC140〜170V・検出電流約0.5mAという仕様です。直流を選んだ設計理由や内部の判定回路は公開されていません。</p>
+<details><summary>直流検出を理解するための補足</summary><p>直流は定常状態で周期的なゼロクロスを持たず、容量性の過渡電流が収まった後の接点状態を考えやすくなります。ただし交流検出でも回路設計によって応答は異なり、「必ず半周期（50Hzで10ms）待つ」とは言えません。約150Vを酸化膜対策とする説明や、内部電源・検出方式の断定も、メーカーの設計資料がないため行いません。上の輪は仕様を理解するための模式モデルです。</p></details>
 <div class="warning"><strong>a/b(AUTO)は電圧のない接点専用</strong><br>取扱説明書は、a/b(AUTO)を「継電器からの接点出力が無電圧接点のみ」の場合に使うとしています。<span class="badge official">🟢 取扱説明書 1.6.2</span> 接点にもともと継電器側の電圧が出ている回路だと、試験器の約150Vとぶつかって正しく判定できず、機器を傷めるおそれもあります。<span class="badge infer">🟡 推定</span> 電圧が出る接点はAC.DC.V（4章）を使います。</div>
 
 <h4>AC.CT：電流引外し形OCRが回してくる「電流」を見る</h4>
@@ -289,164 +284,43 @@
 <p><b>コンタクトモードは6つ。時間を測るならTRIP側、値を読むだけならC.CHECK側。</b></p>
 <p><b>何を見て止めるか：接点の開閉はa/b(AUTO)、電流引外し形OCRの電流はAC.CT、出てくる電圧はAC.DC.V。</b></p>
 <p><b>CB連動とAUTO.Vは、主接点の「閉→開」を見るのでa/b(AUTO)。</b></p>
-<p><b>a/b(AUTO)は直流約150Vの輪。閉じると0V・0.5mA、開くと150V・0mA。その変わり目で止める。交流だと0Vを何度も通って、閉じたのか分からない。</b></p>
+<p><b>a/b(AUTO)は無電圧接点の状態変化を検出する。仕様はDC140〜170V・約0.5mA。内部回路や直流を選んだ設計理由は未確認。</b></p>
 </section>
 <div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
 <li><span class="badge official">🟢</span>接点構造切換スイッチの6ポジションと使い方、検出の仕様（a/b・AC.CT・AC.DC.V）、ブザーとカウンタの表示、接点構造が分からないときの順番、各試験のトリップコードのつなぎ先とモード、所内電源・無停電時の警告：ムサシインテック「IP-R2000 マルチリレーテスタ 取扱説明書」4104-000ST026 第28版 1.2・1.4・1.6・2.2・3.3〜3.7（<a href="https://www.musashi-in.co.jp/item/2000/2000.html" target="_blank" rel="noopener">製品ページ</a>）</li>
 <li><span class="badge official">🟢</span>AUTO.Vの試験でTRIP−Tを主接点または補助開閉器a接点につなぎ、コンタクトモードをBreakにすること、OCR定格0.1A：富士電機「高圧真空遮断器 MULTI.VCB シリーズ AUTO.V（固定形）取扱説明書」INB-F8663c 7.4</li>
-<li><span class="badge infer">🟡</span>AC.CTの仕組みの読み取り、C.CHECK側にAC.CTがない理由、AC.CTでは約3.9A未満を確実に検出できないこと、DC24V出力が境目にあること、IP-R2000でのBreakはa/b(AUTO)にあたること、迷ったときの順番の理由、a/b(AUTO)の中の輪の考え方と直流を使う理由：自分の推定。</li>
+<li><span class="badge infer">🟡</span>AC.CTの仕組みの読み取り、C.CHECK側にAC.CTがない理由、AC.CTでは約3.9A未満を確実に検出できないこと、DC24V出力が境目にあること、IP-R2000でのBreakはa/b(AUTO)にあたること、迷ったときの順番の理由、a/b(AUTO)の中の輪の考え方：説明用の推定モデル。直流を使う設計理由は未確認。</li>
 </ul></div>
 <div class="note">※ 試験器の型式や版によって、スイッチの表記や仕様は異なります。実際の試験は、継電器・遮断器・試験器の取扱説明書、社内手順、作業責任者の指示に従ってください。本記事は自分用に整理した日誌であり、作業手順書ではありません。</div>
 </article>
-<article class="entry" id="autov-ocr-tester-capacity-20261007" data-update-date="2026/10/07">
-<div class="date">2026.10.07｜継電器試験・試験器の容量</div>
-<h2>AUTO.Vの51連動試験は、なぜGCR-mini VSではできないのか。<br>「容量が足りない」の正体は、試験器が電流を押し込む力だった。</h2>
-<div class="danger audit-preconditions"><strong>この記事について</strong><br>現場で言われた「AUTO.Vの51（OCR）で遮断器との連動を見るなら、VSだと容量が足りないからIPでやる」の理由を、メーカーの取扱説明書（富士電機 AUTO.V、ムサシインテック GCR-mini VS・IP-R2000）の仕様から確かめた記録です。数値のうち「目安」「推定」と書いたものは自分の計算です。実際の試験は、遮断器・試験器の取扱説明書、社内手順、作業責任者の指示に従います。</div>
-<p class="lead">GR・DGRの試験ではいつも使っている<b>GCR-mini VS</b>。それなのに、AUTO.Vの51の<b>連動試験</b>だけは「VSじゃ容量が足りないから<b>IP（IP-R2000）</b>で」と言われました。容量って、VAのこと？　VSはそんなに小さい？　調べてみると、足りないのは<b>VAというより「電圧」</b>でした。</p>
-<div class="pillrow"><a class="pill" href="#autov-answer">1 結論</a><a class="pill" href="#autov-trip">2 電流引外し</a><a class="pill" href="#autov-push">3 押す力</a><a class="pill" href="#autov-ip">4 IPならできる</a><a class="pill" href="#autov-green">5 緑のコード</a><a class="pill" href="#autov-source">6 電源の容量</a><a class="pill" href="#autov-check">確認すること</a></div>
-
-<h3 id="autov-answer">🎯 1. まず結論</h3>
-<p class="keyline">AUTO.Vは、CTの電流そのもので遮断器を引き外す「電流引外し式」。連動試験では、<b>試験器の電流がそのまま引外しコイルを動かす動力</b>になる。VSは押し込める電圧が約6Vしかないので、コイルまで電流を押し込めない。IPは100V級の電圧を抵抗で絞って出しているので、押し込める。</p>
-<div class="diagram-card">
-<svg viewBox="0 0 760 300" role="img" aria-label="2つの容量。左からエコフロー（電源）、試験器、AUTO.V。電源から試験器への矢印が電源の容量、試験器からAUTO.Vへの矢印が出力の押す力。AUTO.Vの連動で足りなくなるのは出力の押す力">
-<rect x="0" y="0" width="760" height="300" rx="14" fill="#06213a"/>
-<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">「容量」は2か所ある</text>
-<rect x="24" y="80" width="150" height="120" rx="12" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
-<text x="99" y="118" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">電源</text>
-<text x="99" y="142" fill="#9fc0d4" font-size="13" text-anchor="middle">エコフローなど</text>
-<text x="99" y="170" fill="#ffd27a" font-size="14" font-weight="800" text-anchor="middle">例：1500VA</text>
-<rect x="290" y="64" width="190" height="152" rx="12" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
-<text x="385" y="94" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">試験器</text>
-<text x="306" y="128" fill="#7ee08a" font-size="13" font-weight="800">IP-R2000</text>
-<text x="306" y="148" fill="#cfe3ef" font-size="12">スライダック → 抵抗</text>
-<text x="306" y="166" fill="#7ee08a" font-size="12">後ろに100V級</text>
-<text x="306" y="190" fill="#ff8f7a" font-size="13" font-weight="800">GCR-mini VS</text>
-<text x="306" y="208" fill="#ff8f7a" font-size="12">電子回路・約6Vまで</text>
-<rect x="596" y="64" width="140" height="152" rx="12" fill="#0b2b4b" stroke="#3a79a3" stroke-width="2"/>
-<text x="666" y="94" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">AUTO.V</text>
-<text x="666" y="124" fill="#cfe3ef" font-size="12" text-anchor="middle">内蔵OCR</text>
-<text x="666" y="142" fill="#cfe3ef" font-size="12" text-anchor="middle">0.1Aで約7V</text>
-<text x="666" y="172" fill="#cfe3ef" font-size="12" text-anchor="middle">＋ 引外しコイル</text>
-<text x="666" y="190" fill="#cfe3ef" font-size="12" text-anchor="middle">（動作の瞬間に</text>
-<text x="666" y="206" fill="#cfe3ef" font-size="12" text-anchor="middle">加わる）</text>
-<path d="M176 140 H282" stroke="#8ed0fa" stroke-width="3" marker-end="url(#avA)"/>
-<text x="230" y="124" fill="#8ed0fa" font-size="13" font-weight="800" text-anchor="middle">① 電源の容量</text>
-<text x="230" y="164" fill="#9fc0d4" font-size="11" text-anchor="middle">何VA供給できるか</text>
-<path d="M482 140 H588" stroke="#ffd27a" stroke-width="4" marker-end="url(#avB)"/>
-<text x="535" y="124" fill="#ffd27a" font-size="13" font-weight="800" text-anchor="middle">② 出力の押す力</text>
-<text x="535" y="164" fill="#9fc0d4" font-size="11" text-anchor="middle">何Vで押し込めるか</text>
-<rect x="24" y="236" width="712" height="46" rx="10" fill="#10324f"/>
-<text x="40" y="258" fill="#ffd27a" font-size="13" font-weight="800">AUTO.Vの連動で足りなくなるのは ②。</text>
-<text x="40" y="275" fill="#cfe3ef" font-size="12">① が効いてくるのは、20〜50Aを流す大電流のOCR試験や、耐圧試験のとき。</text>
-<defs><marker id="avA" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#8ed0fa"/></marker><marker id="avB" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ffd27a"/></marker></defs>
-</svg>
-</div>
-
-<h3 id="autov-trip">⚡ 2. AUTO.Vは「CTの電流で遮断器を引き外す」</h3>
-<p>AUTO.Vは、富士電機の真空遮断器（MULTI.VCBシリーズ）で、<b>CTとOCRを内蔵</b>しています。取扱説明書の仕様から、関係するところを抜き出すとこうです。<span class="badge official">🟢 取扱説明書</span></p>
-<div class="table-scroll"><table>
-<tr><th>項目</th><th>仕様</th><th>意味</th></tr>
-<tr><td>引外し方式</td><td>CT, OCR内蔵<b>電流引外し式</b>（形式 HA□A□-□<b>6</b>）</td><td>電池や制御電源ではなく、CTの電流で引き外す</td></tr>
-<tr><td>OCRの定格電流</td><td><b>0.1A</b>（CTの二次は5Aではなく0.1A）</td><td>試験電流がとても小さい</td></tr>
-<tr><td>OCRの負担</td><td><b>0.7VA以下</b></td><td>0.1Aを流すのに 0.7 ÷ 0.1 ＝ 約7V 要る（目安）</td></tr>
-<tr><td>試験電流の例</td><td>始動 0.1A、限時300% 0.3A、700% 0.7A、瞬時200% 2.0A</td><td>1A未満はGCR試験コネクタ、1A以上はOCR試験コネクタ</td></tr>
-</table></div>
-<p>連動試験では、<b>CTの役を試験器がする</b>ことになります。試験器の電流で、OCRを動かして、さらに引外しコイルまで動かさないといけません。</p>
-<div class="flow">① OCRが動作するまで：電流はOCRの入力だけを流れる（約7V）<br>↓<br>② OCRが動作した瞬間：電流の通り道に<b>引外しコイル</b>が加わる<br>↓<br>③ コイルはインピーダンスが大きい。同じ電流を流すのに、<b>ずっと大きな電圧</b>が要る<br>↓<br>④ 試験器がその電圧を出せないと、電流が落ちて、コイルに必要な電力が届かない<br>↓<br>⑤ 遮断器が開かない・うなる・チャタリング・動作時間がばらつく</div>
-
-<h3 id="autov-push">💪 3. 「容量」の正体は、電流を押し込む力</h3>
-<p>GCR-mini VSの電流出力の仕様はこうです。<span class="badge official">🟢 取扱説明書 1.5.2</span></p>
-<div class="table-scroll"><table>
-<tr><th>レンジ</th><th>容量</th><th>定格端子電圧</th></tr>
-<tr><td>25mA</td><td>10mVA（16Ω以下）</td><td>0.4V</td></tr>
-<tr><td><b>0.5A</b></td><td><b>3VA</b></td><td><b>6V</b></td></tr>
-<tr><td>2.5A</td><td>15VA</td><td>6V</td></tr>
-<tr><td>5A</td><td>25VA</td><td>5V</td></tr>
-</table></div>
-<p>3VAと聞くと、AUTO.Vの0.7VAより大きいので足りそうに見えます。でも3VAは「<b>0.5A × 6V</b>」のこと。押し込める電圧の上限が<b>約6V</b>なので、0.1Aしか流さないときは、0.1A × 6V ＝ <b>0.6VA</b>しか使えません。<span class="badge infer">🟡 計算</span></p>
-<div class="diagram-card">
-<svg viewBox="0 0 760 270" role="img" aria-label="押し込める電圧の比較。GCR-mini VSは約6V、AUTO.VのOCRに要る電圧は定格0.1Aで約7Vでさらに引外しコイルの分が上乗せ、IP-R2000は100V級">
-<rect x="0" y="0" width="760" height="270" rx="14" fill="#06213a"/>
-<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">押し込める電圧（目安）</text>
-<g stroke="#2a5577" stroke-width="1"><path d="M220 60 V214"/><path d="M307 60 V214"/><path d="M393 60 V214"/><path d="M480 60 V214"/><path d="M567 60 V214"/><path d="M653 60 V214"/><path d="M740 60 V214"/></g>
-<g fill="#9fc0d4" font-size="11" text-anchor="middle"><text x="220" y="230">0V</text><text x="307" y="230">20</text><text x="393" y="230">40</text><text x="480" y="230">60</text><text x="567" y="230">80</text><text x="653" y="230">100</text><text x="740" y="230">120V</text></g>
-<text x="24" y="88" fill="#ff8f7a" font-size="13" font-weight="800">GCR-mini VS</text><text x="24" y="104" fill="#9fc0d4" font-size="11">0.5Aレンジ</text>
-<rect x="220" y="78" width="26" height="22" rx="4" fill="#ff8f7a"/><text x="254" y="94" fill="#ff8f7a" font-size="13" font-weight="800">約6V</text>
-<text x="24" y="138" fill="#ffd27a" font-size="13" font-weight="800">AUTO.Vに要る</text><text x="24" y="154" fill="#9fc0d4" font-size="11">定格0.1A＋コイル</text>
-<rect x="220" y="128" width="30" height="22" rx="4" fill="#ffd27a"/><path d="M252 139 H330" stroke="#ffd27a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#avC)"/><text x="338" y="144" fill="#ffd27a" font-size="12">約7V ＋ 引外しコイルの分</text>
-<text x="24" y="188" fill="#7ee08a" font-size="13" font-weight="800">IP-R2000</text><text x="24" y="204" fill="#9fc0d4" font-size="11">抵抗の後ろの電圧</text>
-<rect x="220" y="178" width="433" height="22" rx="4" fill="#7ee08a"/><text x="562" y="194" fill="#06213a" font-size="13" font-weight="800">100V級</text>
-<text x="24" y="256" fill="#9fc0d4" font-size="11">7Vは「負担0.7VA ÷ 0.1A」の目安。100V級はOCR出力（20Ωレンジで6A）からの推定。</text>
-<defs><marker id="avC" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd27a"/></marker></defs>
-</svg>
-</div>
-<p>定格の0.1Aですら、押し込む電圧がぎりぎり足りません。そこに引外しコイルが加わると、まったく足りなくなります。VSは、負荷のインピーダンスが大きすぎると<b>「A.OPEN」</b>（電流出力が開放状態もしくは容量オーバー）を出して、出力を止める作りです。<span class="badge official">🟢 取扱説明書 2.3</span></p>
-<p class="small">負担の0.7VAは「以下」という上限の値です。電流が大きいときの負担が比例して増えるとは限らないので、7Vは目安です。</p>
-
-<h3 id="autov-ip">🔧 4. IP-R2000ならできる理由</h3>
-<p>IP-R2000は、<b>スライダックで100V級まで上げた電圧を、直列の抵抗（0.5〜20Ω）で絞って電流にする</b>方式です。抵抗が負荷より十分大きいので、引外しコイルが加わって負荷のインピーダンスが増えても、電流がほとんど落ちません。</p>
-<div class="tool"><b>IP-R2000の取扱説明書より</b> <span class="badge official">🟢</span><br>「過電流継電器OCRと、電流引きはずし式真空遮断器VCBの連動試験におきましては、VCB引きはずしコイルのインピーダンスの影響により、引きはずしコイルの動作に必要な電力が得られず、VCBがうなり音やチャタリング等の不安定動作となる場合があります。このような場合は、OCR出力電流切り換えスイッチの抵抗レンジを1レンジ高い抵抗値に切り換えて試験をしてください。抵抗値を高くすることにより、電圧も高くなり、VCBの引きはずしに必要な電力を得られます。」</div>
-<div class="checkgrid">
-<div class="checkcard"><b>不安定なら抵抗レンジを1つ上げる</b><br>抵抗を上げると、同じ電流にするのにスライダックの電圧が高くなる。そのぶん押す力が増える。</div>
-<div class="checkcard"><b>それでもばらつくなら</b><br>取扱説明書には「OCRの内部接点を磨くなど対処」とある。</div>
-</div>
-
-<h3 id="autov-green">🟢 5. でも、IPでもDGR用の緑のコードを使うよね？</h3>
-<p>使います。IP-R2000の緑のコードは「<b>No.2516 電流コード GCR/DGR</b>」。AUTO.Vの取扱説明書でも、1A未満の試験電流は<b>GCR試験コネクタ</b>から流す、とあります。</p>
-<p>ただ、同じ「DGR用の電流出力」でも、<b>中身がまったく違います</b>。IP-R2000のブロック図（1.7.2 地絡継電器試験）では、GCRの出力もOCRと同じく <b>AC100V → スライダック → 抵抗器 → 電流計 → GCR端子</b> という道を通っています。0.5A・2.4Aのレンジは抵抗で電流の上限を決めているだけで、後ろにある電圧は100V級のままです。<span class="badge official">🟢 ブロック図</span></p>
-<div class="table-scroll"><table>
-<tr><th></th><th>IP-R2000 GCR/DGR出力</th><th>GCR-mini VS 電流出力</th></tr>
-<tr><td>コード</td><td><b>緑</b>（No.2516 電流コード GCR/DGR）</td><td><b>赤</b>（電流コード）※VSの緑はアースコード</td></tr>
-<tr><td>電流の作り方</td><td>スライダック → 抵抗器</td><td>電子回路</td></tr>
-<tr><td>後ろにある電圧</td><td><b>100V級</b>（推定）</td><td><b>約5〜6V</b></td></tr>
-<tr><td>得意な相手</td><td>GR・DGR、AUTO.Vの小電流OCR</td><td>GR・DGR（負担が小さい）</td></tr>
-</table></div>
-<p>呼び名は同じ「DGR用」でも、押す力が20倍くらい違う。これが「VSでは容量が足りない」の正体です。</p>
-<div class="checkgrid">
-<div class="checkcard"><b>GR・DGRはなぜVSでいい？</b><br>GR・DGRは継電器自体がP1・P2の制御電源で動き、遮断器を引き外すのも別の電源（電圧引外し）。試験器の電流はZCTの入力（kt・lt）に入るだけで負担がとても小さいので、約6Vで足りる。</div>
-<div class="checkcard"><b>AUTO.Vの51は違う</b><br>試験電流そのものが、OCRの電源であり、引外しコイルの動力でもある。だから押す力が要る。</div>
-</div>
-
-<h3 id="autov-source">🔋 6. もうひとつの容量：電源（エコフロー）</h3>
-<p>エコフローのようなポータブル電源が1500VAで、IP-R2000の仕様が「消費電力 最大2kVA」なら、電源がボトルネックになる？　→ <b>試験が1500VAを超える電力を要求したときだけ</b>なります。2kVAは<b>最大値</b>で、いつも2kVA使うわけではありません。</p>
-<div class="table-scroll"><table>
-<tr><th>試験</th><th>出力電流</th><th>電源から引く電力の目安</th><th>1500VAの電源</th></tr>
-<tr><td>AUTO.VのOCR</td><td>0.1〜2A</td><td>数十〜200VA程度</td><td>余裕あり</td></tr>
-<tr><td>GR・DGR</td><td>1A以下</td><td>小さい</td><td>余裕あり</td></tr>
-<tr><td>5A系OCRの700%・瞬時</td><td>20〜35A</td><td>1kVA前後</td><td>ぎりぎり</td></tr>
-<tr><td>OCRの最大（0.5Ωレンジ）</td><td>50A</td><td>1.3kVA以上</td><td><b>足りない</b></td></tr>
-<tr><td>絶縁耐力（耐圧トランス）</td><td>最大20A（103.5V時）</td><td>最大約2kVA</td><td><b>足りない</b></td></tr>
-<tr><td>＋補助電源 AC100V</td><td>―</td><td>最大500VAが上乗せ</td><td>注意</td></tr>
-</table></div>
-<p class="small">「電源から引く電力 ≒ スライダックの電圧 × 出力電流」として見積もった目安です。<span class="badge infer">🟡</span></p>
-<div class="warning"><strong>メーカーの推奨は2.4kVA以上</strong><br>IP-R2000の取扱説明書では、発電機は<b>定格容量2.4kVA以上</b>を推奨。継電器試験では瞬時に20〜50Aを流すので、容量が小さいと電圧や周波数が変動して試験できないことがある、とあります。1500VAは推奨より小さいので、小さな電流の試験はできても、大電流のOCR試験や耐圧試験は大きい電源を用意するのが確実です。<span class="badge official">🟢</span></div>
-<div class="checkgrid">
-<div class="checkcard"><b>周波数を合わせる</b><br>ポータブル電源は50/60Hzを切り替えられる。取扱説明書にも「出力周波数が試験周波数であること」。</div>
-<div class="checkcard"><b>電圧を下げる機能は切る</b><br>大きな負荷で電圧を下げて動かす機能（X-Boostなど）が入っていると、試験の電圧・電流が狂う。<span class="badge infer">🟡</span></div>
-<div class="checkcard"><b>入力はAC90〜110V</b><br>IP-R2000の電圧計を「INPUT」にすると入力電圧が見られる。</div>
-<div class="checkcard"><b>WとVA</b><br>ポータブル電源の定格はWで書かれていることが多い。力率の低い負荷では電流の上限で効くので、定格の電流も見る。<span class="badge infer">🟡</span></div>
-</div>
-
-<h3 id="autov-check">📝 確認しておくこと</h3>
-<div class="checkgrid">
-<div class="checkcard"><b>AUTO.Vの形式（HA□A□-□6 か -□7 か）</b><br>-□6が電流引外し式（AC100/110V電圧引外し機能付き）、-□7は電圧引外し式（DC100/110V、コンデンサ引外し電源装置）。7なら引外しのエネルギーは別の電源から来るので、事情が変わる。銘板で確かめる。</div>
-<div class="checkcard"><b>試験の前に一次電流整定を「テスト」へ</b><br>AUTO.Vの取扱説明書：テスト以外での試験は焼損のおそれ。電流整定は10秒以内。試験後は整定値を運転時に戻す。</div>
-<div class="checkcard"><b>トリップコードとコンタクトモード</b><br>AUTO.Vの取扱説明書：TRIP−Tは主接点または補助開閉器a接点へ、コンタクトモードはBreak。IP-R2000での読み替えは<a href="#ipr2000-contact-mode-20261007">コンタクトモードの記事</a>へ。</div>
-</div>
-
-<section class="memo">
-<h3>🛟 今日のうきわメモ</h3>
-<p><b>「容量が足りない」は、VAよりも電圧。試験器が何Vで押し込めるかを見る。</b></p>
-<p><b>電流引外し式の連動試験は、試験電流がそのまま遮断器を動かす動力。だから押す力のあるIPで。</b></p>
-<p><b>容量は2か所。電源 → 試験器（エコフローのVA）と、試験器 → 継電器（出力の押す力）。</b></p>
-</section>
-<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
-<li><span class="badge official">🟢</span>AUTO.Vの引外し方式・OCR定格0.1A・負担0.7VA以下・特性試験の方法（1A未満はGCR試験コネクタ）：富士電機「高圧真空遮断器 MULTI.VCB シリーズ AUTO.V（固定形）取扱説明書」INB-F8663c 表1・7.4</li>
-<li><span class="badge official">🟢</span>GCR-mini VSの電流出力の容量と定格端子電圧、A.OPENの意味、付属コードの色：ムサシインテック「GCR-mini VS 取扱説明書」第21版 1.3.1・1.5.2・2.3（<a href="https://www.musashi-in.co.jp/item/2237/2237.html" target="_blank" rel="noopener">製品ページ</a>）</li>
-<li><span class="badge official">🟢</span>IP-R2000の方式（電源抵抗部）、電流引外し式VCBとの連動試験の注意、ブロック図、付属コード（No.2516 緑）、発電機2.4kVA以上推奨：ムサシインテック「IP-R2000 マルチリレーテスタ 取扱説明書」第28版 1.3.1・1.6・1.7・2.1・3.3.6（<a href="https://www.musashi-in.co.jp/item/2000/2000.html" target="_blank" rel="noopener">製品ページ</a>）</li>
-<li><span class="badge infer">🟡</span>約7V（負担÷電流）、100V級（OCR出力の抵抗レンジと電流からの推定）、電源から引く電力の目安：自分の計算。</li>
-</ul></div>
-<div class="note">※ 試験器・遮断器の型式や版によって仕様は異なります。実際の試験は、遮断器・試験器の取扱説明書、社内手順、作業責任者の指示に従ってください。本記事は自分用に整理した日誌であり、作業手順書ではありません。</div>
+<article class="entry" id="autov-ocr-tester-capacity-20261007" data-update-date="2026/10/09">
+<div class="date">2026.10.07｜継電器試験・試験器の容量（10.09 訂正）</div>
+<h2>AUTO.Vの51連動試験でいう「容量」とは？<br>電流出力の負担と、試験器を動かす電源を分けて考える。</h2>
+<p class="lead">現場では「AUTO.Vの51（OCR）で遮断器との連動を見るなら、VSではなくIPで」と教わりました。以前は0.7VA以下の負担から「7Vが必要だからVSでは足りない」と説明しましたが、<b>上限値から実際の必要電圧を断定した誤り</b>でした。ここを訂正します。</p>
+<div class="pillrow"><a class="pill" href="#autov-answer">1 結論</a><a class="pill" href="#autov-trip">2 電流引外し</a><a class="pill" href="#autov-push">3 出力条件</a><a class="pill" href="#autov-ip">4 IPの記載</a><a class="pill" href="#autov-green">5 試験端子</a><a class="pill" href="#autov-source">6 入力電源</a><a class="pill" href="#autov-check">確認すること</a></div>
+<h3 id="autov-answer">🎯 1. 仕様だけで分かること・分からないこと</h3>
+<p class="keyline">電流引外し式の連動試験では、試験電流が引外しのエネルギー源にもなります。必要なのは<b>試験電流を、動作前後の負担に対して維持できる出力</b>です。OCR負担の上限だけでは、GCR-mini VSの使用可否も、IP-R2000での成立も確定できません。</p>
+<h3 id="autov-trip">⚡ 2. 0.7VA「以下」を正しく読む</h3>
+<p>手元の記録で参照した富士電機AUTO.V取扱説明書INB-F8663cでは、対象の電流引外し形のOCR定格は0.1A、負担は0.7VA以下です。この原典は今回の公開資料確認では再取得できていないため、実機の型式・版で再確認する項目とします。</p>
+<div class="eq">定格0.1Aで負担 S ≤ 0.7VA なら、端子電圧の大きさは |V| = S / I ≤ 7V</div>
+<p><b>「7V以下」は「7V必要」と同じではありません。</b>また、これは定格電流でのOCR負担の上限からの換算です。他の試験電流や引外し動作中の必要電圧を示しません。コイル、配線、試験コードを含む負担と動作時の変化を確認する必要があります。</p>
+<h3 id="autov-push">💪 3. VSの電流出力を負担と照合する</h3>
+<p>GCR-mini VS第21版1.5.2の電流出力仕様は次のとおりです。</p>
+<div class="table-scroll"><table><tr><th>レンジ</th><th>容量</th><th>定格端子電圧</th></tr>
+<tr><td>25mA</td><td>10mVA（16Ω以下）</td><td>0.4V</td></tr><tr><td>0.5A</td><td>3VA</td><td>6V</td></tr><tr><td>2.5A</td><td>15VA</td><td>6V</td></tr><tr><td>5A</td><td>25VA</td><td>5V</td></tr></table></div>
+<p>0.5Aレンジの3VAは0.5A×6Vに対応します。仮に0.1Aで6Vを維持できる条件なら0.6VAですが、AUTO.Vの実負担が0.6VAを超えるかは「0.7VA以下」だけでは分かりません。さらにVSの取説が対象とする継電器の種類・接続条件への適合確認が必要です。A.OPENは電流出力の開放または容量超過等を示す表示であり、これを出す試行で適否を決めるものではありません。</p>
+<h3 id="autov-ip">🔧 4. IP-R2000の取説が説明すること</h3>
+<p>IP-R2000の取説3.3.6には、電流引外し形VCBの連動で、引外しコイルの負担により動作電力が不足し不安定になる場合があると記載されています。その場合の抵抗レンジ変更も示されています。これは出力の電圧と負担が関係する根拠ですが、<b>全てのAUTO.Vに対する適合保証ではありません</b>。</p>
+<p>電源抵抗部のブロック図から内部の電源電圧を推定し、それをそのままGCR端子の保証出力として比較することはできません。実際のレンジ・電流・負担・使用時間と、双方の取説に指定された試験方法を照合します。</p>
+<h3 id="autov-green">🟢 5. コードの呼び名だけで出力を決めない</h3>
+<p>IP-R2000の付属品にはNo.2516「電流コード GCR/DGR」（緑）があります。同じ「DGR用」でも他の試験器と出力仕様が共通とは限りません。AUTO.V側の試験コネクタ、試験電流、検出用接点の接続は、対象型式の取説で確認します。</p>
+<h3 id="autov-source">🔋 6. 入力電源の容量は別に確認する</h3>
+<p>試験器を動かす電源のW・VA・電流上限と、試験器が負荷へ出す能力は別です。IP-R2000の最大消費電力を常時消費するわけではありませんが、小電流試験だから特定のポータブル電源で確実に動く、とも断定できません。試験器内部の損失、補助出力、過渡応答、電源電圧・周波数・波形を含めて確認します。</p>
+<p>IP-R2000第28版は発電機について定格容量2.4kVA以上を推奨しています。これはポータブル電源の機種適合を示す値ではありません。以前の「1500VAなら余裕あり／足りない」という一律の表は、根拠が不足していたため取り下げました。</p>
+<h3 id="autov-check">📝 確認すること</h3>
+<div class="checkgrid"><div class="checkcard"><b>遮断器側</b><br>型式・引外し方式・取説の版・試験電流・動作前後の負担・指定試験器。</div><div class="checkcard"><b>試験器側</b><br>対象用途・出力レンジ・負担に対する端子電圧・出力時間・入力電源条件。</div></div>
+<section class="memo"><h3>🛟 今日のうきわメモ</h3><p><b>0.7VA以下÷0.1Aは7V以下。必要電圧を7Vと決める根拠にはならない。</b></p><p><b>電流引外しの連動は、OCRだけでなく引外し時の負担まで照合する。入力電源の容量も別に確認する。</b></p></section>
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul><li>富士電機AUTO.V INB-F8663c 表1・7.4：従来記事の参照記録。今回原典未再取得。型式・版の照合が必要。</li><li><a href="https://www.musashi-in.co.jp/manual/gcr-minivs_21.pdf" target="_blank" rel="noopener">GCR-mini VS 第21版</a>：対象用途、1.5.2の出力仕様、2.3の表示。</li><li><a href="https://www.musashi-in.co.jp/manual/ip-r2000_28.pdf" target="_blank" rel="noopener">IP-R2000 第28版</a>：電源抵抗部、3.3.6の電流引外し形VCB連動、発電機の条件。</li></ul></div>
 </article>
 <article class="entry" id="pas-vt-simulator-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜サイトづくり・耐圧試験</div>
@@ -470,17 +344,17 @@
 <h3 id="pvs-try">👆 2. まず試すこと</h3>
 <div class="checkgrid">
 <div class="checkcard"><b>① PASの中の電流で「U相だけ」</b><br>U相から入った電流が、VTの一次巻線を通ってV相のケーブルへ抜けていく（赤）。3相一括に戻すと、赤が消える。</div>
-<div class="checkcard"><b>② 「U＋V短絡」と「V＋W短絡」を比べる</b><br>VTの両端（U・V）が同じ扱いならVTは無事。片方だけに電圧がかかると焼ける。</div>
+<div class="checkcard"><b>② 「U＋V短絡」と「V＋W短絡」を比べる</b><br>このモデルではU・Vが等電位なら一次巻線の両端電圧は0。片方だけへの印加は過電圧・焼損のおそれがあります。実機は指定の三相一括で扱います。</div>
 <div class="checkcard"><b>③ シミュレーターで「1相・他相を開放」にして、ケーブル長を動かす</b><br>0mでは開放した相が試験電圧に近づき、30mでは逆向きになってVTに定格の約1.7倍。途中の数mで共振に近づいて大きな値が出る。</div>
 <div class="checkcard"><b>④ EVTで「中性点を接地したまま」</b><br>3相一括でも、3つの巻線すべてを通って中性点から大地へ抜ける。V結線のVTとの違いが一目で分かる。</div>
 </div>
-<figure style="margin:16px 0"><img src="assets/diary/pvs-pas-u-only.webp" alt="PASの中の電流の図。U相だけに試験電圧をかけると、U相から内蔵VTの一次巻線を通ってV相の負荷側ケーブルへ電流が流れる" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px"><figcaption class="small">① U相だけに試験電圧をかけたとき。赤い線がVTの巻線を通る電流、青い線はケーブルの充電電流（VTを通らない）。</figcaption></figure>
+<div class="tool"><b>① U相だけに印加したときの電流経路</b><br><a href="pas-vt-withstand-simulator.html#basics-pas">現行のPAS模式図を見る</a>。一次巻線を通る経路と、制御線の切離し・一括接地の指定を分けて確認します。この下のL−C数値例は二次開放相当で、二次短絡する実試験の電流を再現したものではありません。</div>
 
 <h3 id="pvs-core">💡 3. 一番大事な理屈</h3>
-<p class="keyline">VTは<b>相と相の間</b>につながっている。VTの両端を同じ電圧にすれば、巻線に電流は流れない。それができるのが<b>三線短絡の3相一括</b>。</p>
+<p class="keyline">ここで扱う相間VTは<b>相と相の間</b>につながっている。三線短絡でU・V・Wを同電位にすると、一次巻線の両端電圧を0にできる。これに加え、制御線の処置などもメーカー指定に従う。</p>
 <p>U相だけに試験電圧をかけると、なぜV相のほうへ電流が流れるのか。</p>
-<div class="flow">V相は開放でも、心線と遮へい層のあいだはコンデンサ<br>↓<br>V相を充電する電荷の通り道は、U相とのあいだの<b>VTの一次巻線だけ</b><br>↓<br>試験器 → U相 → VTの一次巻線 → V相 → V相ケーブルのC → 大地 → 試験器、と一周する<br>↓<br>VTのコイル（L）とケーブルのコンデンサ（C）の直列に10,350Vがかかり、VTが過励磁 → 飽和 → 電流が増えて焼損</div>
-<figure style="margin:16px 0"><img src="assets/diary/pvs-equivalent-circuit.webp" alt="U相だけに試験電圧をかけたときの等価回路。U相ケーブルのCの電流はVTを通らずに大地へ、V相ケーブルのCの電流はVTの一次巻線を通る。W相はどこにもつながらない" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px"><figcaption class="small">等価回路。U相のケーブルの電流（青）はVTを通らずに大地へ。V相のケーブルの電流（赤）はVTを通らないとたどり着けない。W相はどこにもつながらないので電流は流れない。</figcaption></figure>
+<div class="flow">二次開放・相互静電容量省略のモデルで考える<br>↓<br>V相は開放でも、心線と遮へい層のあいだはコンデンサ<br>↓<br>このモデルでは、V相を充電する通り道がU相とのあいだの<b>VTの一次巻線</b>になる<br>↓<br>試験器 → U相 → VTの一次巻線 → V相 → V相ケーブルのC → 大地 → 試験器、と一周する<br>↓<br>VTのコイル（L）とケーブルのコンデンサ（C）の直列に10,350Vがかかり、条件によってVTに過電圧・過励磁が生じ、焼損のおそれ（実機の電流上限や焼損時間は未計算）</div>
+<div class="tool"><b>訂正した等価回路</b><br>旧図にはVTコイルを迂回する配線が描かれていたため取り下げました。<a href="pas-vt-withstand-simulator.html#why-s">修正済みの等価回路と、二次開放を仮定して相互静電容量を省いたモデルの条件を見る</a>。</div>
 <p>くわしい式と数値は、今日の<a href="#withstand-ip1110-20261007">IP-1110の日誌</a>とシミュレーターのページの「<a href="pas-vt-withstand-simulator.html#why-s">なぜV相へ流れる？</a>」にまとめました。</p>
 
 <h3 id="pvs-fixed">🔧 4. 作りながら間違えて、直したこと</h3>
@@ -491,7 +365,7 @@
 <tr><td>LA内蔵は試験電圧で動作してしまう</td><td><b>交流10,350Vの3相一括はできる</b>。AC12kV以上・DC17kV以上や直流耐電圧試験はできない</td><td><span class="badge official">🟢</span> 戸上電機・日本高圧電気</td></tr>
 <tr><td>「他相を接地」の「接地」がVTの接地に見える</td><td>VTの一次側に接地点はない。図の接地は<b>電線の接地</b>（作業用接地の外し忘れなど）。VTで接地するのは二次側（D種）</td><td><span class="badge official">🟢</span> 電技解釈 第28条（二次側の接地）</td></tr>
 <tr><td>U相の道もあるのに、なぜV相にだけ流れる？</td><td>電流は<b>U相にもV相にも</b>流れる。VTを通るのはV相側だけ。等価回路にU相の電流（青）を描き足した</td><td><span class="badge infer">🟡</span> 回路の考え方</td></tr>
-<tr><td>VTの二次側の接地があるから流れる？</td><td>関係ない。電流は<b>一周できる道</b>がないと流れない。一次と二次は磁気でしかつながっていない</td><td><span class="badge infer">🟡</span> 回路の考え方</td></tr>
+<tr><td>VTの二次側の接地があるから流れる？</td><td>二次の一点接地は一次電流の直接の帰路ではない。ただし一次と二次は磁気結合しており、二次負担や端子間の短絡は一次電流に影響する。現行の励磁Lモデルは二次開放相当</td><td><span class="badge infer">🟡</span> 回路の考え方</td></tr>
 <tr><td>図にシースを描いていた</td><td>シースは電流の通り道ではないので外した。<b>遮へい層 → 遮へい接地線</b>で大地へ戻る形に直した</td><td><span class="badge infer">🟡</span> ケーブルの構造</td></tr>
 <tr><td>相をR・S・Tで書いていた</td><td>メーカーの取扱説明書（「U相とV相に接続」）とVT単体の端子名に合わせて<b>U・V・W</b>に統一</td><td><span class="badge official">🟢</span> 取扱説明書の表記</td></tr>
 <tr><td>「1相」と「単相」</td><td>この話の「1相」はU・V・Wのうち1本のこと。「単相」は回路の種類。耐圧試験器の出力はもともと単相で、違うのは<b>何本の相につなぐか</b></td><td><span class="badge infer">🟡</span> 用語の整理</td></tr>
@@ -499,16 +373,16 @@
 
 <h3 id="pvs-limit">⚠️ 5. このシミュレーターでできないこと</h3>
 <div class="checkgrid">
-<div class="checkcard"><b>鉄心の飽和は計算していない</b><br>VTは線形モデル。定格の1.2倍を超えたら「飽和域」と表示するだけで、そこから先の数値は目安。</div>
+<div class="checkcard"><b>鉄心の飽和は計算していない</b><br>VTは二次開放相当の線形モデル。定格電圧との比は表示しますが、飽和の開始点・実機の異常電流・焼損時間は判定できません。</div>
 <div class="checkcard"><b>VTの特性は仮の値</b><br>励磁電流・損失・PAS内部の静電容量はメーカー資料で確認できなかった。ページ下の「計算モデルと仮定」で変えられる。</div>
 <div class="checkcard"><b>実物の配置ではない</b><br>VTの台数・つなぐ相、ZCT・LAの有無と位置はメーカー・型式で違う。銘板と取扱説明書で確認する。</div>
-<div class="checkcard"><b>結論は仮の値によらない</b><br>「3相一括ならVTは0V」「他相を接地するとVTに10,350V」は、どの値でも変わらない。</div>
+<div class="checkcard"><b>結論は仮の値によらない</b><br>「相間VTの両端を同電位にすると一次両端は0V」「VTの片端に10,350Vをかけ、もう片端を接地すると一次両端は10,350V」は、このモデルのL・Cの仮定によらない。</div>
 </div>
 
 <section class="memo">
 <h3>🛟 今日のうきわメモ</h3>
 <p><b>分からないときは、描いて電流を流してみる。電流は一周できる道にしか流れない。</b></p>
-<p><b>VTは相と相の間。両端をそろえれば無事。だから三線短絡で3相一括。</b></p>
+<p><b>相間VTの一次両端を同電位にするため、メーカー指定の三線短絡・3相一括を守る。制御線などの処置も別に必要。</b></p>
 </section>
 <div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
 <li><span class="badge official">🟢</span>内蔵VTの接続・三相一括・制御線の処置・LA内蔵形の直流耐圧不可：<a href="https://www.nkeco.co.jp/download/manual/PAS-07-B.pdf" target="_blank" rel="noopener">日本高圧電気 取扱説明書（取説-PAS-07）</a></li>
@@ -547,28 +421,28 @@
 <div class="eq">C ＝ 88.0mA ÷（2π × 50 × 10,380V）≒ 0.0270μF
 10,350Vに直すと ≒ 87.8mA（チェッカーより約3.5%少ない）</div>
 <div class="checkgrid">
-<div class="checkcard"><b>差の半分は「表示の丸め」</b><br>0.5μFレンジは小数第3位まで。「0.028」は実際には0.0275〜0.0285くらいの幅があり、電流にすると<b>89.4〜92.7mA</b>。これだけで±1.8%くらい動く。</div>
-<div class="checkcard"><b>残りは計器の誤差の範囲</b><br>IP-1110の二次電流計は ±0.5%＋20dgt <span class="badge official">🟢</span>。チェッカーは<b>DC15V</b>という低い電圧で容量を測っている <span class="badge official">🟢</span>。両方の誤差が重なれば、このくらいの差は出る。</div>
+<div class="checkcard"><b>表示桁による幅も考える</b><br>0.028μFという表示を0.001μF単位の四捨五入と仮定すると、丸め前の表示相当値は0.0275〜0.0285μF、換算電流は<b>89.4〜92.7mA</b>です。これは丸めだけの試算で、真の容量の範囲や実機の内部計算方式を保証しません。</div>
+<div class="checkcard"><b>差の原因はまだ確定できない</b><br>IP-1110第5版の2.0〜400.0mAの確度は±（0.5%rdg＋20dgt）、分解能0.1mAなので、88.0mAでの仕様上の幅は±2.44mAです。ただし当日の実機の版とCC-50MNの確度が未確認のため、残差を両計器の誤差だけで説明できたとは言えません。</div>
 </div>
-<p><b>わざと高めに出しているか</b>は、公開されている資料（メーカーの製品情報・販売店の仕様）では確認できませんでした。チェッカーの確度も見つからず。ただ、結果として高めに出るなら、<b>試験器の容量を見積もるときには安全側</b>です。</p>
+<p><b>わざと高めに出しているか</b>は、公開されている資料（メーカーの製品情報・販売店の仕様）では確認できませんでした。チェッカーの確度も未確認です。今回計算値が高かったことを、毎回一定の余裕が加算される保証として扱うことはできません。</p>
 
 <h3 id="ip1110-capacity">⚡ 3. IP-1110の容量は、ほぼいっぱいだった</h3>
 <div class="table-scroll"><table>
 <tr><th>IP-1110の定格 <span class="badge official">🟢</span></th><th>値</th><th>今日</th></tr>
 <tr><td>定格容量</td><td><b>1kVA（10分定格）</b><br>10分使ったら10分休止</td><td>10.38kV × 88.0mA ≒ <b>913VA（約91%）</b></td></tr>
 <tr><td>定格二次電流</td><td><b>91mA</b></td><td>88.0mA（<b>約97%</b>）</td></tr>
-<tr><td>一次電流計の表示範囲</td><td>1.00〜10.00A</td><td><b>10.00A（表示の上限）</b></td></tr>
+<tr><td>一次電流計（製品ページの仕様）</td><td>1.00〜10.00A</td><td><b>当日の表示10.00A（実機の版は未確認）</b></td></tr>
 <tr><td>遮断電流</td><td>10〜100mA（10レンジ）、動作は<b>設定値の±20%以内</b></td><td>100mA設定 → 80〜120mAのどこかで切れる</td></tr>
 <tr><td>電源</td><td>AC100V ±10%、50/60Hz</td><td></td></tr>
 </table></div>
-<div class="panic"><b>⚠️ 気になった2つのこと</b><p><b>一次電流10.00Aは「ちょうど10A」か「振り切れ」か分からない。</b>一次電流計は10.00Aまでしか表示しないので、それ以上流れていても10.00Aと出ている可能性がある。</p><p><b>遮断の余裕がほとんどない。</b>100mA設定でも、±20%なので<b>80mAで切れることもありうる</b>。88mA流れて切れなかったのは、この個体がたまたま80mAより上で動いているから。設定は100mAが上限なので、これ以上の余裕は作れない。</p></div>
-<p><b>1,000は「W」ではなく「VA」。</b>100V × 10A ＝ 1,000VA は皮相電力。負荷はほぼコンデンサなので、有効電力（W）はずっと小さい。出力913VAに対して入力が約1,000VAなのは、入力が100Vだとすると、理想なら約9.1Aのところに<b>変圧器の励磁電流や損失のぶん</b>が乗っているから。<span class="badge infer">🟡 計算</span></p>
+<div class="panic"><b>⚠️ 気になった2つのこと</b><p><b>10.00Aを「表示上限への張り付き」とは断定しない。</b>第5版取説のLCD仕様は有効測定範囲0.10〜10.00A、表示範囲0.00〜13.00Aで、13.01A以上は「----」です。製品ページのLED仕様と区別し、当日の実機の版を照合します。</p><p><b>遮断の余裕がほとんどない。</b>100mA設定でも、±20%なので<b>80mAで切れることもありうる</b>。88mA流れて切れなかったのは、この個体がたまたま80mAより上で動いているから。設定は100mAが上限なので、これ以上の余裕は作れない。</p></div>
+<p><b>1,000は「W」ではなく「VA」。</b>100V × 10A ＝ 1,000VA は皮相電力。容量性負荷では有効電力と皮相電力は一致しません。一次電流計は高圧トランス一次側を測るため、外部電源の入力電流とそのまま同一視もできません。出力側の10.38kV×88.0mAは約913VAですが、一次側の実電圧・位相・損失が未確認なので、表示10.00Aとの差の原因は断定できません。<span class="badge infer">🟡 計算・条件未確認</span></p>
 
 <h4>IP-1110だけで試験できる静電容量の上限</h4>
 <p>定格91mAから逆算すると <span class="badge infer">🟡 計算</span></p>
 <div class="eq">50Hz：C ＝ 91mA ÷（2π × 50 × 10,350V）≒ <b>0.028μF</b>
 60Hz：≒ <b>0.023μF</b></div>
-<p>今日のチェッカーの表示がちょうど<b>0.028μF</b>。まさに上限でした。ケーブルの長さに直すと、だいたいこのくらいです。</p>
+<p>今日のチェッカーの表示がちょうど<b>0.028μF</b>。定格から逆算した目安の上限に近い値でした。ケーブルの長さに直すと、だいたいこのくらいです。</p>
 <div class="table-scroll"><table>
 <tr><th>CVケーブル（6,600V・3心）</th><th>1心の静電容量</th><th>50Hzの上限</th><th>60Hzの上限</th></tr>
 <tr><td>22mm²</td><td>0.27μF/km</td><td>約34m</td><td>約28m</td></tr>
@@ -592,35 +466,35 @@
 
 <h3 id="ip1110-vt">🧲 5. VT内蔵PASは、三線短絡で3相一括</h3>
 <p>PASの内蔵VT（SOG制御装置の電源用）は、主要メーカーの取扱説明書では<b>負荷側のU相−V相の間に1台</b>つながっています（6,600/105V・25VA の例）。<span class="badge official">🟢</span></p>
-<p>3相一括なら、U・Vが同じ電圧なのでVTの巻線に電圧はかかりません。ところが<b>U相だけ</b>に試験電圧をかけると、VTが焼けます。</p>
+<p>3相一括なら、U・Vが同じ電圧なのでVTの巻線に電圧はかかりません。ところが<b>U相だけ</b>への印加では過電圧・過電流が生じ、VT焼損のおそれがあります。メーカーは一相ごとの試験を禁止しています。</p>
 <h4>なぜ、電圧をかけていないV相のほうへ電流が流れるのか</h4>
-<div class="flow">① V相は開放でも、心線と遮へい層のあいだはコンデンサ<br>↓<br>② V相のコンデンサを充電するには電荷を運ぶ道が要る。V相につながっているのは、U相とのあいだの<b>VTの一次巻線だけ</b><br>↓<br>③ 試験器 → U相 → <b>VTの一次巻線</b> → V相 → V相ケーブルのC → 大地 → 試験器、と一周する<br>↓<br>④ VTのコイル（L）とV相のコンデンサ（C）の直列に10,350Vがかかる</div>
+<div class="flow">前提：二次開放・相互静電容量省略のモデル<br>↓<br>① V相は開放でも、心線と遮へい層のあいだはコンデンサ<br>↓<br>② このモデルでは、V相のコンデンサへの通り道がU相とのあいだの<b>VTの一次巻線</b>になる<br>↓<br>③ 試験器 → U相 → <b>VTの一次巻線</b> → V相 → V相ケーブルのC → 大地 → 試験器、と一周する<br>↓<br>④ VTのコイル（L）とV相のコンデンサ（C）の直列に10,350Vがかかる</div>
 <div class="eq">VTにかかる電圧 ＝ 10,350V × X<sub>L</sub> ÷（X<sub>L</sub> − X<sub>C</sub>）
 例：38mm²・30m（X<sub>C</sub> ≒ 330kΩ）、X<sub>L</sub>を仮に3.3MΩとすると ≒ 11,500V（定格6,600Vの約1.7倍）</div>
-<p>VTは定格の1.2倍くらいを超えると鉄心が飽和して、X<sub>L</sub>が急に小さくなり、電流が増えます。上限の目安は「V相ケーブルの充電電流」＝ 約31mA。<b>25VAのVTの定格一次電流 約3.8mAの約8倍</b>で、10分間で巻線が焼けます。<span class="badge infer">🟡 計算（X<sub>L</sub>は仮の値）</span></p>
+<p>これは二次開放で損失を省いた線形L−Cモデルの計算です。<b>約31mA</b>は9.6nFの容量だけに10,350V・50Hzを加えたときの値で、直列L−C回路の電流上限ではありません。実機の励磁曲線・巻線抵抗・熱特性が未確認なので、<b>飽和の開始電圧や焼損までの時間は決められません</b>。二次短絡時は一次から見たインピーダンスも変わり、この励磁Lだけの式は使えません。<span class="badge infer">🟡 条件付きの説明モデル</span></p>
 <div class="checkgrid">
-<div class="checkcard"><b>U相の電流はVTを通らない</b><br>U相のケーブルの充電電流も同時に流れるが、こちらはU相から直接大地へ抜けるのでVTには関係ない。VTを焼くのはV相側だけ。</div>
-<div class="checkcard"><b>VTの二次側の接地は関係ない</b><br>電流は一周できる道がないと流れない。一次と二次は磁気でしかつながっていないので、二次の1点接地は一次電流の道にならない。</div>
+<div class="checkcard"><b>U相の電流はVTを通らない</b><br>U相のケーブルの充電電流も同時に流れるが、このモデルではU相から対地容量へ流れる経路で、VTを通るV相側の経路とは分かれる。実機の損傷箇所や焼損時間を判定する説明ではない。</div>
+<div class="checkcard"><b>二次の一点接地と二次短絡を分ける</b><br>二次の一点接地は、健全な一次絶縁を通る直接の導通路を作らない。一方、二次両端の短絡や両端を含む一括接地は、磁気結合を介して一次電流に影響する。この節の数値モデルは二次開放相当。</div>
 </div>
 <h4>パターン別</h4>
 <div class="table-scroll"><table>
-<tr><th>試験電圧をかける相（残りは開放）</th><th>内蔵VT（U−V間）</th><th>結果</th></tr>
-<tr><td><b>3相一括（三線短絡）</b></td><td>無事</td><td><b>正しい。</b>1回で3相とも試験できる</td></tr>
+<tr><th>試験電圧をかける相（残りは開放）</th><th>相互静電容量を省いたモデルの一次VT（U−V間）</th><th>実試験との区別</th></tr>
+<tr><td><b>3相一括（三線短絡）</b></td><td>一次両端は同電位</td><td>メーカー指定方式。制御線・開閉状態等の条件も照合</td></tr>
 <tr><td>U相だけ／V相だけ</td><td><b>焼損のおそれ</b></td><td>間違い</td></tr>
-<tr><td>W相だけ</td><td>無事</td><td>U・Vが試験されない</td></tr>
-<tr><td>U＋V短絡</td><td>無事</td><td>Wが試験されない</td></tr>
+<tr><td>W相だけ</td><td>このモデルでは一次両端の電位差0</td><td>U・Vが試験されず、実機の分割試験を認める意味ではない</td></tr>
+<tr><td>U＋V短絡</td><td>一次両端は同電位</td><td>Wが試験されず、実機の分割試験を認める意味ではない</td></tr>
 <tr><td>V＋W短絡／U＋W短絡</td><td><b>焼損のおそれ</b></td><td>間違い</td></tr>
 </table></div>
-<p>「U＋V短絡、そのあとW」で分けても無事なのは、<b>VTがU−V間にあると分かっているときだけ</b>。VTがつながる相はメーカー・型式で違うので、取り違えると焼損します。だからメーカーは<b>「三相一括で実施」「一相ごとの試験は行わない」</b>と指示しています。<span class="badge official">🟢</span></p>
+<p>上の表は接続条件による電位差を比較するモデルで、分割試験の可否を判定するものではありません。メーカーの<b>「三相一括で実施」「一相ごとの試験は行わない」</b>という指定を守り、VTの接続相が分かっていても自己判断で分割しません。<span class="badge official">🟢</span></p>
 <div class="warning"><strong>「他の相を接地」になってしまう場面</strong><br>停電作業では、検電・放電のあと短絡接地器具で3相の電線を短絡接地します。これを<b>外し忘れたまま</b>1相だけ外して試験電圧をかけると、U相−V相のあいだに試験電圧がそのままかかり、VTが過励磁になります。ほかにも、リアクトルがなく容量が足りないからと1相ずつに分けた結果、VTが焼損してPASが爆発した事例が紹介されています（下の根拠資料）。</div>
 <div class="tool"><b>図で確かめる</b><br><a href="#pas-vt-simulator-20261007">シミュレーターを作った話（日誌）</a><br><a href="pas-vt-withstand-simulator.html#basics-pas">7パターンの電流の通り道</a><br><a href="pas-vt-withstand-simulator.html#why-s">なぜV相へ流れる？（等価回路）</a><br><a href="pas-vt-withstand-simulator.html#sim">つなぎ方とケーブル長を変えるシミュレーター</a></div>
 <h4>VT単体のとき</h4>
-<p>一次のU・Vを短絡して試験電圧をかけ、二次のu・vを短絡して外箱と一緒に接地。<b>試験が終わったら二次の短絡線を必ず外す</b>（付けたまま受電するとVTが焼ける）。U端子だけにかけると、V端子の先に何がつながっているかで結果が変わる「設備まかせ」の試験になってしまいます。<span class="badge infer">🟡 整理</span> <a href="pas-vt-withstand-simulator.html#flow-vt">→ VT単体の電流の流れ</a></p>
+<p>教材のVT単体モデルは、一次のU・Vを同電位にし、二次のu・vと外箱を接地する条件を示しています。実機の試験接続・電圧・時間は対象取説で確認します。<b>試験後は二次短絡を解除して規定の結線へ復旧</b>します。二次を短絡したまま一次へ相間電圧を加えると過電流・焼損のおそれがあります。U端子だけにかけると、V端子の先に何がつながっているかで結果が変わる「設備まかせ」の試験になってしまいます。<span class="badge infer">🟡 整理</span> <a href="pas-vt-withstand-simulator.html#flow-vt">→ VT単体の電流の流れ</a></p>
 
 <h3 id="ip1110-others">🧰 6. 3相一括でも気をつけるもの：EVT・LA・制御線</h3>
 <div class="table-scroll"><table>
 <tr><th>もの</th><th>つながり方</th><th>扱い</th></tr>
-<tr><td><b>EVT</b>（接地形計器用変圧器）</td><td>一次はY結線で中性点を接地。巻線は「相と大地の間」</td><td>3相一括でも各巻線（定格 約3,810V）に10,350V＝<b>約2.7倍</b>。三次のオープンデルタにも約520Vが出る。切り離すか、中性点の接地を外す（取扱説明書の指定による） <span class="badge infer">🟡</span></td></tr>
+<tr><td><b>EVT</b>（接地形計器用変圧器）</td><td>一次はY結線で中性点を接地。巻線は「相と大地の間」</td><td>3相一括でも各巻線（定格 約3,810V）に10,350V＝<b>約2.7倍</b>。一次6,600/√3V・三次190/3Vの例では、三次オープンデルタの巻数比換算が約520V。ただし過励磁時の実機出力を予測した値ではない。切離し・中性点の処置は取扱説明書の指定による <span class="badge infer">🟡</span></td></tr>
 <tr><td><b>LA内蔵形のPAS</b></td><td>相と大地の間</td><td><b>交流10,350Vの3相一括はできる</b>。ただしAC12kV以上・DC17kV以上はかけられない（戸上電機）、直流耐電圧試験は行わない（日本高圧電気） <span class="badge official">🟢</span></td></tr>
 <tr><td><b>制御線・SOG制御装置</b></td><td>VTの二次側など</td><td><b>全ての制御線を外し、端末を一括接地</b>（日本高圧電気）。SOG制御装置の端子間の耐電圧試験は行わない（戸上電機） <span class="badge official">🟢</span></td></tr>
 </table></div>
@@ -628,21 +502,21 @@
 
 <h3 id="ip1110-questions">🤔 持ち帰った疑問</h3>
 <div class="checkgrid">
-<div class="checkcard"><b>一次電流10.00Aは振り切れ？</b><br>表示範囲を超えたときにどう表示されるか、IP-1110の取扱説明書で確認する。</div>
+<div class="checkcard"><b>一次電流計の版を照合</b><br>10.00Aは第5版では有効測定範囲の上端であり、表示上限ではありません。当日の型式・表示器・取説版を確認する。</div>
 <div class="checkcard"><b>CC-50MNの確度</b><br>静電容量の確度と、充電電流の計算に余裕を足しているかを、取扱説明書かメーカーに確認する。</div>
-<div class="checkcard"><b>リアクトルの手配</b><br>今日くらいの長さ（0.028μF）が上限。もう少し長い現場では、どのリアクトルを使えるかを確認しておく。</div>
+<div class="checkcard"><b>リアクトルの手配</b><br>今回の0.028μFは、50Hz・10,350Vで定格電流から逆算した目安の上限に近い値。もう少し長い現場では、どのリアクトルを使えるかを確認しておく。</div>
 <div class="checkcard"><b>VTが2台のPASはある？</b><br>今回確認した2社の取扱説明書はVT 1台（U−V間）。2台のPASがあるなら、型式と結線を確かめる。</div>
 </div>
 
 <section class="memo">
 <h3>🛟 今日のうきわメモ</h3>
-<p><b>IP-1110単体の上限は0.028μF（50Hz）。今日はちょうどそこだった。チェッカーで0.026μFを超えたらリアクトル。</b></p>
+<p><b>IP-1110単体では、50Hz・10,350Vの純容量モデルで約0.028μFが定格電流から逆算した目安の上限。0.026μF超でリアクトルを準備するのは自分の手配目安で、実試験の適合判定とは分ける。</b></p>
 <p><b>電流計の88mAは、ほとんどが充電電流。耐圧試験は「破れないか」を見る試験。</b></p>
-<p><b>VTは相と相の間。両端を同じ電圧にすれば無事。だから三線短絡で3相一括。</b></p>
+<p><b>相間VTの一次両端に電位差を作らないため、指定の三線短絡・3相一括を守る。制御線の切離し・接地などの指定も照合する。</b></p>
 </section>
 
 <div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
-<li><span class="badge official">🟢</span>IP-1110の定格（1kVA・10分定格・10分休止、定格91mA、一次電流計1.00〜10.00A、二次電流計の確度、遮断電流10〜100mA・±20%、推奨リアクトル）：<a href="https://www.musashi-in.co.jp/item/3805/3805.html" target="_blank" rel="noopener">ムサシインテック IP-1110 製品ページ</a>、<a href="https://www.musashi-in.co.jp/catalog_9/PDF/038.pdf" target="_blank" rel="noopener">総合カタログ</a></li>
+<li><span class="badge official">🟢</span>IP-1110の定格（1kVA・10分定格・10分休止、定格91mA、一次電流計のLED仕様、二次電流計の確度、遮断電流10〜100mA・±20%、推奨リアクトル）：<a href="https://www.musashi-in.co.jp/item/3805/3805.html" target="_blank" rel="noopener">ムサシインテック IP-1110 製品ページ</a>、<a href="https://www.musashi-in.co.jp/manual/IP-1110_05.pdf" target="_blank" rel="noopener">第5版取説（LCD仕様・有効範囲と表示範囲を区別）</a>、<a href="https://www.musashi-in.co.jp/catalog_9/PDF/038.pdf" target="_blank" rel="noopener">総合カタログ</a></li>
 <li><span class="badge official">🟢</span>CC-50MNの測定範囲・測定電圧（DC15V）：<a href="https://www.techeyesonline.com/measuring-device/detail/HINCD-00539-CC-50MN/" target="_blank" rel="noopener">テクアイズ CC-50MN</a>。確度は公開資料で確認できませんでした。</li>
 <li><span class="badge official">🟢</span>内蔵VTの接続（負荷側U相−V相）、三相一括、制御線の処置、LA内蔵形の直流耐圧不可：<a href="https://www.nkeco.co.jp/download/manual/PAS-07-B.pdf" target="_blank" rel="noopener">日本高圧電気 取扱説明書（取説-PAS-07）</a></li>
 <li><span class="badge official">🟢</span>VTは負荷側（6,600/105V・25VA）、一相のみの印加はVT・SOG制御装置焼損の原因、LA内蔵形の上限電圧：<a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_103.php" target="_blank" rel="noopener">戸上電機 VT内蔵GR付PAS</a>、<a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_104.php" target="_blank" rel="noopener">VT･LA内蔵GR付PAS</a></li>
@@ -661,7 +535,7 @@
 <div class="pillrow"><a class="pill" href="#leak-path">1 漏れ電流の通り道</a><a class="pill" href="#leak-ct-zct">2 検出用CTとZCT</a><a class="pill" href="#leak-methods">3 Io・Ior・Igr</a><a class="pill" href="#leak-alarm">4 警報が出たら</a><a class="pill" href="#leak-search">5 探査の進め方</a><a class="pill" href="#leak-hints">6 探査のヒント</a><a class="pill" href="#leak-safety">7 探査中の事故</a><a class="pill" href="#leak-questions">持ち帰った疑問</a></div>
 <p class="small"><span class="badge official">🟢 公開資料で確認</span><span class="badge field">🔵 研修で聞いた</span><span class="badge infer">🟡 自分の考え・例</span></p>
 
-<h3 id="leak-path">🌍 1. 漏れ電流の通り道：最後は必ずB種接地線を通って帰る</h3>
+<h3 id="leak-path">🌍 1. 漏れ電流の通り道：B種接地線で見られる範囲を考える</h3>
 <p>使っている機器の絶縁が悪くなると、電気が機器の外箱へ漏れます。漏れた電流は、<b>機器の接地（D種など）→ 大地 → 変圧器のB種接地 → 変圧器</b>の順に流れて、変圧器へ帰ってきます。</p>
 <div class="diagram-card">
 <svg viewBox="0 0 760 340" role="img" aria-label="漏れ電流の通り道。変圧器の低圧側から使用機器へ電線が2本。機器で絶縁不良が起きると、機器の接地EDから大地を通り、変圧器のB種接地EBから変圧器へ戻る。B種接地線に検出用CTが付いている">
@@ -673,7 +547,7 @@
 <line x1="150" y1="88" x2="560" y2="88" stroke="#cfe3ef" stroke-width="3"/>
 <line x1="150" y1="142" x2="560" y2="142" stroke="#cfe3ef" stroke-width="3"/>
 <text x="300" y="80" fill="#9fc0d4" font-size="13">非接地側（対地電圧あり）</text>
-<text x="300" y="160" fill="#9fc0d4" font-size="13">接地側（対地電圧 0V）</text>
+<text x="300" y="160" fill="#9fc0d4" font-size="13">接地側（図では対地0Vと仮定）</text>
 <rect x="560" y="64" width="110" height="102" rx="10" fill="#3f5c70" stroke="#9fc0d4" stroke-width="2"/>
 <text x="615" y="108" fill="#dff4ff" font-size="15" font-weight="800" text-anchor="middle">使用機器</text>
 <text x="615" y="128" fill="#ffd27a" font-size="12" text-anchor="middle">絶縁不良</text>
@@ -693,16 +567,16 @@
 <defs><marker id="ah1" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ff8f7a"/></marker></defs>
 </svg>
 </div>
-<p>ここが大事なところで、<b>どの機器から漏れても、帰り道はB種接地線の1本にまとまります</b>。だから、B種接地線に1つCTを付けておけば、その変圧器から先の低圧電路全体の漏れ電流（Io）を見張れます。絶縁監視装置がB種接地線にCTを付けるのはこのためです。<span class="badge field">🔵 研修</span></p>
-<div class="panic"><b>⚠️ 接地側で地絡しても、漏れ電流は流れない</b><p>B種接地は、低圧電路の1線（単相3線なら中性線、三相3線なら1つの相）を大地とつないでいます。その線は<b>大地との電圧が0V</b>なので、そこで絶縁が悪くなっても、電流を押し出す電圧がなく、漏れ電流は流れません。<span class="badge field">🔵 研修</span></p><p>つまり<b>Io（漏れ電流）を見る方式では、接地側の絶縁不良は見えません</b>。これが後で出てくるIgr方式との大きな違いになります。</p></div>
+<p>この図では、<b>低圧電路と大地の接続がB種接地の1か所だけで、他の帰路がない</b>と仮定しています。この条件ならB種接地線の電流から監視範囲の漏れ電流を捉えられます。実設備で接地が複数ある場合、共用接地・金属配管・中性線などへ分流すると、1本の測定値が電路全体の漏れ電流と一致するとは限りません。<span class="badge field">🔵 研修</span></p>
+<div class="panic"><b>⚠️ 接地側の絶縁不良を、Ioが小さいだけで否定しない</b><p>接地側を大地と同電位とする理想モデルでは、接地側の絶縁抵抗が低下しても商用周波数の漏れ電流はほとんど生じません。実設備には中性線の電圧降下や接地電位差があり、電流が流れる場合もあります。Io・Iorだけでは接地側の絶縁不良を捉えにくく、値が小さいことは健全の保証になりません。適用条件を満たすIgr方式は、監視信号を重ねて接地側も監視します。</p></div>
 <div class="tool"><b>B種接地はそもそも何のため？</b><br>高圧と低圧が変圧器の中で接触（混触）したときに、低圧側の電圧が上がりすぎないように抑えるための接地です。接地抵抗の上限は「150 ÷ 1線地絡電流」などで決まります（電気設備技術基準の解釈 第17条）。<span class="badge official">🟢 公開資料</span><br><a href="#ground-abcd-no-terminal-20261004">→ A・B・C・D種の接地はどこを測る？（10/4の日誌）</a></div>
 
 <h3 id="leak-ct-zct">🔍 2. 「検出用CT」と「ZCT」はどう違う？</h3>
 <p>テキストでは、B種接地線に付けるものを<b>「検出用CT」</b>と書いていました。漏電遮断器の中にあるのは<b>ZCT（零相変流器）</b>。どちらも漏れ電流を測るのに、名前がちがうのが気になったので調べました。</p>
 <div class="diagram-card">
-<svg viewBox="0 0 760 300" role="img" aria-label="左：B種接地線1本だけを通したCT。流れているのは漏れ電流だけ。右：電路の全部の線を通したZCT。行きと帰りの電流は打ち消し合い、差の零相電流だけが出てくる">
+<svg viewBox="0 0 760 300" role="img" aria-label="左：B種接地線1本に流れる電流を測る指定CT。右：保護接地線を除く電路導体をまとめて通したZCT。電流の総和を測る。接地線の測定範囲は他の帰路の有無による">
 <rect x="0" y="0" width="760" height="300" rx="14" fill="#06213a"/>
-<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">CTとZCT：何本の線を通すか（説明用の図）</text>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">測定位置の比較（センサは指定品を使う）</text>
 <line x1="380" y1="52" x2="380" y2="284" stroke="#3a79a3" stroke-width="2" stroke-dasharray="6 6"/>
 <text x="190" y="70" fill="#ffd27a" font-size="16" font-weight="800" text-anchor="middle">B種接地線に付けるCT</text>
 <line x1="190" y1="88" x2="190" y2="240" stroke="#7ee08a" stroke-width="5"/>
@@ -710,7 +584,7 @@
 <path d="M206 130 L206 102" stroke="#ff8f7a" stroke-width="3" marker-end="url(#ah2)"/>
 <text x="222" y="118" fill="#ff8f7a" font-size="13" font-weight="700">Io</text>
 <text x="190" y="266" fill="#dff4ff" font-size="13" text-anchor="middle">通すのは接地線1本だけ</text>
-<text x="190" y="284" fill="#9fc0d4" font-size="12" text-anchor="middle">流れているのが漏れ電流そのもの</text>
+<text x="190" y="284" fill="#9fc0d4" font-size="12" text-anchor="middle">この接地線に流れる電流を測る</text>
 <text x="570" y="70" fill="#ffd27a" font-size="16" font-weight="800" text-anchor="middle">ZCT（零相変流器）</text>
 <line x1="540" y1="88" x2="540" y2="240" stroke="#cfe3ef" stroke-width="4"/>
 <line x1="570" y1="88" x2="570" y2="240" stroke="#cfe3ef" stroke-width="4"/>
@@ -726,13 +600,12 @@
 </div>
 <div class="table-scroll"><table>
 <tr><th></th><th>B種接地線のCT</th><th>ZCT（零相変流器）</th></tr>
-<tr><td><b>通す線</b></td><td>B種接地線<b>1本</b></td><td>電路の<b>全部の線</b>（三相なら3本、単相3線なら3本）</td></tr>
-<tr><td><b>出てくるもの</b></td><td>接地線に流れる電流＝漏れ電流の合計</td><td>各線の電流のベクトル和（零相電流）。正常なら打ち消し合ってほぼ0、漏電するとその分だけ残る</td></tr>
+<tr><td><b>通す線</b></td><td>B種接地線<b>1本</b></td><td>保護接地線を除く<b>全ての電路導体</b>（中性線も含む。三相3線は3本、三相4線は4本）</td></tr>
+<tr><td><b>出てくるもの</b></td><td>接地線を通る電流（他の帰路がなければ漏れ電流の合計）</td><td>各線の電流の総和。電路内で往復する負荷電流は打ち消し合い、大地への漏れ電流などが残る</td></tr>
 <tr><td><b>主な使いどころ</b></td><td>絶縁監視装置、漏電探査の最初の測定</td><td>漏電遮断器、漏電リレー、幹線・分岐での一括測定</td></tr>
 </table></div>
-<p><b>自分の結論：</b>B種接地線には漏れ電流しか流れないので、<b>打ち消し合いのしくみは要らず、1本を測るふつうのCT（分割形）で足ります</b>。だから「検出用CT」という呼び方は構造としては正確です。<span class="badge infer">🟡 自分の考え</span></p>
-<p>ただ、測っている中身は結局<b>同じ零相電流（Io）</b>で、mAを測る高感度のCTは作りもZCTとよく似ています。資料やメーカーによっては接地線用のものもZCTと呼んでいるので、<b>「ZCTと書いてあったら間違い」というほどの話ではありません</b>。8月の記事でもZCTと書いています。</p>
-<p>リーククランプで測るときも同じ考え方です。<b>接地線1本を挟む</b>ときは普通のCTの使い方、<b>幹線や分岐の全部の線をまとめて挟む</b>ときはZCTと同じ原理です。まとめて挟むときに1本でも外れていると、負荷電流がそのまま表示されてしまいます。</p>
+<p><b>センサは、通す線の本数だけでは選べません。</b>B種接地線の監視には、必要なmA感度・周波数特性・出力仕様・監視装置との組合せに適合した指定センサを使います。一般の計器用CTで代用できるという意味ではありません。接地線に1本通すセンサをCTと呼ぶかZCTと呼ぶかはメーカーの定義・用途によります。今回のセンサ型式が未確認なので構造は断定しません。</p>
+<p>リーククランプによる接地線1本の測定と、全ての電路導体をまとめた残留電流の測定は、測定位置の違いです。後者では中性線があればそれも含め、保護接地線は含めず、対象計器の取説に従います。</p>
 <p class="small">ZCTの説明は三菱電機の製品ページ「全ての一次側電線を貫通させて地絡事故時の零相電流（各相電流のベクトル和）の検出に使用」で確認しました。</p>
 
 <h3 id="leak-methods">📐 3. Io・Ior・Igr：何を測って見張るか</h3>
@@ -769,9 +642,9 @@
 
 <div class="table-scroll"><table>
 <tr><th>方式</th><th>どうやって抵抗ぶんを見る？</th><th>接地側の絶縁不良</th><th>弱いところ</th></tr>
-<tr><td><b>Io</b></td><td>見ない（合計をそのまま測る）</td><td>見えない</td><td>静電容量が大きいと、絶縁が良くても値が大きくなる</td></tr>
-<tr><td><b>Ior</b></td><td>商用周波数のまま、<b>電圧を基準にした位相</b>から、電圧と同じ向きの成分だけを計算で取り出す</td><td>見えない</td><td>非接地側の各相の静電容量が<b>等しい</b>ことを前提に計算するので、かたよっていると誤差が出る</td></tr>
-<tr><td><b>Igr</b></td><td>B種接地線から<b>商用とちがう周波数の小さな監視電圧</b>を重ねて入れ、その周波数の電流から抵抗ぶんを取り出す</td><td><b>見える</b></td><td>監視信号がうまく入らない・拾えない状態（大きな地絡、CTや注入トランスの不具合など）だと監視できない</td></tr>
+<tr><td><b>Io</b></td><td>見ない（合計をそのまま測る）</td><td>捉えにくい（対地電圧がほぼ0のとき）</td><td>静電容量が大きいと、絶縁が良くても値が大きくなる</td></tr>
+<tr><td><b>Ior</b></td><td>商用周波数のまま、<b>電圧を基準にした位相</b>から、電圧と同じ向きの成分だけを計算で取り出す</td><td>捉えにくい（対地電圧がほぼ0のとき）</td><td>非接地側の各相の静電容量が<b>等しい</b>ことを前提に計算するので、かたよっていると誤差が出る</td></tr>
+<tr><td><b>Igr</b></td><td>B種接地線から<b>商用とちがう周波数の小さな監視電圧</b>を重ねて入れ、その周波数の電流から抵抗ぶんを取り出す</td><td><b>適用条件内で監視できる</b></td><td>監視信号がうまく入らない・拾えない状態（大きな地絡、CTや注入トランスの不具合など）だと監視できない</td></tr>
 </table></div>
 <p class="small">表の「接地側」と「弱いところ」は研修の説明と、下の公開資料をもとに自分でまとめたものです。</p>
 
@@ -795,7 +668,7 @@
 <h3 id="leak-alarm">🚨 4. 警報が出たら：いきなり復帰しない</h3>
 <p>絶縁監視装置は、漏れ電流が設定値を超えると警報を出します。国の様式（設備条件確認書）では、点検の間隔を延ばす条件の1つとして、低圧電路の絶縁状態を監視する装置の<b>警報設定値は50mAを上限</b>とされています。<span class="badge official">🟢 公開資料</span></p>
 <p>研修で教わった考え方を、自分の言葉で並べるとこうなります。<span class="badge field">🔵 研修</span></p>
-<div class="flow">① どの装置（Io / Igr）の、どのCH（変圧器）で、どんな警報か確認<br>↓<br>② 表示を記録してから、復帰・試験をする<br>↓<br>③ もう一度表示を見る。出なければ、今は漏れていない（探査を終える）<br>↓<br>④ まだ出るなら、そのCHの変圧器のB種接地線を測る（Io・Ig・Igr）<br>↓<br>⑤ その変圧器の幹線を測って、分電盤を絞る<br>↓<br>⑥ 分電盤の中で、幹線 → 各回路を測る</div>
+<div class="flow">① どの装置（Io / Igr）の、どのCH（変圧器）で、どんな警報か確認<br>↓<br>② 表示を記録してから、復帰・試験をする<br>↓<br>③ もう一度表示と履歴を確認。警報が消えていても間欠的な不良は否定できないため、社内手順に従って原因確認・継続監視を判断<br>↓<br>④ まだ出るなら、そのCHの変圧器のB種接地線を測る（Io・Ig・Igr）<br>↓<br>⑤ その変圧器の幹線を測って、分電盤を絞る<br>↓<br>⑥ 分電盤の中で、幹線 → 各回路を測る</div>
 <p>復帰する前の表示には、「いつ・どのくらい続いたか」の手がかりが残っています。消してしまうと原因を追う情報がなくなるので、<b>まず記録</b>。</p>
 <div class="warning"><strong>漏れが大きすぎるときは Igr が使えないことがある</strong><br>完全地絡のように漏れ電流がとても大きいと、監視装置を守るために監視信号を止める機種があります。そのときは監視周波数の信号がないので、<b>商用周波数の Io で探します</b>。<span class="badge field">🔵 研修</span>（大電流で監視出力を止める機能は、8月の記事で書いたメーカー資料にもあります）</div>
 
@@ -867,8 +740,8 @@
 
 <section class="memo">
 <h3>🛟 今日のうきわメモ</h3>
-<p><b>漏れ電流は、どこから漏れても最後はB種接地線を通って帰る。だから接地線を測れば全体が見える。</b></p>
-<p><b>Ioは「抵抗ぶん＋静電容量ぶん」。見たいのは抵抗ぶん。Iorは位相で計算、Igrは目印の電気で追う。接地側まで見えるのはIgrだけ。</b></p>
+<p><b>B種接地線の測定で監視範囲を捉えるには、他の帰路や分流がないか、接地系統を確認する。</b></p>
+<p><b>Ioは「抵抗ぶん＋静電容量ぶん」。見たいのは抵抗ぶん。Iorは位相で計算、Igrは目印の電気で追う。接地側の絶縁不良はIo・Iorだけでは捉えにくく、適合したIgr方式で監視信号を用いる。</b></p>
 <p><b>探査は幹から枝へ。そして、数字を追う前に手元を見る。</b></p>
 </section>
 
@@ -1001,7 +874,7 @@
 <p>実習は、<b>作業指示係</b>（作業責任者として準備と試験を指示し、判定する）・<b>測定器操作係</b>・<b>継電器・遮断器操作係</b>・<b>記録係</b>を、グループで順番に担当しました。ほかの人は試験中に助言する役です。</p>
 
 <h4>OCR（過電流継電器）試験 ── JIS C 4602</h4>
-<p>準備では、整定値を確認したあと、CTTの接続を外して<b>CT側を短絡用バーで短絡</b>し、OCR側の端子に試験器の電流コードをつなぎます。遮断器が動いたタイミングは、遮断器に取り付けた<b>振動センサ</b>で試験器に伝えて、時間を測ります。</p>
+<p>準備では、全電源からの分離・無電圧の確認など所定の安全措置と整定値の確認を済ませます。使用CTTの短絡機構とメーカー手順に従い、<b>CT側の短絡を確実にしてから、OCR側を切り離す</b>順序を守ります。CT二次を開放させず、試験電流を入れるOCR側との分離を確認します。遮断器が動いたタイミングは、遮断器に取り付けた<b>振動センサ</b>で試験器に伝えて、時間を測ります。</p>
 <div class="table-scroll"><table>
 <tr><th>試験</th><th>やり方</th><th>判定（JIS C 4602）</th></tr>
 <tr><td><b>最小動作電流</b></td><td>レバー（時間目盛）を<b>1</b>にして、電流を少しずつ上げ、継電器・遮断器が動作したときの電流を読む</td><td>整定値の <b>±10%</b></td></tr>
@@ -1381,9 +1254,9 @@
 <h4>何に使う？</h4>
 <div class="checkgrid">
 <div class="checkcard"><b>① 短絡電流の見当</b><br>変圧器のすぐ二次側で短絡したときの電流は、ざっと<b>定格電流 × 100 ÷ %Z</b>。%Zが小さいほど短絡電流は大きい。遮断器の遮断容量や保護継電器の整定の検討に使う。</div>
-<div class="checkcard"><b>② 電圧降下</b><br>%Zが大きいほど、負荷電流が流れたときの二次電圧の下がり方が大きい。</div>
-<div class="checkcard"><b>③ 並行運転</b><br>2台を並列にすると、負荷は%Zに反比例して分かれる。%Zがそろっていないと、%Zの小さい方に負荷が偏る。</div>
-<div class="checkcard"><b>④ 基準容量の換算</b><br>%Zは自分の定格容量が基準。系統計算で基準をそろえるときは「%Z × 基準容量 ÷ 定格容量」で換算する。</div>
+<div class="checkcard"><b>② 電圧降下</b><br>負荷時の電圧変動は、%Zの抵抗分・リアクタンス分と負荷力率で決まります。%Zの大きさだけでは電圧降下を一意に決められません。</div>
+<div class="checkcard"><b>③ 並行運転</b><br>変圧比・位相が一致し、インピーダンス角も等しい条件では、負荷分担は同一基準の%Zに反比例します。各機の自己容量基準なら<b>定格容量÷%Z</b>に比例。同容量の場合に限って、銘板の%Zだけの逆比で比べられます。</div>
+<div class="checkcard"><b>④ 基準容量の換算</b><br>%Zは自分の定格容量が基準。系統計算で電圧基準を変えずに容量基準をそろえるときは「%Z × 基準容量 ÷ 定格容量」で換算する。</div>
 </div>
 <div class="tool"><b>今回の変圧器で計算してみる（電源側のインピーダンスを0とした場合）</b><br>
 二次側の定格電流 ＝ 15,000 kVA ÷（√3 × 6.6 kV）≒ <b>1,312 A</b><br>
@@ -1395,7 +1268,7 @@
 <p>ONANは、変圧器の<b>冷却方式</b>を4文字で表した記号です。1文字ずつ意味があります。</p>
 <div class="table-scroll"><table>
 <tr><th>何文字目</th><th>表すもの</th><th>記号</th></tr>
-<tr><td>1文字目</td><td>巻線に触れる冷却媒体</td><td><b>O</b>：鉱油など（引火点300℃以下の油）　K：引火点が300℃を超える液体　ほか</td></tr>
+<tr><td>1文字目</td><td>巻線に触れる冷却媒体</td><td><b>O</b>：鉱油など（燃焼点300℃以下の絶縁液）　K：燃焼点が300℃を超える絶縁液　ほか</td></tr>
 <tr><td>2文字目</td><td>その媒体の循環</td><td><b>N</b>：自然循環　F：ポンプで強制循環　D：強制循環で巻線へ導く</td></tr>
 <tr><td>3文字目</td><td>外側の冷却媒体</td><td><b>A</b>：空気　W：水</td></tr>
 <tr><td>4文字目</td><td>外側の媒体の循環</td><td><b>N</b>：自然対流　F：ファンなどで強制</td></tr>

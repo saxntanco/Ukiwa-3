@@ -62,11 +62,11 @@ dialog{width:min(780px,calc(100% - 20px));max-height:89vh;padding:0;border:0;bor
 
 <nav class="bottom" aria-label="メインナビゲーション"><a href="./index.html"><b>⌂</b>ホーム</a><a class="active" href="./test-measurement.html"><b>✓</b>試験方法</a><a href="./measuring-instruments.html"><b>⌕</b>測定器具</a><a href="./protective-relay.html"><b>51</b>継電器</a><a href="./zukan.html"><b>図</b>図鑑</a></nav>
 
-<script src="./measurement-db-v2.js?v=20260912-1"></script>
+<script src="./measurement-db-v2.js?v=20261009-audit"></script>
 <script src="./measurement-catalog-additions-v3.js?v=20260912-1"></script>
 <script src="./measurement-catalog-global-v4.js?v=20260912-1"></script>
 <script src="./measurement-catalog-field-v5.js?v=20260912-1"></script>
-<script src="./measurement-catalog-expansion-v6.js?v=20260912-1"></script>
+<script src="./measurement-catalog-expansion-v6.js?v=20261009-audit"></script>
 <script>
 const METHODS=window.UKIWA_MEASUREMENT_METHODS||[],$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const dbMeta=window.UKIWA_INSTRUMENT_CATALOG_META||{};if(dbMeta.totalCount)$('#instrumentDbCount').textContent=`${dbMeta.totalCount}型式`;

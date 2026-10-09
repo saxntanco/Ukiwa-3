@@ -195,6 +195,7 @@ button,input,select,a{font:inherit}
 <script>
 const params=new URLSearchParams(location.search);
 const model=params.get('model')||'型式未指定';
+const dedicatedUrl=model.toUpperCase().normalize('NFKC').replace(/[-\s_－ー―‐‑‒–—−]/g,'').replace(/形/g,'')==='SHGDF3'?'./ukiwamemo_kyounonande_shg_df3_ic_io.html':'';
 const maker=params.get('maker')||'';
 const relayTitle=params.get('title')||'';
 const manualUrl=safeHttpUrl(params.get('manual')||'');
@@ -213,6 +214,7 @@ const requested=params.get('type')||'';
 const rawTypes=(params.get('types')||requested).split(',').map(v=>v.trim()).filter(Boolean);
 let availableTypes=unique(rawTypes.map(canonicalType).filter(v=>RELAY_TEST_METHODS[v]));
 if(!availableTypes.length&&RELAY_TEST_METHODS[canonicalType(requested)])availableTypes=[canonicalType(requested)];
+if(dedicatedUrl)availableTypes=[];
 let currentType=availableTypes[0]||'';
 
 $('#modelName').textContent=model;
@@ -223,6 +225,15 @@ document.title=model+' 試験方法アンチョコ｜うきわメモ';
 
 function renderMethodOptions(){
   const select=$('#methodSelect');
+  if(dedicatedUrl){
+    select.innerHTML='<option>Ic-Io方式の専用教材を参照</option>';
+    select.disabled=true;
+    $('#elementBadge').textContent='SHG-DF3 / Ic-Io方式';
+    $('#unsupported').innerHTML=`<h2>SHG-DF3はIc-Io方式の専用教材へ</h2><p class="section-lead">SHG-DF3は電流抑制方式です。このページのVo-Io方式の共通説明は適用しません。</p><a class="link primary" href="${dedicatedUrl}">SHG-DF3専用教材を開く</a>`;
+    $('#unsupported').classList.add('on');
+    $('#content').hidden=true;
+    return;
+  }
   if(!availableTypes.length){
     select.innerHTML='<option>未登録</option>';
     select.disabled=true;
@@ -236,6 +247,7 @@ function renderMethodOptions(){
 }
 
 function renderMethod(){
+  if(dedicatedUrl)return;
   const data=RELAY_TEST_METHODS[currentType];
   if(!data)return;
   $('#elementBadge').textContent=data.label+' / '+data.ansi;
