@@ -145,6 +145,30 @@ window.UkiwaPrivateContents = [
     ]
   },
   {
+    "path": "library.html",
+    "title": "うきわ図書室",
+    "category": "学習・遊び",
+    "description": "分野をまたいでまとまっていないことを集めた図鑑の本棚。",
+    "tags": "図書室 図鑑 まとめ 賞 未解決問題 実験装置 単位 法則 カレンダー",
+    "related": [
+      "library.html",
+      "prize-encyclopedia.html",
+      "hidden-menu.html"
+    ]
+  },
+  {
+    "path": "unsolved-problems.html",
+    "title": "未解決問題の図鑑",
+    "category": "学習・遊び",
+    "description": "リーマン予想・P≠NP・ナビエ–ストークス・ダークマター・意識など、未解決問題といまの進み具合。",
+    "tags": "未解決問題 ミレニアム懸賞問題 リーマン予想 P≠NP ナビエストークス コラッツ abc予想 ダークマター ダークエネルギー 意識 生命の起源 地震予知",
+    "related": [
+      "library.html",
+      "prize-encyclopedia.html",
+      "hidden-menu.html"
+    ]
+  },
+  {
     "path": "island-game.html",
     "title": "幻想の島の図鑑",
     "category": "学習・遊び",

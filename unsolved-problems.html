@@ -1,0 +1,83 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="リーマン予想、P≠NP、ダークマター、意識、生命の起源。数学・物理・生命・地球の未解決問題を、何が分からないか・解けたら何が変わるか・最近の進展つきで。"><title>未解決問題の図鑑｜うきわメモ</title><link rel="stylesheet" href="hideout-library.css?v=1"></head><body><main>
+<header class="top"><a href="library.html">← うきわ図書室</a><span>UKIWA LIBRARY</span></header>
+<h1>未解決問題の図鑑</h1>
+<p class="lead">数学・情報・物理・生命・地球。分野をまたいで、「まだ誰も答えを出せていない問い」を並べました。何が分からないのか、解けたら何が変わるのか、いまどこまで来ているのかを、ひとことずつ。</p>
+<span class="asof">2026年10月9日時点</span>
+<p class="chips" style="margin-top:14px"><span class="st open">未解決</span><span class="st claim">解決を主張・検証中</span><span class="st hint">手がかりあり</span><span class="st done">解決（参考）</span></p>
+<nav class="toc" aria-label="ページ内目次"><a href="#math">数学</a><a href="#cs">情報</a><a href="#physics">物理・宇宙</a><a href="#life">生命</a><a href="#earth">地球</a><a href="#solved">最近解けた問題</a><a href="#prize">懸賞金</a><a href="#sources">出典</a></nav>
+
+<section id="math"><span class="eyebrow">MATHEMATICS</span><h2>数学</h2>
+<div class="note"><b>ミレニアム懸賞問題</b>：2000年、アメリカのクレイ数学研究所が7つの難問に1問100万ドルをかけました。解けたのはポアンカレ予想だけで、ナビエ–ストークス方程式は2026年に「解決」が主張され、審査中です。</div>
+<div class="grid">
+<article class="card"><span class="st open">未解決</span><span class="field">ミレニアム懸賞問題</span><h3>リーマン予想</h3><p>ゼータ関数という関数の「意味のある零点」は、すべて一直線上に並んでいるか。</p><p class="simple"><b>解けたら：</b>素数がどう散らばっているかを、いちばん正確に見積もれるようになる。この予想を前提にした定理がたくさんある。</p><ul class="kv"><li><b>最近</b>2024年、ガスとメイナードが80年以上ぶりに、零点の数の見積もりを改良（2026年に論文掲載）。予想そのものの証明ではない</li></ul></article>
+<article class="card"><span class="st claim">解決を主張・検証中</span><span class="field">ミレニアム懸賞問題</span><h3>ナビエ–ストークス方程式</h3><p>水や空気の流れを表す方程式で、なめらかな流れは、ずっとなめらかなままか。それとも、ある時刻に速さが無限大に「爆発」することがあるか。</p><p class="simple"><b>解けたら：</b>流体力学と乱流の、いちばん根っこの疑問に答えが出る。</p><ul class="kv"><li><b>最近</b>2026年9月、OpenAIが、外から力を加え続ける条件のもとで流れが爆発することをAIで証明したと発表。ほぼ同時に、ニューヨーク大学のバックマスターとAnthropicのアルペーゲも関連する結果を発表した</li><li><b>状況</b>クレイ研究所は「どうやら決着したようだ」としつつ、時間をかけて審査中。外から力を加えない場合は、まだ分かっていない</li></ul></article>
+<article class="card"><span class="st open">未解決</span><span class="field">ミレニアム懸賞問題</span><h3>ヤン–ミルズ方程式と質量ギャップ</h3><p>素粒子の力を表す理論で、「いちばん軽い粒子にも必ず質量がある」ことを、数学として厳密に示せるか。</p><p class="simple"><b>解けたら：</b>物理学者が実験で確かめて使っている理論に、数学の土台ができる。</p></article>
+<article class="card"><span class="st open">未解決</span><span class="field">ミレニアム懸賞問題</span><h3>ホッジ予想</h3><p>複雑な図形のある種の「形の特徴」は、方程式で書ける図形の組み合わせで表せるか。</p><p class="simple"><b>解けたら：</b>図形を「形」から調べる方法と「式」から調べる方法が、深いところでつながる。</p></article>
+<article class="card"><span class="st open">未解決</span><span class="field">ミレニアム懸賞問題</span><h3>バーチ・スウィンナートン＝ダイアー予想</h3><p>楕円曲線（y² = x³ + ax + b の形の曲線）の上に、分数の座標の点が無限にあるかどうかは、ある関数の振る舞いを見れば分かるか。</p><p class="simple"><b>解けたら：</b>「方程式に分数の解がいくつあるか」という古くからの問題に、強い道具ができる。</p></article>
+<article class="card"><span class="st open">未解決</span><h3>双子素数予想</h3><p>11と13のように、差が2の素数の組は無限にあるか。</p><ul class="kv"><li><b>最近</b>2013年、張益唐が「差が7,000万未満の組は無限にある」と証明。その後の共同研究で、差の上限は246まで縮んだ（2014年）。2まではまだ遠い</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>ゴールドバッハ予想</h3><p>2より大きい偶数は、すべて2つの素数の和で書けるか（例：10 = 3 + 7）。</p><ul class="kv"><li><b>最近</b>コンピュータでは 4×10¹⁸ まで確認済み。奇数版（弱いゴールドバッハ予想）は2013年に証明された</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>コラッツ予想</h3><p>偶数なら2で割り、奇数なら3倍して1を足す。どんな数から始めても、最後は1にたどり着くか。</p><ul class="kv"><li><b>最近</b>2019年、テレンス・タオが「ほとんどすべての数で、かなり小さくなる」ことを証明。コンピュータでは約2⁷¹まで確認</li><li><b>懸賞金</b>日本の企業（バクアゲ）が2021年に1億2,000万円をかけた</li></ul></article>
+<article class="card"><span class="st open">未解決（論争中）</span><h3>abc予想</h3><p>a + b = c（共通の約数なし）のとき、c は「a・b・c に出てくる素数の積」より、めったに大きくならない。</p><ul class="kv"><li><b>状況</b>京都大学の望月新一が「宇宙際タイヒミュラー理論」で証明したとし、2021年に論文が掲載された。しかしショルツェとスティックスが重大な穴があると指摘し、数学界の多くは「未証明」と見ている。望月はコンピュータで証明を検証する計画を進めている</li></ul></article>
+</div></section>
+
+<section id="cs"><span class="eyebrow">COMPUTER SCIENCE</span><h2>情報・計算</h2>
+<div class="grid">
+<article class="card"><span class="st open">未解決</span><span class="field">ミレニアム懸賞問題</span><h3>P≠NP予想</h3><p>答えを「確かめる」のが速い問題は、答えを「見つける」のも速くできるか。</p><p class="simple"><b>解けたら：</b>もし「できる（P = NP）」なら、今の暗号の多くが破られ、最適化の問題が一気に解ける。多くの研究者は「できない（P≠NP）」と考えている。</p></article>
+<article class="card"><span class="st hint">手がかりあり</span><h3>大規模な量子コンピュータは作れるか</h3><p>量子ビットはとても壊れやすい。誤りを訂正しながら、役に立つ規模の計算を続けられるか。</p><ul class="kv"><li><b>最近</b>2024年、グーグルの「Willow」が、誤り訂正の規模を大きくするほど誤りが減ることを示した。2025年にはハーバード大学などが448個の原子で、誤りに強い計算機の基本要素を実証した</li><li><b>状況</b>実用に必要な誤りの少なさには、まだ大きな差がある</li></ul></article>
+</div></section>
+
+<section id="physics"><span class="eyebrow">PHYSICS &amp; UNIVERSE</span><h2>物理・宇宙</h2>
+<div class="grid">
+<article class="card"><span class="st hint">手がかりあり</span><h3>ダークマター（暗黒物質）の正体</h3><p>銀河をつなぎとめている、目に見えない重さの正体は何か。宇宙の物質の大部分を占めると考えられている。</p><ul class="kv"><li><b>最近</b>米国のLZ実験は、2025年に世界最高の感度で探したが見つからなかった。2026年9月に「それらしい現象が1回」と報告したが、偶然の可能性も十分あり、発見とは言えない段階</li></ul></article>
+<article class="card"><span class="st hint">手がかりあり</span><h3>ダークエネルギーの正体</h3><p>宇宙の膨張を加速させている「何か」は何か。</p><ul class="kv"><li><b>最近</b>2025年、DESIという観測が「ダークエネルギーは時間とともに弱まっているかもしれない」と報告。ただ2026年7月の新しい解析は、これまでの標準的な考え方と合う結果で、決着していない</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>ハッブル・テンション</h3><p>宇宙が膨らむ速さ（ハッブル定数）が、測り方によって食い違う。初期宇宙の光から計算すると約67、近くの銀河から測ると約73（単位はkm/s/Mpc）。</p><ul class="kv"><li><b>最近</b>2026年の近くの宇宙をまとめた測定でも約73.5。一方で「食い違いは測定の問題では」という研究グループもある</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>物質と反物質の非対称</h3><p>ビッグバンでは物質と反物質が同じだけできたはずなのに、なぜ物質だけが残ったのか。</p><ul class="kv"><li><b>最近</b>2025年、CERNのLHCb実験が、陽子の仲間（バリオン）で物質と反物質の振る舞いの違いを初めて観測。ただし、その大きさでは今の宇宙を説明しきれない</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>量子重力</h3><p>重力（一般相対性理論）と、ミクロの世界の量子論を、一つの理論にまとめられるか。</p><ul class="kv"><li><b>状況</b>超弦理論などの候補はあるが、どれも実験で確かめられていない。必要な大きさ（約10⁻³⁵ m）は、実験で届く範囲をはるかに超えている</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>ニュートリノの質量</h3><p>ニュートリノに質量があることは分かった（1998年、スーパーカミオカンデ）。では、本当の重さはいくつで、3種類の重さの順番はどうなっているか。</p><ul class="kv"><li><b>最近</b>2025年、ドイツのKATRIN実験が「0.45 eVより軽い」と報告。中国のJUNO実験が2025年に完成し、重さの順番を決めにいっている</li></ul></article>
+</div></section>
+
+<section id="life"><span class="eyebrow">LIFE</span><h2>生命</h2>
+<div class="grid">
+<article class="card"><span class="st hint">手がかりあり</span><h3>生命の起源と「右手と左手」の謎</h3><p>生命はどうやって始まったのか。なぜ生き物のアミノ酸は「左手型」ばかりなのか。</p><ul class="kv"><li><b>最近</b>2026年のノーベル化学賞（カガンと硤合憲三）は、わずかな偏りが片方だけに増幅されるしくみを示した。ただし、実際の生命がそうやって始まったかは別の問題</li><li><b>最近</b>2025年、小惑星ベンヌの試料からアミノ酸が見つかったが、右と左が半々だった</li></ul><p class="muted"><a href="prize-encyclopedia.html#nobel">→ 賞の図鑑（2026年ノーベル化学賞）</a></p></article>
+<article class="card"><span class="st open">未解決</span><h3>意識</h3><p>脳の活動が、なぜ「感じ」を伴うのか（意識のハード・プロブレム）。</p><ul class="kv"><li><b>最近</b>2025年、対立する2つの有力な理論を、同じ実験で直接対決させた研究（256人）が発表された。どちらの理論にも合う所と合わない所があり、勝者は出なかった</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>なぜ眠るのか</h3><p>眠りは何のためにあるのか。記憶の整理、脳の掃除など候補はあるが、全部を説明する答えはない。</p><ul class="kv"><li><b>最近</b>2025年、マウスで、深い眠りのあいだに脳の液体が波のように動き、老廃物を流していることが報告された（この「脳の掃除」説には反論もある）</li></ul></article>
+<article class="card"><span class="st open">未解決</span><h3>老化は巻き戻せるか</h3><p>体の時計を、本当に若い状態へ戻せるか。</p><ul class="kv"><li><b>最近</b>山中伸弥らの初期化因子の一部を使って細胞を若返らせる治療が、2026年に初めて人での臨床試験に入った（目の神経の病気が対象）。結果はこれから</li></ul></article>
+</div></section>
+
+<section id="earth"><span class="eyebrow">EARTH</span><h2>地球</h2>
+<div class="grid">
+<article class="card"><span class="st open">未解決</span><h3>地震の予知</h3><p>「いつ・どこで・どれくらいの大きさ」の地震が起きるかを、前もって言い当てられるか。今の科学では、短い期間での予知はできないとされている。</p><ul class="kv"><li><b>いまの仕組み</b>確率で備える。南海トラフ地震の30年以内の発生確率は、2025年9月に「60〜90%程度以上」と「20〜50%」の2つの値で示される形に見直された</li><li><b>臨時情報</b>2024年8月、日向灘の地震のあとに初めて「南海トラフ地震臨時情報（巨大地震注意）」が出た</li></ul></article>
+</div></section>
+
+<section id="solved"><span class="eyebrow">SOLVED</span><h2>最近解けた問題（くらべるために）</h2>
+<div class="grid">
+<article class="card"><span class="st done">解決</span><h3>フェルマーの最終定理</h3><p>3以上の n で、xⁿ + yⁿ = zⁿ を満たす正の整数はない。350年以上の難問を、ワイルズが1994年に証明（1995年に論文掲載）。</p></article>
+<article class="card"><span class="st done">解決</span><h3>ポアンカレ予想</h3><p>ペレルマンが2002〜2003年に証明。フィールズ賞（2006年）もクレイの100万ドル（2010年）も辞退した。</p></article>
+<article class="card"><span class="st done">解決</span><h3>ケプラー予想</h3><p>球をいちばんぎっしり詰める方法は、果物屋さんのみかんの積み方。ヘイルズが1998年にコンピュータを使って証明し、2014年にコンピュータで証明全体を検証し終えた。</p></article>
+<article class="card"><span class="st done">解決</span><h3>3次元の掛谷予想</h3><p>あらゆる向きの針を入れられる図形の「次元」についての予想。2025年にワンとザールが3次元で証明し、ワンは2026年のフィールズ賞を受賞。4次元以上はまだ。</p><p class="muted"><a href="prize-encyclopedia.html#fields">→ 賞の図鑑（フィールズ賞）</a></p></article>
+<article class="card"><span class="st done">決着</span><h3>ミューオンg−2の食い違い</h3><p>ミューオンの磁石の強さが、理論と実験で食い違って見えた問題。2025年、実験の最終結果と、新しい計算方法を使った理論値が一致し、「新しい物理」の兆しではなかったことになった。</p></article>
+<article class="card"><span class="st done">ほぼ解決</span><h3>たんぱく質の形の予測</h3><p>アミノ酸の並びから立体の形を当てる問題。AIのAlphaFoldが高い精度で予測できるようにし、2024年のノーベル化学賞になった。動き方や、形が決まらない部分などはまだ研究中。</p></article>
+</div></section>
+
+<section id="prize"><span class="eyebrow">PRIZE MONEY</span><h2>解いたら、もらえるお金</h2>
+<div class="card"><ul class="list2">
+<li><b>クレイ数学研究所のミレニアム懸賞問題：</b>1問100万ドル。7問のうちポアンカレ予想は解決（本人が辞退）、ナビエ–ストークスは審査中、残り5問は未解決</li>
+<li><b>コラッツ予想：</b>1億2,000万円（バクアゲ、2021年）</li>
+<li><b>ゴールドバッハ予想：</b>2000年に出版社が100万ドルをかけたが、2年の期限つきで、すでに終了</li>
+</ul></div></section>
+
+<section id="sources"><span class="eyebrow">SOURCES</span><h2>出典</h2>
+<ul class="sources">
+<li>ミレニアム懸賞問題：<a href="https://en.wikipedia.org/wiki/Millennium_Prize_Problems" target="_blank" rel="noopener">Wikipedia</a> ／ ナビエ–ストークス：<a href="https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/" target="_blank" rel="noopener">Quanta Magazine（2026年9月8日）</a>、<a href="https://www.tuftsdaily.com/article/2026/09/mathematicians-still-checking-the-navier-stokes-proof-that-openai-claims-to-have-solved" target="_blank" rel="noopener">Tufts Daily</a>、<a href="https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness" target="_blank" rel="noopener">Wikipedia</a></li>
+<li>リーマン予想：<a href="https://arxiv.org/abs/2405.20552" target="_blank" rel="noopener">Guth–Maynard（arXiv）</a> ／ 双子素数：<a href="https://en.wikipedia.org/wiki/Twin_prime" target="_blank" rel="noopener">Wikipedia</a> ／ ゴールドバッハ：<a href="https://en.wikipedia.org/wiki/Goldbach%27s_conjecture" target="_blank" rel="noopener">Wikipedia</a> ／ コラッツ：<a href="https://en.wikipedia.org/wiki/Collatz_conjecture" target="_blank" rel="noopener">Wikipedia</a>、<a href="https://kyodonewsprwire.jp/release/202106236656" target="_blank" rel="noopener">共同通信PRワイヤー（懸賞金）</a> ／ abc予想：<a href="https://www.kurims.kyoto-u.ac.jp/~motizuki/news-english.html" target="_blank" rel="noopener">望月新一のページ</a>、<a href="https://en.wikipedia.org/wiki/Abc_conjecture" target="_blank" rel="noopener">Wikipedia</a></li>
+<li>P≠NP：<a href="https://en.wikipedia.org/wiki/P_versus_NP_problem" target="_blank" rel="noopener">Wikipedia</a> ／ 量子コンピュータ：<a href="https://en.wikipedia.org/wiki/Willow_processor" target="_blank" rel="noopener">Wikipedia（Willow）</a>、<a href="https://www.nature.com/articles/s41586-025-09848-5" target="_blank" rel="noopener">Nature（2025年）</a></li>
+<li>ダークマター：<a href="https://newscenter.lbl.gov/2025/12/08/lz-sets-a-worlds-best-in-the-hunt-for-galactic-dark-matter/" target="_blank" rel="noopener">Berkeley Lab（LZ）</a> ／ ダークエネルギー：<a href="https://www.desi.lbl.gov/2026/07/30/new-desi-dr2-lyman-alpha-results-shed-light-on-dark-energy/" target="_blank" rel="noopener">DESI（2026年7月）</a> ／ ハッブル・テンション：<a href="https://cerncourier.com/a/the-hubble-tension/" target="_blank" rel="noopener">CERN Courier</a> ／ 物質と反物質：<a href="https://www.nature.com/articles/s41586-025-09119-3" target="_blank" rel="noopener">Nature（LHCb, 2025年）</a> ／ ニュートリノ：<a href="https://www.eurekalert.org/news-releases/1079556" target="_blank" rel="noopener">KATRIN（EurekAlert）</a>、<a href="https://www.nature.com/articles/s41586-026-10538-z" target="_blank" rel="noopener">JUNO（Nature）</a> ／ ミューオンg−2：<a href="https://news.fnal.gov/2025/06/muon-g-2-most-precise-measurement-of-muon-magnetic-anomaly/" target="_blank" rel="noopener">Fermilab</a></li>
+<li>生命の起源：<a href="https://www.nasa.gov/news-release/nasas-asteroid-bennu-sample-reveals-mix-of-lifes-ingredients/" target="_blank" rel="noopener">NASA（ベンヌ）</a> ／ 意識：<a href="https://www.nature.com/articles/s41586-025-08888-1" target="_blank" rel="noopener">Nature（2025年）</a> ／ 睡眠：<a href="https://www.eurekalert.org/news-releases/1069271" target="_blank" rel="noopener">EurekAlert（Cell, 2025年）</a> ／ 老化：<a href="https://www.nature.com/articles/s41587-026-03037-z" target="_blank" rel="noopener">Nature Biotechnology（2026年）</a> ／ たんぱく質：<a href="https://en.wikipedia.org/wiki/AlphaFold" target="_blank" rel="noopener">Wikipedia（AlphaFold）</a></li>
+<li>地震：<a href="https://www.jma.go.jp/jma/press/2408/08e/NT_202408081945sv.pdf" target="_blank" rel="noopener">気象庁（2024年8月8日）</a>、<a href="https://news.web.nhk/newsweb/na/na-k10014932871000" target="_blank" rel="noopener">NHK（2025年9月26日）</a></li>
+<li>解けた問題：<a href="https://en.wikipedia.org/wiki/Wiles%27s_proof_of_Fermat%27s_Last_Theorem" target="_blank" rel="noopener">フェルマー</a>、<a href="https://en.wikipedia.org/wiki/Kepler_conjecture" target="_blank" rel="noopener">ケプラー</a>、<a href="https://www.quantamagazine.org/once-in-a-century-proof-settles-maths-kakeya-conjecture-20250314/" target="_blank" rel="noopener">掛谷（Quanta）</a></li>
+</ul>
+<p class="muted">状況は日々変わります。「手がかりあり」「検証中」は、まだ確定していないという意味です。</p></section>
+
+<!--libnav--><nav class="libnav" aria-label="うきわ図書室"><a href="library.html">📚 うきわ図書室</a><a href="prize-encyclopedia.html">賞の図鑑</a><a href="unsolved-problems.html">未解決問題の図鑑</a></nav><!--/libnav-->
+<footer>うきわメモ / 未解決問題の図鑑 / 2026年10月9日時点の情報です。</footer>
+</main><script src="hideout-nav.js?v=1" defer></script></body></html>
