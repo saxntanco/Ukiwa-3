@@ -38,6 +38,10 @@ const server = http.createServer((req, res) => {
   const close = async () => { await page.getByRole('button',{name:'用語の解説を閉じる',exact:true}).click(); assert.equal(await dialog.isVisible(),false); };
   try {
     await goto('ct-calculator.html');
+    await page.screenshot({path:path.join(output,'term-reading-light.png'),animations:'disabled'});
+    await page.evaluate(() => { document.documentElement.dataset.theme = 'dark'; });
+    await page.screenshot({path:path.join(output,'term-reading-dark.png'),animations:'disabled'});
+    await page.evaluate(() => { document.documentElement.dataset.theme = 'light'; });
     const ratio = page.locator('#result .ut-term[data-ut-id="ct-ratio"]').first();
     await ratio.click();
     assert.match(await dialog.innerText(), /一次30Aで二次2A/);
@@ -115,6 +119,7 @@ const server = http.createServer((req, res) => {
     console.log('PASS actual energy-exam explanation dialog and mobile hints');
 
     await goto('ct-calculator.html');
+    await page.screenshot({path:path.join(output,'term-reading-mobile.png'),animations:'disabled'});
     await page.locator('#result .ut-term[data-ut-id="ct-ratio"]').click();
     await page.screenshot({path:path.join(output,'term-mobile.png'),animations:'disabled'}); await close();
     await page.setViewportSize({width:1280,height:900});

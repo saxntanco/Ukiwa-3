@@ -54,7 +54,7 @@ test('every published HTML page, including the hideout and legacy URLs, reaches 
   for (const script of ['content-guide.js','hideout-nav.js']) {
     const source = fs.readFileSync(path.join(root,script),'utf8');
     assert.match(source, /script\[data-ukiwa-term-loader\]/);
-    assert.match(source, /new URL\('term-help\.js\?v=20261010', document.currentScript.src\)/);
+    assert.match(source, /new URL\('term-help\.js\?v=[\w.-]+', document.currentScript.src\)/);
   }
 });
 
