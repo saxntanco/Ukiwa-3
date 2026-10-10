@@ -73,6 +73,5 @@ html[data-theme=dark] dialog.ut-dialog { --ut-bg: #112735; --ut-ink: #e9f5f4; --
   dialog.ut-dialog h2 { font-size: 22px; }
   body .ut-entry { padding: 5px 8px; font-size: 11px; }
 }
-@media (prefers-reduced-motion: no-preference) { dialog.ut-dialog[open] { animation: ut-appear 120ms ease-out; } @keyframes ut-appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } } }
 @media (forced-colors: active) { body button.ut-term { text-decoration-color: LinkText !important; } }
 @media print { body button.ut-term { text-decoration: none !important; } .ut-entry, .ut-entry-wrap, dialog.ut-dialog { display: none !important; } }

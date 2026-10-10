@@ -2,9 +2,9 @@ name: Term hints checks
 on:
   push:
     branches: [main, feat/term-popovers-20261010]
-    paths: ['term-help*', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
   pull_request:
-    paths: ['term-help*', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
 permissions:
   contents: read
 jobs:

@@ -41,7 +41,8 @@ const server = http.createServer((req, res) => {
     const ratio = page.locator('#result .ut-term[data-ut-id="ct-ratio"]').first();
     await ratio.click();
     assert.match(await dialog.innerText(), /一次30Aで二次2A/);
-    await page.screenshot({path:path.join(output,'term-desktop.png')});
+    assert.equal(await dialog.evaluate(node => getComputedStyle(node).opacity), '1', 'explanation is readable immediately');
+    await page.screenshot({path:path.join(output,'term-desktop.png'),animations:'disabled'});
     await page.keyboard.press('Escape');
     assert.equal(await dialog.isVisible(),false);
     assert.equal(await ratio.evaluate(node => node === document.activeElement),true);
@@ -93,7 +94,7 @@ const server = http.createServer((req, res) => {
       const box = await dialog.boundingBox();
       assert.ok(box.x >= 0 && box.x + box.width <= width && box.y >= 0 && box.y + box.height <= 844, `dialog overflow at ${width}`);
       if (width <= 600) assert.ok(box.y > 250, 'phone card is placed near the bottom');
-      await page.screenshot({path:path.join(output,`term-width-${width}.png`)});
+      await page.screenshot({path:path.join(output,`term-width-${width}.png`),animations:'disabled'});
       await page.mouse.click(2,2); assert.equal(await dialog.isVisible(),false);
     }
     await page.setViewportSize({width:1280,height:900});
@@ -109,13 +110,13 @@ const server = http.createServer((req, res) => {
     assert.ok(await page.locator('#dinner').innerText());
     await page.setViewportSize({width:390,height:844});
     await page.locator('#dinner .ut-term').first().click();
-    await page.screenshot({path:path.join(output,'term-energy-mobile.png')});
+    await page.screenshot({path:path.join(output,'term-energy-mobile.png'),animations:'disabled'});
     await close();
     console.log('PASS actual energy-exam explanation dialog and mobile hints');
 
     await goto('ct-calculator.html');
     await page.locator('#result .ut-term[data-ut-id="ct-ratio"]').click();
-    await page.screenshot({path:path.join(output,'term-mobile.png')}); await close();
+    await page.screenshot({path:path.join(output,'term-mobile.png'),animations:'disabled'}); await close();
     await page.setViewportSize({width:1280,height:900});
     const smoke = ['index.html','protective-relay.html','motor-starting-insulation.html','sequence-basics.html','pas-vt-withstand-simulator.html','ac-withstand-test-simulator.html','earth-resistance-et5.html','generator-rescue-island.html','denken-foundations.html','energy-formulas.html','energy-kamoku4.html','denken-study.html','science-calendar.html','circuit-duel/'];
     for (const file of smoke) {
