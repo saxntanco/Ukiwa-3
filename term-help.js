@@ -3,7 +3,7 @@
   const core = factory();
   if (typeof module === 'object' && module.exports) { module.exports = core; return; }
   if (root.UkiwaTermHelp) return;
-  root.UkiwaTermHelp = { version: '20261010-2' };
+  root.UkiwaTermHelp = { version: '20261011-1' };
   const script = document.currentScript;
   const base = new URL('.', script.src);
   const load = (file, css) => new Promise((resolve, reject) => {
@@ -13,7 +13,7 @@
     node.onload = resolve; node.onerror = reject; document.head.append(node);
   });
   const ready = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
-  Promise.all([ready, load('term-help.css?v=20261010-2', true), load('term-help-data.js?v=20261010')])
+  Promise.all([ready, load('term-help.css?v=20261011-1', true), load('term-help-data.js?v=20261010')])
     .then(() => init(root.UkiwaTermData.entries)).catch(() => { /* Original page remains fully usable if the optional glossary cannot load. */ });
 
   function init(entries) {
@@ -23,7 +23,9 @@
     let enabled = true;
     try { enabled = localStorage.getItem(storageKey) !== 'off'; } catch (_) { /* Storage is optional. */ }
     const skip = 'script,style,noscript,template,svg,math,mjx-container,canvas,iframe,pre,code,kbd,samp,a,button,input,select,textarea,option,label,summary,nav,header,footer,h1,[contenteditable]:not([contenteditable="false"]),[role="button"],[role="link"],[role="tab"],[role="checkbox"],[role="radio"],[role="option"],[role="menuitem"],[onclick],[data-no-term-help],.ut-dialog,.ut-entry-wrap,.katex,.MathJax,.math,.equation,.formula';
-    const blockSelector = 'p,li,td,th,dd,dt,h2,h3,h4,h5,figcaption,blockquote';
+    const sectionSelector = 'section,article,details,dialog,main,[role="tabpanel"],[data-term-section],.card';
+    const headingSelector = 'h2,h3,h4,h5,h6';
+    const sectionOf = node => (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement)?.closest(sectionSelector) || document.body;
     const el = (tag, text, className) => { const node = document.createElement(tag); if (text) node.textContent = text; if (className) node.className = className; return node; };
     const dialog = el('dialog', '', 'ut-dialog');
     dialog.id = 'ut-dialog'; dialog.setAttribute('aria-labelledby', 'ut-title');
@@ -106,7 +108,7 @@
     }
     function openList(trigger) {
       listMode = true; eyebrow.textContent = 'ことばのヒント'; title.textContent = '用語を探す'; body.replaceChildren();
-      body.append(el('p', '本文の背景色が付いた用語をタップすると、このページのまま短い意味と例を読めます。'));
+      body.append(el('p', '本文の背景色が付いた用語をタップすると、このページのまま短い意味と例を読めます。同じ用語は節の最初に表示します。'));
       const setting = el('label', '', 'ut-setting'); const checkbox = el('input'); checkbox.type = 'checkbox'; checkbox.checked = enabled;
       setting.append(checkbox, document.createTextNode('本文に用語のヒントを表示'));
       checkbox.addEventListener('change', () => {
@@ -145,20 +147,32 @@
     function annotate(scope) {
       if (!scope.isConnected || scope.closest?.(skip)) return;
       const nodes = [];
-      if (scope.nodeType === Node.TEXT_NODE) nodes.push(scope);
-      else {
-        const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT, { acceptNode(node) {
-          return node.parentElement && !node.parentElement.closest(skip) && node.data.trim().length > 1 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-        } });
-        while (walker.nextNode()) nodes.push(walker.currentNode);
-      }
-      const usedByBlock = new Map();
+      const walker = document.createTreeWalker(scope, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, { acceptNode(node) {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.matches('button.ut-term')) return NodeFilter.FILTER_ACCEPT;
+          if (node.matches(skip)) return NodeFilter.FILTER_REJECT;
+          return node.matches(headingSelector) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+        }
+        return node.parentElement && !node.parentElement.closest(skip) && node.data.trim().length > 1 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      } });
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      // Headings start a new reading section; cards, results and dialogs have their own scope.
+      // Keep existing first hints so a routine content update does not replace the focused button.
+      const usedBySection = new Map();
       for (const node of nodes) {
         const parent = node.parentElement;
         if (!parent || parent.closest(skip) || !node.isConnected) continue;
-        const block = parent.closest(blockSelector) || parent;
-        let used = usedByBlock.get(block);
-        if (!used) { used = new Set([...block.querySelectorAll('.ut-term')].map(n => n.dataset.utId)); usedByBlock.set(block, used); }
+        const section = sectionOf(node);
+        if (node.nodeType === Node.ELEMENT_NODE && node.matches(headingSelector)) {
+          usedBySection.set(section, new Set()); continue;
+        }
+        let used = usedBySection.get(section);
+        if (!used) { used = new Set(); usedBySection.set(section, used); }
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          if (used.has(node.dataset.utId)) node.replaceWith(document.createTextNode(node.textContent));
+          else used.add(node.dataset.utId);
+          continue;
+        }
         const matches = matcher(node.data).filter(match => { if (used.has(match.id)) return false; used.add(match.id); return true; });
         if (!matches.length) continue;
         const fragment = document.createDocumentFragment(); let cursor = 0;
@@ -189,9 +203,10 @@
     }
     const observer = new MutationObserver(records => {
       for (const record of records) {
-        if (record.target.nodeType === Node.ELEMENT_NODE && record.target.closest(skip)) continue;
-        if (record.type === 'characterData') pending.add(record.target.parentElement);
-        else for (const node of record.addedNodes) if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) pending.add(node.nodeType === Node.TEXT_NODE ? node.parentElement : node);
+        const target = record.target.nodeType === Node.ELEMENT_NODE ? record.target : record.target.parentElement;
+        if (!target || target.closest(skip)) continue;
+        // Reconcile the whole section, including removals, so its next occurrence can become a hint.
+        pending.add(sectionOf(target));
       }
       pending.delete(null);
       if (pending.size && timer === null) timer = setTimeout(flush, 100);

@@ -7,7 +7,7 @@ const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
 const output = path.join(root, 'test-results');
 const types = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.mjs':'text/javascript; charset=utf-8', '.css':'text/css; charset=utf-8', '.json':'application/json', '.svg':'image/svg+xml', '.png':'image/png', '.webp':'image/webp' };
-const fixture = `<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Term hint regression</title><style>body{font:18px/1.8 system-ui;padding:20px;max-width:750px}button{padding:20px;display:block;font-size:30px;min-height:70px}dialog{background:white}</style><body><header><h1>用語のヒントの確認</h1></header><main><p id="prose">CT比とCT比。定格負担と負担。エンタルピー。</p><div id="card"><p>励磁と消磁。</p></div><p id="dynamic"></p><form id="form"><p>保護協調の説明。</p><button id="original" type="button">CT比を計算</button><label id="label">定格電流<input value="5"></label></form><a id="link" href="#">CT比の教材</a><code id="code">const CT = 5</code><math id="math"><mi>CT</mi></math><svg id="svg"><text>CT比</text></svg></main><dialog id="parent-dialog"><p>エンタルピーを考える。</p><button id="parent-close" onclick="document.getElementById('parent-dialog').close()">問題を閉じる</button></dialog><script>window.cardClicks=0;window.submits=0;document.getElementById('card').onclick=()=>window.cardClicks++;document.getElementById('form').onsubmit=e=>{e.preventDefault();window.submits++};</script><script src="/term-help.js?v=test" defer></script></body></html>`;
+const fixture = `<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Term hint regression</title><style>body{font:18px/1.8 system-ui;padding:20px;max-width:750px}button{padding:20px;display:block;font-size:30px;min-height:70px}dialog{background:white}</style><body><header><h1>用語のヒントの確認</h1></header><main><p id="prose">CT比とCT比。定格負担と負担。エンタルピー。</p><div id="card"><p>励磁と消磁。</p></div><section><p id="dynamic"></p></section><form id="form"><p>保護協調の説明。</p><button id="original" type="button">CT比を計算</button><label id="label">定格電流<input value="5"></label></form><a id="link" href="#">CT比の教材</a><code id="code">const CT = 5</code><math id="math"><mi>CT</mi></math><svg id="svg"><text>CT比</text></svg><section id="repeat-section"><h2>同じ節</h2><p id="first-mention">CT比と励磁。</p><p id="later-mention">CT比と励磁。</p><h3>次の節</h3><p id="next-section">CT比と励磁。</p></section><article id="separate-card"><p>CT比と励磁。</p></article></main><dialog id="parent-dialog"><p>エンタルピーを考える。</p><button id="parent-close" onclick="document.getElementById('parent-dialog').close()">問題を閉じる</button></dialog><script>window.cardClicks=0;window.submits=0;document.getElementById('card').onclick=()=>window.cardClicks++;document.getElementById('form').onsubmit=e=>{e.preventDefault();window.submits++};</script><script src="/term-help.js?v=test" defer></script></body></html>`;
 const server = http.createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
   if (pathname === '/term-fixture.html') { res.writeHead(200, {'Content-Type':types['.html']}).end(fixture); return; }
@@ -84,6 +84,24 @@ const server = http.createServer((req, res) => {
     assert.equal(await page.locator('#dynamic').textContent(),'エンタルピーとエントロピー。');
     await page.locator('#form .ut-term').click(); assert.equal(await page.evaluate(() => window.submits),0); await close();
     console.log('PASS original text, duplicate suppression, control/math isolation and repeated dynamic updates');
+
+    assert.equal(await page.locator('#first-mention .ut-term').count(),2);
+    assert.equal(await page.locator('#later-mention .ut-term').count(),0,'repeat paragraphs stay plain');
+    assert.equal(await page.locator('#next-section .ut-term').count(),2,'a subheading starts a new reading section');
+    assert.equal(await page.locator('#separate-card .ut-term').count(),2,'a separate card keeps its own hints');
+    await page.evaluate(() => {
+      const first=document.getElementById('first-mention');
+      const earlier=document.createElement('p'); earlier.id='earlier-mention'; earlier.textContent='CT比。';
+      first.before(earlier);
+    });
+    await page.waitForFunction(() => document.querySelector('#earlier-mention .ut-term') && document.querySelectorAll('#first-mention .ut-term').length === 1);
+    await page.evaluate(() => document.getElementById('earlier-mention').remove());
+    await page.waitForFunction(() => document.querySelectorAll('#first-mention .ut-term').length === 2);
+    await page.evaluate(() => { document.getElementById('first-mention').textContent='説明を更新しました。'; });
+    await page.waitForFunction(() => document.querySelectorAll('#later-mention .ut-term').length === 2);
+    assert.equal(await page.locator('#later-mention').textContent(),'CT比と励磁。');
+    console.log('PASS one hint per reading section, insertion, removal and changed first occurrence');
+
 
     await page.evaluate(() => document.getElementById('parent-dialog').showModal());
     await page.locator('#parent-dialog .ut-term').click();

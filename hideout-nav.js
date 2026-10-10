@@ -17,7 +17,7 @@ document.addEventListener('click',e=>{if(!nav.contains(e.target))details.open=fa
   if (document.querySelector('script[data-ukiwa-term-loader]')) return;
   const script = document.createElement('script');
   script.dataset.ukiwaTermLoader = 'true';
-  script.src = new URL('term-help.js?v=20261010-2', document.currentScript.src);
+  script.src = new URL('term-help.js?v=20261011-1', document.currentScript.src);
   script.defer = true;
   document.head.append(script);
 })();
