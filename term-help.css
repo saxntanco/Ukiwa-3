@@ -7,18 +7,21 @@ body button.ut-term {
   line-height: inherit !important;
   letter-spacing: inherit !important;
   text-align: inherit !important;
-  text-decoration-line: underline !important;
-  text-decoration-style: dotted !important;
-  text-decoration-thickness: 1.5px !important;
-  text-decoration-color: #4aaeb6 !important;
-  text-underline-offset: .23em !important;
-  cursor: help !important;
-  border-radius: 3px !important;
+  text-decoration: none !important;
+  background: #19a4b533 !important;
+  box-shadow: inset 0 0 0 1px #168a9633 !important;
+  padding: 0 .14em !important;
+  border-radius: 4px !important;
+  -webkit-box-decoration-break: clone !important;
+  box-decoration-break: clone !important;
+  cursor: pointer !important;
   -webkit-tap-highlight-color: #49c4cc33 !important;
 }
-body button.ut-term:hover, body button.ut-term:focus-visible { background: #48bec625 !important; }
+body button.ut-term:hover, body button.ut-term:focus-visible, body button.ut-term[aria-expanded=true] { background: #19a4b54d !important; }
 body button.ut-term:focus-visible { outline: 2px solid #1394a1 !important; outline-offset: 3px !important; }
-body button.ut-term:disabled { text-decoration: none !important; cursor: text !important; background: transparent !important; }
+html[data-theme=dark] body button.ut-term { background: #68dfe040 !important; box-shadow: inset 0 0 0 1px #91edea55 !important; }
+html[data-theme=dark] body button.ut-term:hover, html[data-theme=dark] body button.ut-term:focus-visible, html[data-theme=dark] body button.ut-term[aria-expanded=true] { background: #68dfe060 !important; }
+body button.ut-term:disabled, html[data-theme=dark] body button.ut-term:disabled { cursor: text !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; }
 body .ut-entry {
   flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px;
   font: 600 12px/1.3 system-ui, sans-serif; color: inherit;
@@ -73,5 +76,5 @@ html[data-theme=dark] dialog.ut-dialog { --ut-bg: #112735; --ut-ink: #e9f5f4; --
   dialog.ut-dialog h2 { font-size: 22px; }
   body .ut-entry { padding: 5px 8px; font-size: 11px; }
 }
-@media (forced-colors: active) { body button.ut-term { text-decoration-color: LinkText !important; } }
-@media print { body button.ut-term { text-decoration: none !important; } .ut-entry, .ut-entry-wrap, dialog.ut-dialog { display: none !important; } }
+@media (forced-colors: active) { body button.ut-term:not(:disabled) { text-decoration: underline dotted LinkText !important; } }
+@media print { body button.ut-term, html[data-theme=dark] body button.ut-term { background: transparent !important; box-shadow: none !important; padding: 0 !important; } .ut-entry, .ut-entry-wrap, dialog.ut-dialog { display: none !important; } }

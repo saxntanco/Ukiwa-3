@@ -3,7 +3,7 @@
   const core = factory();
   if (typeof module === 'object' && module.exports) { module.exports = core; return; }
   if (root.UkiwaTermHelp) return;
-  root.UkiwaTermHelp = { version: '20261010' };
+  root.UkiwaTermHelp = { version: '20261010-2' };
   const script = document.currentScript;
   const base = new URL('.', script.src);
   const load = (file, css) => new Promise((resolve, reject) => {
@@ -13,7 +13,7 @@
     node.onload = resolve; node.onerror = reject; document.head.append(node);
   });
   const ready = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
-  Promise.all([ready, load('term-help.css?v=20261010', true), load('term-help-data.js?v=20261010')])
+  Promise.all([ready, load('term-help.css?v=20261010-2', true), load('term-help-data.js?v=20261010')])
     .then(() => init(root.UkiwaTermData.entries)).catch(() => { /* Original page remains fully usable if the optional glossary cannot load. */ });
 
   function init(entries) {
@@ -106,7 +106,7 @@
     }
     function openList(trigger) {
       listMode = true; eyebrow.textContent = 'ことばのヒント'; title.textContent = '用語を探す'; body.replaceChildren();
-      body.append(el('p', '本文の点線が付いた用語をタップすると、短い意味と例を読めます。'));
+      body.append(el('p', '本文の背景色が付いた用語をタップすると、このページのまま短い意味と例を読めます。'));
       const setting = el('label', '', 'ut-setting'); const checkbox = el('input'); checkbox.type = 'checkbox'; checkbox.checked = enabled;
       setting.append(checkbox, document.createTextNode('本文に用語のヒントを表示'));
       checkbox.addEventListener('change', () => {
@@ -136,7 +136,7 @@
       search.addEventListener('input', render); body.append(setting, searchLabel, search, status, list); render(); show(trigger);
     }
 
-    const launcher = el('button', '? 用語のヒント', 'ut-entry'); launcher.type = 'button'; launcher.setAttribute('aria-haspopup', 'dialog'); launcher.setAttribute('aria-controls', dialog.id); launcher.title = '点線の用語をタップ。用語一覧と表示設定';
+    const launcher = el('button', '? 用語のヒント', 'ut-entry'); launcher.type = 'button'; launcher.setAttribute('aria-haspopup', 'dialog'); launcher.setAttribute('aria-controls', dialog.id); launcher.title = '背景色の付いた用語をタップすると解説。用語一覧と表示設定';
     launcher.addEventListener('click', () => openList(launcher));
     const nav = document.querySelector('.hideout-navigation,header .topActions,header .topin,header nav,header');
     if (nav) nav.append(launcher);
