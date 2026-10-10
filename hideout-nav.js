@@ -11,3 +11,13 @@ for(const [path,label] of [['hidden-menu.html','うきわの隠れ家'],['denken
 details.append(summary,links);nav.append(details);document.body.prepend(nav);document.body.classList.add('has-hideout-nav');
 document.addEventListener('click',e=>{if(!nav.contains(e.target))details.open=false});nav.addEventListener('keydown',e=>{if(e.key==='Escape'){details.open=false;summary.focus()}});
 })();
+
+/* Common glossary entry point, shared by public and private lessons. */
+(() => {
+  if (document.querySelector('script[data-ukiwa-term-loader]')) return;
+  const script = document.createElement('script');
+  script.dataset.ukiwaTermLoader = 'true';
+  script.src = new URL('term-help.js?v=20261010', document.currentScript.src);
+  script.defer = true;
+  document.head.append(script);
+})();

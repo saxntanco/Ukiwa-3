@@ -1,0 +1,32 @@
+name: Term hints checks
+on:
+  push:
+    branches: [main, feat/term-popovers-20261010]
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
+  pull_request:
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check glossary and every page entry point
+        run: node --test tests/term-help.test.cjs tests/content-guide.test.cjs
+      - name: Install browser test dependency
+        run: |
+          npm install --no-save --package-lock=false --ignore-scripts playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Check reading, calculators, dynamic lessons and mobile dialogs
+        run: node tests/term-help-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: term-hints-screenshots
+          path: test-results/term-*.png
+          retention-days: 14

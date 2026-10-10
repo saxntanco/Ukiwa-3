@@ -1,0 +1,77 @@
+/* Namespaced so existing exercises, diagrams and calculator buttons keep their styles. */
+body button.ut-term {
+  all: unset !important;
+  display: inline !important;
+  font: inherit !important;
+  color: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  text-align: inherit !important;
+  text-decoration-line: underline !important;
+  text-decoration-style: dotted !important;
+  text-decoration-thickness: 1.5px !important;
+  text-decoration-color: #4aaeb6 !important;
+  text-underline-offset: .23em !important;
+  cursor: help !important;
+  border-radius: 3px !important;
+  -webkit-tap-highlight-color: #49c4cc33 !important;
+}
+body button.ut-term:hover, body button.ut-term:focus-visible { background: #48bec625 !important; }
+body button.ut-term:focus-visible { outline: 2px solid #1394a1 !important; outline-offset: 3px !important; }
+body button.ut-term:disabled { text-decoration: none !important; cursor: text !important; background: transparent !important; }
+body .ut-entry {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px;
+  font: 600 12px/1.3 system-ui, sans-serif; color: inherit;
+  border: 1px solid currentColor; border-radius: 9px; background: transparent;
+  min-height: 34px; padding: 6px 10px; cursor: pointer; white-space: nowrap;
+}
+.ut-entry-wrap { display: flex; justify-content: flex-end; padding: 8px 16px; }
+dialog.ut-dialog {
+  --ut-bg: #f9fdfc; --ut-ink: #183840; --ut-muted: #4f6b72; --ut-line: #cce1df;
+  --ut-accent: #0c6874; --ut-soft: #e8f5f2;
+  box-sizing: border-box; position: fixed; inset: auto; margin: 0;
+  width: min(392px, calc(100vw - 24px)); height: auto;
+  max-width: calc(100vw - 24px); max-height: min(560px, calc(100dvh - 24px));
+  padding: 0; border: 1px solid var(--ut-line); border-radius: 18px;
+  background: var(--ut-bg); color: var(--ut-ink);
+  box-shadow: 0 18px 65px #001d3438, 0 3px 12px #001d3418;
+  overflow: auto; overscroll-behavior: contain;
+  font: 15px/1.7 system-ui, -apple-system, 'Yu Gothic', sans-serif; text-align: left;
+}
+dialog.ut-dialog::backdrop { background: #071d3324; }
+dialog.ut-dialog *, dialog.ut-dialog *::before, dialog.ut-dialog *::after { box-sizing: border-box; }
+dialog.ut-dialog [hidden] { display: none !important; }
+dialog.ut-dialog .ut-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 19px 18px 0; }
+dialog.ut-dialog .ut-eyebrow { font-size: 11px; letter-spacing: .08em; font-weight: 700; color: var(--ut-accent); margin: 0 0 4px; }
+dialog.ut-dialog h2 { font: 750 23px/1.35 system-ui, sans-serif; margin: 0; padding: 0; color: var(--ut-ink); border: 0; background: none; }
+dialog.ut-dialog .ut-body { padding: 12px 20px 18px; }
+dialog.ut-dialog p { margin: 0 0 12px; color: var(--ut-ink); font: inherit; }
+dialog.ut-dialog .ut-example { border-radius: 11px; padding: 12px 14px; margin: 12px 0; background: var(--ut-soft); }
+dialog.ut-dialog .ut-example b { display: block; margin-bottom: 3px; font-size: 11px; color: var(--ut-accent); }
+dialog.ut-dialog .ut-example p { margin: 0; font-size: 14px; }
+dialog.ut-dialog .ut-note { font-size: 13px; color: var(--ut-muted); padding-left: 10px; border-left: 2px solid #d1a763; }
+dialog.ut-dialog .ut-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--ut-line); }
+dialog.ut-dialog a { color: var(--ut-accent); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+dialog.ut-dialog button { font: 600 13px/1.4 system-ui, sans-serif; color: var(--ut-ink); background: var(--ut-bg); border: 1px solid var(--ut-line); border-radius: 8px; min-height: 38px; padding: 7px 11px; cursor: pointer; box-shadow: none; letter-spacing: normal; }
+dialog.ut-dialog button.ut-close { flex: 0 0 40px; width: 40px; height: 40px; min-height: 40px; padding: 0; margin: -5px -5px 0 0; font-size: 24px; border-color: transparent; }
+dialog.ut-dialog button:hover { background: var(--ut-soft); }
+dialog.ut-dialog :is(button, a, input):focus-visible { outline: 3px solid #28a5ad; outline-offset: 2px; }
+dialog.ut-dialog .ut-source { font-size: 11px; color: var(--ut-muted); margin: 10px 0 0; }
+dialog.ut-dialog .ut-source a { font-size: inherit; }
+dialog.ut-dialog .ut-search { display: block; width: 100%; min-height: 44px; font: 16px/1.5 system-ui, sans-serif; padding: 9px 12px; margin: 8px 0; border: 1px solid var(--ut-line); border-radius: 9px; color: var(--ut-ink); background: var(--ut-bg); }
+dialog.ut-dialog .ut-setting { display: flex; align-items: center; gap: 9px; font-size: 13px; margin: 10px 0 14px; cursor: pointer; }
+dialog.ut-dialog .ut-setting input { width: 19px; height: 19px; accent-color: var(--ut-accent); }
+dialog.ut-dialog .ut-status { font-size: 12px; color: var(--ut-muted); margin: 10px 0 7px; }
+dialog.ut-dialog .ut-list { display: grid; gap: 5px; }
+dialog.ut-dialog .ut-list button { width: 100%; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; min-height: 44px; }
+dialog.ut-dialog .ut-list small { font-size: 10px; color: var(--ut-muted); font-weight: 400; }
+html[data-theme=dark] dialog.ut-dialog { --ut-bg: #112735; --ut-ink: #e9f5f4; --ut-muted: #b0cbcf; --ut-line: #385560; --ut-accent: #83dcd5; --ut-soft: #1b3a43; }
+@media (max-width: 600px) {
+  dialog.ut-dialog { left: 12px !important; right: 12px !important; top: auto !important; bottom: max(12px, env(safe-area-inset-bottom)) !important; width: auto; max-height: min(62dvh, 580px); border-radius: 19px; }
+  dialog.ut-dialog .ut-head { padding-top: 17px; }
+  dialog.ut-dialog .ut-body { padding: 12px 18px 16px; }
+  dialog.ut-dialog h2 { font-size: 22px; }
+  body .ut-entry { padding: 5px 8px; font-size: 11px; }
+}
+@media (forced-colors: active) { body button.ut-term { text-decoration-color: LinkText !important; } }
+@media print { body button.ut-term { text-decoration: none !important; } .ut-entry, .ut-entry-wrap, dialog.ut-dialog { display: none !important; } }
