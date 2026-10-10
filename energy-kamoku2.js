@@ -1,6 +1,7 @@
 // 熱分野 課目Ⅱ・課目Ⅳ 空欄トレーニング（公開版）。データは energy-kamoku{課目}/{年度}.json
 // 課目は body の data-kamoku（2 または 4）で決まる。記録の保存キーは課目ごとに別
 // 問題画像・解答群の文言・書籍の解説は持たない。正解は ECCJ 標準解答で照合済みの値
+// kind：解説の型（calc／formula／know）。whyBy：記号ごとの「違う理由」（令和3〜7年度）。story：問題全体の話（energy-deep の読み物解説から）
 const $ = id => document.getElementById(id);
 function el(tag, text, cls) { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
 const K = document.body.dataset.kamoku === '4' ? '4' : '2';
@@ -70,7 +71,7 @@ function visible() {
 
 async function loadYear() {
   if (!cache[ui.year]) {
-    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=20261009-audit`);
+    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=20261010-teinei`);
     if (!res.ok) throw new Error(res.status);
     cache[ui.year] = await res.json();
   }
@@ -173,8 +174,38 @@ function solve(inner, x) {
   see.onclick = () => { const r = rec[x.id] || { n: 0 }; r.n++; r.box = 0; r.due = today(); rec[x.id] = r; saveRec(); view = 'learn'; renderDlg(); }; later.append(see); inner.append(later);
 }
 
-function sec(inner, n, title) { const s = el('details', null, 'k2-sec'), sm = el('summary'), h = el('h4'); s.open = true; h.append(el('span', String(n), 'n'), document.createTextNode(title)); sm.append(h); s.append(sm); inner.append(s); return s; }
+function sec(inner, n, title) { const s = el('details', null, 'k2-sec'), sm = el('summary'), h = el('h4'); s.open = true; if (n != null) h.append(el('span', String(n), 'n')); h.append(document.createTextNode(title)); sm.append(h); s.append(sm); inner.append(s); return s; }
 function list(arr, tag = 'ul') { const u = el(tag); arr.forEach(t => u.append(el('li', t))); return u; }
+// 空の欄は見出しごと出さない
+const has = v => Array.isArray(v) ? v.some(t => String(t ?? '').trim()) : !!String(v ?? '').trim();
+// 解説の型：calc（数値を求める）・formula（式や関係を選ぶ）・know（用語・仕組みを選ぶ）。型ごとに見出しを変える
+function kindOf(x) { return x.kind || (x.type === 'num' ? 'calc' : 'formula'); }
+const HEADS = {
+  calc: { method: '解法：使う式と記号・単位', derive: '式の出どころ（導出）', calc: '数値を代入して計算', check: 'なぜこの答えか（確かめ）', why: 'ありがちな間違い', parent: '関連知識：親の公式 → 条件 → 派生', parentKey: '親公式' },
+  formula: { method: '解法：使う式と記号', derive: '式の出どころ（導出）', calc: '答えまでの手順', check: 'なぜこの答えか（確かめ）', why: 'ほかの選択肢が違う理由', parent: '関連知識：親の公式 → 条件 → 派生', parentKey: '親公式' },
+  know: { method: '要点と用語', derive: 'しくみ（なぜそうなるか）', calc: '答えまでの筋道', check: '確かめ・補足', why: 'ほかの選択肢が違う理由', parent: '関連知識：全体の整理', parentKey: '全体像' }
+};
+// 「→ ウ」だけの手順は、要点と同じなので出さない
+const trivialSteps = a => a.every(t => /^[→\s]*[ア-ン]?[\s。]*$/.test(String(t)));
+// 選択肢ごとの理由（令和3〜7年度）。記号の順に並べ、記号に結びつかない注意は最後に添える
+function whyList(x) {
+  const f = x.full;
+  if (!x.whyBy) return has(f.why) ? list(f.why.filter(t => String(t).trim())) : null;
+  const u = el('ul', null, 'k2-whyby'), groups = new Map();
+  // 同じ理由の記号はまとめて1行にする
+  x.symbols.forEach(s => { const r = x.whyBy[s]; if (!r) return; if (!groups.has(r)) groups.set(r, []); groups.get(r).push(s); });
+  groups.forEach((ss, r) => { const li = el('li'); li.append(el('b', ss.join('・'), 'sym-mark'), el('span', r)); u.append(li); });
+  (x.whyNote || []).forEach(t => u.append(el('li', t, 'note')));
+  return u.children.length ? u : null;
+}
+function storySec(inner, x) {
+  const st = D.story && D.story[x.q]; if (!st) return;
+  const s = el('details', null, 'k2-sec k2-story'), sm = el('summary'), h = el('h4', `この問題、何の話？（問題${x.q}全体）`);
+  sm.append(h); s.append(sm);
+  (st.body || []).forEach(t => s.append(el('p', t)));
+  if ((st.words || []).length) { const dl = el('dl'); st.words.forEach(w => dl.append(el('dt', w.term), el('dd', w.meaning))); s.append(dl); }
+  inner.append(s);
+}
 function renderReview() {
   const box = $('review-body'); if (!box) return; box.replaceChildren();
   const due = D.blanks.filter(isDue), c = el('div', null, 'k2-due' + (due.length ? '' : ' none'));
@@ -219,10 +250,10 @@ function explain(inner, x) {
   res.append(el('small', `正解：${lab(x)} ＝ ${answerText(x)}　（ECCJ標準解答で確認・配点${x.points}点）`));
   if (!seen && r && r.your) res.append(el('small', `あなたの答え：${r.your}`));
   inner.append(res);
-  const f = x.full; let n = 1;
+  const f = x.full, H = HEADS[kindOf(x)]; let n = 1;
   // 要点カード（30秒で読む）→ 手応え（復習の間隔を決める）→ 詳しい解説（たたんで読める）
   const kc = el('div', null, 'k2-keycard'), kd = el('dl'); kc.append(el('h4', '要点カード（30秒で読む）'));
-  [['解き方', x.key], ['見抜き方', (f.spot || [])[0]], ['親公式', (f.parent || [])[0]]].forEach(([a, b]) => { if (b) kd.append(el('dt', a), el('dd', b)); });
+  [['解き方', x.key], ['見抜き方', (f.spot || [])[0]], [H.parentKey, (f.parent || [])[0]]].forEach(([a, b]) => { if (b) kd.append(el('dt', a), el('dd', b)); });
   kc.append(kd); inner.append(kc);
   if (r && r.n) {
     const fe = el('div', null, 'k2-feel'); fe.append(el('span', '手応え：'));
@@ -232,15 +263,20 @@ function explain(inner, x) {
     fe.append(nx); inner.append(fe);
   }
   const fb = el('div', null, 'k2-foldbar'); [['すべてたたむ', false], ['すべて開く', true]].forEach(([t, o]) => { const b = el('button', t); b.type = 'button'; b.onclick = () => inner.querySelectorAll('details.k2-sec').forEach(d => { d.open = o; }); fb.append(b); }); inner.append(fb);
-  sec(inner, n++, '何を問われているか').append(el('p', f.what));
-  const m = sec(inner, n++, '解法：使う式と記号・単位'); f.method[0].forEach(t => m.append(el('div', t, 'k2-math')));
-  const tb = el('table', null, 'k2-sym'); f.method[1].forEach(([a, b]) => { const tr = el('tr'); tr.append(el('td', a), el('td', b)); tb.append(tr); }); m.append(tb);
-  sec(inner, n++, '式の出どころ（短い導出）').append(el('p', f.derive));
-  sec(inner, n++, '数値を代入して計算').append(list(f.calc, 'ol'));
-  sec(inner, n++, 'なぜこの答えか（確かめ）').append(el('p', f.check, 'k2-check'));
-  sec(inner, n++, x.type === 'choice' ? 'ほかの選択肢が違う理由' : 'ありがちな間違い').append(list(f.why));
-  sec(inner, n++, '試験で解き方を見抜くコツ').append(list(f.spot));
-  sec(inner, n++, '関連知識：親の公式 → 条件 → 派生').append(el('div', f.parent.join('\n'), 'k2-math'));
+  storySec(inner, x);
+  if (has(f.what)) sec(inner, n++, '何を問われているか').append(el('p', f.what));
+  const rows = (f.method[1] || []).filter(r => has(r[0]));
+  if (has(f.method[0]) || rows.length) {
+    const m = sec(inner, n++, H.method); f.method[0].filter(t => has(t)).forEach(t => m.append(el('div', t, 'k2-math')));
+    if (rows.length) { const tb = el('table', null, 'k2-sym'); rows.forEach(([a, b]) => { const tr = el('tr'); tr.append(el('td', a), el('td', b)); tb.append(tr); }); m.append(tb); }
+  }
+  if (Array.isArray(f.steps) && has(f.steps)) sec(inner, n++, H.derive).append(list(f.steps.filter(t => has(t)), 'ol'));
+  else if (has(f.derive)) sec(inner, n++, H.derive).append(el('p', f.derive));
+  if (has(f.calc) && !(x.type === 'choice' && trivialSteps(f.calc))) sec(inner, n++, H.calc).append(list(f.calc.filter(t => has(t)), 'ol'));
+  if (has(f.check)) sec(inner, n++, H.check).append(el('p', f.check, 'k2-check'));
+  const wl = whyList(x); if (wl) sec(inner, n++, x.type === 'choice' ? H.why : 'ありがちな間違い').append(wl);
+  if (has(f.spot)) sec(inner, n++, '試験で解き方を見抜くコツ').append(list(f.spot.filter(t => has(t))));
+  if (has(f.parent)) sec(inner, n++, H.parent).append(el('div', f.parent.join('\n'), 'k2-math'));
   const s = el('section', null, 'k2-sec k2-src'); s.append(el('h4', '出典')); const dl = el('dl');
   [['試験', D.exam], ['課目', D.subject], ['大問・小問', `問題${x.q}　${x.path}　空欄 ${lab(x)}`], ['正解の扱い', `当時（${YEARS[ui.year]}）の試験上の正解`], ['問題', D.problemUrl], ['標準解答', D.answerUrl]].forEach(([a, b]) => {
     dl.append(el('dt', a)); const dd = el('dd');
