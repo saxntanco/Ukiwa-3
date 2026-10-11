@@ -71,7 +71,7 @@ function visible() {
 
 async function loadYear() {
   if (!cache[ui.year]) {
-    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=20261010-teinei`);
+    const res = await fetch(`energy-kamoku${K}/${ui.year}.json?v=20261011-plain`);
     if (!res.ok) throw new Error(res.status);
     cache[ui.year] = await res.json();
   }

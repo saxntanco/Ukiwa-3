@@ -136,6 +136,63 @@ const server = http.createServer((req, res) => {
     await close();
     console.log('PASS actual energy-exam explanation dialog and mobile hints');
 
+    // Read the corrected explanations through the actual year/question controls.
+    // Cover plain reasons, per-choice reasons, notes, key cards and shared summaries.
+    const energyCases = [
+      {subject:4,year:'h30',id:'H30-IV-14-5',checks:[/3600で割ってkWhに直してから逆数/,/1kWh発電するのに必要な蒸気/,/発電電力はkWで求まる/]},
+      {subject:2,year:'r08',id:'R08-II-5-16',checks:[/125.5から126に丸めて計算/,/126 ÷ 30.8 ≒ 4.09/]},
+      {subject:2,year:'r06',id:'R06-II-7-15',checks:[/ア0.703 Wを選びやすい/,/正しくは33.2 W/]},
+      {subject:4,year:'r04',id:'R04-IV-13-1',checks:[/自然循環を駆動する圧力差/,/降水管と上昇管の密度差/],answer:true},
+      {subject:4,year:'r06',id:'R06-IV-14-10',checks:[/断面に平行に働く応力成分/,/発生原因から問うので、熱応力/]},
+      {subject:4,year:'r05',id:'R05-IV-11-1',checks:[/標準偏差を合成する/,/感度は、その測定値が少し変わったとき/,/一次近似できる場合/]},
+      {subject:4,year:'r05',id:'R05-IV-11-2',checks:[/系統誤差は「誤差 × 感度」を符号付きで足す/,/標準偏差 × 感度/]},
+      {subject:2,year:'r08',id:'R08-II-6-8',checks:[/吸込状態の空気1m³に与える仕事/,/空気の密度変化が小さい場合/]},
+      {subject:2,year:'r08',id:'R08-II-6-9',checks:[/空気1kgあたりに与える仕事/,/密度の変化を無視できる場合/]},
+      {subject:4,year:'r06',id:'R06-IV-14-13',checks:[/ガスタービンの出力も大きくなる/,/圧縮機全体に必要な動力は、この両方を掛けて/]},
+      {subject:4,year:'r07',id:'R07-IV-12-11',checks:[/出力のラプラス変換 ÷ 入力のラプラス変換/,/性質が時間によって変わらない/]}
+    ];
+    for (const width of [1280,390]) {
+      await page.setViewportSize({width,height:900});
+      for (const c of energyCases) {
+        const data = JSON.parse(fs.readFileSync(path.join(root,`energy-kamoku${c.subject}/${c.year}.json`),'utf8'));
+        const blank = data.blanks.find(b => b.id === c.id);
+        await goto(`energy-kamoku${c.subject}.html`);
+        await page.locator('#blanks button').first().waitFor();
+        await page.locator('#year').selectOption(c.year);
+        await page.waitForFunction(expected => document.getElementById('scope-year').textContent === expected, data.exam.split('（')[0]);
+        await page.locator('#q').selectOption(String(blank.q));
+        await page.locator('#blanks button').filter({hasText:`空欄 (${blank.blank})`}).click();
+        const see = page.getByRole('button',{name:'わからない → 解説を見る',exact:true});
+        if (await see.isVisible()) {
+          if (c.answer) await page.getByRole('button',{name:`${blank.answer} を選ぶ`,exact:true}).click();
+          else await see.click();
+        }
+        const text = await page.locator('#dinner').innerText();
+        for (const check of c.checks) assert.match(text,check,`${c.id} at ${width}px`);
+        if (c.answer) assert.match(await page.locator('.k2-result').innerText(),/^正解！/);
+        assert.equal(await page.locator('#dbody').evaluate(node => node.scrollWidth <= node.clientWidth + 1),true,`${c.id} horizontal overflow at ${width}px`);
+        if (c.id === 'H30-IV-14-5') {
+          const check = page.locator('.k2-check');
+          assert.doesNotMatch(await check.innerText(),/[Δη]|q_e/);
+          await check.scrollIntoViewIfNeeded();
+          await page.screenshot({path:path.join(output,`term-energy-steam-${width}.png`),animations:'disabled'});
+          await page.getByRole('button',{name:'すべてたたむ',exact:true}).click();
+          assert.equal(await page.locator('#dinner details.k2-sec[open]').count(),0);
+          await page.getByRole('button',{name:'すべて開く',exact:true}).click();
+          assert.ok(await page.locator('#dinner details.k2-sec[open]').count()>0);
+        }
+        await page.keyboard.press('Escape');
+        assert.equal(await page.locator('#dlg').isVisible(),false);
+        if (c.id === 'R08-II-6-9') {
+          await page.getByText('公式・要点まとめ（テーマ別）',{exact:true}).click();
+          const theme = page.locator('#sheet-body details').filter({has:page.locator('summary',{hasText:blank.theme})});
+          await theme.locator('summary').click();
+          assert.match(await theme.innerText(),/密度の変化を無視できる場合/);
+        }
+      }
+    }
+    console.log('PASS corrected energy explanations, unchanged choice grading, folding and formula summary at desktop/mobile widths');
+
     await goto('ct-calculator.html');
     await page.screenshot({path:path.join(output,'term-reading-mobile.png'),animations:'disabled'});
     await page.locator('#result .ut-term[data-ut-id="ct-ratio"]').click();
