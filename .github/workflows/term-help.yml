@@ -2,9 +2,9 @@ name: Term hints checks
 on:
   push:
     branches: [main, feat/term-popovers-20261010]
-    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'energy-kamoku2.js', 'energy-kamoku2/*.json', 'energy-kamoku4/*.json', 'tests/energy-*.test.cjs', 'tests/term-help*', '.github/workflows/term-help.yml']
   pull_request:
-    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'tests/term-help*', '.github/workflows/term-help.yml']
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'energy-kamoku2.js', 'energy-kamoku2/*.json', 'energy-kamoku4/*.json', 'tests/energy-*.test.cjs', 'tests/term-help*', '.github/workflows/term-help.yml']
 permissions:
   contents: read
 jobs:
@@ -18,6 +18,8 @@ jobs:
           node-version: '22'
       - name: Check glossary and every page entry point
         run: node --test tests/term-help.test.cjs tests/content-guide.test.cjs
+      - name: Check energy explanations and numeric grading
+        run: node --test tests/energy-kamoku-explain.test.cjs tests/energy-numeric.test.cjs
       - name: Install browser test dependency
         run: |
           npm install --no-save --package-lock=false --ignore-scripts playwright@1.58.2
