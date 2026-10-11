@@ -1,0 +1,9 @@
+.record-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.record-actions button{min-height:44px;padding:10px 16px;font:inherit;font-weight:700;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:10px;cursor:pointer;background:var(--island-bg-eaf3f7-100,#eaf3f7);color:var(--island-fg-173749-100,#173749)}
+.record-actions button:disabled{opacity:.55;cursor:not-allowed}
+.record-actions button:focus-visible,.record-fallback:focus-visible{outline:3px solid #d79527;outline-offset:3px}
+.record-fallback{display:block;width:100%;min-height:240px;padding:12px;font:16px/1.7 system-ui;resize:vertical}
+.record-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.8 system-ui;max-height:500px;overflow:auto;padding:12px}
+.record-panel p[role=status]{font-size:14px;overflow-wrap:anywhere}
+[hidden]{display:none!important}
+@media print{.record-actions,.record-fallback{display:none!important}.record-panel pre{max-height:none;overflow:visible}}

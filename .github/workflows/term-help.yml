@@ -2,9 +2,9 @@ name: Term hints checks
 on:
   push:
     branches: [main, feat/term-popovers-20261010]
-    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'energy-kamoku2.js', 'energy-kamoku2/*.json', 'energy-kamoku4/*.json', 'tests/energy-*.test.cjs', 'tests/term-help*', '.github/workflows/term-help.yml']
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'energy-kamoku2.js', 'energy-kamoku2/*.json', 'energy-kamoku4/*.json', 'tests/energy-*.test.cjs', 'tests/term-help*', 'tests/field-calculators-browser.cjs', 'calculation-record.*', 'ct-record.js', 'relay-test-*', '.github/workflows/term-help.yml']
   pull_request:
-    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'energy-kamoku2.js', 'energy-kamoku2/*.json', 'energy-kamoku4/*.json', 'tests/energy-*.test.cjs', 'tests/term-help*', '.github/workflows/term-help.yml']
+    paths: ['term-help*', 'content-guide.js', 'hideout-nav.js', 'island-pages.js', '*.html', 'circuit-duel/index.html', 'energy-kamoku2.js', 'energy-kamoku2/*.json', 'energy-kamoku4/*.json', 'tests/energy-*.test.cjs', 'tests/term-help*', 'tests/field-calculators-browser.cjs', 'calculation-record.*', 'ct-record.js', 'relay-test-*', '.github/workflows/term-help.yml']
 permissions:
   contents: read
 jobs:
@@ -26,9 +26,13 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Check reading, calculators, dynamic lessons and mobile dialogs
         run: node tests/term-help-browser.cjs
+      - name: Check field calculators and records
+        run: node tests/field-calculators-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: term-hints-screenshots
-          path: test-results/term-*.png
+          path: |
+            test-results/term-*.png
+            test-results/field-*.png
           retention-days: 14
