@@ -258,7 +258,10 @@ const server = http.createServer((req, res) => {
           await theme.locator('summary').click();
           const summaryText = await theme.innerText();
           if (c.id === 'R08-II-6-9') assert.match(summaryText,/密度の変化を無視できる場合/);
-          if (c.summary) for (const expected of blank.full.parent) assert.ok(normalized(summaryText).includes(normalized(expected)),`${c.id} shared summary at ${width}px`);
+          if (c.summary) for (const field of c.fields.filter(field => field.startsWith('full.parent['))) {
+            const expected = blank.full.parent[Number(field.match(/\[(\d+)\]/)[1])];
+            assert.ok(normalized(summaryText).includes(normalized(expected)),`${c.id} ${field} shared summary at ${width}px`);
+          }
           assert.equal(await theme.evaluate(node => node.scrollWidth <= node.clientWidth + 1),true,`${c.id} summary horizontal overflow at ${width}px`);
         }
       }
