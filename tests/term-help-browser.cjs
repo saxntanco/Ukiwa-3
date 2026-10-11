@@ -151,6 +151,67 @@ const server = http.createServer((req, res) => {
       {subject:4,year:'r06',id:'R06-IV-14-13',checks:[/ガスタービンの出力も大きくなる/,/圧縮機全体に必要な動力は、この両方を掛けて/]},
       {subject:4,year:'r07',id:'R07-IV-12-11',checks:[/出力のラプラス変換 ÷ 入力のラプラス変換/,/性質が時間によって変わらない/]}
     ];
+    // Open every updated blank through the UI; read expected content from the data
+    // to check rendering, per-choice reasons, shared summaries and narrow layouts.
+    const updatedEnergyCases = [
+      {"subject":2,"year":"r03","id":"R03-II-6-5","fields":["whyBy.ケ"]},
+      {"subject":2,"year":"r04","id":"R04-II-5-12","fields":["whyBy.エ","whyBy.イ"],"shot":".k2-whyby"},
+      {"subject":2,"year":"r04","id":"R04-II-5-13","fields":["whyBy.ウ","whyBy.ア"]},
+      {"subject":2,"year":"r04","id":"R04-II-5-D","fields":["full.why[0]"]},
+      {"subject":2,"year":"r05","id":"R05-II-5-6","fields":["whyBy.カ","whyBy.キ"]},
+      {"subject":2,"year":"r06","id":"R06-II-6-13","fields":["whyBy.ア"]},
+      {"subject":4,"year":"r01","id":"R01-IV-14-4","fields":["full.why[1]","full.check"]},
+      {"subject":4,"year":"h30","id":"H30-IV-17-2","fields":["full.check"]},
+      {"subject":4,"year":"r02","id":"R02-IV-14-3","fields":["full.derive"]},
+      {"subject":4,"year":"r01","id":"R01-IV-11-11","fields":["full.check"]},
+      {"subject":4,"year":"r03","id":"R03-IV-18-1","fields":["full.check"]},
+      {"subject":4,"year":"r08","id":"R08-IV-17-1","fields":["full.why[0]"]},
+      {"subject":4,"year":"r08","id":"R08-IV-17-2","fields":["full.derive"]},
+      {"subject":2,"year":"r04","id":"R04-II-4-1","fields":["whyBy.ア"]},
+      {"subject":2,"year":"r03","id":"R03-II-6-8","fields":["whyBy.ア"]},
+      {"subject":2,"year":"r05","id":"R05-II-5-A","fields":["full.why[1]"]},
+      {"subject":2,"year":"r07","id":"R07-II-5-D","fields":["full.why[2]"]},
+      {"subject":4,"year":"r07","id":"R07-IV-15-A","fields":["full.why[0]"]},
+      {"subject":2,"year":"r04","id":"R04-II-7-4","fields":["full.method[0][0]"]},
+      {"subject":2,"year":"r07","id":"R07-II-7-1","fields":["full.parent[3]"],"summary":true,"shot":"#dinner details.k2-sec .k2-math"},
+      {"subject":2,"year":"r07","id":"R07-II-7-2","fields":["full.parent[3]"]},
+      {"subject":2,"year":"r07","id":"R07-II-7-3","fields":["full.parent[3]"]},
+      {"subject":2,"year":"r07","id":"R07-II-7-9","fields":["full.parent[3]"]},
+      {"subject":2,"year":"r07","id":"R07-II-7-10","fields":["full.parent[3]"]},
+      {"subject":4,"year":"h30","id":"H30-IV-16-4","fields":["full.derive","full.why[0]","full.parent[4]"],"summary":true},
+      {"subject":4,"year":"h30","id":"H30-IV-16-1","fields":["full.parent[4]"]},
+      {"subject":4,"year":"h30","id":"H30-IV-16-2","fields":["full.parent[4]"]},
+      {"subject":4,"year":"h30","id":"H30-IV-16-3","fields":["full.parent[4]"]},
+      {"subject":4,"year":"h30","id":"H30-IV-16-5","fields":["full.parent[4]"]},
+      {"subject":4,"year":"r06","id":"R06-IV-14-13","fields":["full.method[0][0]","full.parent[2]"],"summary":true},
+      {"subject":4,"year":"r06","id":"R06-IV-14-11","fields":["full.parent[2]"]},
+      {"subject":4,"year":"r06","id":"R06-IV-14-12","fields":["full.parent[2]"]},
+      {"subject":4,"year":"r06","id":"R06-IV-14-14","fields":["full.parent[2]"]},
+      {"subject":4,"year":"r06","id":"R06-IV-14-15","fields":["full.parent[2]"]},
+      {"subject":2,"year":"h30","id":"H30-II-6-18","fields":["full.derive","full.check"]},
+      {"subject":2,"year":"r01","id":"R01-II-6-12","fields":["full.derive"]},
+      {"subject":2,"year":"r02","id":"R02-II-5-D","fields":["full.method"]},
+      {"subject":2,"year":"r05","id":"R05-II-7-6","fields":["full.derive"]},
+      {"subject":2,"year":"r05","id":"R05-II-7-10","fields":["whyBy.イ"]},
+      {"subject":2,"year":"r05","id":"R05-II-7-11","fields":["whyBy.イ"]},
+      {"subject":2,"year":"r07","id":"R07-II-6-9","fields":["whyBy.オ"]},
+      {"subject":4,"year":"r04","id":"R04-IV-16-9","fields":["full.method[1][3][1]","full.check"],"shot":".k2-sym"},
+      {"subject":4,"year":"r05","id":"R05-IV-13-5","fields":["whyBy.ク"]},
+      {"subject":4,"year":"r03","id":"R03-IV-16-8","fields":["full.derive"]},
+      {"subject":4,"year":"r04","id":"R04-IV-14-9","fields":["whyBy.ア"]},
+      {"subject":4,"year":"r08","id":"R08-IV-14-1","fields":["full.parent[0]"],"summary":true},
+      {"subject":4,"year":"r08","id":"R08-IV-14-2","fields":["full.parent[0]"]},
+      {"subject":4,"year":"r08","id":"R08-IV-14-3","fields":["full.parent[0]"]},
+      {"subject":4,"year":"r08","id":"R08-IV-14-4","fields":["full.parent[0]"]},
+      {"subject":4,"year":"r08","id":"R08-IV-14-5","fields":["full.parent[0]"]}
+    ];
+    for (const c of updatedEnergyCases) {
+      const existing = energyCases.find(x => x.id === c.id);
+      if (existing) Object.assign(existing,c);
+      else energyCases.push(c);
+    }
+    const leafText = value => Array.isArray(value) ? value.flatMap(leafText) : [String(value)];
+    const normalized = text => text.replace(/\s+/g,'');
     for (const width of [1280,390]) {
       await page.setViewportSize({width,height:900});
       for (const c of energyCases) {
@@ -168,7 +229,15 @@ const server = http.createServer((req, res) => {
           else await see.click();
         }
         const text = await page.locator('#dinner').innerText();
-        for (const check of c.checks) assert.match(text,check,`${c.id} at ${width}px`);
+        for (const check of c.checks || []) assert.match(text,check,`${c.id} at ${width}px`);
+        for (const field of c.fields || []) {
+          const value = field.match(/[^.\[\]]+/g).reduce((value,key) => value[key],blank);
+          for (const expected of leafText(value)) assert.ok(normalized(text).includes(normalized(expected)),`${c.id} ${field} is rendered at ${width}px`);
+        }
+        if (c.shot) {
+          await page.locator(c.shot).last().scrollIntoViewIfNeeded();
+          await page.screenshot({path:path.join(output,`term-energy-${c.id}-${width}.png`),animations:'disabled'});
+        }
         if (c.answer) assert.match(await page.locator('.k2-result').innerText(),/^正解！/);
         assert.equal(await page.locator('#dbody').evaluate(node => node.scrollWidth <= node.clientWidth + 1),true,`${c.id} horizontal overflow at ${width}px`);
         if (c.id === 'H30-IV-14-5') {
@@ -183,11 +252,14 @@ const server = http.createServer((req, res) => {
         }
         await page.keyboard.press('Escape');
         assert.equal(await page.locator('#dlg').isVisible(),false);
-        if (c.id === 'R08-II-6-9') {
+        if (c.id === 'R08-II-6-9' || c.summary) {
           await page.getByText('公式・要点まとめ（テーマ別）',{exact:true}).click();
           const theme = page.locator('#sheet-body details').filter({has:page.locator('summary',{hasText:blank.theme})});
           await theme.locator('summary').click();
-          assert.match(await theme.innerText(),/密度の変化を無視できる場合/);
+          const summaryText = await theme.innerText();
+          if (c.id === 'R08-II-6-9') assert.match(summaryText,/密度の変化を無視できる場合/);
+          if (c.summary) for (const expected of blank.full.parent) assert.ok(normalized(summaryText).includes(normalized(expected)),`${c.id} shared summary at ${width}px`);
+          assert.equal(await theme.evaluate(node => node.scrollWidth <= node.clientWidth + 1),true,`${c.id} summary horizontal overflow at ${width}px`);
         }
       }
     }
