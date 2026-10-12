@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#078bca" name="theme-color"/>
-<title>ぷかぷかうきわメモ｜電気保安を、海の冒険に。</title>
+<title>うきわメモ図鑑｜ぷかぷかうきわメモ</title>
 <meta content="高圧受変電設備、保護継電器、試験・測定を海の冒険世界で学ぶ電気保安学習サイト。" name="description"/>
 <style>
 :root{
@@ -855,6 +855,14 @@ html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term
   .site-header .brand strong{white-space:nowrap;font-size:16px!important}
   .site-header .brand small{white-space:nowrap;font-size:10px!important}
 }
+/* v61: カードと6分野を外し、題字だけの見出しに */
+.zk-hero{min-height:min(62svh,560px);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;box-sizing:border-box;width:min(1000px,calc(100% - 32px));margin:0 auto;padding:120px 4px 26px}
+.zk-kicker{margin:0 0 6px;font-size:12px;font-weight:800;letter-spacing:.22em;color:var(--zk-gold)!important;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.zk-hero h1{margin:0;font-size:clamp(36px,6vw,64px);line-height:1.15;color:#fff!important;letter-spacing:.02em;text-shadow:0 2px 22px rgba(0,10,40,.85),0 0 30px rgba(90,170,255,.35)}
+.zk-lead{margin:12px 0 0;font-size:clamp(15px,2vw,19px);font-weight:700;color:#e3eeff!important;text-shadow:0 1px 10px rgba(0,10,40,.9)}
+.zk-glossary{margin-top:6px!important;padding:24px 26px!important}
+.zk-glossary b{font-size:26px!important}
+@media (max-width:700px){.zk-hero{width:calc(100% - 24px);padding:100px 6px 20px;min-height:66svh}.zk-glossary b{font-size:21px!important}}
 </style>
 </head>
 <body>
@@ -868,78 +876,15 @@ html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term
 <button aria-label="メニュー" class="menu-btn" id="zukanMenuButton" aria-expanded="false" aria-controls="zukanMenu" type="button">≡</button><nav id="zukanMenu" class="zukan-menu" aria-label="図鑑メニュー" hidden><a href="index.html">ホーム</a><a href="index.html#categories">ツール・教材一覧</a><a href="protective-relay.html">保護継電器</a><a href="why-today.html">今日の「なんで？」</a></nav>
 </div>
 </header>
-<div aria-hidden="true" aria-label="ANOTHER OCEAN 別世界ビジュアル" class="another-ocean" id="anotherOcean" role="dialog">
-<img alt="夜の電気保安の海を旅するうきわちゃん。灯台や島、海上設備と青白い回路光が広がる世界" class="another-ocean__art" draggable="false" src="./another-ocean.webp"/>
-<div class="another-ocean__shade"></div>
-<button aria-label="別世界を閉じる" class="another-ocean__close" id="anotherOceanClose" type="button">×</button>
-<div class="another-ocean__hint">画面をタップして戻る</div>
-</div>
+
 <main>
-<section class="hero" id="home">
-<div class="hero-grid">
-<div class="card-stage">
-<p id="card-fiction-note">このカードの技・効果・%は、学習演出のための架空設定です。実機の保護機能、事故防止率、測定精度や作業条件を表していません。</p>
-<div aria-label="うきわちゃんカード。左右どちらかへスワイプすると表裏が切り替わります" aria-describedby="card-fiction-note" class="hero-card" id="heroCard" role="group" tabindex="0">
-<span class="hero-card-inner">
-<span class="hero-card-face hero-card-front"><img alt="うきわちゃんURカード" fetchpriority="high" src="./ukiwa-card.webp"/></span>
-<span class="hero-card-face hero-card-back">
-<span aria-hidden="true" class="nav-card-grid"></span>
-<div class="nav-card-brand">
-<span class="nav-card-kicker">PUKA PUKA UKIWA MEMO</span>
-<h2>電気保安を、<br/>海の冒険に。</h2>
-<span class="nav-card-sub">OCEAN SAFETY LEARNING GUIDE</span>
-</div>
-<div aria-hidden="true" class="nav-card-emblem">
-<span class="nav-card-ripple r1"></span>
-<span class="nav-card-ripple r2"></span>
-<img alt="" src="./favicon.svg"/>
-</div>
-<p class="nav-card-summary">
-  高圧受変電設備や保護継電器、試験・測定、電気の原理を、
-  キャラクターと海の冒険を通して学ぶ電気保安学習サイト。
-</p>
-<div aria-label="この海で学べること" class="nav-card-domains">
-<span><b>受変電設備</b><small>高圧機器・変圧器</small></span>
-<span><b>保護継電器</b><small>OCR・GR・DGR</small></span>
-<span><b>試験・測定</b><small>耐圧・絶縁・接地</small></span>
-<span><b>電気の基礎</b><small>RLC・ベクトル・公式</small></span>
-<span><b>シーケンス</b><small>接点・自己保持</small></span>
-<span><b>安全・事故</b><small>停復電・原因分析</small></span>
-</div>
-<div class="nav-card-route">
-<div class="nav-card-route-head">
-<span>YOUR FIRST ROUTE</span>
-<strong>最初の航路を選ぼう</strong>
-</div>
-<div class="nav-card-route-links">
-<a data-back-route="basics" href="./relay-basics.html"><b>はじめて学ぶ</b><small>基礎から順番に</small></a>
-<a data-back-route="guide" href="./protective-relay.html"><b>目的から探す</b><small>機器・試験・用語</small></a>
-<a data-back-route="map" href="#learning-routes"><b>海のマップへ</b><small>6つの修行島</small></a>
-</div>
-</div>
-<div class="nav-card-quote">
-<span>「分からないまま進む方が、こわいよ。<br/>一緒に、ひとつずつ確かめよう。」</span>
-</div>
-<div class="nav-card-footer">
-<span>UKW-001</span>
-<span>PUKA PUKA UKIWA MEMO</span>
-<span>SAFETY NAVIGATION CARD ⚓</span>
-</div>
-</span>
-</span>
-</div>
-<span aria-hidden="true" class="card-water"></span>
-</div>
-<div class="hero-copy">
-<span class="world-badge">CHARACTER COLLECTION</span>
-<h1><span>うきわちゃん</span><br/>カード図鑑</h1>
-<p>カードをめくって、この海の学び方を知ろう。<br/>スワイプ・長押しでも操作できます。</p><div class="card-actions"><button id="flipCard" type="button" aria-pressed="false">裏面を見る</button><button id="openOcean" type="button">別世界をのぞく</button><a href="#learning-routes">6つの学習航路へ ↓</a></div>
-<a class="hero-cta" href="./index.html">← 島のホームへ戻る</a>
-</div>
-</div>
+<section class="zk-hero" id="home">
+<p class="zk-kicker">UKIWA MEMO ・ ZUKAN</p>
+<h1>うきわメモ図鑑</h1>
+<p class="zk-lead">現場で出会う略語・用語・機器を<wbr>しらべる。</p>
 </section>
 <a class="zk-glossary" href="glossary.html"><span><b>📖 用語・機器図鑑</b><span>PAS＝Pole Air Switch（柱上気中開閉器）のように、略語・英語・日本語・読みで340語以上を引ける</span></span><strong>→</strong></a>
-<section id="learning-routes" class="learning-routes"><h2>6つの分野、どこから読む？</h2><p>今日はひとつ選び、読む前の問いを持って出発しよう。</p><div class="learning-route-grid"><details><summary>受変電設備</summary><p>電気がどこから入り、どの機器を通るかを追う。機器名の暗記より先に、役割と電源側・負荷側を対応させる。</p><a href="equipment-map.html">設備マップ →</a></details><details><summary>保護継電器</summary><p>入力→判定→接点出力→遮断器の動作を分けて読む。動作値と動作時間の違いを言葉にする。</p><a href="relay-basics.html">保護の基礎 →</a></details><details><summary>試験・測定</summary><p>測定器が何を加えて何を読んでいるかを確認。測定範囲と測定対象、切り分け条件をセットで考える。</p><a href="measurement-principles.html">測定の原理 →</a></details><details><summary>電気の基礎</summary><p>回路と式を往復する。比例・反比例だけでなく、何を一定としたか、単位が合うかを確かめる。</p><a href="ct-calculator.html">CT比と電流 →</a></details><details><summary>シーケンス</summary><p>接点の通常状態を決め、押す→離す→停止で回路を追う。自己保持とインターロックの目的を区別する。</p><a href="sequence-basics.html">接点と自己保持 →</a></details><details><summary>現場の疑問</summary><p>見た事実と原因の推測を分ける。似た症状でも測定条件が違えば、結論が変わることを確かめる。</p><a href="why-today.html">今日のなんで？ →</a></details></div></section>
+
 <section class="route-section" id="routes" style="display:none">
 <div aria-hidden="true" class="world-transition">
 <span class="world-transition-line"></span>
@@ -1003,104 +948,6 @@ html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term
 </nav>
 <script>
 (() => {
-  // Hero card: swipe/drag to flip. Tap/click does nothing.
-  const heroCard = document.getElementById('heroCard');
-  let cardStartX = null;
-  let cardStartY = null;
-  let cardDragging = false;
-
-  function setCardSide(back){
-    heroCard.classList.remove('is-flipping');
-    void heroCard.offsetWidth;
-    heroCard.classList.add('is-flipping');
-    setTimeout(()=>heroCard.classList.remove('is-flipping'), 620);
-    heroCard.classList.toggle('is-flipped', back);
-    document.getElementById('flipCard').textContent=back?'表面を見る':'裏面を見る';
-    document.getElementById('flipCard').setAttribute('aria-pressed',String(back));
-    heroCard.setAttribute(
-      'aria-label',
-      back
-        ? 'うきわちゃんカード裏面。左右どちらかへスワイプすると表面に戻ります'
-        : 'うきわちゃんカード表面。左右どちらかへスワイプすると裏面を表示します'
-    );
-  }
-
-  const anotherOcean = document.getElementById('anotherOcean');
-  const anotherOceanClose = document.getElementById('anotherOceanClose');
-  let holdTimer = null, revealTimer = null, holdTriggered = false, holdPointerId = null;
-  let holdCancelledByMove = false;
-  const HOLD_MS = 1200, REVEAL_MS = 1800, MOVE_CANCEL = 14, SWIPE_THRESHOLD = 48;
-
-  function cancelHold(){
-    clearTimeout(holdTimer); holdTimer=null;
-    if(!holdTriggered) heroCard.classList.remove('is-awakening');
-  }
-  function startAwakening(){
-    if(!cardDragging || holdTriggered || holdCancelledByMove) return;
-    holdTriggered=true;
-    cardDragging=false;
-    clearTimeout(holdTimer); holdTimer=null;
-    heroCard.classList.add('is-awakening');
-    revealTimer=setTimeout(openAnotherOcean, REVEAL_MS);
-  }
-  function openAnotherOcean(){
-    clearTimeout(revealTimer); revealTimer=null;
-    heroCard.classList.remove('is-awakening');
-    anotherOcean.classList.add('is-open'); anotherOcean.setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden'; setTimeout(()=>anotherOceanClose.focus(),220);
-  }
-  function closeAnotherOcean(){
-    clearTimeout(revealTimer); revealTimer=null;
-    heroCard.classList.remove('is-awakening');
-    anotherOcean.classList.remove('is-open'); anotherOcean.setAttribute('aria-hidden','true');
-    document.body.style.overflow=''; holdTriggered=false; setTimeout(()=>heroCard.focus(),100);
-  }
-  document.getElementById('flipCard').addEventListener('click',()=>setCardSide(!heroCard.classList.contains('is-flipped')));
-  document.getElementById('openOcean').addEventListener('click',openAnotherOcean);
-  heroCard.addEventListener('contextmenu', e => e.preventDefault());
-  heroCard.addEventListener('pointerdown', e => {
-    cardStartX=e.clientX; cardStartY=e.clientY; cardDragging=true; holdTriggered=false; holdCancelledByMove=false; holdPointerId=e.pointerId;
-    heroCard.setPointerCapture?.(e.pointerId);
-    clearTimeout(revealTimer); revealTimer=null;
-    holdTimer=setTimeout(startAwakening, HOLD_MS);
-  });
-  heroCard.addEventListener('pointermove', e => {
-    if(!cardDragging || cardStartX==null || holdTriggered) return;
-    const distance=Math.hypot(e.clientX-cardStartX,e.clientY-cardStartY);
-    if(distance>MOVE_CANCEL && !holdCancelledByMove){
-      holdCancelledByMove=true;
-      cancelHold();
-    }
-  });
-  heroCard.addEventListener('pointerup', e => {
-    if(holdTriggered){
-      cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
-      return;
-    }
-    cancelHold();
-    if(!cardDragging || cardStartX==null || cardStartY==null) return;
-    const dx=e.clientX-cardStartX, dy=e.clientY-cardStartY;
-    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
-    if(Math.abs(dx)<SWIPE_THRESHOLD || Math.abs(dx)<=Math.abs(dy)*1.15) return;
-    // Both left and right swipes toggle front/back.
-    setCardSide(!heroCard.classList.contains('is-flipped'));
-  });
-  heroCard.addEventListener('pointercancel',()=>{
-    if(!holdTriggered) cancelHold();
-    cardDragging=false; cardStartX=null; cardStartY=null; holdCancelledByMove=false;
-  });
-  anotherOcean.addEventListener('click',e=>{ if(e.target!==anotherOceanClose) closeAnotherOcean(); });
-  anotherOceanClose.addEventListener('click',e=>{ e.stopPropagation(); closeAnotherOcean(); });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && anotherOcean.classList.contains('is-open')) closeAnotherOcean(); });
-
-  // Keyboard fallback for accessibility.
-  heroCard.addEventListener('keydown', e => {
-    if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
-      e.preventDefault();
-      setCardSide(!heroCard.classList.contains('is-flipped'));
-    }
-  });
-
   // Dark mode
   const theme = document.getElementById('themeToggle');
   theme.addEventListener('click', () => {

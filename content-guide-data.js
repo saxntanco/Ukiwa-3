@@ -482,10 +482,10 @@ window.UkiwaContents = [
   },
   {
     "path": "zukan.html",
-    "title": "うきわちゃんと島の図鑑",
+    "title": "うきわメモ図鑑",
     "category": "記録・島",
-    "description": "キャラクター・カード・用語・機器を楽しみながら眺める。",
-    "tags": "浮き輪 キャラクター 図鑑 カード",
+    "description": "用語・機器図鑑への入口。夜の海の背景で、略語・用語・機器をしらべる。",
+    "tags": "浮き輪 図鑑 用語 機器 略語",
     "related": [
       "equipment-map.html",
       "about.html",
