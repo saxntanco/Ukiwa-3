@@ -783,6 +783,79 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
+<style id="v60-night-ocean">
+/* v60: 図鑑ページを ANOTHER OCEAN（夜の海）の背景で統一。時間帯テーマに左右されない固定色。 */
+:root{--zk-ink:#f1f6ff;--zk-muted:#c3d4ee;--zk-glass:rgba(7,20,52,.72);--zk-glass-2:rgba(14,34,78,.62);--zk-line:rgba(150,200,255,.30);--zk-gold:#f2d17c;--zk-accent:#93ddff}
+html:root{background:#06122c!important;color:var(--zk-ink)!important}
+html:root body{background:transparent!important;color:var(--zk-ink)!important}
+html:root body{background-image:none!important}
+html:root body::before{content:"";position:fixed;inset:0;z-index:-2;background:#06122c url("./another-ocean.webp") 30% center/cover no-repeat!important;pointer-events:none}
+html:root body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(180deg,rgba(4,12,34,.55) 0,rgba(4,12,34,.10) 22%,rgba(4,12,34,.18) 55%,rgba(4,12,34,.62) 100%)!important}
+/* ヘッダーと下のナビ */
+.site-header{background:rgba(5,15,40,.76)!important;border-bottom:1px solid var(--zk-line)!important;box-shadow:0 6px 24px rgba(0,0,0,.25)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--zk-ink)}
+.site-header .brand{color:#fff!important}
+.site-header .brand strong{color:#fff!important}
+.site-header .brand small{color:var(--zk-muted)!important}
+.site-header .theme-btn,.site-header .menu-btn{background:rgba(255,255,255,.08)!important;color:var(--zk-ink)!important;border:1px solid var(--zk-line)!important;box-shadow:none!important}
+.zukan-menu{background:#0b1d46!important;color:var(--zk-ink)!important;border-color:var(--zk-line)!important}
+.zukan-menu a{color:var(--zk-ink)!important}
+.zukan-menu a:hover,.zukan-menu a:focus-visible{background:rgba(147,221,255,.14)!important}
+.bottom-nav{background:rgba(5,15,40,.90)!important;border-top:1px solid var(--zk-line)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bottom-nav a{color:var(--zk-muted)!important;background:none!important}
+.bottom-nav a.active{color:var(--zk-gold)!important;background:rgba(242,209,124,.10)!important}
+/* ヒーロー：古い島の画像と装飾を外し、夜の海を見せる */
+.hero{background:transparent!important}
+.hero::before,.hero::after,.card-water{display:none!important}
+.hero-copy{background:var(--zk-glass)!important;border:1px solid var(--zk-line)!important;box-shadow:0 24px 60px rgba(0,0,0,.35)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--zk-ink)!important}
+.hero-copy h1{color:#fff!important;text-shadow:0 2px 18px rgba(80,170,255,.35)!important}
+.hero-copy p{color:var(--zk-muted)!important;text-shadow:none!important;font-weight:700}
+.hero-copy h1,.hero-copy p,.hero-scroll{filter:none!important}
+.world-badge{background:rgba(242,209,124,.12)!important;border:1px solid rgba(242,209,124,.55)!important;color:var(--zk-gold)!important}
+.card-actions button,.card-actions a{background:rgba(255,255,255,.08)!important;color:var(--zk-ink)!important;border:1px solid var(--zk-line)!important;font-weight:700}
+.card-actions button:hover,.card-actions a:hover{background:rgba(147,221,255,.16)!important}
+.hero-cta{background:linear-gradient(180deg,#f7e09a,#e3b955)!important;color:#1a2748!important;border:0!important;box-shadow:0 10px 26px rgba(0,0,0,.30)!important;font-weight:800}
+.hero-cta i{background:rgba(26,39,72,.12)!important;color:#1a2748!important}
+#card-fiction-note{background:rgba(7,20,52,.80)!important;color:var(--zk-muted)!important;border:1px solid var(--zk-line);font-size:13px!important}
+/* 用語・機器図鑑への入口 */
+.zk-glossary{display:flex;align-items:center;justify-content:space-between;gap:14px;width:min(1000px,calc(100% - 32px));box-sizing:border-box;margin:28px auto 6px;padding:20px 24px;border-radius:22px;text-decoration:none;color:var(--zk-ink);background:var(--zk-glass);border:1px solid var(--zk-line);border-left:5px solid var(--zk-gold);box-shadow:0 14px 34px rgba(0,0,0,.30);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.zk-glossary b{display:block;font-size:22px;color:#fff}
+.zk-glossary span span{font-size:15px;color:var(--zk-muted);line-height:1.7}
+.zk-glossary strong{font-size:26px;color:var(--zk-gold)}
+.zk-glossary:hover{background:var(--zk-glass-2)}
+/* 6つの分野 */
+.learning-routes{padding:22px;border-radius:24px;background:rgba(5,15,40,.55);border:1px solid var(--zk-line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-sizing:border-box}
+.learning-routes h2{color:#fff!important;margin-top:0}
+.learning-routes>p{color:var(--zk-muted)!important}
+.learning-route-grid details{background:var(--zk-glass-2)!important;border:1px solid var(--zk-line)!important;color:var(--zk-ink)!important}
+.learning-route-grid details[open]{background:rgba(18,42,92,.78)!important;border-color:rgba(147,221,255,.55)!important}
+.learning-route-grid summary{color:#fff!important}
+.learning-route-grid p{color:var(--zk-muted)!important}
+.learning-route-grid a{color:var(--zk-accent)!important;font-weight:700}
+/* 理解をつなげる教材 */
+html body .uc-related{background:var(--zk-glass)!important;border:1px solid var(--zk-line)!important;color:var(--zk-ink)!important;width:min(1000px,calc(100% - 32px));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+html body .uc-related h2{color:#fff!important}
+html body .uc-related .uc-card{background:rgba(255,255,255,.06)!important;border-color:var(--zk-line)!important;color:var(--zk-ink)!important}
+html body .uc-related .uc-card:hover{background:rgba(147,221,255,.12)!important}
+html body .uc-related .uc-description{color:var(--zk-muted)}
+html body .uc-related .uc-tag{background:rgba(147,221,255,.16)!important;color:var(--zk-accent)!important}
+/* 本文の用語ヒントを夜の背景でも読める色に */
+html:root body button.ut-term:not(:disabled){color:#9be6ff!important}
+html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term[aria-expanded=true]{color:#d6f6ff!important}
+:is(a,button,summary):focus-visible{outline:3px solid var(--zk-gold)!important;outline-offset:3px}
+@media (max-width:700px){
+  .learning-routes{padding:16px;width:calc(100% - 24px)}
+  .zk-glossary{width:calc(100% - 24px);padding:16px 18px}
+  .zk-glossary b{font-size:19px}
+  .zk-glossary span span{font-size:14px}
+  html body .uc-related{width:auto}
+}
+/* スマホ：ページ名が途中で折れないように。夜の海で固定表示のため、狭い画面ではテーマ切替を省く */
+@media (max-width:440px){
+  .site-header .theme-btn{display:none!important}
+  .site-header .brand strong{white-space:nowrap;font-size:16px!important}
+  .site-header .brand small{white-space:nowrap;font-size:10px!important}
+}
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -865,7 +938,7 @@ body.dark .map-panel,.dark .destination-card{background:var(--island-bg-ffffff-1
 </div>
 </div>
 </section>
-<a href="glossary.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1100px;margin:28px max(16px,calc((100% - 1100px)/2)) 6px;padding:20px 24px;border-radius:22px;text-decoration:none;color:#123b69;background:linear-gradient(135deg,#ffffff,#e4f6ff);border:2px solid #9fd6ef;box-shadow:0 10px 26px rgba(0,79,123,.10)"><span><b style="display:block;font-size:22px">📖 用語・機器図鑑</b><span style="font-size:15px">PAS＝Pole Air Switch（柱上気中開閉器）のように、略語・英語・日本語・読みで340語以上を引ける</span></span><strong style="font-size:26px;color:#0878b8">→</strong></a>
+<a class="zk-glossary" href="glossary.html"><span><b>📖 用語・機器図鑑</b><span>PAS＝Pole Air Switch（柱上気中開閉器）のように、略語・英語・日本語・読みで340語以上を引ける</span></span><strong>→</strong></a>
 <section id="learning-routes" class="learning-routes"><h2>6つの分野、どこから読む？</h2><p>今日はひとつ選び、読む前の問いを持って出発しよう。</p><div class="learning-route-grid"><details><summary>受変電設備</summary><p>電気がどこから入り、どの機器を通るかを追う。機器名の暗記より先に、役割と電源側・負荷側を対応させる。</p><a href="equipment-map.html">設備マップ →</a></details><details><summary>保護継電器</summary><p>入力→判定→接点出力→遮断器の動作を分けて読む。動作値と動作時間の違いを言葉にする。</p><a href="relay-basics.html">保護の基礎 →</a></details><details><summary>試験・測定</summary><p>測定器が何を加えて何を読んでいるかを確認。測定範囲と測定対象、切り分け条件をセットで考える。</p><a href="measurement-principles.html">測定の原理 →</a></details><details><summary>電気の基礎</summary><p>回路と式を往復する。比例・反比例だけでなく、何を一定としたか、単位が合うかを確かめる。</p><a href="ct-calculator.html">CT比と電流 →</a></details><details><summary>シーケンス</summary><p>接点の通常状態を決め、押す→離す→停止で回路を追う。自己保持とインターロックの目的を区別する。</p><a href="sequence-basics.html">接点と自己保持 →</a></details><details><summary>現場の疑問</summary><p>見た事実と原因の推測を分ける。似た症状でも測定条件が違えば、結論が変わることを確かめる。</p><a href="why-today.html">今日のなんで？ →</a></details></div></section>
 <section class="route-section" id="routes" style="display:none">
 <div aria-hidden="true" class="world-transition">
