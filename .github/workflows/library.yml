@@ -2,9 +2,9 @@ name: Library checks
 on:
   push:
     branches: [main]
-    paths: ['library*', 'hidden-menu.html', 'tests/library*', '.github/workflows/library.yml']
+    paths: ['library*', 'unsolved-problems.*', 'hidden-menu.html', 'tests/library*', 'tests/unsolved-browser.cjs', '.github/workflows/library.yml']
   pull_request:
-    paths: ['library*', 'hidden-menu.html', 'tests/library*', '.github/workflows/library.yml']
+    paths: ['library*', 'unsolved-problems.*', 'hidden-menu.html', 'tests/library*', 'tests/unsolved-browser.cjs', '.github/workflows/library.yml']
 permissions:
   contents: read
 jobs:
@@ -22,9 +22,12 @@ jobs:
           npm install --no-save --package-lock=false --ignore-scripts playwright@1.58.2
           npx playwright install --with-deps chromium
       - run: node tests/library-browser.cjs
+      - run: node tests/unsolved-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: library-screenshots
-          path: test-results/library-*.png
+          path: |
+            test-results/library-*.png
+            test-results/unsolved-*.png
           retention-days: 14
