@@ -69,6 +69,10 @@ dialog.ut-dialog .ut-detail > summary:focus-visible { outline: 3px solid #28a5ad
 dialog.ut-dialog .ut-detail-part { padding: 2px 16px 4px; border-top: 1px dashed var(--ut-line); }
 dialog.ut-dialog .ut-detail-part h3 { font: 750 14px/1.5 system-ui, sans-serif; color: var(--ut-ink); margin: 12px 0 6px; padding: 0 0 0 9px; border: 0; border-left: 3px solid var(--ut-accent); background: none; }
 dialog.ut-dialog .ut-detail-part p { font-size: 14.5px; line-height: 1.85; margin: 0 0 10px; }
+dialog.ut-dialog .ut-names { margin: -4px 0 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+dialog.ut-dialog .ut-names span { font-size: 13px; font-weight: 700; color: var(--ut-accent); }
+dialog.ut-dialog .ut-names small { font-size: 11.5px; color: var(--ut-muted); }
+dialog.ut-dialog a.ut-book { font-weight: 700; }
 dialog.ut-dialog .ut-source { font-size: 11px; color: var(--ut-muted); margin: 10px 0 0; }
 dialog.ut-dialog .ut-source a { font-size: inherit; }
 dialog.ut-dialog .ut-search { display: block; width: 100%; min-height: 44px; font: 16px/1.5 system-ui, sans-serif; padding: 9px 12px; margin: 8px 0; border: 1px solid var(--ut-line); border-radius: 9px; color: var(--ut-ink); background: var(--ut-bg); }

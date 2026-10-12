@@ -472,7 +472,7 @@ window.UkiwaContents = [
     "path": "glossary.html",
     "title": "用語・機器図鑑",
     "category": "記録・島",
-    "description": "PAS（Pole Air Switch）など、電気保安の略語・用語340語以上を英語の正式名・日本語・読み・解説で。",
+    "description": "PAS（Pole Air Switch）など、電気保安の略語・用語450語以上を、英語の正式名・読み・くわしい解説つきで。本文の用語ポップアップと同じ解説の本体。",
     "tags": "用語 略語 英語 PAS VCB OCR GR DGR OVGR ZCT EVT ZPD LBS PF DS LA CT VT 接地 絶縁 耐圧 シーケンス",
     "related": [
       "zukan.html",

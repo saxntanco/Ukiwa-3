@@ -1,12 +1,23 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0878b8"><title>用語・機器図鑑｜ぷかぷかうきわメモ</title><meta name="description" content="PAS（Pole Air Switch）、VCB、OCR、ZCT、EVTなど、電気保安の略語と用語を英語の正式名・日本語・読み・ひとこと解説つきで。略語・英語・日本語・読みのどれからでも探せる。"><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0878b8"><title>用語・機器図鑑｜ぷかぷかうきわメモ</title><meta name="description" content="PAS（Pole Air Switch）、VCB、OCR、ZCT、等電位ボンディングなど、電気保安のことばを英語の正式名・読み・ひとこと・くわしい解説つきで。サイト本文の用語ポップアップと同じ解説の本体。"><style>
 *{box-sizing:border-box}
+html{scroll-padding-top:150px}
 body{margin:0;background:linear-gradient(var(--island-bg-f9fdff-100,#f9fdff),var(--island-bg-f2fafc-100,#f2fafc));color:var(--island-fg-153d55-100,#153d55);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;line-height:1.7}
 .top{position:sticky;top:0;z-index:20;background:var(--island-bg-fafeff-94,rgba(250,254,255,.94));backdrop-filter:blur(12px);border-bottom:1px solid var(--island-line-cbdbe4-100,#cbdbe4)}
 .topin{max-width:1100px;margin:auto;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .topin a{color:var(--island-fg-0878b8-100,#0878b8);text-decoration:none;font-weight:800}
 main{max-width:1100px;margin:auto;padding:26px 18px 70px}
 h1{font-size:clamp(30px,5vw,46px);margin:10px 0 6px}
-.lead{margin:0 0 16px;color:var(--island-fg-466a7d-100,#466a7d)}
+.lead{margin:0 0 14px;color:var(--island-fg-466a7d-100,#466a7d)}
+.toc{margin:0 0 14px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:16px;background:var(--island-bg-ffffff-100,#fff)}
+.toc>summary{cursor:pointer;padding:12px 16px;font-weight:800;font-size:16px;color:#0878b8;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.toc>summary::-webkit-details-marker{display:none}
+.toc>summary::after{content:"開く ▾";font-size:13px;color:var(--island-fg-668493-100,#668493)}
+.toc[open]>summary::after{content:"閉じる ▴"}
+.toc-body{padding:0 16px 14px;display:grid;gap:12px}
+.toc-cat h2{font-size:15px;margin:6px 0 4px;color:var(--island-fg-2b5d78-100,#2b5d78)}
+.toc-cat p{margin:0;font-size:13.5px;line-height:1.7;display:flex;flex-wrap:wrap;gap:4px 14px}
+.toc-cat a{color:var(--island-fg-0878b8-100,#0878b8);text-decoration:none}
+.toc-cat a:hover{text-decoration:underline}
 .tools{position:sticky;top:57px;z-index:10;background:var(--island-bg-f6fbfd-96,rgba(246,251,253,.96));padding:10px 0 8px;border-bottom:1px solid var(--island-line-cbdbe4-100,#cbdbe4)}
 .search{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:2px solid var(--island-line-9fcbe0-100,#9fcbe0);border-radius:14px;background:var(--island-bg-ffffff-100,#fff);color:inherit}
 .search:focus{outline:3px solid #ffe488;border-color:#0878b8}
@@ -14,50 +25,96 @@ h1{font-size:clamp(30px,5vw,46px);margin:10px 0 6px}
 .cats button{flex:0 0 auto;font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);background:var(--island-bg-ffffff-100,#fff);color:inherit;cursor:pointer}
 .cats button[aria-pressed=true]{background:#0878b8;border-color:#0878b8;color:#fff}
 .count{font-size:13px;color:var(--island-fg-668493-100,#668493);margin-top:4px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin-top:16px;align-items:start}
 .term{background:var(--island-bg-ffffff-100,#fff);border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:16px;padding:14px 16px;min-width:0}
+.term.wide{grid-column:1/-1;border-color:#7fc3e2;box-shadow:0 8px 26px rgba(8,120,184,.10)}
+.term:target{outline:3px solid #ffe488}
 .term .ab{display:inline-block;font-size:22px;font-weight:900;color:#0878b8;margin-right:6px;letter-spacing:.02em}
 .term .en{font-size:14.5px;font-weight:700;color:var(--island-fg-2b5d78-100,#2b5d78)}
 .term .ja{font-size:18px;font-weight:800;margin:4px 0 0}
 .term .kana{font-size:12px;color:var(--island-fg-668493-100,#668493)}
 .term .cat{float:right;font-size:11px;font-weight:700;color:var(--island-fg-668493-100,#668493);border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:999px;padding:0 8px;margin-left:6px}
-.term p{margin:8px 0 0;font-size:14.5px}
+.term .desc{margin:8px 0 0;font-size:14.5px}
+.term .ex{margin:8px 0 0;padding:8px 11px;border-radius:10px;background:var(--island-bg-eef8f6-100,#eef8f6);font-size:13.5px}
+.term .ex b{display:block;font-size:11px;color:#0c6874}
+.term .note{margin:8px 0 0;font-size:13px;color:var(--island-fg-4f6b72-100,#4f6b72);padding-left:9px;border-left:2px solid #d1a763}
 .term .links{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
 .term .links a{font-size:13px;color:#0878b8;background:var(--island-bg-eaf6fb-100,#eaf6fb);border-radius:8px;padding:2px 8px;text-decoration:none}
+.more{margin-top:10px;border-top:1px dashed var(--island-line-cbdbe4-100,#cbdbe4)}
+.more>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;min-height:44px;font-weight:800;font-size:14.5px;color:#0c6874}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::before{content:"▸";transition:transform .15s}
+.more[open]>summary::before{transform:rotate(90deg)}
+.more-body{max-width:760px}
+.more-body section{margin:4px 0 14px}
+.more-body h3{font-size:15px;margin:10px 0 6px;padding-left:9px;border-left:3px solid #0c6874}
+.more-body p{margin:0 0 10px;font-size:15px;line-height:1.9}
+.more-body .back{font-size:13px;color:#0878b8}
 mark{background:#fff1a8;color:inherit;border-radius:3px}
 .empty{padding:30px;text-align:center;color:var(--island-fg-668493-100,#668493)}
-.note{font-size:13px;color:var(--island-fg-668493-100,#668493);margin-top:26px}
+.note-foot{font-size:13px;color:var(--island-fg-668493-100,#668493);margin-top:26px}
+@media(max-width:600px){html{scroll-padding-top:170px}.term{padding:13px 14px}.more-body p{font-size:15.5px}}
 </style><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script></head><body>
 <header class="top"><div class="topin"><a href="index.html">🛟 うきわメモ</a><a href="zukan.html">← 図鑑</a></div></header>
-<main>
+<main id="glossary-top">
 <h1>📖 用語・機器図鑑</h1>
-<p class="lead">現場で出会う略語と用語を、<b>英語の正式名・日本語・読み</b>とひとこと解説つきで。たとえば PAS は <b>Pole Air Switch</b>（柱上気中開閉器）。略語・英語・日本語・ひらがなのどれからでも探せます。</p>
+<p class="lead">電気保安のことばを、<b>英語の正式名・読み・ひとこと</b>と<b>くわしい解説</b>つきで。たとえば PAS は <b>Pole Air Switch</b>。サイトの本文で青緑色の用語をタップすると、ここと同じ解説がポップアップで開きます。</p>
+<details class="toc" id="toc"><summary>目次（分野ごとの全用語）</summary><div class="toc-body" id="tocBody"></div></details>
 <div class="tools"><input id="q" class="search" type="search" placeholder="例：PAS、遮断器、ground、ちらく" aria-label="用語を探す"><div class="cats" id="cats" role="group" aria-label="分類でしぼりこむ"></div><div class="count" id="count" aria-live="polite"></div></div>
 <div class="grid" id="list"></div>
-<p class="note">英語の名前は、日本の現場で使われている呼び方を中心にしています。メーカーや資料によって表記が違うことがあります。器具番号は代表的な例です。実際の設備・試験では、取扱説明書や社内の手順を確認してください。</p>
+<div class="empty" id="empty" hidden>見つかりませんでした。別の言い方（英語・ひらがな）でも探してみてください。</div>
+<p class="note-foot">英語の名前は、日本の現場で使われている呼び方を中心にしています。メーカーや資料によって表記が違うことがあります。法令の数値や区分は改正されることがあるので、最新の法令・規程で確かめてください。実際の設備・試験では、取扱説明書や社内の手順に従ってください。</p>
 </main>
-<script src="glossary-data.js?v=2"></script>
+<script src="term-help-data.js?v=20261010"></script>
+<script src="glossary-data.js?v=20261012-3"></script>
 <script>
 (()=>{
 const D=window.UkiwaGlossary,C=window.UkiwaGlossaryCats,catName=Object.fromEntries(C);
-const list=document.getElementById('list'),q=document.getElementById('q'),cats=document.getElementById('cats'),count=document.getElementById('count');
+const rich=new Map(((window.UkiwaTermData||{}).entries||[]).map(e=>[e.id,e]));
+const list=document.getElementById('list'),q=document.getElementById('q'),cats=document.getElementById('cats'),count=document.getElementById('count'),empty=document.getElementById('empty');
 let cat='all';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const norm=s=>String(s).toLowerCase().normalize('NFKC').replace(/[ァ-ン]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)).replace(/[\s・\-–]/g,'');
 const hl=(s,w)=>{s=esc(s);if(!w)return s;const i=s.toLowerCase().indexOf(w.toLowerCase());return i<0?s:s.slice(0,i)+'<mark>'+s.slice(i,i+w.length)+'</mark>'+s.slice(i+w.length)};
+// One record per row. Popup-registered terms show the same short text as the popup.
+const items=D.map(r=>{const[abbr,en,ja,kana,c,desc,links,id]=r;const e=rich.get(id);return{abbr,en,ja,kana,cat:c,id,desc:e?e.definition:desc,example:e?e.example:'',note:e?e.note:'',links,key:norm(abbr+en+ja+kana+(e?e.aliases.join(''):'')),text:norm(e?e.definition:desc)}});
+// Table of contents
+document.getElementById('tocBody').innerHTML=C.map(([k,l])=>{const xs=items.filter(x=>x.cat===k);return xs.length?'<div class="toc-cat"><h2>'+esc(l)+'（'+xs.length+'）</h2><p>'+xs.map(x=>'<a href="#'+esc(x.id)+'">'+esc(x.abbr&&x.abbr.length<=6?x.abbr+' '+x.ja:x.ja)+'</a>').join('')+'</p></div>':''}).join('');
+// Cards
+const cards=new Map();
+for(const x of items){
+ const a=document.createElement('article');a.className='term';a.id=x.id;
+ const links=x.links?x.links.split(';').map(s=>{const[h,l]=s.split('|');return'<a href="'+esc(h)+'">'+esc(l)+' →</a>'}).join(''):'';
+ a.innerHTML='<div data-no-term-help><span class="cat">'+esc(catName[x.cat])+'</span><span class="ab"></span><span class="en"></span><div class="ja"></div><div class="kana">'+esc(x.kana)+'</div></div><p class="desc">'+esc(x.desc)+'</p>'+(x.example?'<div class="ex"><b>たとえば</b>'+esc(x.example)+'</div>':'')+(x.note?'<p class="note">'+esc(x.note)+'</p>':'')+(links?'<div class="links">'+links+'</div>':'')+'<details class="more"><summary>くわしい解説を読む</summary><div class="more-body"></div></details>';
+ const more=a.querySelector('.more');
+ more.addEventListener('toggle',()=>{a.classList.toggle('wide',more.open);if(more.open)fill(x.id,more)});
+ cards.set(x.id,{x,el:a,ab:a.querySelector('.ab'),en:a.querySelector('.en'),ja:a.querySelector('.ja')});
+ list.append(a);
+}
+// Long annotations load on first use.
+let detailP=null;
+const loadDetail=()=>detailP||(detailP=new Promise((ok,ng)=>{const s=document.createElement('script');s.src='term-detail.js?v=20261012-3';s.onload=()=>ok(window.UkiwaTermDetail||{});s.onerror=()=>{detailP=null;ng()};document.head.append(s)}));
+function fill(id,more){const body=more.querySelector('.more-body');if(body.dataset.done)return;body.textContent='読み込み中…';
+ loadDetail().then(d=>{const secs=d[id]||[];body.innerHTML=secs.length?secs.map(([h,t])=>'<section><h3>'+esc(h)+'</h3>'+t.split('\n').filter(Boolean).map(p=>'<p>'+esc(p)+'</p>').join('')+'</section>').join('')+'<a class="back" href="#glossary-top">▲ 目次へ戻る</a>':'<p>くわしい解説は準備中です。</p>';body.dataset.done='1'}).catch(()=>{body.textContent='解説を読み込めませんでした。通信状態を確かめて、もう一度開いてください。'})}
 const btn=(k,label,n)=>{const b=document.createElement('button');b.type='button';b.textContent=label+'（'+n+'）';b.setAttribute('aria-pressed',k===cat);b.onclick=()=>{cat=k;[...cats.children].forEach(x=>x.setAttribute('aria-pressed',x===b));render()};cats.append(b)};
-btn('all','すべて',D.length);C.forEach(([k,l])=>btn(k,l,D.filter(r=>r[4]===k).length));
+btn('all','すべて',items.length);C.forEach(([k,l])=>{const n=items.filter(x=>x.cat===k).length;if(n)btn(k,l,n)});
 function render(){
- const raw=q.value.trim(),w=norm(raw);
- const rows=D.filter(r=>(cat==='all'||r[4]===cat)&&(!w||norm(r[0]+r[1]+r[2]+r[3]+r[5]).includes(w)));
- rows.sort((a,b)=>{if(!w)return 0;const s=r=>norm(r[0])===w?0:norm(r[0]).startsWith(w)?1:norm(r[2]+r[3]).includes(w)?2:3;return s(a)-s(b)});
- count.textContent=rows.length+'語'+(raw?'（「'+raw+'」で検索）':'');
- list.innerHTML=rows.length?rows.map(r=>{const links=r[6]?r[6].split(';').map(x=>{const[h,l]=x.split('|');return '<a href="'+esc(h)+'">'+esc(l)+' →</a>'}).join(''):'';
-  return '<article class="term"><span class="cat">'+esc(catName[r[4]])+'</span>'+(r[0]?'<span class="ab">'+hl(r[0],raw)+'</span>':'')+'<span class="en">'+hl(r[1],raw)+'</span><div class="ja">'+hl(r[2],raw)+'</div><div class="kana">'+esc(r[3])+'</div><p>'+esc(r[5])+'</p>'+(links?'<div class="links">'+links+'</div>':'')+'</article>'}).join(''):'<div class="empty">見つかりませんでした。別の言い方（英語・ひらがな）でも探してみてください。</div>';
+ const raw=q.value.trim(),w=norm(raw);let shown=0;
+ const order=[];
+ for(const c of cards.values()){const x=c.x;const hit=(cat==='all'||x.cat===cat)&&(!w||x.key.includes(w)||x.text.includes(w));c.el.hidden=!hit;
+  c.ab.innerHTML=x.abbr?hl(x.abbr,raw):'';c.ab.hidden=!x.abbr;c.en.innerHTML=hl(x.en,raw);c.ja.innerHTML=hl(x.ja,raw);
+  if(hit){shown++;if(w)order.push([c,norm(x.abbr)===w?0:norm(x.abbr).startsWith(w)||norm(x.ja).startsWith(w)?1:x.key.includes(w)?2:3])}}
+ if(w)order.sort((a,b)=>a[1]-b[1]).forEach(([c])=>list.append(c.el));else for(const c of cards.values())list.append(c.el);
+ count.textContent=shown+'語'+(raw?'（「'+raw+'」で検索）':'');empty.hidden=shown>0;
 }
 q.addEventListener('input',render);
+function openHash(){const id=decodeURIComponent(location.hash.slice(1));const c=cards.get(id);if(!c)return;
+ if(c.el.hidden){q.value='';cat='all';[...cats.children].forEach((b,i)=>b.setAttribute('aria-pressed',i===0));render()}
+ const more=c.el.querySelector('.more');more.open=true;c.el.classList.add('wide');fill(id,more);
+ requestAnimationFrame(()=>c.el.scrollIntoView({block:'start'}))}
+addEventListener('hashchange',openHash);
 const p=new URLSearchParams(location.search).get('q');if(p)q.value=p;
-render();
+render();openHash();
 })();
 </script>
 </body></html>

@@ -3,7 +3,7 @@
   const core = factory();
   if (typeof module === 'object' && module.exports) { module.exports = core; return; }
   if (root.UkiwaTermHelp) return;
-  root.UkiwaTermHelp = { version: '20261012-2' };
+  root.UkiwaTermHelp = { version: '20261012-3' };
   const script = document.currentScript;
   const base = new URL('.', script.src);
   const load = (file, css) => new Promise((resolve, reject) => {
@@ -13,8 +13,8 @@
     node.onload = resolve; node.onerror = reject; document.head.append(node);
   });
   const ready = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
-  Promise.all([ready, load('term-help.css?v=20261012-2', true), load('term-help-data.js?v=20261010')])
-    .then(() => init(root.UkiwaTermData.entries)).catch(() => { /* Original page remains fully usable if the optional glossary cannot load. */ });
+  Promise.all([ready, load('term-help.css?v=20261012-3', true), load('term-help-data.js?v=20261010'), load('glossary-data.js?v=20261012-3').catch(() => null)])
+    .then(() => init(core.mergeGlossary(root.UkiwaTermData.entries, root.UkiwaGlossary || [], root.UkiwaGlossaryCats || []))).catch(() => { /* Original page remains fully usable if the optional glossary cannot load. */ });
 
   function init(entries) {
     const matcher = core.createMatcher(entries);
@@ -90,7 +90,7 @@
     const detailKey = 'ukiwa-term-detail-open-v1';
     let detailOpen = false;
     try { detailOpen = localStorage.getItem(detailKey) === 'open'; } catch (_) { /* Optional. */ }
-    const loadDetail = () => detailPromise || (detailPromise = load('term-help-detail.js?v=20261012-2').then(() => root.UkiwaTermDetail || {}).catch(() => { detailPromise = null; return {}; }));
+    const loadDetail = () => detailPromise || (detailPromise = load('term-detail.js?v=20261012-3').then(() => root.UkiwaTermDetail || {}).catch(() => { detailPromise = null; return {}; }));
     function detailBlock(sections) {
       const details = el('details', '', 'ut-detail'); details.open = detailOpen;
       const length = sections.reduce((sum, [h, t]) => sum + h.length + t.length, 0);
@@ -113,13 +113,17 @@
       const entry = contextual(raw); listMode = false;
       eyebrow.textContent = `ことばのヒント / ${entry.category}`;
       title.textContent = entry.term;
-      body.replaceChildren(el('p', entry.definition));
+      body.replaceChildren();
+      const names = [entry.abbr, entry.en].filter(Boolean).join(' ・ ');
+      if (names || entry.kana) { const sub = el('p', '', 'ut-names'); if (names) sub.append(el('span', names)); if (entry.kana) sub.append(el('small', entry.kana)); body.append(sub); }
+      body.append(el('p', entry.definition));
       if (entry.example) { const example = el('div', '', 'ut-example'); example.append(el('b', 'たとえば'), el('p', entry.example)); body.append(example); }
       if (entry.note) body.append(el('p', entry.note, 'ut-note'));
       const footer = el('div', '', 'ut-footer');
       if (entry.path && (!privatePaths.test(entry.path) || isPrivate())) {
         const more = el('a', '関連する教材を読む →'); more.href = new URL(entry.path, base); footer.append(more);
       }
+      if (entry.inGlossary) { const book = el('a', '図鑑で全文を読む →', 'ut-book'); book.href = new URL('glossary.html#' + encodeURIComponent(entry.id), base); footer.append(book); }
       const browse = el('button', 'ほかの用語'); browse.type = 'button'; browse.addEventListener('click', () => openList(null)); footer.append(browse);
       body.append(footer);
       const shownId = id; body.dataset.utShown = id;
@@ -137,7 +141,7 @@
     }
     function openList(trigger) {
       listMode = true; delete body.dataset.utShown; eyebrow.textContent = 'ことばのヒント'; title.textContent = '用語を探す'; body.replaceChildren();
-      body.append(el('p', '本文の青緑色の用語をタップすると、このページのまま意味と例を読めます。「くわしい注釈」を開くと、しくみ・数字の例・まちがえやすい点まで詳しく読めます。同じ用語は節の最初に表示します。'));
+      body.append(el('p', '本文の青緑色の用語をタップすると、このページのまま意味を読めます。中身は「用語・機器図鑑」と共通で、「くわしい注釈」を開くと、しくみ・数字の例・まちがえやすい点まで読めます。同じ用語は節の最初に表示します。'));
       const setting = el('label', '', 'ut-setting'); const checkbox = el('input'); checkbox.type = 'checkbox'; checkbox.checked = enabled;
       setting.append(checkbox, document.createTextNode('本文に用語のヒントを表示'));
       checkbox.addEventListener('change', () => {
@@ -267,5 +271,27 @@
       return found;
     };
   }
-  return { normalize, createMatcher };
+  // Glossary rows are the site-wide term list. Rich popup entries keep their own short text and page contexts;
+  // the other rows become popup entries built from the glossary.
+  const NO_HINT = new Set(['高圧', '低圧', '特別高圧', 'コンセント', 'テスター', '投入', '引外し', '開放', 'シーケンス', '一定', '誤差', '比例', '負荷', '定格']);
+  function mergeGlossary(entries, rows, cats) {
+    const catName = Object.fromEntries(cats);
+    const byId = new Map(entries.map(entry => [entry.id, entry]));
+    const taken = new Set(entries.flatMap(entry => entry.aliases.map(normalize)));
+    const out = entries.map(entry => ({ ...entry }));
+    const index = new Map(out.map(entry => [entry.id, entry]));
+    for (const row of rows) {
+      const [abbr, en, ja, kana, cat, desc, links, id] = row;
+      if (!id) continue;
+      const known = index.get(id);
+      if (known) { Object.assign(known, { abbr, en, kana, inGlossary: true }); continue; }
+      const names = [ja, ...ja.split(/[（）()・／/]/)].map(x => x.trim()).filter(x => x.length >= 2 && !NO_HINT.has(x));
+      if (abbr && /^[A-Za-z][A-Za-z0-9-]{2,}$/.test(abbr)) names.push(abbr);
+      const aliases = [...new Set(names)].filter(alias => { const key = normalize(alias); if (taken.has(key)) return false; taken.add(key); return true; });
+      const path = (links || '').split(';')[0].split('|')[0];
+      out.push({ id, term: ja, aliases, category: catName[cat] || cat, definition: desc, example: '', note: '', path, abbr, en, kana, inGlossary: true });
+    }
+    return out;
+  }
+  return { normalize, createMatcher, mergeGlossary };
 });
