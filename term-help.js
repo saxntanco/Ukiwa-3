@@ -3,7 +3,7 @@
   const core = factory();
   if (typeof module === 'object' && module.exports) { module.exports = core; return; }
   if (root.UkiwaTermHelp) return;
-  root.UkiwaTermHelp = { version: '20261012-1' };
+  root.UkiwaTermHelp = { version: '20261012-2' };
   const script = document.currentScript;
   const base = new URL('.', script.src);
   const load = (file, css) => new Promise((resolve, reject) => {
@@ -13,7 +13,7 @@
     node.onload = resolve; node.onerror = reject; document.head.append(node);
   });
   const ready = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
-  Promise.all([ready, load('term-help.css?v=20261012-1', true), load('term-help-data.js?v=20261010')])
+  Promise.all([ready, load('term-help.css?v=20261012-2', true), load('term-help-data.js?v=20261010')])
     .then(() => init(root.UkiwaTermData.entries)).catch(() => { /* Original page remains fully usable if the optional glossary cannot load. */ });
 
   function init(entries) {
@@ -85,6 +85,29 @@
     });
     addEventListener('resize', position);
 
+    // The long annotations are large, so they load only when a term is first opened.
+    let detailPromise = null;
+    const detailKey = 'ukiwa-term-detail-open-v1';
+    let detailOpen = false;
+    try { detailOpen = localStorage.getItem(detailKey) === 'open'; } catch (_) { /* Optional. */ }
+    const loadDetail = () => detailPromise || (detailPromise = load('term-help-detail.js?v=20261012-2').then(() => root.UkiwaTermDetail || {}).catch(() => { detailPromise = null; return {}; }));
+    function detailBlock(sections) {
+      const details = el('details', '', 'ut-detail'); details.open = detailOpen;
+      const length = sections.reduce((sum, [h, t]) => sum + h.length + t.length, 0);
+      const summary = el('summary'); summary.append(el('span', 'くわしい注釈'), el('small', `${sections.length}項目・約${Math.round(length / 50) * 50}字`));
+      details.append(summary);
+      for (const [heading, text] of sections) {
+        const part = el('section', '', 'ut-detail-part'); part.append(el('h3', heading));
+        for (const para of text.split('\n')) if (para.trim()) part.append(el('p', para.trim()));
+        details.append(part);
+      }
+      details.addEventListener('toggle', () => {
+        detailOpen = details.open;
+        try { localStorage.setItem(detailKey, detailOpen ? 'open' : 'closed'); } catch (_) { /* Optional. */ }
+        position();
+      });
+      return details;
+    }
     function openTerm(id, trigger) {
       const raw = byId.get(id); if (!raw) return;
       const entry = contextual(raw); listMode = false;
@@ -99,6 +122,12 @@
       }
       const browse = el('button', 'ほかの用語'); browse.type = 'button'; browse.addEventListener('click', () => openList(null)); footer.append(browse);
       body.append(footer);
+      const shownId = id; body.dataset.utShown = id;
+      loadDetail().then(detail => {
+        const sections = detail[shownId];
+        if (!sections?.length || listMode || body.dataset.utShown !== shownId || body.querySelector('.ut-detail')) return;
+        body.insertBefore(detailBlock(sections), footer); position();
+      });
       if (entry.source) {
         const source = el('p', '', 'ut-source'); const link = el('a', entry.source.label);
         link.href = entry.source.url; link.target = '_blank'; link.rel = 'noopener';
@@ -107,8 +136,8 @@
       show(trigger);
     }
     function openList(trigger) {
-      listMode = true; eyebrow.textContent = 'ことばのヒント'; title.textContent = '用語を探す'; body.replaceChildren();
-      body.append(el('p', '本文の青緑色の用語をタップすると、このページのまま短い意味と例を読めます。同じ用語は節の最初に表示します。'));
+      listMode = true; delete body.dataset.utShown; eyebrow.textContent = 'ことばのヒント'; title.textContent = '用語を探す'; body.replaceChildren();
+      body.append(el('p', '本文の青緑色の用語をタップすると、このページのまま意味と例を読めます。「くわしい注釈」を開くと、しくみ・数字の例・まちがえやすい点まで詳しく読めます。同じ用語は節の最初に表示します。'));
       const setting = el('label', '', 'ut-setting'); const checkbox = el('input'); checkbox.type = 'checkbox'; checkbox.checked = enabled;
       setting.append(checkbox, document.createTextNode('本文に用語のヒントを表示'));
       checkbox.addEventListener('change', () => {
