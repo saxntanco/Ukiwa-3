@@ -12,10 +12,264 @@
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.09</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.13</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#smart-hoan-3p4w-ct-20261013">三相4線式のトランスにスマート保安を付けてきた。 負荷電流を見るのに、なぜCTは2つではなく3つなのか。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<article class="entry" id="smart-hoan-3p4w-ct-20261013" data-update-date="2026/10/13">
+<div class="date">2026.10.13｜スマート保安・三相4線式・CT</div>
+<h2>三相4線式のトランスにスマート保安を付けてきた。<br>負荷電流を見るのに、なぜCTは2つではなく3つなのか。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>今日の現場で見たこと（🔵）に、電気回路の基本、メーカーの資料、大学・高専の講義資料、電気保安協会や電気管理事務所の解説（🟢）を突き合わせて整理した記録です。「推定」（🟡）と書いたところは自分で読み取ったり計算したりしたもので、資料に書いてあることではありません。取付けや設定は、装置の取扱説明書、社内手順、作業責任者の指示に従います。</div>
+<p class="lead">今日は、6600V／420Y/242V・200kVAの油入変圧器（2024年製）の二次側に、スマート保安の負荷監視用のCTを<b>3つ</b>付けてきました。高圧の受電点のCTはR相とT相の<b>2つ</b>なのに、なぜここは3つ要るのか。「そもそも三相4線式とは？」から順番に、一本の線でつなげます。</p>
+<div class="pillrow"><a class="pill" href="#s4w-site">1 今日の現場</a><a class="pill" href="#s4w-what">2 三相4線式とは</a><a class="pill" href="#s4w-kcl">3 電流の足し算</a><a class="pill" href="#s4w-cases">4 2つだけだと</a><a class="pill" href="#s4w-blondel">5 ブロンデルの定理</a><a class="pill" href="#s4w-harmonic">6 中性線と高調波</a><a class="pill" href="#s4w-primary">7 一次側では見えない</a><a class="pill" href="#s4w-rule">8 スマート保安の要件</a><a class="pill" href="#s4w-check">9 付けるときの確認</a></div>
+
+<h3 id="s4w-site">📷 1. 今日の現場：二次側から線が4本出ている変圧器</h3>
+<p>写真の製造番号は伏せています。<span class="badge field">🔵 今日の現場</span></p>
+<div class="checkgrid">
+<div class="diagram-card" style="margin:0"><img src="assets/diary/smart-hoan-3p4w-transformer.jpg" alt="油入変圧器の上面。手前に一次側のU・V・Wのがいし3つ、奥に二次側の端子が4つ並ぶ。右下に銘板。" loading="lazy" style="display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:10px"><p class="small center">手前が一次（6600V）のU・V・W。奥に並ぶ<b>二次の端子が4つ</b>。3相＋中性点です。</p></div>
+<div class="diagram-card" style="margin:0"><img src="assets/diary/smart-hoan-3p4w-terminal.jpg" alt="盤内の端子台。T1P01からT1P04、T1C1からT1C4の札。その下に黒い分割形のCTと灰色の線。下に検相の記録票。" loading="lazy" style="display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:10px"><p class="small center">端子台の<b>T1P01〜04</b>と<b>T1C1〜C4</b>。下に黒い分割形のCTと灰色の線。いちばん下は検相の記録票。</p></div>
+</div>
+<p>銘板から読んだことです。容量の数字はかすれていましたが、定格電流から計算すると200kVAで合います。<span class="badge field">🔵 銘板</span></p>
+<div class="table-scroll"><table>
+<tr><th>項目</th><th>銘板</th><th>読み方</th></tr>
+<tr><td>相数・周波数</td><td>3・50/60Hz</td><td>三相</td></tr>
+<tr><td>定格電圧</td><td>一次 6600V<br>二次 <b>420Y/242V</b></td><td>「Y」は二次がY（星形）結線という意味。線と線の間が420V、線と中性点の間が242V。420÷√3≒242.5</td></tr>
+<tr><td>定格電流</td><td>一次 17.5A<br>二次 <b>275A</b></td><td>200kVA÷(√3×6600V)≒17.5A、200kVA÷(√3×420V)≒275A。二次の<b>1相あたりの上限</b>の目安</td></tr>
+<tr><td>結線図</td><td>一次は三角（Δ）、二次は星形（Y）</td><td>二次の3つの巻線をまとめた点（中性点）を、4本目の端子として外に出している</td></tr>
+</table></div>
+<div class="checkgrid">
+<div class="checkcard"><b>電圧：T1P01〜04の4本</b><br>3相＋中性線の4本を装置に入れていると読みました。<span class="badge infer">🟡 推定</span></div>
+<div class="checkcard"><b>電流：T1C1〜C4の4本</b><br>CTを3つ使い、二次側の片方を共通線でまとめると「各相3本＋共通1本」の4本になります。その形だと読みました。<span class="badge infer">🟡 推定</span></div>
+<div class="checkcard"><b>共通線に流れるもの</b><br>3つのCTの二次電流が合流するので、共通線には<b>3相の電流の和</b>（＝中性線の電流に比例する分）が流れることになります。3章の式そのものです。<span class="badge infer">🟡 推定</span></div>
+<div class="checkcard"><b>検相の記録</b><br>検相器の赤・白・青 → 電線の<b>赤・黒・青</b>で正回転。CTを付ける相も、この色の順番でそろえます。<span class="badge field">🔵 記録票</span></div>
+</div>
+
+<h3 id="s4w-what">🔺 2. そもそも三相4線式とは</h3>
+<p>変圧器の二次の3つの巻線を<b>Y（星形）</b>につなぎ、3つがまとまる点＝<b>中性点</b>から、4本目の線（<b>中性線、N</b>）を引き出す配電方式です。相の線3本＋中性線1本で4本。</p>
+<div class="diagram-card scroll-x">
+<svg viewBox="0 0 720 400" role="img" aria-label="三相4線式の模式図。変圧器の二次はY結線で、3つの巻線の片側をまとめた中性点から中性線Nを出し、B種接地をとる。R・S・Tの3本の相の線のあいだに三相電動機（線間420V）、各相と中性線のあいだに単相の負荷（242V）。中性線には3相の電流の和が戻ってくる。">
+<defs><marker id="s4wArr" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ffd27a"/></marker><marker id="s4wArrN" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#b8e994"/></marker></defs>
+<rect x="0" y="0" width="720" height="400" rx="14" fill="#06213a"/>
+<text x="24" y="32" fill="#ffd27a" font-size="17" font-weight="800">三相4線式：Y結線の中性点から4本目を出す</text>
+<text x="40" y="58" fill="#cfe3ef" font-size="12">変圧器の二次（Y結線）</text>
+<rect x="34" y="66" width="152" height="140" rx="10" fill="#0b2b4b" stroke="#9fc0d4"/>
+<path d="M80 100 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0" fill="none" stroke="#dff4ff" stroke-width="2"/>
+<path d="M80 140 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0" fill="none" stroke="#dff4ff" stroke-width="2"/>
+<path d="M80 180 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0 c0 -12 15 -12 15 0" fill="none" stroke="#dff4ff" stroke-width="2"/>
+<path d="M80 100 H62 M80 140 H62 M80 180 H62 M62 100 V180" stroke="#dff4ff" stroke-width="2" fill="none"/>
+<circle cx="62" cy="180" r="4" fill="#b8e994"/>
+<text x="72" y="199" fill="#b8e994" font-size="11">中性点</text>
+<path d="M170 100 H700" stroke="#ff9b8a" stroke-width="3"/>
+<path d="M170 140 H700" stroke="#e7edf2" stroke-width="3"/>
+<path d="M170 180 H700" stroke="#8ed0fa" stroke-width="3"/>
+<path d="M62 180 V330 H700" stroke="#b8e994" stroke-width="3" stroke-dasharray="9 6" fill="none"/>
+<path d="M62 330 V352 M48 352 H76 M53 359 H71 M58 366 H66" stroke="#b8e994" stroke-width="2"/>
+<text x="84" y="364" fill="#b8e994" font-size="12">B種接地</text>
+<text x="700" y="92" fill="#ff9b8a" font-size="13" font-weight="800" text-anchor="end">R</text>
+<text x="700" y="132" fill="#e7edf2" font-size="13" font-weight="800" text-anchor="end">S</text>
+<text x="700" y="172" fill="#8ed0fa" font-size="13" font-weight="800" text-anchor="end">T</text>
+<text x="700" y="322" fill="#b8e994" font-size="13" font-weight="800" text-anchor="end">N</text>
+<path d="M200 100 H244" stroke="#ffd27a" stroke-width="2" marker-end="url(#s4wArr)"/>
+<path d="M200 140 H244" stroke="#ffd27a" stroke-width="2" marker-end="url(#s4wArr)"/>
+<path d="M200 180 H244" stroke="#ffd27a" stroke-width="2" marker-end="url(#s4wArr)"/>
+<text x="204" y="92" fill="#ffd27a" font-size="12" font-weight="800">i<tspan font-size="9" dy="3">R</tspan></text>
+<text x="204" y="132" fill="#ffd27a" font-size="12" font-weight="800">i<tspan font-size="9" dy="3">S</tspan></text>
+<text x="204" y="172" fill="#ffd27a" font-size="12" font-weight="800">i<tspan font-size="9" dy="3">T</tspan></text>
+<path d="M250 330 H160" stroke="#b8e994" stroke-width="2" marker-end="url(#s4wArrN)"/>
+<text x="160" y="320" fill="#b8e994" font-size="12" font-weight="800">i<tspan font-size="9" dy="3">N</tspan><tspan dy="-3">（中性線を戻る）</tspan></text>
+<path d="M282 100 V238 M300 140 V234 M318 180 V238" stroke="#dff4ff" stroke-width="2"/>
+<circle cx="282" cy="100" r="4" fill="#ff9b8a"/><circle cx="300" cy="140" r="4" fill="#e7edf2"/><circle cx="318" cy="180" r="4" fill="#8ed0fa"/>
+<circle cx="300" cy="260" r="26" fill="#10324f" stroke="#dff4ff" stroke-width="2"/>
+<text x="300" y="266" fill="#dff4ff" font-size="17" font-weight="800" text-anchor="middle">M</text>
+<text x="266" y="252" fill="#dff4ff" font-size="12" font-weight="800" text-anchor="end">線と線の間 420V</text>
+<text x="266" y="270" fill="#9fc0d4" font-size="11" text-anchor="end">三相電動機など（動力）</text>
+<path d="M460 100 V246 M460 274 V330" stroke="#dff4ff" stroke-width="2"/>
+<path d="M560 140 V246 M560 274 V330" stroke="#dff4ff" stroke-width="2"/>
+<path d="M660 180 V246 M660 274 V330" stroke="#dff4ff" stroke-width="2"/>
+<circle cx="460" cy="100" r="4" fill="#ff9b8a"/><circle cx="560" cy="140" r="4" fill="#e7edf2"/><circle cx="660" cy="180" r="4" fill="#8ed0fa"/>
+<circle cx="460" cy="330" r="4" fill="#b8e994"/><circle cx="560" cy="330" r="4" fill="#b8e994"/><circle cx="660" cy="330" r="4" fill="#b8e994"/>
+<g fill="#10324f" stroke="#dff4ff" stroke-width="2"><circle cx="460" cy="260" r="14"/><circle cx="560" cy="260" r="14"/><circle cx="660" cy="260" r="14"/></g>
+<path d="M450 250 L470 270 M470 250 L450 270 M550 250 L570 270 M570 250 L550 270 M650 250 L670 270 M670 250 L650 270" stroke="#dff4ff" stroke-width="1.5"/>
+<text x="476" y="232" fill="#9fc0d4" font-size="11">R–N</text><text x="576" y="232" fill="#9fc0d4" font-size="11">S–N</text><text x="676" y="232" fill="#9fc0d4" font-size="11">T–N</text>
+<text x="560" y="358" fill="#dff4ff" font-size="12" font-weight="800" text-anchor="middle">相と中性線の間 242V（照明・単相の機器など）</text>
+<text x="360" y="388" fill="#ffd27a" font-size="13" font-weight="800" text-anchor="middle">中性線に戻る電流＝3相の電流の和（瞬時値）　i<tspan font-size="10" dy="3">N</tspan><tspan dy="-3"> ＝ i</tspan><tspan font-size="10" dy="3">R</tspan><tspan dy="-3"> ＋ i</tspan><tspan font-size="10" dy="3">S</tspan><tspan dy="-3"> ＋ i</tspan><tspan font-size="10" dy="3">T</tspan></text>
+</svg>
+<p class="scroll-hint small">← 図は横にスクロールできます →</p>
+</div>
+<p class="small">模式図です。線の色は図の見分け用で、現場の電線の色とは関係ありません。</p>
+<div class="twocol">
+<div class="mini"><b>線と線の間：420V</b><br>三相の電動機やポンプなど、動力に使う。</div>
+<div class="mini"><b>相と中性線の間：242V</b><br>照明や単相の機器に使う。中性線は、その電流の<b>戻り道</b>。</div>
+</div>
+<p>4本の線と1台の変圧器で、<b>動力と電灯を両方まかなえる</b>のがいちばんの特徴です。パナソニックの解説では、三相4線式は大型のビルや工場で、電灯と動力をまとめた回路に使う方式として、415V/240Vなどの電圧と一緒に紹介されています。<span class="badge official">🟢 パナソニック</span></p>
+<p>1977年の日立評論の論文では、ビルの配電で415/240Vの三相4線式が、それまでの200/105Vに代わって広がりつつあると書かれています。理由は、中間の変圧器が要らない、400V級の電動機が使える、電灯と動力を同じ4本で送れる、配電設備費を減らせる、など。<span class="badge official">🟢 日立評論 1977</span></p>
+<div class="table-scroll"><table>
+<tr><th>方式</th><th>線の数</th><th>電圧の例</th><th>主な使いどころ</th></tr>
+<tr><td>単相3線式</td><td>3</td><td>100V/200V</td><td>住宅・店舗の照明・コンセント</td></tr>
+<tr><td>三相3線式</td><td>3</td><td>200V（高圧の受電は6600V）</td><td>動力。高圧の受電もこの形</td></tr>
+<tr><td><b>三相4線式</b></td><td><b>4</b></td><td>415V/240V、今日の420V/242Vなど</td><td>大型ビル・工場の照明と動力</td></tr>
+</table></div>
+<p>中性点は、B種接地をとる点でもあります。B種接地は、高圧を低圧に下げる変圧器の<b>低圧側の中性点</b>に施す接地で、高圧と低圧が混ざったときに低圧側の電位が上がるのを抑えるためのものです。<span class="badge official">🟢 パナソニック</span></p>
+
+<h3 id="s4w-kcl">➕ 3. 電流の足し算：3本なら和はゼロ、4本目があると決まらない</h3>
+<p>負荷側をまるごと1つの箱で囲んで考えます。箱に入る電流と出ていく電流は、どの瞬間も等しい（キルヒホッフの電流則）。この「箱から何本の線が出ているか」で、すべてが決まります。</p>
+<div class="checkgrid">
+<div class="diagram-card" style="margin:0">
+<svg viewBox="0 0 340 300" role="img" aria-label="三相3線式では、負荷側に入る線はR・S・Tの3本だけで、3本の電流の和はゼロ。R相とT相にCTがあれば、S相の電流はマイナス（iR＋iT）で計算できる。">
+<rect x="0" y="0" width="340" height="300" rx="14" fill="#06213a"/>
+<text x="20" y="32" fill="#ffd27a" font-size="16" font-weight="800">三相3線式</text>
+<text x="20" y="52" fill="#cfe3ef" font-size="12">戻り道がない（線は3本だけ）</text>
+<rect x="232" y="70" width="88" height="150" rx="10" fill="#10324f" stroke="#9fc0d4"/>
+<text x="276" y="150" fill="#dff4ff" font-size="13" font-weight="800" text-anchor="middle">負荷側</text>
+<path d="M20 95 H232" stroke="#ff9b8a" stroke-width="3"/><path d="M20 145 H232" stroke="#e7edf2" stroke-width="3"/><path d="M20 195 H232" stroke="#8ed0fa" stroke-width="3"/>
+<text x="22" y="88" fill="#ff9b8a" font-size="12" font-weight="800">R</text><text x="22" y="138" fill="#e7edf2" font-size="12" font-weight="800">S</text><text x="22" y="188" fill="#8ed0fa" font-size="12" font-weight="800">T</text>
+<ellipse cx="110" cy="95" rx="9" ry="17" fill="none" stroke="#ffd27a" stroke-width="3"/><ellipse cx="110" cy="195" rx="9" ry="17" fill="none" stroke="#ffd27a" stroke-width="3"/>
+<text x="126" y="80" fill="#ffd27a" font-size="11" font-weight="800">CT</text><text x="126" y="180" fill="#ffd27a" font-size="11" font-weight="800">CT</text>
+<circle cx="110" cy="145" r="12" fill="#10324f" stroke="#9fc0d4"/><text x="110" y="150" fill="#dff4ff" font-size="13" font-weight="800" text-anchor="middle">?</text>
+<text x="20" y="252" fill="#dff4ff" font-size="13" font-weight="800">i<tspan font-size="10" dy="3">R</tspan><tspan dy="-3"> ＋ i</tspan><tspan font-size="10" dy="3">S</tspan><tspan dy="-3"> ＋ i</tspan><tspan font-size="10" dy="3">T</tspan><tspan dy="-3"> ＝ 0</tspan></text>
+<text x="20" y="278" fill="#7ee08a" font-size="12" font-weight="800">→ i<tspan font-size="9" dy="3">S</tspan><tspan dy="-3"> ＝ −(i</tspan><tspan font-size="9" dy="3">R</tspan><tspan dy="-3"> ＋ i</tspan><tspan font-size="9" dy="3">T</tspan><tspan dy="-3">)　計算で出る</tspan></text>
+</svg>
+</div>
+<div class="diagram-card" style="margin:0">
+<svg viewBox="0 0 340 300" role="img" aria-label="三相4線式では、R・S・Tに中性線Nが加わり、3本の電流の和は中性線の電流に等しい。R相とT相にCTがあっても、S相と中性線の2つが分からないまま残る。">
+<rect x="0" y="0" width="340" height="300" rx="14" fill="#06213a"/>
+<text x="20" y="32" fill="#ffd27a" font-size="16" font-weight="800">三相4線式</text>
+<text x="20" y="52" fill="#cfe3ef" font-size="12">中性線という戻り道がある</text>
+<rect x="232" y="66" width="88" height="172" rx="10" fill="#10324f" stroke="#9fc0d4"/>
+<text x="276" y="156" fill="#dff4ff" font-size="13" font-weight="800" text-anchor="middle">負荷側</text>
+<path d="M20 86 H232" stroke="#ff9b8a" stroke-width="3"/><path d="M20 126 H232" stroke="#e7edf2" stroke-width="3"/><path d="M20 166 H232" stroke="#8ed0fa" stroke-width="3"/><path d="M20 214 H232" stroke="#b8e994" stroke-width="3" stroke-dasharray="9 6"/>
+<text x="22" y="79" fill="#ff9b8a" font-size="12" font-weight="800">R</text><text x="22" y="119" fill="#e7edf2" font-size="12" font-weight="800">S</text><text x="22" y="159" fill="#8ed0fa" font-size="12" font-weight="800">T</text><text x="22" y="207" fill="#b8e994" font-size="12" font-weight="800">N</text>
+<ellipse cx="110" cy="86" rx="9" ry="15" fill="none" stroke="#ffd27a" stroke-width="3"/><ellipse cx="110" cy="166" rx="9" ry="15" fill="none" stroke="#ffd27a" stroke-width="3"/>
+<text x="126" y="72" fill="#ffd27a" font-size="11" font-weight="800">CT</text><text x="126" y="152" fill="#ffd27a" font-size="11" font-weight="800">CT</text>
+<circle cx="110" cy="126" r="12" fill="#10324f" stroke="#9fc0d4"/><text x="110" y="131" fill="#dff4ff" font-size="13" font-weight="800" text-anchor="middle">?</text>
+<circle cx="110" cy="214" r="12" fill="#10324f" stroke="#9fc0d4"/><text x="110" y="219" fill="#dff4ff" font-size="13" font-weight="800" text-anchor="middle">?</text>
+<text x="20" y="262" fill="#dff4ff" font-size="13" font-weight="800">i<tspan font-size="10" dy="3">R</tspan><tspan dy="-3"> ＋ i</tspan><tspan font-size="10" dy="3">S</tspan><tspan dy="-3"> ＋ i</tspan><tspan font-size="10" dy="3">T</tspan><tspan dy="-3"> ＝ i</tspan><tspan font-size="10" dy="3">N</tspan></text>
+<text x="20" y="286" fill="#ff9b8a" font-size="12" font-weight="800">→ 式は1本、分からないのは2つ。決まらない</text>
+</svg>
+</div>
+</div>
+<p class="keyline">三相3線式：3本の電流の和は、<b>どんなに不平衡でも、どの瞬間もゼロ</b>。だから2つ測れば、3つ目は引き算で出る。<br>三相4線式：3本の和は<b>中性線の電流</b>。中性線の電流は、相と中性線の間につないだ負荷の偏りしだいで変わる。だから2つ測っても、残りの相と中性線の<b>2つが分からないまま</b>。3つ目のCTを付けると、3相がそろい、中性線の電流も足し算で出せる。</p>
+<p>電力計測器メーカーeGaugeの解説も同じ説明です。中性線のない3線式は3相の電流の和がゼロなので、残りの相の偏りは測った2相に表れている。4線式は3相すべてにCTを付け、中性線には付けない。中性線に流れる偏りは、3相の測定にすでに含まれている。<span class="badge official">🟢 eGauge</span></p>
+<p>高圧の受電（6600Vの三相3線式）でCTがR相とT相の2つで済み、電流計切換スイッチでS相も表示できるのは、この「和がゼロ」を使っているからです。<a href="ocr-tap-calculator.html#imax-method">OCRタップ計算のImax方式</a>で「相ごとの最大を見る」話も、根っこは同じです。</p>
+
+<h3 id="s4w-cases">🧮 4. 数字で確かめる：R・Tの2つだけだと、S相の過負荷が見えない</h3>
+<p>今日の変圧器（二次の定格275A）で、相と中性線の間の単相負荷だけがある例を考えます（力率1）。R相とT相にだけCTを付けて、三相3線式と同じように「S相＝−(R＋T)」と計算すると、こうなります。<span class="badge infer">🟡 計算例</span></p>
+<div class="table-scroll"><table>
+<tr><th>ケース</th><th>R相（実際）</th><th>S相（実際）</th><th>T相（実際）</th><th>中性線（実際）</th><th>2つのCTの読み<br>R／T</th><th>3線式とみなして<br>計算したS相</th></tr>
+<tr><td>① S相に負荷なし</td><td>200A</td><td>0A</td><td>200A</td><td>200A</td><td>200A／200A</td><td>200A ✗</td></tr>
+<tr><td>② 3相がそろう</td><td>200A</td><td>200A</td><td>200A</td><td>0A</td><td>200A／200A</td><td>200A ✓</td></tr>
+<tr><td>③ S相だけ多い</td><td>200A</td><td><b>300A</b>（定格275A超）</td><td>200A</td><td>100A</td><td>200A／200A</td><td><b>200A ✗</b></td></tr>
+</table></div>
+<p class="keyline">3つのケースで、2つのCTの読みは<b>まったく同じ</b>。当たるのは3相がそろった②だけです。③では、S相が定格275Aを超えているのに、2つのCTからは「全相200A、余裕あり」に見えてしまう。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 360 330" role="img" aria-label="ケース3のベクトル図。IR 200Aが右向き、IS 300Aが左下向き、IT 200Aが左上向き。3つを順につなぐと、原点から左下へ100Aの矢印になり、これが中性線の電流IN。">
+<defs><marker id="s4wV1" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ff9b8a"/></marker><marker id="s4wV2" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#e7edf2"/></marker><marker id="s4wV3" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#8ed0fa"/></marker><marker id="s4wV4" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#b8e994"/></marker></defs>
+<rect x="0" y="0" width="360" height="330" rx="14" fill="#06213a"/>
+<text x="18" y="28" fill="#ffd27a" font-size="14" font-weight="800">③ S相だけ多いとき（力率1）</text>
+<text x="18" y="46" fill="#9fc0d4" font-size="11">各相の電流は、その相の電圧と同じ向き</text>
+<path d="M180 160 L258 160" stroke="#ff9b8a" stroke-width="3" marker-end="url(#s4wV1)"/>
+<path d="M180 160 L121 262" stroke="#e7edf2" stroke-width="3" marker-end="url(#s4wV2)"/>
+<path d="M180 160 L141 92" stroke="#8ed0fa" stroke-width="3" marker-end="url(#s4wV3)"/>
+<path d="M260 160 L200 264 L160 195" stroke="#9fc0d4" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+<path d="M180 160 L162 191" stroke="#b8e994" stroke-width="4" marker-end="url(#s4wV4)"/>
+<circle cx="180" cy="160" r="3" fill="#dff4ff"/>
+<text x="212" y="150" fill="#ff9b8a" font-size="12" font-weight="800">I<tspan font-size="9" dy="3">R</tspan><tspan dy="-3"> 200A</tspan></text>
+<text x="134" y="84" fill="#8ed0fa" font-size="12" font-weight="800" text-anchor="end">I<tspan font-size="9" dy="3">T</tspan><tspan dy="-3"> 200A</tspan></text>
+<text x="40" y="290" fill="#e7edf2" font-size="12" font-weight="800">I<tspan font-size="9" dy="3">S</tspan><tspan dy="-3"> 300A</tspan></text>
+<text x="40" y="307" fill="#ff9b8a" font-size="11">定格275Aを超えている</text>
+<path d="M98 214 L156 196" stroke="#b8e994" stroke-width="1"/>
+<text x="30" y="222" fill="#b8e994" font-size="12" font-weight="800">I<tspan font-size="9" dy="3">N</tspan><tspan dy="-3"> 100A</tspan></text>
+<text x="226" y="230" fill="#9fc0d4" font-size="11">順につなぐと</text>
+<text x="226" y="246" fill="#9fc0d4" font-size="11">戻ってくる</text>
+</svg>
+</div>
+<p class="small">3つの電流を矢印（ベクトル）で順につなぐと、原点から少し左下に戻ってきます。その矢印が中性線の電流で、100A。向きはS相と同じです。R・S・Tの200Aずつはぐるっと一周して打ち消し合い、S相の「多いぶん」の100Aだけが中性線を戻る、と読めます。3相がそろっていれば原点に戻り、中性線はゼロです。</p>
+
+<h3 id="s4w-blondel">⚡ 5. 電力でも同じ：ブロンデルの定理</h3>
+<p>電流だけでなく電力も同じ理屈です。フランスの技術者ブロンデルが1893年に発表した定理で、<b>線がN本の回路の電力は、N−1個の電力計（測定要素）で正しく測れる</b>。<span class="badge official">🟢 Wikipedia</span></p>
+<div class="twocol">
+<div class="mini"><b>三相3線式：3−1＝2</b><br>二電力計法。電圧2つ・CT2つ。大学・高専の講義でも、n相n線式はn−1個の電力計で測れる、と習う形。<span class="badge official">🟢 講義資料</span></div>
+<div class="mini"><b>三相4線式：4−1＝3</b><br>中性線を基準にして、3相それぞれの電圧と電流を掛ける。電圧3つ（＋N）・CT3つ。</div>
+</div>
+<p>メーカーの施工説明書でも、そのとおりになっています。パナソニックの多回路エネルギーモニタでは、三相3線式はR相とT相のCT、三相4線式のユニットはR・S・T相の3つのCTで、電圧はR・S・T・Nの4本をつなぎます。<span class="badge official">🟢 パナソニック 施工編</span></p>
+<p>三相4線式なのに二電力計法（S相を基準に、R相とT相の2つだけ）で測ったら、どれだけずれるか。式を立ててみると、ずれは<b>S相の電圧と中性線の電流の積</b>（の有効分）になりました。中性線に電流が流れなければ、ずれもゼロです。<span class="badge infer">🟡 自分で計算</span></p>
+<div class="eq">本当の電力 −（二電力計法の値）＝ V<sub>S</sub> × I<sub>N</sub> × cos（V<sub>S</sub>とI<sub>N</sub>の角度）
+相電圧242V、4章の例で計算すると
+① 本当は96.8kW → 二電力計法では145.2kW（+50%）
+② 本当は145.2kW → 145.2kW（ずれなし）
+③ 本当は169.4kW → 145.2kW（−14%）</div>
+<div class="checkgrid">
+<div class="checkcard"><b>「2相だけ測って1.5倍」は、そろっている前提</b><br>電力計測器メーカーCCSの解説では、4線式で2相だけ測って1.5倍する方法は、3相の電流と電圧がそろっていることが前提。偏りがあれば、そのぶん外れる。<span class="badge official">🟢 CCS</span></div>
+<div class="checkcard"><b>節約形の計器でも、電流は3つ</b><br>4線式用に、電圧コイル2つ・電流コイル3つの「2.5素子」と呼ばれる計器があったそうです。電圧は削っても、電流の3つ目は削れなかった。<span class="badge official">🟢 Wikipedia</span></div>
+</div>
+<p>高圧の取引用計器（VCT）が、CTとVTの2組で済んでいるのも、高圧の受電が三相3線式だからです。</p>
+
+<h3 id="s4w-harmonic">🌀 6. 中性線には、3相がそろっていても流れる電流がある</h3>
+<p>3相の負荷が同じ大きさでも、LED照明やパソコンのような、単相で整流器を通す負荷が多いと、<b>第3高調波</b>（基本波の3倍の周波数）の電流が流れます。第3高調波は、3相とも同じタイミングで山と谷が来るので、中性線で打ち消し合わずに<b>足し算</b>になります。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>Fluke：第3高調波が33%を超えると</b><br>3相がそろった負荷でも中性線の電流は主に第3高調波によるもので、第3高調波が33%を超えると、中性線の電流が相の電流より大きくなる。3相のLED照明で、中性線の電流が各相の電流の合計に近くなる例も紹介されています。<span class="badge official">🟢 Fluke</span></div>
+<div class="checkcard"><b>シュナイダー：パソコンの多い建物</b><br>パソコンの多い建物では、中性線の高調波電流が相の電流と同じくらいになることがある。中性線を細くしないように、とのことです。<span class="badge official">🟢 シュナイダー</span></div>
+</div>
+<p>自分でも確かめました。各相の第3高調波が基本波のh倍なら、中性線には3h倍が流れます。h＝1/3あたりで、中性線の電流は相の電流とほぼ同じ大きさになります。<span class="badge infer">🟡 自分で計算</span></p>
+<div class="warning"><strong>3つのCTで中性線の電流が「出せる」条件</strong><br>3相のCTの<b>波形（瞬時値）</b>を足せば、高調波も含めた中性線の電流を計算できます。ただ、相ごとの実効値（電流の大きさ）を3つ足しても、中性線の電流にはなりません。向きと波形の情報が要るからです。今回の装置が中性線の電流まで出すかは、まだ確認していません。<span class="badge infer">🟡 推定</span></div>
+
+<h3 id="s4w-primary">🔁 7. 高圧側（一次）のCTでは、二次の偏りが見えにくい</h3>
+<p>「受電点のCTで電流は見ているのに、なぜ変圧器ごとにわざわざ付けるのか」も、三相4線式の変圧器だと理由がはっきりします。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>中性線に戻る分は、一次のΔの中を回るだけ</b><br>Δ−Yの変圧器では、二次の中性線に戻る成分（零相分。第3高調波もこの仲間）は、一次の線には出てこず、一次の閉じたΔ巻線の中を回る。<span class="badge official">🟢 TestGuy</span> 第3高調波がΔの中を循環して外に出ないことは、高専の電気機器の講義資料にもあります。<span class="badge official">🟢 講義資料</span></div>
+<div class="checkcard"><b>出てくる分も、形を変えて出てくる</b><br>一次はΔなので、二次の1つの相の負荷は、一次では2本の線に分かれて現れます。一次の2つのCTから「二次のどの相が重いか」を読むのは難しい。しかも受電点の電流は、全部の変圧器の合計。<span class="badge infer">🟡 推定</span></div>
+</div>
+<p class="keyline">だから、変圧器の過負荷は<b>変圧器ごとの二次側で、3相それぞれ</b>を見る。Y結線の二次では、線の電流がそのまま巻線の電流なので、1相ずつ定格275Aと比べればよい。</p>
+
+<h3 id="s4w-rule">📋 8. スマート保安（負荷の監視）の要件とつながる</h3>
+<p>2025年4月から、外部委託の月次点検を<b>3か月に1回</b>にできる条件の一つに、低圧電路の絶縁状態と<b>負荷</b>を的確に監視できる装置が加わりました。<span class="badge official">🟢 東北電気保安協会</span></p>
+<p>電気管理事務所の解説（経済産業省のQ&Aをもとにした整理）によると、負荷監視装置に求められるのはおおむね次のことです。<span class="badge official">🟢 貝瀬電気管理事務所</span></p>
+<div class="table-scroll"><table>
+<tr><th>求められること</th><th>中身</th></tr>
+<tr><td>何を測るか</td><td>各フィーダー、つまり<b>各変圧器の二次側の電流</b>を連続して測り、離れた場所で監視・警報できる</td></tr>
+<tr><td>記録</td><td>30分ごとの電流値を1年以上残し、履歴を見られる</td></tr>
+<tr><td>警報</td><td>変圧器の負荷電流が<b>4時間以上続けて定格電流を超えたら</b>警報。離れた場所ですぐに分かる</td></tr>
+<tr><td>装置の異常</td><td>装置が正しく動いていないときも、離れた場所で分かる。年次点検などで動作を確かめられる</td></tr>
+<tr><td>ほかの条件</td><td>絶縁監視装置（隔月の条件）と、主遮断装置から責任分界点までの機器・配線の更新計画</td></tr>
+</table></div>
+<p class="keyline">「定格電流を4時間以上超えたら警報」を三相4線式の変圧器で守るには、<b>3相それぞれ</b>が定格275Aを超えていないかを見る必要がある。CTが2つだと、4章の③のように、CTのない相の過負荷を見逃す。だから3つ。</p>
+<div class="warning"><strong>確認できていないこと</strong><br>告示やQ&Aの原文が「三相4線式はCT3つ」と個数まで書いているかは、今回は原文を開いて確かめられていません。ここは回路の理屈からの結論です。数字や条件も、最終的には経済産業省の告示・Q&Aの原文で確かめます。<span class="badge infer">🟡 未確認</span></div>
+
+<h3 id="s4w-check">✅ 9. CTを付けるときに確かめること</h3>
+<div class="checkgrid">
+<div class="checkcard"><b>3つとも相の線に。中性線にはかけない</b><br>中性線の電流は、3相の測定から出せる（3章）。<span class="badge official">🟢 eGauge</span></div>
+<div class="checkcard"><b>3つとも同じ定格に</b><br>パナソニックの施工説明書でも、R・S・T相のCTは同じ定格のものを使うよう書かれています。<span class="badge official">🟢 パナソニック 施工編</span></div>
+<div class="checkcard"><b>CTの相と、電圧の相をそろえる</b><br>電流の大きさだけなら見落としやすいけれど、電力や力率は同じ相の電圧と電流の組み合わせで計算するので、ずれると値がおかしくなる。検相の色の順番（赤・黒・青）で合わせる。<span class="badge infer">🟡 推定</span></div>
+<div class="checkcard"><b>CTの向き（電源側→負荷側）</b><br>大きさだけなら向きは関係ないけれど、3つを足して中性線の電流を出すときや、電力を出すときは、1つでも逆だと答えが変わる。<span class="badge infer">🟡 推定</span></div>
+</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>三相4線式は、Y結線の中性点から4本目（中性線）を出す方式。線と線で420V（動力）、相と中性線で242V（照明）。</b></p>
+<p><b>3線なら3本の電流の和はいつもゼロ。だから2つ測れば3つ目は計算で出る。4線だと和は中性線の電流になって、3つ目は計算できない。</b></p>
+<p><b>線がN本なら、測る要素はN−1（ブロンデルの定理）。三相4線式は3。</b></p>
+<p><b>CTが2つだと、CTのない相の過負荷を見逃す（例：R・T 200A、S 300A ＞ 定格275A でも、2つのCTの読みは同じ）。</b></p>
+<p><b>中性線に戻る分は一次のΔの中を回るだけ。だから変圧器ごとの二次側で、3相それぞれを見る。</b></p>
+</section>
+<div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
+<li><span class="badge field">🔵</span>変圧器の銘板（三相、一次6600V、二次420Y/242V、定格電流17.5A／275A、一次Δ・二次Yの結線図、2024年製）、二次の端子が4つ、端子台のT1P01〜04・T1C1〜C4、検相の記録：今日の現場</li>
+<li><span class="badge official">🟢</span>三相4線式が大型ビル・工場の電灯と動力の混合回路に使われ、415V/240Vなどの電圧があること：<a href="https://www2.panasonic.biz/jp/basics/electric/electricity/wiring-systems/" target="_blank" rel="noopener">パナソニック「電気の基礎知識：配線方式」</a></li>
+<li><span class="badge official">🟢</span>415/240V三相4線式が200/105Vに代わって広がりつつあったこと、その利点：<a href="https://www.hitachihyoron.com/jp/pdf/1977/09/1977_09_02.pdf" target="_blank" rel="noopener">日立評論 Vol.59 No.9（1977）「ビル用受変電設備の計画」</a></li>
+<li><span class="badge official">🟢</span>B種接地は変圧器の低圧側の中性点に施すこと、その目的：<a href="https://www2.panasonic.biz/jp/terasu/skill/dictionary/Btypegrounding.html" target="_blank" rel="noopener">パナソニック 用語集「B種接地工事」</a></li>
+<li><span class="badge official">🟢</span>3線式は2つのCT、4線式は3相すべてにCTを付け中性線には付けないこと、その理由：<a href="https://kb.egauge.net/en_US/why-are-only-two-cts-needed-to-meter-a-3-phase-3-wire-delta-service" target="_blank" rel="noopener">eGauge Knowledge Base「Why are only two CTs needed to meter a 3-phase, 3-wire Delta service?」</a></li>
+<li><span class="badge official">🟢</span>ブロンデルの定理（1893年、N線はN−1要素）、2.5素子の計器：<a href="https://en.wikipedia.org/wiki/Blondel%27s_theorem" target="_blank" rel="noopener">Wikipedia「Blondel's theorem」</a></li>
+<li><span class="badge official">🟢</span>n相n線式はn−1個の電力計で測れること（二電力計法）：<a href="https://www2-kawakami.ct.osakafu-u.ac.jp/omu-content/uploads/sites/1161/Lecture_Data/Electric_Circuit_I/01_Lecture/27_lecture_electric_circuit_I.pdf" target="_blank" rel="noopener">大阪公立大学工業高等専門学校 電気回路I 講義資料27「対称三相交流回路（3）」</a></li>
+<li><span class="badge official">🟢</span>三相3線式はR相・T相、三相4線式はR・S・T相の3つのCTで同じ定格、電圧はR・S・T・N：<a href="https://www2.panasonic.biz/jp/densetsu/denro/enemoni/multicircuit/manual/pdf/construction_03.pdf" target="_blank" rel="noopener">パナソニック 多回路エネルギーモニタ 施工編</a></li>
+<li><span class="badge official">🟢</span>2相だけ測って1.5倍する方法は3相がそろっている前提であること：<a href="https://ctlsys.com/Monitoring_Only_One_or_Two_of_Three_Phases" target="_blank" rel="noopener">Continental Control Systems「Monitoring Only One or Two of Three Phases」</a></li>
+<li><span class="badge official">🟢</span>中性線の電流は主に第3高調波によるもので、33%を超えると相の電流を上回ること、LED照明の例：<a href="https://www.fluke.com/ja-jp/learn/blog/power-quality/installation-harmonics" target="_blank" rel="noopener">Fluke 電力品質ブログ（設置作業と高調波）</a></li>
+<li><span class="badge official">🟢</span>パソコンの多い建物で中性線の高調波電流が相の電流並みになりうること：<a href="https://www.se.com/ca/en/faqs/FA212226/" target="_blank" rel="noopener">Schneider Electric FAQ FA212226</a></li>
+<li><span class="badge official">🟢</span>Δ−Yで二次の零相分は一次の線に出ずΔの中を回ること：<a href="https://wiki.testguy.net/t/three-phase-transformer-winding-connections/58" target="_blank" rel="noopener">TestGuy Wiki「Three-Phase Transformer Winding Connections」</a>／第3高調波がΔの中を循環すること：<a href="https://www2-kawakami.ct.osakafu-u.ac.jp/omu-content/uploads/sites/1161/Lecture_Data/Electrical_Machinery_II/01_Lecture/06_lecture_electrical_machinery_II.pdf" target="_blank" rel="noopener">同高専 電気機器II 講義資料06</a></li>
+<li><span class="badge official">🟢</span>3か月に1回の条件に絶縁と負荷を監視できる装置が含まれること：<a href="https://www.t-hoan.or.jp/business/denki_hoan.php" target="_blank" rel="noopener">東北電気保安協会「電気保安メニュー」</a></li>
+<li><span class="badge official">🟢</span>負荷監視装置の要件（各変圧器の二次側電流、30分値1年以上、定格超過4時間で警報など）：<a href="https://kaise-denki.com/archives/3215" target="_blank" rel="noopener">貝瀬電気管理事務所「需要設備の月次点検頻度が改正！3ヶ月に1回にできる条件とは」（2025年4月9日）</a>。原文は経済産業省の告示（平成15年経済産業省告示第249号）と「主任技術者制度に関するQ&A」</li>
+<li><span class="badge infer">🟡</span>T1P・T1Cの札の読み方、共通線に流れる電流、4章の計算例、二電力計法のずれの式、第3高調波の倍率、一次側からの見え方、CTの相・向きの注意：自分で読み取り・計算したもの。告示・Q&Aの原文がCTの個数まで定めているかは未確認。</li>
+</ul></div>
+<div class="note">※ 装置の型式によって、CTの付け方・端子の名前・設定は異なります。実際の取付けは、装置の取扱説明書、社内手順、作業責任者の指示に従ってください。本記事は自分用に整理した日誌であり、作業手順書ではありません。</div>
+</article>
 <article class="entry" id="ipr2000-contact-mode-20261007" data-update-date="2026/10/07">
 <div class="date">2026.10.07｜継電器試験・IP-R2000</div>
 <h2>IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。<br>「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</h2>
