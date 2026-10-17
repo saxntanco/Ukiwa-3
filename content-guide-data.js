@@ -1,6 +1,18 @@
 /* Curated page purposes; not equipment operating instructions. */
 window.UkiwaContents = [
   {
+    "path": "scott-transformer.html",
+    "title": "非常用発電機とスコットトランス",
+    "category": "機器・動作",
+    "description": "単相負荷を普通の変圧器・スコット・3台でつなぎ、発電機の逆相電流を比べる。スコットを選ぶ理由を文献つきで。",
+    "tags": "スコット スコット結線 スコットトランス T結線 M座 T座 主座 √3/2 逆相電流 不平衡 単相負荷 非常用発電機 ダブルスロー 切替開閉器 逆V結線 設備不平衡率 NEGA JEM 1354 シミュレーター",
+    "related": [
+      "generator-rescue-island.html",
+      "single-line-lab.html",
+      "ct-calculator.html"
+    ]
+  },
+  {
     "path": "single-line-lab.html",
     "title": "動く単線結線図",
     "category": "機器・動作",
