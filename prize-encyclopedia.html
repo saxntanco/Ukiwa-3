@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ノーベル賞・フィールズ賞・アーベル賞・チューリング賞・京都賞など、世界の大きな賞を解説つきで。2026年の最新受賞者と日本人受賞者まで。"><title>賞の図鑑｜うきわメモ</title><link rel="stylesheet" href="hideout-library.css?v=1"><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ノーベル賞・フィールズ賞・アーベル賞・チューリング賞・京都賞など、世界の大きな賞を解説つきで。1901年からの歴代受賞者の検索、時代ごとの流れ、日本人受賞者の歩みまで。"><title>賞の図鑑｜うきわメモ</title><link rel="stylesheet" href="hideout-library.css?v=1"><style>
 :root{color-scheme:dark;--bg:#091322;--panel:#132339;--panel2:#0f1d31;--line:#405675;--text:#eef6ff;--muted:#b7c8dc;--cyan:#76eced;--gold:#f0c96b;--jp:#ff9f8f}
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(at 85% 0%,#24365d,transparent 55%),var(--bg);color:var(--text);font-family:system-ui,"Hiragino Sans","Yu Gothic",sans-serif;line-height:1.8}
@@ -51,15 +51,50 @@ details[open] summary{margin-bottom:8px}
 .cal b{display:inline-block;min-width:3.2em;color:var(--cyan)}
 .sources{font-size:14px;padding-left:20px}
 .sources li{margin:6px 0;overflow-wrap:anywhere}
+.era-list details{background:var(--panel)}
+.era-y{display:inline-block;min-width:6.6em;color:var(--gold);font-variant-numeric:tabular-nums}
+.jp-timeline{list-style:none;margin:0;padding:0}
+.jp-timeline li{padding:6px 0;border-bottom:1px dashed #2c4260;font-size:15px}
+.jp-timeline li:last-child{border-bottom:0}
+.jp-timeline b{display:inline-block;min-width:3.4em;color:var(--jp);font-variant-numeric:tabular-nums}
+#history-app{margin:16px 0}
+.hx-tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:thin}
+.hx-tabs button,.hx-cats button,.hx-order{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:999px;cursor:pointer}
+.hx-tabs button{flex:0 0 auto;padding:7px 14px;font-size:14px;font-weight:700;line-height:1.3;text-align:left}
+.hx-tabs button small{display:block;font-weight:400;font-size:11px;color:var(--muted)}
+.hx-tabs button.on{border-color:var(--cyan);background:#123a4a;box-shadow:inset 0 0 0 1px var(--cyan)}
+.hx-bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;margin:10px 0}
+.hx-search{flex:1 1 260px;display:flex;flex-direction:column;font-size:12px;color:var(--muted);gap:4px}
+.hx-search input{font:inherit;font-size:16px;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:9px 12px;width:100%}
+.hx-search input:focus{outline:2px solid var(--cyan);outline-offset:1px}
+.hx-check{display:flex;align-items:center;gap:6px;font-size:14px;cursor:pointer;padding:8px 0}
+.hx-check input{width:18px;height:18px;accent-color:var(--jp)}
+.hx-order{padding:8px 14px;font-size:14px}
+.hx-cats{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.hx-cats button{padding:4px 12px;font-size:13px;color:var(--muted)}
+.hx-cats button.on{color:var(--text);border-color:var(--gold);background:#3a3218}
+.hx-count{font-size:14px;margin:6px 0 2px;color:var(--cyan)}
+.hx-note{font-size:13px;margin:0 0 6px}
+.hx-dec h3{margin:22px 0 8px;padding:6px 0;color:var(--gold);font-size:17px;border-bottom:1px solid var(--line)}
+.hx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+.hx-item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:11px 14px;min-width:0}
+.hx-item.is-jp{border-left:4px solid var(--jp)}
+.hx-head{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:13px;color:var(--muted)}
+.hx-head b{font-size:16px;color:var(--text);font-variant-numeric:tabular-nums}
+.hx-head span:not(.jp){border:1px solid var(--line);border-radius:999px;padding:0 8px}
+.hx-head .jp{margin-left:0}
+.hx-who{margin:5px 0 3px;font-weight:700;font-size:14.5px;line-height:1.6;overflow-wrap:anywhere}
+.hx-what{margin:0;font-size:14px;color:var(--muted);line-height:1.65}
+.hx-empty{padding:16px;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
 body.has-hideout-nav header.top{display:none}
 footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
 @media(max-width:600px){main{padding:24px 16px 60px}h1{margin-top:26px}.card{padding:16px}}
 </style></head><body><main>
 <header class="top"><a href="library.html">← うきわ図書室</a><span>UKIWA LIBRARY</span></header>
 <h1>賞の図鑑</h1>
-<p class="lead">ノーベル賞から、フィールズ賞、チューリング賞、京都賞まで。世界の大きな賞が「何に贈られるのか」と、最近の受賞者の仕事を、ひとことで分かるようにまとめました。</p>
-<span class="asof">2026年10月9日 朝の時点。ノーベル平和賞は10月9日、経済学賞は10月12日に発表予定</span>
-<nav class="toc" aria-label="ページ内目次"><a href="#overview">全体像</a><a href="#nobel">ノーベル賞</a><a href="#math">数学</a><a href="#cs">情報</a><a href="#life">医学・生命</a><a href="#japan">日本の賞</a><a href="#more">ほかの賞</a><a href="#jp-winners">日本人の受賞</a><a href="#calendar">発表カレンダー</a><a href="#qa">よくある疑問</a><a href="#sources">出典</a></nav>
+<p class="lead">ノーベル賞から、フィールズ賞、チューリング賞、京都賞まで。世界の大きな賞が「何に贈られるのか」と、最近の受賞者の仕事を、ひとことで分かるようにまとめました。1901年からの歴代受賞者も、すべて探せます。</p>
+<span class="asof">2026年10月17日の時点。2026年のノーベル賞は全6部門が発表済み</span>
+<nav class="toc" aria-label="ページ内目次"><a href="#overview">全体像</a><a href="#nobel">ノーベル賞</a><a href="#math">数学</a><a href="#cs">情報</a><a href="#life">医学・生命</a><a href="#japan">日本の賞</a><a href="#more">ほかの賞</a><a href="#jp-winners">日本人の受賞</a><a href="#eras">時代でたどる</a><a href="#history">歴代受賞者</a><a href="#calendar">発表カレンダー</a><a href="#qa">よくある疑問</a><a href="#sources">出典</a></nav>
 
 <section id="overview" class="overview"><span class="eyebrow">OVERVIEW</span><h2>まず全体像：どの賞が、何に贈られる？</h2>
 <p class="muted">賞金は最新の公表額。カードを押すと、その賞の説明と最新の受賞者へ移動します。</p>
@@ -110,8 +145,14 @@ footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid va
 <p class="simple"><b>ひとことで：</b>古代ギリシャ・ラテン文学の研究者でもある詩人。詩・エッセイ・翻訳の境目を越える。</p>
 <details><summary>くわしく</summary><p>大学で古典を教えながら、言葉の成り立ちそのものを作品の土台にしてきました。詩で書かれた小説『Autobiography of Red』や、亡くなった兄をめぐる『Nox』などで知られます。</p></details></article>
 
-<article class="card pending"><span class="field">平和賞｜10月9日発表予定</span><h3>ノルウェー・ノーベル委員会がオスロで発表</h3><p class="muted">この時点では未発表です。</p></article>
-<article class="card pending"><span class="field">経済学賞｜10月12日発表予定</span><h3>スウェーデン王立科学アカデミーが発表</h3><p class="muted">この時点では未発表です。</p></article>
+<article class="card nobel"><span class="field">平和賞｜10月9日</span><h3>国家や指導者の責任を問い続けた法律家</h3>
+<ul class="who"><li>ナビ・ピレー <small>（南アフリカ、85歳。元国連人権高等弁務官、国際司法裁判所の判事）</small></li></ul>
+<div class="why"><b>受賞理由</b>平和と国際法の推進に向けた尽力に対して</div>
+<p class="simple"><b>ひとことで：</b>アパルトヘイトと闘った弁護士から、国際裁判の判事へ。暴力の被害者に希望を与えてきた。</p></article>
+<article class="card nobel"><span class="field">経済学賞｜10月12日</span><h3>景気の安定を、一人ひとりの行動から説明する</h3>
+<ul class="who"><li>ロバート・ホール <small>（米スタンフォード大学）</small></li><li>マイケル・ウッドフォード <small>（米コロンビア大学）</small></li></ul>
+<div class="why"><b>受賞理由</b>マクロ経済の安定化に関する、ミクロ経済学的な基礎</div>
+<p class="simple"><b>ひとことで：</b>家計や企業の行動から景気の動きと金融政策を説明する土台を作った。中央銀行の政策の考え方に大きな影響。</p></article>
 </div>
 
 <h3 style="margin-top:28px">2025年の受賞者</h3>
@@ -130,7 +171,8 @@ footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid va
 <article class="card" id="fields"><span class="field c">フィールズ賞｜国際数学連合</span><h3>年齢条件あり、4年に1度</h3><p class="muted">国際数学者会議（ICM）で2〜4人に贈られます。40歳の誕生日が開催年の1月1日以降であることが条件で、授賞時に40歳でも対象になり得ます。これまでの業績と、将来の活躍の両方を評価します。</p>
 <p><b>2026年（7月、米フィラデルフィア）</b></p>
 <ul class="who"><li>ユー・デン（Yu Deng）<small>シカゴ大学。気体分子の衝突から、気体全体の振る舞いを表す方程式（ボルツマン方程式）を厳密に導いた</small></li><li>ジョン・パードン（John Pardon）<small>ストーニーブルック大学。シンプレクティック幾何学</small></li><li>ジェイコブ・ツィマーマン（Jacob Tsimerman）<small>トロント大学。数論と幾何学をつなぐ新しい道具立て</small></li><li>ホン・ワン（Hong Wang）<small>ニューヨーク大学など。3次元の「掛谷問題」を解決。女性の受賞は3人目</small></li></ul>
-<p class="muted">2022年：ユーゴー・デュミニル＝コパン、ジューン・ホ、ジェームズ・メイナード、マリナ・ヴィアゾフスカ。</p></article>
+<p><b>2022年（オンライン開催）</b></p>
+<ul class="who"><li>ユーゴー・デュミニル＝コパン <small>統計物理の相転移の確率論的な理論</small></li><li>ジューン・ホ（許埈珥） <small>組合せ論にホッジ理論を持ち込んだ</small></li><li>ジェームズ・メイナード <small>素数の分布と間隔の研究</small></li><li>マリナ・ヴィアゾフスカ <small>8次元と24次元で、球を最も密に詰める方法を証明。女性2人目</small></li></ul></article>
 <article class="card" id="abel"><span class="field c">アーベル賞｜ノルウェー科学文学アカデミー</span><h3>年齢制限なし、先駆的な業績に</h3><p class="muted">毎年3月発表。数学の先駆的な科学業績を顕彰する賞です。</p>
 <p><b>2026年：ゲルト・ファルティングス</b>（ドイツ、ボン大学 名誉教授）</p><p class="muted">数論幾何に強力な道具を持ち込み、長年の難問「モーデル予想」などを解いた。1986年にはフィールズ賞も受賞。</p>
 <p><b>2025年：柏原正樹</b><span class="jp">日本</span>（京都大学数理解析研究所）</p><p class="muted">代数解析学と表現論への基本的な貢献。とくにD加群の理論と、結晶基底の発見。</p></article>
@@ -160,7 +202,8 @@ footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid va
 <article class="card" id="kyoto"><span class="field c">京都賞｜稲盛財団</span><h3>技術・科学・芸術の3部門</h3><p class="muted">京セラ創業者の稲盛和夫さんが創設。各部門の中の分野が毎年持ち回りで変わります。6月発表、11月に京都で授賞式。</p>
 <p><b>2026年 先端技術部門（エレクトロニクス）：宮坂力</b><span class="jp">日本</span>（桐蔭横浜大学）</p><p class="muted">次世代の太陽電池「ペロブスカイト太陽電池」を生み出した。薄く、軽く、曲げられる太陽電池として実用化が進む。</p>
 <p><b>基礎科学部門：ファルーク・アザム</b>（米スクリップス海洋研究所）</p><p class="muted">海の微生物がつなぐ炭素の循環「微生物ループ」を明らかにした。</p>
-<p><b>思想・芸術部門（音楽）：ローリー・アンダーソン</b></p><p class="muted">音楽・映像・語りを組み合わせた、独自のマルチメディア・パフォーマンスを確立した。</p></article>
+<p><b>思想・芸術部門（音楽）：ローリー・アンダーソン</b></p><p class="muted">音楽・映像・語りを組み合わせた、独自のマルチメディア・パフォーマンスを確立した。</p>
+<p class="muted"><b>2025年：</b>先端技術部門は甘利俊一<span class="jp">日本</span>（AIの理論的な基礎と情報幾何学）、基礎科学部門はアジム・スラーニ（生殖細胞とゲノム刷り込みの研究）、思想・芸術部門はキャロル・ギリガン（「ケアの倫理」の心理学者）。</p></article>
 <article class="card" id="japanprize"><span class="field c">日本国際賞｜国際科学技術財団</span><h3>科学技術の2分野</h3><p class="muted">毎年2分野が持ち回りで選ばれます。1月発表、4月に授賞式。</p>
 <p><b>2026年 エレクトロニクス・情報・通信：シンシア・ドワーク</b>（米ハーバード大学）</p><p class="muted">「差分プライバシー」や公平性など、倫理的なデジタル社会のための先導的な研究。データから個人を特定されないようにする考え方。</p>
 <p><b>2026年 生命科学：審良静男</b><span class="jp">日本</span>（大阪大学）<b>、ジージエン・ジェームズ・チェン</b>（米テキサス大学サウスウェスタン医療センター）</p><p class="muted">自然免疫が、ウイルスなどの核酸（DNA・RNA）を見分けるしくみを明らかにした。</p></article>
@@ -172,7 +215,7 @@ footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid va
 <ul class="who"><li><b>医学：</b>チャールズ・ズーカー<small>（味覚のしくみの解明。五感で最後に分かった感覚）</small></li><li><b>物理学：</b>イマヌエル・ブロッホ、ジュン・イェ<small>（極低温の原子を自在に操る技術）</small></li><li><b>化学：</b>シャンカー・バラスブラマニアン、デイヴィッド・クレナマン、パスカル・メイヤー<small>（安く大量に読めるDNA解読法）</small></li><li><b>数学：</b>デイヴィッド・カジュダン、ヨセフ・バーンスタイン<small>（表現論・保型形式・代数幾何）</small></li></ul></article>
 <article class="card" id="kavli"><span class="field c">カブリ賞｜ノルウェー（2年に1度）</span><h3>2026年の3分野</h3>
 <ul class="who"><li><b>天体物理学：</b>ワシリー・ベロクロフ、アミナ・ヘルミ、ロドリゴ・イバタ<small>（天の川銀河が、ほかの銀河を飲み込んで育った「化石」を見つけた）</small></li><li><b>ナノ科学：</b>エヴァ・アンドレイ、パブロ・ハリージョ＝エレーロ、アラン・マクドナルド<small>（2枚のグラフェンをわずかにねじって性質を変える「ツイストロニクス」）</small></li><li><b>神経科学：</b>クリスティン・ホルト、ケルシー・マーティン、エリン・シューマン、オズワルド・スチュワード<small>（神経細胞の先端で、その場でたんぱく質が作られることの発見）</small></li></ul></article>
-<article class="card" id="pritzker"><span class="field c">プリツカー賞｜建築</span><h3>2026年：スミリャン・ラディッチ（チリ）</h3><p class="muted">審査員は、その建築が「根拠のない確かさを主張するよりも、はかなさを大切にする」と評した。ロンドンのサーペンタイン・パビリオン（2014年）などで知られる。2025年は劉家琨（中国）。</p></article>
+<article class="card" id="pritzker"><span class="field c">プリツカー賞｜建築</span><h3>2026年：スミリャン・ラディッチ（チリ）</h3><p class="muted">審査員は、その建築が「根拠のない確かさを主張するよりも、はかなさを大切にする」と評した。ロンドンのサーペンタイン・パビリオン（2014年）などで知られる。</p><p><b>2025年：劉家琨（中国）</b></p><p class="muted">成都の「西村大院」など、地域の素材と人々の日常の暮らしに寄り添う建築で知られる。</p></article>
 </div></section>
 
 <section id="jp-winners"><span class="eyebrow">FROM JAPAN</span><h2>2025〜2026年の日本人受賞者</h2>
@@ -186,7 +229,65 @@ footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid va
 <li><b>2025年 ノーベル生理学・医学賞：</b>坂口志文（大阪大学）— 制御性T細胞</li>
 <li><b>2025年 アーベル賞：</b>柏原正樹（京都大学）— D加群と結晶基底</li>
 <li><b>2025年 京都賞 先端技術部門：</b>甘利俊一 — AIの理論的な基礎と情報幾何学</li>
-</ul></div></section>
+</ul><p class="muted" style="margin:10px 0 0">1949年の湯川秀樹から続く歴代の日本人受賞者は、<a href="#jp-nobel">日本のノーベル賞の歩み</a>と、下の<a href="#history">歴代受賞者</a>で「日本関連だけ」にすると一覧できます。</p></div></section>
+
+<section id="eras"><span class="eyebrow">HISTORY</span><h2>時代でたどるノーベル賞</h2>
+<p>受賞者の顔ぶれを年代順に並べると、その時代に科学と社会が何に向き合っていたかが見えてきます。賞は発見から数十年たって贈られることが多いので、「受賞の年」と「発見の年」は少しずれます。</p>
+<div class="era-list">
+<details open><summary><span class="era-y">1901〜1918</span>見えない世界の発見</summary>
+<p>第1回の物理学賞は<b>レントゲン</b>のX線。続いてベクレルとキュリー夫妻の<b>放射能</b>（1903年）、J・J・トムソンの電子の研究（1906年）と、目に見えない光線と粒子が次々に見つかった時代です。<b>マリー・キュリー</b>は1903年に物理学賞、1911年に化学賞と、ちがう分野で2度受賞しました。</p>
+<p>電気の分野では、<b>無線電信のマルコーニとブラウン</b>（1909年）、極低温で液体ヘリウムを作ったカマリング・オネス（1913年。のちの超伝導の発見者）が受賞。1918年の<b>プランク</b>は「エネルギーはとびとびの値をとる」という量子論の出発点です。医学では、北里柴三郎と共同研究したベーリングの血清療法（1901年）、コッホの結核研究（1905年）など、感染症との闘いが中心でした。</p></details>
+<details><summary><span class="era-y">1919〜1939</span>量子力学の誕生と、戦争の影</summary>
+<p><b>アインシュタイン</b>（1921年）の受賞理由は相対性理論ではなく<b>光電効果</b>。その後、ボーアの原子模型（1922年）、ド・ブロイの電子の波（1929年）、<b>ハイゼンベルク</b>（1932年）と<b>シュレーディンガー、ディラック</b>（1933年）と、20年足らずで量子力学が完成していきます。チャドウィックの中性子（1935年）、フェルミの原子核反応（1938年）は、のちの原子力につながりました。</p>
+<p>化学では<b>ハーバーのアンモニア合成</b>（1918年）が肥料を大量生産できるようにした一方、毒ガス開発にも関わった人物として今も議論されます。医学ではインスリン（1923年）、血液型（1930年）。平和賞は第一次世界大戦後の国際連盟の時代を映し、1935年にはナチスに投獄されたジャーナリスト、オシエツキーが受賞して、ドイツ人はノーベル賞の受賞を禁じられました。</p></details>
+<details><summary><span class="era-y">1940〜1945</span>第二次世界大戦による中断</summary>
+<p>1940〜42年は全部門で授賞がありませんでした。1944年の<b>オットー・ハーンの核分裂の発見</b>（化学賞）は、原子爆弾と原子力発電の両方の出発点です。1945年のペニシリン（フレミングら）は、戦争中に大量生産されて多くの命を救いました。</p></details>
+<details><summary><span class="era-y">1946〜1969</span>原子・半導体・DNAの時代</summary>
+<p><b>1949年、湯川秀樹</b>が中間子の予言で日本人として初めて受賞し、戦後の日本を勇気づけました。物理学ではトランジスタの発明（1956年）、メーザー・レーザー（1964年）、朝永振一郎らの量子電気力学（1965年）。電気を扱う私たちの道具の多くが、この時代の受賞者の仕事から生まれています。</p>
+<p>生命科学では<b>DNAの二重らせん</b>（1962年）、遺伝暗号の解読（1968年）と、分子生物学が一気に花開きました。平和賞はキング牧師（1964年）、ユニセフ（1965年）。文学では1968年に<b>川端康成</b>が日本人初の文学賞。1969年には経済学賞が始まりました。</p></details>
+<details><summary><span class="era-y">1970〜1999</span>情報と遺伝子工学の時代</summary>
+<p>江崎玲於奈のトンネル効果（1973年）、超伝導のBCS理論（1972年）、高温超伝導（1987年）など、エレクトロニクスを支える物性物理が次々に受賞。医学ではCT（1979年）、利根川進の抗体の多様性（1987年）、化学では<b>福井謙一</b>のフロンティア軌道理論（1981年）、PCR法（1993年）、オゾン層の破壊（1995年）。</p>
+<p>経済学賞にはフリードマン（1976年）やナッシュ（1994年）。平和賞は冷戦の終わりとともに、ゴルバチョフ（1990年）、マンデラとデクラーク（1993年）が受賞しました。1994年には<b>大江健三郎</b>が文学賞を受けています。</p></details>
+<details><summary><span class="era-y">2000〜2026</span>ナノ・ゲノム・AI、そして日本人受賞の時代</summary>
+<p>2000年以降は日本人の受賞が一気に増え、白川英樹（導電性高分子）、野依良治、田中耕一、小柴昌俊、山中伸弥（iPS細胞）、<b>赤﨑勇・天野浩・中村修二の青色LED</b>（2014年）、<b>吉野彰のリチウムイオン電池</b>（2019年）と続きました。LEDと蓄電池は、今の電気設備に欠かせない技術です。</p>
+<p>集積回路（2000年）、巨大磁気抵抗効果（2007年）、グラフェン（2010年）と情報機器を支える物理、ゲノム編集CRISPR（2020年）やmRNAワクチン（2023年）と医療を変えた化学・医学。2024年には<b>ニューラルネットワーク（AI）</b>が物理学賞、AIによるたんぱく質の構造予測が化学賞を受け、同じ年に<b>日本被団協</b>が平和賞を受けました。2025年は北川進、坂口志文、2026年は硤合憲三が受賞しています。</p></details>
+</div>
+
+<h3 id="jp-nobel" style="margin-top:30px;scroll-margin-top:70px">日本のノーベル賞の歩み</h3>
+<p class="muted">日本出身で外国籍の人（南部陽一郎、中村修二、真鍋淑郎、カズオ・イシグロなど）も含めています。</p>
+<div class="card"><ul class="jp-timeline">
+<li><b>1949</b>物理学：湯川秀樹 — 中間子の予言</li>
+<li><b>1965</b>物理学：朝永振一郎 — 量子電気力学（くりこみ理論）</li>
+<li><b>1968</b>文学：川端康成 — 日本人の心の本質を描く</li>
+<li><b>1973</b>物理学：江崎玲於奈 — 半導体のトンネル効果（エサキダイオード）</li>
+<li><b>1974</b>平和：佐藤栄作 — 非核三原則など</li>
+<li><b>1981</b>化学：福井謙一 — フロンティア軌道理論</li>
+<li><b>1987</b>生理学・医学：利根川進 — 抗体の多様性を生む遺伝子のしくみ</li>
+<li><b>1994</b>文学：大江健三郎</li>
+<li><b>2000</b>化学：白川英樹 — 電気を通すプラスチック</li>
+<li><b>2001</b>化学：野依良治 — 不斉水素化反応</li>
+<li><b>2002</b>物理学：小柴昌俊 — 宇宙ニュートリノの検出／化学：田中耕一 — たんぱく質の質量分析</li>
+<li><b>2008</b>物理学：南部陽一郎、小林誠、益川敏英 — 対称性の破れ／化学：下村脩 — 緑色蛍光たんぱく質GFP</li>
+<li><b>2010</b>化学：根岸英一、鈴木章 — クロスカップリング</li>
+<li><b>2012</b>生理学・医学：山中伸弥 — iPS細胞</li>
+<li><b>2014</b>物理学：赤﨑勇、天野浩、中村修二 — 青色LED</li>
+<li><b>2015</b>生理学・医学：大村智 — 寄生虫の薬イベルメクチン／物理学：梶田隆章 — ニュートリノ振動</li>
+<li><b>2016</b>生理学・医学：大隅良典 — オートファジー</li>
+<li><b>2017</b>文学：カズオ・イシグロ（長崎生まれ、英国籍）</li>
+<li><b>2018</b>生理学・医学：本庶佑 — 免疫のブレーキPD-1とがん治療</li>
+<li><b>2019</b>化学：吉野彰 — リチウムイオン電池</li>
+<li><b>2021</b>物理学：真鍋淑郎 — 気候モデルと地球温暖化の予測</li>
+<li><b>2024</b>平和：日本被団協 — 被爆者の証言で核兵器のない世界を訴えた</li>
+<li><b>2025</b>化学：北川進 — 金属有機構造体／生理学・医学：坂口志文 — 制御性T細胞</li>
+<li><b>2026</b>化学：硤合憲三 — 不斉自己触媒反応</li>
+</ul></div>
+</section>
+
+<section id="history"><span class="eyebrow">ALL LAUREATES</span><h2>歴代受賞者を探す</h2>
+<p>8つの賞の、第1回から2026年までの受賞者をすべて収めました。名前（日本語・英語どちらでも）や「LED」「電池」などの言葉で探せます。各行の「ひとこと」は、公式の受賞理由をもとにした要約です。</p>
+<div id="history-app"><noscript><p class="note">一覧の表示にはJavaScriptを使います。</p></noscript></div>
+<details><summary>ラスカー賞・ウルフ賞・ブレイクスルー賞の歴代は？</summary><p>受賞者がとても多いため、このページでは最近の受賞者だけを載せています。歴代は公式サイトの一覧で見られます：<a href="https://laskerfoundation.org/winners/" target="_blank" rel="noopener">ラスカー財団</a>、<a href="https://wolffund.org.il/the-wolf-prize/" target="_blank" rel="noopener">ウルフ財団</a>、<a href="https://breakthroughprize.org/Laureates" target="_blank" rel="noopener">ブレイクスルー賞</a>。</p></details>
+</section>
 
 <section id="calendar"><span class="eyebrow">CALENDAR</span><h2>1年の発表カレンダー</h2>
 <p class="muted">だいたいの時期です。年によって前後します。</p>
@@ -215,6 +316,8 @@ footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid va
 <li>制度の条件（2026年10月9日確認）：<a href="https://www.mathunion.org/imu-awards/fields-medal" target="_blank" rel="noopener">IMU：フィールズ賞の年齢条件</a>、<a href="https://abelprize.no/node/67" target="_blank" rel="noopener">アーベル賞規約</a>、<a href="https://news.cision.com/nobelstiftelsen/r/ralph-steinman-remains-nobel-laureate,c9169294" target="_blank" rel="noopener">ノーベル財団：死後授賞の原則と2011年の特例</a></li>
 <li>ノーベル賞2026：<a href="https://www.britannica.com/topic/2026-Nobel-Prize-winners" target="_blank" rel="noopener">Britannica「2026 Nobel Prize winners」</a> ／ <a href="https://www.statnews.com/2026/10/05/nobel-prize-medicine-2026-winner-deisseroth-hegemann-nagel/" target="_blank" rel="noopener">STAT（生理学医学賞）</a> ／ <a href="https://en.wikipedia.org/wiki/Francis_Halzen" target="_blank" rel="noopener">Wikipedia：Francis Halzen</a> ／ <a href="https://sciencemediacentre.es/en/nobel-prize-chemistry-awarded-kagan-and-soai-solving-mystery-asymmetry-chemistry-life" target="_blank" rel="noopener">Science Media Centre Spain（化学賞）</a> ／ <a href="https://ja.wikipedia.org/wiki/%E7%A1%A4%E5%90%88%E6%86%B2%E4%B8%89" target="_blank" rel="noopener">Wikipedia：硤合憲三</a> ／ <a href="https://en.wikipedia.org/wiki/Henri_B._Kagan" target="_blank" rel="noopener">Wikipedia：Henri B. Kagan</a> ／ <a href="https://www.irishtimes.com/culture/books/2026/10/08/anne-carson-wins-nobel-prize-in-literature-2026/" target="_blank" rel="noopener">The Irish Times（文学賞）</a></li>
 <li>ノーベル賞の賞金・日程：<a href="https://www.brusselstimes.com/2324039/nobel-prize-money-rises-to-e1-million" target="_blank" rel="noopener">The Brussels Times</a> ／ <a href="https://stats-data.com/en/nobel-prize-2026/" target="_blank" rel="noopener">stats-data.com</a> ／ <a href="https://www.nobelprize.org/" target="_blank" rel="noopener">NobelPrize.org（公式）</a></li>
+<li>ノーベル賞2026（平和・経済学）：<a href="https://www.sbs.com.au/news/article/navi-pillay-wins-nobel-peace-prize-2026/n7nkmsrm1" target="_blank" rel="noopener">SBS News（平和賞）</a> ／ <a href="https://kumanichi.com/articles/2045827" target="_blank" rel="noopener">熊本日日新聞（経済学賞）</a></li>
+<li>歴代受賞者（2026年10月17日確認）：ノーベル賞1901〜2016年は<a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-14" target="_blank" rel="noopener">NobelPrize.org由来の公開データ</a>、2017年以降は<a href="https://en.wikipedia.org/wiki/List_of_Nobel_laureates" target="_blank" rel="noopener">List of Nobel laureates</a>と<a href="https://www.nobelprize.org/prizes/lists/all-nobel-prizes/" target="_blank" rel="noopener">NobelPrize.org</a>。他の賞は<a href="https://en.wikipedia.org/wiki/Fields_Medal" target="_blank" rel="noopener">Fields Medal</a>、<a href="https://en.wikipedia.org/wiki/Turing_Award" target="_blank" rel="noopener">Turing Award</a>、<a href="https://en.wikipedia.org/wiki/List_of_Kyoto_Prize_winners" target="_blank" rel="noopener">Kyoto Prize</a>、<a href="https://en.wikipedia.org/wiki/Japan_Prize" target="_blank" rel="noopener">Japan Prize</a>、<a href="https://en.wikipedia.org/wiki/Kavli_Prize" target="_blank" rel="noopener">Kavli Prize</a>、<a href="https://en.wikipedia.org/wiki/Pritzker_Architecture_Prize" target="_blank" rel="noopener">Pritzker Prize</a>の一覧と、各賞の公式サイト。「ひとこと」は受賞理由をもとにした要約です。</li>
 <li>ノーベル賞2025：<a href="https://en.wikipedia.org/wiki/2025_Nobel_Prizes" target="_blank" rel="noopener">Wikipedia「2025 Nobel Prizes」</a></li>
 <li>フィールズ賞：<a href="https://euromathsoc.org/news/2026-fields-medallists-and-imu-prize-winners-announced-222" target="_blank" rel="noopener">European Mathematical Society</a> ／ <a href="https://www.nature.com/articles/d41586-026-02169-1" target="_blank" rel="noopener">Nature</a></li>
 <li>アーベル賞：<a href="https://www.uni-bonn.de/en/news/050-2026" target="_blank" rel="noopener">ボン大学</a> ／ <a href="https://www.ias.edu/news/past-member-masaki-kashiwara-2025-abel-prize" target="_blank" rel="noopener">IAS（柏原正樹）</a></li>
@@ -230,5 +333,5 @@ footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid va
 <p class="muted">受賞理由は、公式の英文などを日本語にしたものです。年齢は発表時点。</p></section>
 
 <!--libnav--><nav class="libnav" aria-label="うきわ図書室"><a href="library.html">📚 うきわ図書室</a><a href="prize-encyclopedia.html">賞の図鑑</a><a href="unsolved-problems.html">未解決問題の図鑑</a><a href="big-science.html">巨大な実験装置の図鑑</a><a href="unit-people.html">単位になった人の図鑑</a><a href="named-laws.html">法則の図鑑</a><a href="science-calendar.html">科学カレンダー</a></nav><!--/libnav-->
-<footer>うきわメモ / 賞の図鑑 / 2026年10月9日 朝の時点の情報です。</footer>
-</main><script src="hideout-nav.js?v=1" defer></script></body></html>
+<footer>うきわメモ / 賞の図鑑 / 2026年10月17日の時点の情報です。</footer>
+</main><script src="prize-history-data.js?v=1" defer></script><script src="prize-history.js?v=1" defer></script><script src="hideout-nav.js?v=1" defer></script></body></html>
