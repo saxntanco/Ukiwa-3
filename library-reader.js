@@ -79,30 +79,34 @@
   const backLabel = () => isSelection()?'← 選んだ本棚に戻る':'← 図書室の入口へ';
 
   const links = ids => ids.filter(id=>byId.has(id)).map(id=>`<a href="#${id}">${esc(byId.get(id).name)} →</a>`).join('');
-  const sections = [['idea','考えを一言で'],['background','問いの背景'],['arguments','主張の中身'],['example','身近な例'],['debate','反論・限界'],['works','原典・代表作'],['connections','つなげて読む'],['sources','出典']];
-  const sectionLinks = () => sections.map(([id,label])=>`<a href="#${id}" data-section="${id}">${label}</a>`).join('');
+  const sections = [['idea','考えを一言で'],['background','問いの背景'],['life','生涯の年表'],['arguments','主張の中身'],['example','身近な例'],['debate','反論・限界'],['legacy','その後への影響'],['works','原典・代表作'],['connections','つなげて読む'],['sources','出典']];
+  const optionalSections = {life:p=>Array.isArray(p.life)&&p.life.length>0, legacy:p=>Boolean(p.legacy)};
+  const sectionLinks = p => sections.filter(([id])=>!optionalSections[id]||optionalSections[id](p)).map(([id,label])=>`<a href="#${id}" data-section="${id}">${label}</a>`).join('');
+  const paragraphs = text => String(text).split(/\n+/).filter(Boolean).map(line=>`<p>${esc(line)}</p>`).join('');
+  const lifeSection = p => optionalSections.life(p) ? `<section id="life"><h2>生涯の年表</h2><ol class="life-list">${p.life.map(item=>`<li><span class="life-year">${esc(item.year)}</span><p>${esc(item.text)}</p></li>`).join('')}</ol></section>` : '';
+  const legacySection = p => optionalSections.legacy(p) ? `<section id="legacy"><h2>その後への影響</h2>${paragraphs(p.legacy)}</section>` : '';
   function sourceList(p) { return p.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)} ↗</a><span class="source-type">${esc(s.type)} · ${esc(s.note || '出典確認：2026-10-12')}</span></li>`).join(''); }
   function renderReader(p) {
     $('reader-view').innerHTML=`<div class="reader-toolbar"><a href="#catalog" data-back>${backLabel()}</a><div class="reader-actions"><button class="quiet-button" data-save="${p.id}" aria-pressed="${saved.has(p.id)}">${saved.has(p.id)?'しおりを外す':'あとで読む'}</button><button class="quiet-button" data-compare="${p.id}" aria-pressed="${comparison.includes(p.id)}">${comparison.includes(p.id)?'比較から外す':'比べる候補に'}</button><button class="quiet-button" data-font aria-pressed="${large}">文字を大きく</button></div></div>
       <div class="reader-layout"><article class="reader-article"><header class="reader-title"><p class="person-meta"><span>${esc(data.fields[p.field])}</span><span>${esc(p.years)}</span></p><h1 tabindex="-1" id="person-title">${esc(p.name)}</h1><p class="reader-en">${esc(p.en)} · ${p.tags.map(esc).join(' / ')}</p><p class="reader-question">${esc(p.question)}</p></header>
-      <details class="reader-mobile-toc"><summary>この解説の目次・出典へ</summary><nav aria-label="この解説の目次">${sectionLinks()}</nav></details>
+      <details class="reader-mobile-toc"><summary>この解説の目次・出典へ</summary><nav aria-label="この解説の目次">${sectionLinks(p)}</nav></details>
       <div class="reader-body"><section id="idea"><h2>考えを一言で</h2><p class="reader-summary">${esc(p.thesis)}</p><p class="reader-caption">内容をかみ砕いた要約です。本人の発言の引用ではありません。</p></section>
-      <section id="background"><h2>なぜ、その問いを考えた？</h2><p>${esc(p.background)}</p></section>
+      <section id="background"><h2>なぜ、その問いを考えた？</h2>${paragraphs(p.background)}</section>${lifeSection(p)}
       <section id="arguments"><h2>何を主張したのか</h2>${p.ideas.map((idea,i)=>`<h3>${i+1}. ${esc(idea.title)}</h3><p>${esc(idea.body)}</p>`).join('')}</section>
-      <section id="example"><h2>身近な場面で考える</h2><div class="example-text"><p>${esc(p.example)}</p></div><p class="reader-caption">理解のために作った例です。本人の発言・実験結果ではありません。</p></section>
-      <section id="debate"><h2>反論・限界・誤解しやすい点</h2><p>${esc(p.caution)}</p></section>
+      <section id="example"><h2>身近な場面で考える</h2><div class="example-text">${paragraphs(p.example)}</div><p class="reader-caption">理解のために作った例です。本人の発言・実験結果ではありません。</p></section>
+      <section id="debate"><h2>反論・限界・誤解しやすい点</h2>${paragraphs(p.caution)}</section>${legacySection(p)}
       <section id="works"><h2>原典・代表的な仕事</h2><ul class="work-list">${p.works.map(w=>`<li>${esc(w.title)}<span>${esc(w.year)} · ${esc(w.note)}</span></li>`).join('')}</ul></section>
       <section id="connections"><h2>つなげて読む</h2><div class="related-links">${links(p.related)}</div></section>
-      <section id="sources"><h2>出典・さらに読む</h2><ol class="source-list">${sourceList(p)}</ol><p class="reader-caption">原典の翻訳名・版は複数あります。解説は主張の全体を置き換えるものではありません。人物解説更新：2026-10-12。</p></section></div>
+      <section id="sources"><h2>出典・さらに読む</h2><ol class="source-list">${sourceList(p)}</ol><p class="reader-caption">原典の翻訳名・版は複数あります。解説は主張の全体を置き換えるものではありません。人物解説更新：${esc(data.updated)}。</p></section></div>
       <div class="reader-bottom"><div class="reader-back-links"><a href="#catalog" data-back>${backLabel()}</a>${isSelection()?'<a href="#catalog" data-home>図書室の入口へ</a>':''}</div><button class="quiet-button" data-share="${p.id}">この人物のリンクをコピー</button></div></article>
-      <nav class="reader-aside" aria-label="この解説の目次"><p>この人を読む</p>${sectionLinks()}</nav></div>`;
+      <nav class="reader-aside" aria-label="この解説の目次"><p>この人を読む</p>${sectionLinks(p)}</nav></div>`;
     document.title=`${p.name}の考え｜うきわ図書室`;
     document.documentElement.style.setProperty('--reading',large?'21px':'18px');
   }
   function renderComparison(ids) {
     const people=ids.map(id=>byId.get(id)).filter(Boolean);
     if(people.length!==2||people[0].id===people[1].id) return false;
-    const rows=[['中心の問い',p=>esc(p.question)],['考えを一言で',p=>esc(p.thesis)],['主張の中身',p=>p.ideas.map(x=>`<p><strong>${esc(x.title)}</strong><br>${esc(x.body)}</p>`).join('')],['反論・限界',p=>esc(p.caution)],['詳しい解説・出典',p=>`<a href="#${p.id}">${esc(p.name)}を読む →</a>`]];
+    const rows=[['中心の問い',p=>esc(p.question)],['考えを一言で',p=>esc(p.thesis)],['主張の中身',p=>p.ideas.map(x=>`<p><strong>${esc(x.title)}</strong><br>${esc(x.body)}</p>`).join('')],['反論・限界',p=>paragraphs(p.caution)],['詳しい解説・出典',p=>`<a href="#${p.id}">${esc(p.name)}を読む →</a>`]];
     $('compare-view').innerHTML=`<div class="reader-toolbar"><a href="#catalog" data-back>${backLabel()}</a><button class="quiet-button" data-share-compare>比較のリンクをコピー</button></div><header class="compare-heading"><p class="eyebrow">READ SIDE BY SIDE</p><h1 tabindex="-1">2人の考えを、<br class="mobile-break">並べて読む。</h1><p>同じ言葉でも、問いや前提が違うことがあります。優劣を決める表ではなく、違いを見つける入口です。</p></header><table class="compare-table"><thead><tr>${people.map(p=>`<th scope="col">${esc(p.name)}<small>${esc(data.fields[p.field])} · ${esc(p.years)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(([label,content])=>`<tr class="compare-label"><th colspan="2">${label}</th></tr><tr>${people.map(p=>`<td>${content(p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
     document.title=`${people.map(p=>p.name).join('と')}を比較｜うきわ図書室`;
     return true;

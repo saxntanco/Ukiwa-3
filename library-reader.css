@@ -74,3 +74,6 @@
   .result-heading{gap:4px}
   .reader-bottom{align-items:flex-start;flex-wrap:wrap}
 }
+.life-list{list-style:none;padding:0;margin:0;border-left:2px solid var(--line)}.life-list li{display:grid;grid-template-columns:5.4em minmax(0,1fr);gap:14px;padding:9px 0 9px 18px}.life-year{color:var(--gold);font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;line-height:2}.reader-body .life-list p{margin:0}
+@media(max-width:560px){.life-list li{grid-template-columns:1fr;gap:0;padding-left:14px}.life-year{line-height:1.6}}
+@media print{.life-year{color:black}}

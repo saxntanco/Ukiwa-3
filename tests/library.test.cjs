@@ -9,7 +9,7 @@ vm.runInNewContext(fs.readFileSync(path.join(root, 'library-people.js'), 'utf8')
 const data = JSON.parse(JSON.stringify(context.window.UkiwaLibrary));
 
 test('library entries have substantive explanations, limitations, works and attributed sources', () => {
-  assert.equal(data.people.length, 84);
+  assert.equal(data.people.length, 85);
   assert.equal(Object.keys(data.fields).length, 11);
   const ids = new Set(data.people.map(p => p.id));
   assert.equal(ids.size, data.people.length);
@@ -44,5 +44,5 @@ test('existing six shelves remain available and the library entry describes its 
   }
   assert.match(html,/引用したものではありません/);
   assert.match(html,/このブラウザー内に保存/);
-  assert.match(fs.readFileSync(path.join(root, 'hidden-menu.html'),'utf8'),/84人/);
+  assert.match(fs.readFileSync(path.join(root, 'hidden-menu.html'),'utf8'),/85人/);
 });
