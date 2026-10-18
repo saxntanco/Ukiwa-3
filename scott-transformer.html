@@ -11,7 +11,7 @@ html[data-theme="sunset"]{--sc-muted:#6f5464}
 .card{padding:18px;border:1px solid var(--sc-line);border-radius:18px;background:var(--sc-panel);margin:24px 0}.card h2{margin:4px 0 10px;font-size:clamp(23px,4vw,32px);line-height:1.35;text-wrap:balance}.card h3{margin:18px 0 6px;font-size:18px}.card p{margin:8px 0}.card a{text-decoration:underline}
 .card details{padding:12px 0;border-top:1px solid var(--sc-line)}.card summary{font-weight:700;cursor:pointer}
 .plain-answer{border-left:4px solid var(--sc-acc);padding:14px 18px;background:var(--sc-panel2);border-radius:8px;font-size:17px}
-.learning-path ol{display:grid;grid-template-columns:repeat(4,1fr);gap:6px 18px;padding-left:24px;margin:10px 0 0}
+.learning-path ol{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 18px;padding-left:24px;margin:10px 0 0}
 .muted{color:var(--sc-muted)}.small{font-size:13px}
 .formula{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--sc-panel2);padding:8px 12px;border-radius:8px;overflow-x:auto;white-space:nowrap;margin:8px 0}
 .footer{margin-top:36px;padding:25px 0 46px;border-top:1px solid var(--sc-line);font-size:11px}
@@ -73,6 +73,7 @@ html[data-theme="dark"] .sc-pill{color:#0c172b}
 table.sc-table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
 .sc-table th,.sc-table td{padding:10px 12px;border-bottom:1px solid var(--sc-line);text-align:left;vertical-align:top}
 .sc-table th{font-size:12px;color:var(--sc-muted)}
+.sc-names{min-width:520px}.sc-names th[scope=row]{white-space:nowrap}
 .sc-table td.n{font-family:ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sc-table tr.cur td{background:var(--sc-panel2)}
 .sc-tag{display:inline-block;font-size:11.5px;font-weight:700;padding:0 8px;border-radius:999px;color:#fff}
@@ -90,7 +91,7 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 
 <div class="safe"><b>このページの前提：</b>理想変圧器・三相210Vの発電機で計算した学習用のモデルです。発電機の許容逆相電流、変圧器の仕様、負荷の振り分けは、設備の図面、発電機・変圧器の仕様書とメーカー資料、出力計算書を優先してください。</div>
 
-<nav class="card learning-path" aria-label="このページの順番"><b>この順番で読むと、「なぜスコット？」に答えられます。</b><ol><li><a href="#answer">ひとことで</a></li><li><a href="#lab">動かして比べる</a></li><li><a href="#normal">普通の変圧器じゃだめ？</a></li><li><a href="#reasons">スコットを選ぶ7つの理由</a></li><li><a href="#how">√3/2 のしくみ</a></li><li><a href="#double-throw">ダブルスローとの関係</a></li><li><a href="#field">現場で見るところ</a></li><li><a href="#refs">出典</a></li></ol></nav>
+<nav class="card learning-path" aria-label="このページの順番"><b>この順番で読むと、「なぜスコット？」に答えられます。</b><ol><li><a href="#answer">ひとことで</a></li><li><a href="#lab">動かして比べる</a></li><li><a href="#normal">普通の変圧器じゃだめ？</a></li><li><a href="#reasons">スコットを選ぶ7つの理由</a></li><li><a href="#names">M座・T座ってなに？</a></li><li><a href="#how">√3/2 のしくみ</a></li><li><a href="#double-throw">ダブルスローとの関係</a></li><li><a href="#field">現場で見るところ</a></li><li><a href="#refs">出典</a></li></ol></nav>
 
 <section class="card" id="answer"><span class="k">01 ひとことで</span><h2>単相負荷の「偏り」を、発電機に背負わせないため。</h2>
 <p class="plain-answer"><b>スコットトランスは、三相を、位相が90°ずれた2つの単相に変える変圧器です。</b><br>2つの単相（M座とT座）に同じくらいの負荷をかければ、発電機から見た三相の電流がそろいます。</p>
@@ -171,6 +172,17 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 </section>
 
 <section class="card" id="how"><span class="k">05 しくみ</span><h2>T座の巻数は、M座の √3/2。</h2>
+<h3 id="names">M座・T座は何の略？</h3>
+<div class="table-wrap"><table class="sc-table sc-names"><thead><tr><th></th><th>M座</th><th>T座</th></tr></thead><tbody>
+<tr><th scope="row">略</th><td><b>M ＝ Main</b>（メイン）。日本語では「主座」とも</td><td><b>T ＝ Teaser</b>（ティーザー）</td></tr>
+<tr><th scope="row">英語</th><td>main transformer</td><td>teaser transformer</td></tr>
+<tr><th scope="row">一次のつなぎ先</th><td>三相の2線（U–W）の間</td><td>残りの1線（V）と、M座の中点Oの間</td></tr>
+<tr><th scope="row">巻線</th><td>真ん中に中点タップO</td><td>巻数はM座の √3/2（約86.6%）</td></tr>
+<tr><th scope="row">二次</th><td colspan="2">同じ大きさで、位相が90°ずれた単相が1つずつ。どちらも単相3線100/200Vで取り出せます</td></tr>
+</tbody></table></div>
+<p><b>「T結線」とも呼ぶのは、2台をT字に組む形から</b>です。T座のTとは由来が別なので、まぎらわしいところです。名前の「スコット」は、1890年代にこの結線を考えたウェスチングハウスの技術者、チャールズ・F・スコットから来ています。</p>
+<p class="small muted">本文の青緑色の用語（M座・T座・逆相電流・ダブルスローなど）は、タップすると解説が開きます。</p>
+<h3>√3/2 になる理由</h3>
 <p>単相変圧器2台をT字に組みます。<b>M座（主座）</b>の一次をU–W間につなぎ、巻線の真ん中にタップOを出します。<b>T座</b>の一次はV相とOの間につなぎます。</p>
 <p>三相の電圧を正三角形で描くと、U–Wの中点OからVまでの長さは線間電圧の√3/2倍で、向きはU–Wと直角です。T座の巻数をM座の√3/2にすると、二次に<b>同じ大きさで90°ずれた2つの単相</b>が出ます。</p>
 <p>T座の一次電流は、中点Oで半分ずつM座の左右に分かれます。M座の巻線の中では逆向きに流れるので磁束が打ち消し合い、M座の変圧には影響しません。両方の負荷が同じとき、U相の電流は次のとおりです。</p>
@@ -208,6 +220,7 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 <li><a href="https://harita2021.com/%E5%8F%97%E5%A4%89%E9%9B%BB%E3%81%AE%E8%A8%AD%E8%A8%88%EF%BD%9C%E5%A4%89%E5%9C%A7%E5%99%A8%E3%81%AE%E8%A8%AD%E5%82%99%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%8E%8730%EF%BC%85%E4%BB%A5%E4%B8%8B%E3%81%AB%E3%81%A7/" target="_blank" rel="noopener">HARITAの設計室「変圧器の設備不平衡率30%以下にできないときの対策」</a><small>三相3線式は原則30%以下（内線規程1305節）。対策に変圧器の分割、スコット結線・逆V結線。</small></li>
 <li><a href="https://koko325-kentsu.hatenablog.jp/entry/2026/08/28/090000" target="_blank" rel="noopener">設備施工の教科書「スコット結線変圧器の動作原理とベクトル計算」</a><small>M座・T座の一体構成で変圧器1台分のスペース。両座の差は10〜15%以内が目安、各座の電流の実測。</small></li>
 <li><a href="https://www.makoto-elec.com/inverted-v-connection/" target="_blank" rel="noopener">逆V結線の仕組み・不平衡・発電機NGの理由</a><small>逆V結線は単相1系統、電流比1:2:1で完全には平衡しない。非常用発電機には原則避ける。</small></li>
+<li><a href="https://en.wikipedia.org/wiki/Scott-T_transformer" target="_blank" rel="noopener">Scott-T transformer（Wikipedia）</a><small>2台を main transformer と teaser transformer（巻数比 √3/2）と呼ぶ。考案はウェスチングハウスのチャールズ・F・スコット（1890年代）。</small></li>
 <li><a href="https://patents.google.com/patent/JPH06310350A/ja" target="_blank" rel="noopener">明電舎 特許 JPH06310350A「異容量負荷三相単相スコット結線変圧器」（1993年出願）</a><small>ビルの変圧器は設置スペースが限られ、三相用とスコット用を別に置くとスペースが大きくなる。</small></li>
 </ul>
 <p class="small muted">電圧の不平衡は「逆相電流 × 逆相リアクタンス」、モーターの温度上昇の増え方は「電圧不平衡率 u% のとき約 2u² %」（NEMA MG1の目安）で見積もっています。</p>

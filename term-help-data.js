@@ -214,6 +214,14 @@
     ['resonance','共振','','回路や物体の固有の性質と入力の周波数が対応し、応答が大きくなるなどの現象。','LC回路では誘導性と容量性のリアクタンスの関係が重要です。'],
     ['rms-error','誤差','','測定値などと、基準となる値との差。符号や割合の基準をそろえて扱います。','相対誤差を求めるときは、何を分母の基準値にするか確認します。']
   ]);
+  group('変圧器の結線と発電機', 'scott-transformer.html', [
+    ['scott-connection','スコット結線','スコットトランス|スコット変圧器|スコット結線変圧器|T結線','単相変圧器2台をT字に組み、三相を、位相が90°ずれた2つの単相に変える結線。','2つの単相（M座とT座）の負荷がそろえば、三相側の電流も平衡します。','名前は、1890年代にこの結線を考えたウェスチングハウスの技術者チャールズ・F・スコットから。'],
+    ['m-seat','M座','主座|Ｍ座','スコット結線の2台のうち、一次を三相の2線（U–W）の間につなぐ変圧器。巻線の真ん中に中点タップがあります。','M は Main（メイン）の頭文字。英語では main transformer、日本語では主座とも呼びます。','中点タップには、T座の一次巻線の片側がつながります。'],
+    ['t-seat','T座','Ｔ座|ティーザー座','スコット結線の2台のうち、一次を残りの1線（V）とM座の中点の間につなぐ変圧器。巻数はM座の√3/2（約86.6%）。','T は Teaser（ティーザー）の頭文字。英語では teaser transformer と呼びます。','「T結線」のTは2台をT字に組む形から。T座のTとは由来が別です。'],
+    ['negative-sequence-current','逆相電流','逆相分','不平衡な三相電流を対称座標法で分けたときの、正しい相順と逆向きに回る成分。','発電機では回転子に2倍の周波数の渦電流を生み、発熱の原因になります。','配線の相順を逆につなぐ「逆相」（モーターが逆に回る）とは別の意味です。'],
+    ['positive-sequence','正相分','正相電流','不平衡な三相を対称座標法で分けたときの、正しい相順で回る平衡な成分。','三相が完全に平衡していれば、電流は正相分だけになります。'],
+    ['double-throw','ダブルスロー','双投開閉器|ダブルスロースイッチ','1つの負荷を、2つの電源のどちらか一方につなぎかえる開閉器。','非常用の負荷を、商用電源と発電機のどちらから受けるか切り替えます。','両方に同時につながらないよう、インターロックが付いています。']
+  ]);
   group('科学のことば', 'library.html', [
     ['superconductivity','超伝導','','ある条件で電気抵抗がなくなり、磁束に特徴的な振る舞いを示す状態。','温度だけでなく、磁場や電流にも成立条件があります。'],
     ['nuclear-fusion','核融合','','軽い原子核どうしが結びつき、別の原子核となる反応。','太陽のエネルギー源です。どの反応でも無条件にエネルギーを取り出せるわけではありません。'],
@@ -223,6 +231,8 @@
     ['dark-matter','暗黒物質','ダークマター','光では直接見えず、重力の影響などから存在が推定される物質。','銀河の運動などを説明するために考えられています。正体は未解明です。'],
     ['exoplanet','系外惑星','','太陽系の外にある惑星。','恒星の明るさの変化や、恒星の動きなどから見つける方法があります。']
   ]);
+  const scottSource = { label: 'Scott-T transformer（Wikipedia）', url: 'https://en.wikipedia.org/wiki/Scott-T_transformer', checked: '2026-10-18' };
+  for (const item of entries) if (['scott-connection','m-seat','t-seat'].includes(item.id)) item.source = scottSource;
   const ctSource = { label: '日本電気技術者協会：変流器の用語と選定', url: 'https://www.jeea.or.jp/course/contents/02109/', checked: '2026-10-10' };
   for (const item of entries) if (['ct','ct-ratio','vt','rated-burden','accuracy','ratio-error','phase-error','ct-saturation','overcurrent-factor','overcurrent-strength'].includes(item.id)) item.source = ctSource;
   entries.find(x => x.id === 'burden').source = { label: '富士電機テクニカ：CTの負担', url: 'https://www.fujielectric.co.jp/technica/products/instrument-transformers/faq/instrument-transformers/04.html', checked: '2026-10-10' };
@@ -231,5 +241,5 @@
     { pages: ['ocr-tap-calculator'], definition: 'OCRの動作電流の基準を選ぶ設定。通常、継電器へ入力する二次電流の値で示します。', example: '一次換算は「二次のタップ値×CT比」。時間ダイヤルとは別の設定です。' },
     { pages: ['ct-calculator','single-line-lab','ukiwamemo_kyounonande_b_ground'], definition: '変圧器の巻線の途中から取り出した接続点。使用する巻数を変え、電圧比を調整します。', example: '銘板のタップ電圧と、実際の接続位置を区別して確認します。' }
   ];
-  return { version: '20261010', entries };
+  return { version: '20261018', entries };
 });

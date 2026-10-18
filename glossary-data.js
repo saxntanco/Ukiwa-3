@@ -267,6 +267,12 @@ window.UkiwaGlossary = [
 ['','Branch Circuit','分岐回路','ぶんきかいろ','low','分電盤の分岐ブレーカーから、コンセントや照明などへ分かれていく回路。','','branch-circuit'],
 ['','Receptacle with Earthing Terminal','接地極付コンセント','せっちきょくつきこんせんと','low','差込口に接地用の極があるコンセント。洗濯機など水気のある場所の機器で使う。','','receptacle-with-earthing-terminal'],
 ['','Korndorfer starting','コンドルファ','こんどるふぁしどう','low','単巻変圧器で電圧を下げて始動し、その後に全電圧運転へ切り替える始動方式。','equipment-map.html|関連する教材','korndorfer'],
+['','Scott connection (Scott-T transformer)','スコット結線','すこっとけっせん','tr','単相変圧器2台をT字に組み、三相を90°ずれた2つの単相に変える結線。単相負荷を三相に平衡してのせられる。','scott-transformer.html|非常用発電機とスコット','scott-connection'],
+['','Main transformer','M座（主座）','えむざ（しゅざ）','tr','スコット結線で、三相の2線の間につなぐ中点タップ付きの変圧器。MはMainの頭文字。','scott-transformer.html|非常用発電機とスコット','m-seat'],
+['','Teaser transformer','T座','てぃーざ','tr','スコット結線で、残りの1線とM座の中点の間につなぐ変圧器。巻数はM座の√3/2。TはTeaserの頭文字。','scott-transformer.html|非常用発電機とスコット','t-seat'],
+['','Negative-sequence current','逆相電流','ぎゃくそうでんりゅう','theory','不平衡な三相電流に含まれる、逆向きの相順で回る成分。発電機や電動機の発熱の原因になる。','scott-transformer.html|非常用発電機とスコット','negative-sequence-current'],
+['','Positive-sequence component','正相分','せいそうぶん','theory','不平衡な三相を分けたときの、正しい相順で回る平衡な成分。','','positive-sequence'],
+['','Double-throw switch','ダブルスロー（双投開閉器）','だぶるすろー','gen','1つの負荷を、2つの電源のどちらか一方へ切り替えてつなぐ開閉器。商用と発電機の切替に使う。','scott-transformer.html|非常用発電機とスコット','double-throw'],
 /* ---- 発電・蓄電・非常用 ---- */
 ['','Emergency generator','非常用発電機','ひじょうようはつでんき','gen','停電のとき、消防設備や保安負荷へ電気を送る発電機。','generator-rescue-island.html|非常用発電機の教材','emergency-generator'],
 ['ATS','Automatic Transfer Switch','自動切替開閉器','じどうきりかえかいへいき','gen','停電を検出して、電源を商用から発電機へ自動で切り替える。','','automatic-transfer-switch'],
