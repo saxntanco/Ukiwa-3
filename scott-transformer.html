@@ -11,7 +11,7 @@ html[data-theme="sunset"]{--sc-muted:#6f5464}
 .card{padding:18px;border:1px solid var(--sc-line);border-radius:18px;background:var(--sc-panel);margin:24px 0}.card h2{margin:4px 0 10px;font-size:clamp(23px,4vw,32px);line-height:1.35;text-wrap:balance}.card h3{margin:18px 0 6px;font-size:18px}.card p{margin:8px 0}.card a{text-decoration:underline}
 .card details{padding:12px 0;border-top:1px solid var(--sc-line)}.card summary{font-weight:700;cursor:pointer}
 .plain-answer{border-left:4px solid var(--sc-acc);padding:14px 18px;background:var(--sc-panel2);border-radius:8px;font-size:17px}
-.learning-path ol{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 18px;padding-left:24px;margin:10px 0 0}
+.learning-path ol{display:grid;grid-template-columns:repeat(5,1fr);gap:6px 18px;padding-left:24px;margin:10px 0 0}
 .muted{color:var(--sc-muted)}.small{font-size:13px}
 .formula{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--sc-panel2);padding:8px 12px;border-radius:8px;overflow-x:auto;white-space:nowrap;margin:8px 0}
 .footer{margin-top:36px;padding:25px 0 46px;border-top:1px solid var(--sc-line);font-size:11px}
@@ -28,7 +28,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 .reasons .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:0 8px;margin-right:6px;border:1px solid var(--sc-line);vertical-align:2px}
 
 /* シミュレーター */
-.sc-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}
+.sc-modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:14px 0}
 .sc-modes button{font:inherit;color:inherit;text-align:left;cursor:pointer;background:var(--sc-panel);border:1px solid var(--sc-line);border-radius:12px;padding:10px 12px;display:grid;gap:2px;min-width:0}
 .sc-modes button b{font-size:15px}.sc-modes button span{font-size:12px;color:var(--sc-muted);line-height:1.5}
 .sc-modes button[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--sc-acc)}
@@ -47,7 +47,8 @@ html[data-motion="paused"] .flow{animation-play-state:paused}
 .sc-ctl small{color:var(--sc-muted);font-size:12px;line-height:1.5}
 .sc-ctl input[type=range]{width:100%;accent-color:var(--sc-acc);height:26px;margin:0}
 .sc-split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.sc-chips{display:flex;flex-wrap:wrap;gap:6px}.sc-chips button{font:inherit;font-size:13px;color:inherit;cursor:pointer;background:var(--sc-panel2);border:1px solid var(--sc-line);border-radius:999px;padding:4px 12px}
+.sc-chips{display:flex;flex-wrap:wrap;gap:6px}.sc-chips button[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--sc-acc);font-weight:700}
+.sc-chips button{font:inherit;font-size:13px;color:inherit;cursor:pointer;background:var(--sc-panel2);border:1px solid var(--sc-line);border-radius:999px;padding:4px 12px}
 .sc-verdict{display:grid;gap:6px;padding:14px;border-radius:12px;border:1px solid var(--sc-line);background:var(--sc-panel2)}
 .sc-pill{justify-self:start;font-size:13px;font-weight:700;border-radius:999px;padding:2px 12px;color:#fff;background:var(--sc-muted)}
 html[data-theme="dark"] .sc-pill{color:#0c172b}
@@ -81,17 +82,17 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 .sc-tag.ok{background:var(--sc-ok)}.sc-tag.warn{background:var(--sc-warn)}.sc-tag.bad{background:var(--sc-bad)}
 .refs li{margin:10px 0}.refs small{display:block;color:var(--sc-muted)}
 @media(max-width:860px){.sc-grid{grid-template-columns:minmax(0,1fr)}.learning-path ol{grid-template-columns:1fr 1fr}.reasons{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:560px){.sc-modes{grid-template-columns:minmax(0,1fr)}.sc-scopes{grid-template-columns:minmax(0,1fr)}.sc-hint{display:block}.card{padding:16px 12px}.hero{padding-top:30px}}
+@media(max-width:560px){.sc-modes{grid-template-columns:repeat(2,minmax(0,1fr))}.sc-modes button{padding:8px 10px}.sc-modes button b{font-size:14px}.sc-scopes{grid-template-columns:minmax(0,1fr)}.sc-hint{display:block}.card{padding:16px 12px}.hero{padding-top:30px}}
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="非常用発電機の単相負荷に、なぜスコットトランスを使う？ 普通の変圧器1台・スコット・変圧器3台で発電機の逆相電流がどう変わるかを動かして比べるシミュレーター付き。発電機容量・JEM 1354の許容逆相電流・設備不平衡率・ダブルスローまで、文献つきで整理。"></head><body><header class="top"><div class="in"><a href="index.html"><b>🛟 うきわメモ</b></a><a href="generator-rescue-island.html">← 非常用発電機</a></div></header><main class="in">
+<meta name="description" content="非常用発電機の単相負荷に、なぜスコットトランスを使う？ 単相変圧器1台・2台・逆V結線・スコット・3台の5通りで発電機の逆相電流がどう変わるかを動かして比べるシミュレーター付き。発電機容量・JEM 1354の許容逆相電流・設備不平衡率・ダブルスローまで、文献つきで整理。"></head><body><header class="top"><div class="in"><a href="index.html"><b>🛟 うきわメモ</b></a><a href="generator-rescue-island.html">← 非常用発電機</a></div></header><main class="in">
 
-<section class="hero"><span class="k">EMERGENCY GENERATOR × SCOTT TRANSFORMER</span><h1>非常用発電機に、<br>なぜスコットトランス？</h1><p>停電してダブルスローが発電機側に倒れると、非常照明やコンセントなどの単相負荷は、すべて発電機1台にのります。<b>その単相負荷を、発電機の3つの相に平衡してのせるための変圧器</b>がスコットトランスです。「普通の変圧器じゃだめなの？」を、<a href="#lab">シミュレーター</a>で確かめられます。</p></section>
+<section class="hero"><span class="k">EMERGENCY GENERATOR × SCOTT TRANSFORMER</span><h1>非常用発電機に、<br>なぜスコットトランス？</h1><p>停電してダブルスローが発電機側に倒れると、非常照明やコンセントなどの単相負荷は、すべて発電機1台にのります。<b>その単相負荷を、発電機の3つの相に平衡してのせるための変圧器</b>がスコットトランスです。「普通の変圧器じゃだめなの？」「逆V結線なら？」を、5通りのつなぎ方の<a href="#lab">シミュレーター</a>で確かめられます。</p></section>
 
 <div class="safe"><b>このページの前提：</b>理想変圧器・三相210Vの発電機で計算した学習用のモデルです。発電機の許容逆相電流、変圧器の仕様、負荷の振り分けは、設備の図面、発電機・変圧器の仕様書とメーカー資料、出力計算書を優先してください。</div>
 
-<nav class="card learning-path" aria-label="このページの順番"><b>この順番で読むと、「なぜスコット？」に答えられます。</b><ol><li><a href="#answer">ひとことで</a></li><li><a href="#lab">動かして比べる</a></li><li><a href="#normal">普通の変圧器じゃだめ？</a></li><li><a href="#reasons">スコットを選ぶ7つの理由</a></li><li><a href="#names">M座・T座ってなに？</a></li><li><a href="#how">√3/2 のしくみ</a></li><li><a href="#double-throw">ダブルスローとの関係</a></li><li><a href="#field">現場で見るところ</a></li><li><a href="#refs">出典</a></li></ol></nav>
+<nav class="card learning-path" aria-label="このページの順番"><b>この順番で読むと、「なぜスコット？」に答えられます。</b><ol><li><a href="#answer">ひとことで</a></li><li><a href="#lab">動かして比べる</a></li><li><a href="#normal">普通の変圧器じゃだめ？</a></li><li><a href="#inverse-v">逆V結線・単相2台は？</a></li><li><a href="#reasons">スコットを選ぶ7つの理由</a></li><li><a href="#names">M座・T座ってなに？</a></li><li><a href="#how">√3/2 のしくみ</a></li><li><a href="#double-throw">ダブルスローとの関係</a></li><li><a href="#field">現場で見るところ</a></li><li><a href="#refs">出典</a></li></ol></nav>
 
 <section class="card" id="answer"><span class="k">01 ひとことで</span><h2>単相負荷の「偏り」を、発電機に背負わせないため。</h2>
 <p class="plain-answer"><b>スコットトランスは、三相を、位相が90°ずれた2つの単相に変える変圧器です。</b><br>2つの単相（M座とT座）に同じくらいの負荷をかければ、発電機から見た三相の電流がそろいます。</p>
@@ -99,12 +100,14 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 <ul><li><b>回転子が熱くなる</b>：電流の偏りから<b>逆相電流</b>が生まれ、回転子の表面や制動巻線に渦電流が流れます。</li><li><b>電圧が崩れる</b>：同じ発電機で動く消火ポンプや排煙機などの三相モーターが過熱し、トルクも落ちます。</li><li><b>発電機を大きくしないといけない</b>：出力計算で、偏りの分だけ必要な発電機容量が増えます。</li></ul>
 </section>
 
-<section class="card" id="lab"><span class="k">02 動かして比べる</span><h2>同じ単相負荷を、3通りのつなぎ方で。</h2>
-<p>線の太さが電流の大きさ、流れる点の速さも電流に合わせて動きます。スコットで「半分ずつにする」を押すと、3本の線の太さがそろいます。</p>
+<section class="card" id="lab"><span class="k">02 動かして比べる</span><h2>同じ単相負荷を、5通りのつなぎ方で。</h2>
+<p>線の太さが電流の大きさ、流れる点の速さも電流に合わせて動きます。スコットで「半分ずつ」を押すと、3本の線の太さがそろいます。逆V結線では、ベクトル図で2本の電流が<b>同じ向きに重なる</b>ところを見てください。</p>
 <div class="sc-modes" role="group" aria-label="単相負荷のつなぎ方">
-  <button type="button" id="sc-mode-single" data-mode="single" aria-pressed="true"><b>普通の変圧器1台</b><span>単相変圧器をU–W間につなぐ</span></button>
+  <button type="button" id="sc-mode-single" data-mode="single" aria-pressed="true"><b>単相変圧器1台</b><span>2線の間に1台。つなぐ相を選べる</span></button>
+  <button type="button" id="sc-mode-two" data-mode="two" aria-pressed="false"><b>単相変圧器2台</b><span>U–VとV–Wに1台ずつ。負荷を2つに</span></button>
+  <button type="button" id="sc-mode-iv" data-mode="iv" aria-pressed="false"><b>逆V結線</b><span>2台の二次を直列。単相1回路</span></button>
   <button type="button" id="sc-mode-scott" data-mode="scott" aria-pressed="false"><b>スコット結線</b><span>M座とT座。負荷を2つに分ける</span></button>
-  <button type="button" id="sc-mode-three" data-mode="three" aria-pressed="false"><b>普通の変圧器3台</b><span>U–V・V–W・W–Uに3つに分ける</span></button>
+  <button type="button" id="sc-mode-three" data-mode="three" aria-pressed="false"><b>単相変圧器3台</b><span>U–V・V–W・W–Uに3つに分ける</span></button>
 </div>
 <noscript><p class="safe">シミュレーターの計算にはJavaScriptを使います。下の解説と計算式はそのまま読めます。</p></noscript>
 <div class="sc-grid">
@@ -116,7 +119,9 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
       <div class="sc-ctl"><div class="sc-ctl-head"><label for="sc-sn">発電機の容量</label><output id="sc-sn-o"></output></div><input type="range" id="sc-sn" min="30" max="500" step="5" value="100"><small>三相210V。定格電流もあわせて表示します。</small></div>
       <div class="sc-ctl"><div class="sc-ctl-head"><label for="sc-s3">三相負荷（消火ポンプ・排煙機など）</label><output id="sc-s3-o"></output></div><input type="range" id="sc-s3" min="0" max="100" step="1" value="40"><small>三相に平衡してかかる負荷。力率0.8。</small></div>
       <div class="sc-ctl"><div class="sc-ctl-head"><label for="sc-s1">単相負荷の合計（非常照明・コンセントなど）</label><output id="sc-s1-o"></output></div><input type="range" id="sc-s1" min="0" max="100" step="0.5" value="20"></div>
-      <div class="sc-ctl" id="sc-share-box" hidden><div class="sc-ctl-head"><label for="sc-share">M座とT座への振り分け</label><output id="sc-share-o"></output></div><input type="range" id="sc-share" min="0" max="100" step="1" value="60"><div class="sc-chips"><button type="button" id="sc-share-even">半分ずつにする</button><button type="button" id="sc-share-all">全部M座にする</button></div></div>
+      <div class="sc-ctl" id="sc-pair-box"><div class="sc-ctl-head"><b>単相変圧器をつなぐ相</b><output id="sc-pair-o"></output></div><div class="sc-chips" role="group" aria-label="つなぐ相"><button type="button" data-pair="UW">U–W</button><button type="button" data-pair="UV">U–V</button><button type="button" data-pair="VW">V–W</button></div></div>
+      <div class="sc-ctl" id="sc-shared-box" hidden><div class="sc-ctl-head"><b>逆V結線の共通の相</b><output id="sc-shared-o"></output></div><div class="sc-chips" role="group" aria-label="共通の相"><button type="button" data-shared="U">U相</button><button type="button" data-shared="V">V相</button><button type="button" data-shared="W">W相</button></div><small>共通の相に、ほかの2相の2倍の電流が流れます。</small></div>
+      <div class="sc-ctl" id="sc-share-box" hidden><div class="sc-ctl-head"><label for="sc-share" id="sc-share-label">M座とT座への振り分け</label><output id="sc-share-o"></output></div><input type="range" id="sc-share" min="0" max="100" step="1" value="60"><div class="sc-chips"><button type="button" id="sc-share-even">半分ずつ</button><button type="button" id="sc-share-all">全部M座</button><button type="button" id="sc-share-t">全部T座</button></div></div>
       <div class="sc-ctl" id="sc-three-box" hidden><div class="sc-ctl-head"><b>3台への振り分け</b><output id="sc-three-o"></output></div>
         <div class="sc-split"><label class="sc-ctl"><small>U–V</small><input type="range" id="sc-w1" min="0" max="100" value="40"></label><label class="sc-ctl"><small>V–W</small><input type="range" id="sc-w2" min="0" max="100" value="30"></label><label class="sc-ctl"><small>W–U</small><input type="range" id="sc-w3" min="0" max="100" value="30"></label></div>
         <div class="sc-chips"><button type="button" id="sc-three-even">3等分にする</button></div></div>
@@ -126,21 +131,21 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
     <div class="sc-verdict"><span class="sc-pill" id="sc-pill"></span><p id="sc-verdict"></p></div>
     <div class="sc-metrics">
       <div class="sc-metric" id="sc-m-i2"><div class="k2">逆相電流（定格電流に対して）</div><div class="v" id="sc-v-i2"></div></div>
-      <div class="sc-metric" id="sc-m-vu"><div class="k2">発電機の電圧の不平衡（約）</div><div class="v" id="sc-v-vu"></div></div>
+      <div class="sc-metric" id="sc-m-vu"><div class="k2">発電機の電圧の不平衡（約）</div><div class="v" id="sc-v-vu"></div><div class="k2" id="sc-v-mot"></div></div>
       <div class="sc-metric" id="sc-m-max"><div class="k2">いちばん重い相の電流</div><div class="v" id="sc-v-max"></div></div>
-      <div class="sc-metric" id="sc-m-mot"><div class="k2">三相モーターの温度上昇の増え方（目安）</div><div class="v" id="sc-v-mot"></div></div>
+      <div class="sc-metric" id="sc-m-ratio"><div class="k2">単相負荷ぶんの線電流の比（U : V : W）</div><div class="v" id="sc-v-ratio"></div></div>
     </div>
     <div class="sc-sub"><h3>各相の電流</h3><small>縦線＝定格電流</small></div><div class="sc-bars" id="sc-bars"></div>
     <div class="sc-sub"><h3>正相分と逆相分</h3><small>縦線＝許容逆相電流</small></div><div class="sc-bars" id="sc-seq"></div>
-    <div class="sc-sub"><h3>ベクトルと波形</h3><small>点線＝定格電流</small></div>
-    <div class="sc-scopes"><svg id="sc-phasor" data-uv-zoom="off" viewBox="0 0 240 240" role="img" aria-label="線電流のベクトル図"></svg><svg id="sc-wave" data-uv-zoom="off" viewBox="0 0 300 150" role="img" aria-label="線電流の波形"></svg></div>
+    <div class="sc-sub"><h3>ベクトルと波形</h3><small>ベクトル＝単相負荷ぶん／波形＝線電流</small></div>
+    <div class="sc-scopes"><svg id="sc-phasor" data-uv-zoom="off" viewBox="0 0 240 240" role="img" aria-label="単相負荷ぶんの線電流のベクトル図"></svg><svg id="sc-wave" data-uv-zoom="off" viewBox="0 0 300 150" role="img" aria-label="線電流の波形"></svg></div>
     <div class="sc-legend"><span><i style="background:var(--sc-u)"></i>U相（赤）</span><span><i style="background:var(--sc-v)"></i>V相（白）</span><span><i style="background:var(--sc-w)"></i>W相（青）</span></div>
   </div>
 </div>
 
-<h3>同じ負荷で、3つのつなぎ方を並べると</h3>
-<p class="small muted">いまの発電機容量・三相負荷・単相負荷の合計のまま、つなぎ方だけを変えた結果です。スコットと3台は均等に振り分けた場合。「単相負荷の上限」は、逆相電流が許容値以下で、どの相も定格電流を超えない範囲です。</p>
-<div class="table-wrap"><table class="sc-table"><thead><tr><th>つなぎ方</th><th>変圧器</th><th>取り出せる電灯回路</th><th>逆相電流</th><th>電圧の不平衡</th><th>いちばん重い相</th><th>単相負荷の上限</th></tr></thead><tbody id="sc-cmp"></tbody></table></div>
+<h3>同じ負荷で、つなぎ方を並べると</h3>
+<p class="small muted">いまの発電機容量・三相負荷・単相負荷の合計のまま、つなぎ方だけを変えた結果です。2台・スコット・3台は、とくに書いていなければ均等に振り分けた場合。「単相負荷の上限」は、逆相電流が許容値以下で、どの相も定格電流を超えない範囲です。</p>
+<div class="table-wrap"><table class="sc-table"><thead><tr><th>つなぎ方</th><th>変圧器</th><th>取り出せる回路</th><th>電流比 U:V:W</th><th>逆相電流</th><th>電圧の不平衡</th><th>いちばん重い相</th><th>単相負荷の上限</th></tr></thead><tbody id="sc-cmp"></tbody></table></div>
 
 <details><summary>計算の前提を変える（許容逆相電流・逆相リアクタンス）</summary>
 <p class="small">既定の許容逆相電流15%は、NEGA C 201（自家発電設備の出力算定法）が示す JEM 1354 の規定値 0.150 pu です。これを超える値は特別仕様の発電機になります。逆相リアクタンス x₂ は機種で違うので、仕様書の値に変えてください。単相負荷は力率1、三相負荷は力率0.8、変圧器は損失なしで計算しています。</p>
@@ -158,7 +163,31 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 <details><summary>逆相電流の式はどこから？</summary><p class="formula">I₂ = (I_U + a²·I_V + a·I_W) ÷ 3　　a = 1∠120°</p><p>2相間の単相負荷 S（線間電圧 V）では、線電流 I = S/V、逆相電流 I₂ = I/√3。定格電流 Iₙ = Sₙ/(√3V) なので、I₂/Iₙ = S/Sₙ になります。</p></details>
 </section>
 
-<section class="card" id="reasons"><span class="k">04 スコットを選ぶ理由</span><h2>逆相電流だけじゃない、7つの理由。</h2>
+<section class="card" id="inverse-v"><span class="k">04 逆V結線・単相2台はどう？</span><h2>3本に流れても、偏りが減るとは限らない。</h2>
+<h3>逆V結線：単相変圧器2台で、単相を1回路</h3>
+<p>三相のうち1つの相を「共通の相」にして、単相変圧器2台の一次を、共通の相と残りの2相の間に1台ずつ（共通相Uなら U–V と U–W）つなぎます。2台の二次は直列にして、1つの単相回路にします。巻数比が同じなら、二次の電圧は1台分の√3倍です。</p>
+<p>二次が直列なので、2台には<b>同じ電流</b>が流れます。一次側も同じで、共通相をUとすると、V相とW相には I が<b>同じ向き</b>に流れ、U相には2つがまとめて 2I で戻ってきます。これが「1 : 2 : 1」です。ダイヘンはこれを「不平衡同相電流」と呼んでいます。</p>
+<div class="table-wrap"><table class="sc-table sc-names"><thead><tr><th>同じ容量の単相負荷</th><th>単相変圧器1台（U–W）</th><th>逆V結線（共通相U）</th></tr></thead><tbody>
+<tr><th scope="row">いちばん重い線</th><td>1.00（U・W）</td><td><b>1.15</b>（U）</td></tr>
+<tr><th scope="row">ほかの線</th><td>0（V）</td><td>0.577（V・W）</td></tr>
+<tr><th scope="row">逆相電流 ÷ 定格電流</th><td colspan="2"><b>どちらも 単相負荷 ÷ 電源容量</b>（同じ）</td></tr>
+</tbody></table></div>
+<p class="small muted">電流は「単相負荷 ÷ 線間電圧」を1とした値。この1.15と0.577は、三菱電機のFAQの数値と一致します。</p>
+<p><b>3本すべてに電流が流れても、発電機が困る逆相電流は単相変圧器1台と同じで、重い線はむしろ15%大きくなります。</b>三菱電機のFAQは、逆V結線は三相側が完全平衡にならず、非常用発電機には使用できない、受電では不平衡率100%なので電力会社との協議が必要な場合がある、としています。用途には大容量の溶接機用の変圧器が挙げられています。内線規程の解説記事では、2つに分けられない単相負荷が1台のときの接続方法として、逆V結線（300kVA以下）が紹介されています。</p>
+<details><summary>逆相電流が単相変圧器1台と同じになる計算</summary>
+<p class="formula">I₂ = (I_U + a²·I_V + a·I_W) ÷ 3　　a = 1∠120°</p>
+<p>共通相Uの逆V結線では I_U = −2I、I_V = I_W = I。a + a² = −1 なので I₂ = (−2I − I) ÷ 3 = −I。正相分 I₁ も同じ大きさになり、「不平衡率100%」です。I の大きさは 単相負荷 ÷ (√3 × 線間電圧) なので、I₂ ÷ 定格電流 ＝ 単相負荷 ÷ 電源容量 になります。</p>
+</details>
+<h3>逆V結線は「スコットのT座だけ」と同じ形</h3>
+<p>スコットのT座だけに負荷をかけると、V相に電流が入り、中点Oで半分ずつU相とW相に分かれます。V : U : W ＝ 2 : 1 : 1 の、同じ向きの電流です。これは共通相をVにした逆V結線とまったく同じです。シミュレーターのスコットで「全部T座」を押すと、逆V結線（共通相V）と同じ数字になります。「全部M座」なら単相変圧器1台と同じです。</p>
+<p><b>スコットが平衡するのは、M座とT座の両方に負荷をかけて、2つの偏りを打ち消し合わせるから</b>です。負荷が1回路しかなければ、どの方式でも逆相電流は減らせません。</p>
+<h3>単相変圧器2台：半分には減るが、0にはならない</h3>
+<p>単相変圧器を2つの線間（U–VとV–W）に1台ずつ置き、負荷を半分ずつにすると、逆相電流は単相変圧器1台の<b>半分</b>になります。2つの線間の電圧が120°ずれているので、偏りが一部だけ打ち消し合うからです。スコットのように0にはなりません。内線規程の解説記事では、単相負荷が2台なら、スコット結線のほか、1台200kVA以下なら普通の変圧器2台でもよい、という目安が紹介されています。</p>
+<h3>名前が同じ別物に注意</h3>
+<p>発電機の販売・レンタル会社のコラムでは、<b>単相200Vから擬似的な三相200Vを作る</b>トランスを「逆Vトランス」と呼んでいます。単相しかない現場で三相モーターを一時的に動かすための応急用です。ここでいう逆V結線（三相から単相を取る受変電の変圧器）とは向きが逆なので、資料を読むときは入力と出力が三相・単相のどちらかを確かめてください。</p>
+</section>
+
+<section class="card" id="reasons"><span class="k">05 スコットを選ぶ理由</span><h2>逆相電流だけじゃない、7つの理由。</h2>
 <ol class="reasons">
 <li><b>1. 発電機の逆相電流を出さない</b>M座とT座の負荷がそろえば、発電機から見た三相の電流は平衡し、逆相電流は0です。許容逆相電流の規定値はJEM 1354で15%（0.150 pu）で、これを超えると特別仕様の発電機になります。<span class="src">NEGA C 201</span></li>
 <li><b>2. 発電機を大きくしなくて済む</b>消防用の非常電源の発電機は、NEGA C 201の出力算定法で容量を決めます。単相負荷が各線間で偏ると、偏り（ΔP）から「線電流の増加係数 Sf」が大きくなり、定常負荷出力係数 RG1 が増えます。逆相電流で決まる RG4 も効きます。<b>同じ負荷でも、偏っているだけで必要な発電機容量が上がります。</b>発電機が大きくなれば、本体の価格、発電機室の広さ、燃料まで大きくなります。NEGA C 201 は RG4 が過大なときの対策に「負荷の平衡化」を挙げています。<span class="src">NEGA C 201／消防予第159号</span></li>
@@ -166,12 +195,12 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 <li><b>4. 電灯の単相3線100/200Vが2系統取れる</b>M座・T座のそれぞれから、独立した単相回路が取れます。非常照明の系統とコンセントの系統のように、2つに分けて給電できます。最近は三相の非常用発電機から単相2系統へ給電する用途でよく使われています。<span class="src">ダイヘン FAQ</span></li>
 <li><b>5. 変圧器の台数とスペースが少ない</b>単相変圧器3台で3つの線間に振り分けても平衡しますが、スコットなら2台で済み、負荷も2つにそろえるだけです。M座とT座を1つのケースに収めた製品もあり、変圧器1台分のスペースで設置できます。<span class="src">三菱電機 寸法表／施工の解説記事</span></li>
 <li><b>6. 商用側の「設備不平衡率30%」にも効く</b>高圧受電の三相3線式では、設備不平衡率は原則30%以下です（内線規程1305節）。単相負荷が大きくて収まらないときの対策として、スコット結線は定番の方法です。<span class="src">内線規程の解説記事</span></li>
-<li><b>7. 逆V結線より平衡が取れる</b>逆V結線も単相変圧器2台で単相を取る方法ですが、出力は1系統で、三相の電流は1:2:1になり平衡しません。逆V結線は安いぶん、非常用発電機には向きません。<span class="src">技術解説記事</span></li>
+<li><b>7. 逆V結線より平衡が取れる</b>逆V結線も単相変圧器2台を使いますが、出力は単相1回路で、三相の電流は1:2:1になり平衡しません。逆相電流は単相変圧器1台と同じで、メーカーも「非常用発電機には使用できません」としています。くわしくは<a href="#inverse-v">逆V結線・単相2台はどう？</a>へ。<span class="src">三菱電機 FAQ</span></li>
 </ol>
 <p class="small muted"><b>確認できなかったこと：</b>「単相変圧器3台よりスコットのほうが安い・小さい」という、メーカーの価格や寸法の直接比較は見つかりませんでした。台数が少なく、T座の一次巻線が√3/2で済むので有利と考えられますが、実際は見積もりで確かめてください。</p>
 </section>
 
-<section class="card" id="how"><span class="k">05 しくみ</span><h2>T座の巻数は、M座の √3/2。</h2>
+<section class="card" id="how"><span class="k">06 しくみ</span><h2>T座の巻数は、M座の √3/2。</h2>
 <h3 id="names">M座・T座は何の略？</h3>
 <div class="table-wrap"><table class="sc-table sc-names"><thead><tr><th></th><th>M座</th><th>T座</th></tr></thead><tbody>
 <tr><th scope="row">略</th><td><b>M ＝ Main</b>（メイン）。日本語では「主座」とも</td><td><b>T ＝ Teaser</b>（ティーザー）</td></tr>
@@ -191,13 +220,13 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 <details><summary>電験で問われるところ</summary><ul><li>T座の巻数（タップ位置）は主座の <b>√3/2（約0.866）</b></li><li>二次は大きさが等しく <b>90°ずれた</b>2つの単相（二相）</li><li>二次負荷が平衡していれば、一次側（三相）も平衡する</li><li>用途：交流電気鉄道のき電、電気炉、非常用発電機の単相負荷</li></ul></details>
 </section>
 
-<section class="card" id="double-throw"><span class="k">06 ダブルスローとの関係</span><h2>発電機側に倒れた瞬間から、この話になる。</h2>
+<section class="card" id="double-throw"><span class="k">07 ダブルスローとの関係</span><h2>発電機側に倒れた瞬間から、この話になる。</h2>
 <p>ダブルスロー（切替開閉器）は、非常用の負荷を商用と発電機のどちらにつなぐかを切り替えます。両方に同時につながらない構造（インターロック）になっています。よくある構成は2つです。</p>
 <ul><li><b>単相回路を切り替える</b>：非常用の単相負荷を2グループに分け、商用時は電灯変圧器から、停電時はダブルスローでM座とT座の二次から受けます。</li><li><b>三相側で切り替える</b>：三相の非常用母線をダブルスローで切り替え、その下のスコットから、商用時も発電時も単相負荷に送ります。</li></ul>
 <p>どちらの構成かは、現場の単線結線図で確かめてください。どちらでも、<b>商用の単相とスコットの二次、M座とT座の二次は、それぞれ別の電源</b>です。M座とT座の二次は位相が90°ずれているので、互いにつないではいけません。</p>
 </section>
 
-<section class="card" id="field"><span class="k">07 現場で見るところ</span><h2>点検と改修で気をつけること。</h2>
+<section class="card" id="field"><span class="k">08 現場で見るところ</span><h2>点検と改修で気をつけること。</h2>
 <ul>
 <li><b>二次の2回路を並列にしない。</b>M座とT座の出力をまとめて1回路にすると、変圧器の焼損につながります。</li>
 <li><b>1つの座で使えるのは定格容量の半分まで。</b>定格容量は「M座＋T座」で、両方が同じとして設計されています。</li>
@@ -219,11 +248,15 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 <li><a href="https://www.mitsubishielectric.co.jp/fa/products/taca/trns/pmerit/dry/option/low_pressure09.html" target="_blank" rel="noopener">三菱電機 スコット結線変圧器 保護ケース付外形寸法</a><small>M座・T座を1つの保護ケースに収めた製品の寸法表（5〜300kVA）。</small></li>
 <li><a href="https://harita2021.com/%E5%8F%97%E5%A4%89%E9%9B%BB%E3%81%AE%E8%A8%AD%E8%A8%88%EF%BD%9C%E5%A4%89%E5%9C%A7%E5%99%A8%E3%81%AE%E8%A8%AD%E5%82%99%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%8E%8730%EF%BC%85%E4%BB%A5%E4%B8%8B%E3%81%AB%E3%81%A7/" target="_blank" rel="noopener">HARITAの設計室「変圧器の設備不平衡率30%以下にできないときの対策」</a><small>三相3線式は原則30%以下（内線規程1305節）。対策に変圧器の分割、スコット結線・逆V結線。</small></li>
 <li><a href="https://koko325-kentsu.hatenablog.jp/entry/2026/08/28/090000" target="_blank" rel="noopener">設備施工の教科書「スコット結線変圧器の動作原理とベクトル計算」</a><small>M座・T座の一体構成で変圧器1台分のスペース。両座の差は10〜15%以内が目安、各座の電流の実測。</small></li>
+<li><a href="https://fa-faq.mitsubishielectric.co.jp/faq/show/16111?site_domain=default" target="_blank" rel="noopener">三菱電機 FAQ「逆V結線変圧器」</a><small>三相から単相1回路。Iu1 = 2Iv1 = 2Iw1。同容量の単相変圧器と比べて Iu1 = 1.15Iu2、Iv1 = Iw1 = 0.577Iv2。三相側は完全平衡にならず非常用発電機には使用できない。不平衡率100%で、受電では電力会社との協議が必要な場合がある。用途に大容量の溶接機用変圧器。</small></li>
+<li><a href="https://www.daihen.co.jp/products/electric/faq/how/q09.html" target="_blank" rel="noopener">ダイヘン「逆V結線とはどのような結線ですか？」</a><small>単相負荷を分散できないときの単相回路の供給方式。一次側に不平衡同相電流が流れる。</small></li>
+<li><a href="https://harita2021.com/%E5%86%85%E7%B7%9A%E8%A6%8F%E7%A8%8B%E3%81%AE%E8%A7%A3%E9%87%88%E3%81%A8%E8%A7%A3%E8%AA%AC%EF%BD%9C1305%E7%AF%80-%E4%B8%8D%E5%B9%B3%E8%A1%A1%E8%B2%A0%E8%8D%B7%E3%81%AE%E5%88%B6%E9%99%90%E5%8F%8A/" target="_blank" rel="noopener">HARITAの設計室「内線規程の解釈と解説：1305節 不平衡負荷の制限」</a><small>単相負荷1台は逆V結線（300kVA以下）、2台はスコット結線（1台200kVA以下なら普通の変圧器2台も可）、3台は各線間に1台ずつ。条件は内線規程の原文で確認が必要。</small></li>
+<li><a href="https://hatsudenki.jp/column/column-1484/" target="_blank" rel="noopener">発電機.jp「スコットトランス・逆Vトランス・専用単相トランスの違い＆つなぎ方」</a><small>単相200Vから擬似三相200Vを作る応急用の「逆Vトランス」。</small></li>
 <li><a href="https://www.makoto-elec.com/inverted-v-connection/" target="_blank" rel="noopener">逆V結線の仕組み・不平衡・発電機NGの理由</a><small>逆V結線は単相1系統、電流比1:2:1で完全には平衡しない。非常用発電機には原則避ける。</small></li>
 <li><a href="https://en.wikipedia.org/wiki/Scott-T_transformer" target="_blank" rel="noopener">Scott-T transformer（Wikipedia）</a><small>2台を main transformer と teaser transformer（巻数比 √3/2）と呼ぶ。考案はウェスチングハウスのチャールズ・F・スコット（1890年代）。</small></li>
 <li><a href="https://patents.google.com/patent/JPH06310350A/ja" target="_blank" rel="noopener">明電舎 特許 JPH06310350A「異容量負荷三相単相スコット結線変圧器」（1993年出願）</a><small>ビルの変圧器は設置スペースが限られ、三相用とスコット用を別に置くとスペースが大きくなる。</small></li>
 </ul>
 <p class="small muted">電圧の不平衡は「逆相電流 × 逆相リアクタンス」、モーターの温度上昇の増え方は「電圧不平衡率 u% のとき約 2u² %」（NEMA MG1の目安）で見積もっています。</p>
 </section>
-</main><footer class="footer"><div class="in">© 2026 うきわメモ｜教育用モデル。設計・改修は図面・仕様書・出力計算書・メーカー資料を優先。</div></footer><script src="scott-transformer.js?v=20261018"></script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
+</main><footer class="footer"><div class="in">© 2026 うきわメモ｜教育用モデル。設計・改修は図面・仕様書・出力計算書・メーカー資料を優先。</div></footer><script src="scott-transformer.js?v=20261018b"></script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
 </body></html>

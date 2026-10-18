@@ -65,8 +65,8 @@ mark{background:#fff1a8;color:inherit;border-radius:3px}
 <div class="empty" id="empty" hidden>見つかりませんでした。別の言い方（英語・ひらがな）でも探してみてください。</div>
 <p class="note-foot">英語の名前は、日本の現場で使われている呼び方を中心にしています。メーカーや資料によって表記が違うことがあります。法令の数値や区分は改正されることがあるので、最新の法令・規程で確かめてください。実際の設備・試験では、取扱説明書や社内の手順に従ってください。</p>
 </main>
-<script src="term-help-data.js?v=20261018"></script>
-<script src="glossary-data.js?v=20261018"></script>
+<script src="term-help-data.js?v=20261018b"></script>
+<script src="glossary-data.js?v=20261018b"></script>
 <script>
 (()=>{
 const D=window.UkiwaGlossary,C=window.UkiwaGlossaryCats,catName=Object.fromEntries(C);
@@ -93,7 +93,7 @@ for(const x of items){
 }
 // Long annotations load on first use.
 let detailP=null;
-const loadDetail=()=>detailP||(detailP=new Promise((ok,ng)=>{const s=document.createElement('script');s.src='term-detail.js?v=20261018';s.onload=()=>ok(window.UkiwaTermDetail||{});s.onerror=()=>{detailP=null;ng()};document.head.append(s)}));
+const loadDetail=()=>detailP||(detailP=new Promise((ok,ng)=>{const s=document.createElement('script');s.src='term-detail.js?v=20261018b';s.onload=()=>ok(window.UkiwaTermDetail||{});s.onerror=()=>{detailP=null;ng()};document.head.append(s)}));
 function fill(id,more){const body=more.querySelector('.more-body');if(body.dataset.done)return;body.textContent='読み込み中…';
  loadDetail().then(d=>{const secs=d[id]||[];body.innerHTML=secs.length?secs.map(([h,t])=>'<section><h3>'+esc(h)+'</h3>'+t.split('\n').filter(Boolean).map(p=>'<p>'+esc(p)+'</p>').join('')+'</section>').join('')+'<a class="back" href="#glossary-top">▲ 目次へ戻る</a>':'<p>くわしい解説は準備中です。</p>';body.dataset.done='1'}).catch(()=>{body.textContent='解説を読み込めませんでした。通信状態を確かめて、もう一度開いてください。'})}
 const btn=(k,label,n)=>{const b=document.createElement('button');b.type='button';b.textContent=label+'（'+n+'）';b.setAttribute('aria-pressed',k===cat);b.onclick=()=>{cat=k;[...cats.children].forEach(x=>x.setAttribute('aria-pressed',x===b));render()};cats.append(b)};

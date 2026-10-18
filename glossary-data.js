@@ -272,6 +272,7 @@ window.UkiwaGlossary = [
 ['','Teaser transformer','T座','てぃーざ','tr','スコット結線で、残りの1線とM座の中点の間につなぐ変圧器。巻数はM座の√3/2。TはTeaserの頭文字。','scott-transformer.html|非常用発電機とスコット','t-seat'],
 ['','Negative-sequence current','逆相電流','ぎゃくそうでんりゅう','theory','不平衡な三相電流に含まれる、逆向きの相順で回る成分。発電機や電動機の発熱の原因になる。','scott-transformer.html|非常用発電機とスコット','negative-sequence-current'],
 ['','Positive-sequence component','正相分','せいそうぶん','theory','不平衡な三相を分けたときの、正しい相順で回る平衡な成分。','','positive-sequence'],
+['','Inverse-V connection','逆V結線','ぎゃくぶいけっせん','tr','単相変圧器2台で三相から単相1回路を取る結線。線電流は1:2:1で、三相側は平衡しない。','scott-transformer.html#inverse-v|逆V結線・単相2台はどう？','inverse-v'],
 ['','Double-throw switch','ダブルスロー（双投開閉器）','だぶるすろー','gen','1つの負荷を、2つの電源のどちらか一方へ切り替えてつなぐ開閉器。商用と発電機の切替に使う。','scott-transformer.html|非常用発電機とスコット','double-throw'],
 /* ---- 発電・蓄電・非常用 ---- */
 ['','Emergency generator','非常用発電機','ひじょうようはつでんき','gen','停電のとき、消防設備や保安負荷へ電気を送る発電機。','generator-rescue-island.html|非常用発電機の教材','emergency-generator'],

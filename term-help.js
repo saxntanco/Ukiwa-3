@@ -13,7 +13,7 @@
     node.onload = resolve; node.onerror = reject; document.head.append(node);
   });
   const ready = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
-  Promise.all([ready, load('term-help.css?v=20261012-3', true), load('term-help-data.js?v=20261018'), load('glossary-data.js?v=20261018').catch(() => null)])
+  Promise.all([ready, load('term-help.css?v=20261012-3', true), load('term-help-data.js?v=20261018b'), load('glossary-data.js?v=20261018b').catch(() => null)])
     .then(() => init(core.mergeGlossary(root.UkiwaTermData.entries, root.UkiwaGlossary || [], root.UkiwaGlossaryCats || []))).catch(() => { /* Original page remains fully usable if the optional glossary cannot load. */ });
 
   function init(entries) {
@@ -90,7 +90,7 @@
     const detailKey = 'ukiwa-term-detail-open-v1';
     let detailOpen = false;
     try { detailOpen = localStorage.getItem(detailKey) === 'open'; } catch (_) { /* Optional. */ }
-    const loadDetail = () => detailPromise || (detailPromise = load('term-detail.js?v=20261018').then(() => root.UkiwaTermDetail || {}).catch(() => { detailPromise = null; return {}; }));
+    const loadDetail = () => detailPromise || (detailPromise = load('term-detail.js?v=20261018b').then(() => root.UkiwaTermDetail || {}).catch(() => { detailPromise = null; return {}; }));
     function detailBlock(sections) {
       const details = el('details', '', 'ut-detail'); details.open = detailOpen;
       const length = sections.reduce((sum, [h, t]) => sum + h.length + t.length, 0);

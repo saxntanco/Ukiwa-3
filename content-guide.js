@@ -111,7 +111,7 @@
   if (document.querySelector('script[data-ukiwa-term-loader]')) return;
   const script = document.createElement('script');
   script.dataset.ukiwaTermLoader = 'true';
-  script.src = new URL('term-help.js?v=20261018', document.currentScript.src);
+  script.src = new URL('term-help.js?v=20261018b', document.currentScript.src);
   script.defer = true;
   document.head.append(script);
 })();

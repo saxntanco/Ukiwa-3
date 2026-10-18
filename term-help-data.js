@@ -220,6 +220,7 @@
     ['t-seat','T座','Ｔ座|ティーザー座','スコット結線の2台のうち、一次を残りの1線（V）とM座の中点の間につなぐ変圧器。巻数はM座の√3/2（約86.6%）。','T は Teaser（ティーザー）の頭文字。英語では teaser transformer と呼びます。','「T結線」のTは2台をT字に組む形から。T座のTとは由来が別です。'],
     ['negative-sequence-current','逆相電流','逆相分','不平衡な三相電流を対称座標法で分けたときの、正しい相順と逆向きに回る成分。','発電機では回転子に2倍の周波数の渦電流を生み、発熱の原因になります。','配線の相順を逆につなぐ「逆相」（モーターが逆に回る）とは別の意味です。'],
     ['positive-sequence','正相分','正相電流','不平衡な三相を対称座標法で分けたときの、正しい相順で回る平衡な成分。','三相が完全に平衡していれば、電流は正相分だけになります。'],
+    ['inverse-v','逆V結線','逆V結線変圧器|逆Ｖ結線','単相変圧器2台の一次を、共通の1相と残りの2相の間に1台ずつつなぎ、二次を直列にして単相1回路を取る結線。','共通の相に2倍、ほかの2相に1倍ずつの電流（1:2:1）が、同じ向きに流れます。','逆相電流は単相変圧器1台と同じで、非常用発電機には使えないとされています。'],
     ['double-throw','ダブルスロー','双投開閉器|ダブルスロースイッチ','1つの負荷を、2つの電源のどちらか一方につなぎかえる開閉器。','非常用の負荷を、商用電源と発電機のどちらから受けるか切り替えます。','両方に同時につながらないよう、インターロックが付いています。']
   ]);
   group('科学のことば', 'library.html', [
@@ -233,6 +234,7 @@
   ]);
   const scottSource = { label: 'Scott-T transformer（Wikipedia）', url: 'https://en.wikipedia.org/wiki/Scott-T_transformer', checked: '2026-10-18' };
   for (const item of entries) if (['scott-connection','m-seat','t-seat'].includes(item.id)) item.source = scottSource;
+  entries.find(x => x.id === 'inverse-v').source = { label: '三菱電機 FAQ：逆V結線変圧器', url: 'https://fa-faq.mitsubishielectric.co.jp/faq/show/16111?site_domain=default', checked: '2026-10-18' };
   const ctSource = { label: '日本電気技術者協会：変流器の用語と選定', url: 'https://www.jeea.or.jp/course/contents/02109/', checked: '2026-10-10' };
   for (const item of entries) if (['ct','ct-ratio','vt','rated-burden','accuracy','ratio-error','phase-error','ct-saturation','overcurrent-factor','overcurrent-strength'].includes(item.id)) item.source = ctSource;
   entries.find(x => x.id === 'burden').source = { label: '富士電機テクニカ：CTの負担', url: 'https://www.fujielectric.co.jp/technica/products/instrument-transformers/faq/instrument-transformers/04.html', checked: '2026-10-10' };
