@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="2022〜2026年の熱分野・課目ⅡとⅣ、60大問をもとに整理。12の親公式セットから、条件と式変形でボイル・シャルル、ポンプ動力、熱交換器、制御を復元する学習ガイド。">
+  <meta name="description" content="2022〜2026年の熱分野・課目ⅡとⅣ、60大問をもとに整理。13の親公式セットから、条件と式変形でボイル・シャルル、ポンプ動力、熱交換器、制御を復元する学習ガイド。">
   <title>エネルギー管理士 親公式から覚える｜うきわメモ</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="energy-formulas.css?v=20261004-1">
@@ -24,13 +24,13 @@
   <a class="ef-primary" href="#formula-01">01 状態方程式から読む ↓</a>
 </section>
 <details class="ef-intro"><summary>「親公式」の範囲・記号・単位</summary><div class="ef-intro-body">
-  <p>ここでの12セットは、法則・定義・応用のまとまり。12本の独立した根本法則ではなく、09の熱交換器は03と08の組合せ。PV＝mRTだけから、全てが導けるわけではない。</p>
+  <p>ここでの13セットは、法則・定義・応用のまとまり。13本の独立した根本法則ではなく、09の熱交換器は03と08の組合せ。PV＝mRTだけから、全てが導けるわけではない。</p>
   <p>Q：熱量 [J]、Q̇：単位時間当たりの熱量 [W]、W：仕事 [J]、L：動力 [W]。小文字のu・h・sは1 kg当たり。温度比はK、状態方程式の圧力は絶対圧力。</p>
   <p><b>1 kPa·m³ = 1 kJ、1 kW = 1 kJ/s。</b>温度差1 Kと1 ℃の数値は同じ。各式の記号は、そのすぐ下で確認できる。</p>
 </div></details>
 <section id="formula-list" aria-labelledby="list-title">
-  <div class="ef-section-head"><div><p class="ef-eyebrow">12 BASIC SETS</p><h2 id="list-title">覚える親と、そこから作る式</h2></div><p>項目を開くと、導出・条件・過去問との対応へ。</p></div>
-  <nav class="ef-jumps" aria-label="親公式の分野"><a href="#formula-01">状態・熱力学</a><a href="#formula-06">質量・流体</a><a href="#formula-08">伝熱</a><a href="#formula-12">制御</a><a href="#past-papers">過去問対応表</a></nav>
+  <div class="ef-section-head"><div><p class="ef-eyebrow">13 BASIC SETS</p><h2 id="list-title">覚える親と、そこから作る式</h2></div><p>項目を開くと、導出・条件・過去問との対応へ。</p></div>
+  <nav class="ef-jumps" aria-label="親公式の分野"><a href="#formula-01">状態・熱力学</a><a href="#formula-06">質量・流体</a><a href="#formula-08">伝熱</a><a href="#formula-12">制御</a><a href="#formula-13">湿り空気</a><a href="#past-papers">過去問対応表</a></nav>
   <div class="ef-tools" hidden><button type="button" id="open-all">すべて開く</button><button type="button" id="close-all">すべて閉じる</button></div>
   <div class="ef-formulas">
 
@@ -45,7 +45,18 @@
 <p class="ef-copy">v：比体積 [m³/kg]、ρ：密度 [kg/m³]。「比」はこの場合、質量1 kg当たりの意味。PV=mRTをmで割るとPv=RTになる。</p>
 <h4>ここは条件ごと覚える</h4>
 <p class="ef-copy">T = t + 273.15。P絶対 = Pゲージ + P大気。水と蒸気が共存する湿り蒸気や、相変化付近の冷媒へ理想気体式を安易に使わず、問題で与えられた物性表を使う。</p>
-<p class="ef-muted">mを使うRと、物質量nを使う一般気体定数は単位が異なる。mRとnR̄を混同しない。</p>
+<h4>PV＝mRT と PV＝nRT は、同じ式の書き方違い</h4>
+<p class="ef-copy">化学で習う PV＝nRT は「何モルあるか」で数える書き方、熱力学でよく使う PV＝mRT は「何kgあるか」で数える書き方。中身は同じ式で、<b>Rの中身と単位が違う</b>。</p>
+<div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mi>P</mi><mi>V</mi><mo>=</mo><mi>n</mi><msub><mi>R</mi><mn>0</mn></msub><mi>T</mi><mo>,</mo><mspace width="1em"/><mi>n</mi><mo>=</mo><mfrac><mi>m</mi><mi>M</mi></mfrac><mo>,</mo><mspace width="1em"/><mi>R</mi><mo>=</mo><mfrac><msub><mi>R</mi><mn>0</mn></msub><mi>M</mi></mfrac></mrow></mrow><annotation encoding="application/x-tex">PV=nR_0T,\quad n=\frac{m}{M},\quad R=\frac{R_0}{M}</annotation></semantics></math></span></div>
+<div class="ef-table-wrap" tabindex="0"><table><thead><tr><th></th><th>PV＝nR₀T（物質量で数える）</th><th>PV＝mRT（質量で数える）</th></tr></thead><tbody>
+<tr><th scope="row">量</th><td>n：物質量 [mol] または [kmol]</td><td>m：質量 [kg]</td></tr>
+<tr><th scope="row">定数</th><td>R₀：<b>一般気体定数</b>。どの気体でも同じ 8.314 J/(mol·K) ＝ 8.314 kJ/(kmol·K)</td><td>R：<b>その気体の気体定数</b>。気体ごとに違う [J/(kg·K)]</td></tr>
+<tr><th scope="row">つなぎ</th><td colspan="2">M：モル質量（分子量）[kg/kmol]。n＝m/M、R＝R₀/M</td></tr>
+</tbody></table></div>
+<div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mi>n</mi><msub><mi>R</mi><mn>0</mn></msub><mo>=</mo><mfrac><mi>m</mi><mi>M</mi></mfrac><msub><mi>R</mi><mn>0</mn></msub><mo>=</mo><mi>m</mi><mfrac><msub><mi>R</mi><mn>0</mn></msub><mi>M</mi></mfrac><mo>=</mo><mi>m</mi><mi>R</mi></mrow></mrow><annotation encoding="application/x-tex">nR_0=\frac{m}{M}R_0=m\frac{R_0}{M}=mR</annotation></semantics></math></span></div>
+<p class="ef-copy">たとえば空気（M≒28.97 kg/kmol）なら、R＝8.314÷28.97≒0.287 kJ/(kg·K)。水蒸気（M≒18.02）なら約0.461 kJ/(kg·K)。軽い気体ほどRが大きい。</p>
+<div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><msub><mi>R</mi><mtext>空気</mtext></msub><mo>=</mo><mfrac><mn>8.314</mn><mn>28.97</mn></mfrac><mo>≈</mo><mn>0.287</mn><mtext> kJ/(kg·K)</mtext></mrow></mrow><annotation encoding="application/x-tex">R_{\text{空気}}=\frac{8.314}{28.97}\approx 0.287\ \mathrm{kJ/(kg\cdot K)}</annotation></semantics></math></span></div>
+<p class="ef-muted">一般気体定数は資料によって R₀、R̄、R_u と書かれる。エネ管の問題では、気体ごとのR [kJ/(kg·K)] が与えられて PV＝mRT で解くことが多い。どちらのRかは単位で見分ける：J/(mol·K) なら一般気体定数、J/(kg·K) ならその気体の気体定数。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>2022・2025年のⅡ問4で気体の状態量。2023・2026年のⅡ問4では、気体サイクルの各状態を結ぶ基本になる。</p>
 <a class="ef-next" href="#formula-02">次：02 第一法則と比熱 →</a>
 <section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>PV=mRTで、Pとmを一定にしたら、VとTのどんな比が一定になる？</p><details><summary>考え方を確かめる</summary><p>両辺をPTで割るとV/T=mR/P。右辺が一定だからV/Tが一定。Tは絶対温度K。V・T自体が一定なのではない。</p></details><a class="ef-next" href="energy-open-practice.html#gas-charles">この式を使うオリジナル練習 →</a></section>
@@ -262,8 +273,28 @@
 <div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>G</mi><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>H</mi><mi>Y</mi><mo stretchy="false">)</mo><mspace width="1em"/><mo>⟹</mo><mspace width="1em"/><mfrac><mi>Y</mi><mi>R</mi></mfrac><mo>=</mo><mfrac><mi>G</mi><mrow><mn>1</mn><mo>+</mo><mi>G</mi><mi>H</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">Y=G(R-HY)\quad\Longrightarrow\quad \frac{Y}{R}=\frac{G}{1+GH}</annotation></semantics></math></span></div>
 <p class="ef-copy">R：目標信号、Y：出力信号、G：順方向の伝達関数、H：検出・戻り経路の伝達関数。各式はラプラス領域。帰還の符号・センサの位置を図で確認して立式する。</p>
 <p class="ef-evidence"><b>過去問との対応</b><br>5年ともⅣ問12が制御。2023・2026年は比例動作の偏差計算、2025年はPIDの伝達関数表現。制御方式の名称・構成理解も別途必要。</p>
-<a class="ef-next" href="#past-papers">過去問の対応表へ →</a>
+<a class="ef-next" href="#formula-13">次：13 湿り空気 →</a>
 <section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>比例帯PBを半分にするとKpと同じ偏差への操作量変化はどうなる？</p><details><summary>考え方を確かめる</summary><p>同じ入出力の正規化ならKp=100/PB[%]で2倍。比例部分の操作量変化Kpeも2倍。ただし飽和しない範囲。</p></details><a class="ef-next" href="energy-open-practice.html#control-proportional">この式を使うオリジナル練習 →</a></section>
+</div></details>
+<details class="ef-topic" id="formula-13">
+<summary><span class="ef-number">13</span><span class="ef-summary-text"><span class="ef-topic-label">流体・収支 <span class="ef-badge">応用</span></span><strong>湿り空気</strong><span class="ef-preview">分圧 → 絶対湿度・相対湿度・エンタルピー</span></span><span class="ef-chevron" aria-hidden="true">＋</span></summary>
+<div class="ef-topic-body"><h3>空気は「乾き空気＋水蒸気」の二人組</h3><p>空調・加湿・乾燥の計算は、湿り空気を乾き空気と水蒸気の混合気体として扱う。親は01の状態方程式と、06の質量保存。</p>
+<h4>全圧は、二つの分圧の和（ドルトンの法則）</h4>
+<div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mi>P</mi><mo>=</mo><msub><mi>p</mi><mi>a</mi></msub><mo>+</mo><msub><mi>p</mi><mi>w</mi></msub></mrow></mrow><annotation encoding="application/x-tex">P=p_a+p_w</annotation></semantics></math></span></div>
+<p class="ef-copy">P：湿り空気の全圧、p_a：乾き空気の分圧、p_w：水蒸気の分圧。それぞれが同じ体積・温度でPV＝mRTに従うと考える。</p>
+<h4>絶対湿度と相対湿度</h4>
+<div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mi>x</mi><mo>=</mo><mn>0.622</mn><mfrac><msub><mi>p</mi><mi>w</mi></msub><mrow><mi>P</mi><mo>−</mo><msub><mi>p</mi><mi>w</mi></msub></mrow></mfrac><mo>,</mo><mspace width="1em"/><mi>φ</mi><mo>=</mo><mfrac><msub><mi>p</mi><mi>w</mi></msub><msub><mi>p</mi><mi>s</mi></msub></mfrac></mrow></mrow><annotation encoding="application/x-tex">x=0.622\frac{p_w}{P-p_w},\quad \varphi=\frac{p_w}{p_s}</annotation></semantics></math></span></div>
+<p class="ef-copy">x：絶対湿度 [kg/kg(DA)]。乾き空気1 kgに含まれる水蒸気の質量。0.622は水と空気のモル質量の比（18.02÷28.97）。φ：相対湿度。p_s はその温度の飽和水蒸気圧（蒸気表で読む）。<b>x は乾き空気基準、φ は飽和に対する割合</b>で、意味が違う。</p>
+<details><summary>0.622 を、01の状態方程式から作る</summary><p>同じ体積V・温度Tで、水蒸気は m_w＝p_wV/(R_wT)、乾き空気は m_a＝p_aV/(R_aT)。割ると x＝m_w/m_a＝(R_a/R_w)(p_w/p_a)。R＝R₀/M なので R_a/R_w＝M_w/M_a＝18.02/28.97≒0.622。p_a＝P−p_w を入れると上の式になる。</p></details>
+<h4>湿り空気のエンタルピー（乾き空気1 kg当たり）</h4>
+<div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mi>h</mi><mo>≈</mo><mn>1.006</mn><mi>t</mi><mo>+</mo><mi>x</mi><mo stretchy="false">(</mo><mn>2501</mn><mo>+</mo><mn>1.86</mn><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">h\approx 1.006t+x(2501+1.86t)</annotation></semantics></math></span></div>
+<p class="ef-copy">h [kJ/kg(DA)]、t [℃]。1.006は乾き空気の定圧比熱、2501は0 ℃の水の蒸発熱、1.86は水蒸気の定圧比熱。<b>係数は資料によって少し違う（1.005、1.85など）</b>ので、試験では問題文や与えられた値を使う。</p>
+<h4>加湿・加熱は、06と03の収支そのもの</h4>
+<div class="ef-equation" tabindex="0" aria-label="数式。長い式は横にスクロールできます"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><msub><mi>ṁ</mi><mrow><mi>d</mi><mi>a</mi></mrow></msub><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>ṁ</mi><mi>w</mi></msub><mo>=</mo><msub><mi>ṁ</mi><mrow><mi>d</mi><mi>a</mi></mrow></msub><msub><mi>x</mi><mn>2</mn></msub><mo>,</mo><mspace width="1em"/><msub><mi>ṁ</mi><mrow><mi>d</mi><mi>a</mi></mrow></msub><msub><mi>h</mi><mn>1</mn></msub><mo>+</mo><msub><mi>ṁ</mi><mi>w</mi></msub><msub><mi>h</mi><mi>w</mi></msub><mo>+</mo><mi>Q</mi><mo>=</mo><msub><mi>ṁ</mi><mrow><mi>d</mi><mi>a</mi></mrow></msub><msub><mi>h</mi><mn>2</mn></msub></mrow></mrow><annotation encoding="application/x-tex">\dot m_{da}x_1+\dot m_w=\dot m_{da}x_2,\quad \dot m_{da}h_1+\dot m_w h_w+Q=\dot m_{da}h_2</annotation></semantics></math></span></div>
+<p class="ef-copy">ṁ_da：乾き空気の質量流量（加湿しても変わらない）、ṁ_w：加える水・蒸気の流量、h_w：そのエンタルピー、Q：加熱量。乾き空気の流量を基準にすると、水分の収支もエネルギーの収支もすっきり書ける。06の乾燥収支も同じ考え方。</p>
+<p class="ef-evidence"><b>過去問との対応</b><br>2022年Ⅳ問16（暖房・水噴霧加湿）、2023年Ⅳ問11（湿度）。2024・2026年Ⅳ問18の乾燥収支では、06の質量保存と組み合わせて使う。問題ごとに与えられる湿り空気線図・物性値を優先する。</p>
+<a class="ef-next" href="#past-papers">過去問の対応表へ →</a>
+<section class="ef-rebuild" aria-label="復元チェック"><h4>閉じる前に、自分で復元</h4><p>全圧101.3 kPa、水蒸気分圧2.0 kPaの湿り空気の絶対湿度は？</p><details><summary>考え方を確かめる</summary><p>x＝0.622×2.0÷(101.3−2.0)＝0.622×2.0÷99.3≒0.0125 kg/kg(DA)。分母は全圧ではなく、乾き空気の分圧 P−p_w。</p></details></section>
 </div></details>
 </div></section>
 <section id="past-papers" class="ef-past" aria-labelledby="past-title"><p class="ef-eyebrow">OFFICIAL PAST PAPERS</p><h2 id="past-title">どの過去問で使う？</h2><p>2022〜2026年の課目Ⅱ・Ⅳ、計10冊・60大問をテーマで整理。小問別の出題頻度や得点率の集計ではなく、<b>複数分野へ使い回せる範囲と、理解の前提関係</b>から学習順を決めている。</p>
