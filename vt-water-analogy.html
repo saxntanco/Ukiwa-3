@@ -1,0 +1,184 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="耐圧試験で、ケーブルの心はつかみ忘れても試験されないだけなのに、PASのU・V・Wはつかみ忘れるとVTに電圧がかかる。その理由を水圧のたとえで動かして見るシミュレーター。"><title>水圧で見る：ケーブルはよくてVTがだめな理由｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930">
+<style>
+.pickers{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.pickers button{border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:12px;background:var(--island-bg-ffffff-100,#fff);color:inherit;padding:9px 12px;font-size:14px;font-weight:700}
+.pickers button[aria-pressed=true]{background:#167888;border-color:#167888;color:#fff}
+.ctrl{display:grid;gap:12px;margin:4px 0 14px}
+.ctrl .grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctrl .lbl{font-size:14px;font-weight:800;min-width:96px}
+.ctrl input[type=range]{flex:1;min-width:180px}
+.seg{display:inline-flex;border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:12px;overflow:hidden}
+.seg button{border:0;border-right:1px solid var(--island-line-cbdbe4-100,#ccdfe7);background:var(--island-bg-ffffff-100,#fff);color:inherit;padding:7px 12px;font-size:14px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:#167888;color:#fff;font-weight:800}
+.wfig{background:#eef6fb;border:1px solid #cbdce5;border-radius:16px;padding:8px;margin:0 0 14px}
+.wfig svg{display:block;width:100%;height:auto}
+.verdict{border-radius:14px;padding:13px 15px;margin:0 0 12px;border:2px solid;font-weight:700;line-height:1.7}
+.verdict.ok{border-color:#2f8a4e;background:#eaf6ee;color:#1d5b33}
+.verdict.warn{border-color:#b7791f;background:#fdf4e3;color:#6b4510}
+.verdict.ng{border-color:#b83a2b;background:#fcebe8;color:#7a2118}
+.verdict.calm{border-color:#5d7f95;background:#eef3f6;color:#2b4656}
+.verdict small{display:block;font-weight:400;margin-top:4px}
+.meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 12px}
+.meter{border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:12px;padding:9px 11px;background:var(--island-bg-ffffff-100,#fff)}
+.meter span{display:block;font-size:12px;color:#4b6475}
+.meter b{font-size:19px;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:6px;background:#dbe7ee;position:relative;margin-top:6px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.bar em{position:absolute;top:-3px;bottom:-3px;width:2px;background:#203b50}
+.maptab{width:100%;border-collapse:collapse;font-size:14px}
+.maptab th,.maptab td{padding:9px 8px;border-bottom:1px solid var(--island-line-cbdbe4-100,#ccdfe7);text-align:left;vertical-align:top}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.three .box{border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:14px;padding:12px;background:var(--island-bg-ffffff-100,#fff)}
+.three .box b{display:block;margin-bottom:4px}
+@media(max-width:640px){.three{grid-template-columns:1fr}.ctrl .lbl{width:100%}}
+</style>
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a></nav></header><main>
+<section class="hero"><span class="eyebrow">SIMULATOR / 水圧のたとえ</span><h1>ケーブルはつかみ忘れても<br>「試験されないだけ」。<br>PASはなぜだめ？</h1><p class="lead">耐圧試験の3相一括で、ケーブルの心は1本つかみ忘れても壊れるものはない。でもPASのU・V・Wをつかみ忘れると、内蔵VTに電圧がかかる。その違いを、<b>水圧</b>に置きかえて動かして見ます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#sim">動かして見る</a><a href="#map">たとえの対応表</a><a href="#why">ケーブルとVTのちがい</a><a href="#limit">このモデルの限界</a></nav></section>
+
+<section class="sheet" id="sim"><h2>動かして見る</h2>
+<p>ポンプ（試験器）が水圧（電圧）をかけ続けています。交流なので、水は<b>1秒に50回（60Hzなら60回）、押したり引いたり</b>を繰り返します。下のボタンで、つかみ方を切り替えてください。</p>
+<div class="pickers" id="scene"><button data-s="ok" aria-pressed="true">① PASを全部つかむ（正しい）</button><button data-s="vt" aria-pressed="false">② PASのUをつかみ忘れ</button><button data-s="cab" aria-pressed="false">③ ケーブルの心をつかみ忘れ</button></div>
+<div class="ctrl">
+<div class="grp"><span class="lbl">右のタンクの大きさ</span><input id="len" type="range" min="0" max="60" step="0.5" value="30" aria-label="右側につながるケーブルの長さ m"><span class="num" id="lenv"></span></div>
+<div class="grp"><span class="lbl">周波数</span><div class="seg" id="freq"><button data-f="50" aria-pressed="true">50Hz</button><button data-f="60" aria-pressed="false">60Hz</button></div></div>
+</div>
+<div class="wfig" id="fig"></div>
+<div id="verdict" class="verdict ok" aria-live="polite"></div>
+<div class="meters" id="meters"></div>
+<p class="caption" style="font-size:12px;color:#4b6475">タンクの大きさ＝右側の相にぶら下がる対地静電容量（PAS内部 50pF ＋ CV38mm² 1心 0.32μF/km × 長さ）。数値は、<a href="pas-vt-withstand-simulator.html#model">VT内蔵PAS 耐圧試験シミュレーター</a>と同じ線形モデル（VTの励磁電流 2mA@6,600V、二次開放、飽和なし）で計算しています。水の動きはゆっくりにして見せています。</p>
+</section>
+
+<section class="sheet" id="map"><h2>たとえの対応表</h2>
+<table class="maptab">
+<tr><th>水</th><th>電気</th></tr>
+<tr><td>ポンプ</td><td>耐圧試験器</td></tr>
+<tr><td>水圧</td><td>電圧（大地からの高さ）</td></tr>
+<tr><td>太い管</td><td>電線・短絡クリップ（水圧が下がらない）</td></tr>
+<tr><td><b>細くて長いホース</b></td><td><b>VTの一次巻線</b>（何千回も巻いたコイル。水を通しにくい）</td></tr>
+<tr><td>タンク</td><td>対地静電容量（芯線と遮へい層のあいだ）</td></tr>
+<tr><td>タンクに水を出し入れする流れ</td><td>充電電流</td></tr>
+<tr><td>ホースの入口と出口の水圧の差</td><td><b>VTにかかる電圧</b></td></tr>
+</table>
+</section>
+
+<section class="sheet" id="why"><h2>ケーブルとVTのちがい</h2>
+<div class="three">
+<div class="box"><b>① 全部つかむ</b>左右が太い管でつながり、同じ水圧。ホースの入口と出口に差がないので、ホースの中の水は動かない。<br><b style="color:#2f8a4e;margin-top:6px">VT：0V</b></div>
+<div class="box"><b>② PASのUをつかみ忘れ</b>右のタンクには、<b>ホースを通ってしか水が入らない</b>。交流でタンクを満たしては抜くので、ホースの中を水が行き来し、入口と出口に水圧の差ができる。<br><b style="color:#b83a2b;margin-top:6px">VT：電圧がかかる</b></div>
+<div class="box"><b>③ ケーブルの心をつかみ忘れ</b>ケーブルの心と心のあいだには何もない。右のタンクは<b>どこともつながっていない</b>ので、水は入らず、何も流れない。<br><b style="color:#5d7f95;margin-top:6px">試験されないだけ</b></div>
+</div>
+<p class="keyline" style="margin-top:14px">VTが危ないのは、<b>ホース（巻線）でつながっているから</b>。つながっていなければ水は流れない（ケーブル）。太い管でつながっていれば差ができない（クリップ）。「細い道だけでつながっている」ときに、その細い道に負担が集まる。</p>
+<p>クリップでつかむのは、ホースの横に<b>太いバイパス管</b>を作ること。そうすれば水はバイパスを通り、ホースの両端は同じ水圧になります。</p>
+</section>
+
+<section class="sheet" id="limit"><h2>このモデルの限界</h2>
+<ul>
+<li>本物のVTの巻線は「細いホース」というより、<b>重い水車（勢いがつくと止まりにくい）</b>に近いコイルです。そのため、タンクの大きさによっては<b>共振</b>して、ホースの差が試験電圧より大きくなることがあります（スライダーを数mにすると見られます）。</li>
+<li>ケーブルが0mでも、右側の相の水圧が試験電圧に近づくのは、タンクがとても小さく、ほとんど水を出し入れしなくて済むからです。「だから大丈夫」ではなく、何がつながるかで結果が大きく変わり、<b>読めない</b>というのが大事なところです。</li>
+<li>鉄心の飽和、二次側の負担・短絡、相どうしの静電容量は入っていません。焼損するかどうかを判定する道具ではありません。実機の試験は、PASの取扱説明書の指定（三線短絡の3相一括、制御線の処置）に従ってください。</li>
+</ul>
+</section>
+
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a><a href="pukapuka-diary.html#short-clip-9points-20261021">短絡クリップのつなぎ方を整理した日誌</a><a href="pukapuka-diary.html#pas-vt-simulator-20261007">シミュレーターを作った話（日誌）</a></div></section>
+</main><footer>うきわメモ / 2026年10月21日作成 / たとえと計算は原理説明用で、実設備の試験結線図・実測値ではありません。</footer>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const VT=10350,VR=6600,IEX=0.002,RK=10,CS=50e-12,C1=0.32e-6/1000;
+let scene='ok',f=50,len=30;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function solve(){
+ const w=2*Math.PI*f,Xm=VR/IEX,gr=1/(RK*Xm),bl=-1/Xm,C=CS+C1*len,bc=w*C;
+ if(scene==='ok')return{vu:VT,vvt:0,i:0,C};
+ if(scene==='cab')return{vu:0,vvt:null,i:0,C};
+ const dr=gr,di=bl+bc,d=dr*dr+di*di;
+ const rr=(0*dr+bc*di)/d,ri=(bc*dr-0*di)/d;
+ const vvt=VT*Math.hypot(rr,ri);
+ const ur=1-rr,ui=-ri,vu=VT*Math.hypot(ur,ui);
+ const i=vvt*Math.hypot(gr,bl);
+ return{vu,vvt,i,C};
+}
+const fmt=v=>Math.round(v).toLocaleString('ja-JP');
+function col(r){return r<0.05?'#2f8a4e':r<1?'#c27c0e':'#c0392b'}
+let R=solve();
+function svg(t){
+ const s=scene,ph=Math.sin(t);
+ const wU=40+110*Math.min(1,Math.sqrt(R.C/1e-8)),wV=150;
+ const lvlV=86*(0.55+0.4*ph);
+ const fu=Math.min(1.1,R.vu/VT),lvlU=86*fu*(0.55+0.4*ph);
+ const ratio=R.vvt==null?0:R.vvt/VR;
+ const hc=s==='vt'?col(ratio):'#9fb4c2';
+ const water='#3a8fd6';
+ let o='<svg viewBox="0 0 400 330" role="img" aria-label="'+(s==='ok'?'左右が太い管でつながり、ホースの中の水は動かない':s==='vt'?'右のタンクにホースを通って水が出入りし、ホースの両端に水圧の差ができる':'右のタンクはどこにもつながらず、水が入らない')+'">';
+ o+='<rect x="0" y="0" width="400" height="330" rx="12" fill="#f7fbfe"/>';
+ o+='<line x1="10" y1="300" x2="390" y2="300" stroke="#7d8b94" stroke-width="3"/><text x="200" y="320" text-anchor="middle" font-size="13" fill="#4b6475">大地（水圧0）</text>';
+ o+='<circle cx="42" cy="70" r="24" fill="#d6ebfa" stroke="#1f6fb2" stroke-width="2.5"/><path d="M30 70 l24 0 M42 58 l0 24" stroke="#1f6fb2" stroke-width="2.5" transform="rotate('+(t*57%360)+' 42 70)"/>';
+ o+='<text x="42" y="112" text-anchor="middle" font-size="12" font-weight="800" fill="#203b50">ポンプ</text><text x="42" y="127" text-anchor="middle" font-size="11" fill="#203b50">（試験器）</text>';
+ o+='<line x1="42" y1="94" x2="42" y2="300" stroke="#7d8b94" stroke-width="2"/>';
+ o+='<line x1="66" y1="70" x2="130" y2="70" stroke="'+water+'" stroke-width="12" stroke-linecap="round"/>';
+ o+='<line x1="130" y1="70" x2="130" y2="196" stroke="'+water+'" stroke-width="12"/>';
+ const tv=196,th=100;
+ o+='<rect x="'+(130-wV/2+38)+'" y="'+tv+'" width="'+(wV-76)+'" height="'+th+'" rx="4" fill="#fff" stroke="#4b6475" stroke-width="2"/>';
+ o+='<rect x="'+(130-wV/2+40)+'" y="'+(tv+th-2-lvlV)+'" width="'+(wV-80)+'" height="'+lvlV+'" fill="'+water+'" opacity=".75"/>';
+ o+='<text x="130" y="40" text-anchor="middle" font-size="15" font-weight="800" fill="#203b50">左（V相）</text><text x="130" y="56" text-anchor="middle" font-size="14" fill="#1f6fb2">水圧 10,350</text>';
+ const ux=300;
+ const rightName=s==='cab'?'右（ケーブルの心）':'右（U相）';
+ o+='<text x="'+ux+'" y="40" text-anchor="middle" font-size="15" font-weight="800" fill="#203b50">'+rightName+'</text><text x="'+ux+'" y="56" text-anchor="middle" font-size="14" fill="'+(s==='cab'?'#5d7f95':'#1f6fb2')+'">水圧 '+fmt(R.vu)+'</text>';
+ if(s!=='cab'){
+  o+='<line x1="'+ux+'" y1="'+(s==='ok'?70:118)+'" x2="'+ux+'" y2="'+tv+'" stroke="'+water+'" stroke-width="12"/>';
+ }else{
+  o+='<line x1="'+ux+'" y1="92" x2="'+ux+'" y2="'+tv+'" stroke="#c9d6de" stroke-width="12"/>';
+  o+='<text x="'+ux+'" y="80" text-anchor="middle" font-size="13" fill="#5d7f95">どこにもつながっていない</text>';
+ }
+ o+='<rect x="'+(ux-wU/2)+'" y="'+tv+'" width="'+wU+'" height="'+th+'" rx="4" fill="#fff" stroke="#4b6475" stroke-width="2"/>';
+ if(lvlU>0.5)o+='<rect x="'+(ux-wU/2+2)+'" y="'+(tv+th-2-lvlU)+'" width="'+(wU-4)+'" height="'+lvlU+'" fill="'+water+'" opacity=".75"/>';
+ o+='<text x="215" y="188" text-anchor="middle" font-size="12" fill="#4b6475">タンク＝対地静電容量</text>';
+ if(s!=='cab'){
+  const y=118,x1=136,x2=294;let d='M'+x1+' '+y;
+  for(let x=x1;x<x2;x+=12)d+=' q3 -9 6 0 q3 9 6 0';
+  o+='<path d="'+d+'" fill="none" stroke="#203b50" stroke-width="8" stroke-linecap="round" opacity=".25"/>';
+  o+='<path d="'+d+'" fill="none" stroke="'+hc+'" stroke-width="5" stroke-linecap="round"/>';
+  o+='<text x="215" y="148" text-anchor="middle" font-size="14" font-weight="800" fill="'+hc+'">ホース＝VTの巻線</text>';
+  if(s==='vt'&&R.i>0){
+   const amp=Math.min(60,8+14*Math.log10(1+R.i*1e5));
+   for(let k=0;k<6;k++){const bx=x1+12+k*26+amp*Math.cos(t);if(bx>x1&&bx<x2)o+='<circle cx="'+bx.toFixed(1)+'" cy="'+y+'" r="3.2" fill="#fff" stroke="'+hc+'" stroke-width="1.5"/>'}
+   o+='<text x="215" y="166" text-anchor="middle" font-size="13" fill="'+hc+'">水が行き来する</text>';
+  }
+ }
+ if(s==='ok'){
+  o+='<line x1="130" y1="70" x2="'+ux+'" y2="70" stroke="'+water+'" stroke-width="12" stroke-linecap="round"/>';
+  o+='<text x="215" y="92" text-anchor="middle" font-size="14" font-weight="800" fill="#1f6fb2">クリップ＝太いバイパス管</text>';
+ }
+ o+='</svg>';
+ return o;
+}
+function panel(){
+ const s=scene;let cls,txt;
+ if(s==='ok'){cls='ok';txt='クリップ（太い管）で左右が同じ水圧。ホース（VTの巻線）の入口と出口に差がないので、ホースの中の水は動かない。<small>右のタンクも、太い管からいくらでも水を出し入れできる。VTにかかる電圧は0V。</small>'}
+ else if(s==='cab'){cls='calm';txt='ケーブルの心と心のあいだには何もない。右のタンクはどこにもつながっていないので、水は入らず、何も流れない。<small>その心は試験されないだけで、壊れるものはない（相どうしの静電容量は省略）。</small>'}
+ else{const r=R.vvt/VR;cls=r<0.05?'ok':r<1?'warn':'ng';
+  const near=r>3?' 共振している（ホースの水が勢いで行き過ぎる）。この大きな数字は線形モデルの計算値で、実機では鉄心が飽和するので、この値にはならない。それでもVTにとって危険な状態。':r>1.8?' 共振に近い（ホースの水が勢いで行き過ぎる）。':'';
+  txt='右のタンクには、ホースを通ってしか水が入らない。満たしては抜くを繰り返すので、ホースの中を水が行き来し、入口と出口に水圧の差ができる。'+near+'<small>VTの巻線にかかる電圧 約'+fmt(R.vvt)+'V（定格6,600Vの約'+r.toFixed(2)+'倍）。タンクの大きさで結果が大きく変わるので、「たまたま小さい」に頼れない。</small>'}
+ $('verdict').className='verdict '+cls;$('verdict').innerHTML=txt;
+ const r=R.vvt==null?null:R.vvt/VR;
+ const pct=r==null?0:Math.min(100,r/2*100);
+ $('meters').innerHTML='<div class="meter"><span>左（V相）の水圧</span><b>10,350V</b></div>'+
+ '<div class="meter"><span>右の水圧</span><b>'+fmt(R.vu)+'V</b></div>'+
+ '<div class="meter"><span>ホースの差＝VTにかかる電圧</span><b>'+(r==null?'VTなし':fmt(R.vvt)+'V')+'</b>'+(r==null?'':'<div class="bar" aria-hidden="true"><i style="width:'+pct+'%;background:'+col(r)+'"></i><em style="left:50%"></em></div><span>縦線＝定格6,600V</span>')+'</div>'+
+ '<div class="meter"><span>ホースを流れる水（電流）</span><b>'+(R.i*1000).toFixed(R.i*1000<10?2:1)+'mA</b></div>';
+ $('lenv').textContent=len+' m（'+Math.round(R.C*1e12).toLocaleString('ja-JP')+' pF）';
+}
+function update(){R=solve();panel();draw(0)}
+let t0=performance.now();
+function draw(){const t=reduce?Math.PI/2:(performance.now()-t0)/1000*2.2;$('fig').innerHTML=svg(t)}
+function loop(){draw();requestAnimationFrame(loop)}
+document.querySelectorAll('#scene button').forEach(b=>b.onclick=()=>{scene=b.dataset.s;document.querySelectorAll('#scene button').forEach(x=>x.setAttribute('aria-pressed',x===b));update()});
+document.querySelectorAll('#freq button').forEach(b=>b.onclick=()=>{f=+b.dataset.f;document.querySelectorAll('#freq button').forEach(x=>x.setAttribute('aria-pressed',x===b));update()});
+$('len').oninput=e=>{len=+e.target.value;update()};
+update();if(!reduce)requestAnimationFrame(loop);
+})();
+</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
