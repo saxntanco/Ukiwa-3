@@ -15,7 +15,113 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.13</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#smart-hoan-3p4w-ct-20261013">三相4線式のトランスにスマート保安を付けてきた。 負荷電流を見るのに、なぜCTは2つではなく3つなのか。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#short-clip-9points-20261021">ローソンの竣工の前に、短絡クリップのつなぎ方を整理した。 9つの点を同電位にすれば、つなぎ方は何通りあってもいい。</a></li><li><a href="#smart-hoan-3p4w-ct-20261013">三相4線式のトランスにスマート保安を付けてきた。 負荷電流を見るのに、なぜCTは2つではなく3つなのか。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<article class="entry" id="short-clip-9points-20261021" data-update-date="2026/10/21">
+<div class="date">2026.10.21｜竣工検査の予習・絶縁耐力試験</div>
+<h2>ローソンの竣工の前に、短絡クリップのつなぎ方を整理した。<br>9つの点を同電位にすれば、つなぎ方は何通りあってもいい。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>次の現場（コンビニの新設・柱上にVCTが付く設備）に向けて、短絡クリップのつなぎ方と、耐圧試験で何が起きているかを予習した記録です。図は自分で描いた原理図で、実際の機器の配置や端子名とはちがいます。PASの処置（内蔵LA・VT・制御線）は機種ごとの取扱説明書、試験の範囲・開閉状態・試験電圧は作業責任者の指示と社内手順に従います。本記事は日誌であり、作業手順書ではありません。</div>
+<p class="lead">今度の竣工はローソン。<a href="#seven-eleven-completion-20260821">セブンイレブンの竣工</a>で、柱に昇ってPAS負荷側と立上りケーブルを短絡クリップでつないだ、あの作業がまたあります。ただ、あのときは「言われたところをつまんだ」だけで、<b>なぜその形なのか、ほかのつなぎ方ではだめなのか</b>が自分の中で整理できていませんでした。図を描きながら、一つずつ確かめました。</p>
+<div class="pillrow"><a class="pill" href="#clip9-why">1 なぜ柱の上でつなぐ</a><a class="pill" href="#clip9-points">2 9つの点</a><a class="pill" href="#clip9-voltage">3 電圧のかかり方</a><a class="pill" href="#clip9-patterns">4 つなぎ方</a><a class="pill" href="#clip9-double">5 2重にするなら</a><a class="pill" href="#clip9-flow">6 当日の流れ</a><a class="pill" href="#clip9-test">7 耐圧とメガー</a><a class="pill" href="#clip9-trip">8 「はねた」とは</a></div>
+<p class="small"><span class="badge official">🟢 取扱説明書・過去の日誌で確認</span><span class="badge infer">🟡 自分で整理した考え</span></p>
+
+<h3 id="clip9-why">🪜 1. なぜ柱の上でクリップをつなぐのか</h3>
+<p>コンビニのような小さい高圧の設備では、取引用の計器（VCT）が<b>電柱の上</b>、PASと立上りケーブルの間に付くことがあります。VCTは電力会社の機器で、竣工検査の時点ではまだ付いていません。だから柱の上では、<b>PAS負荷側のリード3本と、立上りケーブルの端末3本が、離れたまま</b>になっています。</p>
+<div class="flow">PAS（柱の上）<br>↓ 負荷側リード U・V・W<br>（ここにあとでVCTが付く。今は離れている）<br>↓ 立上りケーブル 3心<br>キュービクル</div>
+<p>PASとケーブルを<b>1回の耐圧試験でまとめて</b>試すには、この離れているところをクリップでつなぐ必要があります。これが柱の上の作業の目的です。</p>
+
+<h3 id="clip9-points">📍 2. 同電位にするのは「9つの点」</h3>
+<p>3相一括の耐圧試験のゴールは、<b>試験する導体を全部ひとつにつないで、同じ電位にすること</b>。数えると、つなぐ点は9つあります。</p>
+<div class="table-scroll"><table>
+<tr><th>場所</th><th>点</th><th>つなぎ方</th></tr>
+<tr><td>柱の上：PAS負荷側</td><td>U・V・W の3点</td><td>クリップでつかむ</td></tr>
+<tr><td>柱の上：ケーブル上端</td><td>3心の3点</td><td>クリップでつかむ、または芯線を通して下から</td></tr>
+<tr><td>キュービクル側：ケーブル下端</td><td>3心の3点</td><td>クリップで三線短絡</td></tr>
+</table></div>
+<p>ポイントは、<b>ケーブルの芯線は上から下まで1本の導体</b>だということ。上端と下端は最初からつながっています。だから、どちらか片方の端でつないでいれば、もう片方の端も同じ電位になります。<span class="badge infer">🟡 整理</span></p>
+
+<h3 id="clip9-voltage">⚡ 3. 電圧は「どこに」かかっているのか</h3>
+<div class="diagram-card"><svg viewBox="0 0 420 470" style="max-width:520px;margin:0 auto;max-height:none" role="img" aria-label="試験器からキュービクル側の三線短絡、ケーブル芯線3本、柱の上のPASのU・V・Wまでが全部つながり、すべて10,350Vになる。ケーブルの遮へい層と大地は0V。柱の上でクリップをつけていないケーブル上端も、芯線を通して10,350Vになる。"><rect x="0" y="0" width="420" height="470" rx="14" fill="#06213a"/><text x="22" y="34" fill="#ffb4a8" font-size="19" font-weight="800">赤いところは、全部 10,350V</text><rect x="130" y="55" width="220" height="62" rx="10" fill="none" stroke="#5d8db0" stroke-width="2" stroke-dasharray="6 4"/><text x="142" y="76" fill="#cfe3ef" font-size="15" font-weight="700">PAS（柱の上）</text><g fill="none" stroke="#9fc0d4" stroke-width="1.6" stroke-dasharray="5 4"><rect x="168" y="146" width="24" height="200" rx="12"/><rect x="228" y="146" width="24" height="200" rx="12"/><rect x="288" y="146" width="24" height="200" rx="12"/></g><g stroke="#9fc0d4" stroke-width="2.5" fill="none"><line x1="192" y1="320" x2="228" y2="320"/><line x1="252" y1="320" x2="288" y2="320"/><path d="M312 320 L392 320 L392 440"/><path d="M60 398 L60 440"/><line x1="20" y1="440" x2="400" y2="440"/></g><rect x="130" y="362" width="220" height="50" rx="10" fill="none" stroke="#5d8db0" stroke-width="2" stroke-dasharray="6 4"/><text x="240" y="404" text-anchor="middle" fill="#cfe3ef" font-size="14">キュービクル側</text><g stroke="#ff8a7a" stroke-width="5" stroke-linecap="round" fill="none"><line x1="180" y1="98" x2="300" y2="98"/><line x1="180" y1="98" x2="180" y2="380"/><line x1="240" y1="98" x2="240" y2="380"/><line x1="300" y1="152" x2="300" y2="380"/><line x1="180" y1="380" x2="300" y2="380"/><line x1="100" y1="380" x2="180" y2="380"/></g><g fill="#ff8a7a"><circle cx="180" cy="98" r="7"/><circle cx="240" cy="98" r="7"/><circle cx="300" cy="98" r="7"/><circle cx="300" cy="152" r="6"/></g><text x="188" y="90" fill="#dff4ff" font-size="13">U</text><text x="248" y="90" fill="#dff4ff" font-size="13">V</text><text x="308" y="90" fill="#dff4ff" font-size="13">W</text><rect x="20" y="362" width="80" height="36" rx="6" fill="#123b5e" stroke="#7fb2ec" stroke-width="2"/><text x="60" y="386" text-anchor="middle" fill="#dff4ff" font-size="15" font-weight="700">試験器</text><text x="320" y="150" fill="#cfe3ef" font-size="13">クリップなし</text><text x="320" y="168" fill="#ff8a7a" font-size="13" font-weight="700">でも10,350V</text><line x1="112" y1="210" x2="166" y2="210" stroke="#cfe3ef" stroke-width="1" stroke-dasharray="3 3"/><text x="22" y="215" fill="#9fc0d4" font-size="14" font-weight="700">遮へい層 0V</text><line x1="122" y1="268" x2="176" y2="268" stroke="#cfe3ef" stroke-width="1" stroke-dasharray="3 3"/><text x="22" y="273" fill="#ff8a7a" font-size="14" font-weight="700">芯線 10,350V</text><text x="200" y="460" text-anchor="middle" fill="#cfe3ef" font-size="14">大地（接地） 0V</text></svg><p class="small center">自分で描き直した原理図。点線のカプセルがケーブルの遮へい層（接地されていて0V）。柱の上はクリップ1個で「PASのU・V・W＋ケーブル1心」をつないだ形</p></div>
+<p>水道でたとえると、試験器は水を押し込むポンプで、赤い線はつながった水道管です。どこか1か所から押し込めば、つながった管の中は<b>どこも同じ水圧</b>になります。右上の、クリップをつけていないケーブル上端は「管の行き止まり」。行き止まりでも水圧は同じなので、<b>ここにも10,350Vがかかっています</b>。</p>
+<p>電圧は「2点の差」なので、</p>
+<div class="checkgrid">
+<div class="checkcard"><b>赤と赤の間（相どうし）</b><br>両方とも10,350V。差は<b>0V</b>。PASの内蔵VTはU-V間につながっているので、両端がそろっていればVTにかかる電圧も0V。</div>
+<div class="checkcard"><b>赤と点線の間（芯線と遮へい層）</b><br>10,350Vと0V。差は<b>10,350V</b>。ここにある絶縁体（架橋ポリエチレン）が、耐圧試験で試されているところ。</div>
+</div>
+<div class="tool"><b>今日いちばん腑に落ちたこと</b><br>3相一括の耐圧試験は、<b>導体を全部同じ電圧に持ち上げて、「導体と大地の間の絶縁」をいっぺんに試す</b>試験。相どうしには電圧をかけない。だから、相が1本でも浮くと「相どうしに電圧がかかる」という、本来の試験とちがう状態になってしまう。<span class="badge infer">🟡 整理</span></div>
+
+<h3 id="clip9-patterns">🔗 4. 4口の短絡クリップで、どうつなぐか</h3>
+<p>使う短絡クリップは、<b>1本の線から口（クリップ）が4つ出ている</b>タイプ。1個で4つの点を同電位にできます。下の図は柱の上の6点（PAS 3点・ケーブル上端3点）だけを描いています。キュービクル側は、どのつなぎ方でも4口クリップで3心を三線短絡し、残りの1口に試験器をつなぎます。</p>
+<div class="checkgrid">
+<div class="diagram-card" style="margin:0"><svg viewBox="0 0 300 215" role="img" aria-label="クリップ1個で、PASのU・V・Wとケーブル1心をつかむ基本形"><rect x="0" y="0" width="300" height="215" rx="14" fill="#06213a"/><text x="16" y="30" fill="#7ee0a1" font-size="16" font-weight="800">① 基本：柱の上は1個</text><text x="16" y="85" fill="#cfe3ef" font-size="13">PAS</text><text x="16" y="155" fill="#cfe3ef" font-size="13">ケーブル</text><g stroke="#7ee0a1" stroke-width="3" fill="none"><line x1="150" y1="114" x2="110" y2="80"/><line x1="150" y1="114" x2="170" y2="80"/><line x1="150" y1="114" x2="230" y2="80"/><line x1="150" y1="114" x2="110" y2="150"/></g><circle cx="150" cy="114" r="5" fill="#7ee0a1"/><g fill="#dff4ff"><circle cx="110" cy="80" r="6"/><circle cx="170" cy="80" r="6"/><circle cx="230" cy="80" r="6"/><circle cx="110" cy="150" r="6"/><circle cx="170" cy="150" r="6"/><circle cx="230" cy="150" r="6"/></g><text x="16" y="186" fill="#dff4ff" font-size="13">PAS 3相＋ケーブル1心。残りの2心は</text><text x="16" y="204" fill="#dff4ff" font-size="13">キュービクル側の短絡で同電位</text></svg></div>
+<div class="diagram-card" style="margin:0"><svg viewBox="0 0 300 215" role="img" aria-label="クリップ2個の両方でPASのU・V・Wをつかみ、それぞれ別のケーブル心をつかむ2重の形"><rect x="0" y="0" width="300" height="215" rx="14" fill="#06213a"/><text x="16" y="30" fill="#7ee0a1" font-size="16" font-weight="800">② 2重（おすすめ）</text><text x="16" y="85" fill="#cfe3ef" font-size="13">PAS</text><text x="16" y="155" fill="#cfe3ef" font-size="13">ケーブル</text><g stroke="#7ee0a1" stroke-width="3" fill="none"><line x1="135" y1="112" x2="110" y2="80"/><line x1="135" y1="112" x2="170" y2="80"/><line x1="135" y1="112" x2="230" y2="80"/><line x1="135" y1="112" x2="110" y2="150"/></g><g stroke="#f0c96b" stroke-width="3" stroke-dasharray="7 4" fill="none"><line x1="205" y1="120" x2="110" y2="80"/><line x1="205" y1="120" x2="170" y2="80"/><line x1="205" y1="120" x2="230" y2="80"/><line x1="205" y1="120" x2="170" y2="150"/></g><circle cx="135" cy="112" r="5" fill="#7ee0a1"/><circle cx="205" cy="120" r="5" fill="#f0c96b"/><g fill="#dff4ff"><circle cx="110" cy="80" r="6"/><circle cx="170" cy="80" r="6"/><circle cx="230" cy="80" r="6"/><circle cx="110" cy="150" r="6"/><circle cx="170" cy="150" r="6"/><circle cx="230" cy="150" r="6"/></g><text x="16" y="186" fill="#dff4ff" font-size="13">A（実線）もB（点線）もPAS 3相をつかむ。</text><text x="16" y="204" fill="#dff4ff" font-size="13">どの口が1つ外れてもPASは浮かない</text></svg></div>
+<div class="diagram-card" style="margin:0"><svg viewBox="0 0 300 215" role="img" aria-label="クリップAでPAS3相とケーブル1心、クリップBでケーブル3心とPASのWをつかむ形。PASとケーブルの間は2重だが、PASのU・Vは1口ずつ"><rect x="0" y="0" width="300" height="215" rx="14" fill="#06213a"/><text x="16" y="30" fill="#7ee0a1" font-size="16" font-weight="800">③ つなぎ目を2重（○）</text><text x="16" y="85" fill="#cfe3ef" font-size="13">PAS</text><text x="16" y="155" fill="#cfe3ef" font-size="13">ケーブル</text><g stroke="#7ee0a1" stroke-width="3" fill="none"><line x1="140" y1="110" x2="110" y2="80"/><line x1="140" y1="110" x2="170" y2="80"/><line x1="140" y1="110" x2="230" y2="80"/><line x1="140" y1="110" x2="110" y2="150"/></g><g stroke="#f0c96b" stroke-width="3" stroke-dasharray="7 4" fill="none"><line x1="205" y1="128" x2="110" y2="150"/><line x1="205" y1="128" x2="170" y2="150"/><line x1="205" y1="128" x2="230" y2="150"/><line x1="205" y1="128" x2="230" y2="80"/></g><circle cx="140" cy="110" r="5" fill="#7ee0a1"/><circle cx="205" cy="128" r="5" fill="#f0c96b"/><g fill="#dff4ff"><circle cx="110" cy="80" r="6"/><circle cx="170" cy="80" r="6"/><circle cx="230" cy="80" r="6"/><circle cx="110" cy="150" r="6"/><circle cx="170" cy="150" r="6"/><circle cx="230" cy="150" r="6"/></g><text x="16" y="186" fill="#dff4ff" font-size="13">PASとケーブルの間は2重。ただし</text><text x="16" y="204" fill="#dff4ff" font-size="13">PASのU・Vは1口ずつ</text></svg></div>
+<div class="diagram-card" style="margin:0"><svg viewBox="0 0 300 215" role="img" aria-label="ケーブル3心とPASのWだけをつかみ、PASのU・Vが浮いているまちがった形"><rect x="0" y="0" width="300" height="215" rx="14" fill="#06213a"/><text x="16" y="30" fill="#ff8a7a" font-size="16" font-weight="800">✕ PASのU・Vが浮く</text><text x="16" y="85" fill="#cfe3ef" font-size="13">PAS</text><text x="16" y="155" fill="#cfe3ef" font-size="13">ケーブル</text><g stroke="#f0c96b" stroke-width="3" stroke-dasharray="7 4" fill="none"><line x1="195" y1="122" x2="110" y2="150"/><line x1="195" y1="122" x2="170" y2="150"/><line x1="195" y1="122" x2="230" y2="150"/><line x1="195" y1="122" x2="230" y2="80"/></g><circle cx="195" cy="122" r="5" fill="#f0c96b"/><g fill="#ff8a7a"><circle cx="110" cy="80" r="7"/><circle cx="170" cy="80" r="7"/></g><text x="110" y="62" text-anchor="middle" fill="#ff8a7a" font-size="12" font-weight="700">浮き</text><text x="170" y="62" text-anchor="middle" fill="#ff8a7a" font-size="12" font-weight="700">浮き</text><g fill="#dff4ff"><circle cx="230" cy="80" r="6"/><circle cx="110" cy="150" r="6"/><circle cx="170" cy="150" r="6"/><circle cx="230" cy="150" r="6"/></g><text x="16" y="186" fill="#dff4ff" font-size="13">Wだけに電圧がかかり、U-V間のVTの</text><text x="16" y="204" fill="#dff4ff" font-size="13">両端の電位がそろわない</text></svg></div>
+</div>
+<p class="small center">自分で描いた原理図。白い点が柱の上の6点、線の集まる小さな丸がクリップ本体</p>
+<p>いろいろ描いてみてわかったのは、<b>正解は1つではない</b>ということ。判定はひとつだけです。</p>
+<div class="keyline">9つの点が、クリップかケーブルの芯線を通って、全部ひとつにつながっているか。とくに<b>PASのU・V・Wは、柱の上で必ず全部つかむ</b>。</div>
+<p>ケーブル側は、キュービクル側の三線短絡と芯線でカバーできます。でもPAS側は、柱の上でつかまなければ、どこにもつながりません。相ごとに1本ずつ（U-U、V-V、W-W）つなぐ方法も、キュービクル側で三線短絡していれば9点が同電位になります。ただ、4口クリップを2口ずつしか使わないので、柱の上で3個必要になります。<span class="badge infer">🟡 整理</span></p>
+
+<h3 id="clip9-double">🛡️ 5. 安全のために2重にするなら</h3>
+<p>柱の上で口が1つ外れると、そこが浮きます。不安だったので、クリップを2個使って2重にする形を考えました。柱の上で守る優先順位は、<b>PASのU・V・W（＝内蔵VTの両端）が浮かないこと</b>。だから、<b>2個とも3口でPASのU・V・Wをつかみ</b>、残りの1口でそれぞれ別のケーブル心をつかむ形（4章の図②）にしました。</p>
+<div class="table-scroll"><table>
+<tr><th>外れたもの</th><th>どうなるか</th><th>VT</th></tr>
+<tr><td>PAS側の口が1つ外れる</td><td>もう1個のクリップが同じ相をつかんでいるので、浮かない</td><td>安全</td></tr>
+<tr><td>ケーブル側の口が1つ外れる</td><td>もう1個のクリップと、キュービクル側の短絡でつながったまま</td><td>安全</td></tr>
+<tr><td>柱の上のクリップが1個まるごと外れる</td><td>残りの1個で「PAS 3相＋ケーブル1心」。図①と同じで○</td><td>安全</td></tr>
+<tr><td>キュービクル側のクリップがまるごと外れる</td><td>試験器もそこにつないでいるので、<b>どこにも電圧がかからない</b></td><td>安全</td></tr>
+<tr><td>キュービクル側の1口だけ外れる</td><td>その1心が試験されない（柱の上でつかんでいない心なら）</td><td>安全</td></tr>
+</table></div>
+<p>どの外れ方でも、PASの3相が柱の上でまとまっているので、VTは安全側になります。困るのは「試験したつもりで、一部に電圧がかかっていなかった」ほう。それに気づくには、<b>試験器の充電電流が計算値と合っているか</b>を見ます（<a href="#withstand-ip1110-20261007">10/7のIP-1110の日誌</a>で計算した、あの充電電流です）。<span class="badge infer">🟡 整理</span></p>
+<div class="checkgrid">
+<div class="checkcard"><b>クリップのないケーブル上端</b><br>見た目は浮いているけれど、芯線を通ってキュービクル側とつながっていて、10,350Vがかかる。端末のテープは巻いたままにして、腕金・電柱・架台から離す。</div>
+<div class="checkcard"><b>同じ端子に2口かませられるか</b><br>2重にすると、PASの各リードを2つの口でつかむことになる。端子の大きさと、口どうしが干渉しないかは、現場で確かめてから決める。</div>
+<div class="checkcard"><b>リードをまとめる</b><br>柱の上で口が8つになるので、リードも増える。たるんだり交差したりして、接地物に近づかないようにまとめる。</div>
+<div class="checkcard"><b>回収の数を合わせる</b><br>付けた個数と外した個数を数えて合わせる。VCTはあとで電力会社が付けるので、クリップが残ると受電時に大事故になる。</div>
+</div>
+
+<h3 id="clip9-flow">🗺️ 6. 当日の流れ（予習）</h3>
+<div class="flow">大前提：VCT未設置・引込線とつながっていない・PAS電源側リードがどこにもつながっていないことを確認。検電して無電圧、ケーブルの残留電荷を放電<br>↓<br>接地抵抗測定（A種：PAS・LA・高圧機器の外箱、B種、D種）<br>↓<br>短絡クリップを全部の口で導通確認（地上で）<br>↓<br>キュービクル側：ケーブル端末の扱い（切り離すか、試験範囲に含めるか）を確認し、4口クリップで3心を三線短絡<br>↓<br>昇柱：PAS銘板の撮影、PAS本体への接地線の確認、取扱説明書どおりに制御線の処置<br>↓<br>柱の上：4口クリップでPASのU・V・W＋ケーブルをつかむ。離隔を確認。PASの開閉状態は責任者に確認<br>↓<br>耐圧前の絶縁抵抗測定（メガー）<br>↓<br>立入禁止・見張り → 試験器の接地側を先に、次に高圧側 → 10,350Vを10分。充電電流を記録して計算値と比べる<br>↓<br>電圧を0にして放電・接地 → 耐圧後の絶縁抵抗測定<br>↓<br>クリップ撤去（個数を確認）・テープ復旧・制御線の復旧<br>↓<br>継電器試験・SOG試験 → PAS操作ひもに「操作禁止」の施錠</div>
+<p>PASの処置は、<a href="#withstand-ip1110-20261007">IP-1110の日誌</a>で取扱説明書を確認した内容です。<b>LA内蔵形のPASは、交流10,350Vの3相一括なら試験できる</b>（上限電圧や、直流耐圧をしないことはメーカー指定あり）。<b>制御線は全部外して端末を一括接地</b>するなど、メーカーごとの指定があります。当日のPASの型式で取扱説明書を確認します。<span class="badge official">🟢 取扱説明書で確認済み（10/7の日誌）</span></p>
+<p class="small">「LAの接地線を外すのでは？」と最初は思っていたけれど、日誌を見返したら、確認した取扱説明書ではそうなっていなかった。思い込みで手順を足さず、型式の取扱説明書に戻る。</p>
+
+<h3 id="clip9-test">🔬 7. 耐圧試験（絶縁耐力試験）とメガーのちがい</h3>
+<p>ホースでたとえると、<b>メガーは「ふだんの水圧で、じわっと水がしみていないか」を見る</b>測定。<b>耐圧試験は「わざと強い水圧をかけて、10分間破裂しないか」を見る</b>試験です。</p>
+<div class="table-scroll"><table>
+<tr><th></th><th>絶縁抵抗測定（メガー）</th><th>絶縁耐力試験（耐圧）</th></tr>
+<tr><td>調べること</td><td>電気をどれだけ通しにくいか（漏れ電流）</td><td>高い電圧に耐えられるか</td></tr>
+<tr><td>電源</td><td>直流（高圧なら1000V以上のメガー）</td><td>交流10,350V（最大使用電圧6,900Vの1.5倍）を10分</td></tr>
+<tr><td>結果</td><td>数値（MΩ）</td><td>合格／不合格</td></tr>
+<tr><td>機器への影響</td><td>傷めない</td><td>弱いところは壊れる（壊して見つける）</td></tr>
+</table></div>
+<p>ふだん、芯線と大地の間にかかっている電圧は 6,600 ÷ √3 ≒ <b>3,810V</b>。耐圧試験ではそこに10,350V、<b>約2.7倍</b>をかけて、絶縁を「しごいて」います。施工時の傷や端末処理のミスのように、ふだんの電圧ではすぐに壊れない弱点を、<b>送電する前の安全な状態であぶり出す</b>のが目的です。</p>
+<p>耐圧試験の電流計に出るのは、ほとんどが<b>充電電流</b>です。芯線と遮へい層がコンデンサになっているためで、本当の漏れ電流はその中に埋もれてしまいます。だから耐圧試験は<b>数値を読む試験ではなく、「何も起きずに耐えたか」を確かめる試験</b>。漏れ電流（絶縁の良し悪し）を見るのは、前後のメガーの役目です。</p>
+<div class="flow">メガー：今の絶縁は良いか（悪ければ耐圧に進まない）<br>↓<br>耐圧：高い電圧に耐えるか（弱点があれば、ここで絶縁破壊する）<br>↓<br>メガー：耐圧で絶縁を傷めていないか</div>
+
+<h3 id="clip9-trip">💥 8. 現場でいう「はねた」とは</h3>
+<p>先輩たちがよく「はねた、はねた」と言っていたけれど、何が起きているのかわかっていませんでした。<b>絶縁破壊</b>は、限界を超えた電圧で、絶縁物を電気が突き破って一気に流れてしまう現象（空気なら1mmあたり約3,000Vが目安）。「はねた」は、そのときの大きな電流で、<b>試験器の過電流保護が働いて出力が切れた</b>ことを言っています。</p>
+<div class="flow">10,350Vをかけている。ふだんは充電電流だけ<br>↓<br>どこかで絶縁が負けて、放電・絶縁破壊<br>↓<br>芯線から大地へ一気に電流が流れる<br>↓<br>試験器の過電流保護が働いて、出力を切る ← 「はねた」</div>
+<div class="table-scroll"><table>
+<tr><th>はねる原因</th><th>どこで</th><th>ケーブルは？</th></tr>
+<tr><td>貫通破壊</td><td>架橋ポリエチレンに穴があき、芯線と遮へい層がつながる</td><td>壊れている。補修・交換</td></tr>
+<tr><td>沿面放電</td><td>ケーブル端末の表面を伝って放電（汚れ・湿気・端末処理の不良）</td><td>本体は無事なこともある</td></tr>
+<tr><td>リード・クリップからの放電</td><td>試験用のリードやクリップが、腕金・盤に近すぎて空気中で放電</td><td>無関係</td></tr>
+<tr><td>試験器の容量オーバー</td><td>絶縁は悪くないが、ケーブルが長くて充電電流が試験器の上限を超えた</td><td>無関係</td></tr>
+</table></div>
+<p>はねたら「ケーブルが壊れた」と決めつけずに、<b>電圧をどこまで上げたときか、放電の音や光はあったか、メガーで測り直してどうか</b>を見て切り分けます。メガーの値が大きく下がっていれば貫通の可能性が高く、良いままなら端末の表面やリードまわりを疑います。柱の上でクリップの離隔を気にするのは、3つ目の「ケーブルは悪くないのにはねる」を防ぐためでもありました。<span class="badge infer">🟡 整理</span></p>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>① 3相一括の耐圧は、9つの点（PAS 3・ケーブル上端3・下端3）を全部同電位にすれば、つなぎ方は何通りあってもいい。</b></p>
+<p><b>② ケーブルの芯線は上から下まで1本。下で短絡していれば、上端はつかまなくても同じ10,350V。</b></p>
+<p><b>③ PASのU・V・Wは、柱の上で必ず全部つかむ。2重にするならPAS側を2重に。</b></p>
+<p><b>④ 電圧がかかっているのは「芯線と遮へい層・大地の間」。相どうしは0V。</b></p>
+<p><b>⑤ メガーは絶縁の良し悪しを数値で、耐圧は「壊れずに耐えるか」を合否で。「はねた」は試験器の保護が働いたことで、原因は4つに分けて考える。</b></p>
+<p>セブンのときは「言われたところをつまむ」で精一杯だった作業が、<b>電圧がどこにかかっているかを描いたら、つなぎ方を自分で選べるようになった</b>。ローソンでは、どう付けたかと充電電流を記録して、この記事の答え合わせをします。</p>
+</section>
+<div class="note">※ この記事は、竣工検査に向けた予習の日誌です。柱上VCTの有無、PASの形式（内蔵VT・LA・制御線）、試験範囲、PASの開閉状態、試験電圧・時間、短絡クリップの仕様は設備と現場で異なります。実際の作業は、単線結線図・竣工図、PASと試験器の取扱説明書、社内手順・操作票、作業責任者の指示に従い、高所作業では墜落制止用器具と親綱の掛け替えで安全措置が途切れないことを前提とします。耐圧試験の一括用クリップと作業用短絡接地器具は用途が異なり、相互に代用しません。</div>
+</article>
+
 <article class="entry" id="smart-hoan-3p4w-ct-20261013" data-update-date="2026/10/13">
 <div class="date">2026.10.13｜スマート保安・三相4線式・CT</div>
 <h2>三相4線式のトランスにスマート保安を付けてきた。<br>負荷電流を見るのに、なぜCTは2つではなく3つなのか。</h2>
