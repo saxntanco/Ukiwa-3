@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#091322"><meta name="description" content="国際数学オリンピック2019 第1問（関数方程式）の、うきわメモ独自のヒントと解説。"><title>IMO 2019 第1問｜オリンピックの間</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(at 85% 10%,#24365d,transparent 60%),#091322;color:#eef6ff;font-family:system-ui,sans-serif;min-height:100vh}
+main{max-width:760px;margin:auto;padding:40px 20px 80px}
+a{color:#8de8ec}
+.crumb{font-size:13px;color:#a9c5d7}.crumb a{color:#a9c5d7}
+.tag{display:inline-block;margin-top:28px;font-size:12px;letter-spacing:2px;color:#9ee6e8}
+h1{font-size:clamp(28px,6vw,44px);margin:6px 0 4px}
+.lead{color:#b7c8dc;margin:0}
+.meta{font-size:13px;color:#8fa6bd;margin-top:10px}
+p,li{line-height:1.9;color:#d5e3f1}
+section{margin-top:34px}
+h2{font-size:20px;border-left:4px solid #65dfe4;padding-left:10px}
+.box{border:1px solid #405675;border-radius:16px;padding:18px 20px;background:#132339}
+.problem{background:linear-gradient(135deg,#174552,#201c42);border-color:#65dfe4}
+.eq{display:block;text-align:center;font-family:"Cambria Math","Times New Roman",serif;font-size:clamp(15px,4vw,19px);margin:12px 0;padding:10px;background:#0c1a2c;border-radius:10px;overflow-x:auto;color:#fff}
+.m{font-family:"Cambria Math","Times New Roman",serif;font-style:italic;color:#fff}
+details{border:1px solid #405675;border-radius:14px;margin:12px 0;background:#10203a}
+summary{cursor:pointer;padding:14px 18px;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"＋ ";color:#70e8e9}
+details[open] summary:before{content:"－ "}
+details>div{padding:0 18px 14px}
+summary:focus-visible,a:focus-visible{outline:3px solid #f7d38a;outline-offset:2px}
+.step{display:grid;grid-template-columns:34px 1fr;gap:10px;margin:14px 0}
+.step>div{min-width:0}
+.num{width:30px;height:30px;border-radius:50%;background:#28465e;display:grid;place-items:center;font-weight:700;color:#9ee6e8}
+.answer{font-size:18px;color:#fff}
+.note{font-size:13px;color:#9fb3c8}
+.denki{border-color:#f7d38a}.denki h3{margin:0 0 6px;color:#f7d38a;font-size:16px}
+</style>
+<script src="hideout-nav.js?v=20261012-1" defer></script></head>
+<body><main>
+<div class="crumb"><a href="hidden-menu.html">うきわの隠れ家</a> › <a href="olympiad.html">オリンピックの間</a> › 数学 › 2019</div>
+<span class="tag">IMO 2019 / PROBLEM 1 / 代数</span>
+<h1>関数方程式を<br>「代入」でほどく</h1>
+<p class="lead">国際数学オリンピック 2019年 第1問</p>
+<p class="meta">解説作成：2026年10月23日（うきわメモ独自の解説）｜公式解答との照合：未</p>
+
+<section><h2>何を聞かれているか</h2>
+<div class="box problem">
+<p>整数を整数にうつす関数 <span class="m">f</span> のうち、すべての整数 <span class="m">a, b</span> で次の式が成り立つものを<b>すべて</b>求める問題です。</p>
+<span class="eq">f(2a) + 2f(b) = f( f(a + b) )</span>
+<p class="note">正式な問題文は <a href="https://www.imo-official.org/problems.aspx" target="_blank" rel="noopener">IMO公式サイトの過去問ページ</a>（2019年）で確認できます。</p>
+</div></section>
+
+<section><h2>まず自分で考える</h2>
+<details><summary>ヒント1：どこから手をつける？</summary><div><p>関数方程式の定番は「好きな値を代入する」こと。<span class="m">a = 0</span> や <span class="m">b = 0</span> を入れると何が残るか、2通り試してみよう。</p></div></details>
+<details><summary>ヒント2：右辺の f(f(…)) が厄介</summary><div><p>右辺の <span class="m">f(f(x))</span> を、代入で得た式を使って <span class="m">f(x)</span> だけの式に書き換えられないか考えてみよう。</p></div></details>
+<details><summary>ヒント3：ゴールの形</summary><div><p><span class="m">f(n+1) − f(n)</span> が <span class="m">n</span> によらず一定だと言えれば、<span class="m">f</span> は一次関数 <span class="m">f(n) = mn + c</span> に決まります。</p></div></details>
+</section>
+
+<section><h2>答え</h2>
+<details><summary>答えを見る</summary><div>
+<p class="answer"><span class="m">f(x) = 0</span>　または　<span class="m">f(x) = 2x + c</span>（<span class="m">c</span> は任意の整数）</p>
+</div></details></section>
+
+<section><h2>解説</h2>
+<details><summary>解説を順に読む</summary><div>
+
+<div class="step"><span class="num">1</span><div><p><b>a = 0 を代入。</b>任意の <span class="m">b</span> について</p><span class="eq">f(f(b)) = f(0) + 2f(b)　…①</span><p>右辺の厄介な <span class="m">f(f(…))</span> が、<span class="m">f</span> 1回分の式に置き換えられるようになりました。</p></div></div>
+
+<div class="step"><span class="num">2</span><div><p><b>b = 0 を代入</b>し、左辺の <span class="m">f(f(a))</span> に①を使うと</p><span class="eq">f(2a) + 2f(0) = f(0) + 2f(a)</span><span class="eq">f(2a) = 2f(a) − f(0)　…②</span></div></div>
+
+<div class="step"><span class="num">3</span><div><p><b>元の式に戻る。</b>左辺の <span class="m">f(2a)</span> に②、右辺に①（<span class="m">b</span> を <span class="m">a+b</span> として）を使うと</p><span class="eq">2f(a) − f(0) + 2f(b) = f(0) + 2f(a + b)</span><p>2で割って整理すると</p><span class="eq">f(a + b) = f(a) + f(b) − f(0)　…③</span></div></div>
+
+<div class="step"><span class="num">4</span><div><p><b>③で b = 1</b> とすると</p><span class="eq">f(a + 1) − f(a) = f(1) − f(0)</span><p>差がいつも同じ値（これを <span class="m">m</span> とおく）なので、<span class="m">c = f(0)</span> として</p><span class="eq">f(n) = mn + c</span><p>正の方向にも負の方向にも同じ差で進むので、すべての整数で成り立ちます。</p></div></div>
+
+<div class="step"><span class="num">5</span><div><p><b>元の式に代入して m と c を決める。</b></p><span class="eq">左辺 = 2ma + c + 2(mb + c) = 2m(a + b) + 3c</span><span class="eq">右辺 = m( m(a + b) + c ) + c = m²(a + b) + mc + c</span><p>すべての <span class="m">a, b</span> で等しいので、係数と定数項をそれぞれ比べて</p><span class="eq">2m = m²　かつ　3c = mc + c</span><p><span class="m">m = 0</span> なら <span class="m">2c = 0</span> で <span class="m">c = 0</span>、つまり <span class="m">f(x) = 0</span>。<br><span class="m">m = 2</span> なら <span class="m">2c = 2c</span> となり、<span class="m">c</span> は何でもよい。</p></div></div>
+
+<div class="step"><span class="num">6</span><div><p><b>検算。</b><span class="m">f(x) = 2x + c</span> のとき</p><span class="eq">左辺 = (4a + c) + 2(2b + c) = 4a + 4b + 3c</span><span class="eq">右辺 = f(2a + 2b + c) = 4a + 4b + 2c + c = 4a + 4b + 3c</span><p>一致しました。<span class="m">f(x) = 0</span> は両辺とも0で明らかに成立します。</p></div></div>
+</div></details></section>
+
+<section><h2>この問題で身につく型</h2>
+<div class="box"><ul>
+<li><b>0を代入して「部品」を作る。</b>①②のように、扱いにくい項を置き換える式を先に用意する。</li>
+<li><b>差が一定なら一次関数。</b>整数上の関数は、隣どうしの差を見ると形が決まることが多い。</li>
+<li><b>最後は必ず元の式に戻す。</b>「必要条件」で絞った候補が本当に条件を満たすか確かめる。</li>
+</ul></div></section>
+
+<section><h2>電気屋のひとこと</h2>
+<div class="box denki"><h3>零点ずれのある計器と同じ形</h3>
+<p>③の <span class="m">f(a+b) = f(a) + f(b) − f(0)</span> は「重ね合わせが成り立つ。ただし零点が <span class="m">f(0)</span> だけずれている」という式です。零点誤差のある計器で2つの量を足して読むと、ずれが2回入るので1回分引く必要がある、のと同じ構造です。</p></div></section>
+
+</main></body></html>
