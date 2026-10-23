@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#091322"><meta name="description" content="国際物理オリンピック2022 理論問題1「永久磁石」パートAの、うきわメモ独自のヒントと解説。"><title>IPhO 2022 理論1｜オリンピックの間</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(at 85% 10%,#24365d,transparent 60%),#091322;color:#eef6ff;font-family:system-ui,sans-serif;min-height:100vh}
+main{max-width:760px;margin:auto;padding:40px 20px 80px}
+a{color:#8de8ec}
+.crumb{font-size:13px;color:#a9c5d7}.crumb a{color:#a9c5d7}
+.tag{display:inline-block;margin-top:28px;font-size:12px;letter-spacing:2px;color:#9ee6e8}
+h1{font-size:clamp(28px,6vw,44px);margin:6px 0 4px}
+.lead{color:#b7c8dc;margin:0}
+.meta{font-size:13px;color:#8fa6bd;margin-top:10px}
+p,li{line-height:1.9;color:#d5e3f1}
+section{margin-top:34px}
+h2{font-size:20px;border-left:4px solid #65dfe4;padding-left:10px}
+.box{border:1px solid #405675;border-radius:16px;padding:18px 20px;background:#132339}
+.problem{background:linear-gradient(135deg,#174552,#201c42);border-color:#65dfe4}
+.eq{display:block;text-align:center;font-family:"Cambria Math","Times New Roman",serif;font-size:clamp(15px,4vw,19px);margin:12px 0;padding:10px;background:#0c1a2c;border-radius:10px;overflow-x:auto;color:#fff}
+.m{font-family:"Cambria Math","Times New Roman",serif;font-style:italic;color:#fff}
+details{border:1px solid #405675;border-radius:14px;margin:12px 0;background:#10203a}
+summary{cursor:pointer;padding:14px 18px;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"＋ ";color:#70e8e9}
+details[open] summary:before{content:"－ "}
+details>div{padding:0 18px 14px}
+summary:focus-visible,a:focus-visible{outline:3px solid #f7d38a;outline-offset:2px}
+.step{display:grid;grid-template-columns:34px 1fr;gap:10px;margin:14px 0}
+.step>div{min-width:0}
+.num{width:30px;height:30px;border-radius:50%;background:#28465e;display:grid;place-items:center;font-weight:700;color:#9ee6e8}
+.answer{font-size:18px;color:#fff}
+.note{font-size:13px;color:#9fb3c8}
+.denki{border-color:#f7d38a}.denki h3{margin:0 0 6px;color:#f7d38a;font-size:16px}
+</style>
+<script src="hideout-nav.js?v=20261012-1" defer></script></head>
+<body><main>
+<div class="crumb"><a href="hidden-menu.html">うきわの隠れ家</a> › <a href="olympiad.html">オリンピックの間</a> › 物理 › 2022</div>
+<span class="tag">IPhO 2022 / THEORY 1 / 電磁気</span>
+<h1>磁石どうしの力を<br>「電流」で考える</h1>
+<p class="lead">国際物理オリンピック 2022年 理論問題1「永久磁石」パートA（A.1〜A.3）</p>
+<p class="meta">解説作成：2026年10月23日（うきわメモ独自の解説）｜公式解答との照合：済（数値を再計算して一致）</p>
+
+<section><h2>何を聞かれているか</h2>
+<div class="box problem">
+<p>同じ形の円板形ネオジム磁石2個を、軸をそろえて向かい合わせに置きます。その間にはたらく力を、距離が<b>遠いとき</b>と<b>とても近いとき</b>の2通りで見積もる問題です。</p>
+<span class="eq">直径 d = 20 mm ／ 厚さ h = 2 mm ／ 磁化 J = 1.5 T ÷ μ₀（軸方向に一様）</span>
+<ul>
+<li><b>A.1</b>　中心間の距離 L = 20 cm（磁石よりずっと遠い）のときの力</li>
+<li><b>A.2</b>　遠くから見て同じ磁場をつくる「円形電流」の大きさ I</li>
+<li><b>A.3</b>　L = 5 mm（直径よりずっと近く、厚さよりは遠い）のときの力</li>
+</ul>
+<p class="note">正式な問題文と公式解答は <a href="http://ipho2022.com/wp-content/uploads/2022/07/IPhO22-Theory-solutions.pdf" target="_blank" rel="noopener">IPhO 2022 公式資料（理論問題の解答）</a> で確認できます。パートB・C（強磁性体の板、磁石球の並び方）は別ページで扱う予定です。</p>
+</div></section>
+
+<section><h2>まず自分で考える</h2>
+<details><summary>ヒント1：遠いとき、磁石は「点」に見える</summary><div><p>L が磁石の大きさよりずっと大きいなら、磁石は小さな磁気双極子 <span class="m">m</span> とみなせます。<span class="m">m</span> は「磁化 × 体積」。片方がつくる磁場の中に、もう片方を置いたと考えよう。</p></div></details>
+<details><summary>ヒント2：磁石は「電流の輪」と同じ</summary><div><p>一様に磁化した円柱は、側面をぐるっと回る電流と同じ磁場をつくります。電流の輪の磁気モーメントは「電流 × 面積」。これを <span class="m">m</span> と等しくおいてみよう。</p></div></details>
+<details><summary>ヒント3：近いとき、輪のふちは「平行な2本の電線」</summary><div><p>距離 5 mm に対して直径は 20 mm。向かい合う2つの電流の輪を近くから見ると、ほぼまっすぐな平行電線です。平行電流どうしの力の式が使えます。</p></div></details>
+</section>
+
+<section><h2>答え</h2>
+<details><summary>答えを見る</summary><div>
+<p class="answer">A.1　F₁ ≈ 0.21 mN<br>A.2　I = Jh ≈ 2.4 kA<br>A.3　F₂ ≈ 14 N</p>
+<p>距離を40分の1にしただけで、力は約7万倍になります。</p>
+</div></details></section>
+
+<section><h2>解説</h2>
+<details><summary>A.1　遠いときの力</summary><div>
+
+<div class="step"><span class="num">1</span><div><p><b>磁石を双極子にする。</b>磁気モーメントは磁化と体積の積です。</p><span class="eq">m = J × (π/4)d²h ≈ 0.75 A·m²</span></div></div>
+
+<div class="step"><span class="num">2</span><div><p><b>軸上の磁場。</b>双極子の軸の延長線上、距離 <span class="m">L</span> の点の磁場は</p><span class="eq">B = μ₀m ／ (2πL³)</span></div></div>
+
+<div class="step"><span class="num">3</span><div><p><b>エネルギーから力へ。</b>磁場の中の双極子のエネルギーは <span class="m">W = −mB</span>。向きがそろって引き合う配置なので</p><span class="eq">W = −μ₀m² ／ (2πL³)</span><p>力はエネルギーを距離で微分した大きさです。</p><span class="eq">F₁ = |dW/dL| = 3μ₀m² ／ (2πL⁴)</span></div></div>
+
+<div class="step"><span class="num">4</span><div><p><b>数値を入れる。</b>L = 0.2 m を代入すると</p><span class="eq">F₁ = 3 × 4π×10⁻⁷ × 0.75² ／ (2π × 0.2⁴) ≈ 2.1×10⁻⁴ N</span><p>約0.21 mN。1円玉の重さ（約10 mN）の50分の1ほどです。</p></div></div>
+</div></details>
+
+<details><summary>A.2　同じ磁場をつくる電流</summary><div>
+<div class="step"><span class="num">1</span><div><p><b>電流の輪の磁気モーメント。</b>半径 d/2 の輪に電流 <span class="m">I</span> が流れるとき</p><span class="eq">m = I × (π/4)d²</span></div></div>
+<div class="step"><span class="num">2</span><div><p><b>A.1の m と等しくおく。</b>(π/4)d² が両辺で消えて</p><span class="eq">I = Jh = (1.5 ／ 4π×10⁻⁷) × 0.002 ≈ 2.4×10³ A</span><p>厚さたった2 mmの磁石が、約2400 Aの電流の輪と同じはたらきをしていることになります。</p></div></div>
+</div></details>
+
+<details><summary>A.3　近いときの力</summary><div>
+<div class="step"><span class="num">1</span><div><p><b>2本の平行電線とみなす。</b>A.2の電流の輪が2つ、距離 <span class="m">L</span> で向かい合っています。<span class="m">L</span> が直径よりずっと小さいので、輪のふちは長さ πd のまっすぐな平行電線と見なせます。電流は同じ向きなので引き合います。</p></div></div>
+<div class="step"><span class="num">2</span><div><p><b>直線電流の磁場。</b>片方の電線が距離 <span class="m">L</span> の位置につくる磁場は</p><span class="eq">B = μ₀I ／ (2πL)</span></div></div>
+<div class="step"><span class="num">3</span><div><p><b>電線が受ける力。</b>もう片方の電線（長さ πd）が受ける力は「電流 × 磁場 × 長さ」で</p><span class="eq">F₂ = I × μ₀I／(2πL) × πd = μ₀I²d ／ (2L)</span></div></div>
+<div class="step"><span class="num">4</span><div><p><b>数値を入れる。</b>L = 0.005 m を代入すると</p><span class="eq">F₂ = 4π×10⁻⁷ × 2387² × 0.02 ／ (2 × 0.005) ≈ 14 N</span><p>約1.4 kgの物を持ち上げる力。小さな磁石を指で引きはがしにくいのはこのためです。</p></div></div>
+</div></details>
+</section>
+
+<section><h2>この問題で身につく型</h2>
+<div class="box"><ul>
+<li><b>遠いか近いかで、模型を使い分ける。</b>遠ければ点（双極子）、近ければ面や線。同じ磁石でも使う式が変わる。</li>
+<li><b>磁石 ＝ 電流。</b>磁化した物体は表面を回る電流に置き換えられる。電流の式は使い慣れているので強い。</li>
+<li><b>距離のべき乗に注目。</b>遠いと 1/L⁴、近いと 1/L。距離への効き方の違いが、7万倍という差を生む。</li>
+</ul></div></section>
+
+<section><h2>電気屋のひとこと</h2>
+<div class="box denki"><h3>短絡時の母線に働く電磁力と同じ式</h3>
+<p>A.3で使った「平行電流の力 μ₀I²／(2πL)（1 mあたり）」は、短絡電流が流れたときに母線やケーブルどうしが引き合い・反発し合う電磁力の式そのものです。力は電流の2乗に比例し、距離に反比例します。短絡電流が数十 kA にもなると、ふだんは何ともない母線が大きく揺さぶられるので、母線の支持間隔や支持がいしの強度はこの力に耐えるように決められています。</p></div></section>
+
+</main></body></html>
