@@ -13,7 +13,7 @@
 @media(max-width:700px){.figs{grid-template-columns:1fr}}
 </style>
 </head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a></nav></header><main>
-<section class="hero"><span class="eyebrow">図で見る / PAS・VT内蔵</span><h1>柱の上で、ケーブルはつかまなくていいのに、<br>PASはなぜだめ？</h1><p class="lead">耐圧試験の3相一括。柱の上でクリップをつけていない点があるのは、どちらも同じ。ちがうのは、<b>つかんでいない点に残っている道が「太い道」か「細い道」か</b>です。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#figs">2つの形を比べる</a><a href="#why">なぜ細い道がだめ？</a><a href="#amps">何mAで焼損？</a><a href="#water">水でたとえると</a><a href="#note">確かめたこと</a></nav></section>
+<section class="hero"><span class="eyebrow">図で見る / PAS・VT内蔵</span><h1>柱の上で、ケーブルはつかまなくていいのに、<br>PASはなぜだめ？</h1><p class="lead">耐圧試験の3相一括。柱の上でクリップをつけていない点があるのは、どちらも同じ。ちがうのは、<b>つかんでいない点に残っている道が「太い道」か「細い道」か</b>です。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#figs">2つの形を比べる</a><a href="#why">なぜ細い道がだめ？</a><a href="#amps">電流と焼損限界</a><a href="#water">水でたとえると</a><a href="#note">確かめたこと</a></nav></section>
 
 <section class="sheet" id="figs"><h2>2つの形を比べる</h2>
 <p>どちらも、キュービクル側でケーブル3心を三線短絡し、試験器をつないでいます。柱の上は4口クリップ1個です。</p>
@@ -35,45 +35,34 @@
 <p>ケーブルの芯線は、ただの太い銅線です。電流が通っても電圧はほとんど下がらないので、上端も下端も同じ10,350Vになります。VTの巻線は、何千回も巻いたコイルで、もともと<b>両端に電圧をかけて使う部品</b>です。ここに試験の充電電流を通すと、巻線に電圧がかかってしまいます。</p>
 </section>
 
-<section class="sheet" id="amps"><h2>どのくらいの電流が流れて、焼損するの？</h2>
-<p>先に結論を書くと、<b>「何mAで何秒たつと焼損する」というメーカーの公開データは見つかりませんでした</b>。そのうえで、確かめられる数字を並べると、どれだけ無理をさせているかははっきりします。</p>
-
-<h3>① VTが本来流せる電流は、ほんの数mA</h3>
-<div style="overflow-x:auto"><table class="maptab" style="min-width:460px">
-<tr><th>メーカー（資料）</th><th>定格負担</th><th>定格一次電流（負担 ÷ 6,600V）</th></tr>
-<tr><td>戸上電機（VT内蔵GR付PAS 製品ページ）</td><td>25VA</td><td><b>約3.8mA</b></td></tr>
-<tr><td>日本高圧電気（取説-PAS-07）</td><td>10VA</td><td><b>約1.5mA</b></td></tr>
+<section class="sheet" id="amps"><h2>計算できる電流と、分からない焼損限界</h2>
+<p><b>負担から計算した電流は、巻線の許容電流や焼損限界ではありません。</b>確認したメーカー資料では「何mAで何秒なら焼損するか」は分からないため、以下の数値で試験の可否は判定できません。一相ごとの試験を避ける根拠は、メーカーの禁止事項です。</p>
+<h3>① 定格負担を一次側の電流に換算する</h3>
+<div style="overflow-x:auto"><table class="maptab">
+<tr><th>メーカー・一次資料</th><th>定格負担</th><th>負担の一次換算電流<br>（負担 ÷ 6,600V）</th></tr>
+<tr><td><a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_103.php" target="_blank" rel="noopener">戸上電機・VT内蔵GR付PAS「定格および仕様」</a></td><td>25VA</td><td>約3.8mA</td></tr>
+<tr><td><a href="https://www.nkeco.co.jp/download/manual/PAS-07-B.pdf" target="_blank" rel="noopener">日本高圧電気・取説-PAS-07-H「内蔵VT」</a></td><td>10VA</td><td>約1.5mA</td></tr>
 </table></div>
-<p>SOG制御装置の電源をとるだけの小さなVTなので、一次巻線は<b>数mAを流す前提の、とても細い線</b>です。</p>
-
-<h3>② 1相だけに試験電圧をかけると、何mAがVTを通るか</h3>
-<p>「PASのUをつかまない」形（または1相だけの試験）では、反対側の相（V相）のケーブルを充電する電流が、VTの巻線を通るしかありません。VTの巻線が電流をほとんど妨げないと考えると、その電流は<b>V相ケーブルの充電電流そのもの</b>です。</p>
-<div class="keyline" style="font-variant-numeric:tabular-nums">I ＝ 2πfCV　（CV38mm² 1心 0.32μF/km、V＝10,350V）<br>50Hz：約1.0mA／m　60Hz：約1.25mA／m</div>
-<div style="overflow-x:auto"><table class="maptab" style="min-width:520px">
-<tr><th>V相ケーブルの長さ</th><th>50Hz</th><th>60Hz</th><th>25VAのVT（3.8mA）の何倍</th><th>10VAのVT（1.5mA）の何倍</th></tr>
-<tr><td>5m</td><td>5.2mA</td><td>6.2mA</td><td>1.4〜1.6倍</td><td>3.4〜4.1倍</td></tr>
-<tr><td>10m</td><td>10.4mA</td><td>12.5mA</td><td>2.7〜3.3倍</td><td>6.9〜8.2倍</td></tr>
-<tr><td>15m</td><td>15.6mA</td><td>18.7mA</td><td>4.1〜4.9倍</td><td>10〜12倍</td></tr>
-<tr><td>30m</td><td>31.2mA</td><td>37.5mA</td><td><b>8.2〜9.9倍</b></td><td><b>21〜25倍</b></td></tr>
-<tr><td>50m</td><td>52.0mA</td><td>62.4mA</td><td>14〜16倍</td><td>34〜41倍</td></tr>
+<p>この換算は、定格負担を供給するときの負荷分を一次側へ置き換えたものです。<b>励磁電流・損失を含む一次全電流とは別</b>で、線径・許容温度・許容通電時間はここから分かりません。「数mAまでしか流せない巻線」とは読み取れません。</p>
+<p class="caption" style="font-size:12px">一次資料確認：2026-10-24。日本高圧電気はPDF表紙の改訂記号Hを確認（URLのファイル名はB）。両資料の発行・最終更新年月は明記を確認できていません。対象製品の銘板と最新版の取扱説明書を優先してください。</p>
+<h3>② ケーブルの充電電流は概算できる。ただし条件がある</h3>
+<p>VTの反対側にケーブルが接続され、その心を充電する電流がVTを通る等価回路を考えます。<b>VTのインピーダンスがケーブルの容量リアクタンスより十分小さい</b>という仮定なら、流れる電流はケーブルの充電電流で概算できます。上の「PAS端子のつかみ忘れ」の図へ、ケーブルの長さを無条件に当てはめるものではありません。</p>
+<div class="keyline" style="font-variant-numeric:tabular-nums">I ＝ 2πfCV<br>計算例：1心の静電容量を0.32μF/km、印加電圧を10,350Vと仮定</div>
+<div style="overflow-x:auto"><table class="maptab">
+<tr><th>仮定するケーブル長</th><th>50Hzの概算</th><th>60Hzの概算</th></tr>
+<tr><td>5m</td><td>5.2mA</td><td>6.2mA</td></tr>
+<tr><td>10m</td><td>10.4mA</td><td>12.5mA</td></tr>
+<tr><td>15m</td><td>15.6mA</td><td>18.7mA</td></tr>
+<tr><td>30m</td><td>31.2mA</td><td>37.5mA</td></tr>
+<tr><td>50m</td><td>52.0mA</td><td>62.4mA</td></tr>
 </table></div>
-<p>巻線の発熱は電流の2乗に比例するので、<b>10倍の電流なら発熱は約100倍</b>。しかも耐圧試験は10分間続きます。細い巻線が焼けるのは、この数字からも想像がつきます。30m・60Hzで約37mA（定格の約10倍）という計算は、<a href="https://jinden-tool.com/pas-in-vt-withstand-voltage/" target="_blank" rel="noopener">電気屋の気まぐれ忘備録</a>の試算（1.24mA/m × 30m ＝ 37.2mA）とも一致します。</p>
-
-<h3>③ もう一つの壊れ方：電圧が高すぎて鉄心が飽和する</h3>
-<p>VTの二次側が開いている（何もつながっていない）と、巻線は電流を通しにくい（励磁インダクタンスが大きい）ので、②のように電流がそのまま通るのではなく、<b>VTの両端に大きな電圧</b>がかかります。<a href="pas-vt-withstand-simulator.html#sim">シミュレーター</a>の線形モデルでは、30mで約11,500V（定格6,600Vの約1.7倍）。ケーブルが数mだと共振に近づいて、もっと大きな計算値になります。</p>
-<p>定格の1.5倍を超える電圧では、鉄心が<b>磁気飽和</b>します。飽和すると巻線は急に電流を通しやすくなり、励磁電流が一気に増えます。どのくらい増えるかはそのVTの励磁特性しだいで、<b>公開資料からは数字にできません</b>。</p>
-
-<h3>④ 二次側（P1・P2）がどうなっているかで、どちらが効くかが変わる</h3>
-<table class="maptab">
-<tr><th>VTの二次側の状態</th><th>一相試験で起きること</th></tr>
-<tr><td>短絡・一括接地（制御線の端末をまとめて接地）</td><td>一次から見た巻線のインピーダンスが小さくなり、②の<b>過電流</b>（ケーブルの充電電流がほぼそのまま通る）</td></tr>
-<tr><td>開放（制御線を外して絶縁）</td><td>③の<b>過電圧 → 鉄心の飽和 → 励磁電流の急増</b></td></tr>
-</table>
-<p>メーカーの指定は、日本高圧電気が「制御線の端末を一括接地」、戸上電機の製品ページも「制御線端末は一括接地」です。一方で、戸上電機に問い合わせたら「P1・P2はテーピングで絶縁」と回答があったという報告もあります（<a href="https://blog.memo-labo.com/?p=3157" target="_blank" rel="noopener">でんきメモ</a>）。<b>どちらの状態でも、一相試験ではVTに無理がかかる</b>ことは同じで、だからメーカーは理由を問わず「一相ごとの耐電圧試験は絶対に行わない」としています。</p>
-
-<h3>⑤ 焼損したあとに起きたこと（事例）</h3>
-<p>静電容量が大きくてリアクトルを持っていなかったため、3相一括をあきらめて1相ずつ試験した結果、内蔵VTが焼損。それに気づかないままPASを投入し、焼損したVTのところで相間短絡が起きてPASが爆発した、という事例が紹介されています（<a href="https://blog.memo-labo.com/?p=3271" target="_blank" rel="noopener">でんきメモ</a>。ケーブル長や電流値は書かれていません）。VTの焼損は試験中に目に見えるとは限らず、<b>受電のときに事故になる</b>のが怖いところです。</p>
-<p class="caption" style="font-size:12px">計算の前提：CV38mm²の1心の静電容量 0.32μF/km（<a href="pas-vt-withstand-simulator.html">シミュレーター</a>と同じ値）。②はVTの巻線のインピーダンスがケーブルの容量リアクタンスより十分小さいとした概算で、巻線抵抗・漏れインピーダンスは未確認です。焼損までの時間・温度は、巻線の線径や熱特性が公開されていないため計算していません。</p>
+<p><b>この表は焼損の判定表ではありません。</b>巻線抵抗が同じなら銅損はI²Rで増えますが、①の換算電流との比から実際の発熱倍率や焼損時間は求められません。巻線抵抗、励磁特性、熱特性、実際の結線が必要です。静電容量もケーブルの型式・構造や実測値で変わります。</p>
+<h3>③ 過電圧と磁気飽和も、実機の特性が必要</h3>
+<p>二次側が開放されたVTでは、励磁インダクタンスと対地静電容量によって、巻線に大きな電圧が現れる場合があります。<a href="pas-vt-withstand-simulator.html#sim">シミュレーター</a>の数値は設定した線形モデルの結果で、実機の電圧や焼損を保証するものではありません。</p>
+<p>磁束密度が高くなって鉄心が飽和すると励磁電流が増大しますが、<b>「定格の1.5倍で必ず飽和する」という共通の境界は置けません</b>。そのVTの励磁特性、周波数、波形などが必要です。特性未確認のまま飽和後の電流を数値で断定しません。</p>
+<h3>④ 数字より先に、メーカー指定を守る</h3>
+<p>二次側（P1・P2）の開放・短絡などで一次側から見た状態は変わります。しかし、どちらの状態でも一相試験を安全にできるとは判断できません。<b>主回路端子の一括接続、開閉器の状態、制御線の処置は、実機の型番に対応する取扱説明書と作業責任者の指示で確認</b>してください。別機種の手順や個人ブログの結線を転用しないでください。</p>
+<details><summary>事故例を読むときも、確認できた範囲を分ける</summary><p>一相ずつの試験で内蔵VTが焼損し、その後の投入時に事故になったという紹介があります（<a href="https://blog.memo-labo.com/?p=3271" target="_blank" rel="noopener">でんきメモの事例紹介</a>）。これは第三者の紹介で、ケーブル長・電流・焼損時間は確認できません。①②の数値からこの事例を再現したとは扱いません。</p></details>
 </section>
 
 <section class="sheet" id="water"><h2>水でたとえると</h2>

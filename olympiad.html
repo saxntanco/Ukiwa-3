@@ -1,150 +1,125 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#091322"><meta name="description" content="数学・物理・化学・生物学・情報・地学・地理・言語学。科学オリンピックの全体像と、うきわメモ独自の問題解説。"><title>オリンピックの間｜うきわの隠れ家</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(at 85% 10%,#24365d,transparent 60%),#091322;color:#eef6ff;font-family:system-ui,sans-serif;min-height:100vh}
-main{max-width:1000px;margin:auto;padding:40px 20px 80px}
-a{color:#8de8ec}
-.crumb{font-size:13px;color:#a9c5d7}.crumb a{color:#a9c5d7}
-.tag{display:inline-block;margin-top:28px;font-size:12px;letter-spacing:2px;color:#9ee6e8}
-h1{font-size:clamp(30px,6vw,52px);margin:6px 0 10px}
-p,li{line-height:1.85;color:#d5e3f1}
-.lead{color:#b7c8dc;margin:0}
-.rules{margin-top:24px;border:1px solid #405675;border-radius:16px;padding:6px 20px;background:#10203a}
-.rules summary{cursor:pointer;padding:12px 0;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
-.olym{border:1px solid #405675;border-radius:20px;padding:22px;background:#132339;min-width:0}
-.olym.ready{background:linear-gradient(135deg,#174552,#201c42);border-color:#65dfe4}
-.olym small{color:#9ee6e8;letter-spacing:2px;font-size:11px}
-.olym h2{font-size:22px;margin:4px 0 2px;display:flex;align-items:center;gap:10px}
-.icon{font-size:26px;color:#7aeded;width:32px;text-align:center}
-.route{font-size:13px;color:#a9c5d7;margin:0 0 10px}
-.ask{margin:8px 0}
-details{border-top:1px solid #2c4560;margin-top:10px}
-details summary{cursor:pointer;padding:10px 0;font-size:14px;font-weight:700;color:#cfe6f5}
-details ul{margin:0 0 8px;padding-left:20px}details li{font-size:14px}
-.probs{margin-top:12px;padding:0;list-style:none}
-.probs li{margin:6px 0}
-.probs a{display:block;text-decoration:none;border:1px solid #65dfe4;border-radius:12px;padding:10px 14px;color:#fff;background:#0c1a2c}
-.probs a span{display:block;font-size:12px;color:#9ee6e8}
-.soon{display:block;border:1px dashed #4b6480;border-radius:12px;padding:10px 14px;font-size:13px;color:#8fa6bd}
-.links{font-size:13px;margin-top:10px}
-summary:focus-visible,a:focus-visible{outline:3px solid #f7d38a;outline-offset:2px}
-.note{font-size:13px;color:#9fb3c8;margin-top:30px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}}
-</style>
-<script src="hideout-nav.js?v=20261012-1" defer></script></head>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#091322"><meta name="description" content="天文学・経済・哲学・AIなど13分野の科学・学術オリンピック。まず1問から入り、ヒントと解説で考え方を学び、公式の過去問へ進めます。"><title>オリンピックの間｜うきわの隠れ家</title><link rel="stylesheet" href="olympiad.css?v=20261024"><script src="hideout-nav.js?v=20261024" defer></script><script src="olympiad.js?v=20261024" defer></script></head>
 <body><main>
 <div class="crumb"><a href="hidden-menu.html">うきわの隠れ家</a> › オリンピックの間</div>
-<span class="tag">SCIENCE OLYMPIADS</span>
-<h1>オリンピックの間</h1>
-<p class="lead">中高生が世界と競う8つの科学オリンピック。<br>それぞれ何が問われるのかを知って、1問ずつ解いてみる。</p>
+<header><span class="eyebrow">SCIENCE &amp; ACADEMIC OLYMPIADS</span><h1>知らない世界を、<br>1問から。</h1><p class="lead">オリンピックの間。天文学から哲学まで、13分野の「考える面白さ」をのぞく場所。大会を目指さなくても、ここから読めます。</p></header>
+<section class="start-grid" aria-label="すぐ読める解説">
+<a class="start featured" href="olympiad-astronomy.html"><span class="kind">はじめてならここ · 自作入門3問</span><strong>星に触れずに、<br>距離をどう測る？ →</strong><small>天文学｜明るさ → 視差 → 公転周期</small></a>
+<a class="start" href="olympiad-imo-2019-p1.html"><span class="kind">実際の大会問題</span><strong>代入だけで<br>関数をほどく →</strong><small>数学｜IMO 2019 第1問</small></a>
+<a class="start" href="olympiad-ipho-2022-t1.html"><span class="kind">実際の大会問題</span><strong>磁石の力を<br>電流で考える →</strong><small>物理｜IPhO 2022 理論1・A</small></a>
+</section>
+<section class="section" id="subjects" aria-labelledby="subjects-title">
+<div class="section-head"><h2 id="subjects-title">興味のある分野から</h2><span class="note">開くと「何を考えるか」と入門問題</span></div>
+<div id="directory-tools" hidden>
+<div class="filters" role="group" aria-label="分野の絞り込み"><button type="button" data-group="space" aria-pressed="true">宇宙・地球</button><button type="button" data-group="logic" aria-pressed="false">数理・情報</button><button type="button" data-group="nature" aria-pressed="false">物質・生命</button><button type="button" data-group="human" aria-pressed="false">人・社会</button><button type="button" data-group="all" aria-pressed="false">すべて</button></div>
+<div class="search-row"><label for="olym-search">名前・大会名で探す<input id="olym-search" type="search" placeholder="例：天文学、IOAA、経済" autocomplete="off"></label><button type="button" class="reset" id="olym-reset">リセット</button></div>
+<p class="result-count" id="olym-count" role="status" aria-live="polite"></p></div>
+<noscript><p class="note">各分野を開いて読めます。絞り込みにはJavaScriptを使います。</p></noscript>
+<details class="field" id="astronomy" data-group="space" data-search="天文 宇宙 astronomy astrophysics JAO IOAA IAO"><summary><strong>天文学・天体物理学</strong><small>星の光だけで、距離・温度・動きを知る。</small></summary><div class="field-body">
+<p>宇宙の雑学を答えるだけではありません。星の位置や明るさの測定値から、見えない距離や質量を推理します。IOAAでは理論に加え、データ解析や観測も扱います。</p><p class="route">日本天文学オリンピック（JAO）を含む日本代表選考 → 国際天文学・天体物理学オリンピック（IOAA）。<b>国際天文学オリンピック（IAO）は別大会</b>です。同じ略称・選考経路として扱わないようにします。</p><p><b>最初の一手：</b>「測れた量」と「知りたい量」を分ける。明るく見えるから近い、とは限りません。星図・グラフを読み、単位と桁をそろえる力も使います。</p>
+<div class="mini"><h3>自作入門：距離が2倍になったら？</h3><p>同じ星を2倍遠くから見ると、単位面積あたりに届く光は何倍になるでしょう。途中で光が吸収されないとします。</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>光は球面に広がります。球の面積は半径の2乗に比例します。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>面積は4倍になるので、届く光は<b>1/4</b>。星が出す総エネルギーが1/4になるわけではありません。</p></div></details><p><a href="olympiad-astronomy.html">図と3問で、明るさ・距離・公転をじっくり読む →</a></p></div>
+<p class="sources">公式：<a href="https://iaojapan.org/preparation/" target="_blank" rel="noopener">JAOの過去問・学習資料 ↗</a> ／ <a href="https://iaojapan.org/international/" target="_blank" rel="noopener">IOAAの競技内容 ↗</a> ／ <a href="https://ioaastrophysics.org/" target="_blank" rel="noopener">IOAA ↗</a> ／ <a href="https://www.issp.ac.ru/iao/" target="_blank" rel="noopener">IAO（別大会） ↗</a></p>
+</div></details>
 
-<details class="rules"><summary>このページの決まりごと</summary>
-<ul>
-<li>問題文は転載せず、各公式サイトの過去問ページへリンクします。</li>
-<li>解説・ヒントは、うきわメモが自分の言葉で書いたものです。</li>
-<li>各解説ページに「公式解答との照合」の状況を書いています。誤りに気づいたら直します。</li>
-</ul></details>
+<details class="field" id="earth" data-group="space" data-search="地学 地球 earth science IESO JESO"><summary><strong>地学</strong><small>地震波や岩石を手がかりに、地球の中を読む。</small></summary><div class="field-body">
+<p>地球・大気・海洋・宇宙を別々に暗記するのではなく、現象のつながりを考えます。岩石や地層、気象・地震のデータが手がかりになります。</p><p class="route">日本地学オリンピックなどを経る代表選考 → 国際地学オリンピック（IESO）</p><p><b>最初の一手：</b>図の時間・距離の軸を読み、「直接観測したもの」と「そこから推定したもの」を別に書く。</p>
+<div class="mini"><h3>自作入門：地震の波の到着差</h3><p>同じ場所から同時に出たP波が毎秒6 km、S波が毎秒3 kmでまっすぐ進み、到着に10秒の差がありました。波が進んだ距離は？ 速度が一定の単純化したモデルです。</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>距離をd kmとすると、P波はd/6秒、S波はd/3秒。遅い波の時間から速い波の時間を引きます。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>d/3 − d/6 = 10 より、<b>d = 60 km</b>。1か所の到着差からは距離までしか分からず、震源の方向は決まりません。現実の地球では層によって速さも変わります。</p></div></details></div>
+<p class="sources">公式：<a href="https://www.jeso.jp/" target="_blank" rel="noopener">地学オリンピック日本委員会（案内・過去問） ↗</a></p>
+</div></details>
 
-<div class="grid">
+<details class="field" id="geography" data-group="space" data-search="地理 geography iGeo"><summary><strong>地理</strong><small>地図とデータから、「なぜそこに？」を考える。</small></summary><div class="field-body">
+<p>国名や首都の暗記だけではありません。地図・写真・統計を合わせて、人口、産業、環境の関係を説明します。国際大会には記述・マルチメディア・フィールドワークの試験があります。</p><p class="route">科学地理オリンピック日本選手権 → 国際地理オリンピック（iGeo）</p><p><b>最初の一手：</b>人数・面積・割合のどれを比べているか確認し、地域差の理由を根拠と結びつける。</p>
+<div class="mini"><h3>自作入門：人口が多いほうが密集している？</h3><p>A市は10万人・100 km²、B市は15万人・300 km²。平均人口密度が高いのはどちら？</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>人口を面積で割って、同じ1 km²あたりで比べます。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>A市は<b>1,000人/km²</b>、B市は<b>500人/km²</b>で、A市が2倍。総人口の大小とは逆です。ただし市全体の平均だけでは、駅前の混雑や居住地の偏りまでは分かりません。</p></div></details></div>
+<p class="sources">公式：<a href="https://japan-igeo.com/" target="_blank" rel="noopener">地理オリンピック日本委員会・過去問 ↗</a></p>
+</div></details>
 
-<article class="olym ready"><small>MATHEMATICS</small><h2><span class="icon">∑</span>数学</h2>
-<p class="route">日本数学オリンピック（予選→本選）→ 国際数学オリンピック（IMO）</p>
-<p class="ask">道具は中高の数学だけ。そのかわり、答えを「証明」で示す力が問われる。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>IMOは2日間、各日3問を4時間30分で解く。1問7点の記述式。</li>
-<li>分野は代数・組合せ・幾何・整数の4つが中心。</li>
-<li>計算力よりも「どこから手をつけるか」を見つける発想が鍵。</li>
-</ul></details>
-<ul class="probs"><li><a href="olympiad-imo-2019-p1.html">IMO 2019 第1問　関数方程式を「代入」でほどく<span>代数 ／ ヒント3段階＋解説</span></a></li></ul>
-<p class="links">公式：<a href="https://www.imo-official.org/problems.aspx" target="_blank" rel="noopener">IMO過去問</a>・<a href="https://www.imojp.org/" target="_blank" rel="noopener">数学オリンピック財団</a></p>
-</article>
+<details class="field" id="math" data-group="logic" data-search="数学 mathematics IMO JMO"><summary><strong>数学</strong><small>いくつかの例ではなく、「必ず」を証明する。</small></summary><div class="field-body">
+<p>代数・整数・幾何・組合せを中心に、答えに至る筋道を示します。難しい公式を知っているかだけでなく、条件を言い換えたり、簡単な場合から規則を見つけたりする力が大切です。</p><p class="route">日本数学オリンピックなどを経る代表選考 → 国際数学オリンピック（IMO）</p><p><b>最初の一手：</b>0、1、同じ数など、式が簡単になる値を入れる。ただし例の確認と証明は別。</p>
+<div class="mini"><h3>自作入門：連続する整数の積</h3><p>整数nについて、n(n+1)は必ず偶数でしょうか。負の整数も含めて考えます。</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>nが偶数の場合と奇数の場合に分けます。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>nが偶数ならnが2の倍数。nが奇数ならn+1が2の倍数。どちらの場合も積に2が含まれるので、<b>すべての整数nで偶数</b>です。「1、2、3でできた」から一歩進み、全場合を二つに分けて押さえました。</p></div></details><p><a href="olympiad-imo-2019-p1.html">実際の問題へ：IMO 2019 第1問のヒントと証明 →</a></p></div>
+<p class="sources">公式：<a href="https://www.imo-official.org/problems.aspx" target="_blank" rel="noopener">IMO過去問 ↗</a> ／ <a href="https://www.imojp.org/" target="_blank" rel="noopener">数学オリンピック財団 ↗</a></p>
+</div></details>
 
-<article class="olym ready"><small>PHYSICS</small><h2><span class="icon">⚛</span>物理</h2>
-<p class="route">物理チャレンジ（第1→第2チャレンジ）→ 国際物理オリンピック（IPhO）</p>
-<p class="ask">見たことのない現象を、知っている法則だけで式に落とし込めるか。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>IPhOは理論試験と実験試験の2本立て（各5時間）。</li>
-<li>理論は1つの題材を小問で掘り下げる長い大問が3つ。</li>
-<li>実験では、測定・誤差の扱い・グラフからの読み取りが問われる。</li>
-</ul></details>
-<ul class="probs"><li><a href="olympiad-ipho-2022-t1.html">IPhO 2022 理論1　磁石どうしの力を「電流」で考える<span>電磁気 ／ ヒント3段階＋解説（パートA）</span></a></li></ul>
-<p class="links">公式：<a href="https://www.jpho.jp/" target="_blank" rel="noopener">物理オリンピック日本委員会</a></p>
-</article>
+<details class="field" id="informatics" data-group="logic" data-search="情報 プログラミング informatics IOI JOI"><summary><strong>情報・プログラミング</strong><small>正しく、しかも速く答えを出す手順をつくる。</small></summary><div class="field-body">
+<p>アルゴリズムを考えてプログラムにします。小さい入力では正しくても、大きな入力では時間が足りないことがあります。「計算の回数」も設計の対象です。</p><p class="route">日本情報オリンピック（JOI）などを経る代表選考 → 国際情報オリンピック（IOI）</p><p><b>最初の一手：</b>まず小さい例を手で解き、同じ計算を繰り返していないか探す。</p>
+<div class="mini"><h3>自作入門：階段の上り方</h3><p>1回に1段または2段上れます。4段の階段の上り方は何通り？ 上る順序が違えば別の方法とします。</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>最後が1段なら、その前は3段目。最後が2段なら、その前は2段目。この二つは重なりません。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>f(n)=f(n−1)+f(n−2)。f(0)=1（何もしない1通り）、f(1)=1なので、f(2)=2、f(3)=3、<b>f(4)=5</b>。計算済みの値を保存すれば、同じ枝を何度も数えずに済みます。これが動的計画法の入口です。</p></div></details></div>
+<p class="sources">公式：<a href="https://www.ioi-jp.org/" target="_blank" rel="noopener">情報オリンピック日本委員会（過去問・学習案内） ↗</a></p>
+</div></details>
 
-<article class="olym"><small>CHEMISTRY</small><h2><span class="icon">⚗</span>化学</h2>
-<p class="route">化学グランプリ（一次→二次選考）→ 国際化学オリンピック（IChO）</p>
-<p class="ask">反応・構造・量的関係を、つなげて推理する力。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>IChOは理論試験と実験試験（各5時間）。</li>
-<li>有機化合物の構造決定、平衡・反応速度、無機・分析など幅広い。</li>
-<li>大学初年級の内容が、問題文の中で説明されながら出てくる。</li>
-</ul></details>
-<ul class="probs"><li><span class="soon">解説準備中</span></li></ul>
-<p class="links">公式：<a href="https://www.chemistry-grand-prix.jp/" target="_blank" rel="noopener">化学グランプリ</a></p>
-</article>
+<details class="field" id="ai" data-group="logic" data-search="AI 人工知能 machine learning IOAI"><summary><strong>AI・人工知能</strong><small>学習したデータの外でも、うまく働くか。</small></summary><div class="field-body">
+<p>ここで紹介するのはInternational Olympiad in Artificial Intelligence（IOAI）。機械学習の考え方を使い、データからモデルをつくって評価する競技です。画像・言語なども扱い、単に生成AIに答えを聞く競技ではありません。</p><p class="route">IOAIと、似た略称のIAIOは別組織・別大会です。出題範囲や選考は紹介先の公式情報で確認してください。</p><p><b>最初の一手：</b>「何を当てれば成功か」を決める。学習と評価を分け、正答率だけで良し悪しを決めない。</p>
+<div class="mini"><h3>自作入門：正答率99%なら優秀？</h3><p>1,000件の機器データのうち故障は10件。すべてを「正常」と判定したモデルの正答率と、故障を見つけた割合は？</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>正常990件には正解します。故障10件はどうなるでしょう。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>正答率は990/1,000=<b>99%</b>。でも故障は0/10件しか見つからず、故障の再現率は<b>0%</b>です。用途が故障の発見なら、このモデルを正答率だけで高評価にはできません。誤警報の件数も合わせて比較します。</p></div></details></div>
+<p class="sources">公式：<a href="https://ioai-official.org/resources/" target="_blank" rel="noopener">IOAI学習資料 ↗</a> ／ <a href="https://ioai-official.org/2024-tasks/" target="_blank" rel="noopener">公開課題 ↗</a> ／ <a href="https://ioai-official.org/republic-of-kazakhstan/syllabus-2026/" target="_blank" rel="noopener">2026出題範囲 ↗</a></p>
+</div></details>
 
-<article class="olym"><small>BIOLOGY</small><h2><span class="icon">❦</span>生物学</h2>
-<p class="route">日本生物学オリンピック（予選→本選）→ 国際生物学オリンピック（IBO）</p>
-<p class="ask">知識量に加えて、実験データからの読み取りと考察。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>IBOは理論試験と実験試験。</li>
-<li>分子・細胞から生態・進化まで全分野。</li>
-<li>グラフや実験結果を見て、仮説を選び・否定する問題が多い。</li>
-</ul></details>
-<ul class="probs"><li><span class="soon">解説準備中</span></li></ul>
-<p class="links">公式：<a href="https://www.jbo-info.jp/exam/index.html" target="_blank" rel="noopener">JBO・IBO過去問</a></p>
-</article>
+<details class="field" id="physics" data-group="nature" data-search="物理 physics IPhO JPhO"><summary><strong>物理</strong><small>複雑な現象を、扱える模型に置き換える。</small></summary><div class="field-body">
+<p>力学・電磁気・熱・波などを使う理論と、測って考える実験の両方を扱います。何を無視できるか、どの条件で近似が成り立つかが重要です。</p><p class="route">物理チャレンジなどを経る代表選考 → 国際物理オリンピック（IPhO）</p><p><b>最初の一手：</b>図を描き、力やエネルギーの出入りを書き込む。式の前に模型を決める。</p>
+<div class="mini"><h3>自作入門：2倍速く走ると？</h3><p>同じ質量の物体の速さが2倍になると、運動エネルギーは何倍？</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>運動エネルギーはK=mv²/2。速さを2vに置き換えます。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>(2v)²=4v²なので、<b>4倍</b>になります。速度に比例する「運動量」と混同しないこと。同じ一定の制動力だけで止める理想モデルなら、停止に必要な距離も4倍です。</p></div></details><p><a href="olympiad-ipho-2022-t1.html">実際の問題へ：IPhO 2022 永久磁石・パートA →</a></p></div>
+<p class="sources">公式：<a href="https://www.jpho.jp/" target="_blank" rel="noopener">物理オリンピック日本委員会（過去問・実験課題） ↗</a></p>
+</div></details>
 
-<article class="olym"><small>INFORMATICS</small><h2><span class="icon">⌘</span>情報</h2>
-<p class="route">日本情報オリンピック（一次→二次予選→本選）→ 国際情報オリンピック（IOI）</p>
-<p class="ask">速く正しく動くアルゴリズムを考え、実際にプログラムで書く。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>IOIは2日間、各日3題を5時間で解くプログラミング競技。</li>
-<li>部分点（小課題）があり、易しい条件から順に攻められる。</li>
-<li>グラフ・動的計画法・データ構造などの発想が中心。</li>
-</ul></details>
-<ul class="probs"><li><span class="soon">解説準備中</span></li></ul>
-<p class="links">公式：<a href="https://www.ioi-jp.org/" target="_blank" rel="noopener">情報オリンピック日本委員会</a>・<a href="https://ioi2023.hu/tasks" target="_blank" rel="noopener">IOI 2023の課題</a></p>
-</article>
+<details class="field" id="chemistry" data-group="nature" data-search="化学 chemistry IChO"><summary><strong>化学</strong><small>反応・構造・量の関係をつなげて推理する。</small></summary><div class="field-body">
+<p>理論と実験を通じて、物質の構造や反応を調べます。式を立てるだけでなく、測った量から何が言えるか、何がまだ言えないかを判断します。</p><p class="route">化学グランプリなどを経る代表選考 → 国際化学オリンピック（IChO）</p><p><b>最初の一手：</b>反応式をそろえ、質量ではなく物質量（mol）の比に直す。</p>
+<div class="mini"><h3>自作入門：先になくなるのは？</h3><p>反応式2H₂+O₂→2H₂Oに従って、H₂を3 mol、O₂を2 mol反応させます。反応が十分に進むと水は最大何molできる？</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>H₂ 3 molに必要なO₂は1.5 mol。酸素は足りています。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>先になくなるのは水素なので、水は<b>3 mol</b>、O₂は<b>0.5 mol</b>残ります。反応式の係数比はmolの比であり、グラムの比ではありません。実験手順ではなく量論だけの練習です。</p></div></details></div>
+<p class="sources">公式：<a href="https://www.chemistry-grand-prix.jp/" target="_blank" rel="noopener">化学グランプリ・過去問題集 ↗</a></p>
+</div></details>
 
-<article class="olym"><small>EARTH SCIENCE</small><h2><span class="icon">◒</span>地学</h2>
-<p class="route">日本地学オリンピック（予選→本選）→ 国際地学オリンピック（IESO）</p>
-<p class="ask">地球・大気・海洋・宇宙を、データと実物から読み解く。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>筆記試験に加えて、岩石・化石などを扱う実技試験がある。</li>
-<li>国際大会では、各国混成チームでの野外調査や研究発表も。</li>
-<li>天気図・地震波・地質図など、図から考える問題が多い。</li>
-</ul></details>
-<ul class="probs"><li><span class="soon">解説準備中</span></li></ul>
-<p class="links">公式：<a href="https://www.jeso.jp/" target="_blank" rel="noopener">地学オリンピック日本委員会（過去問あり）</a></p>
-</article>
+<details class="field" id="biology" data-group="nature" data-search="生物 生物学 biology IBO JBO"><summary><strong>生物学</strong><small>実験結果から、生命の仕組みを説明する。</small></summary><div class="field-body">
+<p>細胞や遺伝から生態・進化までを扱います。用語を知るだけでなく、実験の対照条件やグラフから、仮説を支持する証拠を読み取ります。</p><p class="route">日本生物学オリンピック（JBO）などを経る代表選考 → 国際生物学オリンピック（IBO）</p><p><b>最初の一手：</b>変えた条件は何か、ほかの条件はそろっているかを見る。</p>
+<div class="mini"><h3>自作入門：酵素を加えた効果？</h3><p>同じ温度・同じ初期基質量で、10分後の生成物は「酵素なし」2 mg、「酵素あり」8 mgでした。酵素による増加分は何mg？ これだけで最適温度は分かる？</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>対照との差を計算します。温度は何種類測ったでしょう。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>差は8−2=<b>6 mg</b>。同条件での増加を比べる入口になります。しかし温度を1種類しか測っていないので、<b>最適温度は分かりません</b>。1回の結果だけではばらつきも分からず、繰り返し測定が必要です。</p></div></details></div>
+<p class="sources">公式：<a href="https://www.jbo-info.jp/exam/index.html" target="_blank" rel="noopener">JBO・IBOの過去問 ↗</a></p>
+</div></details>
 
-<article class="olym"><small>GEOGRAPHY</small><h2><span class="icon">⌖</span>地理</h2>
-<p class="route">科学地理オリンピック日本選手権 → 国際地理オリンピック（iGeo）</p>
-<p class="ask">地図・グラフ・写真から地域の姿を読み、これからを考える。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>iGeoは記述試験・マルチメディア試験・フィールドワーク試験の3つ。</li>
-<li>国内選手権も地図や写真を使った問題が中心で、上位者はフィールドワーク試験へ。</li>
-<li>暗記より「なぜそこにそれがあるのか」の説明力。</li>
-</ul></details>
-<ul class="probs"><li><span class="soon">解説準備中</span></li></ul>
-<p class="links">公式：<a href="https://japan-igeo.com/" target="_blank" rel="noopener">国際地理オリンピック日本委員会</a></p>
-</article>
+<details class="field" id="junior" data-group="nature" data-search="総合理科 ジュニア junior science IJSO"><summary><strong>総合理科・ジュニア科学</strong><small>物理・化学・生物を、一つの現象から考える。</small></summary><div class="field-body">
+<p>国際ジュニア科学オリンピック（IJSO）は、物理・化学・生物を横断する大会。公開過去問には選択式・理論・実験があります。年齢条件や各国の参加方法は公式規程で確認してください。</p><p class="route">ここでは国際大会の教材への入口を紹介します。日本の代表選考経路は本ページでは案内していません。</p><p><b>最初の一手：</b>現象の前後で「保存される量」を探す。科目の境界で考えるのを止めない。</p>
+<div class="mini"><h3>自作入門：同じ量の水を混ぜる</h3><p>20℃の水100 gと60℃の水100 gを混ぜます。熱が外へ逃げず、容器の熱容量を無視し、水の比熱を一定とすると何℃？</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>冷たい水が得る熱100c(T−20)と、温かい水が失う熱100c(60−T)を等しくします。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>T−20=60−Tより<b>40℃</b>。単純平均になるのは、今回は質量と比熱が等しいからです。量が違えば平均のとり方も変わります。</p></div></details></div>
+<p class="sources">公式：<a href="https://ijsoweb.org/downloads" target="_blank" rel="noopener">IJSO過去問・解答 ↗</a> ／ <a href="https://www.ijsoweb.org/ijso-syllabus" target="_blank" rel="noopener">出題範囲 ↗</a></p>
+</div></details>
 
-<article class="olym"><small>LINGUISTICS</small><h2><span class="icon">あ</span>言語学</h2>
-<p class="route">日本言語学オリンピック → 国際言語学オリンピック（IOL）</p>
-<p class="ask">初めて見る言語の例文から、文法の規則をパズルのように見つける。</p>
-<details><summary>試験の形と問われる力</summary><ul>
-<li>予備知識はいらない。必要な情報はすべて問題の中にある。</li>
-<li>国際大会は個人戦（約6時間）と団体戦。</li>
-<li>仮説を立て、例文と矛盾しないか確かめる、論理パズルの力。</li>
-</ul></details>
-<ul class="probs"><li><span class="soon">解説準備中</span></li></ul>
-<p class="links">公式：<a href="https://ioling.org/problems/by_year/" target="_blank" rel="noopener">IOL 年度別の問題</a></p>
-</article>
+<details class="field" id="linguistics" data-group="human" data-search="言語 言語学 linguistics IOL JOL"><summary><strong>言語学</strong><small>知らない言葉の例文から、規則を発見する。</small></summary><div class="field-body">
+<p>外国語の語彙量を競う試験ではありません。与えられた言語資料から、語順・語の変化・数の表し方などの仕組みを推理します。国際大会には個人問題と団体問題があります。</p><p class="route">日本言語学オリンピックなどを経る代表選考 → 国際言語学オリンピック（IOL）</p><p><b>最初の一手：</b>意味が一つだけ変わった例を比べ、同じ部分と違う部分を探す。</p>
+<div class="mini"><h3>自作入門：架空の言語を解く</h3><p>この架空言語では、数の規則は名詞によらず同じです。mika＝猫、mika-tu＝猫たち、sora＝鳥。では「鳥たち」は？</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>mikaとmika-tuの違いから、複数を表す部分を見つけます。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>複数は語尾に-tuを付けると考えられるので、<b>sora-tu</b>。ただし現実の言語にも必ず同じ規則があるわけではありません。追加の例で仮説を確かめるのが本番の面白さです。</p></div></details></div>
+<p class="sources">公式：<a href="https://ioling.org/problems/by_year/" target="_blank" rel="noopener">IOL年度別の問題・解答（日本語版あり） ↗</a></p>
+</div></details>
 
-</div>
-<p class="note">大会の形式は年度によって変わることがあります。最新の情報は各公式サイトで確認してください。　ページ作成：2026年10月23日</p>
+<details class="field" id="economics" data-group="human" data-search="経済 経済学 金融 economics finance IEO"><summary><strong>経済学・金融</strong><small>限られた資源を、どう使うか考える。</small></summary><div class="field-body">
+<p>国際経済オリンピック（IEO）は経済・金融とビジネスケースを扱います。価格や市場の仕組みを理解するだけでなく、条件を整理して選択を説明する力も必要です。</p><p class="route">紹介先はieo-official.orgのIEOです。似た名称の別団体の大会や、別形式のオンライン企画と区別してください。</p><p><b>最初の一手：</b>「それを選ぶと、何をあきらめるか」を書き出す。これが機会費用の入口。</p>
+<div class="mini"><h3>自作入門：得意な人が全部すべき？</h3><p>Aさんは1時間にパン6個またはスープ3杯、Bさんはパン4個またはスープ4杯を作れます。パン1個を作るためにあきらめるスープは、それぞれ何杯？ 生産量は時間に比例するとします。</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>Aさんはパン6個と引き換えにスープ3杯をあきらめます。Bさんはパン4個と引き換えにスープ4杯です。</p></div></details>
+<details class="reveal"><summary>答えと解説を見る</summary><div><p>パン1個あたり、Aさんは3/6=<b>0.5杯</b>、Bさんは4/4=<b>1杯</b>。パンの機会費用が小さいAさんがパンに比較優位を持ちます。スープでは逆にBさんが有利。需要や交換条件もあるため、これだけで現実の最適な分業量まで決まるわけではありません。</p></div></details></div>
+<p class="sources">公式：<a href="https://ieo-official.org/prepare" target="_blank" rel="noopener">IEO出題範囲・過去問・学習資料 ↗</a>（掲載シラバス承認日：2025-12-31）</p>
+</div></details>
+
+<details class="field" id="philosophy" data-group="human" data-search="哲学 philosophy IPO"><summary><strong>哲学</strong><small>自分の主張を、反論に耐える理由で支える。</small></summary><div class="field-body">
+<p>国際哲学オリンピック（IPO）では、与えられた題材について哲学的エッセイを書きます。偉人の名言を覚えるだけでなく、問いを定め、概念を整理し、筋道を立てて論じる競技です。</p><p class="route">評価では題への関連性、哲学的理解、論の説得力・一貫性、独創性などが見られます。言語・参加条件は公式規程を確認してください。</p><p><b>最初の一手：</b>「公平」「自由」などの言葉を、自分がどういう意味で使うか決める。</p>
+<div class="mini"><h3>自作入門：同じ扱いなら、いつも公平？</h3><p>全員に同じ高さの机を用意するのは公平でしょうか。「同じ扱い」と「同じように使えること」を分けて考えてみます。</p>
+<details class="reveal"><summary>ヒントを見る</summary><div><p>①公平の定義。②その定義を支持する理由。③身長や身体条件が違う人という反例。④反例を受けて主張を修正するか。感想から、この順に論証へ進みます。</p></div></details>
+<details class="reveal"><summary>考察例を見る（唯一の正解ではありません）</summary><div><p>「同じ物を配る公平」と「使う機会を保障する公平」は一致しないことがあります。調整できる机は後者を助けますが、費用や配分の説明も必要です。<b>反論を無視せず、どの条件なら主張が成り立つかを示す</b>のが狙いです。これは独自の考察例で、唯一の正解やIPOの模範解答ではありません。</p></div></details></div>
+<p class="sources">公式：<a href="https://www.philosophy-olympiad.org/?page_id=72" target="_blank" rel="noopener">IPO過去の題材 ↗</a> ／ <a href="https://www.philosophy-olympiad.org/?page_id=1237" target="_blank" rel="noopener">エッセイガイド ↗</a> ／ <a href="https://www.philosophy-olympiad.org/?page_id=2" target="_blank" rel="noopener">規程・評価の観点 ↗</a></p>
+</div></details>
+<p id="olym-empty" class="empty" hidden>見つかりませんでした。別の言葉で検索するか、リセットしてください。</p>
+</section>
+<details class="policy"><summary>教材の区別と、公式情報の確かめ方</summary><ul><li><b>自作入門：</b>うきわメモ作成の基礎練習です。実際の出題・大会レベル・公式解答ではありません。</li><li><b>実際の大会問題の解説：</b>IMO・IPhOのページには対象年・設問・公式資料と照合状況を記載。問題全文の代わりに要点と独自解説を掲載しています。</li><li>13は分野の数で、大会の総数ではありません。女子大会・地域大会などもあり、すべてを網羅した一覧ではありません。</li><li>参加資格、試験形式、代表選考の流れは年度や団体で変わります。応募前には、その年度の公式要項を確認してください。</li><li>公式リンク・掲載内容の確認：2026年10月24日。資料の発行・更新日が明記されない場合、この日付は資料の発行日ではなく確認日です。</li></ul></details>
+<p class="meta">更新：2026年10月24日 ／ うきわメモ独自の入門教材</p>
 </main></body></html>

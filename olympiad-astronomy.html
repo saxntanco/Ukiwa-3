@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#091322"><meta name="description" content="天文学オリンピックへの入口。星の明るさ・年周視差・公転周期を、自作の3問と図、ヒント、途中式で理解する入門教材。"><title>星に触れずに距離を測る｜天文学オリンピック入門</title><link rel="stylesheet" href="olympiad.css?v=20261024"><script src="hideout-nav.js?v=20261024" defer></script><script src="olympiad-astronomy.js?v=20261024" defer></script></head>
+<body><main class="lesson">
+<div class="crumb"><a href="olympiad.html">オリンピックの間</a> › 天文学の入口</div>
+<header><span class="eyebrow">ASTRONOMY · 3 SMALL STEPS</span><h1>星に触れずに、<br>距離をどう測る？</h1><p class="lead">持っていけるのは物差しではなく、光と数学。<br>「明るさ」「見える向き」「一周する時間」から、宇宙の大きさをほどいてみよう。</p><p class="meta">うきわメモ自作の入門3問 ／ 大会の過去問・公式解答ではありません ／ 2026-10-24</p></header>
+<nav class="lesson-nav" aria-label="このページの目次"><a href="#light">① 明るさ</a><a href="#parallax">② 視差で距離</a><a href="#orbit">③ 公転周期</a><a href="#next">次は公式問題へ</a></nav>
+<p class="note">必要なのは比例・平方根・簡単な式変形。まず問いを考え、必要になったらヒントと解説を開いてください。観測は直接太陽を見ず、適切な指導・安全な機器のもとで行ってください。</p>
+
+<section class="lesson-section" id="light"><h2>① 暗い星は、遠い星？</h2>
+<p>遠くの街灯が暗く見えるのは、同じ量の光が広い範囲に分かれるから。星でも基本は同じです。ただし、もともと弱い光を出す星もあるので、<b>暗いというだけでは距離は決まりません。</b></p>
+<div class="problem"><span class="label">自作入門 1 ／ 光の逆二乗則</span><h3>同じ明るさの星を比べる</h3><p>星AとBが、1秒間に放つ光の総エネルギーは同じ。地球に届く光の強さは、BがAの1/9でした。Bまでの距離はAの何倍でしょう？</p><p class="note">どの向きにも同じように光る星を仮定し、途中の吸収・散乱は無視。同じ方法で測った光を比べます。</p></div>
+<details class="reveal"><summary>ヒント1：同じ光が広がる「面積」</summary><div><p>星を中心とした半径dの球を考えます。表面積は4πd²。距離が2倍なら面積4倍、3倍なら9倍です。</p></div></details>
+<details class="reveal"><summary>ヒント2：比にすると、知らない量が消える</summary><div><p>光度L（星が出す総エネルギー/秒）と、放射フラックスF（単位面積あたりに届くエネルギー/秒）の関係はF=L/(4πd²)。AとBのLが等しければ、比の計算では消せます。</p></div></details>
+<details class="reveal"><summary>答え・途中式・間違えやすいところ</summary><div><p class="answer">Bまでの距離は、Aの3倍。</p><ol class="steps"><li>明るさの比は F<sub>B</sub>/F<sub>A</sub> = (d<sub>A</sub>/d<sub>B</sub>)²。</li><li>1/9 = (d<sub>A</sub>/d<sub>B</sub>)² の両辺の平方根をとる。</li><li>距離は正なので d<sub>A</sub>/d<sub>B</sub> = 1/3。したがって d<sub>B</sub> = 3d<sub>A</sub>。</li></ol><p>「光が1/9だから距離が9倍」ではありません。距離の<b>2乗</b>が効いています。また光度Lが違う星どうしでは、この情報だけで距離を比べられません。</p></div></details>
+<div class="model" id="brightness-model" hidden><label for="distance-ratio">同じ星までの距離を、何倍にする？</label><input id="distance-ratio" type="number" min="0.1" max="100" step="any" value="2" inputmode="decimal" aria-describedby="distance-note"><span>倍</span><output id="brightness-result" for="distance-ratio" aria-live="polite"></output><p class="note" id="distance-note">入力範囲：0.1〜100倍。光度一定・吸収なしのモデル。結果は変更すると自動更新されます。</p></div>
+<details class="reveal"><summary>もう一歩：天文学の「等級」とは？</summary><div><p>等級は、数字が小さいほど明るい尺度です。同じ測定帯域で、5等級の差は明るさ100倍の差。見かけの等級差は、明るさの比を対数に直して表します。</p><p class="eq">m<sub>B</sub> − m<sub>A</sub> = −2.5 log₁₀(F<sub>B</sub>/F<sub>A</sub>)</p><p>同じ星を距離k倍から見るなら、Fの比は1/k²なので、等級差は5 log₁₀k。距離10倍で光は1/100、等級の数字は5大きくなります。ここでは<b>見かけの等級</b>の話で、星そのものの光度と混同しません。</p></div></details>
+<p class="sources">原理の確認：<a href="https://imagine.gsfc.nasa.gov/features/yba/M31_velocity/lightcurve/more.html" target="_blank" rel="noopener">NASA・光度と距離の関係 ↗</a> ／ <a href="https://prc.nao.ac.jp/freqras/glossary.html" target="_blank" rel="noopener">国立天文台・星の明るさと等級 ↗</a></p>
+</section>
+
+<section class="lesson-section" id="parallax"><h2>② 位置の「ずれ」が物差しになる</h2>
+<p>指を顔の前に立て、左目と右目を交互に閉じると、背景に対して指がずれて見えます。近い指ほどずれは大きい。地球の公転を使えば、星にも同じ考え方を使えます。</p>
+<svg class="diagram" viewBox="0 0 540 260" role="img" aria-labelledby="parallax-title parallax-desc"><title id="parallax-title">年周視差pは、地球軌道半径1 auに対応する角度</title><desc id="parallax-desc">星から太陽への方向と、星から片側の地球への方向の間の角をpとする。半年違う地球位置を使った全体の角度は、図の条件では2pとなる。</desc><rect width="540" height="260" rx="14" fill="#122238"/><path d="M150 205L270 35L390 205" fill="none" stroke="#8de8ec" stroke-width="2"/><path d="M270 35V205M150 205H390" fill="none" stroke="#8ba5bf" stroke-width="1.5" stroke-dasharray="5 5"/><path d="M270 86 A51 51 0 0 1 241 77" fill="none" stroke="#f7d38a" stroke-width="2"/><circle cx="270" cy="35" r="5" fill="#fff"/><circle cx="270" cy="205" r="10" fill="#f7d38a"/><circle cx="150" cy="205" r="7" fill="#8de8ec"/><circle cx="390" cy="205" r="7" fill="#8de8ec"/><g fill="#eef6ff" font-size="22"><text x="285" y="38">星</text><text x="241" y="103" fill="#f7d38a">p</text><text x="280" y="145">距離 d</text><text x="198" y="195">1 au</text><text x="313" y="195">1 au</text><text x="255" y="238">太陽</text><text x="105" y="234">地球（今）</text><text x="345" y="234">地球（半年後）</text></g></svg>
+<p class="note">図は軌道面に垂直な方向の星を考えた模式図。実際の角度はずっと小さく、背景の遠い星に対する見かけの位置変化を測ります。軌道の楕円性などは省略。</p>
+<div class="problem"><span class="label">自作入門 2 ／ 年周視差</span><h3>0.05秒角のずれから、距離を出す</h3><p>ある星の年周視差pは0.05秒角でした。距離は何パーセク（pc）でしょう。1 pcは、1 auに対応する年周視差が1秒角になる距離です。</p><p class="note">秒角は角度の単位で、時間の秒ではありません。1度＝60分角＝3,600秒角。問題で与えた0.05秒角はpであり、半年の両端を比べた全振幅2pではありません。</p></div>
+<details class="reveal"><summary>ヒント：遠いほど、ずれが小さい</summary><div><p>小さい角度では、pは距離に反比例します。pを秒角、dをpcで表すと、d=1/pという便利な形になります。</p></div></details>
+<details class="reveal"><summary>答えと、2倍を間違えないための確認</summary><div><p class="answer">d = 1 / 0.05 = 20 pc（約65光年）。</p><p>視差が半分になると、距離は2倍です。もし「半年で最大0.10秒角動いた」と与えられたなら、この模式図の条件では半分のp=0.05秒角を使います。全移動角をそのままpに入れると、距離を半分に見積もってしまいます。</p><p>1 auは地球軌道半径の目安になる長さ、1 pcは約3.26光年。光年も時間ではなく<b>距離</b>の単位です。小さな視差ほど相対誤差が大きくなりやすく、測定の誤差も重要になります。</p></div></details>
+<p class="sources">原理・単位：<a href="https://eco.mtk.nao.ac.jp/koyomi/faq/stars.html" target="_blank" rel="noopener">国立天文台・恒星の距離と年周視差 ↗</a> ／ <a href="https://astro-dic.jp/parsec/" target="_blank" rel="noopener">日本天文学会・パーセクの定義 ↗</a></p>
+</section>
+
+<section class="lesson-section" id="orbit"><h2>③ 一周の時間から、軌道の大きさへ</h2>
+<p>太陽から遠い惑星ほど、一般に公転に長い時間がかかります。「道のりが長い」だけでなく、軌道を動く速さも変わるため、時間と距離は単純な比例ではありません。</p>
+<div class="problem"><span class="label">自作入門 3 ／ ケプラーの第3法則</span><h3>軌道の大きさが4倍の惑星</h3><p>太陽を回る惑星Xの軌道長半径は、地球の4倍です。地球の公転周期を1年とすると、Xの周期は何年？ 惑星の質量は太陽より十分小さく、ほかの天体の影響は無視します。</p><p class="note">軌道長半径aは楕円の長い直径の半分。今この瞬間の太陽との距離とは限りません。</p></div>
+<details class="reveal"><summary>ヒント1：二乗と三乗を結びつける</summary><div><p>同じ太陽を回る、質量の小さい惑星どうしなら、T²/a³は同じ値になります。地球を基準にすると式が簡単です。</p><p class="eq">(T<sub>X</sub> / T<sub>地球</sub>)² = (a<sub>X</sub> / a<sub>地球</sub>)³</p></div></details>
+<details class="reveal"><summary>ヒント2：4の三乗のあとに、平方根</summary><div><p>4³=64。周期の二乗が64倍なので、周期そのものは√64倍です。</p></div></details>
+<details class="reveal"><summary>答え・途中式・使える条件</summary><div><p class="answer">T<sub>X</sub> = 8年。</p><ol class="steps"><li>軌道長半径の比4を三乗し、64。</li><li>周期の比は√64=8。</li><li>地球の1年を掛け、8年。</li></ol><p>「距離4倍だから4年」ではありません。また、地球を回る人工衛星と太陽を回る惑星には、同じ比例定数をそのまま使えません。</p><p class="eq">T² = 4π²a³ / [G(M + m)]</p><p>一般の二体問題では、中心天体と周回天体の質量M、mが効きます。単純な比をとれたのは、今回は同じ太陽でmが十分小さいから。<b>式と一緒に、適用条件を持つ</b>ことが大切です。</p></div></details>
+<p class="sources">原理：<a href="https://science.nasa.gov/solar-system/orbits-and-keplers-laws/" target="_blank" rel="noopener">NASA・軌道とケプラーの法則 ↗</a></p>
+</section>
+
+<section class="lesson-section" id="next"><h2>次は、公式の問題をのぞく</h2><p>ここまでの3問は、道具に慣れるための基礎練習。実際の大会では、これらを組み合わせた理論問題のほか、星図・観測・測定データの読み取りにも進みます。</p>
+<ol class="steps"><li><a href="https://iaojapan.org/preparation/" target="_blank" rel="noopener">日本天文学オリンピックの学習資料・過去問 ↗</a>から、日本語の問題を一つ選ぶ。</li><li>与えられた量に線を引き、「分かっている量」「求める量」「単位」を書き出す。</li><li>解答を見る前に、桁や増減を予想する。遠くなるのに明るくなるなど、条件と食い違う答えに気づける。</li></ol>
+<details class="reveal"><summary>IOAAとIAOは何が違う？</summary><div><p><b>IOAA</b>は国際天文学・天体物理学オリンピック。日本天文学オリンピック委員会が案内する現在の派遣先はこちらです。<b>IAO</b>は別の国際天文学オリンピック。名前が似ていますが、同じ大会の略称違いではありません。</p><p><a href="https://iaojapan.org/international/" target="_blank" rel="noopener">日本委員会によるIOAA案内 ↗</a> ／ <a href="https://www.issp.ac.ru/iao/" target="_blank" rel="noopener">IAO公式 ↗</a></p></div></details>
+<p class="meta">公式資料・原理の確認：2026-10-24。リンク先の改訂日が明記されない場合、確認日は資料の発行日を意味しません。設問・数値例・解説・図はうきわメモの独自作成で、公式問題からの転載ではありません。</p>
+</section>
+<nav class="back-row" aria-label="次に読む"><a href="olympiad.html#astronomy">← 天文学の大会案内</a><a href="olympiad.html#economics">別の世界へ：経済学 →</a></nav>
+</main></body></html>

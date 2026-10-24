@@ -124,7 +124,7 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
       <div class="sc-ctl" id="sc-share-box" hidden><div class="sc-ctl-head"><label for="sc-share" id="sc-share-label">M座とT座への振り分け</label><output id="sc-share-o"></output></div><input type="range" id="sc-share" min="0" max="100" step="1" value="60"><div class="sc-chips"><button type="button" id="sc-share-even">半分ずつ</button><button type="button" id="sc-share-all">全部M座</button><button type="button" id="sc-share-t">全部T座</button></div></div>
       <div class="sc-ctl" id="sc-three-box" hidden><div class="sc-ctl-head"><b>3台への振り分け</b><output id="sc-three-o"></output></div>
         <div class="sc-split"><label class="sc-ctl"><small>U–V</small><input type="range" id="sc-w1" min="0" max="100" value="40"></label><label class="sc-ctl"><small>V–W</small><input type="range" id="sc-w2" min="0" max="100" value="30"></label><label class="sc-ctl"><small>W–U</small><input type="range" id="sc-w3" min="0" max="100" value="30"></label></div>
-        <div class="sc-chips"><button type="button" id="sc-three-even">3等分にする</button></div></div>
+        <div class="sc-chips"><button type="button" id="sc-three-even">3等分にする</button></div><p id="sc-split-error" class="small" role="status"></p></div>
     </div>
   </div>
   <div aria-live="polite">
@@ -149,7 +149,7 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 
 <details><summary>計算の前提を変える（許容逆相電流・逆相リアクタンス）</summary>
 <p class="small">既定の許容逆相電流15%は、NEGA C 201（自家発電設備の出力算定法）が示す JEM 1354 の規定値 0.150 pu です。これを超える値は特別仕様の発電機になります。逆相リアクタンス x₂ は機種で違うので、仕様書の値に変えてください。単相負荷は力率1、三相負荷は力率0.8、変圧器は損失なしで計算しています。</p>
-<div class="sc-assume"><label for="sc-limit">許容逆相電流（定格比 %）<input type="number" id="sc-limit" min="1" max="50" step="0.5" value="15"></label><label for="sc-x2">逆相リアクタンス x₂（pu）<input type="number" id="sc-x2" min="0.02" max="1" step="0.01" value="0.15"></label></div>
+<div class="sc-assume"><label for="sc-limit">許容逆相電流（定格比 %・入力範囲1〜50）<input type="number" id="sc-limit" min="1" max="50" step="any" value="15" aria-describedby="sc-assume-error"></label><label for="sc-x2">逆相リアクタンス x₂（pu・入力範囲0.02〜1）<input type="number" id="sc-x2" min="0.02" max="1" step="any" value="0.15" aria-describedby="sc-assume-error"></label></div><p id="sc-assume-error" class="small" role="status"></p>
 </details>
 </section>
 
@@ -258,5 +258,5 @@ html[data-theme="dark"] .sc-tag{color:#0c172b}
 </ul>
 <p class="small muted">電圧の不平衡は「逆相電流 × 逆相リアクタンス」、モーターの温度上昇の増え方は「電圧不平衡率 u% のとき約 2u² %」（NEMA MG1の目安）で見積もっています。</p>
 </section>
-</main><footer class="footer"><div class="in">© 2026 うきわメモ｜教育用モデル。設計・改修は図面・仕様書・出力計算書・メーカー資料を優先。</div></footer><script src="scott-transformer.js?v=20261018b"></script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
+</main><footer class="footer"><div class="in">© 2026 うきわメモ｜教育用モデル。設計・改修は図面・仕様書・出力計算書・メーカー資料を優先。</div></footer><script src="scott-transformer.js?v=20261024"></script><script src="visual-learning-data.js?v=1"></script><script src="visual-learning.js?v=1"></script>
 </body></html>

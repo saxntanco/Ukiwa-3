@@ -208,7 +208,53 @@
     return 'U–V ' + f1(s[0]) + '・V–W ' + f1(s[1]) + '・W–U ' + f1(s[2]) + 'kVA。3等分すれば平衡しますが、3つの負荷をそろえる必要があります。いまの逆相電流は <b>' + f1(r.i2) + '%</b> です。';
   }
   function press(sel, attr, val) { document.querySelectorAll(sel).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute(attr) === val ? 'true' : 'false'); }); }
+  function inputError() {
+    if (!Number.isFinite(st.limit) || st.limit < 1 || st.limit > 50) return '許容逆相電流を1〜50%で入力してください。';
+    if (!Number.isFinite(st.x2) || st.x2 < 0.02 || st.x2 > 1) return '逆相リアクタンス x₂ を0.02〜1 puで入力してください。';
+    if (st.mode === 'three' && st.S1 > 0 && st.w.every(function (v) { return v === 0; })) return '単相負荷があるため、3台の振り分けを少なくとも1か所で0より大きくしてください。';
+    return '';
+  }
+  function syncControls() {
+    $('sn-o').textContent = st.Sn + 'kVA（定格 ' + (st.Sn * 1000 / (Math.sqrt(3) * V)).toFixed(0) + 'A）';
+    $('s3-o').textContent = st.S3 + 'kVA';
+    $('s1-o').textContent = f1(st.S1) + 'kVA';
+    $('pair-o').textContent = st.pair[0] + '–' + st.pair[1] + '間';
+    $('shared-o').textContent = st.shared + '相（2倍の電流）';
+    if (st.mode === 'scott') { $('share-label').textContent = 'M座とT座への振り分け'; $('share-o').textContent = 'M座 ' + st.share + '% ／ T座 ' + (100 - st.share) + '%'; }
+    if (st.mode === 'two') { $('share-label').textContent = '2台への振り分け'; $('share-o').textContent = 'U–V ' + st.share + '% ／ V–W ' + (100 - st.share) + '%'; }
+    $('share-all').textContent = st.mode === 'two' ? '全部U–V' : '全部M座';
+    $('share-t').textContent = st.mode === 'two' ? '全部V–W' : '全部T座';
+    var t = st.w[0] + st.w[1] + st.w[2];
+    $('three-o').textContent = t ? st.w.map(function (x) { return Math.round(x / t * 100) + '%'; }).join(' / ') : st.S1 > 0 ? '振り分け未設定' : '単相負荷なし';
+    $('pair-box').hidden = st.mode !== 'single';
+    $('shared-box').hidden = st.mode !== 'iv';
+    $('share-box').hidden = !(st.mode === 'scott' || st.mode === 'two');
+    $('three-box').hidden = st.mode !== 'three';
+    press('.sc-modes button', 'data-mode', st.mode);
+    press('[data-pair]', 'data-pair', st.pair);
+    press('[data-shared]', 'data-shared', st.shared);
+    press('#sc-share-box .sc-chips button', 'data-v', String(st.share));
+  }
   function render() {
+    syncControls();
+    var err = inputError();
+    $('limit').setAttribute('aria-invalid', String(!Number.isFinite(st.limit) || st.limit < 1 || st.limit > 50));
+    $('x2').setAttribute('aria-invalid', String(!Number.isFinite(st.x2) || st.x2 < 0.02 || st.x2 > 1));
+    var noSplit = st.mode === 'three' && st.S1 > 0 && st.w.every(function (v) { return v === 0; });
+    ['w1', 'w2', 'w3'].forEach(function (id) { $(id).setAttribute('aria-invalid', String(noSplit)); });
+    $('split-error').textContent = noSplit ? '単相負荷の合計を配分できません。振り分けを設定するか「3等分にする」を押してください。' : '';
+    $('assume-error').textContent = ($('limit').getAttribute('aria-invalid') === 'true' || $('x2').getAttribute('aria-invalid') === 'true') ? err : '';
+    if (err) {
+      $('pill').className = 'sc-pill bad'; $('pill').textContent = '計算できません';
+      $('verdict').textContent = err + ' 入力がそろうまで数値・判定を表示しません。';
+      $('story').textContent = err;
+      ['diagram', 'bars', 'seq', 'phasor', 'wave'].forEach(function (id) { $(id).innerHTML = ''; });
+      ['v-i2', 'v-vu', 'v-max', 'v-ratio'].forEach(function (id) { $(id).textContent = '—'; });
+      $('v-mot').textContent = '入力条件を確認してください';
+      ['m-i2', 'm-vu', 'm-max'].forEach(function (id) { $(id).className = 'sc-metric'; });
+      $('cmp').innerHTML = '<tr><td colspan="8">入力条件が不足・範囲外のため、比較計算を停止しています。</td></tr>';
+      return;
+    }
     var r = build(st.mode);
     $('diagram').innerHTML = drawDiagram(r);
     $('story').innerHTML = story(r);
@@ -248,29 +294,15 @@
       ['three', { w: [1, 1, 1] }, '単相変圧器3台', '3台', '単相 3回路', 'three']
     ];
     var curKey = st.mode === 'scott' ? (st.share === 100 ? 'scott-m' : st.share === 0 ? 'scott-t' : st.share === 50 ? 'scott' : '') : st.mode;
+    if (st.mode === 'two' && st.share !== 50) curKey = '';
+    if (st.mode === 'three' && !(st.w[0] === st.w[1] && st.w[1] === st.w[2])) curKey = '';
+    if (st.mode === 'single' && st.pair !== 'UW') curKey = '';
+    if (st.mode === 'iv' && st.shared !== 'U') curKey = '';
     $('cmp').innerHTML = rows.map(function (row) {
       var x = build(row[0], row[1]), mx = maxS1(row[0], row[1]);
       var tag = x.i2 > st.limit ? ['bad', '超過'] : x.i2 > st.limit * 0.5 ? ['warn', '注意'] : ['ok', 'OK'];
       return '<tr class="' + (row[5] === curKey ? 'cur' : '') + '"><td><b>' + row[2] + '</b></td><td>' + row[3] + '</td><td>' + row[4] + '</td><td class="n">' + ratioText(x) + '</td><td class="n">' + f1(x.i2) + '% <span class="sc-tag ' + tag[0] + '">' + tag[1] + '</span></td><td class="n">約' + f1(x.vu) + '%</td><td class="n">' + f1(x.maxLine) + '%（' + x.maxP + '相）</td><td class="n">' + (mx >= st.Sn * 3 - 1e-6 ? '—' : f1(mx) + 'kVA') + '</td></tr>';
     }).join('');
-    $('sn-o').textContent = st.Sn + 'kVA（定格 ' + r.In.toFixed(0) + 'A）';
-    $('s3-o').textContent = st.S3 + 'kVA';
-    $('s1-o').textContent = f1(st.S1) + 'kVA';
-    $('pair-o').textContent = st.pair[0] + '–' + st.pair[1] + '間';
-    $('shared-o').textContent = st.shared + '相（2倍の電流）';
-    if (st.mode === 'scott') { $('share-label').textContent = 'M座とT座への振り分け'; $('share-o').textContent = 'M座 ' + st.share + '% ／ T座 ' + (100 - st.share) + '%'; }
-    if (st.mode === 'two') { $('share-label').textContent = '2台への振り分け'; $('share-o').textContent = 'U–V ' + st.share + '% ／ V–W ' + (100 - st.share) + '%'; }
-    $('share-all').textContent = st.mode === 'two' ? '全部U–V' : '全部M座';
-    $('share-t').textContent = st.mode === 'two' ? '全部V–W' : '全部T座';
-    if (st.mode === 'three') { var t = (st.w[0] + st.w[1] + st.w[2]) || 1; $('three-o').textContent = st.w.map(function (x) { return Math.round(x / t * 100) + '%'; }).join(' / '); }
-    $('pair-box').hidden = st.mode !== 'single';
-    $('shared-box').hidden = st.mode !== 'iv';
-    $('share-box').hidden = !(st.mode === 'scott' || st.mode === 'two');
-    $('three-box').hidden = st.mode !== 'three';
-    press('.sc-modes button', 'data-mode', st.mode);
-    press('[data-pair]', 'data-pair', st.pair);
-    press('[data-shared]', 'data-shared', st.shared);
-    press('#sc-share-box .sc-chips button', 'data-v', String(st.share));
   }
 
   function syncLimits() {
@@ -290,8 +322,8 @@
   on('share-all', 'click', function () { setShare(100); });
   on('share-t', 'click', function () { setShare(0); });
   on('three-even', 'click', function () { st.w = [50, 50, 50]; ['w1', 'w2', 'w3'].forEach(function (id) { $(id).value = 50; }); render(); });
-  on('limit', 'input', function (e) { var v = parseFloat(e.target.value); if (v > 0) { st.limit = v; render(); } });
-  on('x2', 'input', function (e) { var v = parseFloat(e.target.value); if (v > 0) { st.x2 = v; render(); } });
+  on('limit', 'input', function (e) { st.limit = e.target.valueAsNumber; render(); });
+  on('x2', 'input', function (e) { st.x2 = e.target.valueAsNumber; render(); });
   document.querySelectorAll('[data-pair]').forEach(function (b) { b.addEventListener('click', function () { st.pair = b.dataset.pair; render(); }); });
   document.querySelectorAll('[data-shared]').forEach(function (b) { b.addEventListener('click', function () { st.shared = b.dataset.shared; render(); }); });
   document.querySelectorAll('.sc-modes button').forEach(function (b) {
