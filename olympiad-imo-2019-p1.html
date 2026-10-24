@@ -31,13 +31,14 @@ summary:focus-visible,a:focus-visible{outline:3px solid #f7d38a;outline-offset:2
 .note{font-size:13px;color:#9fb3c8}
 .denki{border-color:#f7d38a}.denki h3{margin:0 0 6px;color:#f7d38a;font-size:16px}
 </style>
-<script src="hideout-nav.js?v=20261012-1" defer></script></head>
+<script src="hideout-nav.js?v=20261024" defer></script></head>
 <body><main>
 <div class="crumb"><a href="hidden-menu.html">うきわの隠れ家</a> › <a href="olympiad.html">オリンピックの間</a> › 数学 › 2019</div>
 <span class="tag">IMO 2019 / PROBLEM 1 / 代数</span>
 <h1>関数方程式を<br>「代入」でほどく</h1>
 <p class="lead">国際数学オリンピック 2019年 第1問</p>
-<p class="meta">解説作成：2026年10月23日（うきわメモ独自の解説）｜公式解答との照合：未</p>
+<p class="meta">解説作成：2026年10月23日（うきわメモ独自の解説）｜公式解答との照合：済（2026-10-24、公式Shortlist A1の解法2と結論を確認）</p>
+<p class="note">照合先：<a href="https://www.imo-official.org/assets/documents/problems/2019/IMO2019SL.pdf#page=12" target="_blank" rel="noopener">IMO 2019公式Shortlist・A1の解答（冊子p.10–11）</a>。下の解説は途中の考え方を補った独自の説明です。</p>
 
 <section><h2>何を聞かれているか</h2>
 <div class="box problem">
@@ -62,7 +63,7 @@ summary:focus-visible,a:focus-visible{outline:3px solid #f7d38a;outline-offset:2
 
 <div class="step"><span class="num">1</span><div><p><b>a = 0 を代入。</b>任意の <span class="m">b</span> について</p><span class="eq">f(f(b)) = f(0) + 2f(b)　…①</span><p>右辺の厄介な <span class="m">f(f(…))</span> が、<span class="m">f</span> 1回分の式に置き換えられるようになりました。</p></div></div>
 
-<div class="step"><span class="num">2</span><div><p><b>b = 0 を代入</b>し、左辺の <span class="m">f(f(a))</span> に①を使うと</p><span class="eq">f(2a) + 2f(0) = f(0) + 2f(a)</span><span class="eq">f(2a) = 2f(a) − f(0)　…②</span></div></div>
+<div class="step"><span class="num">2</span><div><p><b>b = 0 を代入</b>し、右辺の <span class="m">f(f(a))</span> に①を使うと</p><span class="eq">f(2a) + 2f(0) = f(0) + 2f(a)</span><span class="eq">f(2a) = 2f(a) − f(0)　…②</span></div></div>
 
 <div class="step"><span class="num">3</span><div><p><b>元の式に戻る。</b>左辺の <span class="m">f(2a)</span> に②、右辺に①（<span class="m">b</span> を <span class="m">a+b</span> として）を使うと</p><span class="eq">2f(a) − f(0) + 2f(b) = f(0) + 2f(a + b)</span><p>2で割って整理すると</p><span class="eq">f(a + b) = f(a) + f(b) − f(0)　…③</span></div></div>
 
