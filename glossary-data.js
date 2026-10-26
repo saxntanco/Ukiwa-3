@@ -62,7 +62,7 @@ window.UkiwaGlossary = [
 ['','Making / Breaking Capacity','投入容量・遮断容量','とうにゅうようりょう・しゃだんようりょう','cb','遮断器が安全に入れられる電流と、切ることのできる電流の大きさ。設置点の短絡電流より大きいものを選ぶ。','','making-breaking-capacity'],
 /* ---- 変成器・変圧器・コンデンサ ---- */
 ['CT','Current Transformer','変流器','へんりゅうき','tr','大きな電流を、計器や継電器で扱える小さな電流（多くは5 A）に変える。二次側を開放してはいけない。','ct-calculator.html|CT比と電流;pukapuka-diary.html#ct-excitation-saturation-20260829|CTの磁気飽和','ct'],
-['VT','Voltage Transformer','計器用変圧器','けいきようへんあつき','tr','高い電圧を、計器や継電器で扱える110 Vなどに下げる。旧称PT（Potential Transformer）。','pas-vt-withstand-simulator.html|VT内蔵PASの耐圧','vt'],
+['VT','Voltage Transformer','計器用変圧器','けいきようへんあつき','tr','高い電圧を、計器や継電器で扱える110 Vなどに下げる。旧称PT（Potential Transformer）。','pas-vt-withstand-simulator.html|VT内蔵PASの耐圧;vt-withstand-3d.html|VT単体の耐圧を3Dで','vt'],
 ['ZCT','Zero-phase-sequence Current Transformer','零相変流器','れいそうへんりゅうき','tr','3本の電線をまとめて通し、行きと帰りの電流の差（零相電流＝漏れた電流）を取り出す。','','zct'],
 ['ZPD','Zero-phase Potential Device','零相電圧検出装置','れいそうでんあつけんしゅつそうち','tr','コンデンサで零相電圧を取り出す装置。DGR・OVGRに使う。','pukapuka-diary.html#evt-zpd-backfeed-20261004|EVTとZPD','zpd'],
 ['EVT','Earthed Voltage Transformer','接地形計器用変圧器','せっちがたけいきようへんあつき','tr','一次側の中性点を接地したVT。三次側から零相電圧を取り出す。GPTとも呼ぶ。','pukapuka-diary.html#evt-zpd-backfeed-20261004|EVTとZPD','earthed-voltage-transformer'],
