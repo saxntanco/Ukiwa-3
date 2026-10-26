@@ -151,24 +151,66 @@
     wire([[LX, 0.17, z], [LX, 0.12, z], [LX, 0.08, z]], 0x3b6d11, 2.5, M('la', { inner: 1 }));
   });
   box(0.06, 0.03, 0.86, LX, 0.07, 0, 0x3b6d11, M('la', { inner: 1 }));
-  /* 外の電線：電源側（配電線へ）と負荷側（引込ケーブル） */
+  /* 電源側リード（引込線とは未接続） */
+  var SRCEND = {};
   PHS.forEach(function (ph) {
     var z = PH[ph];
-    wire([[-1.79, YC, z], [-2.05, 0.75, z], [-2.3, 1.0, z * 1.2]], 0x2c2c2a, 3.5, M('bush_src', { ph: ph, side: 'src' }));
-    wire([[1.79, YC, z], [2.05, 0.45, z], [2.15, -0.4, z], [2.15, -1.15, z]], 0x2c2c2a, 4, M('bush_load', { ph: ph, side: 'cable' }));
+    SRCEND[ph] = [-2.3, 1.0, z * 1.2];
+    wire([[-1.79, YC, z], [-2.05, 0.75, z], SRCEND[ph]], 0x2c2c2a, 3.5, M('bush_src', { ph: ph, side: 'src' }));
+    box(0.05, 0.05, 0.08, SRCEND[ph][0] - 0.02, SRCEND[ph][1] + 0.02, SRCEND[ph][2], 0xb8b8b4, M('bush_src', { ph: ph, side: 'src' }));
   });
+  /* PAS負荷側リード：VCTの取付位置（未設置）で立上りケーブルと離れている */
+  var LUGP = {};
+  PHS.forEach(function (ph) {
+    var z = PH[ph];
+    LUGP[ph] = [1.95, -0.29, z];
+    wire([[1.79, YC, z], [1.92, 0.3, z], [1.95, -0.17, z]], 0x2c2c2a, 3.5, M('bush_load', { ph: ph, side: 'load' }));
+    box(0.06, 0.1, 0.04, 1.95, -0.23, z, 0xb8b8b4, M('bush_load', { ph: ph, side: 'load' }));
+  });
+  /* 立上りケーブル：上端の端末3心（柱の上）と下端の端末3心（キュービクル側） */
+  var CX = 2.55, TOPY = -0.75, BOTY = -2.05, CZ = { U: -0.25, V: 0, W: 0.25 }, TOPLUG = {}, BOTLUG = {}, CORE = {};
+  PHS.forEach(function (ph) {
+    var z = CZ[ph];
+    TOPLUG[ph] = [CX, TOPY + 0.1, z]; BOTLUG[ph] = [CX, BOTY - 0.1, z];
+    cyl(0.045, 0.22, CX, TOPY - 0.12, z, 0x3a3a38, 'y', M('cable'), { seg: 10 });
+    cyl(0.07, 0.05, CX, TOPY - 0.03, z, 0x55595e, 'y', M('cable'), { seg: 10 });
+    box(0.05, 0.1, 0.035, CX, TOPY + 0.06, z, 0xb8b8b4, M('cable', { cable: 1 }));
+    cyl(0.045, 0.22, CX, BOTY + 0.12, z, 0x3a3a38, 'y', M('cable'), { seg: 10 });
+    cyl(0.07, 0.05, CX, BOTY + 0.03, z, 0x55595e, 'y', M('cable'), { seg: 10 });
+    box(0.05, 0.1, 0.035, CX, BOTY - 0.06, z, 0xb8b8b4, M('cable', { cable: 1 }));
+    CORE[ph] = [[CX, TOPY - 0.23, z], [CX, -1.1, z * 0.6], [CX, -1.25, z * 0.15], [CX, -1.55, z * 0.15], [CX, -1.72, z * 0.6], [CX, BOTY + 0.23, z]];
+    wire(CORE[ph], 0x2c2c2a, 3, M('cable', { cable: 1 }));
+  });
+  wire([[CX, -1.2, 0], [CX, -1.4, 0], [CX, -1.6, 0]], 0x1f1f1d, 9, M('cable'));
+  /* 柱の上の短絡クリップ（4口）：PASのU・V・W＋ケーブル1心 */
+  var PC = [2.3, -0.45, 0.72];
+  box(0.1, 0.12, 0.1, PC[0], PC[1], PC[2], 0x8c2f1a, M('clip', { cord: 1 }));
+  var POLE_CORDS = { U: [0, 2, 3], V: [0, 1, 2, 3], W: [0, 1, 3] };
+  PHS.forEach(function (ph) {
+    var L = LUGP[ph];
+    wire([PC, [(PC[0] + L[0]) / 2, (PC[1] + L[1]) / 2 - 0.1, (PC[2] + L[2]) / 2], [L[0], L[1] - 0.05, L[2]]], 0x8c2f1a, 3.6, M('clip', { cord: 1, modes: POLE_CORDS[ph] }));
+    box(0.09, 0.07, 0.08, L[0], L[1] - 0.02, L[2], 0xd9a227, M('clip', { cord: 1, modes: POLE_CORDS[ph] }));
+  });
+  wire([PC, [2.5, -0.5, 0.25], [TOPLUG.U[0], TOPLUG.U[1] + 0.06, TOPLUG.U[2]]], 0x8c2f1a, 3.6, M('clip', { cord: 1 }));
+  box(0.09, 0.07, 0.08, TOPLUG.U[0], TOPLUG.U[1] + 0.03, TOPLUG.U[2], 0xd9a227, M('clip', { cord: 1 }));
+  /* キュービクル側の短絡クリップ（4口）：3心を三線短絡＋試験器 */
+  var CC = [2.95, -2.45, 0.45];
+  box(0.1, 0.12, 0.1, CC[0], CC[1], CC[2], 0x8c2f1a, M('clip', { cord: 1 }));
+  PHS.forEach(function (ph) {
+    var L = BOTLUG[ph];
+    wire([CC, [(CC[0] + L[0]) / 2, CC[1] - 0.05, (CC[2] + L[2]) / 2], [L[0], L[1] - 0.04, L[2]]], 0x8c2f1a, 3.6, M('clip', { cord: 1 }));
+    box(0.09, 0.07, 0.08, L[0], L[1] - 0.03, L[2], 0xd9a227, M('clip', { cord: 1 }));
+  });
+  /* 試験器・接地 */
+  var TS = [1.75, -2.55, 1.05], GP = [0.95, -2.67, 1.0];
+  box(0.42, 0.26, 0.3, TS[0], TS[1], TS[2], 0xfdeee8, M('tester'));
+  wire([[TS[0] + 0.21, TS[1] + 0.05, TS[2] - 0.05], [2.45, -2.45, 0.85], CC], 0xd85a30, 4, M('clip', { cord: 1 }));
+  box(0.5, 0.04, 0.32, GP[0], GP[1], GP[2], 0x3b6d11, M('gnd'));
+  wire([[1.15, 0.06, 0.66], [1.1, -1.0, 0.9], [GP[0] + 0.05, GP[1] + 0.02, GP[2]]], 0x3b6d11, 3, M('gnd'));
+  wire([[TS[0] - 0.2, TS[1] - 0.1, TS[2]], [1.45, -2.67, 1.0], [GP[0] + 0.2, GP[1] + 0.02, GP[2]]], 0x3b6d11, 3, M('gnd'));
+  wire([[CX, BOTY + 0.2, CZ.W], [2.05, -2.25, 0.85], [GP[0] + 0.15, GP[1] + 0.02, GP[2] - 0.1]], 0x3b6d11, 2.5, M('gnd'));
   /* 制御線（背面 -z） */
   wire([[0.8, 0.2, -0.6], [0.7, -0.2, -0.85], [0.4, -0.9, -1.0], [0.0, -1.3, -1.05]], 0x2c2c2a, 4, M('ctrl'));
-  /* 試験器と接地 */
-  box(0.42, 0.26, 0.3, 1.55, -1.5, 1.0, 0xfdeee8, M('tester'));
-  box(0.5, 0.04, 0.32, 0.75, -1.62, 1.0, 0x3b6d11, M('gnd'));
-  wire([[1.15, 0.06, 0.66], [1.0, -0.6, 0.85], [0.85, -1.6, 1.0]], 0x3b6d11, 3, M('gnd'));
-  wire([[1.36, -1.58, 1.0], [1.1, -1.62, 1.0], [0.95, -1.61, 1.0]], 0x3b6d11, 3, M('gnd'));
-  /* 試験リード（結線ごと） */
-  wire([[2.15, -1.18, PH.U], [2.18, -1.25, PH.V], [2.15, -1.18, PH.W]], 0xd85a30, 3.5, M('lead', { modes: [0, 3] }));
-  wire([[2.15, -1.18, PH.U], [2.18, -1.24, -0.18], [2.15, -1.18, PH.V]], 0xd85a30, 3.5, M('lead', { modes: [2] }));
-  wire([[1.7, -1.45, 1.0], [2.0, -1.38, 0.55], [2.17, -1.24, PH.V]], 0xd85a30, 4, M('lead', { modes: [0, 2, 3] }));
-  wire([[1.7, -1.45, 1.0], [2.0, -1.38, 0.4], [2.15, -1.2, PH.U]], 0xd85a30, 4, M('lead', { modes: [1] }));
 
   /* 可動接点（入切で回転） */
   var blade = [], ang = 0, angTarget = 0;
@@ -199,50 +241,96 @@
   }
 
   /* ---------- 電流の通り道 ---------- */
-  var pathVT = curve([[2.15, -1.18, PH.U], [2.15, -0.4, PH.U], [2.05, 0.45, PH.U], [1.78, YC, PH.U], [VX - 0.06, YC, PH.U], [VX - 0.06, 0.45, PH.U + 0.02], [VX - 0.06, 0.3, -0.24], [VX - 0.06, 0.3, -0.12], [VX - 0.06, 0.45, PH.V - 0.02], [VX - 0.06, YC, PH.V], [1.78, YC, PH.V], [2.05, 0.45, PH.V], [2.15, -0.4, PH.V], [2.15, -1.1, PH.V]], 8, false);
-  var pathLA = PHS.map(function (ph) { var z = PH[ph]; return curve([[LX, YC, z], [LX, 0.47, z], [LX, 0.3, z], [LX, 0.12, z], [LX, 0.07, z + (z ? 0 : 0.001)], [LX - 0.15, 0.07, 0.5], [1.15, 0.08, 0.62]], 8, false); });
   function at(path, t) { var f = t * (path.length - 1), i = Math.floor(f), r = f - i, a = path[i], b = path[Math.min(i + 1, path.length - 1)]; return [a[0] + (b[0] - a[0]) * r, a[1] + (b[1] - a[1]) * r, a[2] + (b[2] - a[2]) * r]; }
-  var dotsVT = [], dotsLA = [], i;
-  for (i = 0; i < 18; i++) dotsVT.push(i / 18);
-  for (i = 0; i < 6; i++) dotsLA.push(i / 6);
+  function plen(path) { var L = 0; for (var i = 1; i < path.length; i++) L += Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1], path[i][2] - path[i - 1][2]); return L; }
+  /* PASの負荷側端子から先：負荷側導体 → 可動接点 →（入なら）電源側の端まで */
+  function pasRoute(ph, fromLug) {
+    var z = PH[ph], r = [];
+    if (fromLug) r.push([LUGP[ph][0], LUGP[ph][1], z], [1.95, -0.17, z], [1.92, 0.3, z], [1.79, YC, z]);
+    r.push([1.2, YC, z], [XP, YC, z]);
+    if (st.on) r.push([-0.47, YC, z], [-1.4, YC, z], [-1.79, YC, z], [-2.05, 0.75, z], SRCEND[ph]);
+    return r;
+  }
+  var flows = [];   /* {path, dots[], speed, color} */
+  function addFlow(pts, color, density) {
+    var path = curve(pts, 6, false), L = plen(path), n = Math.max(3, Math.round(L * (density || 4))), d = [];
+    for (var i = 0; i < n; i++) d.push(i / n);
+    flows.push({ path: path, dots: d, sp: 0.35 / L, col: color });
+  }
+  var GRAB = { 0: ['U', 'V', 'W'], 1: ['V', 'W'], 2: ['U', 'V'], 3: ['U', 'V', 'W'] };
+  function buildFlows() {
+    flows = [];
+    var m = st.mode;
+    if (m === 3) {
+      PHS.forEach(function (ph) { var z = PH[ph]; addFlow([[LX, YC, z], [LX, 0.47, z], [LX, 0.3, z], [LX, 0.12, z], [LX, 0.07, z], [1.15, 0.08, 0.62]], 'red', 6); });
+      return;
+    }
+    var feed = [[TS[0] + 0.21, TS[1] + 0.05, TS[2] - 0.05], [2.45, -2.45, 0.85], CC];
+    /* 充電電流：試験器 → 三線短絡 → 各心を上へ（ケーブルの静電容量へ） */
+    PHS.forEach(function (ph) {
+      var core = CORE[ph].slice().reverse();
+      var pts = feed.concat([[BOTLUG[ph][0], BOTLUG[ph][1] - 0.04, BOTLUG[ph][2]]], core, [TOPLUG[ph]]);
+      if (ph === 'U') pts = pts.concat([[2.5, -0.5, 0.25], PC]);
+      addFlow(pts, 'y', 3);
+    });
+    /* 柱の上のクリップ → PASの各相（つかんでいる相だけ） */
+    GRAB[m].forEach(function (ph) {
+      var L = LUGP[ph];
+      addFlow([PC, [(PC[0] + L[0]) / 2, (PC[1] + L[1]) / 2 - 0.1, (PC[2] + L[2]) / 2], [L[0], L[1] - 0.05, L[2]]].concat(pasRoute(ph, true)), 'y', 4);
+    });
+    /* Uをつかみ忘れ：Vから VTの巻線 を通って Uへ */
+    if (m === 1) {
+      var vt = [[VX - 0.06, YC, PH.V], [VX - 0.06, 0.48, PH.V - 0.02], [VX - 0.06, 0.37, -0.1], [VX - 0.06, 0.3, -0.18], [VX - 0.06, 0.37, -0.26], [VX - 0.06, 0.48, PH.U + 0.02], [VX - 0.06, YC, PH.U]];
+      addFlow(vt.concat([[1.79, YC, PH.U], [1.92, 0.3, PH.U], [1.95, -0.17, PH.U], [LUGP.U[0], LUGP.U[1], PH.U]]), 'red', 6);
+      if (st.on) addFlow(vt.concat(pasRoute('U', false)), 'red', 6);
+    }
+  }
 
   /* ---------- 部品の説明 ---------- */
   var PARTS = {
-    bush_src: { n: '電源側ブッシング（配電線側）', p: [-1.62, 0.82, 0.35], t: '電源側の3本。配電線から来る電線をつなぐ。PASを「切」にすると、負荷側からかけた試験電圧はここまで届かない。', s: 'ブッシングは取扱説明書の「各部の名称」に記載。本数・向き・形はモデル。' },
-    bush_load: { n: '負荷側ブッシング（引込ケーブル側）', p: [1.62, 0.82, 0.35], t: '引込ケーブルへつながる3本。耐圧試験は、キュービクル側のケーブル端から試験電圧をかける。', s: '形・向きはモデル。' },
+    bush_src: { n: '電源側ブッシング・電源側リード', p: [-1.62, 0.82, 0.35], t: '電源側の3本。引込線（配電線側）とつながるところ。試験の前に、引込線とつながっていないことを確かめる。PASを「入」にすると、可動接点を通ってここから先の電線まで充電され、その対地静電容量の分だけ充電電流が増える。', s: 'ブッシングは取扱説明書の「各部の名称」に記載。本数・向き・形はモデル。' },
+    bush_load: { n: '負荷側ブッシング・負荷側リード', p: [1.62, 0.82, 0.35], t: '負荷側の3本。コンビニのような設備では、PASと立上りケーブルのあいだに取引用の計器（VCT）が付くことがあり、竣工検査のときはまだ付いていないので、PASの負荷側リードとケーブルの端末が離れている。', s: 'VCTの位置で離れている配置は、このサイトの日誌（短絡クリップの9点）の現場を例にしたモデル。' },
+    clip: { n: '短絡クリップ（4口）', p: [2.3, -0.27, 0.72], t: '柱の上で、PASの負荷側U・V・Wと立上りケーブル1心を1個でつかむ。キュービクル側でも4口クリップで3心を三線短絡し、残りの1口に試験器をつなぐ。こうして9つの点（PAS 3点・ケーブル上端3点・下端3点）を同じ電位にする。PASのU・V・Wは、柱の上で必ず全部つかむ。', s: 'つなぎ方はこのサイトの日誌で整理した形。実際の結線・開閉状態は、作業責任者の指示と取扱説明書に従う。' },
+    cable: { n: '立上りケーブル', p: [2.55, -1.45, 0.3], t: '3心それぞれ、芯線と、まわりの遮へい層（接地）とのあいだの絶縁体が、耐圧試験で試される。芯線は上から下まで1本の導体なので、下で三線短絡すれば、つかんでいない上端も同じ電位になる。充電電流の大部分は、このケーブルの静電容量に流れる。', s: '一般的なCVケーブルの説明。長さ・太さ・端末の形はモデル。' },
     contact: { n: '主接点・消弧室', p: [-0.47, 0.98, 0.35], t: '3相の接点を同時に開閉する。消弧媒体は気中（取扱説明書の表示「A」）。「入・切」を切り替えると、可動接点が回って開く。', s: '消弧媒体は公開資料。接点と消弧室の形・配置は推定。' },
     mech: { n: '操作機構・操作ハンドル', p: [-0.95, 0.62, 0.62], t: '外のハンドルで入・切する。SOG制御装置の信号でトリップコイルが働き、ばねの力で開く。過電流ロックは、大きな電流が流れているあいだは開かないようにする機能。', s: 'ハンドルは公開資料（各部の名称）。内部の形は推定。表示の色（入＝赤・切＝緑）もモデル上の表現。' },
     zct: { n: 'ZCT（零相変流器）', p: [ZX, 0.95, 0.5], t: '3相の導体をまとめて通し、地絡のときに出る零相電流を検出してSOG制御装置へ送る（Z1・Z2）。', s: '取扱説明書の接続図に記号がある。位置と形は推定。' },
-    vt: { n: 'VT（制御電源用変圧器）', p: [VX, 0.48, -0.18], t: '負荷側に内蔵、6,600/105V・25VA。SOG制御装置の電源（P1・P2）。一相だけに試験電圧をかけると、この巻線を通ってほかの相へ電流が流れる。', s: '負荷側・定格は公開資料（戸上電機）。どの相の間かは戸上電機の資料に記載がなく、モデルは日本高圧電気の取説の例にならってU–V間にしている。' },
+    vt: { n: 'VT（制御電源用変圧器）', p: [VX, 0.48, -0.18], t: '負荷側に内蔵、6,600/105V・25VA。SOG制御装置の電源（P1・P2）。柱の上でPASのU（またはV）をつかみ忘れると、その相を充電する電流が全部この巻線を通る。', s: '負荷側・定格は公開資料（戸上電機）。どの相の間かは戸上電機の資料に記載がなく、モデルは日本高圧電気の取説の例にならってU–V間にしている。' },
     la: { n: 'LA（避雷器）', p: [LX, 0.12, 0.5], t: '負荷側に内蔵、定格8.4kV・公称放電電流2,500A・ZnO素子ギャップレス。交流10,350Vの3相一括はできるが、AC12kV以上・DC17kV以上はかけられない（戸上電機）。', s: '定格は公開資料。各相と大地の間につないだ形と配置は推定。' },
     tank: { n: '外箱・接地端子', p: [1.15, 0.1, 0.7], t: '外箱は必ずA種接地。LA内蔵形は、接地しないと雷から守れない。開閉器の中で Z2 端子が外箱につながっている。', s: '公開資料（戸上電機の製品ページ・取扱説明書）。' },
     ctrl: { n: '制御線（SOG制御装置へ）', p: [0.55, -0.5, -0.95], t: '方向性は11心（Z1・Z2・Y1の3心シールド）。Vc 端子は緑色だが接地箇所ではなく、アースにつなぐとVTが焼損する。耐電圧試験のときの処置は取扱説明書に従う（日本高圧電気の例：全ての制御線を外し、端末を一括接地）。', s: '公開資料（戸上電機・日本高圧電気）。' }
   };
   var LABELS = [
-    { t: '電源側（配電線へ）', p: [-2.3, 1.15, 0] },
-    { t: '負荷側（引込ケーブル）', p: [2.3, -0.75, 0.6] },
-    { t: '耐圧試験器', p: [1.55, -1.32, 1.0] },
-    { t: '接地', p: [0.6, -1.76, 1.0] },
+    { t: '電源側リード', p: [-2.35, 1.2, 0] },
+    { t: '柱の上 4口クリップ', p: [2.3, -0.75, 0.9], zm: 1 },
+    { t: '立上りケーブル', p: [2.95, -1.4, 0] },
+    { t: '三線短絡', p: [3.2, -2.62, 0.45] },
+    { t: '耐圧試験器', p: [TS[0], TS[1] - 0.3, TS[2]] },
+    { t: '接地', p: [GP[0] - 0.35, GP[1], GP[2]] },
     { t: 'VT', p: [VX, 0.05, -0.18], x: 1 },
     { t: 'LA', p: [LX - 0.05, -0.05, 0.62], x: 1 },
     { t: 'ZCT', p: [ZX, 0.9, -0.56], x: 1 },
-    { t: 'V相ケーブルの静電容量へ', p: [2.5, -0.2, 0], m: 1, hot: 1 },
-    { t: 'W相は試験されない', p: [2.5, -0.2, 0.42], m: 2, hot: 1 },
-    { t: 'LAに直流 → 壊れるおそれ', p: [LX, 0.0, -0.6], m: 3, hot: 1 }
+    { t: '電源側まで充電', p: [-2.35, 0.65, 0.6], on: 1, hot: 1 },
+    { t: 'U：VTの巻線を通って充電', p: [1.25, -1.35, -0.6], m: 1, hot: 1 },
+    { t: 'W：試験されない', p: [1.25, -1.35, 0.62], m: 2, hot: 1 },
+    { t: 'LAに直流 → 壊れるおそれ', p: [LX, -0.1, -0.6], m: 3, hot: 1 },
+    { t: 'PASのU・V・W（負荷側）', p: [1.55, -0.05, 0.1], zm: 1 },
+    { t: 'ケーブル上端', p: [2.85, -0.75, -0.35], zm: 1 },
+    { t: 'ケーブル下端', p: [2.85, -2.15, -0.4], zm: 1 }
   ];
   LABELS.forEach(function (o) { var e = document.createElement('div'); e.className = 'lb' + (o.hot ? ' hot' : ''); e.textContent = o.t; lblBox.appendChild(e); o.e = e; });
 
   var MODES = [
-    ['ok', '3相一括（交流10,350V）：正しい結線', 'VTの両端（U・V）が同じ電位なので、VTの巻線に電流は流れない。LAには10,350Vがかかるが、戸上電機の制限（AC12kV以上は不可）の範囲内。'],
-    ['ng', 'U相だけ：VTが焼損するおそれ', 'U相からVTの巻線を通って、V相とV相ケーブルの静電容量へ電流が流れる。VTに電圧と電流がかかる。メーカーは一相ごとの試験を禁止している。'],
-    ['warn', 'U・V短絡（W開放）：W相が試験されていない', 'VTの両端は同じ電位なのでVTは守られるが、W相には試験電圧がかからない。3相をまとめて試験する。'],
+    ['ok', '3相一括（交流10,350V）：正しい結線', '柱の上でPASのU・V・Wとケーブル1心を4口クリップでつかみ、キュービクル側で三線短絡。9つの点が同じ電位になり、VTの両端（U・V）の電位差は0なので、巻線に電流は流れない。黄色い粒は充電電流で、ケーブルとPASの対地静電容量へ流れる。LAには10,350Vがかかるが、戸上電機の制限（AC12kV以上は不可）の範囲内。'],
+    ['ng', 'PASのUをつかみ忘れ：VTが焼損するおそれ', 'PASのUは、VTの巻線だけでVとつながる。Uの対地静電容量を充電する電流（赤い粒）が全部VTの巻線を通り、巻線に電圧がかかる。過励磁・焼損のおそれ。メーカーも一相ごとの印加はVT焼損の原因としている。'],
+    ['warn', 'PASのWをつかみ忘れ：Wが試験されない', 'このモデルのVTはU–V間なので、PASのWとVTは直接つながっていない。電流の通り道がないので、Wは試験されないだけで、VTは守られる。ただし試験範囲が欠けるので、柱の上でU・V・Wを全部つかむ。'],
     ['ng', '3相一括（直流20,700V）：LAが壊れるおそれ', 'LA内蔵形は直流耐電圧試験を行わない（日本高圧電気）。戸上電機もDC17kV以上は不可。LAの動作電圧を超え、ZnO素子に電流が流れて壊れるおそれ。']
   ];
 
   /* ---------- 状態 ---------- */
-  var CTR = [-0.05, -0.3, 0.05];
+  var CTR = [0.25, -0.7, 0.1], CTR0 = CTR.slice();
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var st = { yaw: -0.3, pitch: 0.3, dist: 8, mode: 0, on: false, xray: true, auto: !reduce, dirty: true, t: 0, sel: null };
+  var st = { yaw: -0.18, pitch: 0.38, dist: 8, mode: 0, on: false, xray: true, auto: !reduce, dirty: true, t: 0, sel: null };
   ang = angTarget = 1; buildDyn();
   var W = 0, H = 0, DPR = 1;
   function resize() {
@@ -259,17 +347,18 @@
     return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
   }
   function rot(n) { var x1 = n[0] * cy + n[2] * sy, z1 = -n[0] * sy + n[2] * cy; return [x1, n[1] * cp - z1 * sp, n[1] * sp + z1 * cp]; }
-  function F() { return 8 * Math.min(W / 5.6, H / 3.4); }
+  function F() { return 8 * Math.min(W / 5.9, H / 4.6); }
   function proj(v) { var s = F() / (st.dist - v[2]); return [W / 2 + v[0] * s, H / 2 - v[1] * s, s]; }
 
   /* どの相にどれだけ試験電圧がかかっているか（1＝試験電圧、0.5＝VT経由、0＝なし） */
   function phaseV(ph) {
     var m = st.mode;
-    if (m === 0 || m === 3) return 1;
-    if (m === 1) return ph === 'U' ? 1 : ph === 'V' ? 0.5 : 0;
-    return ph === 'W' ? 0 : 1;
+    if (m === 1 && ph === 'U') return 0.5;
+    if (m === 2 && ph === 'W') return 0;
+    return 1;
   }
   function chargeOf(meta) {
+    if (meta.cord || meta.cable) return 1;
     if (!meta.ph) return 0;
     var v = phaseV(meta.ph);
     if (meta.side === 'src') return st.on ? v : 0;
@@ -313,8 +402,10 @@
       var c = colorOf(l.c, l.m);
       items.push({ k: 'l', z: (a[2] + b[2]) / 2 + 0.02, s: [pa, proj(b)], col: 'rgb(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ')', w: l.w * pa[2] / 80 });
     });
-    if (st.mode === 1) dotsVT.forEach(function (t) { var v = tf(at(pathVT, t)); items.push({ k: 'd', z: v[2] + 0.05, s: [proj(v)] }); });
-    if (st.mode === 3 && st.xray) pathLA.forEach(function (p) { dotsLA.forEach(function (t) { var v = tf(at(p, t)); items.push({ k: 'd', z: v[2] + 0.05, s: [proj(v)] }); }); });
+    flows.forEach(function (f) {
+      if (f.col === 'red' && st.mode === 3 && !st.xray) return;
+      f.dots.forEach(function (t) { var v = tf(at(f.path, t)); items.push({ k: 'd', z: v[2] + 0.05, s: [proj(v)], c: f.col }); });
+    });
     items.sort(function (p, q) { return p.z - q.z; });
     ctx.lineJoin = 'round'; ctx.lineCap = 'round';
     items.forEach(function (it) {
@@ -328,7 +419,7 @@
         ctx.strokeStyle = it.col; ctx.lineWidth = Math.max(1.2, it.w); ctx.stroke();
       } else {
         ctx.beginPath(); ctx.arc(it.s[0][0], it.s[0][1], Math.max(2.5, it.s[0][2] * 0.032), 0, Math.PI * 2);
-        ctx.fillStyle = '#f2b233'; ctx.fill(); ctx.strokeStyle = '#8a5a00'; ctx.lineWidth = 0.8; ctx.stroke();
+        ctx.fillStyle = it.c === 'red' ? '#e24b4a' : '#f2b233'; ctx.fill(); ctx.strokeStyle = it.c === 'red' ? '#fff' : '#8a5a00'; ctx.lineWidth = it.c === 'red' ? 1.2 : 0.8; ctx.stroke();
       }
     });
     /* タップできる場所の目印 */
@@ -343,9 +434,10 @@
       ctx.strokeStyle = st.sel === id ? '#fff' : '#167888'; ctx.lineWidth = 1.6; ctx.stroke();
     });
     LABELS.forEach(function (o) {
-      var show = (!o.x || st.xray) && (o.m === undefined || o.m === st.mode) && !(o.m === 3 && !st.xray);
+      var show = (!o.zm || st.dist < 5.5) && (!o.x || st.xray) && (o.m === undefined || o.m === st.mode) && !(o.m === 3 && !st.xray) && (!o.on || (st.on && st.mode !== 3));
       if (!show) { o.e.style.display = 'none'; return; }
       var s = proj(tf(o.p));
+      if (s[0] < 0 || s[0] > W || s[1] < 0 || s[1] > H) { o.e.style.display = 'none'; return; }
       o.e.style.display = 'block'; var hw = o.e.offsetWidth / 2 + 4; o.e.style.left = Math.max(hw, Math.min(W - hw, s[0])) + 'px'; o.e.style.top = Math.max(12, Math.min(H - 12, s[1])) + 'px';
     });
   }
@@ -360,16 +452,16 @@
     document.getElementById('pas3dVerdictTitle').textContent = m[1];
     document.getElementById('pas3dVerdictText').textContent = m[2];
     document.getElementById('pas3dSwText').textContent = st.on
-      ? 'PASは「入」：電源側ブッシング（配電線側）まで試験電圧が届く。上位の系統から確実に切り離されていることが前提。日本高圧電気の取説は、ケーブルを含む試験で「切」を指定している。'
-      : 'PASは「切」：試験電圧は負荷側（VT・LA・負荷側ブッシング）まで。電源側は充電されない。';
+      ? 'PASは「入」：可動接点を通って、電源側ブッシングと電源側リードまで充電される。その先に電線やケーブルがつながっていれば、そこまで充電され、対地静電容量が増えた分だけ充電電流も増える。引込線（配電線側）から確実に切り離されていることが前提。日本高圧電気の取説は、ケーブルを含む試験で「切」を指定している。'
+      : 'PASは「切」：試験電圧は負荷側（VT・LA・負荷側ブッシング）まで。電源側は充電されず、そこへ充電電流も流れない。';
   }
   function setMode(m) {
-    st.mode = m; st.dirty = true;
+    st.mode = m; st.dirty = true; buildFlows();
     Array.prototype.forEach.call(mBtns, function (b) { b.setAttribute('aria-pressed', String(Number(b.getAttribute('data-pmode')) === m)); });
     verdict();
   }
   function setOn(v) {
-    st.on = v; angTarget = v ? 0 : 1; st.dirty = true;
+    st.on = v; angTarget = v ? 0 : 1; st.dirty = true; buildFlows();
     Array.prototype.forEach.call(sBtns, function (b) { b.setAttribute('aria-pressed', String((b.getAttribute('data-sw') === 'on') === v)); });
     verdict();
   }
@@ -393,7 +485,15 @@
   function setA(v) { st.auto = v; ba.textContent = v ? '自動回転を止める' : '自動回転する'; }
   bx.addEventListener('click', function () { setX(!st.xray); });
   ba.addEventListener('click', function () { setA(!st.auto); });
-  document.getElementById('pas3dReset').addEventListener('click', function () { st.yaw = 0; st.pitch = 0.2; st.dist = 8; st.dirty = true; setA(false); });
+  var VIEWS = {
+    all: { c: CTR0, d: 8, y: -0.18, p: 0.38 },
+    pole: { c: [2.2, -0.4, 0.25], d: 3.3, y: -0.42, p: 0.22 },
+    cub: { c: [2.45, -2.35, 0.55], d: 3.4, y: -0.3, p: 0.45 },
+    front: { c: CTR0, d: 8, y: 0, p: 0.2 }
+  };
+  function view(k) { var v = VIEWS[k]; CTR = v.c.slice(); st.dist = v.d; st.yaw = v.y; st.pitch = v.p; st.dirty = true; setA(false); }
+  document.getElementById('pas3dReset').addEventListener('click', function () { view('front'); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-view]'), function (b) { b.addEventListener('click', function () { view(b.getAttribute('data-view')); }); });
 
   var ptrs = {}, last = null, pinch = 0, down = null, moved = 0;
   function pts() { return Object.keys(ptrs).map(function (k) { return ptrs[k]; }); }
@@ -409,7 +509,7 @@
     var p = pts();
     if (p.length === 2) {
       var d = Math.hypot(p[0][0] - p[1][0], p[0][1] - p[1][1]);
-      if (pinch) st.dist = Math.max(4.5, Math.min(14, st.dist * pinch / d));
+      if (pinch) st.dist = Math.max(2.4, Math.min(14, st.dist * pinch / d));
       pinch = d; moved = 99;
     } else if (last) {
       moved += Math.abs(e.clientX - last[0]) + Math.abs(e.clientY - last[1]);
@@ -435,7 +535,7 @@
     down = null;
   }
   cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
-  cv.addEventListener('wheel', function (e) { e.preventDefault(); st.dist = Math.max(4.5, Math.min(14, st.dist + e.deltaY * 0.005)); st.dirty = true; }, { passive: false });
+  cv.addEventListener('wheel', function (e) { e.preventDefault(); st.dist = Math.max(2.4, Math.min(14, st.dist + e.deltaY * 0.005)); st.dirty = true; }, { passive: false });
 
   if (window.ResizeObserver) new ResizeObserver(resize).observe(wrap); else window.addEventListener('resize', resize);
   resize(); setX(true); setA(st.auto); setMode(0); setOn(false);
@@ -450,10 +550,9 @@
       ang = ang < angTarget ? Math.min(angTarget, ang + step) : Math.max(angTarget, ang - step);
       buildDyn(); st.dirty = true;
     }
-    if (st.mode === 1 || st.mode === 3) {
-      var sp1 = reduce ? 0.04 : 0.18;
-      dotsVT = dotsVT.map(function (t) { return (t + dt * sp1) % 1; });
-      dotsLA = dotsLA.map(function (t) { return (t + dt * sp1 * 1.4) % 1; });
+    if (flows.length) {
+      var k = reduce ? 0.25 : 1;
+      flows.forEach(function (f) { f.dots = f.dots.map(function (t) { return (t + dt * f.sp * k) % 1; }); });
       st.dirty = true;
     }
     if (st.dirty && W > 0) { draw(); st.dirty = false; }

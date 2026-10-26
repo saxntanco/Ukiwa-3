@@ -202,7 +202,7 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
 <a class="card" href="scott-transformer.html"><div class="row"><span class="n">15</span><span class="ico">⊤</span></div><h2>非常用発電機とスコット</h2><p>単相変圧器1台・2台・逆V結線・スコット・3台で、発電機の逆相電流を比べる。</p><div class="examples">逆相電流・M座とT座・逆V結線</div><span class="go">動かして比べる <b>→</b></span></a></section></div></section>
 
 <main class="main"><section class="contentSection"><div class="side"><section class="panel" id="updates"><h2>📣 更新・おすすめ</h2>
-<div class="updates" id="updatesList"><a href="pas-vtla-3d.html"><time datetime="2026-10-26">2026/10/26</time><b>VT・LA内蔵PASの中を3Dで。戸上電機のVT･LA内蔵GR付PASを見本に、主接点・ZCT・VT・LAのつながりを360°回して見る。入・切と、耐圧試験の3相一括／U相だけ／U・V短絡／直流を切り替えて、試験電圧と電流がどこへ届くかを比べる。部品は印をタップで解説（中の配置は推定と明記）。</b></a>
+<div class="updates" id="updatesList"><a href="pas-vtla-3d.html"><time datetime="2026-10-26">2026/10/26</time><b>VT・LA内蔵PASの中を3Dで。戸上電機のVT･LA内蔵GR付PASを見本に、主接点・ZCT・VT・LAのつながりを360°回して見る。柱の上とキュービクル側の4口クリップまで描いて、3相一括／PASのUをつかみ忘れ／Wをつかみ忘れ／直流を切り替え、充電電流がどこへ流れるかを比べる。PASを「入」にすると電源側リードまで充電される様子も。部品は印をタップで解説（中の配置は推定と明記）。</b></a>
 <a href="vt-withstand-3d.html"><time datetime="2026-10-26">2026/10/26</time><b>VT単体の耐圧試験を3Dで。U–Vを短絡しないとどうなる？ 360°回せるVTのモデルで、U–V短絡・Uだけ（V浮き）・Uだけ（V接地）を切り替えて、一次巻線にかかる電圧と電流の通り道を比べる。CTの結線、ヒューズの表と裏の見分け方も。</b></a>
 <a href="vt-water-analogy.html"><time datetime="2026-10-21">2026/10/21</time><b>柱の上で、ケーブル上端はつかまなくていいのに、PASはなぜだめ？ つかんでいない点に残る道が、芯線（太い道）か、VTの巻線（細い道）かを図で比べるページを追加。</b></a>
 <a href="pukapuka-diary.html#short-clip-9points-20261021"><time datetime="2026-10-21">2026/10/21</time><b>柱の上の短絡クリップのつなぎ方を図で整理した日誌。3相一括の耐圧は9つの点を同電位にすればいい。4口クリップのつなぎ方と2重にする形、電圧がどこにかかっているか、耐圧とメガーのちがい、現場の「はねた」の正体まで。</b></a>
@@ -236,7 +236,7 @@ html[data-theme] body .mobileNav a{color:var(--island-ink)}
   // 固定でトップに残しておきたい更新。
   // 「今日のなんで？」と「ぷかぷか日誌」は各ページから自動取得します。
   const BASE_UPDATES = [
-{date:'2026-10-26',title:'VT・LA内蔵PASの中を3Dで。戸上電機のVT･LA内蔵GR付PASを見本に、主接点・ZCT・VT・LAのつながりを360°回して見る。入・切と、耐圧試験の3相一括／U相だけ／U・V短絡／直流を切り替えて、試験電圧と電流がどこへ届くかを比べる。部品は印をタップで解説（中の配置は推定と明記）。',href:'pas-vtla-3d.html'},
+{date:'2026-10-26',title:'VT・LA内蔵PASの中を3Dで。戸上電機のVT･LA内蔵GR付PASを見本に、主接点・ZCT・VT・LAのつながりを360°回して見る。柱の上とキュービクル側の4口クリップまで描いて、3相一括／PASのUをつかみ忘れ／Wをつかみ忘れ／直流を切り替え、充電電流がどこへ流れるかを比べる。PASを「入」にすると電源側リードまで充電される様子も。部品は印をタップで解説（中の配置は推定と明記）。',href:'pas-vtla-3d.html'},
 {date:'2026-10-26',title:'VT単体の耐圧試験を3Dで。U–Vを短絡しないとどうなる？ 360°回せるVTのモデルで、U–V短絡・Uだけ（V浮き）・Uだけ（V接地）を切り替えて、一次巻線にかかる電圧と電流の通り道を比べる。CTの結線、ヒューズの表と裏の見分け方も。',href:'vt-withstand-3d.html'},
 {date:'2026-10-21',title:'柱の上で、ケーブル上端はつかまなくていいのに、PASはなぜだめ？ つかんでいない点に残る道が、芯線（太い道）か、VTの巻線（細い道）かを図で比べるページを追加。',href:'vt-water-analogy.html'},
 {date:'2026-10-21',title:'柱の上の短絡クリップのつなぎ方を図で整理した日誌。3相一括の耐圧は9つの点を同電位にすればいい。4口クリップのつなぎ方と2重にする形、電圧がどこにかかっているか、耐圧とメガーのちがい、現場の「はねた」の正体まで。',href:'pukapuka-diary.html#short-clip-9points-20261021'},
