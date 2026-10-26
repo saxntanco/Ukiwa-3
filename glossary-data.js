@@ -7,7 +7,7 @@ window.UkiwaGlossaryCats = [
 ];
 window.UkiwaGlossary = [
 /* ---- 受電・引込・開閉器 ---- */
-['PAS','Pole Air Switch','柱上気中開閉器','ちゅうじょうきちゅうかいへいき','recv','電柱の上に付く、高圧引込の最初の開閉器。構内の地絡を検出して自動で開き、配電線への波及事故を防ぐ。','pukapuka-diary.html#pas-sog-ocr-lock-20260829|PASの過電流ロック;pas-vt-withstand-simulator.html|VT内蔵PASの耐圧','pas'],
+['PAS','Pole Air Switch','柱上気中開閉器','ちゅうじょうきちゅうかいへいき','recv','電柱の上に付く、高圧引込の最初の開閉器。構内の地絡を検出して自動で開き、配電線への波及事故を防ぐ。','pukapuka-diary.html#pas-sog-ocr-lock-20260829|PASの過電流ロック;pas-vt-withstand-simulator.html|VT内蔵PASの耐圧;pas-vtla-3d.html|VT・LA内蔵PASを3Dで','pas'],
 ['PGS','Pole Gas Switch','柱上ガス開閉器','ちゅうじょうがすかいへいき','recv','絶縁と消弧にSF6ガスを使う柱上の開閉器。役割はPASと同じ。','','pole-gas-switch'],
 ['UGS','Underground Gas Switch','地中線用ガス開閉器','ちちゅうせんようがすかいへいき','recv','地中引込で使う区分開閉器。地上に置く箱形で、中にSF6ガスを封入する。','','underground-gas-switch'],
 ['UAS','Underground Air Switch','地中線用気中開閉器','ちちゅうせんようきちゅうかいへいき','recv','地中引込で使う、空気で絶縁する区分開閉器。','','underground-air-switch'],
@@ -25,7 +25,7 @@ window.UkiwaGlossary = [
 ['DS','Disconnecting Switch','断路器','だんろき','recv','電気の流れていない回路を切り離す開閉器。負荷電流は切れないので、必ず遮断器を開いてから操作する。','','ds'],
 ['LBS','Load Break Switch','高圧交流負荷開閉器','ふかかいへいき','recv','負荷電流は切れるが、短絡電流は切れない開閉器。限流ヒューズ付きで短絡から守る。','','lbs'],
 ['PF','Power Fuse','高圧限流ヒューズ','こうあつげんりゅうひゅーず','recv','短絡電流を、大きくなる前に限流して切るヒューズ。','','pf'],
-['LA','Lightning Arrester','避雷器','ひらいき','recv','雷などの異常な高電圧を大地へ逃がして、機器を守る。A種接地につなぐ。','','arrester'],
+['LA','Lightning Arrester','避雷器','ひらいき','recv','雷などの異常な高電圧を大地へ逃がして、機器を守る。A種接地につなぐ。','pas-vtla-3d.html|VT・LA内蔵PASを3Dで','arrester'],
 ['SPD','Surge Protective Device','サージ防護デバイス','さーじぼうごでばいす','recv','低圧回路で、雷サージから機器を守る装置。','','surge-protective-device'],
 ['VCT','Voltage Current Transformer','計器用変圧変流器','けいきようへんあつへんりゅうき','recv','電力会社の取引用電力量計のために、電圧と電流を小さくして取り出す機器。MOFとも呼ぶ。','','voltage-current-transformer'],
 ['MOF','Metering Outfit','取引用計器用変成器','もふ','recv','VCTの現場での呼び名。電力会社の財産で、封印されている。','','metering-outfit'],
