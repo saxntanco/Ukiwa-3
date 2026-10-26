@@ -39,7 +39,7 @@ window.UkiwaGlossary = [
 ['CH','Cable Head','ケーブルヘッド','けーぶるへっど','recv','高圧ケーブルの端末部分。ストレスコーンなどで電界の集中をやわらげ、機器や架空線に接続する。','','cable-head'],
 /* ---- 遮断器・開閉器具 ---- */
 ['CB','Circuit Breaker','遮断器','しゃだんき','cb','事故電流（短絡電流）まで切ることができる開閉器。','vcb-inspection-guide.html|VCB点検','circuit-breaker'],
-['VCB','Vacuum Circuit Breaker','真空遮断器','しんくうしゃだんき','cb','真空の容器の中で接点を開き、アークを消す遮断器。高圧受電の主役。','vcb-inspection-guide.html|VCB点検','vcb'],
+['VCB','Vacuum Circuit Breaker','真空遮断器','しんくうしゃだんき','cb','真空の容器の中で接点を開き、アークを消す遮断器。高圧受電の主役。','vcb-inspection-guide.html|VCB点検;vcb-3d.html|VCBの中を3Dで','vcb'],
 ['GCB','Gas Circuit Breaker','ガス遮断器','がすしゃだんき','cb','SF6ガスでアークを消す遮断器。特別高圧で使う。','','gas-circuit-breaker'],
 ['OCB','Oil Circuit Breaker','油遮断器','あぶらしゃだんき','cb','油の中でアークを消す古い形式の遮断器。今は更新対象。','','oil-circuit-breaker'],
 ['ACB','Air Circuit Breaker','気中遮断器','きちゅうしゃだんき','cb','空気中でアークを消す遮断器。低圧の大電流回路（変圧器の二次側など）で使う。','','air-circuit-breaker'],
@@ -50,7 +50,7 @@ window.UkiwaGlossary = [
 ['MS','Magnetic Switch','電磁開閉器','でんじかいへいき','cb','電磁接触器にサーマルリレーを組み合わせたもの。','','magnetic-switch'],
 ['VMC','Vacuum Magnetic Contactor','真空電磁接触器','しんくうでんじせっしょくき','cb','高圧モーターや進相コンデンサの、ひんぱんな開閉に使う。','','vacuum-magnetic-contactor'],
 ['THR','Thermal Overload Relay','サーマルリレー（熱動形過負荷継電器）','さーまるりれー','cb','電流の熱でバイメタルを曲げ、モーターの過負荷を検出する。','motor-protection-relays.html|モーターの保護','thermal'],
-['TC','Trip Coil','引外しコイル','ひきはずしこいる','cb','電気を流すと遮断器の機構を外して開かせるコイル。','','trip-coil'],
+['TC','Trip Coil','引外しコイル','ひきはずしこいる','cb','電気を流すと遮断器の機構を外して開かせるコイル。','vcb-3d.html|VCBの中を3Dで;pukapuka-diary.html#tc-burn-67-20261025|TC焼損の日誌','trip-coil'],
 ['CTD','Capacitor Trip Device','コンデンサ引外し装置','こんでんさひきはずしそうち','cb','コンデンサにためた電気で引外しコイルを動かす装置。停電しても遮断器を開ける。','','ctd'],
 ['','Current trip','電流引外し','でんりゅうひきはずし','cb','CTの二次電流で直接遮断器を引き外す方式。','pukapuka-diary.html#autov-ocr-tester-capacity-20261007|AUTO.Vの51連動試験','current-trip'],
 ['','Voltage trip','電圧引外し','でんあつひきはずし','cb','制御電源の電圧で遮断器を引き外す方式。','','voltage-trip'],

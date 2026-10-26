@@ -1,0 +1,115 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="引出形VCB（真空遮断器）の中を、360°回せる3Dモデルで見る。真空バルブ・主軸・操作機構・引外しコイル・補助スイッチ（52a）のつながりと、引外しの順番を再生。52aを回すリンクが外れると、なぜトリップコイルが焼けるのかも再現する。"><title>VCBの中を3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930">
+<style>
+.seg{display:flex;flex-wrap:wrap;border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:12px;overflow:hidden;margin:0}
+.seg button{flex:1 1 0;min-width:0;border:0;border-right:1px solid var(--island-line-cbdbe4-100,#ccdfe7);background:var(--island-bg-ffffff-100,#fff);color:inherit;padding:9px 6px;font-size:14px;line-height:1.35}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:#167888;color:#fff;font-weight:800}
+.ctlrow{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.ctlrow .lbl{font-size:14px;font-weight:800;white-space:nowrap;min-width:4.5em}
+.ctlrow .seg{flex:1}
+.actrow{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.actrow button{border:1px solid #167888;border-radius:10px;background:#167888;color:#fff;font-weight:800;padding:9px 14px;font-size:14px}
+.actrow button.sub{background:var(--island-bg-ffffff-100,#fff);color:#0f4f5a}
+.actrow button.stop{background:#b83a2b;border-color:#b83a2b}
+.simfig{background:#f5f9fc;border:1px solid #cbdce5;border-radius:16px;padding:6px;margin:0 0 12px}
+.v3d{position:relative;overflow:hidden;width:100%;height:min(560px,100vw);touch-action:none;user-select:none;-webkit-user-select:none}
+.v3d canvas{width:100%;height:100%;display:block;cursor:grab}
+.v3d canvas.drag{cursor:grabbing}
+.v3d .lbls{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.v3d .lb{position:absolute;transform:translate(-50%,-50%);font-size:12px;line-height:1.3;padding:1px 7px;border-radius:7px;background:rgba(255,255,255,.92);color:#203b50;border:1px solid #9fb4c2;white-space:nowrap}
+.v3d .lb.hot{border-color:#b83a2b;color:#7a2118;font-weight:700}
+.v3d .msg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:20px;color:#4b6475;font-size:14px}
+.schem{background:#fff;border:1px solid #cbdce5;border-radius:14px;padding:8px;margin:0 0 10px}
+.schem svg{display:block;width:100%;height:auto}
+.schem .flow{stroke-dasharray:6 10;opacity:0}
+.schem .flow.on{opacity:1}
+@media (prefers-reduced-motion:no-preference){@keyframes run{to{stroke-dashoffset:-32}}.schem .flow.on{animation:run .8s linear infinite}}
+.verdict{border-radius:14px;padding:12px 14px;margin:0 0 10px;border:2px solid;font-weight:700;line-height:1.7}
+.verdict.ok{border-color:#2f8a4e;background:#eaf6ee;color:#1d5b33}
+.verdict.warn{border-color:#b7791f;background:#fdf4e3;color:#6b4510}
+.verdict.ng{border-color:#b83a2b;background:#fcebe8;color:#7a2118}
+.verdict small{display:block;font-weight:400;margin-top:4px;font-size:14px}
+.pinfo{border:1px solid #9fc7cf;background:#eef7f8;border-radius:14px;padding:12px 14px;margin:10px 0;position:relative}
+.pinfo h3{margin:0 28px 6px 0;font-size:16px;color:#0f4f5a}
+.pinfo p{overflow-wrap:anywhere;margin:0 0 6px;font-size:14px;line-height:1.7}
+.pinfo .psrc{font-size:12px;color:#4b6475;margin:0}
+.pinfo button{position:absolute;top:8px;right:8px;border:0;background:transparent;font-size:18px;line-height:1;color:#4b6475;padding:4px 8px}
+.partbtns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.partbtns button,.tools3d button{border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:10px;background:var(--island-bg-ffffff-100,#fff);color:inherit;padding:5px 10px;font-size:13px}
+.tools3d{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.rtab{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+.rtab th,.rtab td{padding:9px 8px;border-bottom:1px solid var(--island-line-cbdbe4-100,#ccdfe7);text-align:left;vertical-align:top}
+.rtab th{font-weight:800}
+.steps{padding-left:1.4em}.steps li{margin:5px 0}
+</style>
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="pukapuka-diary.html#tc-burn-67-20261025">TC焼損の日誌</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / VCB（真空遮断器）</span><h1>VCBの中を3Dで見る。<br>52aはどこにある？</h1><p class="lead">引外しコイル（TC）の電流を切っている52aは、VCBの中の「補助スイッチ」にある接点です。主軸と一緒に回るはずの補助スイッチが回らないと、何が起きるのか。引外しの順番を再生して確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#order">引外しの順番</a><a href="#where52a">52aを探す</a><a href="#note">資料の範囲</a></nav><p class="caption">モデルは一般的な<b>引出形・ばね操作のVCB</b>です。部品の構成（真空バルブ・投入ばね・開路ばね・引外しキャッチ・TC・補助スイッチ・制御回路プラグなど）は三菱電機・東芝のカタログで確かめましたが、<b>補助スイッチの位置と、それを回すリンクの形はカタログに書かれておらず、推定</b>です。実機の構造は機種ごとにちがうので、手元のVCBは銘板の形式で取扱説明書を確認してください。</p></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p>ドラッグで回転、マウスホイールや2本指で拡大・縮小。<b>＋の印をタップすると、その部品の説明</b>が開きます。</p>
+<div class="ctlrow"><span class="lbl">52aのリンク</span><div class="seg" role="group" aria-label="補助スイッチを回すリンクの状態"><button type="button" data-fault="0" aria-pressed="true">正常</button><button type="button" data-fault="1" aria-pressed="false">外れている</button></div></div>
+<div class="actrow"><button type="button" id="vcbPlay">▶ 引外しを再生（67動作）</button><button type="button" class="stop" id="vcbPower">操作電源を切る</button><button type="button" class="sub" id="vcbClose">投入（元に戻す）</button></div>
+<div class="ctlrow"><span class="lbl">見る場所</span><div class="seg" role="group" aria-label="見る場所"><button type="button" data-vview="all">全体</button><button type="button" data-vview="mech">操作機構</button><button type="button" data-vview="aux">補助スイッチ</button><button type="button" data-vview="vi">真空バルブ</button></div></div>
+<div class="simfig"><div class="v3d" id="vcb3d"><canvas id="vcb3dCanvas" aria-label="引出形VCBの3Dモデル。ドラッグで回転、印をタップで部品の説明"></canvas><div class="lbls" id="vcb3dLabels"></div><div class="msg" id="vcb3dMsg">この端末では3Dモデルを表示できませんでした。下の回路図と説明で同じ内容を確認できます。</div></div></div>
+<div class="schem"><svg viewBox="0 0 520 140" role="img" aria-label="引外し回路。直流電源のPから、67の出力接点、52a、引外しコイルを通ってNへ戻る直列回路">
+<path d="M40 60 H150 M190 60 H270 M310 60 H380 M440 60 H480 V110 H40 V60" fill="none" stroke="#4b6475" stroke-width="2.5"/>
+<path id="scLoop" class="flow" d="M40 60 H480 V110 H40 Z" fill="none" stroke="#f2b233" stroke-width="5"/>
+<circle cx="150" cy="60" r="4" fill="#203b50"/><circle cx="190" cy="60" r="4" fill="#203b50"/><path id="sc67" d="M150 60 L186 40" stroke="#203b50" stroke-width="3" fill="none"/>
+<circle cx="270" cy="60" r="4" fill="#203b50"/><circle cx="310" cy="60" r="4" fill="#203b50"/><path id="sc52" d="M270 60 L310 60" stroke="#b83a2b" stroke-width="3" fill="none"/>
+<rect id="scTC" x="380" y="46" width="60" height="28" rx="5" fill="#e8d3c0" stroke="#8a5a3a"/>
+<g id="scArc" style="opacity:0"><path d="M162 46 l8 -10 l4 8 l8 -12" stroke="#f2b233" stroke-width="3" fill="none"/></g>
+<g fill="#203b50" font-size="13" text-anchor="middle"><text x="40" y="44">P（+）</text><text x="40" y="132">N（−）</text><text x="170" y="86">67の出力接点</text><text x="290" y="86">52a</text><text x="410" y="65" font-weight="700">TC</text><text x="410" y="96">引外しコイル</text></g>
+<text id="scTime" x="300" y="130" fill="#b83a2b" font-size="13" font-weight="700" text-anchor="middle"></text>
+</svg></div>
+<div class="verdict ok" id="vcbStatus" aria-live="polite"><span id="vcbStatusTitle">入（投入している）</span><small id="vcbStatusText">主接点は閉じていて、補助スイッチの52aも閉じている。</small></div>
+<div class="pinfo" id="vcbInfo" hidden aria-live="polite"><button type="button" id="vcbInfoClose" aria-label="部品の説明を閉じる">×</button><h3 id="vcbInfoName"></h3><p id="vcbInfoText"></p><p class="psrc" id="vcbInfoSrc"></p></div>
+<div class="partbtns" aria-label="部品を選んで説明を見る"><button type="button" data-vpart="aux">補助スイッチ（52a）</button><button type="button" data-vpart="link">補助スイッチを回すリンク</button><button type="button" data-vpart="tc">引外しコイル</button><button type="button" data-vpart="latch">引外しキャッチ</button><button type="button" data-vpart="ospring">開路ばね</button><button type="button" data-vpart="cspring">投入ばね</button><button type="button" data-vpart="cc">投入コイル</button><button type="button" data-vpart="shaft">主軸</button><button type="button" data-vpart="rod">絶縁操作ロッド</button><button type="button" data-vpart="vi">真空バルブ</button><button type="button" data-vpart="terminal">上部・下部接触子</button><button type="button" data-vpart="plug">制御回路プラグ</button><button type="button" data-vpart="indicator">開閉表示器</button><button type="button" data-vpart="wheel">台車・車輪</button></div>
+<div class="tools3d"><button type="button" id="vcbXray">外箱を戻す</button><button type="button" id="vcbAuto">自動回転する</button><button type="button" id="vcbReset">全体に戻す</button></div>
+<p class="caption">動きは見やすいように遅くしています。実際の引外しは数十ミリ秒で終わります。TCが焼けるまでの時間も模式で、実機の値ではありません。黄色い粒は引外し回路の電流のイメージです。</p>
+</section>
+
+<section class="sheet" id="order"><h2>引外しの順番</h2>
+<ol class="steps">
+<li><b>67の出力接点が閉じる</b>。直流電源 → 67の接点 → 52a → TC と電流が流れ、TCが励磁される。</li>
+<li><b>TCのプランジャが引外しキャッチを外す</b>。投入した状態を保っていた留め金が外れる。</li>
+<li><b>開路ばねの力で主軸が回る</b>。主軸につながった絶縁操作ロッドが3相の可動接点を引き下げ、真空バルブの中で接点が開く。</li>
+<li><b>主軸と一緒に補助スイッチも回り、52aが開く</b>。ここでTCの電流が切れる。TCに電流が流れたのは一瞬だけ。</li>
+<li>試験器や継電器が戻って、<b>67の接点が開く</b>。このときはもう電流が流れていないので、接点に負担はほとんどない。</li>
+</ol>
+<p class="keyline">TCの電流を切るのは52a。52aを動かしているのは主軸の回転。<b>主接点が開いたことと、52aが開いたことは、別々に確かめないとわからない。</b></p>
+<div class="table-wrap"><table class="rtab">
+<tr><th>どこが動かないと</th><th>何が起きるか</th></tr>
+<tr><td>補助スイッチを回すリンクの外れ・曲がり・ピン抜け</td><td>主接点は開くのに、52aが閉じたまま。TCと67の接点に電流が流れ続ける（モデルの「外れている」）</td></tr>
+<tr><td>補助スイッチ自体（接点の溶着・内部の故障）</td><td>回っても52aが開かない。結果は同じ</td></tr>
+<tr><td>主軸が最後まで回らない（機構の引っかかり）</td><td>主接点の開き方も、補助スイッチの切り替わりも中途半端になるおそれ</td></tr>
+<tr><td>配線の誤り（52aを通らない経路）</td><td>VCBが正常でも、TCの電流が切れない</td></tr>
+</table></div>
+<p class="caption">どれが原因かは、その機種の構造と現物を見ないと決められません。原因の特定は、メーカーの調査がいちばん確実です。</p>
+</section>
+
+<section class="sheet" id="where52a"><h2>手元のVCBで、52aを探すには</h2>
+<ol class="steps">
+<li><b>銘板で形式を確かめる</b>（メーカー・形式・製造年）。</li>
+<li><b>その形式の取扱説明書で、構造図と補助スイッチの位置を見る</b>。接続図には、補助スイッチの接点（a・b）と、制御回路プラグの端子番号が書かれている。</li>
+<li><b>展開接続図で、引外し回路のどこに52aが入っているかを確かめる</b>（制御回路プラグの何番から何番か）。</li>
+<li>VCBを盤から引き出し、制御電源を切った状態で、<b>入・切させながら、その端子間の導通をテスターで確かめる</b>。入で導通、切で不通なら52aは動いている。</li>
+<li>リンクやピンを見るときは、<b>分解や調整の前に写真を残す</b>。原因の調査に必要になる。</li>
+</ol>
+<p class="caption">作業は社内手順と作業責任者の指示に従います。ばねが蓄勢されたままの機構に手を入れると危険なので、取扱説明書の手順でばねを放勢してから点検します。</p>
+</section>
+
+<section class="sheet" id="note"><h2>資料で確かめた範囲</h2>
+<ul>
+<li>三菱電機 VF-8D/13D のカタログで、真空バルブ・主回路端子・開閉表示器・動作回数計・上部/下部接触子・車輪・制御回路プラグ・インタロック・ばね蓄勢表示器などの部品名と、補助スイッチの接点数（手動ばね操作2a2b、電動ばね操作5a5b）を確認しました。</li>
+<li>東芝の V4C/V6C・V4D/V6D 形のカタログで、前面に操作機構・背面に主回路があること、投入ばねを電動機で蓄勢すること、開路ばねが投入と同時に蓄勢されること、引外しコイル・投入コイルがそれぞれキャッチを外すこと、補助スイッチが標準2a2b（追加3a3b）であること、制御回路断路部があることを確認しました。</li>
+<li><b>確かめられなかったこと</b>：補助スイッチが操作機構のどこにあり、何で回されているか。主軸・ロッド・リンクの形と寸法。これらはモデルでは推定です。</li>
+</ul>
+<p class="caption" style="font-size:12px">出典：<a href="https://dl.mitsubishielectric.co.jp/dl/fa/document/catalog/vcbvmc/k-k06-5-c7085/K-K06-5-C7085-L.pdf" target="_blank" rel="noopener">三菱高圧真空遮断器 VF-8D/13Dシリーズ</a>、<a href="https://www.global.toshiba/content/dam/toshiba/jp/products-solutions/industrial/switchgear/download/pdf/CKSL-0103.pdf" target="_blank" rel="noopener">東芝真空遮断器 V4C/V6C・V4D/V6D形シリーズ</a>、<a href="https://denkikannri.com/?p=2127" target="_blank" rel="noopener">VCBの「52a」についての備忘録</a>（いずれも2026年10月26日閲覧）</p>
+</section>
+
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="pukapuka-diary.html#tc-burn-67-20261025">67の試験でトリップコイルが焼けた日誌</a><a href="pukapuka-diary.html#voltage-trip-fuse-clip-20261020">ヒューズクリップでT1-T2をつなぐと、なぜ遮断器が動くのか</a><a href="vcb-inspection-guide.html">VCB点検</a><a href="pas-vtla-3d.html">VT・LA内蔵PASを3Dで見る</a></div></section>
+</main><footer>うきわメモ / 2026年10月26日作成 / モデルは原理説明用で、実機の構造図ではありません。</footer>
+<script src="vcb-3d.js?v=20261026"></script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
