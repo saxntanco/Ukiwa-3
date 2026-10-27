@@ -15,7 +15,84 @@
 <meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.10.26</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#tc-burn-67-20261025">67の試験でトリップコイルが焼けて、67まで壊れた。 引外し回路は「1本の直列回路」だった。</a></li><li><a href="#short-clip-9points-20261021">ローソンの竣工の前に、短絡クリップのつなぎ方を整理した。 9つの点を同電位にすれば、つなぎ方は何通りあってもいい。</a></li><li><a href="#voltage-trip-fuse-clip-20261020">ヒューズクリップでT1-T2をつなぐと、なぜ遮断器が動くのか。 電圧引外しの連動試験を、回路から考える。</a></li><li><a href="#smart-hoan-3p4w-ct-20261013">三相4線式のトランスにスマート保安を付けてきた。 負荷電流を見るのに、なぜCTは2つではなく3つなのか。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#withstand-dryrun-20261028">耐圧試験器の「空打ち」。 R-1220Kは、出力を接地と短絡して遮断を確かめる。</a></li><li><a href="#tc-burn-67-20261025">67の試験でトリップコイルが焼けて、67まで壊れた。 引外し回路は「1本の直列回路」だった。</a></li><li><a href="#short-clip-9points-20261021">ローソンの竣工の前に、短絡クリップのつなぎ方を整理した。 9つの点を同電位にすれば、つなぎ方は何通りあってもいい。</a></li><li><a href="#voltage-trip-fuse-clip-20261020">ヒューズクリップでT1-T2をつなぐと、なぜ遮断器が動くのか。 電圧引外しの連動試験を、回路から考える。</a></li><li><a href="#smart-hoan-3p4w-ct-20261013">三相4線式のトランスにスマート保安を付けてきた。 負荷電流を見るのに、なぜCTは2つではなく3つなのか。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<article class="entry" id="withstand-dryrun-20261028" data-update-date="2026/10/28">
+<div class="date">2026.10.28｜絶縁耐力試験・試験器の点検</div>
+<h2 id="withstand-dryrun">耐圧試験器の「空打ち」。<br>R-1220Kは、出力を接地と短絡して遮断を確かめる。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>試験の前に、耐圧試験器がちゃんと動くかを確かめる「空打ち」のやり方がわからなかったので、ムサシインテックの<b>R-1220K 耐圧トランス 取扱説明書（4110-030ST001 第1版）</b>を読んで整理した記録です。組み合わせる <b>IP-R2000 の取扱説明書（4104-000ST026 第28版）は、こちらの環境で文字が読み取れず、照合できていません</b>。実際の作業は、取扱説明書・会社の点検手順・作業責任者の指示に従います。</div>
+<p class="lead">「出力を短絡して試験していいの？」と思ったら、<b>取扱説明書にそのまま載っていた</b>。R-1220Kの「遮断電流（S.POINT ADJ）の設定」は、<b>12000V高圧出力端子を接地と短絡して</b>、遮断回路がどの電流で働くかを決めて確かめる手順になっている。大事なのは、<b>短絡する相手</b>。</p>
+
+<h3>🔍 1. 空打ちで確かめたいこと <span class="badge official">🟢 取扱説明書</span></h3>
+<table>
+<tr><th>確かめたいこと</th><th>やり方</th><th>取扱説明書</th></tr>
+<tr><td>遮断が働くか（設定した電流で止まるか）</td><td>12000V端子を<b>接地と短絡</b>し、電圧をゆっくり上げて遮断させる</td><td>3.2.2 遮断電流の設定（p.19〜20）に手順あり</td></tr>
+<tr><td>試験電圧まで電圧が出るか、電圧計・タイマーが動くか</td><td>出力を開放して、ゼロから上げる</td><td>今回読んだ範囲には手順なし。会社の点検手順に従う</td></tr>
+</table>
+<p>短絡すると電圧はほとんど上がらないので、<b>「電圧が出るか」は短絡では確かめられない</b>。2つは別の確認。<span class="badge infer">🟡 整理</span></p>
+
+<h3>🧷 2. 結線：短絡するのは「12000V端子」と「大地」 <span class="badge official">🟢 取扱説明書 p.20 図1をもとに作図</span></h3>
+<div class="diagram-card scroll-x"><svg viewBox="0 0 640 430" role="img" aria-label="R-1220Kの遮断電流設定の結線。12000V端子を大地（EARTHコードの接地側）と短絡する。短絡電流は大地、EARTHコード、トランス制御部の電流計、TEコード、トランス部E端子を通って戻る。アースサイドコードやE端子には短絡しない"><rect x="0" y="0" width="640" height="430" rx="14" fill="#06213a"/>
+<rect x="70" y="30" width="190" height="130" rx="10" fill="#0d2f4f" stroke="#69c5ff"/><text x="165" y="54" fill="#f7fbff" font-size="16" font-weight="800" text-anchor="middle">トランス部 R-1220K</text>
+<circle cx="110" cy="88" r="9" fill="none" stroke="#ff8a7a" stroke-width="3"/><text x="126" y="93" fill="#ffd2c9" font-size="14">12000V端子</text>
+<circle cx="140" cy="150" r="5" fill="#aec9dc"/><circle cx="175" cy="150" r="5" fill="#aec9dc"/><text x="157" y="134" fill="#aec9dc" font-size="13" text-anchor="middle">120V</text>
+<circle cx="230" cy="150" r="5" fill="#f0c96b"/><text x="230" y="134" fill="#f0c96b" font-size="13" text-anchor="middle">E</text>
+<rect x="70" y="230" width="190" height="100" rx="10" fill="#0d2f4f" stroke="#69c5ff"/><text x="165" y="275" fill="#f7fbff" font-size="15" font-weight="800" text-anchor="middle">トランス制御部</text><text x="165" y="298" fill="#aec9dc" font-size="13" text-anchor="middle">電流計 mA・S.POINT ADJ</text>
+<rect x="390" y="240" width="220" height="90" rx="10" fill="#0d2f4f" stroke="#69c5ff"/><text x="500" y="276" fill="#f7fbff" font-size="16" font-weight="800" text-anchor="middle">IP-R2000</text><text x="500" y="300" fill="#aec9dc" font-size="13" text-anchor="middle">極性確認ランプ 点灯</text>
+<path d="M140 155 V230" stroke="#69c5ff" stroke-width="3" fill="none"/>
+<path d="M175 155 V190 H430 V240" stroke="#8a9bab" stroke-width="3" fill="none"/><text x="250" y="182" fill="#aec9dc" font-size="13">アースサイドコード（一次120V側）</text>
+<path d="M230 155 V230" stroke="#f0c96b" stroke-width="3" fill="none"/><text x="238" y="214" fill="#f0c96b" font-size="13">TE</text>
+<path d="M70 315 H52 V390" stroke="#7ee0a1" stroke-width="3" fill="none"/><text x="58" y="364" fill="#7ee0a1" font-size="13">EARTH</text>
+<path d="M580 330 V390" stroke="#7ee0a1" stroke-width="3" fill="none"/><text x="588" y="364" fill="#7ee0a1" font-size="13">接地コード</text>
+<path d="M480 330 V355 H200 V330" stroke="#8a9bab" stroke-width="3" fill="none"/><text x="340" y="372" fill="#aec9dc" font-size="13" text-anchor="middle">耐圧コード（PUN）</text>
+<path d="M101 88 H30 V390" stroke="#ff8a7a" stroke-width="5" fill="none"/><text x="38" y="130" fill="#ffd2c9" font-size="13" font-weight="800">短絡線</text>
+<path d="M18 390 H622" stroke="#7ee0a1" stroke-width="4"/><path d="M320 390 V404 M306 404 H334 M311 410 H329 M316 416 H324" stroke="#7ee0a1" stroke-width="2.5" fill="none"/><text x="342" y="414" fill="#7ee0a1" font-size="13">大地（接地）</text>
+<path d="M36 380 H44 V250 H220 V170" stroke="#f0c96b" stroke-width="2.5" stroke-dasharray="7 5" fill="none"/><path d="M214 178 L220 166 L226 178" stroke="#f0c96b" stroke-width="2.5" fill="none"/>
+<rect x="300" y="28" width="320" height="34" rx="8" fill="#123d2a" stroke="#7ee0a1"/><text x="460" y="51" fill="#c9f5d8" font-size="14" font-weight="800" text-anchor="middle">○ 12000V端子 ↔ 大地（EARTHの接地側）</text>
+<rect x="300" y="70" width="320" height="34" rx="8" fill="#3d1414" stroke="#ff8a7a"/><text x="460" y="93" fill="#ffd2c9" font-size="14" font-weight="800" text-anchor="middle">× アースサイドコードにつながない</text>
+<rect x="300" y="112" width="320" height="34" rx="8" fill="#3d1414" stroke="#ff8a7a"/><text x="460" y="135" fill="#ffd2c9" font-size="14" font-weight="800" text-anchor="middle">× トランスのE端子に直接つながない</text>
+</svg><p class="small caption">点線：短絡電流の帰り道（大地 → EARTHコード → 電流計 → TEコード → E端子）。メーカーの図をもとに自分で描き直した原理図です。</p></div>
+<div class="checkgrid grid3">
+<div class="checkcard"><b>○ 電流計のアース（EARTHコード）の接地側</b><br>EARTHコードは大地につないだまま。短絡線も同じ接地点へ。こうすると短絡電流が電流計を通るので、遮断回路が働く。</div>
+<div class="checkcard"><b>× アースサイドコード</b><br>IP-R2000からトランスの120V端子へ行く一次側の線。極性確認ランプが消えていると非接地側が出ていて、接地に触れると非常に大きな電流が流れることがある（取扱説明書の警告）。</div>
+<div class="checkcard"><b>× トランスのE端子に直接</b><br>E端子は「トランス制御部の電流計を通して接地へ」つながる（p.16）。E端子に直接つなぐと電流計を通らず、遮断の確認にならないはず。<span class="badge infer">🟡 文面からの推論</span></div>
+</div>
+
+<h3>📋 3. 手順（3.2.2 遮断電流の設定） <span class="badge official">🟢 取扱説明書 p.18〜19</span></h3>
+<p><b>準備</b></p>
+<ul>
+<li>IP-R2000の<b>極性確認ランプが点灯</b>していること。消えていたら電源プラグの向きを逆にする（p.15）。</li>
+<li>2514形接地コード（IP-R2000）と2903形EARTHコード（トランス制御部）は、<b>必ず接地へ</b>（p.20 警告）。</li>
+<li>トランス部は<b>大地から絶縁</b>して置く。不整地や濡れた地面では絶縁シートを敷く（p.16）。</li>
+<li>R-1220Kの電流計レンジは200mA、<b>S.POINT ADJ は反時計方向いっぱい（Max）</b>、IP-R2000の電圧電流調整器は0（p.18）。</li>
+</ul>
+<ol>
+<li>R-1220Kの<b>12000V高圧出力端子を、接地と短絡</b>する。</li>
+<li>主電源をON、STARTを押す。</li>
+<li>電圧電流調整器をゆっくり回し、トランス制御部の電流計を見ながら、<b>充電電流の150%くらい</b>にする。出力を短絡しているので、<b>少し回しただけで電流計が振れる</b>。過電流を流さないように注意。</li>
+<li>S.POINT ADJ を時計方向にゆっくり回し、<b>遮断回路が動いて止まったところ</b>でそのままにする。これで遮断電流が設定される。</li>
+<li>電圧電流調整器を0に戻す。</li>
+<li>STARTを押し、ゆっくり上げて、<b>設定した電流で遮断することを2〜3回</b>確かめる。</li>
+<li>主電源をOFF。</li>
+<li><b>短絡していた導線を外す</b>。</li>
+</ol>
+
+<h3>🛑 4. 気をつけること <span class="badge infer">🟡 自分の決めごと</span></h3>
+<ul>
+<li>短絡線は、<b>電源を入れる前につなぎ、電源を切ってから外す</b>。通電中に付け外ししない。</li>
+<li>遮断しなかったら、すぐに電圧電流調整器を0に戻して主電源を切る。短絡のまま上げ続けない。</li>
+<li>試験の前に<b>短絡線を外し忘れない</b>。外し忘れると、本番で試験電圧がかからない。</li>
+<li>出力を開放して電圧の出方を見るときは、出力端子に<b>本当に試験電圧が出る</b>。立入禁止・離隔をとり、終わったら放電してから触る。</li>
+</ul>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>① R-1220Kの遮断の確認は、12000V端子を接地と短絡して行う手順が、取扱説明書に載っている（3.2.2）。</b></p>
+<p><b>② 短絡の相手は、EARTHコード（電流計のアース）の接地側＝大地。アースサイドコードやトランスのE端子ではない。</b></p>
+<p><b>③ 短絡の確認でわかるのは「遮断が働くか」。「電圧が出るか」は、出力を開放して別に確かめる。</b></p>
+<p><b>④ 終わったら短絡線を外す。付け外しは電源を切ってから。</b></p>
+</section>
+<div class="note">※ 手順とページ番号は、ムサシインテック R-1220K 耐圧トランス 取扱説明書（4110-030ST001 第1版）によります。IP-R2000 取扱説明書（4104-000ST026 第28版）は照合できていません。試験器の型式・版が違う場合は、手元の取扱説明書で確かめます。</div>
+</article>
 <article class="entry" id="tc-burn-67-20261025" data-update-date="2026/10/26">
 <div class="date">2026.10.25｜継電器試験・連動試験</div>
 <h2 id="tc-burn-67">67の試験でトリップコイルが焼けて、67まで壊れた。<br>引外し回路は「1本の直列回路」だった。</h2>
