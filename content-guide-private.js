@@ -16,7 +16,7 @@ window.UkiwaPrivateContents = [
     "path": "hidden-menu.html",
     "title": "うきわの隠れ家",
     "category": "学習・遊び",
-    "description": "学習室・電界決闘・幻想の島の入口。",
+    "description": "学習室・図書室・偉人の図鑑・幻想の島の入口。",
     "tags": "秘密 隠れ家",
     "related": [
       "denken-study.html",
@@ -224,19 +224,19 @@ window.UkiwaPrivateContents = [
     "tags": "風景 冒険 島巡り",
     "related": [
       "zukan.html",
-      "circuit-duel/",
+      "unsung-greats.html",
       "hidden-menu.html"
     ]
   },
   {
-    "path": "circuit-duel/",
-    "title": "電界決闘",
+    "path": "unsung-greats.html",
+    "title": "もっと評価されていい偉人の図鑑",
     "category": "学習・遊び",
-    "description": "回路と電気の精霊をテーマにしたCPU対戦カードゲーム。",
-    "tags": "カード ゲーム 対戦",
+    "description": "大きな仕事をしたのに名前が知られていない28人。電気・通信、医療・食、科学・数学、世界を救った判断。",
+    "tags": "偉人 人物 ヘヴィサイド スタインメッツ 八木 ゼンメルワイス ネーター ペトロフ",
     "related": [
-      "island-game.html",
-      "zukan.html",
+      "library.html",
+      "unit-people.html",
       "hidden-menu.html"
     ]
   },
