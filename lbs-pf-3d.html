@@ -1,0 +1,63 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PF付き高圧交流負荷開閉器（LBS）を360°回して見る。主ブレードと速切り補助ブレード、樹脂製アークシュート、限流ヒューズの中のエレメントとけい砂、ストライカで3相が開くまでを順番に表示。参考：三菱電機 SCL-EHS2R。"><title>PF付きLBSを3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / LBS・PF</span><h1>PF付きLBSを、<br>3Dで見る</h1><p class="lead">負荷電流は負荷開閉器が切り、短絡電流は限流ヒューズが切る。ヒューズが切れたら、ストライカが3相をまとめて開く。その順番を、回して・透かして・段階ごとに確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">参考型式：<b>三菱電機 SCL-EHS2R</b>（屋内用・限流ヒューズ付・フック棒操作・ストライカ引外し付・ハンドル右）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手が出ます。</p>
+<div id="hvRoot"></div>
+<template id="lbsWire"><svg viewBox="0 0 520 330" style="font-size:15px" role="img" aria-label="PF付きLBSの結線図。3相それぞれ、電源側端子から開閉器、限流ヒューズを通って負荷側端子へ。ストライカは引外し機構を通して3相の開閉器をまとめて開く">
+<g font-size="16" fill="#203b50" text-anchor="middle"><text x="120" y="20">U</text><text x="260" y="20">V</text><text x="400" y="20">W</text><text x="40" y="44" text-anchor="start">電源側</text><text x="40" y="314" text-anchor="start">負荷側</text></g>
+<g data-part="src" stroke="#203b50" stroke-width="2.5"><line x1="120" y1="30" x2="120" y2="80"/><line x1="260" y1="30" x2="260" y2="80"/><line x1="400" y1="30" x2="400" y2="80"/></g>
+<g data-part="blade" stroke="#203b50" stroke-width="3" fill="none"><path id="lb-sw-U" d="M120 110 L120 80"/><path id="lb-sw-V" d="M260 110 L260 80"/><path id="lb-sw-W" d="M400 110 L400 80"/></g>
+<g fill="#203b50"><circle cx="120" cy="80" r="3.5"/><circle cx="260" cy="80" r="3.5"/><circle cx="400" cy="80" r="3.5"/><circle cx="120" cy="110" r="3.5"/><circle cx="260" cy="110" r="3.5"/><circle cx="400" cy="110" r="3.5"/></g>
+<g data-part="shaft"><line x1="128" y1="95" x2="420" y2="95" stroke="#7a7a76" stroke-width="2" stroke-dasharray="5 4"/><text x="430" y="99" font-size="15" fill="#4b6475">3相連動</text></g>
+<g stroke="#203b50" stroke-width="2.5"><line x1="120" y1="110" x2="120" y2="150"/><line x1="260" y1="110" x2="260" y2="150"/><line x1="400" y1="110" x2="400" y2="150"/></g>
+<g data-part="fuse" stroke="#203b50" stroke-width="2"><rect x="108" y="150" width="24" height="60" rx="4" fill="#fff"/><rect id="lb-fuse-V" x="248" y="150" width="24" height="60" rx="4" fill="#fff"/><rect x="388" y="150" width="24" height="60" rx="4" fill="#fff"/><line x1="120" y1="150" x2="120" y2="210"/><line x1="400" y1="150" x2="400" y2="210"/><line x1="260" y1="150" x2="260" y2="172"/><line x1="260" y1="188" x2="260" y2="210"/></g>
+<g id="lb-blowx" style="display:none"><path d="M252 174 l16 12 M268 174 l-16 12" stroke="#b83a2b" stroke-width="3"/><text x="300" y="186" font-size="15" fill="#b83a2b">溶断</text></g>
+<g data-part="load" stroke="#203b50" stroke-width="2.5"><line x1="120" y1="210" x2="120" y2="300"/><line x1="260" y1="210" x2="260" y2="300"/><line x1="400" y1="210" x2="400" y2="300"/></g>
+<g data-part="striker"><path d="M268 214 v22" stroke="#d9a227" stroke-width="4"/><g id="lb-strk" style="display:none"><circle cx="268" cy="240" r="6" fill="#d9a227"/></g><text x="300" y="232" font-size="15" fill="#4b6475">ストライカ</text></g>
+<g data-part="trip"><path d="M268 246 H470 V95 H428" fill="none" stroke="#7a7a76" stroke-width="2" stroke-dasharray="5 4"/><text x="476" y="180" font-size="15" fill="#4b6475" transform="rotate(90 476 180)">引外し機構</text></g>
+<text x="40" y="270" font-size="14" fill="#4b6475" text-anchor="start">破線＝機械的なつながり</text>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>入れる・切るのは負荷電流まで。</b>負荷開閉器は、短絡電流を切るための機器ではありません。短絡電流は限流ヒューズが、ピークに届く前に抑えて切ります。</li>
+<li><b>切るときは2段。</b>主ブレードが先に開いて、電流を速切り補助ブレードへ移します。補助ブレードがばねで一気に開き、アークは樹脂製アークシュートのガスで消えます。</li>
+<li><b>1相溶断で3相が開く。</b>ストライカが負荷側の引外し機構を押し、3相をまとめて開いて欠相を防ぎます。</li>
+<li><b>「切」でも電源側は充電部。</b>点検は、上位で停電・検電・接地をしてから行います。</li>
+</ul>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>樹脂製アークシュートのガスで消弧</td><td><span class="hv-ev doc">資料で確認</span></td><td>開閉器カタログ p.24付近の消弧方式の記述</td></tr>
+<tr><td>主コンタクト＋速切り補助ブレード（ひねりばね）の2段、主が先に開いて転流</td><td><span class="hv-ev doc">資料で確認</span></td><td>開閉器カタログ p.24付近</td></tr>
+<tr><td>ストライカ引外し機構は負荷側、1相溶断で開閉器が開く</td><td><span class="hv-ev doc">資料で確認</span></td><td>開閉器カタログ p.22〜24付近</td></tr>
+<tr><td>補助スイッチ 2a2b、絶縁バリヤ（相間・側面）、ハンドル約90°・フック棒操作</td><td><span class="hv-ev doc">資料で確認</span></td><td>開閉器カタログ p.18・22・32付近</td></tr>
+<tr><td>ヒューズ内部：帯状エレメントをジグザグに配設、けい砂、下キャップの動作表示（ストライカ）</td><td><span class="hv-ev doc">資料で確認</span></td><td>限流ヒューズカタログ p.5〜6（CL形）</td></tr>
+<tr><td>ヒューズの太さと長さの比</td><td><span class="hv-ev simp">簡略化</span></td><td>φ60×310 を目安に比を合わせた</td></tr>
+<tr><td>部品の上下配置、ヒンジの位置、がいしの形、全体の寸法比</td><td><span class="hv-ev unk">未確認</span></td><td>外形図（図番号はカタログに記載）の画像を照合できていない。一般的なPF付LBSの並びで描いた</td></tr>
+<tr><td>引外し機構・操作機構の中の形、補助スイッチの位置</td><td><span class="hv-ev unk">未確認</span></td><td>資料に構造図がない。箱と棒だけで表した</td></tr>
+<tr><td>ストライカの力・ストローク、突出の向き</td><td><span class="hv-ev unk">未確認</span></td><td>下キャップから出ることと、負荷側に引外し機構があることから、下向きに描いた</td></tr>
+</table></div>
+<p class="caption">動作の段階は、資料の説明の順番を図にしたものです。時間の長さや電流の大きさは表していません。実際の操作は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li><a href="https://dl.mitsubishielectric.co.jp/dl/fa/document/catalog/mvsw/k-k06-4-c6794/K-K06-4-C6794-P.pdf" target="_blank" rel="noopener">三菱電機「三菱 高圧交流負荷開閉器 屋内用」カタログ（K-K06-4-C6794-P）</a>：発行年月は本文から読み取れず未確認。2026年10月27日閲覧。</li>
+<li><a href="https://dl.mitsubishielectric.co.jp/dl/fa/document/catalog/fuses/k-k06-6-c1034/K-K06-6-C1034-U.pdf" target="_blank" rel="noopener">三菱電機「三菱高圧・特別高圧限流ヒューズ」カタログ（K-K06-6-C1034-U）</a>：発行年月は未確認。2026年10月27日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="vcb-3d.html">VCBを3Dで見る</a><a href="equipment-map.html">図から探す受変電機器</a></div></section>
+</main><footer>うきわメモ / 2026年10月27日作成 / モデルは原理説明用で、実機の構造図・操作手順ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="lbs-pf-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.lbs);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>

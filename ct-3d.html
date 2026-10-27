@@ -1,0 +1,67 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="高圧変流器（CT）を360°回して見る。一次端子K・L、二次端子k・l、ふだんの電流と磁束、二次を開放すると何が起きるか、耐圧試験の結線までを段階表示。参考：三菱電機 CD-25ENB 75/5A。"><title>CTを3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / CT・変流器</span><h1>CTを、3Dで見る。<br>二次を開けてはいけない理由</h1><p class="lead">一次電流は負荷で決まり、二次電流はそれを打ち消すように流れる。だから二次を開けると、打ち消す相手がいなくなる。外観は実機、内部は原理の模式で確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">参考型式：<b>三菱電機 CD-25ENB</b>（変流比 75/5A、確度階級 1.0・1PS10、定格負担 25VA、耐電圧 6.9/22/60kV）。外観は、うきわメモの利用者が撮った実機写真をもとにしています。</p>
+<div id="hvRoot"></div>
+<template id="ctWire"><svg viewBox="0 0 420 300" role="img" aria-label="CTの結線図。一次はKからLへ主回路の電流が流れ、二次はkから計器を通ってlへ戻る。耐圧試験ではK–Lを短絡して試験電圧をかけ、k–lは短絡して接地する" style="font-size:15px">
+<g id="ct-normal">
+<g data-part="primK"><line x1="60" y1="40" x2="60" y2="90" stroke="#203b50" stroke-width="3"/><text x="40" y="70" fill="#203b50" text-anchor="end">K</text><text x="60" y="30" fill="#4b6475" text-anchor="middle">主回路（電源側）</text></g>
+<g data-part="prim"><path d="M60 90 q20 10 0 20 q20 10 0 20 q20 10 0 20" fill="none" stroke="#c9874a" stroke-width="3.5"/></g>
+<g data-part="primL"><line x1="60" y1="150" x2="60" y2="210" stroke="#203b50" stroke-width="3"/><text x="40" y="190" fill="#203b50" text-anchor="end">L</text><text x="60" y="232" fill="#4b6475" text-anchor="middle">負荷側</text></g>
+<g data-part="core"><line x1="96" y1="86" x2="96" y2="156" stroke="#7d8085" stroke-width="3"/><line x1="104" y1="86" x2="104" y2="156" stroke="#7d8085" stroke-width="3"/></g>
+<g data-part="secw"><path d="M140 90 q-20 6 0 12 q-20 6 0 12 q-20 6 0 12 q-20 6 0 12 q-20 6 0 12" fill="none" stroke="#378add" stroke-width="2.5"/></g>
+<g data-part="sec"><path d="M140 90 H200 M140 150 H200" stroke="#378add" stroke-width="2.5"/><text x="205" y="86" fill="#203b50">k</text><text x="205" y="166" fill="#203b50">l</text></g>
+<g data-part="burden"><g id="ct-closed"><path d="M220 90 H300 V150 H220" fill="none" stroke="#378add" stroke-width="2.5"/></g><g id="ct-open" style="display:none"><path d="M220 90 H300 V112 M300 128 V150 H220" fill="none" stroke="#378add" stroke-width="2.5"/><text x="312" y="125" fill="#b83a2b" font-weight="700">開放</text></g><rect x="284" y="102" width="32" height="36" rx="4" fill="#fff" stroke="#203b50"/><text x="300" y="125" text-anchor="middle" fill="#203b50" font-size="13">A</text><text x="300" y="180" fill="#4b6475" text-anchor="middle">計器・継電器</text></g>
+<text x="40" y="262" fill="#4b6475" font-size="13">●印どうし（K と k）が同じ極性。</text><text x="40" y="282" fill="#4b6475" font-size="13">K→L に流れると、二次は k から外へ出る。</text>
+<circle cx="70" cy="92" r="3" fill="#203b50"/><circle cx="132" cy="92" r="3" fill="#203b50"/>
+</g>
+<g id="ct-test" style="display:none">
+<g data-part="test"><rect x="20" y="40" width="90" height="60" rx="6" fill="#fdeee8" stroke="#d85a30"/><text x="65" y="76" text-anchor="middle" fill="#712b13">試験器</text><path d="M110 60 H180 V70" stroke="#d85a30" stroke-width="3" fill="none"/></g>
+<g data-part="primK"><text x="170" y="62" fill="#203b50">K</text></g>
+<g data-part="prim"><path d="M180 70 q18 10 0 20 q18 10 0 20 q18 10 0 20" fill="none" stroke="#c9874a" stroke-width="3.5"/><path d="M180 130 V150 H230 V60 H180" fill="none" stroke="#d85a30" stroke-width="2.5" stroke-dasharray="6 4"/><text x="238" y="110" fill="#712b13">K–L 短絡</text></g>
+<g data-part="primL"><text x="170" y="150" fill="#203b50">L</text></g>
+<g data-part="sec"><path d="M200 175 H260 M200 215 H260 M260 175 V215" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="270" y="200" fill="#27500a">k–l 短絡</text></g>
+<g data-part="base"><path d="M230 215 V255 M65 100 V255 H330 V270 M316 270 H344 M321 276 H339 M326 282 H334" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="350" y="276" fill="#27500a">接地</text><text x="140" y="246" fill="#4b6475" font-size="13">取付台・試験器 E も同じ接地</text></g>
+</g>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>一次電流は負荷で決まる。</b>CT は主回路に直列に入っているだけで、一次電流の大きさは変えられません。</li>
+<li><b>二次電流は打ち消す役。</b>二次が計器・継電器で閉じていると、二次電流が一次の起磁力をほぼ打ち消し、鉄心の磁束は小さいままです。</li>
+<li><b>二次を開けると、打ち消す相手がいなくなる。</b>一次電流がそのまま鉄心を励磁して飽和し、二次端子に高い電圧が出ます。通電中は二次を開放しないこと（三菱電機カタログ p.5）。</li>
+<li><b>耐圧試験は K–L 短絡、k–l 短絡接地。</b><a href="vt-withstand-3d.html">VT単体の耐圧試験</a>と同じ考え方です。</li>
+</ul>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>形式・定格（75/5A、1.0・1PS10、25VA、6.9/22/60kV、50・60Hz）</td><td><span class="hv-ev doc">資料で確認</span></td><td>利用者の実機写真の銘板</td></tr>
+<tr><td>黒いモールド、上下の平らな一次端子、側面の二次端子2本と封印付きカバー、金属の取付台</td><td><span class="hv-ev doc">資料で確認</span></td><td>利用者の実機写真（一方向から）</td></tr>
+<tr><td>二次開路の禁止、二次側・取付足の接地、端子記号と極性への注意</td><td><span class="hv-ev doc">資料で確認</span></td><td>三菱電機 計器用変成器カタログ p.5〜6</td></tr>
+<tr><td>全体の寸法比、裏側・上下の形</td><td><span class="hv-ev unk">未確認</span></td><td>写真は一方向だけで、外形図と照合できていない</td></tr>
+<tr><td>上下の一次端子のどちらが K か、二次端子のどちらが k か</td><td><span class="hv-ev unk">未確認</span></td><td>写真から読み取れない。銘板・端子の表示で確認する</td></tr>
+<tr><td>一次巻線の形（巻線形か貫通形か）と巻数、鉄心の形、二次巻線の配置</td><td><span class="hv-ev unk">未確認</span></td><td>資料がない。内部は原理を示す模式として、外観と分けて表示</td></tr>
+<tr><td>二次開放時の電圧</td><td><span class="hv-ev unk">未確認</span></td><td>CT の特性と一次電流で変わるので、数値は出していない</td></tr>
+</table></div>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li>うきわメモ利用者が撮影した三菱電機 CD-25ENB の実機写真と銘板（2026年10月）。</li>
+<li><a href="https://dl.mitsubishielectric.co.jp/dl/fa/document/catalog/pmd/ym-c-y-0550/y0550u1809.pdf" target="_blank" rel="noopener">三菱電機「三菱計器用変成器」カタログ（18B）</a> p.5〜6：取扱い上の注意。発行年月は本文から読み取れず未確認。2026年10月27日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="vt-withstand-3d.html">VTを3Dで見る</a><a href="ct-calculator.html">CT比の計算</a></div></section>
+</main><footer>うきわメモ / 2026年10月27日作成 / 内部は原理説明用の模式で、実機の構造図ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="ct-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.ct);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
