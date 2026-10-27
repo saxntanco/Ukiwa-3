@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="VT単体の耐圧試験で、一次のU–Vを短絡する理由を、360°回せる3Dモデルで確かめる。U–V短絡・Uだけ（V浮き）・Uだけ（V接地）の3つの結線を切り替えて、一次巻線にかかる電圧と電流の通り道を比べる。CTの結線とヒューズの表裏の見分け方も。"><title>VT単体の耐圧試験を3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
-<link rel="stylesheet" href="menu-layout.css?v=20260930">
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
 <style>
 .seg{display:flex;flex-wrap:wrap;border:1px solid var(--island-line-cbdbe4-100,#ccdfe7);border-radius:12px;overflow:hidden;margin:0 0 10px}
 .seg button{flex:1 1 0;min-width:0;border:0;border-right:1px solid var(--island-line-cbdbe4-100,#ccdfe7);background:var(--island-bg-ffffff-100,#fff);color:inherit;padding:10px 6px;font-size:14px;line-height:1.35}
@@ -30,7 +30,7 @@
 .steps{padding-left:1.4em}.steps li{margin:4px 0}
 </style>
 </head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a></nav></header><main>
-<section class="hero"><span class="eyebrow">3Dモデル / VT・CT単体</span><h1>VT単体の耐圧試験、<br>U–Vを短絡しないとどうなる？</h1><p class="lead">VTの中は、鉄心に一次巻線と二次巻線を重ねて巻いた小さな変圧器です。なぜU–Vを短絡するのか。360°回せる3Dモデルで、正しい結線と2つのまちがった結線を切り替えて確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#structure">中のつくり</a><a href="#model">3Dで比べる</a><a href="#compare">3つの結線</a><a href="#wiring">正しい結線</a><a href="#front-back">ヒューズの表と裏</a><a href="#ct">CTの場合</a><a href="#note">確かめたこと</a></nav><p class="caption">モデルは三菱電機 PD-100HF（6,600/110V、ヒューズ付）を見本にした模式図です。鉄心の形、巻線を重ねる順番、ヒューズの前後どちらが電源側かは推定で、実機の寸法・構造ではありません。試験電圧は6,600V系の10,350V（最大使用電圧6,900V×1.5）。実際の試験は取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
+<section class="hero"><span class="eyebrow">3Dモデル / VT・CT単体</span><h1>VT単体の耐圧試験、<br>U–Vを短絡しないとどうなる？</h1><p class="lead">VTの中は、鉄心に一次巻線と二次巻線を重ねて巻いた小さな変圧器です。なぜU–Vを短絡するのか。360°回せる3Dモデルで、正しい結線と2つのまちがった結線を切り替えて確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#structure">中のつくり</a><a href="#model">3Dで比べる</a><a href="#compare">3つの結線</a><a href="#wiring">正しい結線</a><a href="#front-back">ヒューズの表と裏</a><a href="#ct">CTの場合</a><a href="#note">確かめたこと</a></nav><p class="caption">参考型式は三菱電機 PD-100HF（6,600/110V、ヒューズ付）。外観は実機写真をもとにしていますが、寸法比は外形図と照合できていません。鉄心の形、巻線を重ねる順番、ヒューズの手前・奥のどちらが電源側かは資料で確かめられず、内部は原理を示す模式です。試験電圧は6,600V系の10,350V（最大使用電圧6,900V×1.5）。実際の試験は取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
 
 <section class="sheet" id="structure"><h2>VTの中はこうなっている</h2>
 <p class="takeaway">鉄心に<b>一次巻線（細い線を何千回）</b>と<b>二次巻線（太い線を少し）</b>を重ねて巻き、樹脂で固めたもの。一次巻線の両端が、それぞれヒューズを通って U・V に出ている。</p>
@@ -51,7 +51,7 @@
 <g fill="#203b50" font-size="13" text-anchor="middle"><text x="285" y="84">表（電源側）</text><text x="118" y="84">裏（VT側）</text><text x="190" y="60">PF（限流ヒューズ）</text><text x="190" y="358">二次端子 u・v</text></g>
 <g fill="#203b50" font-size="13"><rect x="40" y="378" width="14" height="12" rx="2" fill="#f5c4b3" stroke="#d85a30"/><text x="62" y="389">一次巻線：外側、細い線を何千回も</text><rect x="40" y="400" width="14" height="12" rx="2" fill="#b5d4f4" stroke="#378add"/><text x="62" y="411">二次巻線：内側、太い線を少し</text><rect x="40" y="422" width="14" height="12" rx="2" fill="#7d8085"/><text x="62" y="433">鉄心：薄い鋼板を重ねたもの</text></g>
 </svg></div>
-<p class="caption">横から見て真ん中で切った模式図。ヒューズは2本が奥行き方向に並んでいて、図では手前の1本だけ見えています。一次巻線のもう一端は、奥のもう1本（V側）へつながります。</p>
+<p class="caption"><b>原理を示す模式図です。実機の断面ではありません。</b>横から見て真ん中で切ったイメージ。ヒューズは2本が奥行き方向に並んでいて、図では手前の1本だけ見えています。一次巻線のもう一端は、奥のもう1本（V側）へつながります。</p>
 <p>電圧は巻数の比で決まります。6,600÷110＝60なので、一次の巻数は二次の60倍です。一次に電圧がかかると鉄心に磁束ができ、その磁束が二次巻線を通り抜けて二次に電圧が出ます。</p>
 <h3>一次と二次の見分け方</h3>
 <div class="table-wrap"><table class="rtab">
@@ -64,14 +64,46 @@
 <p class="caption">巻線抵抗の値は目安です。実際の値は機種で変わります。</p>
 </section>
 
-<section class="sheet" id="model"><h2>3Dで比べる：U–Vを短絡しないと？</h2>
-<p>上のボタンで結線を切り替えます。外装は最初から透かしてあります。ドラッグで回転、マウスホイールや2本指で拡大・縮小できます。</p>
-<div class="seg" role="group" aria-label="結線の切り替え"><button type="button" data-mode="0" aria-pressed="true">U–V短絡<br><small>正しい</small></button><button type="button" data-mode="1" aria-pressed="false">Uだけ<br><small>V浮き</small></button><button type="button" data-mode="2" aria-pressed="false">Uだけ<br><small>V接地</small></button></div>
-<div class="simfig" style="padding:6px"><div class="vt3d" id="vt3d"><canvas id="vt3dCanvas" aria-label="VTの3Dモデル。ドラッグで回転できる"></canvas><div class="lbls" id="vt3dLabels"></div><div class="msg" id="vt3dMsg">この端末では3Dモデルを表示できませんでした。下の図と表で同じ内容を確認できます。</div></div>
-<div class="legend3d"><span><i style="background:#d85a30"></i>試験電圧・一次巻線</span><span><i style="background:#378add"></i>二次巻線</span><span><i style="background:#3b6d11"></i>接地線</span><span><i style="background:#f2b233;border-radius:50%"></i>電流の通り道（模式）</span></div></div>
-<div class="verdict ok" id="vt3dVerdict" aria-live="polite"><span id="vt3dVerdictTitle">U–V短絡：正しい結線</span><small id="vt3dVerdictText">一次巻線の両端が同じ電位。巻線に電圧がかからず、一次と大地（外箱・鉄心・二次）のあいだの絶縁だけに試験電圧がかかる。</small></div>
-<div class="tools3d"><button type="button" id="vt3dXray">外装を戻す</button><button type="button" id="vt3dAuto">自動回転を止める</button><button type="button" id="vt3dReset">正面に戻す</button></div>
-<p class="caption">黄色い粒は電流の通り道のイメージで、粒の速さ・量は模式です。後ろ側へ回すと、一次巻線の両端のリードが奥のヒューズ金具へ上がっていくのが見えます。U と V が、同じ巻線の「入口」と「出口」であることを確かめてください。</p>
+<section class="sheet" id="model"><h2>3Dで見る：外観・内部・動作・結線</h2>
+<p class="caption">参考型式：<b>三菱電機 PD-100HF</b>（6,600/110V・ヒューズ付）。外観は、うきわメモの利用者が撮った実機写真をもとにしています。<b>鉄心・巻線・リードは資料がないので模式</b>で、外観とは分けて「内部」で表示します。「動作」で、ふだんの使い方と3つの耐圧の結線を切り替えられます。</p>
+<div id="hvRoot"></div>
+<template id="vtWire"><svg viewBox="0 0 440 330" role="img" aria-label="VTの結線図。場面に合わせて、ふだんの使い方、U–V短絡、Uだけ・V浮きの等価回路、Uだけ・V接地を表示する" style="font-size:15px">
+<g id="vt-normal">
+<text x="20" y="30" fill="#203b50" font-weight="700">ふだんの使い方</text>
+<g data-part="termU"><path d="M60 60 H120" stroke="#203b50" stroke-width="2.5"/><text x="40" y="65" fill="#203b50">U</text></g>
+<g data-part="termV"><path d="M60 200 H120" stroke="#203b50" stroke-width="2.5"/><text x="40" y="205" fill="#203b50">V</text></g>
+<g data-part="fuseU"><rect x="120" y="52" width="40" height="16" rx="3" fill="#fff" stroke="#203b50"/></g>
+<g data-part="fuseV"><rect x="120" y="192" width="40" height="16" rx="3" fill="#fff" stroke="#203b50"/></g>
+<g data-part="prim"><path d="M160 60 H190 V90 q16 8 0 16 q16 8 0 16 q16 8 0 16 q16 8 0 16 V200 H160" fill="none" stroke="#c9874a" stroke-width="3"/><text x="150" y="135" fill="#4b6475" text-anchor="end" font-size="13">6,600V</text></g>
+<g data-part="core"><path d="M214 86 V174 M222 86 V174" stroke="#7d8085" stroke-width="3"/></g>
+<g data-part="secw"><path d="M246 104 q-16 6 0 12 q-16 6 0 12 q-16 6 0 12 M246 104 H300 M246 140 H300" fill="none" stroke="#378add" stroke-width="2.5"/></g>
+<g data-part="sec"><text x="306" y="108" fill="#203b50">u</text><text x="306" y="146" fill="#203b50">v</text><text x="330" y="128" fill="#4b6475" font-size="13">110V → 計器・継電器</text></g>
+</g>
+<g id="vt-short" style="display:none">
+<text x="20" y="30" fill="#1d5b33" font-weight="700">耐圧：U–V短絡（正しい）</text>
+<g data-part="test"><rect x="20" y="60" width="80" height="50" rx="6" fill="#fdeee8" stroke="#d85a30"/><text x="60" y="90" text-anchor="middle" fill="#712b13" font-size="13">試験器</text><path d="M100 70 H150 V60 H330 M150 60 V200 H190" stroke="#d85a30" stroke-width="3" fill="none"/><text x="250" y="52" fill="#712b13" font-size="13">U–V 短絡</text></g>
+<g data-part="termU"><text x="140" y="56" fill="#203b50">U</text></g><g data-part="termV"><text x="196" y="205" fill="#203b50">V</text></g>
+<g data-part="prim"><path d="M330 60 V90 q16 8 0 16 q16 8 0 16 q16 8 0 16 V200 H210" fill="none" stroke="#c9874a" stroke-width="3"/><text x="356" y="130" fill="#1d5b33" font-size="13">巻線の電圧 0</text></g>
+<g data-part="sec"><path d="M60 110 V280 H400 M300 240 H330 V280" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="250" y="270" fill="#27500a" font-size="13">二次 u–v 短絡・接地</text><path d="M390 280 v10 M378 290 h24 M383 296 h14 M388 302 h4" stroke="#3b6d11" stroke-width="2.5"/></g>
+</g>
+<g id="vt-float" style="display:none">
+<text x="20" y="30" fill="#6b4510" font-weight="700">耐圧：Uだけ・V浮き（等価回路）</text>
+<g data-part="test"><rect x="20" y="60" width="80" height="50" rx="6" fill="#fdeee8" stroke="#d85a30"/><text x="60" y="90" text-anchor="middle" fill="#712b13" font-size="13">試験器</text><path d="M100 70 H170" stroke="#d85a30" stroke-width="3"/></g>
+<g data-part="prim"><rect x="170" y="58" width="90" height="24" rx="4" fill="#fff" stroke="#c9874a" stroke-width="2.5"/><text x="215" y="75" text-anchor="middle" fill="#712b13" font-size="12">巻線 Z（小）</text><path d="M260 70 H320" stroke="#203b50" stroke-width="2.5"/></g>
+<g data-part="termV"><text x="300" y="60" fill="#203b50">V 端</text><path d="M320 70 V150 M300 150 H340 M300 162 H340 M320 162 V230" stroke="#203b50" stroke-width="2.5" fill="none"/><text x="350" y="160" fill="#203b50" font-size="13">対地静電容量 C</text><text x="350" y="178" fill="#203b50" font-size="13">（インピーダンス大）</text></g>
+<path d="M60 110 V230 H400 M390 230 v10 M378 240 h24 M383 246 h14 M388 252 h4" stroke="#3b6d11" stroke-width="2.5" fill="none"/>
+<text x="20" y="284" fill="#4b6475" font-size="13">仮定：二次は短絡・接地、V の先には何もつながらない。</text>
+<text x="20" y="304" fill="#4b6475" font-size="13">電圧の大部分は C に、巻線にはわずか。数値は計算していない。</text>
+</g>
+<g id="vt-vgnd" style="display:none">
+<text x="20" y="30" fill="#7a2118" font-weight="700">耐圧：Uだけ・V接地（危険）</text>
+<g data-part="test"><rect x="20" y="60" width="80" height="50" rx="6" fill="#fdeee8" stroke="#d85a30"/><text x="60" y="90" text-anchor="middle" fill="#712b13" font-size="13">試験器</text><path d="M100 70 H200" stroke="#d85a30" stroke-width="3"/></g>
+<g data-part="prim"><path d="M200 70 H230 V90 q16 8 0 16 q16 8 0 16 q16 8 0 16 V200 H260" fill="none" stroke="#b83a2b" stroke-width="3.5"/><text x="260" y="130" fill="#7a2118" font-size="13">巻線に試験電圧ほぼ全部</text></g>
+<g data-part="termV"><path d="M260 200 H330 V230" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="270" y="194" fill="#7a2118" font-size="13">V が大地に接触</text></g>
+<g data-part="sec"><text x="120" y="160" fill="#7a2118" font-size="13">二次短絡 → 大電流</text></g>
+<path d="M60 110 V230 H400 M390 230 v10 M378 240 h24 M383 246 h14 M388 252 h4" stroke="#3b6d11" stroke-width="2.5" fill="none"/>
+</g>
+</svg></template>
 </section>
 
 <section class="sheet" id="compare"><h2>3つの結線を比べる</h2>
@@ -139,26 +171,7 @@
 <p class="caption">写真で見ると、手前の丸いキャップにボルトが付いている側が電源側に見えますが、確かめてはいません。ヒューズの銘板シールの向きで表裏は決まりません（矢印や「電源側」の表示があれば従います）。端子の位置は、メーカーの外形図でも確認できます。</p>
 </section>
 
-<section class="sheet" id="ct"><h2>CTの場合</h2>
-<div class="simfig"><svg viewBox="0 0 680 420" role="img" aria-label="CT単体の絶縁耐力試験の結線。一次端子KとLを短絡して耐圧試験器の高圧端子へ接続し、二次端子kとlを短絡して接地、外箱と取付台も接地する">
-<rect x="40" y="90" width="150" height="190" rx="10" fill="#fdeee8" stroke="#d85a30"/>
-<g fill="#712b13" font-size="15" text-anchor="middle"><text x="115" y="145" font-weight="700">耐圧試験器</text><text x="115" y="173">AC 10,350V</text><text x="115" y="195">10分間</text><text x="115" y="270">E</text></g><text x="180" y="115" fill="#712b13" font-size="14" text-anchor="end">HV</text>
-<rect x="300" y="100" width="180" height="160" rx="10" fill="#f1efe8" stroke="#888780"/>
-<g fill="#203b50" text-anchor="middle"><text x="400" y="145" font-size="15" font-weight="700">CT 75/5A</text><text x="400" y="167" font-size="13">CD-25ENB</text></g>
-<g fill="#203b50" font-size="13"><text x="316" y="194">k</text><text x="316" y="229">l</text></g>
-<path d="M190 110H250V60H560V300H390V260M390 60V100" fill="none" stroke="#d85a30" stroke-width="2.5"/>
-<g fill="#203b50" font-size="13"><text x="398" y="84">K（一次）</text><text x="398" y="286">L（一次）</text><text x="570" y="184">K–L 短絡</text><text x="280" y="342">二次 k・l 短絡接地</text><text x="450" y="324">外箱・取付台 接地</text><text x="545" y="382">接地</text></g>
-<path d="M300 190H270V225H300M270 225V360" fill="none" stroke="#3b6d11" stroke-width="2"/>
-<path d="M440 260V360" fill="none" stroke="#3b6d11" stroke-width="2" stroke-dasharray="5 4"/>
-<path d="M115 280V360H520V374M506 374H534M511 380H529M516 386H524" fill="none" stroke="#3b6d11" stroke-width="2"/>
-</svg></div>
-<p>考え方はVTと同じで、<b>一次 K–L を短絡して試験電圧をかけ、二次 k–l は短絡して接地</b>します。</p>
-<ul>
-<li><b>K–L を短絡する理由</b>：Lが浮いていれば、Kだけにつないでも一次全体がほぼ同じ電位になります。ただ、75/5Aのような低変流比のCTは一次が数ターン巻いてある巻線形が多く、電圧の上げ下げや遮断の瞬間に巻線の中で電位差ができると、層間の絶縁に負担がかかるおそれがあります。万一L側でフラッシオーバーすると、事故電流が一次巻線を通ってCTとして動いてしまいます。短絡して、試験する範囲を「一次と大地のあいだ」にそろえます。</li>
-<li><b>k–l を短絡・接地する理由</b>：二次を浮かせておくと、静電誘導で高い電圧が出て、端子間のフラッシオーバーや二次巻線の損傷につながります。</li>
-</ul>
-<p class="caption">VTとのちがい：CTの一次は太い導体で巻数が少なく、インピーダンスが小さいので、片側だけにつないでもVTほど大きな問題にはなりにくい。それでも、試験は一次一括・二次一括接地の形にそろえます。</p>
-</section>
+<section class="sheet" id="ct"><h2>CTの場合</h2><p>CT も考え方は同じで、<b>一次 K–L を短絡して試験電圧をかけ、二次 k–l は短絡して接地</b>します。外観・内部・二次を開放したときの危険まで、<a href="ct-3d.html">CTを3Dで見る</a>にまとめました。</p></section>
 
 <section class="sheet" id="note"><h2>確かめたこと</h2>
 <ul>
@@ -166,6 +179,8 @@
 <li>メーカーのカタログでは、VTの一次側ヒューズは VT 自体を守るためではなく、VT が絶縁破壊したときに主回路の短絡事故へ広がる前に、事故を起こした VT 回路を切り離すためのもの、と説明されています。</li>
 <li>確かめられなかったこと：鉄心の形、巻線を重ねる順番、リード線の通り道、ヒューズの前後どちらが電源側か。3Dモデルと断面図のこれらの部分は推定です。</li>
 <li>「Vが大地とつながったとき」の電流は、機種の短絡インピーダンスと熱特性がないと決められないため、数値を出していません。</li>
+<li>「Vが浮いている」場面の説明は、二次を短絡・接地し、V の先には何もつながっていないと仮定した等価回路（巻線のインピーダンスと V 端の対地静電容量の直列）によるものです。電圧の数値は計算していません。</li>
+<li>外観の根拠は、うきわメモの利用者が撮った PD-100HF の実機写真（一方向）です。裏側・上下の形と寸法比は、外形図と照合できていません。</li>
 <li>実際の試験は、機器の取扱説明書の指定と、作業責任者の指示に従ってください。</li>
 </ul>
 <p class="caption" style="font-size:12px">出典：<a href="https://www.monotaro.com/p/3873/4665/" target="_blank" rel="noopener">モノタロウ PD-100HF 6600/110V（仕様）</a>、<a href="https://dl.mitsubishielectric.co.jp/dl/fa/document/catalog/pmd/ym-c-y-0550/y0550w2203.pdf" target="_blank" rel="noopener">三菱電機 三菱計器用変成器カタログ</a>、<a href="https://www.mitsubishielectric.co.jp/fa/products/faspec/download.page?kisyu=%2Fpmd&amp;formNm=PD-H-HF_PD-100HF%28%EF%BE%8B%EF%BD%AD%EF%BD%B0%EF%BD%BD%EF%BE%9E%E4%BB%98%29_15&amp;sub=cad&amp;popup=1&amp;category=ex&amp;id=spec" target="_blank" rel="noopener">三菱電機FA PD-100HF 外形図・CAD</a>（いずれも2026年10月26日閲覧）</p>
@@ -173,6 +188,7 @@
 
 <section class="sheet"><h2>つながる教材</h2><div class="related"><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a><a href="pas-vtla-3d.html">VT・LA内蔵PASを3Dで見る</a><a href="vt-water-analogy.html">ケーブルはよくてVTがだめな理由</a><a href="pukapuka-diary.html#short-clip-9points-20261021">短絡クリップのつなぎ方を整理した日誌</a></div></section>
 </main><footer>うきわメモ / 2026年10月26日作成 / 図とモデルは原理説明用で、実設備の試験結線図・実機の構造図ではありません。</footer>
-<script src="vt-withstand-3d.js?v=20261026"></script>
+<script src="hv3d.js?v=20261027"></script><script src="vt-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.vt);</script>
 <script src="menu-layout.js?v=20260930"></script>
 </body></html>
