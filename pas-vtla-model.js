@@ -13,7 +13,7 @@
     bload: { name: '負荷側ブッシング・リード', role: '構内側（立上りケーブル）とつながるところ。VT・LA はこの負荷側に内蔵されている。', links: ['vt', 'la', 'zct', 'clip'], ev: 'doc', note: '負荷側に VT・LA 内蔵は製品ページ。形・向きは未照合。' },
     contact: { name: '主接点（模式）', role: '3相を同時に開閉する接点。消弧媒体は気中。', links: ['bsrc', 'zct', 'mech'], ev: 'unk', note: '消弧媒体（気中）は取扱説明書の表示。接点の形・位置は資料がなく模式。' },
     zct: { name: 'ZCT（模式）', role: '3相の導体をまとめて通し、地絡のときの零相電流を検出して SOG 制御装置へ送る（Z1・Z2）。', links: ['contact', 'ctrl'], ev: 'unk', note: '取扱説明書の接続図に記号がある。位置・形は模式。' },
-    vt: { name: '内蔵 VT（模式）', role: '負荷側の2相のあいだにつながる、SOG 制御装置の電源用の変圧器（6600/105V・25VA）。この2相のどちらかを、柱の上でつかみ忘れると焼損のおそれ。', links: ['bload', 'ctrl'], ev: 'doc', note: '負荷側・定格は製品ページ。どの2相のあいだかは戸上電機の資料に書かれておらず未確認。図は仮に U–V に描いた。' },
+    vt: { name: '内蔵 VT（U–W 間・模式）', role: '負荷側の U 相と W 相のあいだにつながる、SOG 制御装置の電源用の変圧器（6600/105V・25VA）。U か W を柱の上でつかみ忘れると焼損のおそれ。V はつながっていない。', links: ['bload', 'ctrl'], ev: 'simp', note: '負荷側・定格は戸上電機の製品ページ。U–W 間は、利用者が分解した PAS の写真（VT の一次 2 本が 3 本並びの両端につながる）と、戸上電機の外形図の注記による。外形図の画像はこちらでは読めず、文字は未照合。VT の形・位置は模式。' },
     la: { name: '内蔵 LA（模式）', role: '雷の過電圧を大地へ逃がす避雷器（8.4kV・2500A・ZnO ギャップレス）。耐圧試験では切り離せないので、交流 10,350V でかけられる範囲で試験する。', links: ['bload', 'gnd'], ev: 'doc', note: '定格は製品ページ。各相と大地のあいだにつないだ形は一般的な避雷器のつなぎ方で、内部の接続図は未確認。' },
     mech: { name: '操作ハンドル・入切表示', role: '操作ひもでハンドルを引いて入・切する。入切は表示で確かめる。トリップコイルで引外されると「切」になる。', links: ['contact', 'tc'], ev: 'doc', note: '「操作ハンドル」「入切表示」は取扱説明書の各部の名称。位置・形は未照合。' },
     tc: { name: 'トリップコイル（模式）', role: 'SOG 制御装置の指令で励磁され、開閉器を引き外す。', links: ['mech', 'ctrl'], ev: 'unk', note: '取扱説明書の接続図に TC の記号がある。位置・形は模式。' },
@@ -32,7 +32,7 @@
     TOPLUG[ph] = [CX, TOPY + 0.1, CZ[ph]]; BOTLUG[ph] = [CX, BOTY - 0.1, CZ[ph]];
     CORE[ph] = [[CX, TOPY - 0.23, CZ[ph]], [CX, -1.1, CZ[ph] * 0.6], [CX, -1.25, CZ[ph] * 0.15], [CX, -1.55, CZ[ph] * 0.15], [CX, -1.72, CZ[ph] * 0.6], [CX, BOTY + 0.23, CZ[ph]]];
   });
-  var VTPH = ['U', 'V'];   /* 仮の相（資料では未確認） */
+  var VTPH = ['U', 'W'];   /* 実機写真と外形図の注記による（文字は未照合） */
 
   function build(G, st, mode) {
     var S = { layer: 'int' };
@@ -72,10 +72,10 @@
     G.box(0.1, 0.06, 0.96, 0.35, YC - 0.16, 0, 0x3f4a55, { part: 'zct', layer: 'int' });
     G.box(0.1, 0.38, 0.06, 0.35, YC, -0.48, 0x3f4a55, { part: 'zct', layer: 'int' });
     G.box(0.1, 0.38, 0.06, 0.35, YC, 0.48, 0x3f4a55, { part: 'zct', layer: 'int' });
-    /* VT（仮に U–V） */
-    G.box(0.32, 0.24, 0.28, 0.85, 0.24, -0.18, 0x8a4b2e, { part: 'vt', layer: 'int' });
-    G.wire([[0.79, YC, PH.U], [0.79, 0.45, PH.U], [0.79, 0.36, -0.26]], 0xd85a30, 2.5, { part: 'vt', layer: 'int', cond: 'U', side: 'load' });
-    G.wire([[0.79, YC, PH.V], [0.79, 0.45, PH.V], [0.79, 0.36, -0.1]], 0xd85a30, 2.5, { part: 'vt', layer: 'int', cond: 'V', side: 'load' });
+    /* VT（U–W 間） */
+    G.box(0.32, 0.24, 0.3, 0.85, 0.24, 0, 0x8a4b2e, { part: 'vt', layer: 'int' });
+    G.wire([[0.79, YC, PH.U], [0.79, 0.45, PH.U], [0.79, 0.36, -0.1]], 0xd85a30, 2.5, { part: 'vt', layer: 'int', cond: 'U', side: 'load' });
+    G.wire([[0.79, YC, PH.W], [0.79, 0.45, PH.W], [0.79, 0.36, 0.1]], 0xd85a30, 2.5, { part: 'vt', layer: 'int', cond: 'W', side: 'load' });
     G.wire([[0.95, 0.12, -0.3], [0.85, 0.08, -0.5], [0.8, 0.05, -0.55]], 0x378add, 2.5, { part: 'ctrl', layer: 'int' });
     /* LA（各相と大地） */
     PHS.forEach(function (ph) {
@@ -135,7 +135,7 @@
     });
     if (st.miss && VTPH.indexOf(st.miss) >= 0) {
       var other = VTPH[0] === st.miss ? VTPH[1] : VTPH[0];
-      var vt = [[0.79, YC, PH[other]], [0.79, 0.45, PH[other]], [0.79, 0.36, other === 'U' ? -0.26 : -0.1], [0.85, 0.24, -0.18], [0.79, 0.36, st.miss === 'U' ? -0.26 : -0.1], [0.79, 0.45, PH[st.miss]], [0.79, YC, PH[st.miss]], [1.79, YC, PH[st.miss]], [1.92, 0.3, PH[st.miss]], [1.95, -0.17, PH[st.miss]]];
+      var vt = [[0.79, YC, PH[other]], [0.79, 0.45, PH[other]], [0.79, 0.36, other === 'U' ? -0.1 : 0.1], [0.85, 0.24, 0], [0.79, 0.36, st.miss === 'U' ? -0.1 : 0.1], [0.79, 0.45, PH[st.miss]], [0.79, YC, PH[st.miss]], [1.79, YC, PH[st.miss]], [1.92, 0.3, PH[st.miss]], [1.95, -0.17, PH[st.miss]]];
       G.flow(vt, { col: 'bad', speed: 0.7, m: { part: 'vt', layer: 'int' } });
     }
     if (st.dc) PHS.forEach(function (ph) { var z = PH[ph]; G.flow([[1.25, YC, z], [1.25, 0.46, z], [1.25, 0.18, z], [1.25, 0.08, z], [1.25, 0.07, 0.4], [1.15, 0.08, 0.62]], { col: 'bad', speed: 0.5, m: { part: 'la', layer: 'int' } }); });
@@ -160,7 +160,7 @@
     { part: 'tank', t: '外箱', p: [0.2, 1.15, 0.5], layer: 'ext-only' },
     { part: 'gnd', t: '接地端子', p: [1.15, -0.05, 0.7], layer: 'ext-only' },
     { part: 'ctrl', t: '制御線', p: [0.3, -1.0, -1.0] },
-    { part: 'vt', t: 'VT（仮にU–V）', p: [0.85, 0.02, -0.18], layer: 'int' },
+    { part: 'vt', t: 'VT（U–W間）', p: [0.85, 0.02, 0], layer: 'int' },
     { part: 'la', t: 'LA', p: [1.25, 0.0, 0.5], layer: 'int' },
     { part: 'zct', t: 'ZCT', p: [0.35, YC + 0.3, -0.48], layer: 'int' },
     { part: 'contact', t: '主接点', p: [-0.4, YC + 0.4, 0.35], layer: 'int' },
@@ -170,7 +170,7 @@
     { part: 'tester', t: '耐圧試験器', p: [TS[0], TS[1] - 0.3, TS[2]], layer: 'int', when: function (s, m) { return m === 'op'; } },
     { t: '帰路：遮へい層・外箱→接地→試験器E', p: [1.2, -2.95, 1.0], layer: 'int', when: function (s) { return s.volt; } },
     { t: 'U：VTの巻線を通って充電', p: [1.25, -0.6, -0.6], hot: true, layer: 'int', when: function (s) { return s.miss === 'U'; } },
-    { t: 'W：試験されない', p: [1.25, -0.6, 0.62], hot: true, layer: 'int', when: function (s) { return s.miss === 'W'; } },
+    { t: 'V：試験されない', p: [1.25, -0.6, 0.62], hot: true, layer: 'int', when: function (s) { return s.miss === 'V'; } },
     { t: 'LA に直流 → 動作のおそれ', p: [1.25, -0.2, -0.6], hot: true, layer: 'int', when: function (s) { return s.dc; } },
     { t: '電源側まで充電', p: [-2.3, 0.6, 0.6], hot: true, layer: 'int', when: function (s) { return s.on && s.volt; } }
   ];
@@ -184,10 +184,10 @@
       { t: 'PAS を「入」にして試験電圧をかける', x: '主接点を通って、電源側ブッシングと電源側リードまで充電される。その先に電線がつながっていれば、そこまで充電され、充電電流も増える。', s: 'warn', st: { on: true, volt: true }, hz: '引込線（配電線側）から確実に切り離されていることが前提。戸上電機の資料で入・切の指定は確認できていない（日本高圧電気の取扱説明書は、ケーブルを含む試験で「切」を指定）。' }
     ] },
     { name: 'VTの相をつかみ忘れ', steps: [
-      { t: '柱の上で、VT につながる相（図では U）をつかみ忘れる', x: 'つかみ忘れた U には、VT の巻線という細い道しか残らない。U の対地静電容量を充電する電流（赤い粒）が、全部 VT の巻線を通る。巻線の両端に電位差ができ、VT に電圧と電流がかかる。', s: 'ng', st: { on: false, volt: true, miss: 'U' }, hz: '戸上電機は、一相ごとの耐電圧試験は VT が焼損するので行わないよう示している。PAS の U・V・W は柱の上で必ず全部つかむ。' }
+      { t: '柱の上で、VT につながる相（図では U。W でも同じ）をつかみ忘れる', x: 'つかみ忘れた U には、VT の巻線という細い道しか残らない。U の対地静電容量を充電する電流（赤い粒）が、全部 VT の巻線を通る。巻線の両端に電位差ができ、VT に電圧と電流がかかる。', s: 'ng', st: { on: false, volt: true, miss: 'U' }, hz: '戸上電機は、一相ごとの耐電圧試験は VT が焼損するので行わないよう示している。PAS の U・V・W は柱の上で必ず全部つかむ。' }
     ] },
     { name: 'VTのない相をつかみ忘れ', steps: [
-      { t: '柱の上で、VT につながらない相（図では W）をつかみ忘れる', x: 'W は VT とつながっていないので、電流の通り道がない。W は試験されないだけで、VT は守られる。ただし試験範囲が欠ける。', s: 'warn', st: { on: false, volt: true, miss: 'W' }, hz: 'どの2相に VT がつながるかは機種で異なり、戸上電機の資料では未確認。どの相も必ずつかむ。' }
+      { t: '柱の上で、VT につながらない V 相をつかみ忘れる', x: 'V は VT とつながっていないので、VT を通る電流の通り道がない。V は試験されないだけで、VT は守られる。ただし試験範囲が欠ける。', s: 'warn', st: { on: false, volt: true, miss: 'V' }, hz: 'どの2相に VT がつながるかは機種で異なる。機種を問わず、どの相も必ずつかむ。' }
     ] },
     { name: '直流で試験', steps: [
       { t: '直流 20,700V をかける', x: 'LA の動作開始電圧（AC17kV 以上・波高値）を超えるおそれがあり、ZnO 素子に電流が流れて LA を傷める。', s: 'ng', st: { on: false, volt: true, dc: true }, hz: 'LA 内蔵形は、戸上電機の資料で AC12kV 以上・DC17kV 以上をかけないよう示されている。' }
@@ -202,7 +202,7 @@
     var Y = { U: 60, V: 100, W: 140 }; ['U', 'V', 'W'].forEach(function (ph) { var sw = q('ps-sw-' + ph); if (sw) sw.setAttribute('d', st.on ? 'M110 ' + Y[ph] + ' H150' : 'M110 ' + Y[ph] + ' L146 ' + (Y[ph] - 18)); });
     var on = q('ps-on'); if (on) on.style.display = st.on && st.volt ? '' : 'none';
     var dc = q('ps-dc'); if (dc) dc.style.display = st.dc ? '' : 'none';
-    var vb = q('ps-vtbad'); if (vb) vb.style.display = st.miss === 'U' ? '' : 'none';
+    var vb = q('ps-vtbad'); if (vb) vb.style.display = st.miss === 'U' || st.miss === 'W' ? '' : 'none';
   }
   window.HV_MODELS = window.HV_MODELS || {};
   window.HV_MODELS.pas = {
@@ -212,6 +212,6 @@
     view: { yaw: -0.35, pitch: 0.3 },
     modeView: { op: { zoom: 0.78, target: [1.0, -0.95, 0.3], yaw: -0.45, pitch: 0.2 } },
     views: { front: { label: '正面', yaw: 0, pitch: 0.12 }, pole: { label: '柱の上のクリップ', yaw: -0.42, pitch: 0.22, zoom: 2.0, target: [2.2, -0.4, 0.25] }, cub: { label: 'キュービクル側', yaw: -0.3, pitch: 0.45, zoom: 2.0, target: [2.45, -2.35, 0.55] } },
-    banner: { ext: ['参考：戸上電機 KLT-PA-D2N11LT', '!外形の寸法比・端子の向きは外形図と未照合'], int: ['!内部は模式：部品の形・位置は実機と異なる', 'VTの相は資料で未確認（仮にU–V）'], op: ['!内部は模式・VTは仮にU–V'], wire: [] }
+    banner: { ext: ['参考：戸上電機 KLT-PA-D2N11LT', '!外形の寸法比・端子の向きは外形図と未照合'], int: ['!内部は模式：部品の形・位置は実機と異なる', 'VTはU–W間（実機写真・外形図の注記）'], op: ['!内部は模式・VTはU–W間'], wire: [] }
   };
 })();
