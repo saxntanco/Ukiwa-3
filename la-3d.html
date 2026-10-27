@@ -1,0 +1,54 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="避雷器（LA）を360°回して見る。磁器がいし、直列ギャップ、特性要素。ふだんは電流を通さず、雷サージのときだけ大地へ逃がして続流を止めるまでを段階表示。参考：音羽電機 GL-B6G。"><title>避雷器（LA）を3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / LA・避雷器</span><h1>避雷器を、3Dで見る。<br>雷のときだけ道をあける</h1><p class="lead">ふだんは電流を通さず、雷サージで電圧が上がったときだけ大地への道をあけ、終わったらまた閉じる。その順番を確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">参考型式：<b>音羽電機 GL-B6G</b>（直列ギャップ付・磁器がいし形・一般用、定格電圧8.4kV・公称放電電流2.5kA）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<div id="hvRoot"></div>
+<template id="laWire"><svg viewBox="0 0 360 300" style="font-size:15px" role="img" aria-label="避雷器の結線図。線路から直列ギャップと特性要素を通って接地へ">
+<g data-part="line"><line x1="20" y1="40" x2="300" y2="40" stroke="#203b50" stroke-width="3"/><text x="20" y="28" fill="#203b50">線路（高圧）</text><line x1="160" y1="40" x2="160" y2="80" stroke="#203b50" stroke-width="3"/></g>
+<g id="la-surge" style="display:none"><path d="M40 40 l12 -22 l8 14 l12 -26" stroke="#b83a2b" stroke-width="3" fill="none"/><text x="80" y="20" fill="#b83a2b" font-weight="700">雷サージ</text></g>
+<g data-part="gap"><line x1="140" y1="88" x2="180" y2="88" stroke="#203b50" stroke-width="3"/><line x1="140" y1="104" x2="180" y2="104" stroke="#203b50" stroke-width="3"/><line x1="160" y1="80" x2="160" y2="88" stroke="#203b50" stroke-width="3"/><line x1="160" y1="104" x2="160" y2="130" stroke="#203b50" stroke-width="3"/><text x="190" y="100" fill="#4b6475" font-size="14">直列ギャップ</text></g>
+<g id="la-spark" style="display:none"><path d="M150 89 l6 6 l-4 3 l6 5" stroke="#8a4fd8" stroke-width="2.5" fill="none"/><path d="M168 89 l-5 5 l4 4 l-5 5" stroke="#8a4fd8" stroke-width="2.5" fill="none"/></g>
+<g data-part="elem"><rect x="145" y="130" width="30" height="70" rx="4" fill="#e7e2d8" stroke="#203b50"/><path d="M150 150 l20 10 M150 175 l20 -10" stroke="#203b50"/><text x="190" y="170" fill="#4b6475" font-size="14">特性要素</text><line x1="160" y1="200" x2="160" y2="240" stroke="#203b50" stroke-width="3"/></g>
+<g data-part="gnd"><path d="M140 240 H180 M146 248 H174 M152 256 H168" stroke="#3b6d11" stroke-width="3"/><text x="190" y="252" fill="#27500a">接地</text></g>
+<path id="la-flow" d="M150 40 V245" stroke="#e24b4a" stroke-width="5" opacity=".5" style="display:none"/>
+<text x="20" y="290" fill="#4b6475" font-size="13">ふだん：ギャップが絶縁して電流なし</text>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>ふだんは電流を通さない。</b>直列ギャップが空間で絶縁しています。</li>
+<li><b>雷サージのときだけ道をあける。</b>電圧が上がるとギャップが放電し、特性要素を通ってサージ電流が接地へ流れ、端子間の電圧が低く抑えられます。</li>
+<li><b>終わったら続流を止める。</b>系統の電圧に戻ると特性要素の抵抗が大きくなり、電流はほとんど流れません（「非直線抵抗性により続流が流れない」）。</li>
+<li><b>接地が命。</b>接地線が外れていたり接地抵抗が大きかったりすると、サージを逃がせません。</li>
+</ul>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>直列ギャップ付・磁器がいし形・一般用、公称電圧6.6kV・定格電圧8.4kV、公称放電電流2.5kA、JEC-2374</td><td><span class="hv-ev doc">資料で確認</span></td><td>音羽電機 高圧用避雷器 選定表</td></tr>
+<tr><td>非直線抵抗性で続流が流れない</td><td><span class="hv-ev doc">資料で確認</span></td><td>同 選定表の製品説明</td></tr>
+<tr><td>全体の寸法・がいしの径・ひだの数・キャップの形・取付バンド</td><td><span class="hv-ev unk">未確認</span></td><td>カタログの外形図と照合できていない。概形で描いた</td></tr>
+<tr><td>中の直列ギャップの数・電極の形、特性要素の材質・枚数、押えばね</td><td><span class="hv-ev unk">未確認</span></td><td>資料に構造の記述がない。直列ギャップ付避雷器の一般的な並びとして模式で描いた</td></tr>
+<tr><td>サージ電流の帰路</td><td><span class="hv-ev simp">簡略化</span></td><td>大地から系統の対地静電容量などを通って戻る。設備と雷の条件で変わるので、図では接地極までを描いた</td></tr>
+</table></div>
+<p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li><a href="https://www.otowadenki.co.jp/products_list07/" target="_blank" rel="noopener">音羽電機「高圧用避雷器」製品一覧・選定表</a>：更新日は未記載。2026年10月27日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="pas-vtla-3d.html">VT・LA内蔵PASを3Dで見る</a></div></section>
+</main><footer>うきわメモ / 2026年10月27日作成 / 中の構造で資料にないところは模式で、実機の構造図ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="la-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.la);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>

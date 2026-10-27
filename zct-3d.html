@@ -1,0 +1,54 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="零相変流器（ZCT）を360°回して見る。貫通孔、セパレータ、環状鉄心と二次巻線。ふだんは3本の電流の合計が0、地絡すると孔の外を通る帰り道ができて磁束が回るまでを段階表示。参考：オムロン OTG-N68。"><title>ZCT（零相変流器）を3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / ZCT・零相変流器</span><h1>ZCTを、3Dで見る。<br>3本の合計を見る</h1><p class="lead">3相の電線をまとめて孔に通すと、ふだんは電流の合計が0。地絡で孔の外を通る帰り道ができると、合計が0でなくなり、鉄心に磁束が回ります。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">参考型式：<b>オムロン 形OTG-N68</b>（エポキシモールド高圧用貫通形・屋内用、定格一次電流400A、定格零相一次電流200mA、内径φ68）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<div id="hvRoot"></div>
+<template id="zctWire"><svg viewBox="0 0 380 280" style="font-size:15px" role="img" aria-label="ZCTの結線図。3相の電線を孔に通し、二次を地絡継電器へ">
+<g data-part="cable" stroke="#203b50" stroke-width="3"><line x1="20" y1="60" x2="360" y2="60"/><line x1="20" y1="90" x2="360" y2="90"/><line x1="20" y1="120" x2="360" y2="120"/></g>
+<g fill="#203b50" font-size="14"><text x="4" y="65">U</text><text x="4" y="95">V</text><text x="4" y="125">W</text><text x="300" y="40">負荷側 →</text></g>
+<g data-part="core"><ellipse cx="160" cy="90" rx="22" ry="52" fill="none" stroke="#7d8085" stroke-width="5"/><text x="160" y="164" text-anchor="middle" fill="#4b6475" font-size="14">ZCT</text></g>
+<g data-part="term"><path d="M182 80 H230 M182 100 H230" stroke="#378add" stroke-width="2.5"/><rect x="230" y="70" width="90" height="40" rx="5" fill="#fff" stroke="#203b50"/><text x="275" y="95" text-anchor="middle" fill="#203b50" font-size="13">地絡継電器</text></g>
+<g id="zc-fault" style="display:none"><path d="M330 120 V220 H20" stroke="#b83a2b" stroke-width="3" stroke-dasharray="7 4" fill="none"/><path d="M330 120 l-6 10 h12 z" fill="#b83a2b"/><text x="40" y="212" fill="#b83a2b" font-weight="700">地絡：孔の外を通る帰り道</text></g>
+<text id="zc-out" x="230" y="140" fill="#203b50" font-size="14">二次出力：なし</text>
+<text x="20" y="260" fill="#4b6475" font-size="13">ふだん：孔の中の3本の合計は0</text>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>3本まとめて通す。</b>ふだんは、ある瞬間の3本の電流の合計が0なので、磁束が打ち消し合い、二次に何も出ません。負荷が不平衡でも、電流がすべて孔の中を往復していれば合計は0です。</li>
+<li><b>地絡で合計が0でなくなる。</b>地絡電流は大地や対地静電容量など孔の外を通って戻るので、その分だけ磁束が鉄心を回り、二次に出力が出ます。</li>
+<li><b>200mAと400Aは別の意味。</b>定格零相一次電流200mAと定格一次電流400Aは意味が違い、継電器の整定値とも別です。</li>
+</ul>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>定格一次電流400A、定格零相一次電流200mA、定格電圧6,600V、質量約1kg、適合継電器（K2GRなど）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.2</td></tr>
+<tr><td>内径φ68・セパレータ付き（取り外し可）・使用可能電線外形φ26、M5端子ねじ、2-φ8.5穴または2-M8ねじ穴</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3</td></tr>
+<tr><td>エポキシモールド高圧用貫通形</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.2</td></tr>
+<tr><td>外形の丸み・寸法比</td><td><span class="hv-ev unk">未確認</span></td><td>外形図に 158・182・76.5・134・60 などの数値はあるが、どこの寸法かを図で確かめられていない</td></tr>
+<tr><td>端子の数・位置・記号（k・l など）</td><td><span class="hv-ev unk">未確認</span></td><td>N68の資料に記述が見当たらない。端子は位置を仮に描いた</td></tr>
+<tr><td>環状鉄心・二次巻線の形と巻数</td><td><span class="hv-ev unk">未確認</span></td><td>資料に記述がない。貫通形の一般的な原理として模式で描いた</td></tr>
+<tr><td>孔に通す3相の電線・地絡継電器</td><td><span class="hv-ev simp">簡略化</span></td><td>製品の部品ではなく、場面の説明用</td></tr>
+</table></div>
+<p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li><a href="https://www.fa.omron.co.jp/data_pdf/cat/ground-fault_protectors_ds_j_3_2.pdf" target="_blank" rel="noopener">オムロン 地絡関連機器 カタログ（CSM_Ground-fault_Protectors_DS_J_3_2）</a> p.2〜3：発行年月は末尾の表記から2024年4月と推定。2026年10月27日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="pas-vtla-3d.html">VT・LA内蔵PASを3Dで見る</a><a href="ct-3d.html">CTを3Dで見る</a></div></section>
+</main><footer>うきわメモ / 2026年10月27日作成 / 中の構造で資料にないところは模式で、実機の構造図ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="zct-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.zct);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>

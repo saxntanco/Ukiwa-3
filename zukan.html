@@ -869,7 +869,7 @@ html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term
 .zk-3d-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 4px 10px}
 .zk-3d-head h2{margin:0;font-size:24px;color:#fff}
 .zk-3d-head p{margin:0;font-size:14px;color:var(--zk-muted)}
-.zk-3d-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.zk-3d-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
 .zk-3d-card{display:flex;flex-direction:column;text-decoration:none;color:var(--zk-ink);background:var(--zk-glass);border:1px solid var(--zk-line);border-radius:20px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.30);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .zk-3d-card:hover{background:var(--zk-glass-2)}
 .zk-3d-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;background:#f5f9fc}
@@ -908,6 +908,9 @@ html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term
 <a class="zk-3d-card" href="vt-withstand-3d.html"><img src="assets/zukan/vt-withstand-3d.webp" alt="VTの3Dモデル。鉄心、一次巻線、二次巻線、ヒューズ" loading="lazy"><span class="tx"><span class="tag">VT／計器用変圧器</span><b>VTを3Dで見る</b><small>参考：PD-100HF。鉄心と巻線・ヒューズ。U–V短絡の耐圧試験と、Uだけ・V浮き／V接地で何が起きるか。</small><span class="go">回して見る →</span></span></a>
 <a class="zk-3d-card" href="ct-3d.html"><img src="assets/zukan/ct-3d.webp" alt="CTの3Dモデル。一次端子K・L、鉄心、二次巻線、二次端子k・l" loading="lazy"><span class="tx"><span class="tag">CT／変流器</span><b>CTを3Dで見る</b><small>参考：三菱 CD-25ENB。一次と二次の電流・磁束、二次を開けてはいけない理由、耐圧試験の結線。</small><span class="go">回して見る →</span></span></a>
 <a class="zk-3d-card" href="lbs-pf-3d.html"><img src="assets/zukan/lbs-pf-3d.webp" alt="PF付きLBSの3Dモデル。主ブレード、補助ブレード、限流ヒューズ、ストライカ" loading="lazy"><span class="tx"><span class="tag">LBS・PF／負荷開閉器</span><b>PF付きLBSを3Dで見る</b><small>参考：三菱 SCL-EHS2R。2段で切る主・補助ブレード、限流ヒューズの中、ストライカで3相が開くまで。</small><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="ds-3d.html"><img src="assets/zukan/ds-3d.webp" alt="断路器の3Dモデル。V字形のエポキシ碍子、固定接触子、ブレード" loading="lazy"><span class="tx"><span class="tag">DS／断路器</span><b>断路器を3Dで見る</b><small>参考：三菱 DV-1。V字形の碍子・ブレード・ラッチ。無負荷で開く順番と、電流が流れたまま開くと。</small><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="la-3d.html"><img src="assets/zukan/la-3d.webp" alt="避雷器の3Dモデル。磁器がいしの中の直列ギャップと特性要素" loading="lazy"><span class="tx"><span class="tag">LA／避雷器</span><b>避雷器を3Dで見る</b><small>参考：音羽 GL-B6G。直列ギャップと特性要素。雷サージを大地へ逃がして、続流を止めるまで。</small><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="zct-3d.html"><img src="assets/zukan/zct-3d.webp" alt="ZCTの3Dモデル。貫通孔、セパレータ、環状鉄心と二次巻線" loading="lazy"><span class="tx"><span class="tag">ZCT／零相変流器</span><b>ZCTを3Dで見る</b><small>参考：オムロン OTG-N68。3本の電流の合計と、地絡で孔の外を通る帰り道。</small><span class="go">回して見る →</span></span></a>
 </div><p class="zk-3d-note">形は原理を理解するためのモデルです。資料で確かめた部分と推定の部分は、各ページで分けて書いています。</p></section>
 
 <section class="route-section" id="routes" style="display:none">

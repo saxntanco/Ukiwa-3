@@ -1,0 +1,56 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="断路器（DS）を360°回して見る。V字形のエポキシ碍子、固定接触子、ブレード、ラッチ、開極ストッパー。無負荷で開く順番と、電流が流れたまま開くとどうなるかを段階表示。参考：三菱電機 DV-1。"><title>断路器（DS）を3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / DS・断路器</span><h1>断路器を、3Dで見る。<br>見える切れ目をつくる</h1><p class="lead">断路器は電流を切る機器ではなく、電路を目に見える形で切り離す機器です。ブレードが開く動きと、使ってよい場面・いけない場面を確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">参考型式：<b>三菱電機 DV形・形番1（DV-1）</b>（単極単投・F–F接続・フック棒操作、7.2kV 200・400A）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<div id="hvRoot"></div>
+<template id="dsWire"><svg viewBox="0 0 360 300" style="font-size:15px" role="img" aria-label="断路器の単線図。上側端子から固定接触子、ブレード、支点を通って下側端子へ">
+<text x="20" y="40" fill="#203b50">電源側（上側端子）</text><text x="20" y="290" fill="#203b50">負荷側（下側端子）</text>
+<g data-part="fixed"><line x1="140" y1="50" x2="140" y2="100" stroke="#203b50" stroke-width="3"/><circle cx="140" cy="100" r="5" fill="#203b50"/></g>
+<g data-part="blade"><path id="ds-sw" d="M140 220 L140 100" stroke="#c9874a" stroke-width="6" fill="none"/></g>
+<g data-part="hinge"><circle cx="140" cy="220" r="6" fill="#203b50"/><line x1="140" y1="220" x2="140" y2="270" stroke="#203b50" stroke-width="3"/></g>
+<path id="ds-flow" d="M128 50 V270" stroke="#f2b233" stroke-width="5" opacity=".6" style="display:none"/>
+<g id="ds-arc" style="display:none"><path d="M140 104 l10 14 l-12 8 l14 12 l-10 14" stroke="#8a4fd8" stroke-width="3" fill="none"/><text x="200" y="130" fill="#b83a2b" font-weight="700">アーク</text></g>
+<g data-part="latch"><text x="200" y="100" fill="#4b6475" font-size="13">ラッチ・フック穴は刃の先</text></g>
+<text x="200" y="230" fill="#4b6475" font-size="13">支点（約90°開く）</text>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>電流を切る機器ではない。</b>開く前に、遮断器（VCBなど）で電流を切ります。カタログでは、無負荷変圧器の励磁電流・無負荷電路の充電電流が実用上1A以下なら開閉できるとし、それより大きい電流は負荷開閉器を使うよう示しています。</li>
+<li><b>ラッチで自然に開かない。</b>単極品はラッチ付きで、振動や電磁力で開かないようにしています。開くときはフック棒で外します。</li>
+<li><b>約90°開く。</b>開極ストッパー付きで、80°以上開くよう指示があります。開くと目で見える切れ目ができます。</li>
+<li><b>開いても電源側は充電部。</b>作業の前は検電して接地します。</li>
+</ul>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>単極単投・フック棒操作、7.2kV 200・400A</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.2 表1・表2</td></tr>
+<tr><td>支持金具とエポキシ碍子のV字形配置</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.1</td></tr>
+<tr><td>単極品のラッチ（自然開路しない）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3</td></tr>
+<tr><td>開極ストッパー・開極角度約90°（80°以上開く）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3 図3-5 注3（F–F 200・400A標準品）</td></tr>
+<tr><td>励磁電流・充電電流は実用上1A以下なら開閉可、それより大きい電流は負荷開閉器</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.2 表1 注1</td></tr>
+<tr><td>全体の寸法比、碍子のひだ、接触子・ブレード・支点の形</td><td><span class="hv-ev unk">未確認</span></td><td>外形図（図3-5）の画像を照合できていない。表8の A=130・B=145・C=400・D=100mm はあるが、どこの寸法かを図で確かめられていない</td></tr>
+<tr><td>接触ばね</td><td><span class="hv-ev unk">未確認</span></td><td>DV-1の接触構造はカタログに記述がない。一般的な形の模式</td></tr>
+</table></div>
+<p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li><a href="https://dl.mitsubishielectric.co.jp/dl/fa/document/catalog/mvsw/k-k06-5-c1036/K-K06-5-C1036-L.pdf" target="_blank" rel="noopener">三菱電機「高圧・交流断路器 屋内用」カタログ（K-K06-5-C1036-L、2013年5月）</a> p.1〜3、p.6 表8。2026年10月27日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="lbs-pf-3d.html">PF付きLBSを3Dで見る</a><a href="vcb-3d.html">VCBを3Dで見る</a></div></section>
+</main><footer>うきわメモ / 2026年10月27日作成 / 中の構造で資料にないところは模式で、実機の構造図ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="ds-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.ds);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
