@@ -6,19 +6,20 @@
 <section class="sheet" id="model"><h2>3Dモデル</h2>
 <p class="caption">参考型式：<b>日新電機 PET-FK4N</b>（OF式・6%リアクトル用、定格電圧7.02kV）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
 <div id="hvRoot"></div>
-<template id="scWire"><svg viewBox="0 0 400 260" style="font-size:15px" role="img" aria-label="進相コンデンサの結線図。開閉器、直列リアクトル、保安装置、素子、放電抵抗">
-<line x1="20" y1="70" x2="60" y2="70" stroke="#203b50" stroke-width="3"/><text x="20" y="50" fill="#203b50">電源</text>
-<path id="sc-sw" d="M60 70 L96 52" stroke="#203b50" stroke-width="3" fill="none"/><text x="60" y="100" fill="#4b6475" font-size="13">開閉器</text>
-<line x1="100" y1="70" x2="130" y2="70" stroke="#203b50" stroke-width="3"/>
-<path d="M130 70 q8 -14 16 0 q8 -14 16 0 q8 -14 16 0" fill="none" stroke="#c9874a" stroke-width="3"/><text x="130" y="100" fill="#4b6475" font-size="13">SR 6%</text>
-<line x1="178" y1="70" x2="220" y2="70" stroke="#203b50" stroke-width="3"/>
-<g data-part="guard"><rect x="220" y="62" width="30" height="16" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/><text x="235" y="50" text-anchor="middle" fill="#4b6475" font-size="12">保安装置</text></g>
-<g id="sc-guard" style="display:none"><path d="M226 60 l18 20 M244 60 l-18 20" stroke="#b83a2b" stroke-width="3"/></g>
-<line x1="250" y1="70" x2="290" y2="70" stroke="#203b50" stroke-width="3"/>
-<g data-part="elem"><line x1="290" y1="70" x2="290" y2="110" stroke="#203b50" stroke-width="3"/><line x1="270" y1="110" x2="310" y2="110" stroke="#203b50" stroke-width="4"/><line x1="270" y1="122" x2="310" y2="122" stroke="#203b50" stroke-width="4"/><line x1="290" y1="122" x2="290" y2="170" stroke="#203b50" stroke-width="3"/><text x="318" y="120" fill="#203b50" font-size="13">素子</text></g>
-<g data-part="res"><path d="M340 70 H360 V95 l8 5 l-16 6 l16 6 l-16 6 l16 6 l-8 5 V170 H290" fill="none" stroke="#2f6fa8" stroke-width="2.5"/><text x="300" y="200" fill="#2f6fa8" font-size="13">放電抵抗</text><line x1="290" y1="70" x2="340" y2="70" stroke="#203b50" stroke-width="2"/></g>
-<g id="sc-dis" style="display:none"><text x="20" y="230" fill="#b83a2b" font-size="14" font-weight="700">放電中：5分後に50V以下</text></g>
-<text x="20" y="252" fill="#4b6475" font-size="12">1相分の模式。3相の結線と素子の数は図に表していない。</text>
+<template id="scWire"><svg viewBox="0 0 440 340" style="font-size:15px" role="img" aria-label="3相進相コンデンサの内部接続の模式図。U・V・W端子のあいだに素子と放電抵抗。絶縁抵抗計のLをU端子、Eを接地端子につなぐと、放電抵抗を通ってV・Wも同じ電位になる">
+<g data-part="bush" fill="#203b50"><circle cx="120" cy="50" r="7"/><circle cx="220" cy="50" r="7"/><circle cx="320" cy="50" r="7"/><text x="114" y="32">U</text><text x="214" y="32">V</text><text x="314" y="32">W</text></g>
+<g data-part="guard"><rect x="112" y="64" width="16" height="20" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/><rect x="212" y="64" width="16" height="20" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/><rect x="312" y="64" width="16" height="20" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/></g>
+<g id="sc-guard" style="display:none"><path d="M212 62 l16 24 M228 62 l-16 24" stroke="#b83a2b" stroke-width="3"/></g>
+<path d="M120 57 V64 M220 57 V64 M320 57 V64 M120 84 V110 M220 84 V110 M320 84 V110" stroke="#203b50" stroke-width="2.5"/>
+<g data-part="elem" stroke="#203b50" stroke-width="2.5" fill="none"><path d="M120 110 H160 M168 110 H220"/><path d="M160 98 V122 M168 98 V122" stroke-width="3.5"/>
+<path d="M220 110 H260 M268 110 H320"/><path d="M260 98 V122 M268 98 V122" stroke-width="3.5"/>
+<path d="M120 110 V160 H205 a15 15 0 0 1 30 0 H270 M278 160 H320 V110"/><path d="M270 148 V172 M278 148 V172" stroke-width="3.5"/></g>
+<text x="228" y="142" fill="#203b50" font-size="12">素子（Δ・模式）</text>
+<g data-part="res" stroke="#2f6fa8" stroke-width="2.5" fill="none"><path d="M120 160 V215 H150 l6 -8 l8 16 l8 -16 l8 16 l8 -16 l6 8 H220 V110"/><path d="M220 215 H250 l6 -8 l8 16 l8 -16 l8 16 l8 -16 l6 8 H320 V160"/><path d="M120 215 V250 H200 l6 -8 l8 16 l8 -16 l8 16 l8 -16 l6 8 H320 V215"/></g>
+<text x="120" y="278" fill="#2f6fa8" font-size="13">放電抵抗（端子のあいだ・直流を通す）</text>
+<g data-part="can"><rect x="90" y="20" width="270" height="270" rx="10" fill="none" stroke="#7a8288" stroke-dasharray="6 4"/><text x="310" y="304" fill="#4b6475" font-size="12">ケース</text><path d="M360 230 H390 V300 M378 300 H402 M383 306 H397 M388 312 H392" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="396" y="292" fill="#27500a" font-size="12">接地</text></g>
+<g id="sc-ir" style="display:none" data-part="meg"><rect x="10" y="286" width="80" height="44" rx="6" fill="#f2e6c9" stroke="#203b50"/><text x="50" y="313" text-anchor="middle" fill="#203b50" font-size="13">メガ</text><path d="M30 286 V20 H113" stroke="#d85a30" stroke-width="2.5" fill="none"/><text x="18" y="16" fill="#d85a30" font-size="12">L</text><path d="M90 318 H390 V312" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="96" y="334" fill="#27500a" font-size="12">E</text></g>
+<g id="sc-irflow" style="display:none"><path d="M120 110 V250 H320 V110 M220 110 V215" stroke="#f2b233" stroke-width="7" opacity=".45" fill="none"/><text x="240" y="16" fill="#b83a2b" font-size="13" font-weight="700">U・V・W が同じ電位</text></g>
 </svg></template>
 </section>
 
@@ -27,6 +28,7 @@
 <li><b>切っても電荷が残る。</b>内蔵の放電抵抗で、開放5分後に50V以下まで下げます。再投入は5分以上あけます（放電コイル付きは5秒以上）。</li>
 <li><b>小さな故障は自己回復。</b>金属蒸着フィルムの素子は、小さな絶縁破壊ならまわりの蒸着膜が蒸発して絶縁が戻ります。</li>
 <li><b>大きな故障はケースがふくらむ。</b>保安装置がケースの変形の力で電流路を切り、内圧式保護用接点が遮断器を引き外します。保護用接点は警報ではなく引外し回路につなぎます。</li>
+<li><b>絶縁抵抗はU端子1か所で3相ぶん。</b>端子のあいだの放電抵抗が直流を通すので、Lを1か所に当てるとV・Wも同じ電位になります。測ったあとは素子が直流で充電されているので、放電してから外します。</li>
 <li><b>6%用は定格7.02kV。</b>直列リアクトルの分だけコンデンサの電圧が上がるためです。</li>
 </ul>
 </section>
@@ -42,6 +44,7 @@
 <tr><td>保安装置（ケース変形力で電流路を切断）、内圧式保護用接点（遮断器の引外し回路へ、AC220V/DC110V 5A）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.23</td></tr>
 <tr><td>内部の部品名（絶縁紙チューブ付リード線・支持板・可断片・内部素子）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.23 の図</td></tr>
 <tr><td>素子の数・並び・つなぎ方、放電抵抗と可断片の位置</td><td><span class="hv-ev unk">未確認</span></td><td>資料に記述がない。模式で描いた</td></tr>
+<tr><td>3相の内部接続（素子・放電抵抗とも端子のあいだにΔ）</td><td><span class="hv-ev simp">簡略化</span></td><td>3端子の高圧進相コンデンサの一般的な形として描いた。この形式の内部接続図は未確認。放電抵抗が端子のあいだにあれば、つなぎ方がΔでもYでも、直流で3端子がつながる点は同じ</td></tr>
 <tr><td>外形寸法、端子（ブッシング）の数と位置、保護箱・吊耳の位置</td><td><span class="hv-ev unk">未確認</span></td><td>外形図と照合できていない</td></tr>
 </table></div>
 <p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません（計算で示した値は、そのつど式を書いています）。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
