@@ -4,13 +4,22 @@
    部品の上下配置・寸法比は外形図の画像と照合できていない（ページに明記）。 */
 (function () {
   'use strict';
-  var PX = { U: -0.56, V: 0, W: 0.56 }, PH = ['U', 'V', 'W'];
-  var YT = 1.62, YH = 0.98, ZH = 0.16;         /* 固定接触部の高さ、ヒンジ（主軸）の高さと奥行 */
+  /* 1 = 約250mm。相間150mm、限流ヒューズ φ60×310 の比に合わせる */
+  var PX = { U: -0.6, V: 0, W: 0.6 }, PH = ['U', 'V', 'W'];
+  var YT = 2.75, YH = 1.95, ZH = 0.2;           /* 固定接触部の高さ、ヒンジの高さと奥行 */
   var BL = YT - YH;                             /* ブレードの長さ */
-  var FT = 0.86, FB = 0.32, ZF = 0.16;          /* ヒューズの上端・下端・奥行 */
-  var CU = 0xc9874a, SILV = 0xc9cacc, RES = 0x7a4a2c, INS = 0xd9d3c6, STEEL = 0x8c939a;
+  var FT = 1.74, FB = 0.5, ZF = 0.2, FR = 0.12; /* ヒューズの上端・下端・奥行・半径 */
+  var ZB = -0.46;                               /* 背面の取付枠 */
+  var CU = 0xc9874a, SILV = 0xc9cacc, RES = 0x8a6a4c, INS = 0x9aa0a4, STEEL = 0xb4b9bd;
   function rotX(h, ang, x) { return [x, YH + h * Math.cos(ang), ZH + h * Math.sin(ang)]; }
   var DEG = Math.PI / 180;
+  /* ひだ付きの支持がいし（背面から前へ） */
+  function insul(G, x, y, z0, z1) {
+    var L = z1 - z0;
+    G.cyl(0.065, L, x, y, (z0 + z1) / 2, INS, 'z', { part: 'ins' }, { seg: 14 });
+    for (var i = 1; i <= 4; i++) G.cyl(0.105, 0.03, x, y, z0 + L * i / 5.2, INS, 'z', { part: 'ins' }, { seg: 16 });
+    G.cyl(0.08, 0.05, x, y, z0 + 0.025, 0x7c8186, 'z', { part: 'ins' }, { seg: 12 });
+  }
 
   var parts = {
     src: { name: '電源側端子', role: '受電側（電源側）の電線をつなぐ端子。開閉器が「切」でも、ここから上は電源につながっていて充電されている。', links: ['fixed', 'arc'], ev: 'simp', note: '上下どちらが電源側かは取付けで決まる。この図では上を電源側にしている。外形図とは未照合。' },
@@ -18,9 +27,9 @@
     fixed: { name: '固定接触部', role: 'ブレードが入る受け側。入のときは主ブレードがここで電流を流す。', links: ['src', 'blade', 'aux'], ev: 'simp', note: '主コンタクトと補助ブレードの2段構成はカタログ記載。形は簡略化。' },
     blade: { name: '主ブレード（主コンタクト）', role: 'ふだん電流を流す可動ブレード。「切」では、まず主ブレードが開き、電流は補助ブレードへ移る（転流）。', links: ['fixed', 'shaft', 'fuse'], ev: 'simp', note: '2段構成と開く順番はカタログ p.24付近。ブレードの形は簡略化。' },
     aux: { name: '速切り補助ブレード', role: '主ブレードより後に、ひねりばねの力で一気に開く補助のブレード。アークはここで出て、アークシュートの中で消える。', links: ['fixed', 'arc', 'blade'], ev: 'doc', note: 'ひねりばねで加速する速切り補助ブレード（カタログ p.24付近）。形・取付位置は簡略化。' },
-    ins: { name: '支持がいし', role: '充電部を取付枠から絶縁して支える。', links: ['frame', 'src', 'shaft'], ev: 'unk', note: '材質・形状・本数は未確認。' },
+    ins: { name: '支持がいし', role: '充電部を背面の取付枠から絶縁して支える。ひだで沿面距離をかせいでいる。', links: ['frame', 'src', 'shaft'], ev: 'simp', note: '背面の枠から前へ突き出たひだ付きのがいしで、上・中・下の3段に描いた。この並びは利用者の写真の実機（富士電機製のPF付LBS）と同じ一般的な形。参考型式の本数・寸法は外形図と未照合。' },
     shaft: { name: '主軸（3相連動）', role: '3相の主ブレードを同じ角度で回す軸。操作機構とつながり、3相を同時に開閉する。', links: ['blade', 'mech', 'trip'], ev: 'simp', note: '3相同時に開閉することは資料どおり。軸の位置は簡略化。' },
-    fuse: { name: '限流ヒューズ（ストライカ付）', role: '短絡電流を、ピークに達する前に限流して遮断する。溶断すると下側のストライカが飛び出し、開閉器を引き外す。', links: ['blade', 'element', 'striker', 'load'], ev: 'doc', note: '三菱 CL形（ストライカ付 LB・LD）。φ50×260・φ60×310・φ77×310 の外形がある（開閉器カタログ）。図の大きさは比率を合わせた簡略化。' },
+    fuse: { name: '限流ヒューズ（ストライカ付）', role: '短絡電流を、ピークに達する前に限流して遮断する。溶断すると下側のストライカが飛び出し、開閉器を引き外す。', links: ['blade', 'element', 'striker', 'load'], ev: 'doc', note: '三菱 CL形（ストライカ付 LB・LD）。φ50×260・φ60×310・φ77×310 の外形がある（開閉器カタログ）。図は φ60×310 と相間150mmの比に合わせた。' },
     element: { name: 'ヒューズエレメント', role: '電流で溶ける金属の帯。大電流定格はV字の刻みを入れた帯をジグザグに折って、けい砂の中に張り渡している。', links: ['fuse', 'sand'], ev: 'doc', note: 'ヒューズカタログ p.5（CL形の内部構造）。材質の記載はなく未確認。' },
     sand: { name: 'けい砂（消弧材）', role: 'エレメントのまわりを満たす砂。溶けた金属とアークの熱を吸い、アークを細かく分けて消す。', links: ['element', 'fuse'], ev: 'doc', note: 'ヒューズカタログ p.5。中央部のエレメントを端部より深く埋めている。' },
     striker: { name: 'ストライカ', role: 'ヒューズが溶断すると、表示線が溶けて内蔵ばねで突き出る棒。下キャップから出て、負荷側の引外し機構を押す。', links: ['fuse', 'trip'], ev: 'doc', note: '下キャップの動作表示装置を強力にしたもの（ヒューズカタログ p.5〜6）。力・ストロークは未確認。' },
@@ -30,89 +39,88 @@
     handle: { name: '操作ハンドル（フック棒操作）', role: 'フック棒を掛けて回すところ。一気にストッパーまで回す。', links: ['mech'], ev: 'doc', note: 'ハンドル方向は右・左を選べる（形名末尾 R／L）。この図は右（R）。' },
     auxsw: { name: '補助スイッチ（2a2b）', role: '開閉器の入・切に連動する接点。表示灯や引外し回路などに使う。', links: ['mech'], ev: 'doc', note: '標準2a2b（カタログ p.18付近）。取付位置は未確認。' },
     barrier: { name: '絶縁バリヤ', role: '相と相、相と側面のあいだを仕切る板。ワンタッチで取付けられる。', links: ['frame'], ev: 'doc', note: '相間・側面とも同一品（カタログ p.22付近）。形・大きさは簡略化。' },
-    frame: { name: '取付枠', role: '盤に取付ける鋼製の枠。接地する。', links: ['ins', 'barrier'], ev: 'simp', note: '取付ピッチ 390・335 などの数値はあるが、外形図との照合はできていない。' }
+    frame: { name: '取付枠', role: 'がいしと操作機構を背面で支え、盤に取付ける鋼製の枠。接地する。', links: ['ins', 'barrier', 'mech'], ev: 'simp', note: '形は簡略化。外形図との照合はできていない。' }
   };
 
   function build(G, st, mode) {
     var ang = (st.main || 0) * 68 * DEG, angA = (st.aux || 0) * 68 * DEG;
-    /* 取付枠（背面） */
-    G.box(2.2, 0.08, 0.1, 0.12, 1.92, -0.32, STEEL, { part: 'frame' });
-    G.box(2.2, 0.08, 0.1, 0.12, 0.05, -0.32, STEEL, { part: 'frame' });
-    G.box(0.08, 1.95, 0.1, -1.0, 0.98, -0.32, STEEL, { part: 'frame' });
-    G.box(0.08, 1.95, 0.1, 1.24, 0.98, -0.32, STEEL, { part: 'frame' });
+    /* 取付枠：背面の横材3本と縦材 */
+    [YT, YH, FB - 0.02].forEach(function (y) { G.box(2.3, 0.12, 0.08, 0.1, y, ZB - 0.04, STEEL, { part: 'frame' }); });
+    [-1.0, 1.2].forEach(function (x) { G.box(0.1, 2.75, 0.08, x, (YT + FB) / 2, ZB - 0.04, STEEL, { part: 'frame' }); });
     /* 絶縁バリヤ（相間） */
-    [-0.28, 0.28].forEach(function (x) { G.box(0.02, 1.7, 0.55, x, 1.0, -0.02, 0xb8c4cc, { part: 'barrier', alpha: 0.45, shell: true, shellAlpha: 0.1 }); });
+    [-0.3, 0.3].forEach(function (x) { G.box(0.02, 2.5, 0.75, x, 1.65, -0.06, 0xb8c4cc, { part: 'barrier', alpha: 0.4, shell: true, shellAlpha: 0.08 }); });
     PH.forEach(function (ph) {
-      var x = PX[ph], fault = st.fault && ph === 'V';
-      /* 支持がいし（上・ヒンジ・下） */
-      G.cyl(0.07, 0.4, x, YT + 0.08, -0.08, INS, 'z', { part: 'ins' }, { seg: 14 });
-      G.cyl(0.07, 0.36, x, YH, -0.1, INS, 'z', { part: 'ins' }, { seg: 14 });
-      G.cyl(0.07, 0.36, x, FB - 0.12, -0.1, INS, 'z', { part: 'ins' }, { seg: 14 });
+      var x = PX[ph], fault = st.fault && ph === 'V', blown = st.blown && ph === 'V';
+      /* 支持がいし（上：固定接触部、中：ヒンジとヒューズ上、下：ヒューズ下と負荷側） */
+      insul(G, x, YT, ZB, ZH - 0.12);
+      insul(G, x, YH, ZB, ZH - 0.12);
+      insul(G, x, FB - 0.02, ZB, ZF - FR - 0.02);
       /* 電源側端子 */
-      G.box(0.1, 0.32, 0.04, x, YT + 0.32, ZH, CU, { part: 'src', cond: 'src', ph: ph });
+      G.box(0.1, 0.34, 0.04, x, YT + 0.3, ZH, CU, { part: 'src', cond: 'src', ph: ph });
       G.cyl(0.03, 0.06, x, YT + 0.4, ZH + 0.03, SILV, 'z', { part: 'src' }, { seg: 10 });
       /* 固定接触部とアークシュート */
-      G.box(0.16, 0.08, 0.12, x, YT + 0.08, ZH, CU, { part: 'fixed', cond: 'src', ph: ph });
-      G.box(0.26, 0.26, 0.24, x + 0.02, YT + 0.04, ZH + 0.02, RES, { part: 'arc', shell: true, shellAlpha: 0.22 });
+      G.box(0.18, 0.1, 0.16, x, YT - 0.02, ZH, CU, { part: 'fixed', cond: 'src', ph: ph });
+      G.box(0.26, 0.3, 0.26, x + 0.02, YT - 0.02, ZH + 0.04, RES, { part: 'arc', shell: true, shellAlpha: 0.22 });
       /* 主ブレード（2枚） */
-      [-0.035, 0.035].forEach(function (dx) {
-        G.rod(rotX(0, ang, x + dx), rotX(BL, ang, x + dx), 0.018, CU, { part: 'blade', cond: 'mid', ph: ph }, 4);
+      [-0.04, 0.04].forEach(function (dx) {
+        G.rod(rotX(0, ang, x + dx), rotX(BL - 0.04, ang, x + dx), 0.02, CU, { part: 'blade', cond: 'mid', ph: ph }, 4);
       });
       /* 速切り補助ブレード */
-      G.rod(rotX(0.12, angA, x + 0.075), rotX(BL + 0.02, angA, x + 0.075), 0.011, 0xb07a3a, { part: 'aux', cond: 'mid', ph: ph }, 4);
-      G.helix([x + 0.075, YH + 0.06, ZH], 'x', 0.025, 0.05, 4, 0x6b7075, 1.6, { part: 'aux' });
-      /* アーク（開く途中だけ） */
+      G.rod(rotX(0.18, angA, x + 0.085), rotX(BL - 0.02, angA, x + 0.085), 0.012, 0xb07a3a, { part: 'aux', cond: 'mid', ph: ph }, 4);
+      G.helix([x + 0.085, YH + 0.1, ZH], 'x', 0.03, 0.06, 4, 0x6b7075, 1.6, { part: 'aux' });
       if (st.arc > 0.02) {
-        var tip = rotX(BL + 0.02, angA, x + 0.075), fx = [x + 0.06, YT + 0.04, ZH + 0.02], wig = [];
+        var tip = rotX(BL - 0.02, angA, x + 0.085), fx = [x + 0.06, YT - 0.04, ZH + 0.04], wig = [];
         for (var i = 0; i <= 8; i++) { var t = i / 8; wig.push([fx[0] + (tip[0] - fx[0]) * t + Math.sin(i * 2.3) * 0.015, fx[1] + (tip[1] - fx[1]) * t, fx[2] + (tip[2] - fx[2]) * t + Math.cos(i * 1.7) * 0.015]); }
         G.wire(wig, 0xb38cff, 3 + 3 * st.arc, { part: 'arc', layer: 'int', nopick: true, zb: 0.2 }, false);
       }
-      /* ヒンジ部とヒューズ上の接続 */
-      G.box(0.14, 0.1, 0.12, x, YH, ZH, CU, { part: 'blade', cond: 'mid', ph: ph });
-      G.box(0.06, YH - FT - 0.03, 0.04, x, (YH + FT) / 2, ZF, CU, { part: 'fuse', cond: 'mid', ph: ph });
-      /* 限流ヒューズ：キャップ・筒・中身 */
-      var fl = FT - FB, fc = (FT + FB) / 2, blown = st.blown && ph === 'V';
-      G.cyl(0.07, 0.07, x, FT - 0.035, ZF, SILV, 'y', { part: 'fuse', cond: 'mid', ph: ph }, { seg: 16 });
-      G.cyl(0.07, 0.07, x, FB + 0.035, ZF, SILV, 'y', { part: 'fuse', cond: blown ? 'off' : 'load', ph: ph }, { seg: 16 });
-      G.cyl(0.062, fl - 0.14, x, fc, ZF, 0xe8e4da, 'y', { part: 'fuse', shell: true, shellAlpha: 0.18 }, { seg: 18 });
-      /* 中身：けい砂とエレメント（内部表示） */
-      G.cyl(0.05, fl - 0.16, x, fc, ZF, 0xe9d9a8, 'y', { part: 'sand', layer: 'int', alpha: 0.35 }, { seg: 14 });
-      var zig = [], n = 14;
-      for (var k = 0; k <= n; k++) { var yy = FT - 0.08 - (fl - 0.16) * k / n; zig.push([x + (k % 2 ? 0.028 : -0.028), yy, ZF]); }
+      /* ヒンジ部とヒューズ上の取付金具 */
+      G.box(0.2, 0.12, 0.16, x, YH, ZH, CU, { part: 'blade', cond: 'mid', ph: ph });
+      G.box(0.07, YH - FT - 0.06, 0.05, x, (YH + FT) / 2 - 0.02, ZF, CU, { part: 'fuse', cond: 'mid', ph: ph });
+      /* 限流ヒューズ：両端のキャップと締付けバンド、白い筒、中身 */
+      var fl = FT - FB, fc = (FT + FB) / 2;
+      G.cyl(FR + 0.008, 0.13, x, FT - 0.065, ZF, SILV, 'y', { part: 'fuse', cond: 'mid', ph: ph }, { seg: 18 });
+      G.cyl(FR + 0.022, 0.06, x, FT - 0.07, ZF, 0xa9adb1, 'y', { part: 'fuse' }, { seg: 18 });
+      G.box(0.06, 0.05, 0.06, x + FR + 0.04, FT - 0.07, ZF, 0xa9adb1, { part: 'fuse' });
+      G.cyl(FR + 0.008, 0.13, x, FB + 0.065, ZF, SILV, 'y', { part: 'fuse', cond: blown ? 'off' : 'load', ph: ph }, { seg: 18 });
+      G.cyl(FR + 0.022, 0.06, x, FB + 0.07, ZF, 0xa9adb1, 'y', { part: 'fuse' }, { seg: 18 });
+      G.cyl(FR, fl - 0.26, x, fc, ZF, 0xf2f0ea, 'y', { part: 'fuse', shell: true, shellAlpha: 0.16 }, { seg: 20 });
+      G.cyl(FR + 0.002, 0.03, x, FT - 0.22, ZF, 0x2f6fb5, 'y', { part: 'fuse', layer: 'ext-only' }, { seg: 20 });
+      G.cyl(0.095, fl - 0.28, x, fc, ZF, 0xe9d9a8, 'y', { part: 'sand', layer: 'int', alpha: 0.35 }, { seg: 14 });
+      var zig = [], n = 16;
+      for (var k = 0; k <= n; k++) { var yy = FT - 0.14 - (fl - 0.28) * k / n; zig.push([x + (k % 2 ? 0.05 : -0.05), yy, ZF]); }
       if (blown) {
-        G.wire(zig.slice(0, 5), 0xd9d4c7, 2.4, { part: 'element', layer: 'int', zb: 0.15 }, false);
-        G.wire(zig.slice(10), 0xd9d4c7, 2.4, { part: 'element', layer: 'int', zb: 0.15 }, false);
-        if (st.farc > 0.02) G.wire(zig.slice(4, 11), 0xb38cff, 2 + 3 * st.farc, { part: 'element', layer: 'int', nopick: true, zb: 0.2 }, false);
+        G.wire(zig.slice(0, 6), 0xd9d4c7, 2.4, { part: 'element', layer: 'int', zb: 0.15 }, false);
+        G.wire(zig.slice(11), 0xd9d4c7, 2.4, { part: 'element', layer: 'int', zb: 0.15 }, false);
+        if (st.farc > 0.02) G.wire(zig.slice(5, 12), 0xb38cff, 2 + 3 * st.farc, { part: 'element', layer: 'int', nopick: true, zb: 0.2 }, false);
       } else G.wire(zig, 0xd9d4c7, 2.4, { part: 'element', layer: 'int', zb: 0.15 }, false);
       /* ストライカ（下キャップから下へ） */
       var sOut = ph === 'V' ? (st.striker || 0) : 0;
-      G.rod([x, FB, ZF], [x, FB - 0.02 - 0.09 * sOut, ZF], 0.016, 0xd9a227, { part: 'striker' }, 6);
-      /* 負荷側端子 */
-      G.box(0.06, 0.12, 0.04, x, FB - 0.06, ZF, CU, { part: 'load', cond: blown ? 'off' : 'load', ph: ph });
-      G.box(0.1, 0.3, 0.04, x, FB - 0.27, ZF + 0.06, CU, { part: 'load', cond: blown ? 'off' : 'load', ph: ph });
-      G.cyl(0.03, 0.06, x, FB - 0.36, ZF + 0.09, SILV, 'z', { part: 'load' }, { seg: 10 });
-      /* 電流（往路：電源側 → 負荷側。帰路は負荷とほかの相・電源を通るので、この機器の外） */
+      G.rod([x, FB, ZF], [x, FB - 0.03 - 0.12 * sOut, ZF], 0.02, 0xd9a227, { part: 'striker' }, 6);
+      /* 負荷側端子（下の取付金具から前下へ） */
+      G.box(0.07, 0.1, 0.05, x, FB - 0.02, ZF - FR + 0.02, CU, { part: 'load', cond: blown ? 'off' : 'load', ph: ph });
+      G.box(0.1, 0.36, 0.04, x - 0.16, FB - 0.22, ZF - FR + 0.02, CU, { part: 'load', cond: blown ? 'off' : 'load', ph: ph });
+      G.cyl(0.03, 0.06, x - 0.16, FB - 0.34, ZF - FR + 0.05, SILV, 'z', { part: 'load' }, { seg: 10 });
       if (mode !== 'ext' && st.cur && !(st.main > 0.5 && st.aux > 0.5)) {
-        var pathTop = [[x, YT + 0.42, ZH + 0.05], [x, YT + 0.08, ZH + 0.05]];
-        var via = st.main > 0.5 ? [rotX(BL, angA, x + 0.075), rotX(0.12, angA, x + 0.075)] : [rotX(BL, ang, x), rotX(0.05, ang, x)];
-        var rest = [[x, YH - 0.05, ZF], [x, FT, ZF], [x, FB, ZF], [x, FB - 0.36, ZF + 0.08]];
-        if (!(st.blown && ph === 'V' && !st.farc)) G.flow(pathTop.concat(via, rest), { col: fault ? 'bad' : 'cur', speed: fault ? 1.2 : 0.45, m: { part: 'fuse', layer: 'int' } });
+        var pathTop = [[x, YT + 0.42, ZH + 0.05], [x, YT - 0.02, ZH + 0.06]];
+        var via = st.main > 0.5 ? [rotX(BL - 0.02, angA, x + 0.085), rotX(0.18, angA, x + 0.085)] : [rotX(BL - 0.06, ang, x), rotX(0.05, ang, x)];
+        var rest = [[x, YH - 0.08, ZF + 0.04], [x, FT, ZF + FR + 0.02], [x, FB, ZF + FR + 0.02], [x, FB - 0.02, ZF - FR + 0.04], [x - 0.16, FB - 0.34, ZF - FR + 0.06]];
+        if (!(blown && !st.farc)) G.flow(pathTop.concat(via, rest), { col: fault ? 'bad' : 'cur', speed: fault ? 1.2 : 0.45, m: { part: 'fuse', layer: 'int' } });
       }
     });
     /* 主軸（3相連動） */
-    G.cyl(0.03, 1.75, 0.08, YH, ZH, 0x9a9a96, 'x', { part: 'shaft' }, { seg: 10 });
+    G.cyl(0.035, 1.95, 0.15, YH, ZH, 0x9a9a96, 'x', { part: 'shaft' }, { seg: 10 });
     /* ストライカ引外し機構：横棒とリンク（形は簡略化） */
-    var tb = (st.trip || 0) * 0.05;
-    G.box(1.62, 0.03, 0.03, 0.08, FB - 0.16 - tb, ZF + 0.02, 0x7a7a76, { part: 'trip' });
-    G.rod([0.95, FB - 0.16 - tb, ZF + 0.02], [1.05, YH - 0.1, ZH], 0.016, 0x7a7a76, { part: 'trip' });
-    /* 操作機構・ハンドル（右） */
-    G.box(0.3, 0.6, 0.36, 1.08, YH, 0.0, 0x5f6266, { part: 'mech', shell: true, shellAlpha: 0.25 });
+    var tb = (st.trip || 0) * 0.06;
+    G.box(1.75, 0.035, 0.035, 0.15, FB - 0.2 - tb, ZF, 0x7a7a76, { part: 'trip' });
+    G.rod([1.02, FB - 0.2 - tb, ZF], [1.08, YH - 0.4, 0.05], 0.018, 0x7a7a76, { part: 'trip' });
+    /* 操作機構（右の側板と箱）・ハンドル・表示・補助スイッチ */
+    G.box(0.06, 2.4, 0.6, 1.2, 1.6, -0.12, 0xa9aeb2, { part: 'mech' });
+    G.box(0.3, 0.75, 0.4, 1.06, YH, 0.0, 0x5f6266, { part: 'mech', shell: true, shellAlpha: 0.25 });
     var ha = (st.main || 0) * 90 * DEG;
-    G.cyl(0.1, 0.04, 1.08, YH, 0.21, 0x2c2c2a, 'z', { part: 'handle' }, { seg: 18 });
-    G.rod([1.08, YH, 0.24], [1.08 + 0.09 * Math.cos(ha + Math.PI / 2), YH + 0.09 * Math.sin(ha + Math.PI / 2), 0.24], 0.02, 0xd9a227, { part: 'handle' });
-    G.box(0.14, 0.06, 0.03, 1.08, YH + 0.24, 0.19, st.main > 0.5 ? 0x2f8a4e : 0xc0392b, { part: 'handle' });
-    /* 補助スイッチ */
-    G.box(0.2, 0.16, 0.14, 1.08, YH - 0.42, 0.0, 0x3f4a55, { part: 'auxsw' });
+    G.cyl(0.1, 0.05, 1.06, YH, 0.22, 0x2c2c2a, 'z', { part: 'handle' }, { seg: 18 });
+    G.rod([1.06, YH, 0.26], [1.06 + 0.1 * Math.cos(ha + Math.PI / 2), YH + 0.1 * Math.sin(ha + Math.PI / 2), 0.26], 0.022, 0xd9a227, { part: 'handle' });
+    G.box(0.16, 0.07, 0.03, 1.06, YH + 0.28, 0.21, st.main > 0.5 ? 0x2f8a4e : 0xc0392b, { part: 'handle' });
+    G.box(0.22, 0.18, 0.14, 1.06, YH - 0.62, 0.04, 0x3f4a55, { part: 'auxsw' });
   }
 
   function tint(m, st, mode) {
@@ -126,23 +134,25 @@
   }
 
   var labels = [
-    { part: 'src', t: '電源側', p: [-0.56, YT + 0.5, ZH], hot: false },
-    { part: 'arc', t: 'アークシュート', p: [0.56, YT + 0.24, ZH + 0.12] },
-    { part: 'blade', t: '主ブレード', p: [-0.56, (YT + YH) / 2, ZH + 0.06], layer: 'ext' },
-    { part: 'aux', t: '速切り補助ブレード', p: [0.62, (YT + YH) / 2 + 0.1, ZH + 0.06], layer: 'int' },
-    { part: 'fuse', t: '限流ヒューズ', p: [-0.56, (FT + FB) / 2, ZF + 0.08] },
-    { part: 'element', t: 'エレメント', p: [0.0, (FT + FB) / 2, ZF + 0.08], layer: 'int' },
-    { part: 'sand', t: 'けい砂', p: [0.56, (FT + FB) / 2 - 0.1, ZF + 0.08], layer: 'int' },
-    { part: 'striker', t: 'ストライカ', p: [0.0, FB - 0.08, ZF + 0.1] },
-    { part: 'trip', t: '引外し機構', p: [0.5, FB - 0.2, ZF + 0.06] },
-    { part: 'load', t: '負荷側', p: [-0.56, FB - 0.42, ZF + 0.08] },
-    { part: 'handle', t: '操作ハンドル', p: [1.08, YH + 0.36, 0.22] },
-    { part: 'auxsw', t: '補助スイッチ', p: [1.08, YH - 0.55, 0.1] },
-    { part: 'barrier', t: '絶縁バリヤ', p: [-0.28, 1.8, 0.2], layer: 'ext-only' },
+    { part: 'src', t: '電源側', p: [-0.6, YT + 0.55, ZH] },
+    { part: 'arc', t: 'アークシュート', p: [0.6, YT + 0.26, ZH + 0.18] },
+    { part: 'blade', t: '主ブレード', p: [-0.6, (YT + YH) / 2, ZH + 0.1], layer: 'ext' },
+    { part: 'aux', t: '速切り補助ブレード', p: [0.66, (YT + YH) / 2 + 0.1, ZH + 0.1], layer: 'int' },
+    { part: 'ins', t: '支持がいし', p: [-0.6, YH, -0.25], layer: 'ext-only' },
+    { part: 'fuse', t: '限流ヒューズ', p: [-0.6, (FT + FB) / 2, ZF + 0.16] },
+    { part: 'element', t: 'エレメント', p: [0.0, (FT + FB) / 2 + 0.15, ZF + 0.16], layer: 'int' },
+    { part: 'sand', t: 'けい砂', p: [0.6, (FT + FB) / 2 - 0.15, ZF + 0.16], layer: 'int' },
+    { part: 'striker', t: 'ストライカ', p: [0.0, FB - 0.12, ZF + 0.18] },
+    { part: 'trip', t: '引外し機構', p: [0.55, FB - 0.3, ZF + 0.1] },
+    { part: 'load', t: '負荷側', p: [-0.76, FB - 0.45, ZF] },
+    { part: 'handle', t: '操作ハンドル', p: [1.08, YH + 0.42, 0.24] },
+    { part: 'auxsw', t: '補助スイッチ', p: [1.08, YH - 0.8, 0.12] },
+    { part: 'barrier', t: '絶縁バリヤ', p: [-0.3, 2.85, 0.3], layer: 'ext-only' },
     { part: 'shaft', t: '主軸', p: [-0.95, YH, ZH], layer: 'int' },
-    { t: 'U', p: [-0.56, YT + 0.62, ZH] }, { t: 'V', p: [0, YT + 0.62, ZH] }, { t: 'W', p: [0.56, YT + 0.62, ZH] },
-    { t: 'アーク', p: [0.1, YT - 0.1, ZH + 0.4], hot: true, layer: 'int', when: function (s) { return s.arc > 0.3; } },
-    { t: 'V相：エレメント溶断', p: [0.1, (FT + FB) / 2 + 0.08, ZF + 0.12], hot: true, layer: 'int', when: function (s) { return s.blown; } }
+    { part: 'frame', t: '取付枠', p: [-1.0, FB - 0.25, ZB], layer: 'ext-only' },
+    { t: 'U相', p: [-0.6, FB - 0.7, ZF] }, { t: 'V相', p: [0, FB - 0.7, ZF] }, { t: 'W相', p: [0.6, FB - 0.7, ZF] },
+    { t: 'アーク', p: [0.1, YT - 0.15, ZH + 0.5], hot: true, layer: 'int', when: function (s) { return s.arc > 0.3; } },
+    { t: 'V相：エレメント溶断', p: [0.1, (FT + FB) / 2 + 0.08, ZF + 0.2], hot: true, layer: 'int', when: function (s) { return s.blown; } }
   ];
 
   var scenarios = [
@@ -191,7 +201,7 @@
     initial: { main: 0, aux: 0, cur: false, live: false, arc: 0, fault: false, blown: false, striker: 0, trip: 0, farc: 0 },
     build: build, tint: tint, labels: labels, scenarios: scenarios, stateList: stateList, svg: '#lbsWire', svgUpdate: svgUpdate,
     view: { yaw: -0.5, pitch: 0.12 },
-    views: { front: { label: '正面', yaw: 0, pitch: 0.05 }, side: { label: '横', yaw: -1.5, pitch: 0.05 }, top: { label: '上', yaw: -0.2, pitch: 1.25 }, fuse: { label: 'ヒューズ', yaw: -0.4, pitch: 0.1, zoom: 2.2, target: [0, 0.55, 0.16] } },
-    banner: { ext: ['参考：三菱電機 SCL-EHS2R', '!部品の上下配置・寸法比は外形図と未照合'], int: ['!内部：資料の記述をもとにした簡略図', 'ヒューズとアークシュートを透かしている'], op: ['!動きは模式・時間は実際より遅い'], wire: [] }
+    views: { front: { label: '正面', yaw: 0, pitch: 0.05 }, side: { label: '横', yaw: -1.5, pitch: 0.05 }, top: { label: '上', yaw: -0.2, pitch: 1.25 }, fuse: { label: 'ヒューズ', yaw: -0.4, pitch: 0.1, zoom: 1.9, target: [0, 1.1, 0.2] } },
+    banner: { ext: ['参考：三菱電機 SCL-EHS2R', '!全体の並びは一般形（実機写真と同じ）。寸法比は外形図と未照合'], int: ['!内部：資料の記述をもとにした簡略図', 'ヒューズとアークシュートを透かしている'], op: ['!動きは模式・時間は実際より遅い'], wire: [] }
   };
 })();
