@@ -1,0 +1,62 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="高圧真空電磁接触器（VCS）を360°回して見る。真空バルブ、電力ヒューズ、投入コイル・永久磁石・引外しコイル・引外しばね。ラッチ式の投入と引外し、常時励磁式との違い、ヒューズ溶断で3相が開くまでを段階表示。参考：三菱電機 VZ-E。"><title>VCS（真空電磁接触器）を3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / VCS・真空電磁接触器</span><h1>VCSを、3Dで見る。<br>磁石で入れて、磁石で保つ</h1><p class="lead">電動機・変圧器・コンデンサの回路をひんぱんに開閉する接触器。投入コイルで入れ、永久磁石で保ち、引外しコイルで外す。短絡はヒューズにまかせる。その分担を確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">参考型式：<b>三菱電機 VZ-Eシリーズ コンビネーションユニット 200A・機械ラッチ（L）</b>（定格使用電圧3.3/6.6kV）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<div id="hvRoot"></div>
+<template id="vcsWire"><svg viewBox="0 0 420 260" style="font-size:15px" role="img" aria-label="VCSの結線図。電源、電力ヒューズ、真空接触器の接点、負荷。操作回路に投入コイルと引外しコイル">
+<line x1="210" y1="10" x2="210" y2="30" stroke="#203b50" stroke-width="3"/><text x="220" y="24" fill="#203b50">電源</text>
+<g data-part="fuse"><rect x="200" y="30" width="20" height="30" rx="3" fill="#fff" stroke="#203b50" stroke-width="2"/><text x="230" y="50" fill="#203b50" font-size="13">PF</text></g>
+<g id="vs-blow" style="display:none"><path d="M202 36 l16 18 M218 36 l-16 18" stroke="#b83a2b" stroke-width="3"/></g>
+<g data-part="vi"><path id="vs-sw" d="M210 100 L190 64" stroke="#203b50" stroke-width="3" fill="none"/><circle cx="210" cy="60" r="3.5" fill="#203b50"/><circle cx="210" cy="100" r="3.5" fill="#203b50"/><text x="230" y="86" fill="#203b50" font-size="13">真空接触器</text></g>
+<line x1="210" y1="100" x2="210" y2="130" stroke="#203b50" stroke-width="3"/><text x="220" y="128" fill="#203b50" font-size="13">負荷（電動機・変圧器・SC）</text>
+<g data-part="cc"><rect id="vs-cc" x="40" y="160" width="80" height="30" rx="5" fill="#fff" stroke="#203b50"/><text x="80" y="180" text-anchor="middle" fill="#203b50" font-size="13">投入コイル</text></g>
+<g data-part="tc"><rect id="vs-tc" x="150" y="160" width="90" height="30" rx="5" fill="#fff" stroke="#203b50"/><text x="195" y="180" text-anchor="middle" fill="#203b50" font-size="13">引外しコイル</text></g>
+<g data-part="pm"><rect x="270" y="160" width="100" height="30" rx="5" fill="#e8f0fa" stroke="#2f6fb5"/><text x="320" y="180" text-anchor="middle" fill="#203b50" font-size="13">永久磁石で保持</text></g>
+<text x="40" y="214" fill="#4b6475" font-size="12">LS1：投入が終わると投入コイルの電流を切る</text>
+<text x="40" y="234" fill="#4b6475" font-size="12">LS2：ヒューズが溶断すると引外し（欠相を防ぐ）</text>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>負荷電流の開閉が得意。</b>開閉頻度600回/時、機械的耐久25万回（カタログ）。短絡電流は組み合わせた電力ヒューズが切ります。</li>
+<li><b>ラッチ式は永久磁石で保つ。</b>投入コイルで吸引し、LS1 が投入コイルの電流を切ったあとは永久磁石で保持。制御電源が切れても開きません。</li>
+<li><b>引外しは磁束の打ち消し。</b>引外しコイルの磁束が永久磁石の磁束を打ち消し、引外しばねで開きます。</li>
+<li><b>常時励磁式は電源が切れると開く。</b>16msの停電でも開くので、停電後に勝手に再始動させたくない回路に向きます。</li>
+<li><b>ヒューズ溶断で3相とも開く。</b>溶断検出（LS2）が接触器を引き外し、欠相を防ぎます。</li>
+</ul>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>定格使用電圧3.3/6.6kV、200/400A、AC4級（開閉耐久AC3級）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3〜4</td></tr>
+<tr><td>形名の E（常時励磁）・L（機械ラッチ）、2・4（200・400A）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.28〜29</td></tr>
+<tr><td>ラッチ式は永久磁石で電磁的に保持・注油不要</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.1・p.23、国内製品ページ</td></tr>
+<tr><td>投入：投入コイル → 可動鉄心が固定鉄心に吸引 → LS1が投入コイル電流を切る。引外し：引外しコイルの磁束が永久磁石の磁束を打ち消し、引外しばねで開く</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.22〜23</td></tr>
+<tr><td>常時励磁式は制御電源が16ms切れても開く</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.22</td></tr>
+<tr><td>補助スイッチ2a2b、LS0・LS1・LS2、動作回数計・電力ヒューズ溶断検出装置</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.14〜16、国内製品ページ</td></tr>
+<tr><td>開閉頻度600回/時、機械的耐久25万回、電気的耐久 電動機・変圧器25万回・コンデンサ10万回、15年以内または耐久回数で更新</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.4・p.25〜26</td></tr>
+<tr><td>電磁石・ヨーク・永久磁石・ばね・リンクの形と位置</td><td><span class="hv-ev unk">未確認</span></td><td>資料に構造図の記述がない。動作の順番は資料どおりで、形は模式</td></tr>
+<tr><td>ヒューズの取付け位置・向き、全体の寸法、端子の位置</td><td><span class="hv-ev unk">未確認</span></td><td>外形図と照合できていない</td></tr>
+<tr><td>ヒューズと組み合わせたときの短絡遮断の値</td><td><span class="hv-ev unk">未確認</span></td><td>抽出した表の単位が読み取れず、数値は載せていない</td></tr>
+</table></div>
+<p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません（計算で示した値は、そのつど式を書いています）。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li><a href="https://www.mitsubishielectric.com/eig/energysystems/products/switchgear/pdf/CB86.pdf" target="_blank" rel="noopener">三菱電機「VZ-E Series High-voltage Vacuum Electromagnetic Contactors and Combination Units」カタログ（G-199-1-C8651-E、2023年3月改訂）</a>。2026年10月27日閲覧。</li><li><a href="https://www.mitsubishielectric.co.jp/fa/products/mvd/vcbvmc/pmerit/vmc/index.html" target="_blank" rel="noopener">三菱電機 高圧真空電磁接触器 VZ-Eシリーズ 製品ページ</a>：2026年10月27日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="vcb-3d.html">VCBを3Dで見る</a><a href="sc-3d.html">進相コンデンサを3Dで見る</a></div></section>
+</main><footer>うきわメモ / 2026年10月27日作成 / 中の構造で資料にないところは模式で、実機の構造図ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="vcs-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.vcs);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>

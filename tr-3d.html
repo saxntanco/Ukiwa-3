@@ -1,0 +1,59 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="キュービクルの油入変圧器を360°回して見る。波形のタンク、一次・二次ブッシング、中の鉄心と巻線、タップ板、絶縁油。電圧をかける・負荷をつなぐ・タップを切り換えるを段階表示。参考：日立 トップランナー油入変圧器 三相100kVA。"><title>油入変圧器を3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / 変圧器（油入）</span><h1>油入変圧器を、3Dで見る。<br>磁束で電圧を移す</h1><p class="lead">一次巻線がつくる磁束が鉄心を回り、二次巻線に電圧を生む。負荷をつなぐと一次の電流が増える理由と、タップで二次電圧を合わせるしくみを確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">参考型式：<b>日立産機システム トップランナー油入変圧器 SOU-YDCR3</b>（三相 6,600V/210V 100kVA）。外形は X710・Y495・Z960mm、総質量445kg、油量91L（カタログ）に比を合わせた概形です。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<div id="hvRoot"></div>
+<template id="trWire"><svg viewBox="0 0 440 280" style="font-size:15px" role="img" aria-label="変圧器の原理図。一次巻線とタップ、鉄心、二次巻線">
+<g data-part="hvb" fill="#203b50"><text x="20" y="40">一次 6.6kV</text><line x1="40" y1="60" x2="100" y2="60" stroke="#203b50" stroke-width="3"/><line x1="40" y1="200" x2="100" y2="200" stroke="#203b50" stroke-width="3"/></g>
+<g data-part="hvw"><path d="M100 60 q24 10 0 20 q24 10 0 20 q24 10 0 20 q24 10 0 20 q24 10 0 20 q24 10 0 20 q24 10 0 20" fill="none" stroke="#9c6b3c" stroke-width="3.5"/></g>
+<g data-part="tap" font-size="12" fill="#203b50"><text x="20" y="96">F6750</text><text x="20" y="114">R6600</text><text x="20" y="132">F6450</text><text x="20" y="150">F6300</text><text x="20" y="168">6150</text>
+<circle id="tr-tap-F6750" cx="72" cy="92" r="5" fill="#fff" stroke="#203b50"/><circle id="tr-tap-R6600" cx="72" cy="110" r="5" fill="#c0392b" stroke="#203b50"/><circle id="tr-tap-F6450" cx="72" cy="128" r="5" fill="#fff" stroke="#203b50"/><circle id="tr-tap-F6300" cx="72" cy="146" r="5" fill="#fff" stroke="#203b50"/><circle id="tr-tap-6150" cx="72" cy="164" r="5" fill="#fff" stroke="#203b50"/></g>
+<g data-part="core"><line x1="150" y1="50" x2="150" y2="210" stroke="#5e6266" stroke-width="4"/><line x1="160" y1="50" x2="160" y2="210" stroke="#5e6266" stroke-width="4"/></g>
+<path id="tr-flux" d="M138 70 V190 M172 190 V70" stroke="#378add" stroke-width="2" stroke-dasharray="6 4" style="display:none"/>
+<g data-part="lvw"><path d="M210 80 q-24 12 0 24 q-24 12 0 24 q-24 12 0 24 q-24 12 0 24" fill="none" stroke="#c9874a" stroke-width="5"/></g>
+<g data-part="lvb"><line x1="210" y1="80" x2="330" y2="80" stroke="#203b50" stroke-width="3"/><line x1="210" y1="176" x2="330" y2="176" stroke="#203b50" stroke-width="3"/><text x="300" y="66" fill="#203b50">二次 210V</text></g>
+<g id="tr-load" style="display:none"><rect x="330" y="104" width="60" height="48" rx="6" fill="#fff" stroke="#203b50"/><text x="360" y="133" text-anchor="middle" fill="#203b50" font-size="13">負荷</text></g>
+<text x="20" y="262" fill="#4b6475" font-size="13">1相分の原理図。3相の結線（Δなど）は銘板で確かめる。</text>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>電圧は磁束で移る。</b>一次巻線の交流が鉄心に磁束をつくり、その磁束が二次巻線を貫いて電圧を生みます。一次と二次は電気的にはつながっていません。</li>
+<li><b>負荷をつなぐと一次電流が増える。</b>二次電流がつくる起磁力を打ち消すように一次電流が流れるので、鉄心の磁束はほぼ一定のままです。</li>
+<li><b>タップは一次の巻数を変える。</b>受電電圧が低いときは F6450 などに替えて二次電圧を上げます。必ず停電して切り換えます。</li>
+<li><b>付属品で状態を見る。</b>排油弁で油を採って劣化を調べ、銘板で結線・タップを確かめます。</li>
+</ul>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>形式 SOU-YDCR3（75〜500kVA）、一次6,600V・二次210V</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.5・p.7</td></tr>
+<tr><td>タップ電圧 F6750-R6600-F6450-F6300-6150</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.5</td></tr>
+<tr><td>外部操作タップ切換器は300kVA以下ではオプション（標準品は内部で切り換えると読んだ）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.14</td></tr>
+<tr><td>一次・二次端子ボルト、接地端子は標準。75kVA以上は排油弁・中身つり耳・高圧端子カバーが標準</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.2・p.14</td></tr>
+<tr><td>100kVA の外形 X710・Y495・Z960mm、総質量445kg、油量91L</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.7（表の列の読み取りは原本で再確認が望ましい）</td></tr>
+<tr><td>タンクの波形のひだ、ブッシングの並び・高さ</td><td><span class="hv-ev unk">未確認</span></td><td>外形図（T7）と照合できていない</td></tr>
+<tr><td>鉄心（3脚・内鉄形）、巻線（低圧が内側・高圧が外側）、Δの渡り線、タップ板の形</td><td><span class="hv-ev unk">未確認</span></td><td>この形式の構造の記述が資料にない。一般的な配置として模式で描いた</td></tr>
+<tr><td>タップを F6450 にしたときの二次電圧 約215V</td><td><span class="hv-ev simp">簡略化</span></td><td>巻数比からの計算（210V×6,600÷6,450）。電圧降下は含まない</td></tr>
+</table></div>
+<p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません（計算で示した値は、そのつど式を書いています）。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li><a href="https://www.joto-denki.co.jp/wp-content/uploads/2020/06/jd_Top-Runner.pdf" target="_blank" rel="noopener">日立産機システム「日立トップランナー変圧器」カタログ（ST-147U、2018年3月）</a> p.2、p.5、p.7、p.14（販売店サイトに掲載のPDF）。2026年10月27日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="sc-3d.html">進相コンデンサを3Dで見る</a><a href="lbs-pf-3d.html">PF付きLBSを3Dで見る</a></div></section>
+</main><footer>うきわメモ / 2026年10月27日作成 / 中の構造で資料にないところは模式で、実機の構造図ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="tr-3d.js?v=20261027"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.tr);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
