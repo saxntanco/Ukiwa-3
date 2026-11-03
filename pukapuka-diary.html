@@ -1650,7 +1650,7 @@
 <line x1="125" y1="300" x2="185" y2="300" stroke="#8ed0fa" stroke-width="3"/><line x1="215" y1="300" x2="275" y2="300" stroke="#8ed0fa" stroke-width="3"/>
 <line x1="95" y1="300" x2="70" y2="300" stroke="#8ed0fa" stroke-width="3"/><line x1="70" y1="300" x2="70" y2="350" stroke="#8ed0fa" stroke-width="3"/><line x1="305" y1="300" x2="330" y2="300" stroke="#8ed0fa" stroke-width="3"/><line x1="330" y1="300" x2="330" y2="350" stroke="#8ed0fa" stroke-width="3"/>
 <text x="120" y="345" fill="#8ed0fa" font-size="13">三次（オープンデルタ）</text>
-<rect x="470" y="300" width="250" height="56" rx="10" fill="#0b2b4b" stroke="#3a79a3"/><text x="484" y="324" fill="#dff4ff" font-size="15" font-weight="700">試験器（T-E相当へ入力）</text><text x="484" y="344" fill="#cfe3ef" font-size="13">例：V₀ = 190 V を印加</text>
+<rect x="470" y="300" width="250" height="56" rx="10" fill="#0b2b4b" stroke="#3a79a3"/><text x="484" y="324" fill="#dff4ff" font-size="15" font-weight="700">試験器（三次の開いた端子へ）</text><text x="484" y="344" fill="#cfe3ef" font-size="13">例：V₀ = 190 V を印加</text>
 <line x1="330" y1="350" x2="470" y2="335" stroke="#8ed0fa" stroke-width="2"/>
 <path d="M470 290 C 430 220, 400 160, 330 140" fill="none" stroke="#ff8f8f" stroke-width="4" marker-end="url(#arrEVT)"/>
 <rect x="470" y="140" width="270" height="110" rx="10" fill="#3b1420" stroke="#ff8f8f"/>
@@ -1667,6 +1667,38 @@
 <p><b>① 停電しているはずの高圧側が充電される</b>：高圧側で作業している人がいれば感電の危険。高圧ケーブルが長ければ充電電流も流れます。</p>
 <p><b>② 高圧側が作業用短絡接地されていたら、逆に試験器から大電流</b>：一次側が短絡されているので、三次側から見ると短絡に近い状態。試験器や配線に大きな電流が流れます。</p>
 <p>どちらにしても、<b>EVTは試験回路から切り離してから入れる</b>のが筋。<a href="#ovr-ovgr-mistake">OVR/OVGRの記事</a>で書いた「V₀端子に10Vを入れてしまった」も、先にEVTがつながっていたら同じことが起きます。</p></div>
+
+<h3 id="evt-zpd-opendelta">📝 追記（2026.11.03）：三次の「オープンデルタ」ってどういうこと？</h3>
+<p>EVTには、ZPDのような<b>T-E試験端子はありません</b>。零相電圧は<b>三次のオープンデルタ端子</b>から取り出します。上の図の「試験器」は、この開いた2つの端子に電圧を入れた場合の話です。</p>
+<p>オープンデルタは、三次巻線3つを<b>直列につないで、両端を開いたまま</b>取り出す結線です。三角形（デルタ）の角を1か所だけ切って開いた形なので、こう呼ばれます。</p>
+<div class="diagram-card">
+<svg viewBox="0 0 760 300" role="img" aria-label="オープンデルタの電圧ベクトル。平常時は三次の3電圧をつなぐと三角形が閉じて0V。R相完全地絡ではR相が0、S相とT相が約110Vになり、開いた所に約190Vが出る">
+<defs><marker id="arrOD" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#8ed0fa"/></marker></defs>
+<rect x="0" y="0" width="760" height="300" rx="14" fill="#06213a"/>
+<text x="24" y="34" fill="#dff4ff" font-size="19" font-weight="800">三次オープンデルタ：平常時は閉じる、地絡すると開く</text>
+<text x="190" y="80" fill="#dff4ff" font-size="16" font-weight="800" text-anchor="middle">平常時</text>
+<text x="545" y="80" fill="#ffd0d0" font-size="16" font-weight="800" text-anchor="middle">R相が完全地絡</text>
+<line x1="149" y1="230" x2="225" y2="230" stroke="#8ed0fa" stroke-width="4" marker-end="url(#arrOD)"/>
+<line x1="231" y1="230" x2="193" y2="164" stroke="#8ed0fa" stroke-width="4" marker-end="url(#arrOD)"/>
+<line x1="190" y1="159" x2="152" y2="225" stroke="#8ed0fa" stroke-width="4" marker-end="url(#arrOD)"/>
+<text x="190" y="250" fill="#cfe3ef" font-size="13" text-anchor="middle">R 63.3V</text>
+<text x="226" y="186" fill="#cfe3ef" font-size="13">S</text>
+<text x="146" y="186" fill="#cfe3ef" font-size="13" text-anchor="end">T</text>
+<text x="190" y="280" fill="#7ee08a" font-size="14" font-weight="700" text-anchor="middle">三角形が閉じる → 出力 0 V</text>
+<line x1="420" y1="230" x2="538" y2="161.5" stroke="#8ed0fa" stroke-width="4" marker-end="url(#arrOD)"/>
+<line x1="543.8" y1="158.5" x2="662" y2="227" stroke="#8ed0fa" stroke-width="4" marker-end="url(#arrOD)"/>
+<line x1="420" y1="230" x2="667.6" y2="230" stroke="#ff8f8f" stroke-width="3" stroke-dasharray="8 6"/>
+<circle cx="420" cy="230" r="5" fill="#ff8f8f"/><circle cx="667.6" cy="230" r="5" fill="#ff8f8f"/>
+<text x="470" y="180" fill="#cfe3ef" font-size="13" text-anchor="end">S 約110V</text>
+<text x="620" y="180" fill="#cfe3ef" font-size="13">T 約110V</text>
+<text x="412" y="212" fill="#cfe3ef" font-size="13" text-anchor="end">R＝0</text>
+<text x="545" y="258" fill="#ffd0d0" font-size="14" font-weight="700" text-anchor="middle">開いた所に 約190 V（＝3V₀）</text>
+</svg>
+</div>
+<p>平常時、三次の電圧は1つ<b>63.3 V（190/3 V）</b>ずつで、120°ずつずれています。矢印を順につなぐと三角形が閉じるので、開いた所の電圧は<b>0 V</b>です。</p>
+<p>R相が完全地絡すると、R相は0、S相とT相は√3倍の<b>約110 V</b>になり、60°ずれた2本が残ります。三角形が閉じなくなって、開いた所に<b>約190 V</b>が出ます。途中の地絡なら0〜190 Vの間。OVGRやDGRはこの電圧を見ています。</p>
+<div class="flow">逆に、開いた端子へ 190 V を入れる<br>↓<br>3つの巻線に 63.3 V ずつ同じ向きにかかる（完全地絡と同じ状態）<br>↓<br>巻数比で一次へ → 高圧の3相すべてに対地 約3,810 V</div>
+<p>これが、EVTの三次から入れるとステップアップする理由です。コンデンサ形ZPDのT-Eから入れた場合は、分圧なので<b>入れた電圧を超えません</b>（次の3章）。</p>
 
 <h3 id="evt-zpd-zpd">3. コンデンサ形ZPDは「分ける」だけ</h3>
 <p>ZPD（零相電圧検出器）は、高圧の各相に<b>小さな容量のコンデンサ（C1）</b>をつなぎ、その共通点と大地の間の<b>接地用コンデンサ（C2、容量が大きい）</b>で分圧して、小さな零相電圧を取り出します。ZPDと継電器の間に<b>零相電圧変換器</b>が入る構成もあります。</p>
@@ -1732,6 +1764,7 @@
 </section>
 <div class="sourcebox"><h3>📚 根拠・確認状況</h3><ul>
 <li>EVTの逆加圧の倍率は、変圧器の電圧比（巻数比）からの計算です。三次190/3 Vは例で、実機の定格は銘板で確認してください。</li>
+<li>オープンデルタの0 V・約190 V（2026.11.03追記）は、三次190/3 Vの例でのベクトル計算です。三次端子の記号はメーカーで異なります。</li>
 <li>ZPDの計算は、コンデンサの直列分圧の原理による仮の値です。C1・C2の実際の容量、零相電圧変換器の有無、T-E端子の換算は機種で異なります。</li>
 <li>参考にしようとした解説記事（<a href="https://jinden-tool.com/zpd/" target="_blank" rel="noopener">jinden-tool.com「ZPD」</a>）とメーカー資料は、この記事を書いた環境から閲覧できなかったため、内容は照合していません。</li>
 </ul></div>
