@@ -392,7 +392,7 @@ window.UkiwaContents = [
     "tags": "端末処理 ケーブルヘッド ストレスコーン ゴムストレスコーン 常温収縮 熱収縮 がい管 耐塩害 CVT",
     "related": [
       "equipment-map.html",
-      "vt-water-analogy.html",
+      "insulation-resistance-principle.html",
       "ac-withstand-test-simulator.html"
     ]
   },
