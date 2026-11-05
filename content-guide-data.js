@@ -385,6 +385,18 @@ window.UkiwaContents = [
     ]
   },
   {
+    "path": "cable-termination-guide.html",
+    "title": "高圧ケーブルの端末処理",
+    "category": "機器・動作",
+    "description": "テープ巻形・プレハブ形・常温収縮形・熱収縮形・がい管形と、屋内・屋外・耐塩害の違いを図で比べる。",
+    "tags": "端末処理 ケーブルヘッド ストレスコーン ゴムストレスコーン 常温収縮 熱収縮 がい管 耐塩害 CVT",
+    "related": [
+      "equipment-map.html",
+      "vt-water-analogy.html",
+      "ac-withstand-test-simulator.html"
+    ]
+  },
+  {
     "path": "pc-grounding-guide.html",
     "title": "PC接地とペテルゼンコイル",
     "category": "現場の疑問",

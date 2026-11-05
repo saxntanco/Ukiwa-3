@@ -1,0 +1,240 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>高圧ケーブルの端末処理｜うきわメモ</title><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script><link rel="stylesheet" href="relay-test-reference.css?v=1">
+<meta name="description" content="高圧CVケーブルの端末処理を図解。テープ巻形・ゴムストレスコーン形（プレハブ）・常温収縮形・熱収縮形・がい管形の違いと、屋内・屋外・耐塩害の選び方。">
+<style>
+.reading{max-width:900px}
+.reading p,.reading li{font-size:17px;line-height:1.95}
+.reading h2{line-height:1.5}
+.reading summary{font-size:18px}
+.diagram{background:#edf6fa;color:#173b50;border-radius:12px;padding:14px;overflow:auto;margin:14px 0}
+.diagram svg{display:block;width:100%;height:auto;min-width:300px}
+.diagram svg text{font-family:"Hiragino Sans","Noto Sans JP",sans-serif}
+.caption{font-size:14px!important;opacity:.85}
+nav.toc a{display:inline-block;margin:6px 12px 6px 0}
+.reading table{width:100%;border-collapse:collapse;min-width:640px}
+.reading th,.reading td{border:1px solid #94afbb;padding:10px;text-align:left;vertical-align:top;font-size:15px;line-height:1.7}
+.reading th{background:rgba(148,175,187,.18)}
+.tablewrap{overflow:auto}
+.methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin:14px 0}
+.method{border:1px solid #94afbb;border-radius:12px;padding:12px}
+.method h3{margin:4px 0 8px;font-size:19px}
+.method p{font-size:15.5px!important;line-height:1.8!important;margin:6px 0}
+.method .diagram{margin:6px 0;padding:8px}
+.method .diagram svg{min-width:0}
+.tag{display:inline-block;font-size:13px;padding:2px 8px;border-radius:99px;border:1px solid #94afbb;margin:2px 4px 2px 0}
+.point{border-left:5px solid #2b8bb0;padding:8px 12px;margin:12px 0;background:rgba(43,139,176,.08);border-radius:0 8px 8px 0}
+.warn{border-left-color:#c0602a;background:rgba(192,96,42,.08)}
+</style></head><body>
+<header><a href="index.html">◎ うきわメモ</a><a href="equipment-map.html">機器マップへ</a></header>
+<main class="reading">
+<p class="eyebrow">図解 · 高圧CVケーブル（6.6kV）</p>
+<h1>ケーブルの先っぽ、<br>どう処理してる？</h1>
+<p>キュービクルや柱の上で、CVTケーブルが3本に分かれ、黒や灰色の細長い部品を通って開閉器につながっている部分。これが<strong>終端接続部</strong>で、現場では「端末処理」「ケーブルヘッド（CH）」とも呼びます。</p>
+<p>見た目は似ていても、<strong>中で電界をならす部品（ストレスコーン）をどう作るか</strong>で工法が分かれ、<strong>置く場所の汚れやすさ</strong>で屋内用・屋外用・耐塩害用を選びます。この2つの軸で整理します。</p>
+<nav class="toc" aria-label="この資料の目次"><a href="#why">①なぜ必要？</a><a href="#map">②分類の全体像</a><a href="#methods">③工法の違い</a><a href="#compare">④比較表</a><a href="#place">⑤屋内・屋外・耐塩害</a><a href="#field">⑥現場で見分ける</a><a href="#check">⑦点検ポイント</a><a href="#src">根拠資料</a></nav>
+
+<section class="panel" id="why"><h2>① なぜ、ただ端子を付けるだけではだめ？</h2>
+<p>高圧CVケーブルは、導体と絶縁体（架橋ポリエチレン）の外側に<strong>外部半導電層</strong>と<strong>遮へい銅テープ</strong>を持っています。ケーブルの途中では、この遮へい層が絶縁体をぐるっと包んでいるので、絶縁体の中の電界はきれいにそろっています。</p>
+<div class="diagram"><svg viewBox="0 0 640 230" role="img" aria-label="高圧CVケーブルを段はぎした側面図。左からシース、遮へい銅テープ、外部半導電層、絶縁体、導体の順に露出している">
+<rect x="20" y="70" width="170" height="90" rx="8" fill="#3b3b3b"/>
+<rect x="190" y="76" width="90" height="78" fill="#c98a3d"/>
+<g stroke="#8a5a20" stroke-width="2"><path d="M200 76l-12 78M218 76l-12 78M236 76l-12 78M254 76l-12 78M272 76l-12 78"/></g>
+<rect x="280" y="80" width="60" height="70" fill="#555"/>
+<rect x="340" y="84" width="200" height="62" fill="#f4f1e6" stroke="#b9b29a"/>
+<rect x="540" y="98" width="80" height="34" fill="#d8893a"/>
+<g fill="#173b50" font-size="15"><text x="40" y="58">シース</text><text x="182" y="58">遮へい銅テープ</text><text x="292" y="190">外部半導電層</text><text x="390" y="190">絶縁体（架橋PE）</text><text x="560" y="88">導体</text></g>
+<g stroke="#173b50" stroke-width="1.2"><path d="M105 62v8M235 62v14M312 172v-22M440 172v-26M580 92v6"/></g>
+<path d="M280 40v160" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 5"/><text x="286" y="34" fill="#c0392b" font-size="15">ここで遮へいが終わる</text>
+</svg></div>
+<p>ところが機器につなぐには、遮へいを<strong>どこかで切り終える</strong>しかありません。切った端では電界がぎゅっと集中し、そこから部分放電や絶縁破壊が始まります。</p>
+<div class="diagram"><svg viewBox="0 0 640 250" role="img" aria-label="左：遮へいを切っただけだと切断端に等電位線が集中する。右：ストレスコーンで接地側の境界を円すい状に広げると等電位線の間隔が広がる">
+<g font-size="16" fill="#173b50"><text x="60" y="24">切っただけ</text><text x="380" y="24">ストレスコーンあり</text></g>
+<rect x="20" y="150" width="280" height="22" fill="#f4f1e6" stroke="#b9b29a"/><rect x="20" y="172" width="280" height="12" fill="#d8893a"/>
+<rect x="20" y="138" width="120" height="12" fill="#555"/>
+<g fill="none" stroke="#2b8bb0" stroke-width="1.6"><path d="M140 140C150 120 175 105 300 100"/><path d="M140 142C155 112 190 80 300 74"/><path d="M140 144C158 104 200 60 300 50"/><path d="M140 146C160 96 205 46 300 32"/></g>
+<circle cx="141" cy="143" r="12" fill="none" stroke="#c0392b" stroke-width="3"/><text x="40" y="118" fill="#c0392b" font-size="14">ここに集中</text><text x="40" y="134" fill="#c0392b" font-size="14">＝弱点</text>
+<rect x="340" y="150" width="280" height="22" fill="#f4f1e6" stroke="#b9b29a"/><rect x="340" y="172" width="280" height="12" fill="#d8893a"/>
+<rect x="340" y="138" width="110" height="12" fill="#555"/>
+<path d="M440 150L450 138C470 130 500 112 520 98L524 104C504 118 476 136 460 150Z" fill="#555"/>
+<g fill="none" stroke="#2b8bb0" stroke-width="1.6"><path d="M452 146C490 130 540 120 620 116"/><path d="M482 128C520 104 560 92 620 88"/><path d="M506 112C540 80 575 66 620 60"/><path d="M522 100C548 62 585 42 620 34"/></g>
+<text x="352" y="218" font-size="14" fill="#173b50">接地側の境界を円すい状に広げ、</text><text x="352" y="238" font-size="14" fill="#173b50">等電位線の間隔をならす</text>
+<text x="30" y="218" font-size="14" fill="#173b50">青線＝等電位線（概念図）</text>
+</svg></div>
+<div class="point"><strong>ストレスコーン</strong>の「ストレス」は機械的な力ではなく<strong>電気的ストレス</strong>のこと。雷サージを吸収するLAとは役目がちがい、ふだんの運転電圧のときから電界を整えています。</div>
+<p>端末処理は、この電界緩和に加えて<strong>絶縁・防水・遮へいの接地・機械的な支持</strong>をまとめて成り立たせる作業です。</p>
+</section>
+
+<section class="panel" id="map"><h2>② 分類の全体像：2本の軸で考える</h2>
+<p>接続部はまず「機器につなぐ<strong>終端</strong>」と「ケーブル同士をつなぐ<strong>直線（中間）接続</strong>」に分かれます。このページは終端の話です。終端は次の2本の軸で選びます。</p>
+<div class="diagram"><svg viewBox="0 0 640 360" role="img" aria-label="ケーブル接続部の分類図。終端接続部は、施工方法の軸（テープ巻形、プレハブ形、収縮形、がい管形）と、設置場所の軸（屋内、屋外、耐塩害）で選ぶ">
+<rect x="220" y="12" width="200" height="40" rx="10" fill="#fff" stroke="#235c76" stroke-width="2"/><text x="320" y="38" text-anchor="middle" font-size="17" fill="#173b50">ケーブル接続部</text>
+<path d="M320 52v18H170v18M320 70h150v18" fill="none" stroke="#235c76" stroke-width="2"/>
+<rect x="70" y="88" width="200" height="40" rx="10" fill="#dff1f8" stroke="#235c76" stroke-width="2"/><text x="170" y="114" text-anchor="middle" font-size="16" fill="#173b50">終端接続部（端末処理）</text>
+<rect x="370" y="88" width="200" height="40" rx="10" fill="#fff" stroke="#94afbb" stroke-width="2" stroke-dasharray="5 4"/><text x="470" y="114" text-anchor="middle" font-size="16" fill="#617888">直線接続部（今回は対象外）</text>
+<path d="M170 128v20H95v22M170 148h300v22" fill="none" stroke="#235c76" stroke-width="2"/>
+<text x="20" y="190" font-size="15" fill="#235c76" font-weight="bold">軸A：ストレスコーンの作り方</text>
+<text x="380" y="190" font-size="15" fill="#235c76" font-weight="bold">軸B：置く場所</text>
+<g font-size="15" fill="#173b50">
+<rect x="20" y="202" width="300" height="34" rx="8" fill="#fff" stroke="#94afbb"/><text x="32" y="224">テープ巻形：現場でテープを巻き上げる</text>
+<rect x="20" y="242" width="300" height="34" rx="8" fill="#fff" stroke="#94afbb"/><text x="32" y="264">プレハブ形：成形ゴムを差し込む</text>
+<rect x="20" y="282" width="300" height="34" rx="8" fill="#fff" stroke="#94afbb"/><text x="32" y="304">収縮形：常温収縮／熱収縮チューブ</text>
+<rect x="20" y="322" width="300" height="34" rx="8" fill="#fff" stroke="#94afbb"/><text x="32" y="344">がい管形：がい管＋コンパウンド</text>
+<rect x="380" y="202" width="240" height="44" rx="8" fill="#fff" stroke="#94afbb"/><text x="392" y="222">屋内用（キュービクル内含む）</text><text x="392" y="240" font-size="13" fill="#617888">汚れ・結露が少ない場所</text>
+<rect x="380" y="254" width="240" height="44" rx="8" fill="#fff" stroke="#94afbb"/><text x="392" y="274">屋外用</text><text x="392" y="292" font-size="13" fill="#617888">雨覆（ひだ）で雨水・汚れ対策</text>
+<rect x="380" y="306" width="240" height="44" rx="8" fill="#fff" stroke="#94afbb"/><text x="392" y="326">耐塩害用</text><text x="392" y="344" font-size="13" fill="#617888">沿面距離を長く・海沿いなど</text>
+</g></svg></div>
+<p>たとえば「プレハブ形の屋外用」「テープ巻形の屋内用」のように、<strong>2つの軸の組み合わせ</strong>で1つの製品が決まります。JCAA（日本電力ケーブル接続技術協会）の規格番号も、この組み合わせごとに分かれています。</p>
+</section>
+
+<section class="panel" id="methods"><h2>③ 工法ごとの違いを図で見る</h2>
+<p>どの工法も、ケーブルを決められた寸法で<strong>段はぎ</strong>し、遮へいの切れ目をまたぐように電界緩和部を置く点は同じです。違うのは、<strong>その電界緩和部と絶縁部を「現場で作る」か「工場で作ったものを付ける」か</strong>です。</p>
+<div class="methods">
+
+<article class="method"><h3>テープ巻形</h3>
+<div class="diagram"><svg viewBox="0 0 300 200" role="img" aria-label="テープ巻形の断面イメージ。絶縁テープを何層も重ねて円すい状のストレスコーンを現場で形成する">
+<rect x="10" y="120" width="280" height="20" fill="#f4f1e6" stroke="#b9b29a"/><rect x="10" y="140" width="280" height="10" fill="#d8893a"/>
+<rect x="10" y="110" width="90" height="10" fill="#555"/>
+<g fill="none" stroke-width="5"><path d="M100 115 L130 100 L250 100" stroke="#6c8fa8"/><path d="M110 112 L140 92 L240 92" stroke="#89a9bf"/><path d="M120 108 L150 84 L230 84" stroke="#6c8fa8"/><path d="M130 104 L160 76 L220 76" stroke="#89a9bf"/></g>
+<path d="M100 120 L165 72" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+<g font-size="17" fill="#173b50"><text x="160" y="60">テープを重ね巻き</text><text x="20" y="180">半導電テープで円すいを成形</text></g>
+
+</svg></div>
+<p>自己融着性絶縁テープや半導電性テープを、所定の厚さ・重なり・張力で巻き上げ、<strong>ストレスコーンそのものを現場で成形</strong>します。</p>
+<p><span class="tag">熟練度：高い</span><span class="tag">時間：長い</span><span class="tag">寸法の自由度：大</span></p>
+<p>出来ばえが作業者の腕に左右されやすく、最近は採用が減っています。JCAA規格では屋内C4102・屋外C4103・キュービクル内C4101。</p></article>
+
+<article class="method"><h3>プレハブ形（ゴムストレスコーン形）</h3>
+<div class="diagram"><svg viewBox="0 0 300 200" role="img" aria-label="プレハブ形の断面イメージ。工場で成形したゴム製の端末本体（ストレスコーン内蔵）をケーブルに差し込む">
+<rect x="10" y="120" width="280" height="20" fill="#f4f1e6" stroke="#b9b29a"/><rect x="10" y="140" width="280" height="10" fill="#d8893a"/>
+<rect x="10" y="110" width="90" height="10" fill="#555"/>
+<path d="M90 120 L90 96 Q120 72 150 72 L270 72 L270 120 Z" fill="#2d3a40" opacity=".9"/>
+<path d="M98 120 L98 106 Q122 88 150 86 L160 86 L160 92 Q126 96 108 120Z" fill="#9a9a9a"/>
+<path d="M40 92h42" stroke="#235c76" stroke-width="3" marker-end="url(#ar1)"/>
+<defs><marker id="ar1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#235c76"/></marker></defs>
+<g font-size="17" fill="#173b50"><text x="150" y="60">ゴムの端末本体</text><text x="20" y="180">半導電ゴムのコーンを内蔵（灰色）</text><text x="14" y="76">差し込む</text></g>
+</svg></div>
+<p>工場で成形した<strong>ゴムストレスコーン</strong>（または端末本体）を、段はぎしたケーブルに<strong>差し込んで</strong>密着させます。高圧受電設備でいちばんよく見る方式です。</p>
+<p><span class="tag">熟練度：中</span><span class="tag">品質：安定</span><span class="tag">火気：不要の製品が多い</span></p>
+<p>最近の製品はシリコーンゴム製で、テープ巻き・はんだ付け・グリス塗布を省いたもの（テープレス・ハンダレス・グリスレス）もあります。JCAA規格では屋内C3103・屋外C3105・キュービクル内C3102。屋外用で<strong>ゴムとう管</strong>をかぶせる「ゴムとう管形」（C3104）もこの仲間です。</p></article>
+
+<article class="method"><h3>常温収縮形</h3>
+<div class="diagram"><svg viewBox="0 0 300 200" role="img" aria-label="常温収縮形のイメージ。広げた状態のゴムチューブを支えるらせん状のコアを引き抜くと、チューブが縮んでケーブルに密着する">
+<rect x="10" y="120" width="280" height="20" fill="#f4f1e6" stroke="#b9b29a"/><rect x="10" y="140" width="280" height="10" fill="#d8893a"/>
+<rect x="10" y="110" width="90" height="10" fill="#555"/>
+<path d="M90 120 L90 104 Q110 96 160 96 L160 120Z" fill="#2d3a40"/>
+<rect x="160" y="74" width="110" height="46" rx="6" fill="#2d3a40" opacity=".55"/>
+<g stroke="#e8c15a" stroke-width="3"><path d="M166 76l-6 44M182 76l-6 44M198 76l-6 44M214 76l-6 44M230 76l-6 44M246 76l-6 44M262 76l-6 44"/></g>
+<path d="M270 98 C290 98 292 60 270 52" fill="none" stroke="#e8a12a" stroke-width="3" marker-end="url(#ar2)"/>
+<defs><marker id="ar2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#e8a12a"/></marker></defs>
+<g font-size="17" fill="#173b50"><text x="70" y="40">コアのひもを引き抜く</text><text x="20" y="180">抜いた所から縮んで密着（左側）</text></g>
+</svg></div>
+<p>工場で<strong>広げた状態のゴムチューブ</strong>を、らせん状のコア（芯）に載せて出荷。現場でコアのひもを引き抜くと、ゴムが元に戻ろうとして<strong>ケーブルにぴったり縮みます</strong>。</p>
+<p><span class="tag">火気：不要</span><span class="tag">工具：ほぼ不要</span><span class="tag">狭い場所に強い</span></p>
+<p>電界緩和層や防水パテを内蔵し、テープ巻きを大幅に減らした製品があります。耐塩害用のポリマー端末もあり、がい管端末より軽くて柱上作業向きとされています。</p></article>
+
+<article class="method"><h3>熱収縮形</h3>
+<div class="diagram"><svg viewBox="0 0 300 200" role="img" aria-label="熱収縮形のイメージ。ケーブルにかぶせたチューブを加熱器具であたためると収縮して密着する">
+<rect x="10" y="120" width="280" height="20" fill="#f4f1e6" stroke="#b9b29a"/><rect x="10" y="140" width="280" height="10" fill="#d8893a"/>
+<rect x="10" y="110" width="90" height="10" fill="#555"/>
+<path d="M90 120 L90 108 L170 108 L170 120Z" fill="#7a2f2a"/>
+<rect x="170" y="88" width="100" height="32" rx="4" fill="#7a2f2a" opacity=".5"/>
+<g fill="#e8762a"><path d="M200 70c-8-10 4-18 0-30c12 10 12 20 4 30z"/><path d="M232 70c-8-10 4-18 0-30c12 10 12 20 4 30z"/></g>
+<g font-size="17" fill="#173b50"><text x="150" y="30">加熱して収縮</text><text x="20" y="180">左：収縮済み／右：収縮前</text></g>
+</svg></div>
+<p>ケーブルにかぶせた熱収縮チューブ（電界緩和用・絶縁用）を<strong>加熱して縮め</strong>、密着させます。</p>
+<p><span class="tag">加熱器具が必要</span><span class="tag">温度・順番の管理が大事</span></p>
+<p>加熱のしかた、重なり、収縮を始める位置を工法書どおりに管理します。熱をかける作業なので、周囲の可燃物や火気の扱いにも注意が要ります。</p></article>
+
+<article class="method"><h3>がい管形</h3>
+<div class="diagram"><svg viewBox="0 0 300 200" role="img" aria-label="がい管形のイメージ。磁器のがい管の中にゴムストレスコーン付きのケーブルを通し、すき間を絶縁コンパウンドで満たす">
+<rect x="130" y="150" width="40" height="40" fill="#3b3b3b"/>
+<path d="M110 150 L110 40 L190 40 L190 150Z" fill="#e9eef1" stroke="#8aa1ad" stroke-width="2"/>
+<g fill="#e9eef1" stroke="#8aa1ad" stroke-width="2"><ellipse cx="150" cy="60" rx="60" ry="8"/><ellipse cx="150" cy="85" rx="60" ry="8"/><ellipse cx="150" cy="110" rx="60" ry="8"/><ellipse cx="150" cy="135" rx="60" ry="8"/></g>
+<rect x="138" y="30" width="24" height="130" fill="#f4e5a8" opacity=".9"/>
+<rect x="144" y="20" width="12" height="150" fill="#d8893a"/>
+<path d="M138 150 L138 132 L162 132 L162 150Z" fill="#555"/>
+<rect x="140" y="8" width="20" height="14" fill="#9c7b3c"/>
+<g font-size="17" fill="#173b50"><text x="214" y="34">がい管</text><text x="176" y="182">ストレスコーン</text><text x="4" y="22">中は絶縁</text><text x="4" y="42">コンパウンド</text></g>
+</svg></div>
+<p>ゴムストレスコーンで電界を整えたうえで、外側を<strong>がい管（ブッシング）</strong>で覆い、中に絶縁コンパウンドを入れる方式。ひだが大きく<strong>沿面距離を長く取れる</strong>のが特徴です。</p>
+<p><span class="tag">塩害地域</span><span class="tag">22kV以上の特高でも</span></p>
+<p>6.6kVの耐塩害用（JCAA C3101）や、22kV・33kVのがい管形セミプレハブ式などがあります。重く大きくなるため、柱上では軽いポリマー製（常温収縮形など）に置き換える例もあります。</p></article>
+</div>
+<details><summary>「差込形」と呼ばれるものは？</summary><p>2つの意味で使われることがあるので注意します。</p><p><strong>① プレハブ形の施工のしかた：</strong>ゴムの端末本体をケーブルに「差し込む」ので、メーカーによっては「プレハブ差込工法」と呼びます。上のプレハブ形のことです。</p><p><strong>② 機器に直接差し込む形：</strong>変圧器やGISなどの機器側に套管（ブッシング）があり、ケーブル側の接続部をそこへ差し込む形（T形端末なども含む）。充電部が外に出ないので安全・コンパクトですが、機器とセットで選ぶ必要があります。</p></details>
+</section>
+
+<section class="panel" id="compare"><h2>④ ひと目でくらべる</h2>
+<div class="tablewrap"><table><thead><tr><th>工法</th><th>ストレスコーンの作り方</th><th>作業者の腕の影響</th><th>火気・加熱</th><th>よく使われる場面</th></tr></thead><tbody>
+<tr><td><strong>テープ巻形</strong></td><td>現場でテープを巻き上げて成形</td><td>大きい</td><td>製品による（はんだ付けを伴うものも）</td><td>古い設備、寸法を調整したいとき</td></tr>
+<tr><td><strong>プレハブ形</strong><br>（ゴムストレスコーン形・ゴムとう管形）</td><td>工場成形のゴムを差し込む</td><td>小さい</td><td>不要の製品が多い</td><td>キュービクル内・屋外の一般的な引込み</td></tr>
+<tr><td><strong>常温収縮形</strong></td><td>広げたゴムのコアを抜いて密着</td><td>小さい</td><td>不要</td><td>狭い場所、時間を短くしたい、柱上の耐塩害</td></tr>
+<tr><td><strong>熱収縮形</strong></td><td>チューブを加熱して密着</td><td>中（加熱管理）</td><td>必要</td><td>製品の適用範囲に合わせて</td></tr>
+<tr><td><strong>がい管形</strong></td><td>ゴムストレスコーン＋がい管＋コンパウンド</td><td>中</td><td>製品による</td><td>重塩害地域、特別高圧</td></tr>
+</tbody></table></div>
+<p class="caption">一般的な傾向です。火気の要否・寸法・適用ケーブルは製品ごとに違うため、使う端末処理材の工法書で確認します。</p>
+</section>
+
+<section class="panel" id="place"><h2>⑤ 屋内・屋外・耐塩害の違い</h2>
+<p>屋外の端末は、雨水・紫外線・塩分・ほこりで<strong>表面がぬれたり汚れたり</strong>します。すると端子から遮へい（接地）側へ、表面をつたって電気が漏れやすくなります（沿面放電・トラッキング）。そこで、屋外ほど<strong>表面の道のり（沿面距離）を長く</strong>します。</p>
+<div class="diagram"><svg viewBox="0 0 640 286" role="img" aria-label="屋内用、屋外用、耐塩害用の端末の外形比較。屋内用はひだなし、屋外用は雨覆が付き、耐塩害用はひだが多く大きい。赤い点線は端子から接地側までの沿面の道のり">
+<g font-size="20" fill="#173b50" text-anchor="middle"><text x="105" y="24">屋内用</text><text x="320" y="24">屋外用</text><text x="535" y="24">耐塩害用</text></g>
+<g>
+<rect x="95" y="40" width="20" height="22" fill="#9c7b3c"/><rect x="88" y="62" width="34" height="170" rx="10" fill="#2d3a40"/><rect x="96" y="232" width="18" height="50" fill="#3b3b3b"/>
+<path d="M124 66 V228" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 4"/>
+</g>
+<g>
+<rect x="310" y="40" width="20" height="22" fill="#9c7b3c"/><rect x="304" y="62" width="32" height="170" rx="10" fill="#2d3a40"/><rect x="311" y="232" width="18" height="50" fill="#3b3b3b"/>
+<g fill="#2d3a40"><path d="M282 112 L304 98 L336 98 L358 112Z"/><path d="M286 162 L304 150 L336 150 L354 162Z"/></g>
+<path d="M338 66 V98 L358 112 L338 116 V150 L354 162 L338 166 V228" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 4"/>
+</g>
+<g>
+<rect x="525" y="34" width="20" height="18" fill="#9c7b3c"/><rect x="518" y="52" width="34" height="185" rx="8" fill="#dfe6ea" stroke="#8aa1ad"/><rect x="526" y="237" width="18" height="45" fill="#3b3b3b"/>
+<g fill="#dfe6ea" stroke="#8aa1ad"><ellipse cx="535" cy="80" rx="40" ry="7"/><ellipse cx="535" cy="110" rx="32" ry="6"/><ellipse cx="535" cy="140" rx="40" ry="7"/><ellipse cx="535" cy="170" rx="32" ry="6"/><ellipse cx="535" cy="200" rx="40" ry="7"/></g>
+<path d="M554 58 V76 L575 80 L554 86 V106 L567 110 L554 114 V136 L575 140 L554 146 V166 L567 170 L554 174 V196 L575 200 L554 206 V234" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 4"/>
+</g>
+</svg></div><p class="caption">赤い点線＝端子から接地側までの表面の道のり（沿面距離）のイメージ。ひだがあると、同じ高さでも道のりが長くなります。</p>
+<div class="tablewrap"><table><thead><tr><th>区分</th><th>想定する等価塩分付着密度の目安</th><th>どんな場所？</th></tr></thead><tbody>
+<tr><td><strong>屋内用</strong></td><td>0.01 mg/cm² 以下</td><td>ほこりが主で、塩の影響がほとんどない屋内。閉鎖形キュービクル内専用の品もある</td></tr>
+<tr><td><strong>屋外用</strong></td><td>0.01 超〜0.06 mg/cm²</td><td>一般の屋外。雨覆（ひだ）付き</td></tr>
+<tr><td><strong>耐塩害用</strong></td><td>0.06 超〜0.35 mg/cm²</td><td>海に近い、工場の煙じんが多いなどの重汚損〜超重汚損地域</td></tr>
+</tbody></table></div>
+<details><summary>海からの距離の目安は？</summary><p>メーカー資料では、汚損区分ごとに海岸からの概略距離の目安が示されています。たとえば0.06 mg/cm²の区分は、台風に対して海岸から10〜50km、季節風に対して3〜10km程度。0.35 mg/cm²の区分は、台風に対して0〜3km、季節風に対して0〜1km程度です。</p><p>ただし地形や風向き、近くの工場でも変わります。<strong>距離だけで決めず</strong>、電力会社の指定や設備仕様、過去の汚損状況とあわせて選定します。</p></details>
+<div class="point warn"><strong>「屋外用だからどこでもOK」「形が似ているから流用」はNG。</strong>ケーブルの種類（CV・CVT・EM-CET・耐火）、導体サイズ、汚損区分、電力会社の引込み仕様に合った品を、適用表で照合して使います。</div>
+</section>
+
+<section class="panel" id="field"><h2>⑥ 現場で見分けるコツ</h2>
+<ol>
+<li><strong>まず場所：</strong>柱の上・屋外なら雨覆付きの屋外用か耐塩害用。キュービクルの中なら屋内用。</li>
+<li><strong>ひだの大きさと数：</strong>小さめの雨覆が1〜2枚なら一般屋外用。白っぽいがい管や、ひだがたくさん並ぶ長いものは耐塩害用の可能性が高い。</li>
+<li><strong>表面の質感：</strong>テープの巻き跡でごつごつしていればテープ巻形。つるっとした一体成形ならプレハブ形か収縮形。</li>
+<li><strong>決め手は刻印・銘板：</strong>プレハブ形と常温収縮形は外から見分けにくいので、本体の刻印（メーカー名・品番）や、竣工図書・端末処理の記録で確認します。</li>
+</ol>
+<p class="caption">逆光の写真やシルエットだけでは工法を断定できません。銘板・品番・記録で確かめてください。</p>
+</section>
+
+<section class="panel" id="check"><h2>⑦ 点検で見るところ</h2>
+<ul>
+<li>表面の汚れ・塩分・水滴、ひび割れ、変色、ふくらみ、ずれ</li>
+<li>沿面放電やトラッキングの跡（黒い筋・焦げ跡）</li>
+<li>端子の変色・過熱・ゆるみ</li>
+<li>遮へいの接地線の断線・腐食・接続部のゆるみ</li>
+<li>ブラケット・ゴムスペーサーの状態、端子にケーブルの重さがかかっていないか</li>
+<li>屋外では雨覆・防水部の状態</li>
+</ul>
+<details><summary>エコケーブル・耐火ケーブルの「シースの縮み」</summary><p>ポリエチレンシースのケーブル（エコケーブル・耐火ケーブルなど）は、敷設環境によってまれにシースが縮む（シュリンクバック）ことがあると、メーカー各社が注意を出しています。対策品（シースずれ止めの熱収縮チューブなど）が用意されている場合があるので、ケーブル種別とあわせて確認します。</p></details>
+<div class="point warn">このページは<strong>しくみと違いを理解するための資料</strong>です。端末処理の段はぎ寸法や組立手順は製品ごとに異なります。施工は資格・技能を持つ作業者が、使用する端末処理材の工法書と設計図書に従って行います。</div>
+</section>
+
+<section class="panel" id="src"><h2>根拠資料</h2>
+<ul>
+<li><a href="https://denki-study.com/high-voltage-cable-termination/">電気・計装・制御の勉強部屋：高圧ケーブル端末処理（構造・ストレスコーン・工法・点検）</a></li>
+<li><a href="https://jinden-tool.com/hv-cable/">電気屋の気まぐれ忘備録：高圧ケーブルってなに？（テープ巻形・プレハブ形・がい管形）</a></li>
+<li><a href="https://www.sumiden-kiki.co.jp/products/cable/pdf/cable_catalog_202309.pdf">住電機器システム：電力ケーブル用付属品 総合カタログ（JCAA規格番号、汚損区分と塩分付着密度）</a></li>
+<li><a href="https://multimedia.3m.com/mws/media/1023952O/ele-005-03.pdf">3M：6.6kV 接続・端末製品（常温収縮チューブ工法・プレハブ差込工法）</a></li>
+<li><a href="https://pr.mono.ipros.com/koshow/product/detail/2000706513">光昭（3M取扱）：常温収縮形端末 T6PS 屋内・屋外・耐塩害用</a></li>
+<li><a href="https://www.te.com/content/dam/te-com/documents/energy/global/productdocuments/Miscellaneous%20Locations/energy-catalog-ja-2025.pdf">TE Connectivity：電力ケーブル付属品 総合カタログ2025（熱収縮・常温収縮端末）</a></li>
+</ul>
+<p class="caption">確認日：2026年11月5日。工法の一般的な特徴と、特定メーカー製品の仕様は分けて書いています。図はしくみを示す概念図で、実際の製品の寸法・構造とは異なります。</p>
+</section>
+<footer><a href="equipment-map.html">← 機器マップへ</a></footer>
+</main>
+</body></html>
