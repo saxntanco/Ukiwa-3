@@ -4,7 +4,7 @@
 <section class="hero"><span class="eyebrow">3Dモデル / VCS・真空電磁接触器</span><h1>VCSを、3Dで見る。<br>磁石で入れて、磁石で保つ</h1><p class="lead">電動機・変圧器・コンデンサの回路をひんぱんに開閉する接触器。投入コイルで入れ、永久磁石で保ち、引外しコイルで外す。短絡はヒューズにまかせる。その分担を確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
 
 <section class="sheet" id="model"><h2>3Dモデル</h2>
-<p class="caption">参考型式：<b>三菱電機 VZ-Eシリーズ コンビネーションユニット 200A・機械ラッチ（L）</b>（定格使用電圧3.3/6.6kV）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<p class="caption">参考型式：<b>三菱電機 VZ-Eシリーズ コンビネーションユニット 200A・ラッチ式（L）</b>（定格使用電圧3.3/6.6kV）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
 <div id="hvRoot"></div>
 <template id="vcsWire"><svg viewBox="0 0 420 260" style="font-size:15px" role="img" aria-label="VCSの結線図。電源、電力ヒューズ、真空接触器の接点、負荷。操作回路に投入コイルと引外しコイル">
 <line x1="210" y1="10" x2="210" y2="30" stroke="#203b50" stroke-width="3"/><text x="220" y="24" fill="#203b50">電源</text>
@@ -35,7 +35,7 @@
 <div class="table-wrap"><table class="hv-evtab">
 <tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
 <tr><td>定格使用電圧3.3/6.6kV、200/400A、AC4級（開閉耐久AC3級）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3〜4</td></tr>
-<tr><td>形名の E（常時励磁）・L（機械ラッチ）、2・4（200・400A）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.28〜29</td></tr>
+<tr><td>形名の E（常時励磁）・L（ラッチ式）、2・4（200・400A）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.28〜29</td></tr>
 <tr><td>ラッチ式は永久磁石で電磁的に保持・注油不要</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.1・p.23、国内製品ページ</td></tr>
 <tr><td>投入：投入コイル → 可動鉄心が固定鉄心に吸引 → LS1が投入コイル電流を切る。引外し：引外しコイルの磁束が永久磁石の磁束を打ち消し、引外しばねで開く</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.22〜23</td></tr>
 <tr><td>常時励磁式は制御電源が16ms切れても開く</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.22</td></tr>
