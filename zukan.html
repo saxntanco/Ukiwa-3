@@ -866,23 +866,41 @@ html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term
 </style>
 <style id="zk-3d-style">
 .zk-3d{width:min(1000px,calc(100% - 32px));margin:18px auto 8px;box-sizing:border-box}
-.zk-3d-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 4px 10px}
+.zk-3d-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 4px 12px}
 .zk-3d-head h2{margin:0;font-size:24px;color:#fff}
 .zk-3d-head p{margin:0;font-size:14px;color:var(--zk-muted)}
-.zk-3d-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+/* 役割でさがす */
+.zk-3d-jump{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 4px}
+.zk-3d-jump .lbl{font-size:13px;font-weight:800;color:var(--zk-muted);margin-right:2px}
+.zk-3d-jump a{display:inline-flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;padding:8px 14px;border-radius:999px;text-decoration:none;font-size:15px;font-weight:800;color:var(--zk-ink);background:var(--zk-glass);border:1px solid var(--zk-line)}
+.zk-3d-jump a:hover{background:var(--zk-glass-2)}
+.zk-3d-jump a i{font-style:normal;font-size:12px;min-width:20px;text-align:center;padding:1px 6px;border-radius:999px;background:rgba(242,209,124,.16);color:var(--zk-gold)}
+/* 役割ごとのまとまり */
+.zk-3d-group{margin-top:26px;scroll-margin-top:92px}
+.zk-3d-group h3{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:0 4px 10px;font-size:21px;color:#fff;text-shadow:0 1px 10px rgba(0,10,40,.9)}
+.zk-3d-group h3 .n{color:var(--zk-gold)}
+.zk-3d-group h3 small{font-size:14px;font-weight:700;color:#e3eeff}
+.zk-3d-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
 .zk-3d-card{display:flex;flex-direction:column;text-decoration:none;color:var(--zk-ink);background:var(--zk-glass);border:1px solid var(--zk-line);border-radius:20px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.30);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .zk-3d-card:hover{background:var(--zk-glass-2)}
-.zk-3d-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;background:#f5f9fc}
-.zk-3d-card .tx{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.zk-3d-card .tag{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--zk-gold)}
-.zk-3d-card b{font-size:19px;color:#fff;line-height:1.35}
-.zk-3d-card small{font-size:14px;color:var(--zk-muted);line-height:1.65}
-.zk-3d-card .go{margin-top:auto;padding-top:6px;font-weight:800;color:var(--zk-gold);font-size:14px}
-.zk-3d-note{margin:10px 4px 0;font-size:12.5px;color:var(--zk-muted)}
-.dark .zk-3d-head h2,.dark .zk-3d-card b{color:var(--island-fg-294d62-100,#294d62)}
-.dark .zk-3d-card{background:var(--island-bg-ffffff-100,#fff);border-color:var(--island-line-cbdbe4-100,#cbdbe4);color:var(--island-fg-294d62-100,#294d62)}
-.dark .zk-3d-card small{color:#4b6475}.dark .zk-3d-card .tag,.dark .zk-3d-card .go{color:#8a5a00}
-@media(max-width:820px){.zk-3d-grid{grid-template-columns:1fr}.zk-3d{width:calc(100% - 24px)}.zk-3d-card{flex-direction:row}.zk-3d-card img{width:38%;aspect-ratio:auto;min-height:130px}.zk-3d-card b{font-size:17px}.zk-3d-card small{font-size:13px}}
+.zk-3d-card img{display:block;width:100%;aspect-ratio:16/10;object-fit:contain;background:#f5f9fc}
+.zk-3d-card .tx{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.zk-3d-card .tag{font-size:24px;font-weight:900;letter-spacing:.04em;line-height:1.15;color:var(--zk-gold)}
+.zk-3d-card b{font-size:15px;color:#fff;line-height:1.4}
+.zk-3d-card .role{margin-top:6px;font-size:15.5px;font-weight:700;color:#fff;line-height:1.7}
+.zk-3d-card .see{display:flex;flex-direction:column;gap:2px;margin-top:8px;padding-top:8px;border-top:1px solid var(--zk-line);font-size:14px;color:var(--zk-muted);line-height:1.6}
+.zk-3d-card .see-h{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--zk-accent)}
+.zk-3d-card .see span:not(.see-h){padding-left:1.1em;text-indent:-1.1em}
+.zk-3d-card .see span:not(.see-h)::before{content:"・"}
+.zk-3d-card .ref{margin-top:6px;font-size:12.5px;color:var(--zk-muted)}
+.zk-3d-card .go{margin-top:auto;padding-top:8px;font-weight:800;color:var(--zk-gold);font-size:14px}
+.zk-3d-note{margin:14px 4px 0;font-size:12.5px;color:var(--zk-muted)}
+.dark .zk-3d-head h2,.dark .zk-3d-card b,.dark .zk-3d-card .role{color:var(--island-fg-294d62-100,#294d62)}
+.dark .zk-3d-card,.dark .zk-3d-jump a{background:var(--island-bg-ffffff-100,#fff);border-color:var(--island-line-cbdbe4-100,#cbdbe4);color:var(--island-fg-294d62-100,#294d62)}
+.dark .zk-3d-card .see,.dark .zk-3d-card .ref{color:#4b6475;border-color:#cbdbe4}
+.dark .zk-3d-card .tag,.dark .zk-3d-card .go,.dark .zk-3d-jump a i{color:#8a5a00}.dark .zk-3d-card .see-h{color:#096e92}
+@media(max-width:820px){.zk-3d{width:calc(100% - 24px)}.zk-3d-grid{grid-template-columns:1fr}.zk-3d-card{flex-direction:row}.zk-3d-card img{width:34%;aspect-ratio:auto;min-height:150px}.zk-3d-group h3{font-size:19px}}
+@media(max-width:420px){.zk-3d-card img{width:30%}.zk-3d-card .tx{padding:12px 12px 14px}.zk-3d-card .tag{font-size:22px}.zk-3d-jump a{padding:8px 12px;font-size:14px}}
 </style></head>
 <body>
 <header class="site-header">
@@ -902,21 +920,30 @@ html:root body button.ut-term:not(:disabled):hover,html:root body button.ut-term
 <h1>うきわメモ図鑑</h1>
 <p class="zk-lead">現場で出会う略語・用語・機器を<wbr>しらべる。</p>
 </section>
-<a class="zk-glossary" href="glossary.html"><span><b>📖 用語・機器図鑑</b><span>PAS＝Pole Air Switch（柱上気中開閉器）のように、略語・英語・日本語・読みで450語以上を引ける。全語にくわしい解説つき</span></span><strong>→</strong></a><section class="zk-3d" id="models3d" aria-labelledby="models3dTitle"><div class="zk-3d-head"><h2 id="models3dTitle">🧊 360°で見る高圧機器</h2><p>回す・透かす・部品をタップ。耐圧試験や引外しの電流の通り道も動きで見る。</p></div><div class="zk-3d-grid">
-<a class="zk-3d-card" href="vcb-3d.html"><img src="assets/zukan/vcb-3d.webp" alt="引出形VCBの3Dモデル。3相の真空バルブ、操作機構、補助スイッチ、制御回路プラグ" loading="lazy"><span class="tx"><span class="tag">VCB／真空遮断器</span><b>VCBの中を3Dで見る</b><small>参考：三菱 VF-8D。真空バルブ・主軸・TC・CC・補助スイッチ（52a・52b）。引外し・投入の順番と、52aが開かない故障例を1段ずつ。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="pas-vtla-3d.html"><img src="assets/zukan/pas-vtla-3d.webp" alt="VT・LA内蔵PASの3Dモデルと、柱の上とキュービクル側の短絡クリップ" loading="lazy"><span class="tx"><span class="tag">PAS／VT・LA内蔵</span><b>VT・LA内蔵PASを3Dで見る</b><small>参考：戸上 KLT-PA-D2N11LT。主接点・ZCT・VT・LA（中は模式）。クリップのつかみ忘れ・入切・直流で、電流の往路と帰路。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="vt-withstand-3d.html"><img src="assets/zukan/vt-withstand-3d.webp" alt="VTの3Dモデル。鉄心、一次巻線、二次巻線、ヒューズ" loading="lazy"><span class="tx"><span class="tag">VT／計器用変圧器</span><b>VTを3Dで見る</b><small>参考：PD-100HF。鉄心と巻線・ヒューズ。U–V短絡の耐圧試験と、Uだけ・V浮き／V接地で何が起きるか。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="ct-3d.html"><img src="assets/zukan/ct-3d.webp" alt="CTの3Dモデル。一次端子K・L、鉄心、二次巻線、二次端子k・l" loading="lazy"><span class="tx"><span class="tag">CT／変流器</span><b>CTを3Dで見る</b><small>参考：三菱 CD-25ENB。一次と二次の電流・磁束、二次を開けてはいけない理由、耐圧試験の結線。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="lbs-pf-3d.html"><img src="assets/zukan/lbs-pf-3d.webp" alt="PF付きLBSの3Dモデル。主ブレード、補助ブレード、限流ヒューズ、ストライカ" loading="lazy"><span class="tx"><span class="tag">LBS・PF／負荷開閉器</span><b>PF付きLBSを3Dで見る</b><small>参考：三菱 SCL-EHS2R。2段で切る主・補助ブレード、限流ヒューズの中、ストライカで3相が開くまで。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="ds-3d.html"><img src="assets/zukan/ds-3d.webp" alt="断路器の3Dモデル。V字形のエポキシ碍子、固定接触子、ブレード" loading="lazy"><span class="tx"><span class="tag">DS／断路器</span><b>断路器を3Dで見る</b><small>参考：三菱 DV-1。V字形の碍子・ブレード・ラッチ。無負荷で開く順番と、電流が流れたまま開くと。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="la-3d.html"><img src="assets/zukan/la-3d.webp" alt="避雷器の3Dモデル。磁器がいしの中の直列ギャップと特性要素" loading="lazy"><span class="tx"><span class="tag">LA／避雷器</span><b>避雷器を3Dで見る</b><small>参考：音羽 GL-B6G。直列ギャップと特性要素。雷サージを大地へ逃がして、続流を止めるまで。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="zct-3d.html"><img src="assets/zukan/zct-3d.webp" alt="ZCTの3Dモデル。貫通孔、セパレータ、環状鉄心と二次巻線" loading="lazy"><span class="tx"><span class="tag">ZCT／零相変流器</span><b>ZCTを3Dで見る</b><small>参考：オムロン OTG-N68。3本の電流の合計と、地絡で孔の外を通る帰り道。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="evt-3d.html"><img src="assets/zukan/evt-3d.webp" alt="EVTの3Dモデル。単相3台の一次・二次・三次巻線、三次オープンデルタと制限抵抗" loading="lazy"><span class="tx"><span class="tag">EVT／接地形計器用変圧器</span><b>EVTを3Dで見る</b><small>参考：東光高岳 GC-1（定格）。一次・二次・三次の巻線、三次オープンデルタ。地絡で約190V、三次から入れると高圧側へ昇圧するまで。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="tr-3d.html"><img src="assets/zukan/tr-3d.webp" alt="油入変圧器の3Dモデル。波形のタンク、ブッシング、中の鉄心と巻線、タップ板" loading="lazy"><span class="tx"><span class="tag">TR／油入変圧器</span><b>油入変圧器を3Dで見る</b><small>参考：日立 トップランナー 100kVA。鉄心と巻線、磁束、負荷で一次電流が増える理由、タップの切り換え。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="sc-3d.html"><img src="assets/zukan/sc-3d.webp" alt="高圧進相コンデンサの3Dモデル。容器胴、内部素子、放電抵抗、保安装置" loading="lazy"><span class="tx"><span class="tag">SC／進相コンデンサ</span><b>進相コンデンサを3Dで見る</b><small>参考：日新 PET-FK4N。放電抵抗で5分、自己回復、ケースのふくらみで保安装置が切るまで。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="sr-3d.html"><img src="assets/zukan/sr-3d.webp" alt="直列リアクトルの3Dモデル。タンク、ギャップ付き鉄心、コイル、温度センサ" loading="lazy"><span class="tx"><span class="tag">SR／直列リアクトル</span><b>直列リアクトルを3Dで見る</b><small>参考：日新 HM-LN3。6%の意味、第5高調波で誘導性になる理由、温度センサの保護。</small><span class="go">回して見る →</span></span></a>
-<a class="zk-3d-card" href="vcs-3d.html"><img src="assets/zukan/vcs-3d.webp" alt="真空電磁接触器の3Dモデル。真空バルブ、電力ヒューズ、電磁石" loading="lazy"><span class="tx"><span class="tag">VCS／真空電磁接触器</span><b>VCSを3Dで見る</b><small>参考：三菱 VZ-E。投入コイル・永久磁石・引外しコイルの順番、常時励磁式との違い、ヒューズ溶断で3相が開くまで。</small><span class="go">回して見る →</span></span></a>
-</div><p class="zk-3d-note">形は原理を理解するためのモデルです。資料で確かめた部分と推定の部分は、各ページで分けて書いています。</p></section>
+<a class="zk-glossary" href="glossary.html"><span><b>📖 用語・機器図鑑</b><span>PAS＝Pole Air Switch（柱上気中開閉器）のように、略語・英語・日本語・読みで450語以上を引ける。全語にくわしい解説つき</span></span><strong>→</strong></a><section class="zk-3d" id="models3d" aria-labelledby="models3dTitle"><div class="zk-3d-head"><h2 id="models3dTitle">🧊 360°で見る高圧機器</h2><p>回す・透かす・部品をタップ。電流の通り道も動きで見る。</p></div>
+<nav class="zk-3d-jump" aria-label="役割でさがす"><span class="lbl">役割でさがす</span><a href="#g-switch">① 切る・つなぐ<i>5</i></a><a href="#g-measure">② はかる<i>4</i></a><a href="#g-convert">③ 変える・ととのえる<i>3</i></a><a href="#g-protect">④ 雷から守る<i>1</i></a></nav>
+<div class="zk-3d-group" id="g-switch"><h3><span class="n">①</span>切る・つなぐ<small>開閉器・遮断器。「何を切れるか」が機器ごとに違う。</small></h3><div class="zk-3d-grid">
+<a class="zk-3d-card" href="pas-vtla-3d.html"><img src="assets/zukan/pas-vtla-3d.webp" alt="VT・LA内蔵PASの3Dモデルと、柱の上とキュービクル側の短絡クリップ" loading="lazy"><span class="tx"><span class="tag">PAS</span><b>柱上気中開閉器（VT・LA内蔵）</b><span class="role">電力会社との境目（責任分界点）に付く開閉器。構内の地絡で開いて、近所を停電に巻き込まない。短絡電流は切れない。</span><span class="see"><span class="see-h">3Dで見られること</span><span>主接点・ZCT・VT・LAの位置（中は模式）</span><span>耐圧試験で、クリップをつかみ忘れると</span><span>入・切、直流での電流の往路と帰路</span></span><span class="ref">参考機種：戸上 KLT-PA-D2N11LT</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="ds-3d.html"><img src="assets/zukan/ds-3d.webp" alt="断路器の3Dモデル。V字形のエポキシ碍子、固定接触子、ブレード" loading="lazy"><span class="tx"><span class="tag">DS</span><b>断路器</b><span class="role">電流が流れていないときに開いて、回路を目に見える形で切り離す。電流は切れない。</span><span class="see"><span class="see-h">3Dで見られること</span><span>V字形の碍子・ブレード・ラッチ</span><span>無負荷で開く順番</span><span>電流が流れたまま開くと、どうなるか</span></span><span class="ref">参考機種：三菱 DV-1</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="vcb-3d.html"><img src="assets/zukan/vcb-3d.webp" alt="引出形VCBの3Dモデル。3相の真空バルブ、操作機構、補助スイッチ、制御回路プラグ" loading="lazy"><span class="tx"><span class="tag">VCB</span><b>真空遮断器</b><span class="role">負荷電流も、短絡などの大きな事故電流も切れる。継電器の指令で引外す。</span><span class="see"><span class="see-h">3Dで見られること</span><span>真空バルブ・主軸・TC・CC・補助スイッチ（52a・52b）</span><span>引外し・投入の順番を1段ずつ</span><span>52aが開かない故障例</span></span><span class="ref">参考機種：三菱 VF-8D</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="lbs-pf-3d.html"><img src="assets/zukan/lbs-pf-3d.webp" alt="PF付きLBSの3Dモデル。主ブレード、補助ブレード、限流ヒューズ、ストライカ" loading="lazy"><span class="tx"><span class="tag">LBS・PF</span><b>負荷開閉器＋限流ヒューズ</b><span class="role">負荷電流は開閉器（LBS）で切る。短絡電流はヒューズ（PF）が切る。</span><span class="see"><span class="see-h">3Dで見られること</span><span>2段で切る主ブレード・補助ブレード</span><span>限流ヒューズの中</span><span>ストライカで3相が開くまで</span></span><span class="ref">参考機種：三菱 SCL-EHS2R</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="vcs-3d.html"><img src="assets/zukan/vcs-3d.webp" alt="真空電磁接触器の3Dモデル。真空バルブ、電力ヒューズ、電磁石" loading="lazy"><span class="tx"><span class="tag">VCS</span><b>真空電磁接触器</b><span class="role">何度も入り切りする回路のための接触器。短絡電流は電力ヒューズが切る。</span><span class="see"><span class="see-h">3Dで見られること</span><span>投入コイル・永久磁石・引外しコイルの順番</span><span>常時励磁式との違い</span><span>ヒューズ溶断で3相が開くまで</span></span><span class="ref">参考機種：三菱 VZ-E</span><span class="go">回して見る →</span></span></a>
+</div></div>
+<div class="zk-3d-group" id="g-measure"><h3><span class="n">②</span>はかる<small>高圧のままでは測れない。小さくして、計器や継電器へ渡す。</small></h3><div class="zk-3d-grid">
+<a class="zk-3d-card" href="vt-withstand-3d.html"><img src="assets/zukan/vt-withstand-3d.webp" alt="VTの3Dモデル。鉄心、一次巻線、二次巻線、ヒューズ" loading="lazy"><span class="tx"><span class="tag">VT</span><b>計器用変圧器</b><span class="role">高い電圧を110Vに下げて、計器や継電器へ渡す。</span><span class="see"><span class="see-h">3Dで見られること</span><span>鉄心・巻線・ヒューズ</span><span>U–V短絡の耐圧試験</span><span>Uだけ（V浮き／V接地）で何が起きるか</span></span><span class="ref">参考機種：PD-100HF</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="ct-3d.html"><img src="assets/zukan/ct-3d.webp" alt="CTの3Dモデル。一次端子K・L、鉄心、二次巻線、二次端子k・l" loading="lazy"><span class="tx"><span class="tag">CT</span><b>変流器</b><span class="role">大きな電流を5Aなどの小さな電流にして、計器や継電器へ渡す。</span><span class="see"><span class="see-h">3Dで見られること</span><span>一次と二次の電流・磁束</span><span>二次を開けてはいけない理由</span><span>耐圧試験の結線</span></span><span class="ref">参考機種：三菱 CD-25ENB</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="zct-3d.html"><img src="assets/zukan/zct-3d.webp" alt="ZCTの3Dモデル。貫通孔、セパレータ、環状鉄心と二次巻線" loading="lazy"><span class="tx"><span class="tag">ZCT</span><b>零相変流器</b><span class="role">3本の電流の合計を見る。ふだんは0。地絡で漏れた分だけが出てくる。</span><span class="see"><span class="see-h">3Dで見られること</span><span>貫通孔・環状鉄心・二次巻線</span><span>3本の電流の合計が0になる様子</span><span>地絡で孔の外を通る帰り道</span></span><span class="ref">参考機種：オムロン OTG-N68</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="evt-3d.html"><img src="assets/zukan/evt-3d.webp" alt="EVTの3Dモデル。単相3台の一次・二次・三次巻線、三次オープンデルタと制限抵抗" loading="lazy"><span class="tx"><span class="tag">EVT</span><b>接地形計器用変圧器</b><span class="role">地絡のときに現れる電圧（零相電圧）を取り出す。</span><span class="see"><span class="see-h">3Dで見られること</span><span>一次・二次・三次の巻線、三次オープンデルタ</span><span>地絡で約190Vが出るまで</span><span>三次から入れると高圧側へ昇圧する</span></span><span class="ref">参考機種：東光高岳 GC-1（定格）</span><span class="go">回して見る →</span></span></a>
+</div></div>
+<div class="zk-3d-group" id="g-convert"><h3><span class="n">③</span>変える・ととのえる<small>使える電圧に下げる。力率と高調波をととのえる。</small></h3><div class="zk-3d-grid">
+<a class="zk-3d-card" href="tr-3d.html"><img src="assets/zukan/tr-3d.webp" alt="油入変圧器の3Dモデル。波形のタンク、ブッシング、中の鉄心と巻線、タップ板" loading="lazy"><span class="tx"><span class="tag">TR</span><b>油入変圧器</b><span class="role">6,600Vを、建物で使う低い電圧に下げる。</span><span class="see"><span class="see-h">3Dで見られること</span><span>鉄心・巻線・磁束</span><span>負荷で一次電流が増える理由</span><span>タップの切り換え</span></span><span class="ref">参考機種：日立 トップランナー 100kVA</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="sc-3d.html"><img src="assets/zukan/sc-3d.webp" alt="高圧進相コンデンサの3Dモデル。容器胴、内部素子、放電抵抗、保安装置" loading="lazy"><span class="tx"><span class="tag">SC</span><b>進相コンデンサ</b><span class="role">遅れの無効電力を打ち消して、力率を良くする。</span><span class="see"><span class="see-h">3Dで見られること</span><span>放電抵抗で5分</span><span>自己回復</span><span>ケースのふくらみで保安装置が切るまで</span></span><span class="ref">参考機種：日新 PET-FK4N</span><span class="go">回して見る →</span></span></a>
+<a class="zk-3d-card" href="sr-3d.html"><img src="assets/zukan/sr-3d.webp" alt="直列リアクトルの3Dモデル。タンク、ギャップ付き鉄心、コイル、温度センサ" loading="lazy"><span class="tx"><span class="tag">SR</span><b>直列リアクトル</b><span class="role">コンデンサの手前に入れる。高調波の流れ込みと、投入時の突入電流を抑える。</span><span class="see"><span class="see-h">3Dで見られること</span><span>6%の意味</span><span>第5高調波で誘導性になる理由</span><span>温度センサの保護</span></span><span class="ref">参考機種：日新 HM-LN3</span><span class="go">回して見る →</span></span></a>
+</div></div>
+<div class="zk-3d-group" id="g-protect"><h3><span class="n">④</span>雷から守る<small>異常に高い電圧を大地へ逃がす。</small></h3><div class="zk-3d-grid">
+<a class="zk-3d-card" href="la-3d.html"><img src="assets/zukan/la-3d.webp" alt="避雷器の3Dモデル。磁器がいしの中の直列ギャップと特性要素" loading="lazy"><span class="tx"><span class="tag">LA</span><b>避雷器</b><span class="role">雷などの高い電圧（サージ）を大地へ逃がして、機器の絶縁を守る。</span><span class="see"><span class="see-h">3Dで見られること</span><span>直列ギャップと特性要素</span><span>雷サージを大地へ逃がす</span><span>続流を止めるまで</span></span><span class="ref">参考機種：音羽 GL-B6G</span><span class="go">回して見る →</span></span></a>
+</div></div>
+<p class="zk-3d-note">形は原理を理解するためのモデルです。資料で確かめた部分と推定の部分は、各ページで分けて書いています。</p></section>
 
 <section class="route-section" id="routes" style="display:none">
 <div aria-hidden="true" class="world-transition">
