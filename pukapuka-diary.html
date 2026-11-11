@@ -12,10 +12,110 @@
 </style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 <link rel="stylesheet" href="visual-learning.css?v=1">
-<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.11.05</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
+<meta name="description" content="仕事・勉強・サイトづくりの記録を日付から読む。"><link rel="stylesheet" href="field-notebook.css?v=20261004"><style>.checkgrid.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.diagram-card.scroll-x{overflow-x:auto}.scroll-hint{display:none}@media(max-width:650px){.checkgrid.grid3{grid-template-columns:1fr}.diagram-card.scroll-x svg{min-width:540px}.scroll-hint{display:block}}</style></head><body><header class="top"><div class="topin"><a class="brand" href="index.html">🛟 うきわメモ</a><a class="home" href="index.html">⌂ ホームへ</a></div></header><main class="wrap"><section class="hero"><span class="tag">PUKAPUKA FIELD DIARY</span><h1>📝 ぷかぷか日誌</h1><p>現場で初めてやったこと、分からなかったこと、テンパったこと。その日のうちに残しておく自分用のフィールドノート。</p><p class="updated">最終更新：2026.11.11</p></section><!-- 新しい日誌記事には id と data-update-date="YYYY/MM/DD" を付けると、トップページの「更新・おすすめ」に自動反映されます。 -->
 
 
-<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#cable-termination-20261105">柱の上のケーブルヘッドは、何形？ 端末処理は「作り方」と「置き場所」の2本の軸で見る。</a></li><li><a href="#withstand-dryrun-20261028">耐圧試験器の「空打ち」。 R-1220Kは、出力を接地と短絡して遮断を確かめる。</a></li><li><a href="#tc-burn-67-20261025">67の試験でトリップコイルが焼けて、67まで壊れた。 引外し回路は「1本の直列回路」だった。</a></li><li><a href="#short-clip-9points-20261021">ローソンの竣工の前に、短絡クリップのつなぎ方を整理した。 9つの点を同電位にすれば、つなぎ方は何通りあってもいい。</a></li><li><a href="#voltage-trip-fuse-clip-20261020">ヒューズクリップでT1-T2をつなぐと、なぜ遮断器が動くのか。 電圧引外しの連動試験を、回路から考える。</a></li><li><a href="#smart-hoan-3p4w-ct-20261013">三相4線式のトランスにスマート保安を付けてきた。 負荷電流を見るのに、なぜCTは2つではなく3つなのか。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<nav class="diary-contents" aria-label="日誌の目次"><h2>記事を選ぶ</h2><ol><li><a href="#pv-self-consumption-20261111">力率80%？と思ったら、160kvarだった。 自家消費太陽光の工場で、パネルから受電盤までを一本につなげる。</a></li><li><a href="#cable-termination-20261105">柱の上のケーブルヘッドは、何形？ 端末処理は「作り方」と「置き場所」の2本の軸で見る。</a></li><li><a href="#withstand-dryrun-20261028">耐圧試験器の「空打ち」。 R-1220Kは、出力を接地と短絡して遮断を確かめる。</a></li><li><a href="#tc-burn-67-20261025">67の試験でトリップコイルが焼けて、67まで壊れた。 引外し回路は「1本の直列回路」だった。</a></li><li><a href="#short-clip-9points-20261021">ローソンの竣工の前に、短絡クリップのつなぎ方を整理した。 9つの点を同電位にすれば、つなぎ方は何通りあってもいい。</a></li><li><a href="#voltage-trip-fuse-clip-20261020">ヒューズクリップでT1-T2をつなぐと、なぜ遮断器が動くのか。 電圧引外しの連動試験を、回路から考える。</a></li><li><a href="#smart-hoan-3p4w-ct-20261013">三相4線式のトランスにスマート保安を付けてきた。 負荷電流を見るのに、なぜCTは2つではなく3つなのか。</a></li><li><a href="#ipr2000-contact-mode-20261007">IP-R2000のコンタクトモード（接点構造切換スイッチ）を全部まとめる。 「止めるか、鳴らすか」と「何を見て止めるか」の2つで選ぶ。</a></li><li><a href="#autov-ocr-tester-capacity-20261007">AUTO.Vの51連動試験でいう「容量」とは？ 電流出力の負担と入力電源を分けて考える。</a></li><li><a href="#pas-vt-simulator-20261007">耐圧試験シミュレーターを作った。 VTの中を電流がどう流れるか、描いて確かめる。</a></li><li><a href="#withstand-ip1110-20261007">IP-1110で絶縁耐力試験。充電電流88mAで、定格91mAぎりぎりだった。 VT内蔵PASを三線短絡で3相一括にする理由まで、一本につなげる。</a></li><li><a href="#leak-search-training-20261007">絶縁監視と漏電探査の研修に行ってきた。 漏れ電流の通り道から、どこを測ってどう絞り込むかまで整理する。</a></li><li><a href="#relay-training-20261005">保護継電器の研修に行ってきた。 受電形式から継電器試験まで、一本の線でつなげて整理する。</a></li><li><a href="#ground-abcd-no-terminal-20261004">接地端子盤がないキュービクルで、A・B・C・D種の接地はどこを測る？</a></li><li><a href="#evt-zpd-backfeed-20261004">T-Eから零相電圧を入れると、高圧側へ「ステップアップ」する？ 電磁形EVTとコンデンサ形ZPDで答えが逆になる</a></li><li><a href="#tokko-oil-ground-20261003">特高変電所で、変圧器の採油（油中ガス分析）と接地抵抗測定。接地極側と設備側を分けて測る理由。</a></li><li><a href="#ct-excitation-saturation-20260829">CTの磁気飽和は、結局なにが起きている？ B-H・ヒステリシス・励磁特性・膝点を一本につなげる</a></li><li><a href="#cable-capacitance-shield-ground-20260829">高圧ケーブルはなぜコンデンサになる？ 芯線・絶縁体・金属遮へい層・接地を「導体－絶縁体－導体」で理解する</a></li><li><a href="#pas-sog-ocr-lock-20260829">PASの過電流ロックはどう動く？ OCR・C接点・TC・Va/Vb/Vc・GR・SOを実機から理解する</a></li><li><a href="#igr-insulation-monitor-20260829">Igr絶縁監視装置は何を見ている？ Io・Iorとの違い、監視信号、漏電探査、異常表示まで</a></li><li><a href="#pas-withstand-20260822">PAS交換工事と耐圧試験。 「どこまで耐圧するか」を結線から考える。</a></li><li><a href="#seven-eleven-completion-20260821">初めてPASの上まで昇った。 セブンイレブン竣工検査の日。</a></li><li><a href="#first-rpr-gcr-mini-vs">RPR試験、分からないまま現場に立った日のこと。</a></li><li><a href="#ovr-ovgr-mistake">OVRとOVGRを間違えて、V₀端子に10Vを入れてしまった話。</a></li><li><a href="#first-system-check">初めての系統確認。 トランシーバー片手に、けっこうテンパった。</a></li><li><a href="#first-medimul">初めてMEDIMULを触った日のこと。</a></li></ol></nav>
+<article class="entry" id="pv-self-consumption-20261111" data-update-date="2026/11/11">
+<div class="date">2026.11.11｜自家消費太陽光・力率</div>
+<h2 id="pv-self-consumption">力率80%？と思ったら、160kvarだった。<br>自家消費太陽光の工場で、パネルから受電盤までを一本につなげる。</h2>
+<div class="danger audit-preconditions"><strong>この記事について</strong><br>自家消費型の太陽光がある工場の点検で気になったことを、あとから調べて整理した記録です。図と数値は一般的な例で、実際の設備の構成・整定値とは異なります。実際の接続は単線結線図、整定は整定表、パワコンの動作は取扱説明書で確認します。本記事は日誌であり、作業手順書ではありません。</div>
+<p class="lead">受電盤の自動力率調整器（55R）を見て「<b>力率80%？ 低くない？</b>」と思った。よく見たら、表示していたのは%ではなく<b>無効電力の160kvar</b>だった。ついでに、ずっとモヤモヤしていた<b>太陽光の配線</b>（パネル→接続箱→パワコン→ダウントランス→受電盤）を、<a href="pv-self-consumption-simulator.html">自家消費太陽光シミュレーター</a>を作りながら一本につなげた。</p>
+
+<h3>① 「80%」の正体は160kvar</h3>
+<p>自動力率調整器の大きな7セグは、<b>「表示切替」で力率（%）と無効電力（kvar）を切り替える</b>。単位のランプを見ないと読み違える。今回は読み違えだった。</p>
+<div class="checkgrid">
+<div class="checkcard"><b>ヒントは「適正」ランプ</b><br>本当に力率80%（遅れ）なら「遅れ」ランプが点いて、コンデンサを追加投入するはず。緑の「適正」が点いていた時点で、80%はおかしいと気づけた。</div>
+<div class="checkcard"><b>コンデンサは段で入り切りする</b><br>1段の容量より小さい無効電力は、入れると逆に進みすぎる。だから不感帯（投入値と遮断値の間）に入っていれば「適正」のまま動かない。</div>
+</div>
+<p>160kvarが多いか少ないかは、<b>そのときの有効電力（kW）と組み合わせないと決まらない</b>。</p>
+<p class="keyline">力率 ＝ P ÷ √(P² ＋ Q²)　（P：有効電力 kW、Q：無効電力 kvar）</p>
+<div class="table-scroll"><table><thead><tr><th>そのときの負荷 P</th><th>無効電力 Q</th><th>力率</th></tr></thead><tbody>
+<tr><td>300 kW</td><td>160 kvar</td><td>約88%</td></tr>
+<tr><td>500 kW</td><td>160 kvar</td><td>約95%</td></tr>
+<tr><td>1,000 kW</td><td>160 kvar</td><td>約99%</td></tr>
+<tr><td>2,000 kW</td><td>160 kvar</td><td>約99.7%</td></tr>
+</tbody></table></div>
+<p class="small">電気料金の力率は85%が基準で、上下1%ごとに基本料金が1%割引・割増になる。しかも見るのは瞬時値ではなく平日昼間の平均。見た瞬間の数字だけで判断しない。</p>
+
+<h3>② 太陽光が増えると、受電点の力率は下がって見える</h3>
+<p>シミュレーターを作っていて気づいた。太陽光のパワコンはふつう力率1で運転するので、出すのは<b>有効電力（kW）だけ</b>。負荷が使う無効電力（kvar）は、相変わらず受電でまかなう。すると<b>受電のkWだけが減って、kvarは減らない</b>から、受電点の力率が下がる。</p>
+<div class="flow">負荷 500kW・力率95%（無効電力 約164kvar）<br>↓ 太陽光が 300kW 発電<br>受電は 200kW、無効電力は 約164kvar のまま<br>↓<br>受電点の力率 ＝ 200 ÷ √(200² ＋ 164²) ≒ <b>約77%</b></div>
+<p>負荷は何も変わっていないのに、受電点だけ見ると力率が悪く見える。自家消費太陽光の受電盤で力率が低めに出ていても、あわてずに「いま太陽光がどれだけ出ているか」を合わせて見る。料金上の扱いは契約・約款で確認する。</p>
+
+<h3>③ パネルから受電盤まで、一本の線でつなげる</h3>
+<div class="diagram-card scroll-x"><svg viewBox="0 0 640 300" role="img" aria-label="配電線から受電盤、受電トランス、低圧母線へ。反対側からパネル、接続箱、パワコン、ダウントランス、連系用遮断器を経て同じ低圧母線へ合流する単線結線図の概念図">
+<rect x="0" y="0" width="640" height="300" rx="14" fill="#edf6fa"/>
+<g fill="none" stroke="#173b50" stroke-width="2">
+<path d="M70 46V250"/><path d="M40 250H600"/><path d="M200 250V270"/>
+<path d="M560 50V88"/><path d="M520 108H470"/><path d="M420 132V172"/><path d="M420 214V250"/>
+<circle cx="70" cy="178" r="13"/><circle cx="70" cy="196" r="13"/>
+<circle cx="420" cy="182" r="13"/><circle cx="420" cy="200" r="13"/>
+</g>
+<path d="M40 250H600" stroke="#173b50" stroke-width="5"/>
+<g fill="#fff" stroke="#173b50" stroke-width="1.5">
+<rect x="14" y="16" width="112" height="30" rx="7"/>
+<rect x="22" y="70" width="156" height="78" rx="8"/>
+<rect x="500" y="16" width="120" height="34" rx="6"/>
+<rect x="520" y="88" width="100" height="40" rx="6"/>
+<rect x="370" y="88" width="100" height="44" rx="7"/>
+<rect x="130" y="270" width="140" height="26" rx="6"/>
+</g>
+<g font-size="12" fill="#173b50" font-weight="700">
+<text x="24" y="36">配電線 6.6kV</text>
+<text x="30" y="88">受電盤</text>
+<text x="510" y="38">太陽電池アレイ</text>
+<text x="545" y="113">接続箱</text>
+<text x="384" y="108">パワコン</text>
+<text x="146" y="288">構内負荷（工場）</text>
+</g>
+<g font-size="11" fill="#2f5368">
+<text x="84" y="106">27R 不足電圧</text><text x="84" y="122">64 地絡過電圧</text><text x="84" y="138">67P 逆電力</text>
+<text x="88" y="186">受電トランス</text><text x="88" y="201">6600V→210V</text>
+<text x="384" y="124">直流→交流440V</text>
+<text x="438" y="188">ダウントランス</text><text x="438" y="203">440V→210V</text>
+<text x="428" y="238">連系用遮断器</text>
+<text x="476" y="102">直流</text>
+<text x="470" y="268">低圧母線 210V</text>
+</g>
+<g stroke="#173b50" stroke-width="2.5" stroke-linecap="round"><path d="M420 244L408 228"/></g>
+<circle cx="420" cy="228" r="3" fill="#173b50"/><circle cx="420" cy="244" r="3" fill="#173b50"/>
+<g fill="none" stroke-width="3.5" stroke-dasharray="4 7" stroke-linecap="round">
+<path d="M560 50V108H470" stroke="#d9480f"/><path d="M420 132V250H210" stroke="#2b8a3e"/><path d="M70 46V250H190" stroke="#1c6fd1"/>
+</g>
+</svg><p class="small center">オレンジ＝直流、緑＝太陽光の交流、青＝電力会社からの受電。2つの流れが低圧母線で合流して負荷へ行く。</p><p class="scroll-hint small">← 横にスクロールできます →</p></div>
+<div class="checkgrid">
+<div class="checkcard"><b>パネル → 接続箱</b><br>パネルを直列にしたものが<b>ストリング</b>、それを並列にしたものが<b>アレイ</b>。接続箱ではストリングごとに直流ブレーカを入れる。直流は電流がゼロになる瞬間がなくアークが切れにくいので、直流定格の品を使う（極を直列につないで遮断性能を上げる品もある）。</div>
+<div class="checkcard"><b>パワコン</b><br>一番発電できる電圧を探し続ける<b>MPPT</b>、直流→交流の変換、電圧・周波数の異常で止まる<b>連系保護</b>、停電を見抜く<b>単独運転検出</b>、直流側の<b>地絡検出</b>。自家消費型では受電電力を見て<b>出力を絞る</b>役目もある。</div>
+<div class="checkcard"><b>なぜ440Vで出して、ダウントランスで下げる？</b><br>同じ電力なら電圧が高いほど電流が小さくなり、ケーブルを細くできて損失も減る。構内の210V母線に合わせるために、最後にダウントランスで下げる。</div>
+<div class="checkcard"><b>受電盤のリレー</b><br>27R（不足電圧）は停電、64・OVGR（地絡過電圧）は地絡、67P・RPR（逆電力）は逆潮流を見て、<b>連系用遮断器を開いて太陽光を切り離す</b>。</div>
+</div>
+
+<h3>④ 直流側：直列は電圧、並列は電流の足し算</h3>
+<p>550W級のパネル（開放電圧49.8V・最大出力動作電圧41.9V・短絡電流13.9A）を例にすると、1枚約40Vでも18枚直列で約750V。1本約13Aのストリングを12本並列にすると約160A。ストリングの電圧が1000V近くになるのはこのため。</p>
+<div class="warning"><strong>直列枚数を決める一番大事なチェック：冬の朝の開放電圧</strong><br>パネルは冷えるほど電圧が上がる（例：開放電圧の温度係数 −0.27%/℃）。最低気温−5℃の朝に日が差した瞬間は、<br>49.8V ×（1 ＋ 0.0027 × 30）≒ 53.8V／枚<br>18枚なら約969Vでパワコンの最大入力1100V以内。22枚にすると約1,184Vで超えてしまい、パワコンが壊れる。</div>
+<p>影も効く。直列の中の1枚が陰ると、そのパネルはバイパスダイオードで飛ばされ、I-Vカーブに段ができる。P-Vカーブの山が2つになると、MPPTが小さいほうの山で止まって発電を損することもある。シミュレーターではパネルをタップして影を付けて確かめられる。</p>
+
+<h3>⑤ 停電・事故のとき、誰が何を切るか</h3>
+<div class="table-scroll"><table><thead><tr><th>事故</th><th>最初に気づく</th><th>切るもの</th><th>ポイント</th></tr></thead><tbody>
+<tr><td><b>系統停電</b></td><td>パワコンの単独運転検出（受動方式＋能動方式）、受電盤の27R</td><td>パワコン停止（0.5〜1秒程度）、連系用遮断器</td><td>復電してもすぐには戻らない。系統が安定しているか確かめるため、投入阻止時間（例：300秒）待ってから再並列</td></tr>
+<tr><td><b>高圧地絡</b></td><td>受電点のGR・DGR、受電盤の64（OVGR）</td><td>GRで受電、OVGRで連系用遮断器</td><td>受電を切っても太陽光が動いていれば単独運転になる。OVGRは「太陽光が地絡点に電気を送り続けない」ための守り</td></tr>
+<tr><td><b>負荷の急減</b></td><td>負荷追従制御、受電盤の67P（RPR）</td><td>まずパワコンの出力を絞る。間に合わなければ連系用遮断器</td><td>RPRの整定時間より早く絞れれば遮断しない。追従の速さと整定時間の関係が大事</td></tr>
+<tr><td><b>直流地絡</b></td><td>パワコンの直流地絡検出</td><td>パワコン停止</td><td>交流側に事故はないので受電盤のリレーは動かない。工場は受電だけで動き続ける</td></tr>
+</tbody></table></div>
+<div class="danger"><strong>パワコンを止めても、直流側はまだ生きている</strong><br>パネルは日が当たる限り発電を続ける。パワコンを止めても、パネル〜接続箱〜パワコン入力までは数百V〜1000V近い電圧が残る。直流側に触る前に、接続箱のブレーカを切って電圧がないことを確かめる。</div>
+
+<section class="memo">
+<h3>🛟 今日のうきわメモ</h3>
+<p><b>① 自動力率調整器の数字は、%かkvarかを単位ランプで確かめてから読む。「適正」ランプも答え合わせになる。</b></p>
+<p><b>② 160kvarが多いかどうかはkW次第。力率 ＝ P ÷ √(P² ＋ Q²)。</b></p>
+<p><b>③ 自家消費太陽光が発電すると、受電のkWだけ減ってkvarは残る。だから受電点の力率は下がって見える。</b></p>
+<p><b>④ パネル（直流）→ 接続箱 → パワコン（440V）→ ダウントランス（210V）→ 連系用遮断器 → 低圧母線で受電と合流。</b></p>
+<p><b>⑤ 停電は単独運転検出と27R、地絡はGRとOVGR、逆潮流は負荷追従とRPR。直流地絡はパワコンが止めるけど、直流側の電圧は残る。</b></p>
+</section>
+<p>図を動かして確かめたいときは <a href="pv-self-consumption-simulator.html">自家消費太陽光シミュレーター</a>（全体の流れ・直流側のI-Vカーブ・停電と事故の再生）へ。</p>
+<div class="note">※ 数値・整定値・機器構成は一般的な例です。実際の設備は単線結線図、整定表、パワコンの取扱説明書で確認します。系統連系保護の考え方は系統連系規程（JEAC 9701）による。投入阻止時間や単独運転検出方式の例は、<a href="https://gigaplus.makeshop.jp/solaroff/catalog/powercon/YAS/CEPT-P2HA29P9B_spec.pdf">安川電機 パワーコンディショナ CEPT-P2HA29P9B 仕様書</a>を参考にした。</div>
+</article>
 <article class="entry" id="cable-termination-20261105" data-update-date="2026/11/05">
 <div class="date">2026.11.05｜高圧ケーブル・端末処理</div>
 <h2 id="cable-termination">柱の上のケーブルヘッドは、何形？<br>端末処理は「作り方」と「置き場所」の2本の軸で見る。</h2>
