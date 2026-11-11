@@ -6,29 +6,15 @@
 <section class="sheet" id="model"><h2>3Dモデル</h2>
 <p class="caption">参考型式：<b>日新電機 PET-FK4N</b>（OF式・6%リアクトル用、定格電圧7.02kV）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
 <div id="hvRoot"></div>
-<template id="scWire"><svg viewBox="0 0 440 340" style="font-size:15px" role="img" aria-label="3相進相コンデンサの内部接続の模式図。U・V・W端子のあいだに素子と放電抵抗。絶縁抵抗計のLをU端子、Eを接地端子につなぐと、放電抵抗を通ってV・Wも同じ電位になる">
-<g data-part="bush" fill="#203b50"><circle cx="120" cy="50" r="7"/><circle cx="220" cy="50" r="7"/><circle cx="320" cy="50" r="7"/><text x="114" y="32">U</text><text x="214" y="32">V</text><text x="314" y="32">W</text></g>
-<g data-part="guard"><rect x="112" y="64" width="16" height="20" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/><rect x="212" y="64" width="16" height="20" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/><rect x="312" y="64" width="16" height="20" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/></g>
-<g id="sc-guard" style="display:none"><path d="M212 62 l16 24 M228 62 l-16 24" stroke="#b83a2b" stroke-width="3"/></g>
-<path d="M120 57 V64 M220 57 V64 M320 57 V64 M120 84 V110 M220 84 V110 M320 84 V110" stroke="#203b50" stroke-width="2.5"/>
-<g data-part="elem" stroke="#203b50" stroke-width="2.5" fill="none"><path d="M120 110 H160 M168 110 H220"/><path d="M160 98 V122 M168 98 V122" stroke-width="3.5"/>
-<path d="M220 110 H260 M268 110 H320"/><path d="M260 98 V122 M268 98 V122" stroke-width="3.5"/>
-<path d="M120 110 V160 H205 a15 15 0 0 1 30 0 H270 M278 160 H320 V110"/><path d="M270 148 V172 M278 148 V172" stroke-width="3.5"/></g>
-<text x="228" y="142" fill="#203b50" font-size="12">素子（Δ・模式）</text>
-<g data-part="res" stroke="#2f6fa8" stroke-width="2.5" fill="none"><path d="M120 160 V215 H150 l6 -8 l8 16 l8 -16 l8 16 l8 -16 l6 8 H220 V110"/><path d="M220 215 H250 l6 -8 l8 16 l8 -16 l8 16 l8 -16 l6 8 H320 V160"/><path d="M120 215 V250 H200 l6 -8 l8 16 l8 -16 l8 16 l8 -16 l6 8 H320 V215"/></g>
-<text x="120" y="278" fill="#2f6fa8" font-size="13">放電抵抗（端子のあいだ・直流を通す）</text>
-<g data-part="can"><rect x="90" y="20" width="270" height="270" rx="10" fill="none" stroke="#7a8288" stroke-dasharray="6 4"/><text x="310" y="304" fill="#4b6475" font-size="12">ケース</text><path d="M360 230 H390 V300 M378 300 H402 M383 306 H397 M388 312 H392" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="396" y="292" fill="#27500a" font-size="12">接地</text></g>
-<g id="sc-ir" style="display:none" data-part="meg"><rect x="10" y="286" width="80" height="44" rx="6" fill="#f2e6c9" stroke="#203b50"/><text x="50" y="313" text-anchor="middle" fill="#203b50" font-size="13">メガ</text><path d="M30 286 V20 H113" stroke="#d85a30" stroke-width="2.5" fill="none"/><text x="18" y="16" fill="#d85a30" font-size="12">L</text><path d="M90 318 H390 V312" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="96" y="334" fill="#27500a" font-size="12">E</text></g>
-<g id="sc-irflow" style="display:none"><path d="M120 110 V250 H320 V110 M220 110 V215" stroke="#f2b233" stroke-width="7" opacity=".45" fill="none"/><text x="240" y="16" fill="#b83a2b" font-size="13" font-weight="700">U・V・W が同じ電位</text></g>
-</svg></template>
+<template id="scWire"><svg viewBox="0 0 440 340" style="font-size:15px" role="img" aria-label="PET-FK4Nの結線図（カタログの結線図による）。U・V・Wの各端子から、素子と放電抵抗を並列にしたものが中性点へつながるY結線。外側の2相は保安装置を通って中性点につながる。絶縁抵抗計のLをU端子、Eを接地端子につなぐと、放電抵抗と中性点を通ってV・Wも同じ電位になる"><g data-part="bush" fill="#203b50"><circle cx="110" cy="50" r="7"/><circle cx="220" cy="50" r="7"/><circle cx="330" cy="50" r="7"/><text x="104" y="32">U</text><text x="214" y="32">V</text><text x="324" y="32">W</text></g><g data-part="elem" stroke="#203b50" stroke-width="2.5" fill="none"><path d="M110 57 V112 M110 122 V180"/><path d="M98 112 H122 M98 122 H122" stroke-width="3.5"/><path d="M220 57 V112 M220 122 V180"/><path d="M208 112 H232 M208 122 H232" stroke-width="3.5"/><path d="M330 57 V112 M330 122 V180"/><path d="M318 112 H342 M318 122 H342" stroke-width="3.5"/></g><g fill="#203b50"><circle cx="110" cy="84" r="3.5"/><circle cx="220" cy="84" r="3.5"/><circle cx="330" cy="84" r="3.5"/><circle cx="110" cy="166" r="3.5"/><circle cx="220" cy="166" r="3.5"/><circle cx="330" cy="166" r="3.5"/></g><text x="20" y="122" fill="#203b50" font-size="12">素子</text><g data-part="res" stroke="#2f6fa8" stroke-width="2.5" fill="none"><path d="M110 84 H140 V98 l-7 5 l14 8 l-14 8 l14 8 l-14 8 l7 5 V166 H110"/><path d="M220 84 H250 V98 l-7 5 l14 8 l-14 8 l14 8 l-14 8 l7 5 V166 H220"/><path d="M330 84 H360 V98 l-7 5 l14 8 l-14 8 l14 8 l-14 8 l7 5 V166 H330"/></g><text x="262" y="208" fill="#2f6fa8" font-size="12">放電抵抗（素子と並列）</text><g data-part="neutral" stroke="#6b7f4a" stroke-width="2.5" fill="none"><path d="M110 180 V236 H140 M186 236 H254 M300 236 H330 V180 M220 180 V236"/></g><circle cx="220" cy="236" r="4" fill="#6b7f4a"/><text x="196" y="262" fill="#4c5c33" font-size="12">中性点</text><g data-part="guard"><rect x="140" y="228" width="46" height="16" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/><rect x="254" y="228" width="46" height="16" rx="3" fill="#fff" stroke="#d9a227" stroke-width="2"/><text x="96" y="262" fill="#8a5a00" font-size="12">保安装置</text><text x="290" y="262" fill="#8a5a00" font-size="12">保安装置</text></g><g id="sc-guard" style="display:none"><path d="M152 224 l22 24 M174 224 l-22 24 M266 224 l22 24 M288 224 l-22 24" stroke="#b83a2b" stroke-width="3"/></g><g data-part="can"><rect x="70" y="20" width="310" height="262" rx="10" fill="none" stroke="#7a8288" stroke-dasharray="6 4"/><text x="336" y="298" fill="#4b6475" font-size="12">ケース</text><path d="M380 250 H404 V300 M392 300 H416 M397 306 H411 M402 312 H406" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="398" y="244" fill="#27500a" font-size="12">接地</text></g><g id="sc-ir" style="display:none" data-part="meg"><rect x="6" y="290" width="70" height="42" rx="6" fill="#f2e6c9" stroke="#203b50"/><text x="41" y="316" text-anchor="middle" fill="#203b50" font-size="13">メガ</text><path d="M24 290 V50 H103" stroke="#d85a30" stroke-width="2.5" fill="none"/><text x="12" y="44" fill="#d85a30" font-size="12">L</text><path d="M76 322 H404 V312" stroke="#3b6d11" stroke-width="2.5" fill="none"/><text x="82" y="336" fill="#27500a" font-size="12">E</text></g><g id="sc-irflow" style="display:none"><path d="M110 57 V84 H140 V166 H110 V236 H330 V166 H360 V84 H330 V57 M220 236 V166 H250 V84 H220 V57" stroke="#f2b233" stroke-width="7" opacity=".45" fill="none"/><text x="240" y="16" fill="#b83a2b" font-size="13" font-weight="700">U・V・W が同じ電位</text></g></svg></template>
 </section>
 
 <section class="sheet" id="points"><h2>見るポイント</h2>
 <ul>
 <li><b>切っても電荷が残る。</b>内蔵の放電抵抗で、開放5分後に50V以下まで下げます。再投入は5分以上あけます（放電コイル付きは5秒以上）。</li>
 <li><b>小さな故障は自己回復。</b>金属蒸着フィルムの素子は、小さな絶縁破壊ならまわりの蒸着膜が蒸発して絶縁が戻ります。</li>
-<li><b>大きな故障はケースがふくらむ。</b>保安装置がケースの変形の力で電流路を切り、内圧式保護用接点が遮断器を引き外します。保護用接点は警報ではなく引外し回路につなぎます。</li>
-<li><b>絶縁抵抗はU端子1か所で3相ぶん。</b>端子のあいだの放電抵抗が直流を通すので、Lを1か所に当てるとV・Wも同じ電位になります。測ったあとは素子が直流で充電されているので、放電してから外します。</li>
+<li><b>大きな故障はケースがふくらむ。</b>ふくらんで前後の壁が離れる力で、保安装置の可断片がちぎれて電流路を切ります。この形式（PET-FK4N・31.9kvarまで）は保安装置内蔵です。53.2kvar以上の PET-FK4 形は内圧式保護用接点付きで、接点は警報ではなく遮断器の引外し回路につなぎます。</li>
+<li><b>絶縁抵抗はU端子1か所で3相ぶん。</b>中は Y 結線で、各相の素子と並列の放電抵抗が中性点でつながっています。放電抵抗は直流を通すので、Lを1か所に当てるとV・Wも同じ電位になります。測ったあとは素子が直流で充電されているので、放電してから外します。</li>
 <li><b>6%用は定格7.02kV。</b>直列リアクトルの分だけコンデンサの電圧が上がるためです。</li>
 </ul>
 </section>
@@ -40,12 +26,12 @@
 <tr><td>完全密閉のOF式・絶縁油</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.2</td></tr>
 <tr><td>6%用の定格電圧7.02kV</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3</td></tr>
 <tr><td>放電抵抗内蔵・開放5分後50V以下、再投入は5分以上（放電コイル付きは5秒以上）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3・p.24</td></tr>
-<tr><td>金属蒸着フィルム・自己回復</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.7・p.23</td></tr>
-<tr><td>保安装置（ケース変形力で電流路を切断）、内圧式保護用接点（遮断器の引外し回路へ、AC220V/DC110V 5A）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.23</td></tr>
-<tr><td>内部の部品名（絶縁紙チューブ付リード線・支持板・可断片・内部素子）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.23 の図</td></tr>
-<tr><td>素子の数・並び・つなぎ方、放電抵抗と可断片の位置</td><td><span class="hv-ev unk">未確認</span></td><td>資料に記述がない。模式で描いた</td></tr>
-<tr><td>3相の内部接続（素子・放電抵抗とも端子のあいだにΔ）</td><td><span class="hv-ev simp">簡略化</span></td><td>3端子の高圧進相コンデンサの一般的な形として描いた。この形式の内部接続図は未確認。放電抵抗が端子のあいだにあれば、つなぎ方がΔでもYでも、直流で3端子がつながる点は同じ</td></tr>
-<tr><td>外形寸法、端子（ブッシング）の数と位置、保護箱・吊耳の位置</td><td><span class="hv-ev unk">未確認</span></td><td>外形図と照合できていない</td></tr>
+<tr><td>金属蒸着フィルム・自己回復</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.7・p.22</td></tr>
+<tr><td>PET-FK4N（10.6〜31.9kvar）は保安装置内蔵。保安装置はケース変形力で電流路を切断</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3・p.22</td></tr><tr><td>内圧式保護用接点（遮断器の引外し回路へ、AC220V/DC110V 5A）は PET-FK4（53.2kvar以上）の方式。このモデルには描いていない</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.4・p.22</td></tr>
+<tr><td>内部の部品名（絶縁紙チューブ付リード線・支持板・可断片・内部素子）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.22 の断面図（可断片は素子の上で、前後の壁の支持金具に渡した支持板に付く）</td></tr>
+<tr><td>素子の数・並び、放電抵抗の位置、線の通り道</td><td><span class="hv-ev unk">未確認</span></td><td>資料に記述がない。模式で描いた</td></tr>
+<tr><td>3相の内部接続は Y（スター）。各相の素子と放電抵抗を並列にして端子と中性点のあいだに入れ、外側2相の中性点側に保安装置が1つずつ</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3 図1の結線図（2026年11月12日に画像で読み取り。それまでΔとして描いていたのを直した）</td></tr>
+<tr><td>外形：ケース幅415・奥行110・高さ155、ブッシング3本（140ピッチ・高さ195）、全高350、取付足を含む幅470、取付孔440×80、接地端子M6（正面右下）、総重量14kg・油量4〜5L</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3 図1・定格表（外形図を画像で読み取り、モデルを合わせた。2026年11月12日）</td></tr>
 </table></div>
 <p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません（計算で示した値は、そのつど式を書いています）。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
 </details>
@@ -53,12 +39,12 @@
 
 <section class="sheet" id="sources"><h2>出典</h2>
 <ul class="caption">
-<li><a href="https://developer.nissin.jp/product/pdf/ser/catalog_0237.pdf" target="_blank" rel="noopener">日新電機「電力用コンデンサ 関連機器」カタログ（Cat.No.237 R5、2023年10月）</a> p.1〜3、p.7、p.11〜13、p.23〜26。2026年10月27日閲覧。</li>
+<li><a href="https://developer.nissin.jp/product/pdf/ser/catalog_0237.pdf" target="_blank" rel="noopener">日新電機「電力用コンデンサ 関連機器」カタログ（Cat.No.237 R5、2023年10月）</a> p.1〜4、p.7、p.11〜13、p.22〜26。2026年10月27日閲覧、外形図と結線図は2026年11月12日に再確認。</li>
 </ul>
 </section>
 <section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="sr-3d.html">直列リアクトルを3Dで見る</a><a href="vcs-3d.html">VCSを3Dで見る</a></div></section>
 </main><footer>うきわメモ / 2026年10月27日作成 / 中の構造で資料にないところは模式で、実機の構造図ではありません。</footer>
-<script src="hv3d.js?v=20261027"></script><script src="sc-3d.js?v=20261027"></script>
+<script src="hv3d.js?v=20261027"></script><script src="sc-3d.js?v=20261112"></script>
 <script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.sc);</script>
 <script src="menu-layout.js?v=20260930"></script>
 </body></html>

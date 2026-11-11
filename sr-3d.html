@@ -4,7 +4,7 @@
 <section class="hero"><span class="eyebrow">3Dモデル / SR・直列リアクトル</span><h1>直列リアクトルを、3Dで見る。<br>6%の意味</h1><p class="lead">進相コンデンサと直列に入れるリアクトル。なぜ6%なのか、高調波が多いと何が起きるのかを確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
 
 <section class="sheet" id="model"><h2>3Dモデル</h2>
-<p class="caption">参考型式：<b>日新電機 HM-LN3</b>（油入自冷・空気密封式、6%、6.6kV 31.9kvar相当）。外形 A530・B340・C750mm に比を合わせた概形です。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<p class="caption">参考型式：<b>日新電機 HM-LN3</b>（油入自冷・空気密封式、6%、6.6kV 31.9kvar相当）。外形と端子の位置は、カタログの外形図（幅530・奥行340・タンク高さ520・全高750mm、端子6本）に合わせています。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
 <div id="hvRoot"></div>
 <template id="srWire"><svg viewBox="0 0 420 240" style="font-size:15px" role="img" aria-label="直列リアクトルとコンデンサの直列回路">
 <line x1="20" y1="80" x2="100" y2="80" stroke="#203b50" stroke-width="3"/><text x="20" y="60" fill="#203b50">電源</text>
@@ -33,10 +33,10 @@
 <tr><td>油入自冷式・空気密封式（油の取り替え不要）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.11</td></tr>
 <tr><td>温度センサ全機種付属・ファストン端子・制御線0.75〜2.27mm²</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.11</td></tr>
 <tr><td>リアクタンスはコンデンサのリアクタンスを100%とした%で表示、6%用コンデンサは7.02kV</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.3・p.11</td></tr>
-<tr><td>31.9kvar（6.6kV 50Hz）の外形 A530・B340・C750・D520・E470・F200mm、油量35L</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.11〜12（どの記号がどの辺かは図と未照合）</td></tr>
+<tr><td>31.9kvar（6.6kV 50Hz）の外形 A530・B340・C750・D520・E470・F200mm、油量35L</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.11 図9・寸法表。A＝幅、B＝奥行、C＝ブッシング上端までの全高、D＝タンク上面の高さ、E×F＝取付穴（4-φ12）のピッチ。外形図を画像で読み取り、モデルを合わせた（2026年11月12日）</td></tr>
 <tr><td>6%用と13%用・旧JIS品と現JIS品を混ぜない</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.26</td></tr>
 <tr><td>第5高調波の比較（30%と20%）、共振 約4.1倍、電圧1.064倍</td><td><span class="hv-ev simp">簡略化</span></td><td>6%からの計算</td></tr>
-<tr><td>鉄心のギャップ、コイルの形、端子の数・位置</td><td><span class="hv-ev unk">未確認</span></td><td>資料に記述がない・外形図と未照合。模式で描いた</td></tr>
+<tr><td>端子は6本（奥の列 W・V・U、手前の列 Z・Y・X、左右150mmピッチ・前後150mm、高さ180mm、絶縁キャップ付き）。結線は U–X・V–Y・W–Z の3コイル</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.11 図9・結線図</td></tr><tr><td>吊り耳（上部の左右）、銘板・温度センサ（右の側面）、接地端子（右の側面の下）</td><td><span class="hv-ev doc">資料で確認</span></td><td>カタログ p.11 図9</td></tr><tr><td>鉄心のギャップ、コイルの形</td><td><span class="hv-ev unk">未確認</span></td><td>資料に記述がない。模式で描いた</td></tr>
 </table></div>
 <p class="caption">動きは順番を示すためのもので、時間や電流・電圧の大きさは表していません（計算で示した値は、そのつど式を書いています）。実際の操作・試験は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
 </details>
@@ -49,7 +49,7 @@
 </section>
 <section class="sheet"><h2>つながる教材</h2><div class="related"><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="sc-3d.html">進相コンデンサを3Dで見る</a><a href="vcs-3d.html">VCSを3Dで見る</a></div></section>
 </main><footer>うきわメモ / 2026年10月27日作成 / 中の構造で資料にないところは模式で、実機の構造図ではありません。</footer>
-<script src="hv3d.js?v=20261027"></script><script src="sr-3d.js?v=20261027"></script>
+<script src="hv3d.js?v=20261027"></script><script src="sr-3d.js?v=20261112"></script>
 <script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.sr);</script>
 <script src="menu-layout.js?v=20260930"></script>
 </body></html>

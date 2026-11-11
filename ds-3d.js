@@ -2,18 +2,20 @@
    資料で確かめたこと：単極単投・フック棒操作、7.2kV 200・400A、支持金具とエポキシ碍子をV字形に配置、
    単極品はラッチ付きで自然開路しない、F–F 200・400A標準品は開極ストッパー付き（開極角度約90°、80°以上開く）、
    無負荷変圧器の励磁電流・無負荷電路の充電電流は実用上1A以下なら開閉できる、それより大きい電流は負荷開閉器を使う。
-   寸法比・接触部の細かな形は外形図の画像と照合できていない（模式）。 1 = 約100mm */
+   外形はカタログ p.3 図3-5 の寸法に合わせた（全高275・台座の高さ135・台座から端子板まで81・ブレード中心まで120・
+   ブレード175×30・開極時の奥行296・ベース幅60・充電部最大幅44・端子幅20・取付穴ピッチ40・碍子のひだ5枚）。
+   接触部・ラッチ・ばねの細かな形は図から読み取れず模式。 1 = 100mm、y=0 が下側端子の下端、z=0 が台座の裏面 */
 (function () {
   'use strict';
   var CU = 0xc9874a, SILV = 0xc9cacc, EPX = 0x8a6e4e, STEEL = 0x9aa0a4;
-  var HB = [0, 0.55, 1.05], FC = [0, 2.3, 1.05], BL = FC[1] - HB[1];
+  var HB = [0, 0.72, 1.2], FC = [0, 2.3, 1.2], BL = FC[1] - HB[1], TZ = 0.83;
   var DEG = Math.PI / 180;
   var parts = {
-    base: { name: '取付金具（台座）', role: '盤のアングルに取り付ける金具。2本のエポキシ碍子をV字形に支える。接地する。', links: ['ins'], ev: 'doc', note: '支持金具とエポキシ碍子のV字形配置はカタログ p.1。取付はアングル 50×50×6 が適当（p.3 図3-5の注記）。形・寸法比は模式。' },
-    ins: { name: 'エポキシ碍子', role: '充電部（接触子・ブレード）を取付金具から絶縁して支える。V字形に開いて置き、小形・軽量にしている。', links: ['base', 'fixed', 'hinge'], ev: 'doc', note: 'V字形配置はカタログ p.1。ひだの数・太さは模式。' },
-    fixed: { name: '固定接触子・上側端子', role: '閉じたブレードの先端をはさんで電流を流すところ。前面（F）に電線をつなぐ端子がある。', links: ['blade', 'ins', 'spring'], ev: 'simp', note: 'F–F接続（前面接続）はカタログの形式。接触子の形は模式。' },
-    blade: { name: 'ブレード（可動刃）', role: '下の支点を中心に前へ倒れて開く刃。開くと、目で見える切れ目（断路）ができる。', links: ['fixed', 'hinge', 'latch', 'eye'], ev: 'simp', note: '平行2枚の刃として描いた。形・厚さは模式。' },
-    hinge: { name: '支点・下側端子', role: 'ブレードが回る支点。開いても閉じても下側端子とつながっている。', links: ['blade', 'ins', 'stopper'], ev: 'simp', note: '下側に支点を置く形は模式（外形図と未照合）。' },
+    base: { name: '取付金具（台座）', role: '盤のアングルに取り付ける金具。2本のエポキシ碍子をV字形に支える。接地する。', links: ['ins'], ev: 'doc', note: '支持金具とエポキシ碍子のV字形配置はカタログ p.1。取付はアングル 50×50×6 が適当（p.3 図3-5の注記）。台座は幅60×高さ135、取付穴は2-φ11・ピッチ40（図3-5）。' },
+    ins: { name: 'エポキシ碍子', role: '充電部（接触子・ブレード）を取付金具から絶縁して支える。V字形に開いて置き、小形・軽量にしている。', links: ['base', 'fixed', 'hinge'], ev: 'doc', note: 'V字形配置はカタログ p.1。ひだ5枚・傾きは外形図（図3-5）に合わせた。太さは図からの読み取り。' },
+    fixed: { name: '固定接触子・上側端子', role: '閉じたブレードの先端をはさんで電流を流すところ。前面（F）に電線をつなぐ端子がある。', links: ['blade', 'ins', 'spring'], ev: 'simp', note: 'F–F接続（前面接続）はカタログの形式。端子板は幅20・端子穴φ11、台座から81mm（図3-5）。接触子の形は模式。' },
+    blade: { name: 'ブレード（可動刃）', role: '下の支点を中心に前へ倒れて開く刃。開くと、目で見える切れ目（断路）ができる。', links: ['fixed', 'hinge', 'latch', 'eye'], ev: 'simp', note: '長さ175・奥行30、充電部の最大幅44（図3-5）。平行2枚の刃として描いた点は模式。' },
+    hinge: { name: '支点・下側端子', role: 'ブレードが回る支点。開いても閉じても下側端子とつながっている。', links: ['blade', 'ins', 'stopper'], ev: 'simp', note: '下側が支点で、開くとブレードが前へ水平に倒れ、台座から296mmまで出る（図3-5の開極位置）。支点の形は模式。' },
     latch: { name: 'ラッチ（掛け金）', role: '閉じたブレードを固定接触子に掛けておく金具。振動や電磁力で自然に開かないようにする。開くときはフック棒で外す。', links: ['blade', 'eye'], ev: 'doc', note: '単極品はラッチ付き（カタログ p.3）。形は模式。' },
     eye: { name: 'フック穴', role: 'フック棒（断路器操作棒）を掛ける穴。ここを引いてラッチを外し、ブレードを開く。', links: ['blade', 'latch'], ev: 'doc', note: 'フック棒操作はカタログ p.2 表1。形は模式。' },
     stopper: { name: '開極ストッパー', role: '開いたブレードが行き過ぎないように止める。開極角度は約90°で、80°以上開くよう指示がある。', links: ['hinge', 'blade'], ev: 'doc', note: 'F–F 200・400A標準品（カタログ p.3 注3）。位置・形は模式。' },
@@ -31,34 +33,36 @@
   }
   function build(G, st, mode) {
     var a = (st.open || 0) * 90 * DEG;
-    /* 取付金具 */
-    G.box(0.6, 2.9, 0.12, 0, 1.42, -0.06, STEEL, { part: 'base' });
-    G.box(0.6, 0.5, 0.3, 0, 1.42, 0.12, STEEL, { part: 'base' });
-    [[0.2, 0.3], [-0.2, 0.3], [0.2, 2.55], [-0.2, 2.55]].forEach(function (p) { G.cyl(0.05, 0.03, p[0], p[1], 0.005, 0x55595e, 'z', { part: 'base' }, { seg: 10 }); });
-    /* V字形のエポキシ碍子 */
-    ribRod(G, [0, 1.6, 0.25], [0, 2.22, 0.95], 0.13, 0.2, 4, EPX, { part: 'ins' });
-    ribRod(G, [0, 1.24, 0.25], [0, 0.63, 0.95], 0.13, 0.2, 4, EPX, { part: 'ins' });
-    /* 固定接触子・上側端子 */
-    G.box(0.36, 0.16, 0.22, FC[0], FC[1], FC[2], CU, { part: 'fixed', cond: 'src' });
-    G.box(0.08, 0.26, 0.2, 0.14, FC[1] - 0.18, FC[2] + 0.05, CU, { part: 'fixed', cond: 'src' });
-    G.box(0.08, 0.26, 0.2, -0.14, FC[1] - 0.18, FC[2] + 0.05, CU, { part: 'fixed', cond: 'src' });
-    G.box(0.3, 0.06, 0.42, 0, FC[1] + 0.11, FC[2] + 0.25, CU, { part: 'fixed', cond: 'src' });
-    G.cyl(0.05, 0.08, 0, FC[1] + 0.16, FC[2] + 0.32, SILV, 'y', { part: 'fixed' }, { seg: 10 });
+    /* 取付金具（台座 60×135×10、取付穴 2-φ11 ピッチ40、中央にM10ボルト） */
+    G.box(0.6, 1.35, 0.1, 0, 1.375, 0.05, STEEL, { part: 'base' });
+    [0.2, -0.2].forEach(function (x) { G.cyl(0.055, 0.03, x, 1.375, 0.1, 0x55595e, 'z', { part: 'base' }, { seg: 10 }); });
+    G.cyl(0.05, 0.36, 0, 1.375, -0.1, 0x8d9296, 'z', { part: 'base' }, { seg: 10 });
+    G.cyl(0.09, 0.08, 0, 1.375, -0.14, 0x6f7479, 'z', { part: 'base' }, { seg: 6 });
+    /* V字形のエポキシ碍子（ひだ5枚） */
+    ribRod(G, [0, 1.74, 0.1], [0, 2.26, TZ - 0.04], 0.19, 0.27, 5, EPX, { part: 'ins' });
+    ribRod(G, [0, 1.01, 0.1], [0, 0.49, TZ - 0.04], 0.19, 0.27, 5, EPX, { part: 'ins' });
+    /* 固定接触子・上側端子（端子板は台座から81、幅20・厚さ4、上端が全高275） */
+    G.box(0.2, 0.62, 0.04, 0, 2.44, TZ, CU, { part: 'fixed', cond: 'src' });
+    G.cyl(0.055, 0.05, 0, 2.6, TZ, SILV, 'z', { part: 'fixed' }, { seg: 10 });
+    G.box(0.3, 0.06, FC[2] - TZ + 0.12, 0, FC[1] - 0.1, (FC[2] + TZ) / 2 + 0.04, CU, { part: 'fixed', cond: 'src' });
+    G.box(0.08, 0.26, 0.2, 0.14, FC[1], FC[2], CU, { part: 'fixed', cond: 'src' });
+    G.box(0.08, 0.26, 0.2, -0.14, FC[1], FC[2], CU, { part: 'fixed', cond: 'src' });
     /* 接触ばね（内部・模式） */
-    [0.2, -0.2].forEach(function (x) { G.helix([x, FC[1] - 0.18, FC[2] + 0.05], 'x', 0.04, 0.1, 5, 0x2f6fa8, 1.8, { part: 'spring', layer: 'int' }); });
-    /* 支点・下側端子・ストッパー */
+    [0.2, -0.2].forEach(function (x) { G.helix([x, FC[1], FC[2]], 'x', 0.04, 0.1, 5, 0x2f6fa8, 1.8, { part: 'spring', layer: 'int' }); });
+    /* 支点・下側端子・ストッパー（端子板の下端が y=0） */
+    G.box(0.2, 0.62, 0.04, 0, 0.31, TZ, CU, { part: 'hinge', cond: 'load' });
+    G.cyl(0.055, 0.05, 0, 0.15, TZ, SILV, 'z', { part: 'hinge' }, { seg: 10 });
+    G.box(0.3, 0.06, HB[2] - TZ + 0.12, 0, HB[1] - 0.12, (HB[2] + TZ) / 2 + 0.04, CU, { part: 'hinge', cond: 'load' });
     G.box(0.36, 0.18, 0.24, HB[0], HB[1], HB[2], CU, { part: 'hinge', cond: 'load' });
     G.cyl(0.045, 0.42, HB[0], HB[1], HB[2], SILV, 'x', { part: 'hinge' }, { seg: 10 });
-    G.box(0.3, 0.06, 0.42, 0, HB[1] - 0.12, HB[2] + 0.25, CU, { part: 'hinge', cond: 'load' });
-    G.cyl(0.05, 0.08, 0, HB[1] - 0.17, HB[2] + 0.32, SILV, 'y', { part: 'hinge' }, { seg: 10 });
-    G.box(0.2, 0.1, 0.08, 0, HB[1] - 0.05, HB[2] + 0.2, 0x55595e, { part: 'stopper' });
+    G.box(0.2, 0.08, 0.1, 0, HB[1] - 0.05, HB[2] + 0.17, 0x55595e, { part: 'stopper' });
     /* ブレード（平行2枚）・ラッチ・フック穴 */
-    [-0.1, 0.1].forEach(function (dx) { G.rod(bladePt(0, a, dx), bladePt(BL - 0.02, a, dx), 0.035, CU, { part: 'blade', cond: 'mid' }, 4); });
+    [-0.1, 0.1].forEach(function (dx) { G.rod(bladePt(0, a, dx), bladePt(1.75, a, dx), 0.05, CU, { part: 'blade', cond: 'mid' }, 4); });
     G.rod(bladePt(0.4, a, -0.1), bladePt(0.4, a, 0.1), 0.02, SILV, { part: 'blade' }, 6);
     var la = st.latch === false ? 0.35 : 0;
-    var lt = bladePt(BL - 0.1, a, 0), lh = [0, Math.cos(a), Math.sin(a)], lf = [0, -Math.sin(a), Math.cos(a)];
+    var lt = bladePt(BL - 0.3, a, 0), lh = [0, Math.cos(a), Math.sin(a)], lf = [0, -Math.sin(a), Math.cos(a)];
     G.rod(lt, [lt[0], lt[1] + lh[1] * 0.22 + lf[1] * (0.06 + la * 0.3), lt[2] + lh[2] * 0.22 + lf[2] * (0.06 + la * 0.3)], 0.025, 0xd9a227, { part: 'latch' }, 6);
-    var ec = bladePt(BL + 0.12, a, 0);
+    var ec = bladePt(BL - 0.02, a, 0);
     for (var k = 0; k < 10; k++) {
       var t0 = k / 10 * Math.PI * 2, t1 = (k + 1) / 10 * Math.PI * 2;
       var p0 = [0, ec[1] + 0.09 * (Math.cos(t0) * lh[1] + Math.sin(t0) * lf[1]), ec[2] + 0.09 * (Math.cos(t0) * lh[2] + Math.sin(t0) * lf[2])];
@@ -75,7 +79,7 @@
     }
     /* 電流（往路：上側端子 → ブレード → 下側端子。帰路は負荷と電源を通るので、この機器の外） */
     if (mode !== 'ext' && st.cur && (st.open < 0.05 || st.arc > 0.02)) {
-      G.flow([[0, FC[1] + 0.16, FC[2] + 0.45], [0, FC[1] + 0.11, FC[2] + 0.1], bladePt(BL - 0.05, a, 0.12), bladePt(0.05, a, 0.12), [0, HB[1] - 0.12, HB[2] + 0.1], [0, HB[1] - 0.17, HB[2] + 0.45]], { col: st.arc > 0.02 ? 'bad' : 'cur', speed: 0.45, m: { part: 'blade' } });
+      G.flow([[0, 2.7, TZ + 0.06], [0, FC[1] - 0.1, TZ + 0.06], [0, FC[1] - 0.1, FC[2]], bladePt(BL - 0.05, a, 0.12), bladePt(0.05, a, 0.12), [0, HB[1] - 0.12, HB[2]], [0, HB[1] - 0.12, TZ + 0.06], [0, 0.05, TZ + 0.06]], { col: st.arc > 0.02 ? 'bad' : 'cur', speed: 0.45, m: { part: 'blade' } });
     }
   }
   function tint(m, st, mode) {
@@ -86,13 +90,13 @@
     return null;
   }
   var labels = [
-    { part: 'fixed', t: '固定接触子・上側端子', p: [0, FC[1] + 0.35, FC[2] + 0.3] },
-    { part: 'hinge', t: '支点・下側端子', p: [0, HB[1] - 0.4, HB[2] + 0.3] },
-    { part: 'blade', t: 'ブレード', p: [0.25, 1.45, 1.1] },
-    { part: 'ins', t: 'エポキシ碍子（V字形）', p: [0, 1.95, 0.45] },
-    { part: 'base', t: '取付金具', p: [0, 2.95, -0.06], layer: 'ext-only' },
-    { part: 'latch', t: 'ラッチ', p: [-0.3, FC[1] + 0.05, FC[2] + 0.2] },
-    { part: 'eye', t: 'フック穴', p: [0.3, FC[1] + 0.25, FC[2] - 0.05] },
+    { part: 'fixed', t: '固定接触子・上側端子', p: [0, 2.8, TZ] },
+    { part: 'hinge', t: '支点・下側端子', p: [0, -0.08, TZ] },
+    { part: 'blade', t: 'ブレード', p: [0.25, 1.45, 1.3] },
+    { part: 'ins', t: 'エポキシ碍子（V字形）', p: [0, 2.05, 0.4] },
+    { part: 'base', t: '取付金具', p: [0, 1.375, -0.2], layer: 'ext-only' },
+    { part: 'latch', t: 'ラッチ', p: [-0.3, FC[1] - 0.3, FC[2] + 0.2] },
+    { part: 'eye', t: 'フック穴', p: [0.3, FC[1] + 0.05, FC[2] + 0.25] },
     { part: 'stopper', t: '開極ストッパー', p: [0, HB[1] + 0.1, HB[2] + 0.5], layer: 'int' },
     { part: 'spring', t: '接触ばね（模式）', p: [0.4, FC[1] - 0.25, FC[2]], layer: 'int' },
     { t: '見える切れ目', p: [0, FC[1] - 0.25, FC[2] + 0.6], hot: false, when: function (s) { return s.open > 0.9; } },
@@ -124,6 +128,6 @@
     initial: base, build: build, tint: tint, labels: labels, scenarios: scenarios, stateList: stateList, svg: '#dsWire', svgUpdate: svgUpdate,
     view: { yaw: -0.9, pitch: 0.15 },
     views: { front: { label: '正面', yaw: 0, pitch: 0.05 }, side: { label: '横', yaw: -1.57, pitch: 0.05 }, top: { label: '上', yaw: -0.3, pitch: 1.2 } },
-    banner: { ext: ['参考：三菱電機 DV-1（単極・F–F）', '!寸法比・接触部の形は外形図と未照合'], int: ['!接触ばねは一般的な形の模式（DV-1の資料に記述なし）'], op: ['!動きは模式・時間は表していない'], wire: [] }
+    banner: { ext: ['参考：三菱電機 DV-1（単極・F–F）', '外形はカタログの外形図（図3-5）の寸法に合わせた', '!接触部・ラッチの細かな形は模式'], int: ['!接触ばねは一般的な形の模式（DV-1の資料に記述なし）'], op: ['!動きは模式・時間は表していない'], wire: [] }
   };
 })();
