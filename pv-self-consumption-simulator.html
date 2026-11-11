@@ -8,144 +8,163 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* layout: schematic-first. 単線結線図が主役、右に操作パネル。タブで3つの見方を切り替え */
+/* layout: スマホ縦持ちが基準。縦型の単線結線図＋「いま見るべき1枚」のカード。4タブ */
 :root{
-  --bg:#eef1f4; --panel:#ffffff; --panel2:#f6f8fa; --ink:#15202b; --muted:#5b6876; --line:#d3dae2;
+  --bg:#eef1f4; --panel:#ffffff; --panel2:#f4f7fa; --ink:#15202b; --muted:#5b6876; --line:#d3dae2;
   --schem:#33414f; --accent:#1c6fd1; --sun:#d98e04; --dc:#d9480f; --ac:#2b8a3e; --grid:#1c6fd1; --load:#7048e8;
   --trip:#e03131; --ok:#2b8a3e; --chip:#eef2f6; --mod:#27497a; --shade:#a9b3bf; --band:rgba(28,111,209,.08);
+  --zone-ok:#b2e5bf; --zone-warn:#ffe08a; --zone-ng:#ffb3b3; --zone-off:#dfe4ea;
   --f-disp:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
   --f-body:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
   --f-num:"JetBrains Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#10151b; --panel:#18202a; --panel2:#1e2833; --ink:#e6ecf2; --muted:#93a1b0; --line:#2e3a48;
+  --bg:#10151b; --panel:#18202a; --panel2:#1f2933; --ink:#e6ecf2; --muted:#93a1b0; --line:#2e3a48;
   --schem:#aebbc8; --accent:#4dabf7; --sun:#f5b82e; --dc:#ff7a3d; --ac:#51cf66; --grid:#4dabf7; --load:#9775fa;
-  --trip:#ff6b6b; --ok:#51cf66; --chip:#232e3a; --mod:#4a74b3; --shade:#4b5563; --band:rgba(77,171,247,.10); color-scheme:dark}}
+  --trip:#ff6b6b; --ok:#51cf66; --chip:#232e3a; --mod:#4a74b3; --shade:#4b5563; --band:rgba(77,171,247,.10);
+  --zone-ok:#1f5c33; --zone-warn:#6b5514; --zone-ng:#6e2626; --zone-off:#2a3440; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#10151b; --panel:#18202a; --panel2:#1e2833; --ink:#e6ecf2; --muted:#93a1b0; --line:#2e3a48;
+  --bg:#10151b; --panel:#18202a; --panel2:#1f2933; --ink:#e6ecf2; --muted:#93a1b0; --line:#2e3a48;
   --schem:#aebbc8; --accent:#4dabf7; --sun:#f5b82e; --dc:#ff7a3d; --ac:#51cf66; --grid:#4dabf7; --load:#9775fa;
-  --trip:#ff6b6b; --ok:#51cf66; --chip:#232e3a; --mod:#4a74b3; --shade:#4b5563; --band:rgba(77,171,247,.10); color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.7}
-.wrap{max-width:1240px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1{font-family:var(--f-disp);font-weight:900;font-size:clamp(22px,3.4vw,32px);margin:0;letter-spacing:.02em;text-wrap:balance}
-h2{font-family:var(--f-disp);font-weight:700;font-size:17px;margin:0 0 6px}
+  --trip:#ff6b6b; --ok:#51cf66; --chip:#232e3a; --mod:#4a74b3; --shade:#4b5563; --band:rgba(77,171,247,.10);
+  --zone-ok:#1f5c33; --zone-warn:#6b5514; --zone-ng:#6e2626; --zone-off:#2a3440; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7}
+.wrap{max-width:1040px;margin:0 auto;padding-block:16px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-family:var(--f-disp);font-weight:900;font-size:clamp(21px,5vw,30px);margin:0;letter-spacing:.02em;text-wrap:balance;line-height:1.35}
+h2{font-family:var(--f-disp);font-weight:900;font-size:20px;margin:0;line-height:1.4;text-wrap:balance}
 h3{font-family:var(--f-disp);font-weight:700;font-size:15px;margin:0}
-.lead{color:var(--muted);margin:6px 0 0;max-width:68ch}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:12px;color:var(--muted)}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:22px;height:4px;border-radius:2px;display:inline-block}
-nav.tabs{display:flex;gap:6px;margin:18px 0 14px;flex-wrap:wrap}
-nav.tabs button{font:inherit;font-family:var(--f-disp);font-weight:700;font-size:15px;padding:9px 16px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer}
+.lead{color:var(--muted);margin:4px 0 0;font-size:14px}
+nav.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:14px 0 12px}
+nav.tabs button{font:inherit;font-family:var(--f-disp);font-weight:700;font-size:clamp(11.5px,3.2vw,13.5px);line-height:1.3;padding:9px 2px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;white-space:nowrap}
+nav.tabs button small{display:block;font-size:10.5px;font-weight:500;opacity:.8}
 nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-nav.tabs button:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
-@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* 3エリアのレイアウト：スマホは head→dia→det の縦積み、PCは図を左に固定 */
+.lay{display:grid;gap:12px;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "dia" "det"}
+.lay>.head{grid-area:head}.lay>.dia{grid-area:dia}.lay>.det{grid-area:det}
+@media (min-width:860px){.lay{grid-template-columns:minmax(0,430px) minmax(0,1fr);grid-template-areas:"dia head" "dia det";grid-template-rows:auto 1fr;align-items:start}}
+.lay3{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.lay3{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.sb{justify-content:space-between}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.stack{display:flex;flex-direction:column;gap:14px;min-width:0}
-.ctl{display:flex;flex-direction:column;gap:4px}
-.ctl label{display:flex;justify-content:space-between;gap:8px;font-weight:500;font-size:13px}
-.ctl output,.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;font-weight:700}
-input[type=range]{width:100%;accent-color:var(--accent)}
-.seg{display:flex;gap:4px;flex-wrap:wrap}
-.seg button,.btn{font:inherit;font-size:13px;padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.count{font-family:var(--f-num);font-weight:700;font-size:13px;color:var(--accent)}
+.dots{display:flex;gap:4px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.one{font-size:16.5px;font-weight:700;margin:4px 0 10px;line-height:1.6}
+.tm{display:inline-block;font-family:var(--f-num);font-weight:700;font-size:12.5px;background:var(--ink);color:var(--bg);border-radius:6px;padding:1px 9px;margin-bottom:4px}
+.btn{font:inherit;font-size:14px;padding:8px 14px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
+.btn.big{flex:1;font-weight:700;font-size:15px;padding:11px 10px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
-.btn:disabled{opacity:.45;cursor:default}
-.tog{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
-.tog input{width:18px;height:18px;accent-color:var(--accent)}
-.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.kpi{background:var(--panel2);border-radius:8px;padding:8px 10px;min-width:0}
-.kpi b{display:block;font-family:var(--f-num);font-size:19px;font-variant-numeric:tabular-nums;line-height:1.3}
-.kpi small{color:var(--muted);font-size:11.5px}
-.status{border-radius:8px;padding:9px 12px;font-size:13px;font-weight:500;border:1px solid var(--line);background:var(--panel2)}
-.status.ok{border-color:var(--ok);color:var(--ok)}
-.status.bad{border-color:var(--trip);color:var(--trip)}
-.status.warn{border-color:var(--sun);color:var(--sun)}
-.info h3{margin-bottom:4px}
-.info p{margin:0;color:var(--ink)}
-.info ul{margin:6px 0 0;padding-left:1.2em}
-.info .hint{color:var(--muted);font-size:12px;margin-top:6px}
-.note{color:var(--muted);font-size:12px;margin-top:22px;max-width:80ch}
-/* schematic */
-.dg{width:100%;min-width:680px;height:auto;display:block}
-.dg text{fill:var(--ink);font-size:13px;font-family:var(--f-body)}
-.dg .sub{fill:var(--muted);font-size:11px}
-.dg .ttl{font-family:var(--f-disp);font-weight:700;font-size:14px}
+.btn:disabled{opacity:.4;cursor:default}
+.pts{margin:0;padding-left:1.25em}
+.pts li{margin:3px 0}
+.ana{background:var(--panel2);border-radius:9px;padding:8px 12px;margin:10px 0 0;font-size:14px}
+.ana b{font-family:var(--f-disp)}
+.elec{display:inline-block;margin-top:10px;font-family:var(--f-num);font-weight:700;font-size:13.5px;border:2px solid var(--accent);color:var(--accent);border-radius:999px;padding:2px 14px}
+.ctl{display:flex;flex-direction:column;gap:2px}
+.ctl label{display:flex;justify-content:space-between;gap:8px;font-weight:500;font-size:14px}
+.ctl output,.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;font-weight:700}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+.seg{display:flex;gap:5px;flex-wrap:wrap}
+.seg button{font:inherit;font-size:13.5px;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer;flex:1;line-height:1.3}
+#scn button{padding:8px 2px;white-space:nowrap;font-size:clamp(12px,3.4vw,13.5px)}
+#presets button{flex:1 1 30%;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.tog{display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;font-weight:500}
+.tog input{width:22px;height:22px;accent-color:var(--accent);flex:none}
+.status{border-radius:10px;padding:9px 12px;font-size:14px;font-weight:500;border:2px solid var(--line);background:var(--panel2)}
+.status.ok{border-color:var(--ok)} .status.bad{border-color:var(--trip);color:var(--trip)} .status.warn{border-color:var(--sun)}
+.hint{color:var(--muted);font-size:12.5px;margin:0}
+.note{color:var(--muted);font-size:12px;margin-top:20px}
+/* やりくりバー */
+.bar{display:flex;height:44px;border-radius:10px;overflow:hidden;background:var(--chip);font-family:var(--f-num);font-weight:700;font-size:13px;color:#fff}
+.bar div{display:flex;align-items:center;justify-content:center;min-width:0;white-space:nowrap;overflow:hidden;transition:flex-grow .25s}
+.bar .pv{background:var(--ac)} .bar .gr{background:var(--grid)} .bar .ov{background:repeating-linear-gradient(45deg,var(--trip),var(--trip) 6px,transparent 6px,transparent 10px),var(--panel2);color:var(--trip)}
+.eq{font-family:var(--f-num);font-weight:700;font-size:clamp(12.5px,3.6vw,15px);margin:8px 0 0;font-variant-numeric:tabular-nums}
+.eq .a{color:var(--ac)} .eq .g{color:var(--grid)} .eq .l{color:var(--load)} .eq .d{color:var(--dc)} .eq .s{color:var(--sun)}
+.eq small{font-family:var(--f-body);font-weight:500;font-size:11.5px;color:var(--muted)}
+.bigeq{font-family:var(--f-num);font-weight:700;font-size:clamp(17px,5vw,22px);font-variant-numeric:tabular-nums;margin:2px 0 6px}
+.bigeq b{color:var(--dc)}
+/* 図 */
+.dgwrap{padding:8px}
+.dg{width:100%;height:auto;display:block;max-width:440px;margin:0 auto}
+.dg text{fill:var(--ink);font-size:12.5px;font-family:var(--f-body)}
+.dg .sub{fill:var(--muted);font-size:10.5px}
+.dg .ttl{font-family:var(--f-disp);font-weight:700;font-size:13.5px}
 .dg .wire{stroke:var(--schem);stroke-width:2;fill:none}
-.dg .dash{stroke:var(--schem);stroke-width:1.2;stroke-dasharray:3 3;fill:none}
-.dg .bus{stroke:var(--schem);stroke-width:6;stroke-linecap:round}
+.dg .bus{stroke:var(--schem);stroke-width:7;stroke-linecap:round}
 .dg .box{fill:var(--panel);stroke:var(--schem);stroke-width:1.5}
-.dg .tr{fill:none;stroke:var(--schem);stroke-width:2}
+.dg .tr{fill:var(--panel);stroke:var(--schem);stroke-width:2}
 .dg .dot{fill:var(--schem)}
-.dg .blade{stroke:var(--schem);stroke-width:3;stroke-linecap:round;transition:all .35s}
+.dg .blade{stroke:var(--schem);stroke-width:3.5;stroke-linecap:round;transition:all .35s}
 .dg .hitbox{fill:transparent}
-.dg .hit{cursor:pointer}
-.dg .hit:hover .box,.dg .hit.sel .box{stroke:var(--accent);stroke-width:2.5}
-.dg .hit:hover .tr,.dg .hit.sel .tr{stroke:var(--accent)}
+.dg .hit{cursor:pointer;transition:opacity .25s}
+.dg .hit.sel .box,.dg .hit.focus .box{stroke:var(--accent);stroke-width:3}
+.dg .hit.sel .tr,.dg .hit.focus .tr{stroke:var(--accent);stroke-width:3}
+.dg .hit.focus .bus{stroke:var(--accent)}
+.dg .hit.focus .blade{stroke:var(--accent)}
+.dg .hit.focus .dot{fill:var(--accent)}
+.dg.tour .hit{opacity:.32}
+.dg.tour .hit.focus{opacity:1}
 .dg .dead .box{fill:var(--chip);stroke-dasharray:4 3}
-.dg .flow{fill:none;stroke-width:4.5;stroke-linecap:round;stroke-dasharray:4 12;animation:dash 1s linear infinite;transition:opacity .3s;pointer-events:none}
+.dg .flow{fill:none;stroke-width:5;stroke-linecap:round;stroke-dasharray:4 12;animation:dash 1s linear infinite;transition:opacity .3s;pointer-events:none}
 .dg .k-grid{stroke:var(--grid)} .dg .k-dc{stroke:var(--dc)} .dg .k-ac{stroke:var(--ac)} .dg .k-load{stroke:var(--load)}
 .dg .flow.rev{stroke:var(--trip)}
 .dg .chip rect{fill:var(--chip);stroke:var(--line);transition:fill .2s}
-.dg .chip text{font-size:12px}
+.dg .chip text{font-size:11.5px}
+.dg .chip.sm text{font-size:10.5px}
 .dg .chip.hot rect{fill:var(--trip);stroke:var(--trip)}
 .dg .chip.hot text{fill:#fff;font-weight:700}
-.dg .live{stroke:var(--dc);stroke-width:3;stroke-dasharray:3 5;animation:blink 1s steps(2) infinite}
+.dg .live{stroke:var(--dc);stroke-width:3.5;stroke-dasharray:3 5;animation:blink 1s steps(2) infinite}
 .dg .led{fill:var(--muted)} .dg .led.run{fill:var(--ok)} .dg .led.stop{fill:var(--trip)} .dg .led.wait{fill:var(--sun)}
 .dg .bad{fill:var(--trip)!important;font-weight:700}
 .dg .fault path{stroke:var(--trip);stroke-width:3;fill:none;stroke-linejoin:round}
 .dg .fault text{fill:var(--trip);font-weight:700}
 .dg .panel{fill:var(--mod)} .dg .sunc{fill:var(--sun)} .dg .sunr{stroke:var(--sun);stroke-width:2.5;stroke-linecap:round}
-.dg .pvlab{font-family:var(--f-num);font-weight:700;font-size:13px}
+.dg .pw{font-family:var(--f-num);font-weight:700;font-size:13px}
+.dg .dcv{fill:var(--dc);font-family:var(--f-num);font-weight:700;font-size:10.5px}
 @keyframes dash{to{stroke-dashoffset:-32}}
 @keyframes blink{50%{opacity:.25}}
 @media (prefers-reduced-motion:reduce){.dg .flow,.dg .live{animation:none}}
-/* strings */
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11.5px;color:var(--muted);justify-content:center;margin-top:4px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:16px;height:4px;border-radius:2px;display:inline-block}
+/* 1日グラフ・ゲージ */
+.viz{width:100%;height:auto;display:block}
+.viz text{font-family:var(--f-body);font-size:10.5px;fill:var(--muted)}
+.viz .v{font-family:var(--f-num);font-weight:700;font-size:11.5px;fill:var(--ink)}
+/* ストリング */
 .sd{display:block}
-.sd text{font-family:var(--f-num);font-size:11px;fill:var(--muted)}
+.sd text{font-family:var(--f-num);font-size:10.5px;fill:var(--muted)}
 .sd .m{fill:var(--mod);cursor:pointer;stroke:var(--panel);stroke-width:1}
 .sd .m.sh{fill:var(--shade)}
-.sd .m:hover{stroke:var(--sun);stroke-width:2}
-.sd .w{stroke:var(--schem);stroke-width:1.5;fill:none}
 .sd .cb{cursor:pointer}
-.sd .cb rect{fill:var(--ok);rx:4}
+.sd .cb rect{fill:var(--ok)}
 .sd .cb.off rect{fill:var(--trip)}
-.sd .cb text{fill:#fff;font-weight:700;font-size:10px}
-.sd .row.open .m{opacity:.3}
+.sd .cb text{fill:#fff;font-weight:700;font-size:9.5px}
+.sd .r.open .m{opacity:.3}
 .sd .cur{fill:var(--dc);font-weight:700}
-.sd .pcs{fill:var(--panel2);stroke:var(--schem);stroke-width:1.5}
-.sd .pcst{fill:var(--ink);font-family:var(--f-disp);font-size:13px;font-weight:700}
-canvas#iv{width:100%;height:300px;display:block}
+canvas#iv{width:100%;height:260px;display:block}
 .checks{display:flex;flex-direction:column;gap:8px}
-.chk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:start;font-size:13px}
-.chk .pill{font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px;color:#fff;margin-top:2px;white-space:nowrap}
+.chk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:start;font-size:14px}
+.pill{font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px;color:#fff;margin-top:3px;white-space:nowrap}
 .pill.ok{background:var(--ok)} .pill.ng{background:var(--trip)} .pill.warn{background:var(--sun)}
-.chk small{color:var(--muted);display:block}
-.presets{display:flex;flex-wrap:wrap;gap:6px}
-.explain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-@media (max-width:700px){.explain{grid-template-columns:minmax(0,1fr)}}
-.explain div{background:var(--panel2);border-radius:8px;padding:10px 12px;font-size:13px}
-.explain b{font-family:var(--f-disp);display:block;margin-bottom:2px}
-/* scenarios */
-.scn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
-.scn button{font:inherit;text-align:left;padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
-.scn button b{font-family:var(--f-disp);display:block;font-size:14px}
-.scn button small{color:var(--muted);font-size:11.5px}
-.scn button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-ol.steps li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;padding:8px 10px;border-radius:8px;border:1px solid transparent;cursor:pointer;color:var(--muted)}
-ol.steps li .tm{font-family:var(--f-num);font-size:12px;font-weight:700;padding-top:2px}
-ol.steps li b{display:block;color:var(--ink);font-weight:700}
-ol.steps li p{margin:2px 0 0;font-size:13px;display:none}
-ol.steps li.on{border-color:var(--accent);background:var(--panel2);color:var(--ink)}
-ol.steps li.on p{display:block}
-ol.steps li.done b{color:var(--muted)}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.cd{font-family:var(--f-num);font-weight:700;color:var(--sun)}
+.chk small{color:var(--muted);display:block;font-size:12.5px}
+/* 3コマ */
+.koma{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.koma div{background:var(--panel2);border-radius:10px;padding:8px 10px;font-size:13px;line-height:1.5}
+.koma b{display:block;font-family:var(--f-disp);font-size:12px;color:var(--accent);margin-bottom:2px}
+@media (max-width:520px){.koma{grid-template-columns:minmax(0,1fr)}}
+details{padding-top:2px}
+summary{cursor:pointer;font-weight:700;font-family:var(--f-disp)}
 [hidden]{display:none!important}
 </style>
-<style>*{box-sizing:border-box}body{margin:0}img{max-width:100%}.sitebar{display:flex;justify-content:space-between;gap:12px;font-size:13px;font-weight:700;margin-bottom:14px}.sitebar a{color:var(--accent);text-decoration:none}</style>
+<style>body{margin:0}img{max-width:100%}.sitebar{display:flex;justify-content:space-between;gap:12px;font-size:13px;font-weight:700;margin-bottom:12px}.sitebar a{color:var(--accent);text-decoration:none}</style>
 <link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
 </head>
 <body>
@@ -154,135 +173,145 @@ ol.steps li.done b{color:var(--muted)}
   <div class="sitebar"><a href="index.html">🛟 うきわメモ</a><a href="pukapuka-diary.html#pv-self-consumption-20261111">← この日の日誌へ</a></div>
   <header>
     <h1>自家消費太陽光シミュレータ</h1>
-    <p class="lead">パネルから工場の負荷まで、電気がどう流れて、事故のときに誰が何を切るのかを動かしながら確かめられます。図の機器をタップすると説明が出ます。</p>
-    <div class="legend">
-      <span><i style="background:var(--dc)"></i>直流（パネル→パワコン）</span>
-      <span><i style="background:var(--ac)"></i>太陽光の交流</span>
-      <span><i style="background:var(--grid)"></i>電力会社からの受電</span>
-      <span><i style="background:var(--load)"></i>負荷へ</span>
-      <span><i style="background:var(--trip)"></i>逆潮流・動作中のリレー</span>
-    </div>
+    <p class="lead">パネルで作った電気が工場で使われるまでを、1歩ずつ。</p>
   </header>
 
   <nav class="tabs" role="tablist">
-    <button role="tab" id="tab-flow" aria-selected="true" data-v="flow">① 全体の流れ</button>
-    <button role="tab" id="tab-dc" aria-selected="false" data-v="dc">② 直流側の中身</button>
-    <button role="tab" id="tab-fault" aria-selected="false" data-v="fault">③ 停電・事故のとき</button>
+    <button role="tab" id="tab-tour" aria-selected="true" data-v="tour">①しくみ<small>通り道をたどる</small></button>
+    <button role="tab" id="tab-day" aria-selected="false" data-v="day">②1日の動き<small>動かしてみる</small></button>
+    <button role="tab" id="tab-dc" aria-selected="false" data-v="dc">③パネル側<small>直列と並列</small></button>
+    <button role="tab" id="tab-fault" aria-selected="false" data-v="fault">④事故のとき<small>誰が何を切る</small></button>
   </nav>
 
-  <!-- ① -->
-  <section id="v-flow">
-    <div class="grid2">
-      <div class="stack">
-        <div class="card scroll"><div id="dg1"></div></div>
-        <div class="card info" id="info1"></div>
-      </div>
-      <div class="stack">
-        <div class="card stack">
-          <h2>条件を変える</h2>
-          <div class="ctl"><label for="t1">時刻 <output id="t1o"></output></label><input type="range" id="t1" min="5" max="19" step="0.25" value="12"></div>
-          <div class="ctl"><label>天気</label><div class="seg" id="w1">
-            <button aria-pressed="true" data-w="sun">晴れ</button><button aria-pressed="false" data-w="cloud">くもり</button><button aria-pressed="false" data-w="rain">雨</button></div></div>
-          <div class="ctl"><label for="cap1">太陽光の容量 <output id="cap1o"></output></label><input type="range" id="cap1" min="50" max="600" step="10" value="300"></div>
-          <div class="ctl"><label for="ld1">工場の負荷 <output id="ld1o"></output></label><input type="range" id="ld1" min="0" max="800" step="10" value="450"></div>
-          <label class="tog"><input type="checkbox" id="fol1" checked>負荷追従制御（余りそうならパワコンを絞る）</label>
-        </div>
-        <div class="card stack">
-          <div class="kpis">
-            <div class="kpi"><small>日射量</small><b id="k-g"></b></div>
-            <div class="kpi"><small>太陽光（出せる分）</small><b id="k-av"></b></div>
-            <div class="kpi"><small>太陽光（実際の出力）</small><b id="k-pv"></b></div>
-            <div class="kpi"><small>受電電力</small><b id="k-gr"></b></div>
-            <div class="kpi"><small>受電点の力率（目安）</small><b id="k-pf"></b></div>
-            <div class="kpi"><small>太陽光なしの力率</small><b id="k-pf0"></b></div>
-          </div>
-          <div class="status" id="st1"></div>
-          <button class="btn primary" id="rst1" hidden>連系用遮断器を投入して復旧</button>
-          <small style="color:var(--muted);font-size:11.5px">力率は負荷の力率を0.95と仮定した目安です。太陽光は有効電力（kW）だけを出すので、受電点では無効電力の割合が増えて力率が下がって見えます。</small>
-        </div>
-      </div>
+  <!-- ① しくみ -->
+  <section id="v-tour" class="lay">
+    <div class="head card">
+      <div class="row sb"><span class="count" id="tcount"></span><div class="dots" id="tdots"></div></div>
+      <h2 id="tname"></h2>
+      <p class="one" id="tone"></p>
+      <div class="row"><button class="btn big" id="tprev">◀ 前へ</button><button class="btn big primary" id="tnext">次へ ▶</button></div>
+    </div>
+    <div class="dia card dgwrap"><div id="dgA"></div>
+      <div class="legend"><span><i style="background:var(--dc)"></i>直流</span><span><i style="background:var(--ac)"></i>太陽光の交流</span><span><i style="background:var(--grid)"></i>買う電気</span><span><i style="background:var(--load)"></i>工場へ</span></div>
+      <p class="hint" style="text-align:center">図の機器をタップしても移動できます</p></div>
+    <div class="det card">
+      <ul class="pts" id="tpts"></ul>
+      <p class="ana" id="tana"></p>
+      <div class="elec" id="telec"></div>
     </div>
   </section>
 
-  <!-- ② -->
+  <!-- ② 1日の動き -->
+  <section id="v-day" class="lay" hidden>
+    <div class="head card stack">
+      <h3>工場の電気を、だれがまかなっている？</h3>
+      <div>
+        <div class="bar" id="bar"></div>
+        <p class="eq" id="eq"></p>
+      </div>
+      <div class="status" id="st1"></div>
+      <button class="btn primary" id="rst1" hidden>連系用遮断器を入れて復旧する</button>
+      <div class="ctl"><label for="t1">時刻 <output id="t1o"></output></label><input type="range" id="t1" min="5" max="19" step="0.25" value="12"></div>
+    </div>
+    <div class="dia card dgwrap"><div id="dgB"></div>
+      <p class="hint" style="text-align:center">図の機器をタップすると説明が出ます</p></div>
+    <div class="det stack">
+      <div class="card stack">
+        <div class="ctl"><label>天気</label><div class="seg" id="w1">
+          <button aria-pressed="true" data-w="sun">晴れ</button><button aria-pressed="false" data-w="cloud">くもり</button><button aria-pressed="false" data-w="rain">雨</button></div></div>
+        <div class="ctl"><label for="ld1">工場が使う電気 <output id="ld1o"></output></label><input type="range" id="ld1" min="0" max="800" step="10" value="450"></div>
+        <div class="ctl"><label for="cap1">太陽光の大きさ <output id="cap1o"></output></label><input type="range" id="cap1" min="50" max="600" step="10" value="300"></div>
+        <label class="tog"><input type="checkbox" id="fol1" checked>余りそうなとき、パワコンが自動で絞る（負荷追従制御）</label>
+        <p class="hint">工場が使う電気を小さくして、このチェックを外すと逆潮流が起きます。</p>
+      </div>
+      <div class="card">
+        <h3>1日を通して見ると</h3>
+        <svg class="viz" id="day" viewBox="0 0 340 150" role="img" aria-label="1日の太陽光の発電と工場の使用電力"></svg>
+        <p class="hint" id="daytxt"></p>
+      </div>
+      <div class="card"><details><summary>受電点の力率はどう見える？</summary>
+        <p class="eq" id="pfeq" style="margin-top:8px"></p>
+        <p class="hint">負荷の力率を遅れ0.95と仮定した目安です。太陽光はkWだけを出すので、買う電気のkWが減り、kvarはそのまま残ります。だから太陽光が発電するほど、受電点の力率は悪く見えます。</p></details></div>
+      <div class="card" id="infoB" hidden></div>
+    </div>
+  </section>
+
+  <!-- ③ パネル側 -->
   <section id="v-dc" hidden>
-    <div class="grid2">
+    <div class="lay3">
       <div class="stack">
-        <div class="card">
-          <div class="row" style="justify-content:space-between"><h2>ストリングの組み方</h2><small style="color:var(--muted)">パネルをタップで影、右端のONをタップで開放</small></div>
-          <div class="scroll"><svg class="sd" id="sd"></svg></div>
-          <p id="sdtxt" style="margin:8px 0 0;font-size:13px"></p>
+        <div class="card stack">
+          <h3>直列は「電圧」のたし算</h3>
+          <div><p class="bigeq" id="eqv"></p>
+          <svg class="viz" id="vg" viewBox="0 0 340 100" role="img" aria-label="ストリング電圧とパワコンの入力範囲"></svg></div>
+          <div class="ctl"><label for="n2">直列の枚数（1列あたり） <output id="n2o"></output></label><input type="range" id="n2" min="8" max="24" step="1" value="18"></div>
+          <div class="status" id="vst"></div>
         </div>
-        <div class="card">
-          <h2>I-VカーブとP-Vカーブ</h2>
-          <canvas id="iv" aria-label="アレイのI-VカーブとP-Vカーブ"></canvas>
-          <p id="ivtxt" style="margin:6px 0 0;font-size:13px;color:var(--muted)"></p>
+        <div class="card stack">
+          <h3>並列は「電流」のたし算</h3>
+          <div><p class="bigeq" id="eqi"></p>
+          <svg class="viz" id="pg" viewBox="0 0 340 70" role="img" aria-label="パネルが出せる電力とパワコンの定格"></svg></div>
+          <div class="ctl"><label for="p2">並列の本数（列の数） <output id="p2o"></output></label><input type="range" id="p2" min="1" max="16" step="1" value="12"></div>
+          <div class="status" id="pst2"></div>
         </div>
-        <div class="explain">
-          <div><b>直列は電圧の足し算</b>1枚あたり約40Vでも、18枚つなぐと約750V。だからストリングの電圧は1000V近くになります。</div>
-          <div><b>並列は電流の足し算</b>1本あたり約13Aのストリングを12本束ねると約160A。パワコンに入る電流はここで決まります。</div>
-          <div><b>影は1枚でも効く</b>直列の中の1枚が陰ると、そのパネルはバイパスダイオードで飛ばされ、カーブに段ができます。</div>
+        <div class="card stack">
+          <h3>天気と気温</h3>
+          <div class="ctl"><label for="g2">日ざしの強さ <output id="g2o"></output></label><input type="range" id="g2" min="0" max="1200" step="10" value="900"></div>
+          <div class="ctl"><label for="ta2">気温 <output id="ta2o"></output></label><input type="range" id="ta2" min="-10" max="40" step="1" value="20"></div>
+          <div class="ctl"><label for="tm2">その土地で一番寒い朝 <output id="tm2o"></output></label><input type="range" id="tm2" min="-20" max="10" step="1" value="-5"></div>
+          <p class="hint">パネルは冷えるほど電圧が上がり、暑いほど下がります。</p>
         </div>
       </div>
       <div class="stack">
         <div class="card stack">
-          <h2>条件を変える</h2>
-          <div class="presets">
-            <button class="btn" data-p="std">標準</button>
-            <button class="btn" data-p="over">直列を増やしすぎ</button>
-            <button class="btn" data-p="shade">影がかかる</button>
-            <button class="btn" data-p="open">1本開放</button>
-            <button class="btn" data-p="winter">冬の朝</button>
+          <h3>影と開放を試す</h3>
+          <div class="seg" id="presets">
+            <button data-p="std" aria-pressed="false">標準に戻す</button>
+            <button data-p="shade" aria-pressed="false">影をかける</button>
+            <button data-p="open" aria-pressed="false">1本開放</button>
+            <button data-p="winter" aria-pressed="false">冬の朝</button>
+            <button data-p="over" aria-pressed="false">直列多すぎ</button>
           </div>
-          <div class="ctl"><label for="g2">日射量 <output id="g2o"></output></label><input type="range" id="g2" min="0" max="1200" step="10" value="900"></div>
-          <div class="ctl"><label for="ta2">気温 <output id="ta2o"></output></label><input type="range" id="ta2" min="-10" max="40" step="1" value="20"></div>
-          <div class="ctl"><label for="n2">直列枚数（1ストリング） <output id="n2o"></output></label><input type="range" id="n2" min="8" max="24" step="1" value="18"></div>
-          <div class="ctl"><label for="p2">並列本数（ストリング数） <output id="p2o"></output></label><input type="range" id="p2" min="1" max="16" step="1" value="12"></div>
-          <div class="ctl"><label for="sr2">影のパネルに届く日射 <output id="sr2o"></output></label><input type="range" id="sr2" min="0" max="90" step="5" value="20"></div>
-          <div class="ctl"><label for="tm2">その土地の最低気温 <output id="tm2o"></output></label><input type="range" id="tm2" min="-20" max="10" step="1" value="-5"></div>
+          <div class="scroll"><svg class="sd" id="sd"></svg></div>
+          <p class="hint">青い四角がパネル1枚、横1列がストリング。パネルをタップすると影、右のONをタップするとその列を開放します。</p>
+          <div class="ctl"><label for="sr2">影のパネルに届く日ざし <output id="sr2o"></output></label><input type="range" id="sr2" min="0" max="90" step="5" value="20"></div>
+        </div>
+        <div class="card">
+          <h3>くわしく：I-Vカーブ・P-Vカーブ</h3>
+          <canvas id="iv" aria-label="アレイのI-VカーブとP-Vカーブ"></canvas>
+          <p class="hint" id="ivtxt"></p>
         </div>
         <div class="card stack">
-          <div class="kpis">
-            <div class="kpi"><small>動作電圧</small><b id="d-v"></b></div>
-            <div class="kpi"><small>動作電流</small><b id="d-i"></b></div>
-            <div class="kpi"><small>直流電力</small><b id="d-pdc"></b></div>
-            <div class="kpi"><small>交流出力</small><b id="d-pac"></b></div>
-            <div class="kpi"><small>パネル容量</small><b id="d-cap"></b></div>
-            <div class="kpi"><small>過積載率</small><b id="d-ol"></b></div>
-          </div>
           <h3>設計チェック</h3>
           <div class="checks" id="checks"></div>
-          <small style="color:var(--muted);font-size:11.5px">パネルは550W級の例（Voc 49.8V・Vmp 41.9V・Isc 13.9A）、パワコンは100kW機の例（MPPT 200〜1000V・最大入力1100V・変換効率98%）、接続箱のブレーカは20Aとしています。</small>
+          <p class="hint">パネルは550W級の例（開放電圧49.8V・動作電圧41.9V・短絡電流13.9A）、パワコンは100kW機の例（動ける範囲200〜1000V・最大入力1100V）、接続箱のブレーカは20Aとしています。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ③ -->
-  <section id="v-fault" hidden>
-    <div class="grid2">
-      <div class="stack">
-        <div class="card scroll"><div id="dg3"></div></div>
-        <div class="card info" id="info3"></div>
+  <!-- ④ 事故のとき -->
+  <section id="v-fault" class="lay" hidden>
+    <div class="head card stack">
+      <div class="seg" id="scn">
+        <button data-s="outage" aria-pressed="true">停電</button>
+        <button data-s="hvgf" aria-pressed="false">高圧地絡</button>
+        <button data-s="drop" aria-pressed="false">負荷急減</button>
+        <button data-s="dcgf" aria-pressed="false">直流地絡</button>
       </div>
-      <div class="stack">
-        <div class="card stack">
-          <h2>事故を起こしてみる</h2>
-          <div class="scn" id="scn">
-            <button data-s="outage" aria-pressed="true"><b>系統停電</b><small>配電線が止まる</small></button>
-            <button data-s="hvgf" aria-pressed="false"><b>高圧地絡</b><small>ケーブルの絶縁劣化</small></button>
-            <button data-s="drop" aria-pressed="false"><b>負荷の急減</b><small>機械が一斉停止</small></button>
-            <button data-s="dcgf" aria-pressed="false"><b>直流地絡</b><small>パネル配線の傷</small></button>
-          </div>
-          <label class="tog" id="fol3w" hidden><input type="checkbox" id="fol3" checked>負荷追従制御あり</label>
-          <div class="row">
-            <button class="btn primary" id="play3">▶ 再生</button>
-            <button class="btn" id="next3">次へ</button>
-            <button class="btn" id="reset3">最初から</button>
-          </div>
-        </div>
-        <div class="card"><ol class="steps" id="steps3"></ol></div>
+      <label class="tog" id="fol3w" hidden><input type="checkbox" id="fol3" checked>負荷追従制御あり</label>
+      <div>
+        <div class="row sb"><span class="tm" id="ftm"></span><div class="dots" id="fdots"></div></div>
+        <h2 id="fname"></h2>
+        <p id="ftxt" style="margin:6px 0 0"></p>
       </div>
+      <div class="row"><button class="btn big" id="prev3">◀ 前へ</button><button class="btn big" id="play3">▶ 自動再生</button><button class="btn big primary" id="next3">次へ ▶</button></div>
+    </div>
+    <div class="dia card dgwrap"><div id="dgC"></div>
+      <p class="hint" style="text-align:center">赤く光るのが動いたリレー。刃が開いた遮断器は「切れた」状態</p></div>
+    <div class="det stack">
+      <div class="card stack"><h3>この事故を3コマで</h3><div class="koma" id="koma"></div></div>
+      <div class="card" id="infoC" hidden></div>
     </div>
   </section>
 
@@ -295,165 +324,193 @@ const $=s=>document.querySelector(s);
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const fmt=(v,d=0)=>(Math.round(v*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('ja-JP',{minimumFractionDigits:d,maximumFractionDigits:d});
 
-/* ---------- 説明文 ---------- */
-const INFO={
- grid:{t:'電力会社の配電線（6.6kV）',d:'工場はここから高圧で電気を買っています。この太陽光は自家消費型なので、太陽光の電気がここへ流れ出る（逆潮流）ことは許されません。'},
- recv:{t:'受電盤（受電遮断器と保護リレー）',d:'受電の遮断器と、太陽光を系統から切り離すためのリレーがまとまった盤です。',l:['GR/DGR（地絡）: 構内の地絡を検出して受電を切る（PAS・UGSに内蔵のことも）','27R（不足電圧）: 停電を検出して太陽光を切り離す','64・OVGR（地絡過電圧）: 零相電圧で地絡を検出して太陽光を切り離す','67P・RPR（逆電力）: 電力会社側へ電気が流れ出したら太陽光を切り離す']},
- gr:{t:'GR/DGR（地絡継電器）',d:'構内で地絡が起きたとき、零相電流（とDGRなら零相電圧の向き）を見て受電の開閉器を開きます。構内の事故を電力会社側に広げないための守りです。'},
- r27:{t:'27R 不足電圧継電器（UVR）',d:'電圧が下がったら動作。停電したのに太陽光が動き続ける「単独運転」を防ぐため、連系用遮断器を開きます。整定の例は 85V・1秒。'},
- r64:{t:'64 地絡過電圧継電器（OVGR）',d:'地絡のとき出てくる零相電圧（V0）を検出。構内でも配電線でも、地絡点に太陽光が電気を流し込み続けないよう連系用遮断器を開きます。'},
- r67:{t:'67P 逆電力継電器（RPR）',d:'受電点で電力の向きが逆（構内→電力会社）になったら動作。自家消費型で逆潮流を起こさないための最後の砦です。'},
- tr:{t:'受電トランス（6600V→210V）',d:'高圧を工場で使う低圧に下げる、普通の変電設備のトランスです。'},
- bus:{t:'低圧母線（210V）',d:'受電トランスからの電気と太陽光の電気がここで合流します。負荷から見ると、どちらの電気かは区別されません。'},
- load:{t:'構内負荷',d:'工場の機械・空調・照明など。太陽光で足りない分を電力会社から買います。'},
- pv:{t:'太陽電池アレイ',d:'パネル（モジュール）を直列につないだものがストリング、ストリングを並列にしたものがアレイです。日が当たる限り、パワコンを止めていても電圧が出ています。'},
- jb:{t:'接続箱',d:'ストリングごとに直流用ブレーカを入れて、パワコンへ送ります。点検でストリングごとの開放電圧を測るのもここです。直流は電流がゼロになる瞬間がなくアークが切れにくいので、直流専用のブレーカを使います。'},
- pcs:{t:'パワーコンディショナ（PCS）',d:'太陽光発電の頭脳です。',l:['MPPT: 一番たくさん発電できる電圧を探し続ける','直流→交流に変換（この図では440V出力の例）','系統連系保護: 電圧・周波数の異常（OVR/UVR/OFR/UFR）で停止','単独運転検出: 停電を見抜いて0.5〜1秒で止まる','直流地絡検出: パネル側の地絡で停止','出力抑制: 自家消費型では受電電力を見て出力を絞る']},
- pcsprot:{t:'パワコン内蔵の連系保護',d:'系統の電圧・周波数の異常や、停電による単独運転を検出して止まります。単独運転は、電圧の位相の跳び（受動方式）と、自分で少し揺さぶりをかけて反応を見る方法（能動方式）の2段構えで見抜きます。'},
- pcsdc:{t:'直流地絡検出',d:'パネル側の配線が地絡すると、漏れ電流や絶縁低下を検出してパワコンが止まります。交流側の事故ではないので、受電盤のリレーは動きません。'},
- dt:{t:'ダウントランス（440V→210V）',d:'パワコンの440Vを構内の210Vに下げるトランスです。パワコンが440Vで出すのは、同じ電力でも電流が小さく、ケーブルを細くできて損失も減るからです。'},
- pvcb:{t:'連系用遮断器',d:'太陽光を構内の母線から切り離す遮断器です。27R・64・67Pが動作すると、ここが開きます。'}
+/* ---------- 通り道ツアーの中身 ---------- */
+const TOUR=[
+ {k:'pv',n:'太陽電池パネル',one:'光を「直流」の電気に変える板。',pts:['1枚で約40V。乾電池と同じ「直流」の電気が出る','直列につないだ1列を「ストリング」と呼ぶ。18枚で約750V','日が当たる限り発電し続ける。スイッチで止められない発電機'],ana:'乾電池を直列につなぐと電圧が上がるのと同じ',elec:'直流 約750V'},
+ {k:'jb',n:'接続箱',one:'ストリング1本ずつに付けた、スイッチの箱。',pts:['点検や故障のとき、1本ずつ切り離せる','直流は火花（アーク）が消えにくいので、直流専用のブレーカを使う','ストリングごとの電圧を測る場所でもある'],ana:'家の分電盤の、太陽光・直流版',elec:'直流 約750V'},
+ {k:'pcs',n:'パワコン（PCS）',one:'直流を交流に変える変換器。そして見張り番。',pts:['工場の電気は交流。直流のままでは使えないので、交流440Vに変える','一番たくさん発電できる電圧を探し続ける（MPPT）','停電や地絡を見つけたら、自分で止まる','電気が余りそうなときは、出力を絞る'],ana:'通訳と警備員を兼ねた人',elec:'直流 約750V → 交流 440V'},
+ {k:'dt',n:'ダウントランス',one:'440Vを、工場で使う210Vに下げる。',pts:['パワコンが440Vで出すのは、同じ電力でも電流が小さく、ケーブルが細くて済むから','工場の母線は210Vなので、最後にここで合わせる'],ana:'',elec:'交流 440V → 210V'},
+ {k:'pvcb',n:'連系用遮断器',one:'太陽光を工場の電気につなぐスイッチ。',pts:['ふだんは入りっぱなし','異常のとき、受電盤のリレーの指令で開いて、太陽光を切り離す'],ana:'太陽光専用の出入口のドア',elec:'交流 210V'},
+ {k:'bus',n:'低圧母線',one:'太陽光の電気と、買った電気が合流する場所。',pts:['負荷から見れば、どちらの電気かは区別がない','太陽光が先に使われ、足りない分だけ電力会社から流れ込む'],ana:'2本の川が1本になる合流点',elec:'交流 210V'},
+ {k:'load',n:'工場の負荷',one:'機械・空調・照明。電気の使い道。',pts:['使う電気 ＝ 太陽光 ＋ 買う電気','太陽光が増えるほど、買う電気が減る。これが自家消費のもうけ'],ana:'',elec:'交流 210V'},
+ {k:'tr',n:'受電トランス',one:'電力会社の6600Vを、210Vに下げる。',pts:['太陽光がなくても、もともとある変電設備のトランス','買う電気はここを通って母線へ来る'],ana:'',elec:'交流 6600V → 210V'},
+ {k:'recv',n:'受電盤',one:'電気の入口。遮断器と、見張りのリレーたち。',pts:['27R（停電）：停電したら太陽光を切り離す','64（地絡電圧）：地絡したら太陽光を切り離す','67P（逆電力）：電気が外へ流れ出したら太陽光を切り離す','GR（地絡）：構内の地絡で受電を切る'],ana:'工場の入口にある警備室',elec:'交流 6600V'},
+ {k:'grid',n:'電力会社の配電線',one:'ここへは流さない。それが自家消費のルール。',pts:['太陽光の電気は、工場の中だけで使い切る','余って外へ流れること（逆潮流）は禁止。だから見張りのリレーが要る'],ana:'',elec:'交流 6600V'}
+];
+const CHIP={
+ gr:{n:'GR（地絡リレー）',one:'構内の地絡を見つけて、受電を切る。',pts:['PAS・UGSに内蔵されていることも多い','構内の事故を電力会社側に広げないための守り']},
+ r27:{n:'27R（不足電圧リレー）',one:'停電を見つけて、太陽光を切り離す。',pts:['停電中に太陽光だけ動き続ける「単独運転」を防ぐ','整定の例：85V・1秒']},
+ r64:{n:'64（地絡過電圧リレー・OVGR）',one:'地絡のときに出る電圧を見つけて、太陽光を切り離す。',pts:['地絡点に太陽光が電気を流し込み続けないようにする','構内の地絡でも、配電線の地絡でも働く']},
+ r67:{n:'67P（逆電力リレー・RPR）',one:'電気が外へ流れ出したら、太陽光を切り離す。',pts:['自家消費型で逆潮流を起こさないための最後の砦','ふだんは負荷追従制御が先に絞るので、出番は少ない']},
+ pcsprot:{n:'単独運転検出（パワコン内蔵）',one:'停電を見抜いて、0.5〜1秒で止まる。',pts:['電圧の波がガクッとずれるのを見る（受動方式）','自分で少し揺さぶって反応を見る（能動方式）','電圧・周波数の異常（OVR/UVR/OFR/UFR）でも止まる']},
+ pcsdc:{n:'直流地絡検出（パワコン内蔵）',one:'パネル側の地絡を見つけて、パワコンを止める。',pts:['交流側の事故ではないので、受電盤のリレーは動かない','止まってもパネル側には電圧が残る']}
 };
-function showInfo(el,k){const i=INFO[k];if(!i)return;
- el.innerHTML=`<h3>${i.t}</h3><p>${i.d}</p>`+(i.l?`<ul>${i.l.map(x=>`<li>${x}</li>`).join('')}</ul>`:'');}
+const PARENT={gr:'recv',r27:'recv',r64:'recv',r67:'recv',pcsprot:'pcs',pcsdc:'pcs'};
+function showInfo(el,k){const i=CHIP[k]||TOUR.find(x=>x.k===k);if(!i)return;el.hidden=false;
+ el.innerHTML=`<h3>${i.n}</h3><p class="one" style="font-size:15px;margin-bottom:6px">${i.one}</p><ul class="pts">${i.pts.map(x=>`<li>${x}</li>`).join('')}</ul>`;}
 
-/* ---------- 単線結線図 ---------- */
-function dg(p){return `
-<svg class="dg" viewBox="0 0 1000 480" role="img" aria-label="自家消費型太陽光発電の単線結線図">
- <g class="hit" id="${p}-grid" data-k="grid"><rect class="box" x="10" y="12" width="176" height="48" rx="8"/>
-  <text class="ttl" x="24" y="33">電力会社 配電線</text><text class="sub" x="24" y="50">高圧 6.6kV</text>
-  <text id="${p}-outage" x="140" y="42" class="bad" visibility="hidden">停電</text></g>
- <path class="wire" d="M70 60 V150"/>
- <g class="hit" data-k="recv"><rect class="box" x="20" y="104" width="222" height="146" rx="8"/>
-  <text class="ttl" x="122" y="98">受電盤</text>
-  <circle class="dot" cx="70" cy="150" r="3.5"/><circle class="dot" cx="70" cy="182" r="3.5"/>
-  <line class="blade" id="${p}-vcbb" x1="70" y1="182" x2="70" y2="150"/>
-  <text class="sub" x="38" y="162" text-anchor="middle">受電</text><text class="sub" x="38" y="177" text-anchor="middle">遮断器</text></g>
- <g class="chip hit" id="${p}-c-gr" data-k="gr"><rect x="118" y="116" width="114" height="26" rx="5"/><text x="128" y="134">GR 地絡</text></g>
- <g class="chip hit" id="${p}-c-r27" data-k="r27"><rect x="118" y="148" width="114" height="26" rx="5"/><text x="128" y="166">27R 不足電圧</text></g>
- <g class="chip hit" id="${p}-c-r64" data-k="r64"><rect x="118" y="180" width="114" height="26" rx="5"/><text x="128" y="198">64 地絡過電圧</text></g>
- <g class="chip hit" id="${p}-c-r67" data-k="r67"><rect x="118" y="212" width="114" height="26" rx="5"/><text x="128" y="230">67P 逆電力</text></g>
- <path class="wire" d="M70 182 V282"/>
- <g class="fault" id="${p}-fhv" visibility="hidden"><path d="M70 222 l-14 8 l10 4 l-14 10"/><text x="20" y="270">地絡</text></g>
- <g class="hit" data-k="tr"><rect class="hitbox" x="40" y="278" width="180" height="70"/>
-  <circle class="tr" cx="70" cy="300" r="18"/><circle class="tr" cx="70" cy="326" r="18"/>
-  <text x="98" y="306">受電トランス</text><text class="sub" x="98" y="323">6600V → 210V</text></g>
- <path class="wire" d="M70 344 V380"/>
- <g class="hit" data-k="bus"><rect class="hitbox" x="30" y="364" width="940" height="30"/><path class="bus" d="M40 380 H960"/>
-  <text class="sub" x="760" y="400">低圧母線 210V</text></g>
- <text id="${p}-island" x="430" y="370" class="bad" visibility="hidden">単独運転状態！</text>
- <path class="wire" d="M330 380 V410"/>
- <g class="hit" data-k="load"><rect class="box" x="230" y="410" width="200" height="58" rx="8"/>
-  <text class="ttl" x="244" y="434">構内負荷（工場）</text><text class="pvlab" id="${p}-t-load" x="244" y="456"></text></g>
- <!-- 太陽光側 -->
- <g id="${p}-sun"><circle class="sunc" cx="748" cy="38" r="13"/>
-  ${[0,45,90,135,180,225,270,315].map(a=>{const r=a*Math.PI/180;return `<line class="sunr" x1="${748+19*Math.cos(r)}" y1="${38+19*Math.sin(r)}" x2="${748+26*Math.cos(r)}" y2="${38+26*Math.sin(r)}"/>`}).join('')}</g>
- <g class="hit" data-k="pv"><rect class="box" x="790" y="10" width="170" height="62" rx="6"/>
-  ${[0,1,2,3].map(c=>[0,1].map(r=>`<rect class="panel" x="${800+c*38}" y="${18+r*25}" width="34" height="21" rx="2"/>`).join('')).join('')}</g>
- <text class="sub" x="958" y="88" text-anchor="end">太陽電池アレイ</text>
- <path class="wire" id="${p}-dcw1" d="M870 72 V110"/>
- <g class="fault" id="${p}-fdc" visibility="hidden"><path d="M884 80 l14 6 l-10 4 l14 8"/><text x="904" y="104">地絡</text></g>
- <g class="hit" data-k="jb"><rect class="box" x="810" y="110" width="140" height="56" rx="6"/>
-  <text class="ttl" x="824" y="134">接続箱</text><text class="sub" x="824" y="152">ストリング毎のブレーカ</text></g>
- <path class="wire" id="${p}-dcw2" d="M810 138 H760"/>
- <text class="sub" x="764" y="130">直流</text>
- <g class="hit" data-k="pcs"><rect class="box" x="600" y="104" width="160" height="72" rx="8"/>
-  <text class="ttl" x="614" y="128">パワコン（PCS）</text><text class="sub" x="614" y="146">直流 → 交流 440V</text>
-  <circle class="led" id="${p}-led" cx="742" cy="122" r="6"/><text class="sub" id="${p}-pst" x="614" y="166"></text></g>
- <g class="chip hit" id="${p}-c-pcsprot" data-k="pcsprot"><rect x="444" y="104" width="138" height="28" rx="5"/><text x="452" y="123">単独運転・連系保護</text></g>
- <g class="chip hit" id="${p}-c-pcsdc" data-k="pcsdc"><rect x="444" y="142" width="138" height="28" rx="5"/><text x="452" y="161">直流地絡検出</text></g>
- <path class="dash" d="M582 118 H600 M582 156 H600"/>
- <path class="wire" d="M680 176 V236"/>
- <g class="hit" data-k="dt"><rect class="hitbox" x="650" y="232" width="200" height="70"/>
-  <circle class="tr" cx="680" cy="254" r="18"/><circle class="tr" cx="680" cy="280" r="18"/>
-  <text x="708" y="262">ダウントランス</text><text class="sub" x="708" y="279">440V → 210V</text></g>
- <path class="wire" d="M680 298 V318"/>
- <g class="hit" data-k="pvcb"><rect class="hitbox" x="640" y="312" width="190" height="44"/>
-  <circle class="dot" cx="680" cy="318" r="3.5"/><circle class="dot" cx="680" cy="350" r="3.5"/>
-  <line class="blade" id="${p}-pvcbb" x1="680" y1="350" x2="680" y2="318"/>
-  <text x="708" y="338">連系用遮断器</text></g>
- <path class="wire" d="M680 350 V380"/>
- <!-- 流れ -->
- <path class="flow k-grid" id="${p}-f-grid" d="M70 60 V380 H330"/>
- <path class="flow k-dc" id="${p}-f-pv" d="M870 72 V138 H760"/>
- <path class="flow k-ac" id="${p}-f-pvac" d="M680 176 V380 H330"/>
- <path class="flow k-load" id="${p}-f-load" d="M330 380 V410"/>
- <text class="pvlab" id="${p}-t-grid" x="198" y="42"></text>
- <text class="pvlab" id="${p}-t-pv" x="540" y="214" style="fill:var(--ac)"></text>
+/* ---------- 縦型の単線結線図 ---------- */
+function dg(p){const rays=[0,45,90,135,180,225,270,315].map(a=>{const r=a*Math.PI/180;return `<line class="sunr" x1="${218+14*Math.cos(r)}" y1="${34+14*Math.sin(r)}" x2="${218+19*Math.cos(r)}" y2="${34+19*Math.sin(r)}"/>`}).join('');
+return `
+<svg class="dg" viewBox="0 0 380 462" role="img" aria-label="自家消費型太陽光発電の単線結線図">
+ <path class="wire" d="M50 52V118M50 150V235M50 289V372M190 372V402"/>
+ <path class="wire" id="${p}-dcw1" d="M300 58V84"/><path class="wire" id="${p}-dcw2" d="M300 124V150"/>
+ <path class="wire" d="M300 208V253M300 307V318M300 350V372"/>
+ <g class="hit" id="${p}-grid" data-k="grid"><rect class="box" x="14" y="10" width="106" height="42" rx="8"/>
+  <text class="ttl" x="24" y="29">電力会社</text><text class="sub" x="24" y="44">高圧 6600V</text></g>
+ <text class="pw" x="128" y="28" id="${p}-tg1" style="fill:var(--grid)"></text><text class="pw" x="128" y="45" id="${p}-tg2" style="fill:var(--grid)"></text>
+ <g class="hit" data-k="recv"><rect class="box" x="14" y="84" width="162" height="126" rx="8"/>
+  <text class="ttl" x="60" y="78">受電盤</text>
+  <circle class="dot" cx="50" cy="118" r="3.5"/><circle class="dot" cx="50" cy="150" r="3.5"/>
+  <line class="blade" id="${p}-vcbb" x1="50" y1="150" x2="50" y2="118"/>
+  <text class="sub" x="46" y="172" text-anchor="middle">受電</text><text class="sub" x="46" y="186" text-anchor="middle">遮断器</text></g>
+ <g class="chip hit" id="${p}-c-gr" data-k="gr" data-g="recv"><rect x="78" y="92" width="92" height="24" rx="5"/><text x="86" y="109">GR 地絡</text></g>
+ <g class="chip hit" id="${p}-c-r27" data-k="r27" data-g="recv"><rect x="78" y="121" width="92" height="24" rx="5"/><text x="86" y="138">27R 停電</text></g>
+ <g class="chip hit" id="${p}-c-r64" data-k="r64" data-g="recv"><rect x="78" y="150" width="92" height="24" rx="5"/><text x="86" y="167">64 地絡電圧</text></g>
+ <g class="chip hit" id="${p}-c-r67" data-k="r67" data-g="recv"><rect x="78" y="179" width="92" height="24" rx="5"/><text x="86" y="196">67P 逆電力</text></g>
+ <g class="fault" id="${p}-fhv" visibility="hidden"><path d="M50 214l-11 6l9 3l-11 8"/><text x="62" y="230">地絡</text></g>
+ <g class="hit" data-k="tr"><rect class="hitbox" x="28" y="232" width="134" height="60"/>
+  <circle class="tr" cx="50" cy="250" r="15"/><circle class="tr" cx="50" cy="274" r="15"/>
+  <text x="72" y="258">受電トランス</text><text class="sub" x="72" y="274">6600V → 210V</text></g>
+ <g class="hit" data-k="bus"><rect class="hitbox" x="14" y="358" width="352" height="36"/><path class="bus" d="M20 372H360"/>
+  <text class="sub" x="358" y="392" text-anchor="end">低圧母線 210V</text></g>
+ <text id="${p}-island" x="190" y="360" text-anchor="middle" class="bad" visibility="hidden">単独運転！</text>
+ <g class="hit" data-k="load"><rect class="box" x="96" y="402" width="188" height="50" rx="8"/>
+  <text class="ttl" x="108" y="423">工場の負荷</text><text class="pw" id="${p}-t-load" x="108" y="442" style="fill:var(--load)"></text></g>
+ <g id="${p}-sun"><circle class="sunc" cx="218" cy="34" r="9"/>${rays}</g>
+ <g class="hit" data-k="pv"><rect class="box" x="240" y="10" width="120" height="48" rx="6"/>
+  ${[0,1,2].map(c=>[0,1].map(r=>`<rect class="panel" x="${248+c*36}" y="${15+r*20}" width="32" height="17" rx="2"/>`).join('')).join('')}
+  <text class="sub" x="290" y="74" text-anchor="end">太陽電池パネル</text></g>
+ <g class="fault" id="${p}-fdc" visibility="hidden"><path d="M310 60l10 5l-8 3l10 7"/><text x="326" y="79">地絡</text></g>
+ <g class="hit" data-k="jb"><rect class="box" x="234" y="84" width="132" height="40" rx="6"/>
+  <text class="ttl" x="244" y="109">接続箱</text><text class="sub" x="294" y="109">直流ブレーカ</text></g>
+ <text class="dcv" x="292" y="141" text-anchor="end">直流 約750V</text>
+ <g class="hit" data-k="pcs"><rect class="box" x="226" y="150" width="148" height="58" rx="8"/>
+  <text class="ttl" x="236" y="170">パワコン</text><circle class="led" id="${p}-led" cx="360" cy="165" r="6"/>
+  <text class="sub" x="236" y="186">直流 → 交流440V</text><text class="sub" id="${p}-pst" x="236" y="201"></text></g>
+ <g class="chip sm hit" id="${p}-c-pcsprot" data-k="pcsprot" data-g="pcs"><rect x="200" y="214" width="92" height="24" rx="5"/><text x="207" y="230">単独運転検出</text></g>
+ <g class="chip sm hit" id="${p}-c-pcsdc" data-k="pcsdc" data-g="pcs"><rect x="308" y="214" width="70" height="24" rx="5"/><text x="312" y="230">直流地絡検出</text></g>
+ <g class="hit" data-k="dt"><rect class="hitbox" x="190" y="250" width="130" height="60"/>
+  <circle class="tr" cx="300" cy="268" r="15"/><circle class="tr" cx="300" cy="292" r="15"/>
+  <text x="278" y="276" text-anchor="end">ダウントランス</text><text class="sub" x="278" y="292" text-anchor="end">440V → 210V</text></g>
+ <text class="pw" id="${p}-t-pv" x="322" y="285" style="fill:var(--ac)"></text>
+ <g class="hit" data-k="pvcb"><rect class="hitbox" x="190" y="312" width="130" height="44"/>
+  <circle class="dot" cx="300" cy="318" r="3.5"/><circle class="dot" cx="300" cy="350" r="3.5"/>
+  <line class="blade" id="${p}-pvcbb" x1="300" y1="350" x2="300" y2="318"/>
+  <text x="278" y="339" text-anchor="end">連系用遮断器</text></g>
+ <path class="flow k-grid" id="${p}-f-grid" d="M50 52V372H190"/>
+ <path class="flow k-dc" id="${p}-f-pv" d="M300 58V150"/>
+ <path class="flow k-ac" id="${p}-f-pvac" d="M300 208V372H190"/>
+ <path class="flow k-load" id="${p}-f-load" d="M190 372V402"/>
 </svg>`;}
 
 class Diagram{
- constructor(root,p,infoEl){
-  root.innerHTML=dg(p);this.root=root;this.q=id=>root.querySelector('#'+p+'-'+id);
-  root.querySelectorAll('.hit').forEach(g=>g.addEventListener('click',()=>{
-   root.querySelectorAll('.hit.sel').forEach(x=>x.classList.remove('sel'));g.classList.add('sel');showInfo(infoEl,g.dataset.k);}));
- }
- blade(el,x,y,closed){el.setAttribute('x2',closed?x:x-22);el.setAttribute('y2',closed?y-32:y-22);}
+ constructor(root,p,onPick){root.innerHTML=dg(p);this.root=root;this.svg=root.querySelector('svg');this.q=id=>root.querySelector('#'+p+'-'+id);
+  root.querySelectorAll('.hit').forEach(g=>g.addEventListener('click',e=>{e.stopPropagation();onPick&&onPick(g.dataset.k,g);}));}
+ select(g){this.root.querySelectorAll('.hit.sel').forEach(x=>x.classList.remove('sel'));if(g)g.classList.add('sel');}
+ focus(k){this.svg.classList.add('tour');this.root.querySelectorAll('.hit').forEach(g=>g.classList.toggle('focus',g.dataset.k===k||g.dataset.g===k));}
+ blade(el,x,y,closed){el.setAttribute('x2',closed?x:x-20);el.setAttribute('y2',closed?y-32:y-22);}
  flow(el,v){const a=Math.abs(v);if(a<0.5){el.style.opacity=0;return;}
   el.style.opacity=1;el.style.animationDuration=Math.max(0.35,2.2-a/320)+'s';
   el.style.animationDirection=v<0?'reverse':'normal';el.classList.toggle('rev',v<0);}
  update(s){const q=this.q;
   q('sun').style.opacity=0.12+0.88*Math.min(1,s.sun??1);
   q('grid').classList.toggle('dead',!s.gridLive);
-  q('outage').setAttribute('visibility',s.gridLive?'hidden':'visible');
-  this.blade(q('vcbb'),70,182,s.vcb);this.blade(q('pvcbb'),680,350,s.pvcb);
+  this.blade(q('vcbb'),50,150,s.vcb);this.blade(q('pvcbb'),300,350,s.pvcb);
   ['gr','r27','r64','r67','pcsprot','pcsdc'].forEach(k=>q('c-'+k).classList.toggle('hot',(s.hot||[]).includes(k)));
   q('fhv').setAttribute('visibility',s.fault==='hv'?'visible':'hidden');
   q('fdc').setAttribute('visibility',s.fault==='dc'?'visible':'hidden');
-  const led=q('led');led.setAttribute('class','led '+s.pcs);
+  q('led').setAttribute('class','led '+s.pcs);
   q('pst').textContent=s.pcs==='run'?'運転中':s.pcs==='wait'?`待機中 ${s.wait??''}`:'停止';
-  const gridFlow=(s.gridLive&&s.vcb)?s.grid:0;
-  this.flow(q('f-grid'),gridFlow);
-  this.flow(q('f-pv'),s.pcs==='run'?s.pv:0);
-  this.flow(q('f-pvac'),(s.pcs==='run'&&s.pvcb)?s.pv:0);
-  this.flow(q('f-load'),s.load);
+  const gf=(s.gridLive&&s.vcb)?s.grid:0;
+  this.flow(q('f-grid'),gf);this.flow(q('f-pv'),s.pcs==='run'?s.pv:0);
+  this.flow(q('f-pvac'),(s.pcs==='run'&&s.pvcb)?s.pv:0);this.flow(q('f-load'),s.load);
   ['dcw1','dcw2'].forEach(k=>q(k).classList.toggle('live',!!s.dcLive&&s.pcs!=='run'));
-  const tg=q('t-grid');
-  tg.textContent=!s.gridLive?'受電なし（停電）':!s.vcb?'受電遮断':gridFlow<-0.5?`逆潮流 ${fmt(-gridFlow)} kW`:`受電 ${fmt(gridFlow)} kW`;
-  tg.classList.toggle('bad',gridFlow<-0.5||!s.gridLive||!s.vcb);
-  q('t-pv').textContent=(s.pcs==='run'&&s.pvcb&&s.pv>0.5)?`太陽光 ${fmt(s.pv)} kW`:'';
-  q('t-load').textContent=s.load>0.5?`${fmt(s.load)} kW 使用中`:'停電';
-  q('island').setAttribute('visibility',s.island?'visible':'hidden');
- }
+  const a=q('tg1'),b=q('tg2');const bad=gf<-0.5||!s.gridLive||!s.vcb;
+  a.textContent=!s.gridLive?'停電':!s.vcb?'受電':gf<-0.5?'逆潮流':'買う電気';
+  b.textContent=!s.gridLive?'':!s.vcb?'遮断':fmt(Math.abs(gf))+' kW';
+  a.classList.toggle('bad',bad);b.classList.toggle('bad',bad);
+  q('t-pv').textContent=(s.pcs==='run'&&s.pvcb&&s.pv>0.5)?fmt(s.pv)+'kW':'';
+  q('t-load').textContent=s.load>0.5?`${fmt(s.load)} kW 使用中`:'停電中';
+  q('island').setAttribute('visibility',s.island?'visible':'hidden');}
 }
+const S=o=>Object.assign({gridLive:true,vcb:true,pvcb:true,pcs:'run',pv:200,load:300,grid:100,hot:[],fault:null,dcLive:false,island:false,sun:0.8},o);
 
 /* ---------- タブ ---------- */
-const views=['flow','dc','fault'];
-function setView(v){if(!views.includes(v))v='flow';
+const views=['tour','day','dc','fault'];
+function setView(v){if(v==='flow')v='tour';if(!views.includes(v))v='tour';
  views.forEach(x=>{$('#v-'+x).hidden=x!==v;$('#tab-'+x).setAttribute('aria-selected',x===v);});
  if(v==='dc')requestAnimationFrame(()=>drawChart());}
-document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.v;setView(b.dataset.v);}));
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{try{location.hash=b.dataset.v;}catch(e){}setView(b.dataset.v);}));
 window.addEventListener('hashchange',()=>setView(location.hash.slice(1)));
 
-/* ---------- ① 全体の流れ ---------- */
-const D1=new Diagram($('#dg1'),'a',$('#info1'));
-showInfo($('#info1'),'pcs');
+/* ---------- ① しくみ ---------- */
+let ti=0;
+const DA=new Diagram($('#dgA'),'a',k=>{const i=TOUR.findIndex(x=>x.k===(PARENT[k]||k));if(i>=0)tour(i);});
+DA.update(S({pv:255,load:450,grid:195,sun:1}));
+function tour(i){ti=Math.max(0,Math.min(TOUR.length-1,i));const t=TOUR[ti];
+ $('#tcount').textContent=`電気の通り道 ${ti+1} / ${TOUR.length}`;
+ $('#tdots').innerHTML=TOUR.map((_,j)=>`<i class="${j<=ti?'on':''}"></i>`).join('');
+ $('#tname').textContent=t.n;$('#tone').textContent=t.one;
+ $('#tpts').innerHTML=t.pts.map(x=>`<li>${x}</li>`).join('');
+ $('#tana').hidden=!t.ana;$('#tana').innerHTML=t.ana?`<b>たとえると</b>　${t.ana}`:'';
+ $('#telec').textContent='ここの電気： '+t.elec;
+ $('#tprev').disabled=ti===0;$('#tnext').textContent=ti===TOUR.length-1?'② 1日の動きへ ▶':'次へ ▶';
+ DA.focus(t.k);}
+$('#tprev').addEventListener('click',()=>tour(ti-1));
+$('#tnext').addEventListener('click',()=>{if(ti===TOUR.length-1){try{location.hash='day';}catch(e){}setView('day');window.scrollTo(0,0);}else tour(ti+1);});
+tour(0);
+
+/* ---------- ② 1日の動き ---------- */
+const DB=new Diagram($('#dgB'),'b',(k,g)=>{DB.select(g);showInfo($('#infoB'),k);});
 const T1={t:12,w:'sun',cap:300,load:450,follow:true,tripped:false,timer:null};
-function irr(){const x=Math.sin(Math.PI*(T1.t-6)/12);const gm={sun:1000,cloud:450,rain:150}[T1.w];return x>0?gm*Math.pow(x,1.3):0;}
+const GM={sun:1000,cloud:450,rain:150};
+function irrAt(t){const x=Math.sin(Math.PI*(t-6)/12);return x>0?GM[T1.w]*Math.pow(x,1.3):0;}
+const availAt=t=>T1.cap*irrAt(t)/1000*0.85;
 function hm(t){const h=Math.floor(t),m=Math.round((t-h)*60);return `${h}:${String(m).padStart(2,'0')}`;}
+function renderDay(){
+ const L=8,R=8,T=14,B=20,W=340-L-R,H=150-T-B;const peak=T1.cap*GM[T1.w]/1000*0.85;
+ const ymax=Math.max(peak,T1.load,60)*1.18;const X=t=>L+(t-5)/14*W,Y=v=>T+H-v/ymax*H;
+ let d=`M${X(5)} ${Y(0)}`;for(let t=5;t<=19.01;t+=0.25)d+=`L${X(t).toFixed(1)} ${Y(availAt(t)).toFixed(1)}`;d+=`L${X(19)} ${Y(0)}Z`;
+ const yl=Y(T1.load);
+ let h=`<defs><clipPath id="cpx"><rect x="${L}" y="${T-4}" width="${W}" height="${Math.max(0,yl-T+4)}"/></clipPath></defs>`;
+ h+=`<line x1="${L}" y1="${Y(0)}" x2="${L+W}" y2="${Y(0)}" stroke="${css('--line')}" stroke-width="1"/>`;
+ h+=`<path d="${d}" fill="${css('--ac')}" opacity=".45"/>`;
+ h+=`<path d="${d}" fill="${css('--trip')}" opacity=".8" clip-path="url(#cpx)"/>`;
+ h+=`<line x1="${L}" y1="${yl}" x2="${L+W}" y2="${yl}" stroke="${css('--load')}" stroke-width="2.5"/>`;
+ h+=`<text x="${L+2}" y="${Math.max(11,yl-4)}" style="fill:${css('--load')};font-weight:700">工場が使う電気 ${fmt(T1.load)}kW</text>`;
+ h+=`<line x1="${X(T1.t)}" y1="${T-6}" x2="${X(T1.t)}" y2="${Y(0)}" stroke="${css('--ink')}" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+ h+=`<circle cx="${X(T1.t)}" cy="${Y(availAt(T1.t))}" r="4.5" fill="${css('--ink')}"/>`;
+ [6,9,12,15,18].forEach(t=>h+=`<text x="${X(t)}" y="146" text-anchor="middle">${t}時</text>`);
+ $('#day').innerHTML=h;
+ const over=peak>T1.load;
+ $('#daytxt').innerHTML=`緑＝太陽光で出せる電気。`+(over?`<b style="color:var(--trip)">赤</b>＝工場が使う分を超えて余る電気。${T1.follow?'パワコンが絞って捨てています。':'このままだと逆潮流になります。'}`:'この条件では、太陽光は全部工場で使い切れます。');
+}
 function update1(){
  $('#t1o').textContent=hm(T1.t);$('#cap1o').textContent=T1.cap+' kW';$('#ld1o').textContent=T1.load+' kW';
- const G=irr(),avail=T1.cap*G/1000*0.85;let pv=avail,limited=false;
+ const G=irrAt(T1.t),avail=availAt(T1.t);let pv=avail,limited=false;
  if(T1.follow){const lim=Math.max(0,T1.load-Math.max(10,T1.load*0.05));if(pv>lim){pv=lim;limited=true;}}
  if(T1.tripped)pv=0;
  const grid=T1.load-pv;
  if(!T1.follow&&grid<-0.5&&!T1.tripped&&!T1.timer){T1.timer=setTimeout(()=>{T1.timer=null;T1.tripped=true;update1();},1800);}
  if(grid>=-0.5&&T1.timer){clearTimeout(T1.timer);T1.timer=null;}
  const pending=!!T1.timer;
- D1.update({gridLive:true,vcb:true,pvcb:!T1.tripped,pcs:T1.tripped||G<5?'stop':'run',pv,load:T1.load,grid,
-  hot:(pending||T1.tripped)?['r67']:[],sun:G/1000,dcLive:false});
- $('#k-g').textContent=fmt(G)+' W/m²';$('#k-av').textContent=fmt(avail)+' kW';$('#k-pv').textContent=fmt(pv)+' kW';
- $('#k-gr').textContent=(grid<0?'−':'')+fmt(Math.abs(grid))+' kW';
- const Q=T1.load*0.3287,pg=Math.max(grid,0);
- $('#k-pf').textContent=pg>0.5?fmt(pg/Math.hypot(pg,Q)*100,1)+' %':'—';
- $('#k-pf0').textContent=T1.load>0?'95.0 %':'—';
+ DB.update(S({pvcb:!T1.tripped,pcs:T1.tripped||G<5?'stop':'run',pv,load:T1.load,grid,hot:(pending||T1.tripped)?['r67']:[],sun:G/1000}));
+ const used=Math.min(pv,T1.load),buy=Math.max(grid,0),ov=Math.max(-grid,0),tot=Math.max(used+buy+ov,1);
+ const seg=(c,v,l)=>v>0.5?`<div class="${c}" style="flex:${v} 1 0">${v/tot>0.2?l+' '+fmt(v):v/tot>0.09?fmt(v):''}</div>`:'';
+ $('#bar').innerHTML=(seg('pv',used,'太陽光')+seg('gr',buy,'買う電気')+seg('ov',ov,'あふれ'))||'<div style="flex:1;color:var(--muted)">負荷なし</div>';
+ $('#eq').innerHTML=ov>0.5?`<span class="a">太陽光 ${fmt(pv)}</span> − <span class="l">工場 ${fmt(T1.load)}</span> ＝ <span style="color:var(--trip)">あふれ ${fmt(ov)} kW</span>`
+  :`<span class="a">太陽光 ${fmt(pv)}</span> ＋ <span class="g">買う電気 ${fmt(buy)}</span> ＝ <span class="l">工場 ${fmt(T1.load)} kW</span>`;
  const st=$('#st1');let cls='ok',msg='';
- if(T1.tripped){cls='bad';msg='67P（逆電力）が動作して連系用遮断器が開きました。太陽光は止まり、負荷は全部受電でまかなっています。';}
- else if(pending){cls='bad';msg=`逆潮流 ${fmt(-grid)} kW を検出。67P（逆電力）が整定時間をカウント中…`;}
- else if(G<5){cls='';msg='日射がないのでパワコンは停止中。負荷は全部受電です。';}
- else if(limited){cls='warn';msg=`太陽光は ${fmt(avail)} kW 出せますが、負荷追従で ${fmt(pv)} kW に絞っています（${fmt(avail-pv)} kW を捨てている状態）。`;}
- else {msg=`負荷 ${fmt(T1.load)} kW のうち ${fmt(pv)} kW を太陽光、${fmt(grid)} kW を受電でまかなっています。`;}
+ if(T1.tripped){cls='bad';msg='67P（逆電力リレー）が動いて、連系用遮断器が開きました。太陽光は止まり、工場は全部買った電気で動いています。';}
+ else if(pending){cls='bad';msg=`電気が ${fmt(ov)} kW 外へ流れ出しています（逆潮流）。67Pがカウント中…`;}
+ else if(G<5){cls='';msg='日が出ていないので、パワコンは止まっています。全部買った電気です。';}
+ else if(limited){cls='warn';msg=`太陽光は ${fmt(avail)} kW 出せますが、余らないように ${fmt(pv)} kW に絞っています。${fmt(avail-pv)} kW は捨てている状態です。`;}
+ else msg=`工場の電気の ${fmt(T1.load>0?pv/T1.load*100:0)}% を太陽光でまかなっています。`;
  st.className='status '+cls;st.textContent=msg;$('#rst1').hidden=!T1.tripped;
+ const Q=T1.load*0.3287;
+ $('#pfeq').innerHTML=buy>0.5?`買う電気 <span class="g">${fmt(buy)} kW</span>、無効電力 ${fmt(Q)} kvar → 力率 <span class="g">${fmt(buy/Math.hypot(buy,Q)*100,1)}%</span><br><small>太陽光がなければ 95.0%</small>`:'買う電気がほぼゼロのため、力率は計算できません。';
+ renderDay();
 }
 $('#t1').addEventListener('input',e=>{T1.t=+e.target.value;update1();});
 $('#cap1').addEventListener('input',e=>{T1.cap=+e.target.value;update1();});
@@ -464,7 +521,7 @@ $('#w1').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 $('#rst1').addEventListener('click',()=>{T1.tripped=false;update1();});
 update1();
 
-/* ---------- ② 直流側 ---------- */
+/* ---------- ③ パネル側 ---------- */
 const MOD={P:550,Voc:49.8,Isc:13.9,Vmp:41.9,Imp:13.13,bVoc:-0.0027,aIsc:0.00048,bVmp:-0.0036,noct:45};
 const PCS={rated:100,eff:0.98,vmin:200,vmax:1000,vabs:1100,cb:20};
 const T2={G:900,Ta:20,N:18,P:12,sr:20,Tmin:-5,shaded:new Set(),open:new Set()};
@@ -477,7 +534,7 @@ function modAt(G,Tc){if(G<5)return null;const dT=Tc-25,g=G/1000,kV=1.1*72*0.0256
 function vmod(m,I){if(!m)return I>0?-0.8:0;if(I>=m.Isc)return -0.8;return m.C2*m.Voc*Math.log(1+(1-I/m.Isc)/m.C1);}
 const K=240;
 function stringCurve(s,Tc){if(T2.open.has(s))return null;
- const mods=[];for(let m=0;m<T2.N;m++){mods.push(modAt(T2.shaded.has(s+'-'+m)?T2.G*T2.sr/100:T2.G,Tc));}
+ const mods=[];for(let m=0;m<T2.N;m++)mods.push(modAt(T2.shaded.has(s+'-'+m)?T2.G*T2.sr/100:T2.G,Tc));
  const Imax=Math.max(0,...mods.map(m=>m?m.Isc:0));if(Imax<=0)return null;
  const Is=[],Vs=[];for(let k=0;k<=K;k++){const I=k<K?Imax*k/K:Imax*0.9995;Is.push(I);Vs.push(mods.reduce((a,m)=>a+vmod(m,I),0));}
  return {Is,Vs};}
@@ -492,7 +549,7 @@ function simulate(){
  const Vtop=live.length?Math.max(...live.map(c=>c.Vs[0])):0;
  const M=360,V=[],I=[],P=[];
  for(let i=0;i<=M;i++){const v=Vtop*i/M;const cur=live.reduce((a,c)=>a+iAt(c,v),0);V.push(v);I.push(cur);P.push(v*cur/1000);}
- let pmax=0,imp=0;P.forEach((p,i)=>{if(p>pmax){pmax=p;imp=i;}});
+ let pmax=0;P.forEach(p=>{if(p>pmax)pmax=p;});
  let peaks=0;for(let i=1;i<M;i++){if(P[i]>P[i-1]&&P[i]>=P[i+1]&&P[i]>pmax*0.05)peaks++;}
  let op=-1,state='run',clipped=false;
  if(Vtop<PCS.vmin){state=live.length?'lowv':'none';}
@@ -500,80 +557,84 @@ function simulate(){
   op=best;if(op<0||bp<=0)state='none';
   else if(bp*PCS.eff>PCS.rated){clipped=true;const lim=PCS.rated/PCS.eff;let j=op;while(j<M&&P[j]>lim)j++;op=j;}}
  if(Vtop>PCS.vabs)state='overv';
- const Vop=op>=0?V[op]:0,Iop=op>=0?I[op]:0,Pdc=state==='run'||state==='lowv'?Vop*Iop/1000:0;
- const run=state==='run';
- const strI=curves.map(c=>c&&run?iAt(c,Vop):0);
- R2={Tc,curves,V,I,P,Vtop,pmax,imp,peaks,op,state,clipped,Vop:run?Vop:0,Iop:run?Iop:0,Pdc:run?Pdc:0,Pac:run?Math.min(PCS.rated,Pdc*PCS.eff):0,strI};
+ const run=state==='run',Vop=run?V[op]:0,Iop=run?I[op]:0,Pdc=Vop*Iop/1000;
+ R2={Tc,curves,V,I,P,Vtop,pmax,peaks,state,clipped,Vop,Iop,Pdc,Pac:run?Math.min(PCS.rated,Pdc*PCS.eff):0,strI:curves.map(c=>c&&run?iAt(c,Vop):0),
+  vocCold:T2.N*MOD.Voc*(1+MOD.bVoc*(T2.Tmin-25)),vmpHot:T2.N*MOD.Vmp*(1+MOD.bVmp*45)};
 }
 function renderStrings(){
- const svg=$('#sd');const rows=T2.P,cols=T2.N,mw=17,mh=13,gx=3,gy=10,x0=44,y0=14;
- const xEnd=x0+cols*(mw+gx)+6,cbx=xEnd+8,busx=cbx+66,pcsx=busx+30;
- const H=y0+rows*(mh+gy)+10,W=pcsx+120;
- svg.setAttribute('viewBox',`0 0 ${W} ${Math.max(H,90)}`);svg.setAttribute('width',W);svg.setAttribute('height',Math.max(H,90));
+ const svg=$('#sd');const rows=T2.P,cols=T2.N,mw=13,mh=13,gx=2,gy=8,x0=26,y0=12;
+ const xEnd=x0+cols*(mw+gx),cbx=xEnd+6,W=cbx+28+46,H=y0+rows*(mh+gy)+2;
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('width',W);svg.setAttribute('height',H);
  let h='';
  for(let s=0;s<rows;s++){const y=y0+s*(mh+gy),open=T2.open.has(s);
-  h+=`<g class="row${open?' open':''}"><text x="4" y="${y+10}">1-${s+1}</text>`;
-  for(let m=0;m<cols;m++){const x=x0+m*(mw+gx);h+=`<rect class="m${T2.shaded.has(s+'-'+m)?' sh':''}" data-s="${s}" data-m="${m}" x="${x}" y="${y}" width="${mw}" height="${mh}" rx="2"/>`;}
-  h+=`<path class="w" d="M${xEnd-6} ${y+mh/2} H${cbx}"/>`;
-  h+=`<g class="cb${open?' off':''}" data-s="${s}"><rect x="${cbx}" y="${y-1}" width="30" height="${mh+2}"/><text x="${cbx+15}" y="${y+10}" text-anchor="middle">${open?'OFF':'ON'}</text></g>`;
-  h+=`<path class="w" d="M${cbx+30} ${y+mh/2} H${busx}"/>`;
-  const ci=R2.strI[s]||0;h+=`<text class="cur" x="${cbx+33}" y="${y-1}">${ci>0.05?fmt(ci,1)+'A':''}</text></g>`;}
- const yt=y0+mh/2,yb=y0+(rows-1)*(mh+gy)+mh/2;
- h+=`<path class="w" d="M${busx} ${yt} V${yb} M${busx} ${(yt+yb)/2} H${pcsx}"/>`;
- h+=`<rect class="pcs" x="${pcsx}" y="${(yt+yb)/2-26}" width="110" height="52" rx="6"/><text class="pcst" x="${pcsx+12}" y="${(yt+yb)/2-4}">パワコン</text><text x="${pcsx+12}" y="${(yt+yb)/2+14}">${R2.state==='run'?fmt(R2.Vop)+'V / '+fmt(R2.Iop)+'A':'停止'}</text>`;
+  h+=`<g class="r${open?' open':''}"><text x="2" y="${y+10}">${s+1}</text>`;
+  for(let m=0;m<cols;m++)h+=`<rect class="m${T2.shaded.has(s+'-'+m)?' sh':''}" data-s="${s}" data-m="${m}" x="${x0+m*(mw+gx)}" y="${y}" width="${mw}" height="${mh}" rx="2"/>`;
+  h+=`<g class="cb${open?' off':''}" data-s="${s}"><rect x="${cbx}" y="${y-1}" width="28" height="${mh+2}" rx="4"/><text x="${cbx+14}" y="${y+9.5}" text-anchor="middle">${open?'OFF':'ON'}</text></g>`;
+  const ci=R2.strI[s]||0;h+=`<text class="cur" x="${cbx+32}" y="${y+10}">${ci>0.05?fmt(ci,1)+'A':open?'':'0A'}</text></g>`;}
  svg.innerHTML=h;
- const m1=modAt(T2.G,R2.Tc);
- $('#sdtxt').innerHTML=m1&&R2.state==='run'?`いまパネル1枚あたり約 <b class="num">${fmt(R2.Vop/T2.N,1)} V</b> × ${T2.N}枚 ＝ ストリング <b class="num">${fmt(R2.Vop)} V</b>。ストリング1本あたり約 <b class="num">${fmt(R2.Iop/Math.max(1,T2.P-T2.open.size),1)} A</b> × ${T2.P-T2.open.size}本 ＝ <b class="num">${fmt(R2.Iop)} A</b> がパワコンに入っています。セル温度は約${fmt(R2.Tc)}℃。`:'日射が足りないか、ストリングがすべて開放されているので発電していません。';
+}
+function renderGauges(){
+ const X=v=>10+Math.min(v,1300)/1300*320;const y=40,hh=22;
+ let g=`<rect x="${X(0)}" y="${y}" width="${X(200)-X(0)}" height="${hh}" fill="${css('--zone-off')}"/>`+
+  `<rect x="${X(200)}" y="${y}" width="${X(1000)-X(200)}" height="${hh}" fill="${css('--zone-ok')}"/>`+
+  `<rect x="${X(1000)}" y="${y}" width="${X(1100)-X(1000)}" height="${hh}" fill="${css('--zone-warn')}"/>`+
+  `<rect x="${X(1100)}" y="${y}" width="${X(1300)-X(1100)}" height="${hh}" fill="${css('--zone-ng')}"/>`+
+  `<text x="${(X(200)+X(1000))/2}" y="${y+15}" text-anchor="middle" style="fill:${css('--ink')};font-weight:700">パワコンが動ける範囲</text>`+
+  `<text x="${(X(1100)+X(1300))/2}" y="${y+15}" text-anchor="middle" style="fill:${css('--ink')};font-weight:700">壊れる</text>`;
+ [0,200,1000].forEach(v=>g+=`<text x="${X(v)}" y="${y+hh+11}" text-anchor="middle">${v}V</text>`);
+ g+=`<text x="${X(1100)}" y="${y+hh+11}" text-anchor="start">1100V</text>`;
+ const pin=(v,lab,up,col)=>{const x=X(v),anc=x>250?'end':x<60?'start':'middle';
+  return up?`<path d="M${x} ${y-1}l-5 -8h10z" fill="${col}"/><text class="v" x="${x}" y="${y-13}" text-anchor="${anc}" style="fill:${col}">${lab}</text>`
+   :`<path d="M${x} ${y+hh+15}l-5 8h10z" fill="${col}"/><text class="v" x="${x}" y="${y+hh+35}" text-anchor="${anc}" style="fill:${col}">${lab}</text>`;};
+ g+=pin(R2.vocCold,`一番寒い朝 ${fmt(R2.vocCold)}V`,true,R2.vocCold>PCS.vabs?css('--trip'):css('--ink'));
+ if(R2.state==='run')g+=pin(R2.Vop,`いま ${fmt(R2.Vop)}V`,false,css('--dc'));
+ $('#vg').innerHTML=g;
+ const pm=Math.max(160,R2.pmax*1.12),PX=v=>10+v/pm*320,lim=PCS.rated/PCS.eff;
+ let b=`<rect x="10" y="22" width="320" height="22" rx="4" fill="${css('--chip')}"/>`;
+ if(R2.pmax>0.2)b+=`<rect x="10" y="22" width="${PX(Math.min(R2.pmax,lim))-10}" height="22" rx="4" fill="${css('--sun')}"/>`;
+ if(R2.pmax>lim)b+=`<rect x="${PX(lim)}" y="22" width="${PX(R2.pmax)-PX(lim)}" height="22" fill="${css('--trip')}" opacity=".55"/>`;
+ b+=`<line x1="${PX(lim)}" y1="14" x2="${PX(lim)}" y2="50" stroke="${css('--ink')}" stroke-width="2"/>`;
+ b+=`<text class="v" x="${PX(lim)}" y="11" text-anchor="middle">パワコンの上限 100kW</text>`;
+ b+=`<text class="v" x="12" y="62" style="fill:${css('--sun')}">パネルが出せる ${fmt(R2.pmax,1)}kW</text>`;
+ if(R2.pmax>lim)b+=`<text class="v" x="330" y="62" text-anchor="end" style="fill:${css('--trip')}">捨てる分 ${fmt(R2.pmax-lim,1)}kW</text>`;
+ $('#pg').innerHTML=b;
 }
 function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v)));const n=v/p;return (n<=1?1:n<=2?2:n<=5?5:10)*p;}
 function drawChart(){
  const cv=$('#iv');if(!cv||!R2||cv.offsetParent===null)return;
- const dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=300;cv.width=w*dpr;cv.height=h*dpr;
+ const dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=260;cv.width=w*dpr;cv.height=h*dpr;
  const c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
- const L=48,Rr=52,T=14,B=34,pw=w-L-Rr,ph=h-T-B;
+ const L=40,Rr=48,T=12,B=30,pw=w-L-Rr,ph=h-T-B;
  const xmax=Math.max(1200,Math.ceil(R2.Vtop/100)*100);
  const imax=nice(Math.max(20,Math.max(...R2.I)*1.1)),pmaxA=nice(Math.max(PCS.rated/PCS.eff,R2.pmax)*1.1);
  const X=v=>L+v/xmax*pw,YI=i=>T+ph-i/imax*ph,YP=p=>T+ph-p/pmaxA*ph;
  const ink=css('--ink'),mut=css('--muted'),line=css('--line');
- c.font='11px '+css('--f-num');
+ c.font='10.5px '+css('--f-num');
  c.fillStyle=css('--band');c.fillRect(X(PCS.vmin),T,X(PCS.vmax)-X(PCS.vmin),ph);
- c.fillStyle=mut;c.fillText('MPPT範囲',X(PCS.vmin)+4,T+12);
  c.strokeStyle=line;c.lineWidth=1;c.fillStyle=mut;
- for(let v=0;v<=xmax;v+=200){c.beginPath();c.moveTo(X(v),T);c.lineTo(X(v),T+ph);c.stroke();c.textAlign='center';c.fillText(v,X(v),T+ph+14);}
+ for(let v=0;v<=xmax;v+=200){c.beginPath();c.moveTo(X(v),T);c.lineTo(X(v),T+ph);c.stroke();c.textAlign='center';c.fillText(v,X(v),T+ph+13);}
  for(let k=0;k<=4;k++){const y=T+ph*k/4;c.beginPath();c.moveTo(L,y);c.lineTo(L+pw,y);c.stroke();
-  c.textAlign='right';c.fillText(fmt(imax*(1-k/4)),L-6,y+4);c.textAlign='left';c.fillText(fmt(pmaxA*(1-k/4)),L+pw+6,y+4);}
- c.textAlign='center';c.fillText('電圧 [V]',L+pw/2,h-4);
- c.save();c.translate(12,T+ph/2);c.rotate(-Math.PI/2);c.fillText('電流 [A]',0,0);c.restore();
- c.save();c.translate(w-10,T+ph/2);c.rotate(Math.PI/2);c.fillText('電力 [kW]',0,0);c.restore();
+  c.textAlign='right';c.fillText(fmt(imax*(1-k/4))+'A',L-4,y+4);c.textAlign='left';c.fillText(fmt(pmaxA*(1-k/4))+'kW',L+pw+4,y+4);}
+ c.textAlign='center';c.fillText('電圧 [V]',L+pw/2,h-3);
  c.strokeStyle=css('--trip');c.setLineDash([5,4]);c.beginPath();c.moveTo(X(PCS.vabs),T);c.lineTo(X(PCS.vabs),T+ph);c.stroke();
- c.fillStyle=css('--trip');c.textAlign='right';c.fillText('最大許容 1100V',X(PCS.vabs)-4,T+26);
  c.strokeStyle=mut;c.beginPath();c.moveTo(L,YP(PCS.rated/PCS.eff));c.lineTo(L+pw,YP(PCS.rated/PCS.eff));c.stroke();c.setLineDash([]);
- c.fillStyle=mut;c.textAlign='left';c.fillText('パワコン定格',L+4,YP(PCS.rated/PCS.eff)-4);
  if(R2.Vtop>0){
   c.lineWidth=2.5;c.strokeStyle=css('--dc');c.beginPath();R2.V.forEach((v,i)=>{const x=X(v),y=YI(R2.I[i]);i?c.lineTo(x,y):c.moveTo(x,y);});c.stroke();
   c.strokeStyle=css('--sun');c.beginPath();R2.V.forEach((v,i)=>{const x=X(v),y=YP(R2.P[i]);i?c.lineTo(x,y):c.moveTo(x,y);});c.stroke();
-  if(R2.state==='run'){const x=X(R2.Vop);
-   c.fillStyle=ink;c.strokeStyle=css('--panel');c.lineWidth=2;
-   [[x,YP(R2.Pdc)],[x,YI(R2.Iop)]].forEach(([a,b])=>{c.beginPath();c.arc(a,b,5.5,0,7);c.fill();c.stroke();});
-   c.textAlign=x>L+pw-120?'right':'left';c.font='bold 12px '+css('--f-num');
-   c.fillText(`動作点 ${fmt(R2.Vop)}V・${fmt(R2.Pdc,1)}kW`,x+(c.textAlign==='left'?9:-9),YP(R2.Pdc)-9);}
+  if(R2.state==='run'){const x=X(R2.Vop);c.fillStyle=ink;c.strokeStyle=css('--panel');c.lineWidth=2;
+   [[x,YP(R2.Pdc)],[x,YI(R2.Iop)]].forEach(([a,b])=>{c.beginPath();c.arc(a,b,5.5,0,7);c.fill();c.stroke();});}
  }
- c.font='12px '+css('--f-body');c.textAlign='left';
- c.fillStyle=css('--dc');c.fillRect(L+pw-160,T+ph-36,14,3);c.fillStyle=ink;c.fillText('I-V（電流）',L+pw-140,T+ph-31);
- c.fillStyle=css('--sun');c.fillRect(L+pw-160,T+ph-18,14,3);c.fillStyle=ink;c.fillText('P-V（電力）',L+pw-140,T+ph-13);
+ c.font='11.5px '+css('--f-body');c.textAlign='left';
+ c.fillStyle=css('--dc');c.fillRect(L+6,T+ph-34,14,3);c.fillStyle=ink;c.fillText('電流（I-V）',L+26,T+ph-29);
+ c.fillStyle=css('--sun');c.fillRect(L+6,T+ph-18,14,3);c.fillStyle=ink;c.fillText('電力（P-V）',L+26,T+ph-13);
 }
 function checks(){
- const vocCold=T2.N*MOD.Voc*(1+MOD.bVoc*(T2.Tmin-25));
- const vmpHot=T2.N*MOD.Vmp*(1+MOD.bVmp*(70-25));
- const isc125=MOD.Isc*1.25;
- const list=[];
- list.push({s:vocCold>PCS.vabs?'ng':vocCold>PCS.vabs*0.95?'warn':'ok',h:`冬の朝の開放電圧 ${fmt(vocCold)} V（上限 ${PCS.vabs} V）`,d:'パネルは冷えるほど電圧が上がります。最低気温の朝、日が差した瞬間の開放電圧がパワコンの最大入力を超えると壊れます。直列枚数を決める一番大事なチェックです。'});
- list.push({s:vmpHot<PCS.vmin?'ng':'ok',h:`真夏の動作電圧 ${fmt(vmpHot)} V（MPPT下限 ${PCS.vmin} V）`,d:'暑い日はセル温度が70℃近くになり電圧が下がります。MPPT範囲の下限を割ると発電量が落ちます。'});
- list.push({s:isc125>PCS.cb?'ng':'ok',h:`ストリング電流 ${fmt(isc125,1)} A（Isc×1.25、ブレーカ ${PCS.cb} A）`,d:'接続箱のブレーカは、短絡電流に余裕を見た値より大きくします。'});
- const ol=T2.N*T2.P*MOD.P/1000/PCS.rated;
- list.push({s:ol>1.5?'warn':'ok',h:`過積載率 ${fmt(ol*100)} %`,d:'パネル容量をパワコンより多めに積むのはよくある設計。晴れた昼はパワコン定格で頭打ち（ピークカット）になります。'});
- if(R2.peaks>1)list.push({s:'warn',h:`P-Vカーブの山が${R2.peaks}つ`,d:'影でカーブに複数の山ができると、MPPTが小さいほうの山で止まって発電を損することがあります。'});
- if(R2.state==='overv')list.push({s:'ng',h:'いま開放電圧が最大許容入力を超えています',d:'この条件ではパワコンが壊れる恐れがあります。直列枚数を減らしてください。'});
+ const isc125=MOD.Isc*1.25,ol=T2.N*T2.P*MOD.P/1000/PCS.rated,list=[];
+ list.push({s:R2.vocCold>PCS.vabs?'ng':R2.vocCold>PCS.vabs*0.95?'warn':'ok',h:`一番寒い朝の電圧 ${fmt(R2.vocCold)}V（上限 ${PCS.vabs}V）`,d:'直列枚数を決める一番大事なチェック。超えるとパワコンが壊れます。'});
+ list.push({s:R2.vmpHot<PCS.vmin?'ng':'ok',h:`真夏の動作電圧 ${fmt(R2.vmpHot)}V（下限 ${PCS.vmin}V）`,d:'暑いと電圧が下がります。下限を割ると発電が落ちます。'});
+ list.push({s:isc125>PCS.cb?'ng':'ok',h:`1列の電流 ${fmt(isc125,1)}A（ブレーカ ${PCS.cb}A）`,d:'短絡電流の1.25倍より大きいブレーカを選びます。'});
+ list.push({s:ol>1.5?'warn':'ok',h:`パネル ${fmt(T2.N*T2.P*MOD.P/1000,1)}kW ÷ パワコン100kW ＝ ${fmt(ol*100)}%`,d:'パネルを多めに積む「過積載」はよくある設計です。'});
+ if(R2.peaks>1)list.push({s:'warn',h:`P-Vカーブの山が${R2.peaks}つ`,d:'影で山が複数できると、パワコンが小さい山で止まって損をすることがあります。'});
  $('#checks').innerHTML=list.map(x=>`<div class="chk"><span class="pill ${x.s}">${x.s==='ok'?'OK':x.s==='ng'?'NG':'注意'}</span><div>${x.h}<small>${x.d}</small></div></div>`).join('');
 }
 function update2(){
@@ -581,94 +642,99 @@ function update2(){
  $('#sr2o').textContent=T2.sr+' %';$('#tm2o').textContent=T2.Tmin+' ℃';
  [...T2.shaded].forEach(k=>{const [s,m]=k.split('-').map(Number);if(s>=T2.P||m>=T2.N)T2.shaded.delete(k);});
  [...T2.open].forEach(s=>{if(s>=T2.P)T2.open.delete(s);});
- simulate();renderStrings();drawChart();checks();
- $('#d-v').textContent=R2.state==='run'?fmt(R2.Vop)+' V':'—';$('#d-i').textContent=R2.state==='run'?fmt(R2.Iop,1)+' A':'—';
- $('#d-pdc').textContent=fmt(R2.Pdc,1)+' kW';$('#d-pac').textContent=fmt(R2.Pac,1)+' kW';
- $('#d-cap').textContent=fmt(T2.N*T2.P*MOD.P/1000,1)+' kW';$('#d-ol').textContent=fmt(T2.N*T2.P*MOD.P/1000/PCS.rated*100)+' %';
- let t='';
- if(R2.state==='overv')t='開放電圧がパワコンの最大許容入力電圧を超えています。実機なら故障の恐れがある状態です。';
- else if(R2.state==='lowv')t='電圧がパワコンの起動電圧に届かず、運転できません。';
- else if(R2.state==='none')t='発電していません。';
- else if(R2.clipped)t=`パネルは ${fmt(R2.pmax,1)} kW 出せますが、パワコン定格 ${PCS.rated} kW で頭打ち。パワコンは電圧を高い側へずらして出力を抑えています（動作点が山の右側にある）。`;
- else t=`パワコンはP-Vカーブの山の頂上（最大電力点）を探して、${fmt(R2.Vop)} V で運転しています。これがMPPTです。`;
- $('#ivtxt').textContent=t;
+ simulate();renderStrings();renderGauges();drawChart();checks();
+ const run=R2.state==='run',nl=T2.P-T2.open.size;
+ $('#eqv').innerHTML=run?`1枚 <b>${fmt(R2.Vop/T2.N,1)}V</b> × ${T2.N}枚 ＝ <b>${fmt(R2.Vop)}V</b>`:`${T2.N}枚を直列`;
+ $('#eqi').innerHTML=run?`1本 <b>${fmt(R2.Iop/Math.max(1,nl),1)}A</b> × ${nl}本 ＝ <b>${fmt(R2.Iop)}A</b>`:`${nl}本を並列`;
+ const vs=$('#vst');
+ if(R2.vocCold>PCS.vabs){vs.className='status bad';vs.textContent=`直列が多すぎます。一番寒い朝に ${fmt(R2.vocCold)}V まで上がり、パワコンの上限1100Vを超えて壊れます。`;}
+ else if(R2.state==='lowv'||R2.vmpHot<PCS.vmin){vs.className='status warn';vs.textContent='直列が少なすぎて電圧が足りません。パワコンが動ける範囲（200V以上）に届きません。';}
+ else if(!run){vs.className='status';vs.textContent='日ざしがないか、全部の列が開放されていて、発電していません。';}
+ else{vs.className='status ok';vs.textContent=`ちょうどいい枚数です。いまは ${fmt(R2.Vop)}V、一番寒い朝でも ${fmt(R2.vocCold)}V で上限以内。`;}
+ const ps=$('#pst2');
+ if(!run){ps.className='status';ps.textContent='発電していません。';}
+ else if(R2.clipped){ps.className='status warn';ps.textContent=`パネルは ${fmt(R2.pmax,1)}kW 出せますが、パワコンの上限100kWで頭打ち。交流出力は 100kW です。`;}
+ else{ps.className='status ok';ps.textContent=`直流 ${fmt(R2.Pdc,1)}kW を受け取り、交流 ${fmt(R2.Pac,1)}kW を出しています。`;}
+ $('#ivtxt').textContent=!run?'':R2.clipped?'黒い点が、いまパワコンが運転している点。上限で頭打ちのため、山の頂上より右にずらして出力を抑えています。':R2.peaks>1?'影のせいで山が2つできています。黒い点が、いまパワコンが運転している点です。':'黒い点が、いまパワコンが運転している点。電力カーブの山の頂上を探し続けるのがMPPTです。';
 }
 const bind=(id,key)=>$(id).addEventListener('input',e=>{T2[key]=+e.target.value;update2();});
 bind('#g2','G');bind('#ta2','Ta');bind('#n2','N');bind('#p2','P');bind('#sr2','sr');bind('#tm2','Tmin');
 $('#sd').addEventListener('click',e=>{const m=e.target.closest('.m');const cb=e.target.closest('.cb');
  if(m){const k=m.dataset.s+'-'+m.dataset.m;T2.shaded.has(k)?T2.shaded.delete(k):T2.shaded.add(k);update2();}
  else if(cb){const s=+cb.dataset.s;T2.open.has(s)?T2.open.delete(s):T2.open.add(s);update2();}});
-function setT2(o){Object.assign(T2,o);['g2:G','ta2:Ta','n2:N','p2:P','sr2:sr','tm2:Tmin'].forEach(x=>{const [id,k]=x.split(':');$('#'+id).value=T2[k];});update2();}
-document.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',()=>{
- const p=b.dataset.p;const base={G:900,Ta:20,N:18,P:12,sr:20,Tmin:-5,shaded:new Set(),open:new Set()};
- if(p==='over')Object.assign(base,{N:22});
- if(p==='shade'){base.shaded=new Set(['0-0','0-1','0-2','0-3','0-4','0-5','1-0','1-1','1-2','1-3','1-4','1-5','2-0','2-1','2-2','2-3','2-4','2-5']);base.sr=15;}
- if(p==='open')base.open=new Set([3]);
+$('#presets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const p=b.dataset.p;
+ const base={G:900,Ta:20,N:18,P:12,sr:20,Tmin:-5,shaded:new Set(),open:new Set()};
+ if(p==='over')base.N=22;
+ if(p==='shade'){base.sr=15;for(let s=0;s<3;s++)for(let m=0;m<6;m++)base.shaded.add(s+'-'+m);}
+ if(p==='open')base.open.add(3);
  if(p==='winter')Object.assign(base,{G:1000,Ta:-5,Tmin:-10,N:20});
- setT2(base);}));
+ Object.assign(T2,base);['g2:G','ta2:Ta','n2:N','p2:P','sr2:sr','tm2:Tmin'].forEach(x=>{const [id,k]=x.split(':');$('#'+id).value=T2[k];});update2();});
 update2();
 let rT;window.addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(drawChart,120);});
-try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>drawChart());}catch(e){}
-new MutationObserver(()=>drawChart()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+const retheme=()=>{renderDay();renderGauges();drawChart();};
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',retheme);}catch(e){}
+new MutationObserver(retheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-/* ---------- ③ 停電・事故 ---------- */
-const D3=new Diagram($('#dg3'),'b',$('#info3'));
-$('#info3').innerHTML='<h3>図の見方</h3><p>赤く光るのが動作したリレー、刃が開いている遮断器が「切れた」状態です。機器をタップすると説明が出ます。</p>';
-const S=o=>Object.assign({gridLive:true,vcb:true,pvcb:true,pcs:'run',pv:200,load:300,grid:100,hot:[],fault:null,dcLive:false,island:false,sun:0.8},o);
+/* ---------- ④ 事故のとき ---------- */
+const DC3=new Diagram($('#dgC'),'c',(k,g)=>{DC3.select(g);showInfo($('#infoC'),k);});
+const KOMA={
+ outage:['パワコン（単独運転検出）と、27R（停電リレー）','パワコンが止まり、連系用遮断器が開く','復電しても、約300秒待ってから自動で再開'],
+ hvgf:['GR（地絡リレー）と、64（地絡電圧リレー）','GRが受電を、64が連系用遮断器を切る','修理して絶縁を確かめてから復旧'],
+ drop:['負荷追従制御と、67P（逆電力リレー）','まずパワコンが絞る。間に合わなければ連系用遮断器','早く絞れれば、止まらずに運転を続ける'],
+ dcgf:['パワコン（直流地絡検出）','パワコンが止まるだけ。受電盤は動かない','工場は動き続ける。でもパネル側には電圧が残る']};
 function scenario(id){
  if(id==='outage')return [
-  {t:'通常',h:'ふだんの状態',d:'負荷300kWのうち200kWを太陽光、100kWを電力会社から受電しています。',s:S({})},
-  {t:'0秒',h:'配電線が停電',d:'電力会社側の電気が止まります。パワコンが運転を続けると、構内だけ太陽光で電気が生きた「単独運転」になります。作業者の感電や、復電時の事故の原因になるので絶対に避けたい状態です。',s:S({gridLive:false,grid:0,load:200,island:true})},
-  {t:'〜0.5秒',h:'パワコンが異常に気づく',d:'電圧の位相がガクッと跳ぶのを見る（受動方式）のと、自分で少し揺さぶりをかけて周波数の反応を見る（能動方式）の2段構えで単独運転を検出します。',s:S({gridLive:false,grid:0,load:200,island:true,hot:['pcsprot']})},
-  {t:'0.5〜1秒',h:'パワコン停止',d:'パワコンが出力を止めて、内部の連系リレーを開きます。構内は停電します。',s:S({gridLive:false,grid:0,load:0,pv:0,pcs:'stop',hot:['pcsprot']})},
-  {t:'約1秒',h:'27R（不足電圧）が動作',d:'受電盤の27Rも電圧低下を検出し、連系用遮断器を開きます（設計によっては受電遮断器も）。パワコンとリレーの二重の守りです。整定の例は 85V・1秒。',s:S({gridLive:false,grid:0,load:0,pv:0,pcs:'stop',pvcb:false,hot:['r27']})},
-  {t:'復電',h:'電力会社の電気が戻る',d:'構内は受電で復旧します。太陽光はまだ切り離されたままです。',s:S({grid:300,load:300,pv:0,pcs:'stop',pvcb:false})},
-  {t:'復電後',h:'連系用遮断器を投入、パワコンは待機',d:'パワコンは系統が安定しているか確かめるため、決められた時間（例: 300秒）待ってから運転を再開します。ここでは時間を早送りしています。',s:S({grid:300,load:300,pv:0,pcs:'wait'}),countdown:300},
-  {t:'再並列',h:'自動で運転再開',d:'太陽光200kW＋受電100kWの通常状態に戻りました。',s:S({})}];
+  {t:'ふだん',h:'いつもの状態',d:'工場が使う300kWのうち、200kWが太陽光、100kWが買う電気です。',s:S({})},
+  {t:'0秒',h:'配電線が停電する',d:'電力会社の電気が止まります。このままパワコンが動き続けると、工場の中だけ太陽光で電気が生きた「単独運転」になります。電線を直す人が感電したり、電気が戻った瞬間に事故になったりするので、絶対に避けたい状態です。',s:S({gridLive:false,grid:0,load:200,island:true})},
+  {t:'〜0.5秒',h:'パワコンが「おかしい」と気づく',d:'電圧の波がガクッとずれるのを見る方法と、自分で少し揺さぶって反応を見る方法の2段構えで、停電を見抜きます。',s:S({gridLive:false,grid:0,load:200,island:true,hot:['pcsprot']})},
+  {t:'0.5〜1秒',h:'パワコンが止まる',d:'パワコンが発電をやめます。工場の中は停電します。',s:S({gridLive:false,grid:0,load:0,pv:0,pcs:'stop',hot:['pcsprot']})},
+  {t:'約1秒',h:'27Rも動いて、遮断器を開く',d:'受電盤の27R（停電リレー）も電圧が下がったことを見つけて、連系用遮断器を開きます。パワコンとリレーの二重の守りです。',s:S({gridLive:false,grid:0,load:0,pv:0,pcs:'stop',pvcb:false,hot:['r27']})},
+  {t:'復電',h:'電力会社の電気が戻る',d:'工場は買った電気で動き出します。太陽光はまだ切り離されたままです。',s:S({grid:300,load:300,pv:0,pcs:'stop',pvcb:false})},
+  {t:'復電後',h:'パワコンは300秒待つ',d:'遮断器を入れても、パワコンはすぐには動きません。電気が安定したか確かめるため、決められた時間（例：300秒）待ちます。ここでは早送りしています。',s:S({grid:300,load:300,pv:0,pcs:'wait'}),countdown:300},
+  {t:'再開',h:'自動で運転を再開',d:'太陽光200kW＋買う電気100kWの、いつもの状態に戻りました。',s:S({})}];
  if(id==='hvgf')return [
-  {t:'通常',h:'ふだんの状態',d:'負荷300kWのうち200kWを太陽光、100kWを受電しています。',s:S({})},
-  {t:'0秒',h:'構内の高圧ケーブルで地絡',d:'絶縁が劣化したケーブルで地絡が起きます。地絡電流が流れ、零相電圧（V0）も出てきます。',s:S({fault:'hv'})},
-  {t:'〜0.2秒',h:'地絡継電器が受電を切る',d:'受電点の地絡継電器（PAS・UGSのGRやDGR）が地絡電流を検出して受電を開きます。構内の事故を電力会社側に広げないためです。ただし太陽光はまだ動いていて、構内は単独運転の状態になります。',s:S({fault:'hv',vcb:false,grid:0,load:200,island:true,hot:['gr']})},
-  {t:'整定時間後',h:'64（OVGR）が太陽光を切り離す',d:'太陽光が地絡点に電気を流し込み続けないよう、OVGRが零相電圧を検出して連系用遮断器を開きます。パワコンも止まります。',s:S({fault:'hv',vcb:false,grid:0,pvcb:false,pcs:'stop',pv:0,load:0,hot:['r64']})},
-  {t:'補足',h:'配電線側の地絡のとき',d:'事故が電力会社の配電線側なら、事故区間は電力会社側で切られます。構内のOVGRは「太陽光が事故点へ電気を送らない」ように太陽光だけを切り離します。',s:S({fault:'hv',vcb:false,grid:0,pvcb:false,pcs:'stop',pv:0,load:0,hot:['r64']})},
-  {t:'復旧',h:'修理と絶縁抵抗測定のあとで復旧',d:'事故点を直し、絶縁抵抗を確認してから、受電→連系の順に戻します。',s:S({})}];
+  {t:'ふだん',h:'いつもの状態',d:'工場が使う300kWのうち、200kWが太陽光、100kWが買う電気です。',s:S({})},
+  {t:'0秒',h:'高圧ケーブルで地絡が起きる',d:'古くなったケーブルから、電気が大地へ漏れ出します。',s:S({fault:'hv'})},
+  {t:'〜0.2秒',h:'GRが受電を切る',d:'GR（地絡リレー）が漏れた電流を見つけて、受電を切ります。事故を電力会社側に広げないためです。でも太陽光はまだ動いていて、工場の中は単独運転になります。',s:S({fault:'hv',vcb:false,grid:0,load:200,island:true,hot:['gr']})},
+  {t:'少しあと',h:'64が太陽光を切り離す',d:'太陽光が事故の場所に電気を送り続けないよう、64（地絡電圧リレー）が連系用遮断器を開きます。パワコンも止まります。',s:S({fault:'hv',vcb:false,grid:0,pvcb:false,pcs:'stop',pv:0,load:0,hot:['r64']})},
+  {t:'補足',h:'配電線側の地絡のときは',d:'事故が電力会社の配電線側なら、切るのは電力会社の仕事です。工場の64は、太陽光が事故の場所へ電気を送らないように、太陽光だけを切り離します。',s:S({fault:'hv',vcb:false,grid:0,pvcb:false,pcs:'stop',pv:0,load:0,hot:['r64']})},
+  {t:'復旧',h:'直して、確かめて、戻す',d:'事故の場所を直し、絶縁抵抗を測ってから、受電→太陽光の順に戻します。',s:S({})}];
  if(id==='drop'){const fol=$('#fol3').checked;const head=[
-  {t:'通常',h:'ふだんの状態',d:'負荷400kWのうち300kWを太陽光、100kWを受電しています。',s:S({pv:300,load:400,grid:100})},
-  {t:'0秒',h:'機械が一斉に止まる',d:'負荷が400kWから120kWに急減。太陽光300kWのほうが多くなり、余った180kWが電力会社側へ流れ出します（逆潮流）。',s:S({pv:300,load:120,grid:-180})}];
+  {t:'ふだん',h:'いつもの状態',d:'工場が使う400kWのうち、300kWが太陽光、100kWが買う電気です。',s:S({pv:300,load:400,grid:100})},
+  {t:'0秒',h:'機械が一斉に止まる',d:'工場が使う電気が400kWから120kWに急に減りました。太陽光300kWのほうが多いので、余った180kWが電力会社側へ流れ出します。これが逆潮流です。',s:S({pv:300,load:120,grid:-180})}];
   return fol?head.concat([
-  {t:'数秒',h:'パワコンが出力を絞る（負荷追従制御）',d:'受電点の電力を見ている制御装置が、パワコンに出力抑制を指令します。太陽光を100kWまで下げて、受電を少しだけ残します。',s:S({pv:100,load:120,grid:20})},
-  {t:'結果',h:'遮断せずに運転を続ける',d:'RPRの整定時間より早く絞れれば遮断しません。負荷追従の速さとRPRの整定時間の関係が大事なポイントです。',s:S({pv:100,load:120,grid:20})}]):head.concat([
-  {t:'〜',h:'67P（RPR）が逆電力を検出',d:'受電点で電力の向きが逆になったことをRPRが検出し、整定時間のカウントを始めます。',s:S({pv:300,load:120,grid:-180,hot:['r67']})},
-  {t:'整定時間後',h:'連系用遮断器を開放',d:'太陽光を切り離して逆潮流を止めます。負荷120kWは全部受電でまかないます。',s:S({pv:0,load:120,grid:120,pvcb:false,pcs:'stop',hot:['r67']})},
-  {t:'結果',h:'復旧の操作が必要',d:'機械が動き出しても、太陽光は止まったままです。設計により手動または自動で復旧します。',s:S({pv:0,load:120,grid:120,pvcb:false,pcs:'stop'})}]);}
+  {t:'数秒',h:'パワコンが出力を絞る',d:'受電点を見張っている制御装置が、パワコンに「絞れ」と指令します。太陽光を100kWまで下げて、買う電気を少しだけ残します。',s:S({pv:100,load:120,grid:20})},
+  {t:'結果',h:'止まらずに運転を続ける',d:'67Pが動くより早く絞れたので、遮断しませんでした。絞る速さと、67Pの待ち時間の関係が大事です。',s:S({pv:100,load:120,grid:20})}]):head.concat([
+  {t:'すぐ',h:'67Pが逆潮流を見つける',d:'67P（逆電力リレー）が、電気の向きが逆になったことを見つけて、カウントを始めます。',s:S({pv:300,load:120,grid:-180,hot:['r67']})},
+  {t:'少しあと',h:'連系用遮断器が開く',d:'太陽光を切り離して、逆潮流を止めます。工場の120kWは全部買う電気になります。',s:S({pv:0,load:120,grid:120,pvcb:false,pcs:'stop',hot:['r67']})},
+  {t:'結果',h:'復旧の操作が必要',d:'機械が動き出しても、太陽光は止まったままです。戻すには復旧の操作が要ります。',s:S({pv:0,load:120,grid:120,pvcb:false,pcs:'stop'})}]);}
  return [
-  {t:'通常',h:'ふだんの状態',d:'負荷300kWのうち200kWを太陽光、100kWを受電しています。',s:S({})},
-  {t:'0秒',h:'パネル側の配線で地絡',d:'ケーブルの被覆が傷ついたり、コネクタに水が入ったりして、直流側で地絡が起きます。',s:S({fault:'dc'})},
-  {t:'すぐ',h:'パワコンの直流地絡検出で停止',d:'パワコンが漏れ電流（絶縁低下）を検出して運転を止め、エラーを表示します。',s:S({fault:'dc',pcs:'stop',pv:0,grid:300,hot:['pcsdc']})},
-  {t:'同時',h:'受電盤のリレーは動かない',d:'交流側には事故がないので、27R・64・67Pは動きません。工場は受電だけでふつうに動き続けます。',s:S({fault:'dc',pcs:'stop',pv:0,grid:300})},
-  {t:'注意',h:'直流側はまだ電圧が残っている',d:'パネルは日が当たる限り発電を続けます。パワコンを止めても、パネル〜接続箱〜パワコン入力までは数百V〜1000V近い電圧が残ります（図で点滅している線）。点検は接続箱のブレーカを切り、電圧がないことを確かめてから行います。',s:S({fault:'dc',pcs:'stop',pv:0,grid:300,dcLive:true})}];
+  {t:'ふだん',h:'いつもの状態',d:'工場が使う300kWのうち、200kWが太陽光、100kWが買う電気です。',s:S({})},
+  {t:'0秒',h:'パネル側の配線で地絡が起きる',d:'ケーブルの被覆が傷ついたり、コネクタに水が入ったりして、直流の電気が大地へ漏れます。',s:S({fault:'dc'})},
+  {t:'すぐ',h:'パワコンが止まる',d:'パワコンの直流地絡検出が漏れを見つけて、運転を止めます。エラーが表示されます。',s:S({fault:'dc',pcs:'stop',pv:0,grid:300,hot:['pcsdc']})},
+  {t:'同時',h:'受電盤のリレーは動かない',d:'交流側には事故がないので、27R・64・67Pは動きません。工場は買った電気だけで、ふつうに動き続けます。',s:S({fault:'dc',pcs:'stop',pv:0,grid:300})},
+  {t:'注意',h:'パネル側はまだ電気が来ている',d:'パネルは日が当たる限り発電します。パワコンを止めても、パネル〜接続箱〜パワコンの入口までは、数百V〜1000V近い電圧が残ります（点滅している線）。触る前に接続箱のブレーカを切って、電圧がないことを確かめます。',s:S({fault:'dc',pcs:'stop',pv:0,grid:300,dcLive:true})}];
 }
 let SC='outage',steps=scenario(SC),idx=0,playing=false,timer=null,cdTimer=null;
-function renderSteps(){$('#steps3').innerHTML=steps.map((s,i)=>`<li data-i="${i}" class="${i===idx?'on':i<idx?'done':''}"><span class="tm">${s.t}</span><div><b>${s.h}</b><p>${s.d}</p></div></li>`).join('');}
 function stopTimers(){clearTimeout(timer);clearInterval(cdTimer);timer=null;cdTimer=null;}
+function setPlay(p){playing=p;$('#play3').textContent=p?'❚❚ 止める':'▶ 自動再生';}
 function go(i){stopTimers();idx=Math.max(0,Math.min(steps.length-1,i));const st=steps[idx];
- renderSteps();D3.update(Object.assign({},st.s,{wait:st.countdown?st.countdown+'秒':''}));
- $('#next3').disabled=idx>=steps.length-1;
- if(st.countdown){let left=st.countdown;cdTimer=setInterval(()=>{left=Math.max(0,left-10);D3.update(Object.assign({},st.s,{wait:left+'秒'}));
-  if(left<=0){clearInterval(cdTimer);cdTimer=null;if(playing)timer=setTimeout(()=>go(idx+1),600);}},200);
-  return;}
- if(playing){if(idx<steps.length-1)timer=setTimeout(()=>go(idx+1),3600);else{playing=false;$('#play3').textContent='▶ 再生';}}
+ $('#ftm').textContent=st.t;$('#fname').textContent=st.h;$('#ftxt').textContent=st.d;
+ $('#fdots').innerHTML=steps.map((_,j)=>`<i class="${j<=idx?'on':''}"></i>`).join('');
+ $('#prev3').disabled=idx===0;$('#next3').disabled=idx>=steps.length-1;
+ DC3.update(Object.assign({},st.s,{wait:st.countdown?st.countdown+'秒':''}));
+ if(st.countdown){let left=st.countdown;cdTimer=setInterval(()=>{left=Math.max(0,left-10);DC3.update(Object.assign({},st.s,{wait:left+'秒'}));
+  if(left<=0){clearInterval(cdTimer);cdTimer=null;if(playing)timer=setTimeout(()=>go(idx+1),600);}},200);return;}
+ if(playing){if(idx<steps.length-1)timer=setTimeout(()=>go(idx+1),4200);else setPlay(false);}
 }
-function loadScn(id){SC=id;steps=scenario(id);playing=false;$('#play3').textContent='▶ 再生';
- $('#fol3w').hidden=id!=='drop';go(0);}
+function loadScn(id){SC=id;steps=scenario(id);setPlay(false);$('#fol3w').hidden=id!=='drop';
+ $('#koma').innerHTML=['気づく','切る','そのあと'].map((t,i)=>`<div><b>${i+1}．${t}</b>${KOMA[id][i]}</div>`).join('');go(0);}
 $('#scn').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
  $('#scn').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));loadScn(b.dataset.s);});
 $('#fol3').addEventListener('change',()=>loadScn('drop'));
-$('#play3').addEventListener('click',()=>{if(playing){playing=false;stopTimers();$('#play3').textContent='▶ 再生';return;}
- playing=true;$('#play3').textContent='❚❚ 一時停止';if(idx>=steps.length-1)go(0);else go(idx+1);});
-$('#next3').addEventListener('click',()=>{playing=false;$('#play3').textContent='▶ 再生';go(idx+1);});
-$('#reset3').addEventListener('click',()=>{playing=false;$('#play3').textContent='▶ 再生';go(0);});
-$('#steps3').addEventListener('click',e=>{const li=e.target.closest('li');if(!li)return;playing=false;$('#play3').textContent='▶ 再生';go(+li.dataset.i);});
+$('#play3').addEventListener('click',()=>{if(playing){setPlay(false);stopTimers();return;}setPlay(true);go(idx>=steps.length-1?0:idx+1);});
+$('#next3').addEventListener('click',()=>{setPlay(false);go(idx+1);});
+$('#prev3').addEventListener('click',()=>{setPlay(false);go(idx-1);});
 loadScn('outage');
 
 setView(location.hash.slice(1));
