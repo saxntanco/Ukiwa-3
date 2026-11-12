@@ -30,7 +30,7 @@
 .steps{padding-left:1.4em}.steps li{margin:4px 0}
 </style>
 </head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a></nav></header><main>
-<section class="hero"><span class="eyebrow">3Dモデル / VT・CT単体</span><h1>VT単体の耐圧試験、<br>U–Vを短絡しないとどうなる？</h1><p class="lead">VTの中は、鉄心に一次巻線と二次巻線を重ねて巻いた小さな変圧器です。なぜU–Vを短絡するのか。360°回せる3Dモデルで、正しい結線と2つのまちがった結線を切り替えて確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#structure">中のつくり</a><a href="#model">3Dで比べる</a><a href="#compare">3つの結線</a><a href="#wiring">正しい結線</a><a href="#front-back">ヒューズの表と裏</a><a href="#ct">CTの場合</a><a href="#note">確かめたこと</a></nav><p class="caption">参考型式は三菱電機 PD-100HF（6,600/110V、ヒューズ付）。外観は実機写真をもとにしていますが、寸法比は外形図と照合できていません。鉄心の形、巻線を重ねる順番、ヒューズの手前・奥のどちらが電源側かは資料で確かめられず、内部は原理を示す模式です。試験電圧は6,600V系の10,350V（最大使用電圧6,900V×1.5）。実際の試験は取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
+<section class="hero"><span class="eyebrow">3Dモデル / VT・CT単体</span><h1>VT単体の耐圧試験、<br>U–Vを短絡しないとどうなる？</h1><p class="lead">VTの中は、鉄心に一次巻線と二次巻線を重ねて巻いた小さな変圧器です。なぜU–Vを短絡するのか。360°回せる3Dモデルで、正しい結線と2つのまちがった結線を切り替えて確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#structure">中のつくり</a><a href="#model">3Dで比べる</a><a href="#compare">3つの結線</a><a href="#wiring">正しい結線</a><a href="#front-back">ヒューズの表と裏</a><a href="#ct">CTの場合</a><a href="#note">確かめたこと</a></nav><p class="caption">参考型式は三菱電機 PD-100HF（6,600/110V、ヒューズ付）。外観は実機写真をもとにし、寸法比はカタログの外形図（幅155・奥行195・高さ173mm、U–V の間隔90mm）に合わせています。鉄心の形、巻線を重ねる順番、ヒューズの手前・奥のどちらが電源側かは資料で確かめられず、内部は原理を示す模式です。試験電圧は6,600V系の10,350V（最大使用電圧6,900V×1.5）。実際の試験は取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
 
 <section class="sheet" id="structure"><h2>VTの中はこうなっている</h2>
 <p class="takeaway">鉄心に<b>一次巻線（細い線を何千回）</b>と<b>二次巻線（太い線を少し）</b>を重ねて巻き、樹脂で固めたもの。一次巻線の両端が、それぞれヒューズを通って U・V に出ている。</p>
@@ -180,7 +180,7 @@
 <li>確かめられなかったこと：鉄心の形、巻線を重ねる順番、リード線の通り道、ヒューズの前後どちらが電源側か。3Dモデルと断面図のこれらの部分は推定です。</li>
 <li>「Vが大地とつながったとき」の電流は、機種の短絡インピーダンスと熱特性がないと決められないため、数値を出していません。</li>
 <li>「Vが浮いている」場面の説明は、二次を短絡・接地し、V の先には何もつながっていないと仮定した等価回路（巻線のインピーダンスと V 端の対地静電容量の直列）によるものです。電圧の数値は計算していません。</li>
-<li>外観の根拠は、うきわメモの利用者が撮った PD-100HF の実機写真（一方向）です。裏側・上下の形と寸法比は、外形図と照合できていません。</li>
+<li>外観の根拠は、うきわメモの利用者が撮った PD-100HF の実機写真（一方向）です。寸法比は、三菱計器用変成器カタログ p.63 図2（PD-50HF・PD-100HF形）の外形図に合わせました（2026年11月12日）：幅155・奥行195・高さ173mm、一次端子 U–V の間隔90mm、取付寸法90×140mm（4-M8）、質量8.5kg。裏側の細かな形は外形図からも読み取れず、簡略化しています。</li>
 <li>実際の試験は、機器の取扱説明書の指定と、作業責任者の指示に従ってください。</li>
 </ul>
 <p class="caption" style="font-size:12px">出典：<a href="https://www.monotaro.com/p/3873/4665/" target="_blank" rel="noopener">モノタロウ PD-100HF 6600/110V（仕様）</a>、<a href="https://dl.mitsubishielectric.co.jp/dl/fa/document/catalog/pmd/ym-c-y-0550/y0550w2203.pdf" target="_blank" rel="noopener">三菱電機 三菱計器用変成器カタログ</a>、<a href="https://www.mitsubishielectric.co.jp/fa/products/faspec/download.page?kisyu=%2Fpmd&amp;formNm=PD-H-HF_PD-100HF%28%EF%BE%8B%EF%BD%AD%EF%BD%B0%EF%BD%BD%EF%BE%9E%E4%BB%98%29_15&amp;sub=cad&amp;popup=1&amp;category=ex&amp;id=spec" target="_blank" rel="noopener">三菱電機FA PD-100HF 外形図・CAD</a>（いずれも2026年10月26日閲覧）</p>
@@ -188,7 +188,7 @@
 
 <section class="sheet"><h2>つながる教材</h2><div class="related"><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a><a href="pas-vtla-3d.html">VT・LA内蔵PASを3Dで見る</a><a href="vt-water-analogy.html">ケーブルはよくてVTがだめな理由</a><a href="pukapuka-diary.html#short-clip-9points-20261021">短絡クリップのつなぎ方を整理した日誌</a></div></section>
 </main><footer>うきわメモ / 2026年10月26日作成 / 図とモデルは原理説明用で、実設備の試験結線図・実機の構造図ではありません。</footer>
-<script src="hv3d.js?v=20261027"></script><script src="vt-3d.js?v=20261027"></script>
+<script src="hv3d.js?v=20261027"></script><script src="vt-3d.js?v=20261112"></script>
 <script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.vt);</script>
 <script src="menu-layout.js?v=20260930"></script>
 </body></html>

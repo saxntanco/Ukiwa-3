@@ -2,23 +2,27 @@
    資料で確かめたこと：真空バルブ・主回路端子・上部/下部接触子・開閉表示器・動作回数計・ばね蓄勢表示器・
    制御回路プラグ・車輪・インタロックの部品名、補助スイッチは電動ばね操作で5a5b。
    操作機構の中（主軸・リンク・補助スイッチの位置と形）は資料に構造図がなく模式。
+   外形はカタログ p.19 図4.24（引出形 D形遮断器本体）に合わせた：幅480・全高378・フロントプレートから接触子先端まで34+377、
+   上部接触子は床から340（178+162）・下部接触子は178、車輪φ60（前の車輪は前面から40、前後190、外幅438）、相間130。
+   前面は開閉表示器・ばね蓄勢表示器・手動蓄勢ハンドル挿入口・入切レバー・動作回数計・取手（左右）・制御回路プラグ（右）の並び。
+   真空バルブの位置と大きさは側面図の破線からの読み取り。 1 = 約330mm
    時間・電流の大きさは表さない（順番だけ）。 */
 (function () {
   'use strict';
-  var PX = { U: -0.42, V: 0, W: 0.42 }, PHS = ['U', 'V', 'W'], PZ = -0.4;
+  var PX = { U: -0.394, V: 0, W: 0.394 }, PHS = ['U', 'V', 'W'], PZ = 0.04, VY = 0.82, FZ = 0.68;
   var CU = 0xc9874a, STEEL = 0x8c939a;
-  var SHY = 0.3, SHZ = 0.1;
+  var SHY = 0.32, SHZ = 0.3;
   var AUX = [0.42, 0.85, 0.42], TCP = [0.18, 0.55, 0.4], CCP = [-0.18, 0.7, 0.4], LAT = [0.02, 0.42, 0.3];
-  var PLUG = [-0.4, 1.12, 0.45];
+  var PLUG = [0.62, 0.55, 0.62];
   var DC = [-1.3, 1.35, 0.75], CMD = [1.3, 1.35, 0.75];
   var parts = {
-    wheel: { name: '台車・車輪', role: '盤の中で VCB を「接続」「試験」「断路」の位置へ出し入れする。', links: ['terminal'], ev: 'doc', note: '「車輪」は VF-8D カタログの各部名称。寸法比は外形図と未照合。' },
-    front: { name: '前面パネル（押しボタン・蓄勢ハンドル口）', role: '手動の投入・引外しボタン、ばねの手動蓄勢などを前面で操作する。', links: ['indicator', 'latch'], ev: 'unk', note: 'ボタン類があることは一般的。並び・色・位置は VF-8D の外形図と未照合。' },
-    indicator: { name: '開閉表示器・ばね蓄勢表示器・動作回数計', role: '主接点の入・切、投入ばねが蓄勢されているか、動作回数を前から見る。主接点が開いたことは表示で、52a が開いたことは別に確かめる。', links: ['shaft', 'cspring'], ev: 'doc', note: '部品名は VF-8D カタログ。表示の位置・形は未照合。' },
-    plug: { name: '制御回路プラグ', role: '操作電源・67 などの外部回路と、VCB の中の TC・CC・補助スイッチをつなぐ。端子番号は展開接続図で確かめる。', links: ['aux', 'tc', 'cc', 'cmd'], ev: 'doc', note: '部品名は VF-8D カタログ。位置は未照合。' },
-    pole: { name: '絶縁フレーム（各相）', role: '真空バルブを各相ごとに支える絶縁物。', links: ['vi', 'terminal'], ev: 'unk', note: '形は模式。' },
-    vi: { name: '真空バルブ', role: '真空の中で主接点を開閉する。アークは真空中で拡散して消える。可動側だけが上下に数 mm 動く。', links: ['rod', 'terminal'], ev: 'doc', note: '部品名は VF-8D カタログ。中の接点の形・ストロークは模式で拡大している。' },
-    terminal: { name: '上部・下部接触子（主回路端子）', role: '盤の中の母線・ケーブル側とつながる。引き出すと切り離される。', links: ['vi', 'wheel'], ev: 'doc', note: '部品名は VF-8D カタログ。形・長さは模式。' },
+    wheel: { name: '台車・車輪', role: '盤の中で VCB を「接続」「試験」「断路」の位置へ出し入れする。', links: ['terminal'], ev: 'doc', note: '「車輪」は VF-8D カタログの各部名称。車輪φ60、前の車輪は前面から40mm、前後190mm、外幅438mm（カタログ p.19 図4.24）。' },
+    front: { name: '前面（フロントプレート・フェースプレート）', role: '入切レバーで手動の投入・引外し、手動蓄勢ハンドル挿入口でばねの手動蓄勢、下の挿入口で引き出し・挿入を操作する。左右に取手、下に接地端子とインターロックレバー・ピン。', links: ['indicator', 'latch'], ev: 'doc', note: '幅480・上端が床から378mm。部品の名前と並びはカタログ p.19 図4.24。色と細かな形は模式。インターロックレバー・ピンは描いていない。' },
+    indicator: { name: '開閉表示器・ばね蓄勢表示器・動作回数計', role: '主接点の入・切、投入ばねが蓄勢されているか、動作回数を前から見る。主接点が開いたことは表示で、52a が開いたことは別に確かめる。', links: ['shaft', 'cspring'], ev: 'doc', note: '上から開閉表示器・ばね蓄勢表示器、入切レバーの下に動作回数計（カタログ p.19 図4.24）。表示の色は模式。' },
+    plug: { name: '制御回路プラグ', role: '操作電源・67 などの外部回路と、VCB の中の TC・CC・補助スイッチをつなぐ。端子番号は展開接続図で確かめる。', links: ['aux', 'tc', 'cc', 'cmd'], ev: 'doc', note: '前面の右側（カタログ p.19 図4.24、制御プラグ方式A）。形は模式。' },
+    pole: { name: '絶縁フレーム（各相）', role: '真空バルブを各相ごとに支える絶縁物。', links: ['vi', 'terminal'], ev: 'simp', note: '高さはフロントプレートとほぼ同じに収まる（カタログ p.19 図4.24の側面図）。形は模式。' },
+    vi: { name: '真空バルブ', role: '真空の中で主接点を開閉する。アークは真空中で拡散して消える。可動側だけが上下に数 mm 動く。', links: ['rod', 'terminal'], ev: 'doc', note: '部品名は VF-8D カタログ。位置と大きさは図4.24の側面図の破線から読み取った。中の接点の形・ストロークは模式で拡大している。' },
+    terminal: { name: '上部・下部接触子（主回路端子）', role: '盤の中の母線・ケーブル側とつながる。引き出すと切り離される。', links: ['vi', 'wheel'], ev: 'doc', note: '上部接触子は床から340mm、下部接触子は178mm（間隔162mm）、先端はフロントプレートから411mm、相間130mm（カタログ p.19 図4.24・図4.25）。接触子の形は模式。' },
     rod: { name: '絶縁操作ロッド', role: '主軸の回転を、各相の可動接点の上下に伝える。', links: ['shaft', 'vi'], ev: 'unk', note: 'ばね操作 VCB の一般的な構成として描いた。VF-8D での形は未確認。' },
     shaft: { name: '主軸', role: '3相の可動接点と補助スイッチを一緒に動かす軸。開路ばねで「切」側へ回る。', links: ['rod', 'link', 'ospring', 'latch'], ev: 'unk', note: '一般的な構成として描いた。形・位置は資料になく模式。' },
     ospring: { name: '開路ばね', role: '投入するときに蓄勢され、引外しキャッチが外れると主軸を「切」側へ回す。', links: ['shaft', 'latch'], ev: 'unk', note: '一般的なばね操作の原理。VF-8D の形・位置は未確認。' },
@@ -37,48 +41,57 @@
 
   function build(G, st, mode) {
     var c = st.closed, ax = st.aux;
-    /* 台車・車輪 */
-    G.box(1.5, 0.08, 1.55, 0, 0.1, -0.15, 0x5f6266, { part: 'wheel' });
-    [[-0.7, 0.45], [0.7, 0.45], [-0.7, -0.75], [0.7, -0.75]].forEach(function (w) { G.cyl(0.08, 0.05, w[0], 0.08, w[1], 0x2c2c2a, 'x', { part: 'wheel' }, { seg: 14 }); });
-    /* 操作機構の箱と前面 */
-    G.box(1.4, 0.95, 0.5, 0, 0.6, 0.42, STEEL, { part: 'front', shell: true });
-    G.box(1.42, 0.97, 0.02, 0, 0.6, 0.68, 0x6b7075, { part: 'front', shell: true });
-    G.box(0.16, 0.08, 0.02, 0.05, 0.88, 0.7, c > 0.5 ? 0xc0392b : 0x2f8a4e, { part: 'indicator' });
-    G.box(0.16, 0.08, 0.02, 0.3, 0.88, 0.7, st.cs > 0.5 ? 0xf2c94c : 0xf4f2ea, { part: 'indicator' });
-    G.box(0.12, 0.05, 0.02, 0.5, 0.88, 0.7, 0x2c2c2a, { part: 'indicator' });
-    G.cyl(0.04, 0.03, -0.25, 0.56, 0.705, 0x2f8a4e, 'z', { part: 'front' }, { seg: 12 });
-    G.cyl(0.04, 0.03, -0.05, 0.56, 0.705, 0xc0392b, 'z', { part: 'front' }, { seg: 12 });
-    G.cyl(0.035, 0.03, 0.34, 0.45, 0.705, 0x2c2c2a, 'z', { part: 'front' }, { seg: 12 });
-    G.box(0.24, 0.1, 0.12, PLUG[0], PLUG[1], PLUG[2], 0x3a3a38, { part: 'plug' });
+    /* 台車・車輪（φ60。前の車輪は前面から40、前後190、外幅438） */
+    G.box(1.33, 0.06, 0.95, 0, 0.19, 0.2, 0x5f6266, { part: 'wheel' });
+    [[-0.66, 0.56], [0.66, 0.56], [-0.66, -0.02], [0.66, -0.02]].forEach(function (w) { G.cyl(0.09, 0.05, w[0], 0.09, w[1], 0x2c2c2a, 'x', { part: 'wheel' }, { seg: 14 }); });
+    /* 操作機構の箱とフロントプレート（幅480・上端が床から378） */
+    G.box(1.4, 0.93, 0.42, 0, 0.675, 0.46, STEEL, { part: 'front', shell: true });
+    G.box(1.455, 0.935, 0.02, 0, 0.677, FZ, 0x6b7075, { part: 'front', shell: true });
+    /* フェースプレート（中央の一段前の板） */
+    G.box(1.09, 0.84, 0.015, 0, 0.72, FZ + 0.015, 0x4b5258, { part: 'front', shell: true });
+    /* 取手（左右） */
+    [-0.615, 0.615].forEach(function (x) { G.box(0.035, 0.4, 0.05, x, 0.88, FZ + 0.04, 0xc9cacc, { part: 'front' }); });
+    /* 開閉表示器・ばね蓄勢表示器・動作回数計（上から） */
+    G.box(0.1, 0.07, 0.02, -0.136, 1.0, FZ + 0.03, c > 0.5 ? 0xc0392b : 0x2f8a4e, { part: 'indicator' });
+    G.box(0.1, 0.07, 0.02, -0.136, 0.876, FZ + 0.03, st.cs > 0.5 ? 0xf2c94c : 0xf4f2ea, { part: 'indicator' });
+    G.box(0.12, 0.06, 0.02, -0.136, 0.588, FZ + 0.03, 0x2c2c2a, { part: 'indicator' });
+    /* 手動蓄勢ハンドル挿入口と入切レバー */
+    G.cyl(0.03, 0.03, -0.2, 0.755, FZ + 0.03, 0x1f2326, 'z', { part: 'front' }, { seg: 12 });
+    G.box(0.1, 0.035, 0.05, -0.09, 0.73, FZ + 0.045, 0xd9a227, { part: 'front' });
+    /* 挿入／引出ハンドル挿入口（下の中央）と接地端子 */
+    G.box(0.09, 0.07, 0.03, 0, 0.26, FZ + 0.02, 0x1f2326, { part: 'front' });
+    G.box(0.05, 0.08, 0.03, -0.17, 0.25, FZ + 0.02, 0x3b6d11, { part: 'front' });
+    /* 制御回路プラグ（前面の右） */
+    G.box(0.05, 0.16, 0.1, PLUG[0], PLUG[1], PLUG[2] + 0.07, 0x3a3a38, { part: 'plug' });
     /* 各相 */
     PHS.forEach(function (ph) {
       var x = PX[ph];
-      G.box(0.3, 1.0, 0.04, x, 0.95, PZ + 0.17, 0x7a5a3a, { part: 'pole', shell: true, shellAlpha: 0.25 });
-      G.box(0.3, 1.0, 0.04, x, 0.95, PZ - 0.17, 0x7a5a3a, { part: 'pole', shell: true, shellAlpha: 0.25 });
-      G.cyl(0.09, 0.36, x, 1.0, PZ, 0xe8e4da, 'y', { part: 'vi', shell: true }, { seg: 18 });
-      G.cyl(0.096, 0.03, x, 1.19, PZ, 0xb8b8b4, 'y', { part: 'vi' }, { seg: 18 });
-      G.cyl(0.096, 0.03, x, 0.81, PZ, 0xb8b8b4, 'y', { part: 'vi' }, { seg: 18 });
-      /* 接触子（後ろへ） */
-      G.rod([x, 1.25, PZ], [x, 1.3, PZ - 0.5], 0.03, CU, { part: 'terminal', cond: 'main' });
-      G.cyl(0.07, 0.18, x, 1.3, PZ - 0.6, 0x9aa1a7, 'z', { part: 'terminal' }, { seg: 12 });
-      G.rod([x, 0.75, PZ], [x, 0.62, PZ - 0.5], 0.03, CU, { part: 'terminal', cond: 'main' });
-      G.cyl(0.07, 0.18, x, 0.62, PZ - 0.6, 0x9aa1a7, 'z', { part: 'terminal' }, { seg: 12 });
+      G.box(0.3, 0.72, 0.04, x, 0.78, PZ + 0.17, 0x7a5a3a, { part: 'pole', shell: true, shellAlpha: 0.25 });
+      G.box(0.3, 0.72, 0.04, x, 0.78, PZ - 0.17, 0x7a5a3a, { part: 'pole', shell: true, shellAlpha: 0.25 });
+      G.cyl(0.11, 0.36, x, VY, PZ, 0xe8e4da, 'y', { part: 'vi', shell: true }, { seg: 18 });
+      G.cyl(0.116, 0.03, x, VY + 0.19, PZ, 0xb8b8b4, 'y', { part: 'vi' }, { seg: 18 });
+      G.cyl(0.116, 0.03, x, VY - 0.19, PZ, 0xb8b8b4, 'y', { part: 'vi' }, { seg: 18 });
+      /* 上部・下部接触子（後ろへ水平に。床から340と178、先端は前面から411） */
+      G.rod([x, VY + 0.2, PZ], [x, 1.03, PZ - 0.44], 0.03, CU, { part: 'terminal', cond: 'main' });
+      G.cyl(0.07, 0.18, x, 1.03, PZ - 0.52, 0x9aa1a7, 'z', { part: 'terminal' }, { seg: 12 });
+      G.rod([x, VY - 0.25, PZ], [x, 0.54, PZ - 0.44], 0.03, CU, { part: 'terminal', cond: 'main' });
+      G.cyl(0.07, 0.18, x, 0.54, PZ - 0.52, 0x9aa1a7, 'z', { part: 'terminal' }, { seg: 12 });
       /* 中：固定接点・可動接点（ストロークは拡大） */
-      var mv = 1.0 - 0.07 * (1 - c);
-      G.rod([x, 1.19, PZ], [x, 1.025, PZ], 0.018, CU, { part: 'vi', layer: 'int' });
-      G.cyl(0.05, 0.02, x, 1.02, PZ, CU, 'y', { part: 'vi', layer: 'int' }, { seg: 14 });
+      var mv = VY - 0.07 * (1 - c);
+      G.rod([x, VY + 0.19, PZ], [x, VY + 0.025, PZ], 0.018, CU, { part: 'vi', layer: 'int' });
+      G.cyl(0.05, 0.02, x, VY + 0.02, PZ, CU, 'y', { part: 'vi', layer: 'int' }, { seg: 14 });
       G.cyl(0.05, 0.02, x, mv - 0.01, PZ, CU, 'y', { part: 'vi', layer: 'int' }, { seg: 14 });
-      G.rod([x, mv - 0.02, PZ], [x, 0.7, PZ], 0.018, CU, { part: 'vi', layer: 'int' });
+      G.rod([x, mv - 0.02, PZ], [x, VY - 0.3, PZ], 0.018, CU, { part: 'vi', layer: 'int' });
       /* 主軸のクランクとロッド */
-      var phi = lerp(-0.45, 0.35, c), ce = armEnd(x, phi, 0.32, SHY, SHZ);
+      var phi = lerp(-0.45, 0.35, c), ce = armEnd(x, phi, 0.2, SHY, SHZ);
       G.rod([x, SHY, SHZ], ce, 0.025, 0x55595e, { part: 'shaft', layer: 'int' });
-      G.rod(ce, [x, 0.7 - 0.07 * (1 - c), PZ + 0.02], 0.03, 0xd9c9a3, { part: 'rod', layer: 'int' });
+      G.rod(ce, [x, VY - 0.3 - 0.07 * (1 - c), PZ + 0.02], 0.03, 0xd9c9a3, { part: 'rod', layer: 'int' });
     });
-    G.cyl(0.04, 1.2, 0, SHY, SHZ, 0x55595e, 'x', { part: 'shaft', layer: 'int' }, { seg: 10 });
+    G.cyl(0.04, 1.25, 0, SHY, SHZ, 0x55595e, 'x', { part: 'shaft', layer: 'int' }, { seg: 10 });
     /* 開路ばね（主軸の右端） */
     var phi0 = lerp(-0.45, 0.35, c), oe = armEnd(0.6, phi0 + Math.PI, 0.14, SHY, SHZ);
     G.rod([0.6, SHY, SHZ], oe, 0.022, 0x55595e, { part: 'ospring', layer: 'int' });
-    G.helix([0.6, (oe[1] + 0.8) / 2, (oe[2] + 0.3) / 2], 'y', 0.045, 0.8 - oe[1], 7, 0x2f6fa8, 2, { part: 'ospring', layer: 'int' });
+    G.helix([0.6, (oe[1] + 0.8) / 2, (oe[2] + 0.42) / 2], 'y', 0.045, 0.8 - oe[1], 7, 0x2f6fa8, 2, { part: 'ospring', layer: 'int' });
     /* 投入ばね・電動機 */
     var csL = lerp(0.42, 0.26, st.cs);
     G.helix([-0.55, 0.22 + csL / 2, 0.42], 'y', 0.06, csL, 7, 0x2f6fa8, 2.4, { part: 'cspring', layer: 'int' });
@@ -105,11 +118,11 @@
       G.rod([le[0], le[1] - 0.15, le[2]], le, 0.016, 0xb83a2b, { part: 'link', layer: 'int' });
     } else G.rod(se, le, 0.016, 0x7c8a96, { part: 'link', layer: 'int' });
     /* 内部配線（制御回路プラグから） */
-    var wT = [PLUG, [0.1, 1.05, 0.45], [AUX[0] - 0.08, AUX[1] + 0.12, AUX[2] - 0.06]];
+    var wT = [PLUG, [0.55, 1.0, 0.5], [AUX[0] - 0.08, AUX[1] + 0.12, AUX[2] - 0.06]];
     var wT2 = [[AUX[0] - 0.08, AUX[1] + 0.12, AUX[2] + 0.06], [0.3, 0.75, 0.5], [TCP[0], TCP[1] + 0.07, TCP[2]]];
-    var wT3 = [[TCP[0] - 0.07, TCP[1], TCP[2]], [-0.1, 0.5, 0.5], [PLUG[0] + 0.05, PLUG[1] - 0.05, PLUG[2]]];
-    var wC = [PLUG, [0.1, 1.0, 0.36], [AUX[0] - 0.12, AUX[1] - 0.05, AUX[2] - 0.08], [0.0, 0.8, 0.36], [CCP[0], CCP[1] + 0.07, CCP[2]]];
-    var wC2 = [[CCP[0] - 0.07, CCP[1], CCP[2]], [-0.35, 0.9, 0.42], [PLUG[0], PLUG[1] - 0.05, PLUG[2]]];
+    var wT3 = [[TCP[0] - 0.07, TCP[1], TCP[2]], [0.35, 0.4, 0.55], [PLUG[0] - 0.03, PLUG[1] - 0.05, PLUG[2]]];
+    var wC = [PLUG, [0.5, 0.95, 0.36], [AUX[0] - 0.12, AUX[1] - 0.05, AUX[2] - 0.08], [0.0, 0.8, 0.36], [CCP[0], CCP[1] + 0.07, CCP[2]]];
+    var wC2 = [[CCP[0] - 0.07, CCP[1], CCP[2]], [-0.3, 0.45, 0.58], [0.3, 0.36, 0.58], [PLUG[0], PLUG[1] - 0.05, PLUG[2]]];
     [wT, wT2, wT3].forEach(function (w) { G.wire(w, 0x378add, 2, { part: 'aux', layer: 'int', cond: 'trip' }); });
     [wC, wC2].forEach(function (w) { G.wire(w, 0x6b8f3a, 2, { part: 'cc', layer: 'int', cond: 'close' }); });
     if (mode !== 'op') return;
@@ -117,8 +130,8 @@
     G.box(0.36, 0.3, 0.2, DC[0], DC[1], DC[2], 0xe8edf2, { part: 'dc' });
     G.box(0.36, 0.3, 0.2, CMD[0], CMD[1], CMD[2], 0xfdeee8, { part: 'cmd' });
     var oP = [[DC[0], DC[1] + 0.15, DC[2]], [DC[0], 1.75, DC[2]], [CMD[0], 1.75, CMD[2]], [CMD[0], CMD[1] + 0.15, CMD[2]]];
-    var oR = [[CMD[0] - 0.18, CMD[1] - 0.05, CMD[2]], [0.6, 1.3, 0.6], [-0.1, 1.2, 0.5], PLUG];
-    var oN = [[PLUG[0] - 0.12, PLUG[1], PLUG[2]], [-0.9, 1.25, 0.65], [DC[0] + 0.18, DC[1] - 0.05, DC[2]]];
+    var oR = [[CMD[0] - 0.18, CMD[1] - 0.05, CMD[2]], [0.95, 1.2, 0.85], [0.8, 0.6, 0.85], [PLUG[0] + 0.03, PLUG[1], PLUG[2] + 0.12]];
+    var oN = [[PLUG[0] + 0.03, PLUG[1] - 0.06, PLUG[2] + 0.12], [0.75, 0.3, 0.95], [-0.9, 0.3, 0.95], [DC[0] + 0.18, DC[1] - 0.2, DC[2]]];
     G.wire(oP, 0xd85a30, 3, { part: 'dc', cond: 'P' }); G.wire(oR, 0xd85a30, 3, { part: 'cmd', cond: 'P' }); G.wire(oN, 0x2c2c2a, 3, { part: 'dc' });
     var sw = st.cmd ? 0 : 0.6;
     G.rod([CMD[0] - 0.1, CMD[1] + 0.16, CMD[2] + 0.11], [CMD[0] - 0.1 + 0.2 * Math.cos(sw), CMD[1] + 0.16 + 0.2 * Math.sin(sw), CMD[2] + 0.11], 0.015, 0x203b50, { part: 'cmd' });
@@ -134,20 +147,20 @@
     return null;
   }
   var labels = [
-    { part: 'indicator', t: '開閉表示器', p: [0.05, 1.0, 0.72], layer: 'ext-only' },
-    { part: 'front', t: '前面パネル', p: [-0.3, 0.3, 0.72], layer: 'ext-only' },
-    { part: 'plug', t: '制御回路プラグ', p: [PLUG[0], PLUG[1] + 0.12, PLUG[2]] },
-    { part: 'vi', t: '真空バルブ', p: [-0.42, 1.0, PZ + 0.25] },
-    { part: 'terminal', t: '上部・下部接触子', p: [0.42, 1.45, PZ - 0.6] },
-    { part: 'wheel', t: '台車・車輪', p: [0.75, -0.05, 0.45], layer: 'ext-only' },
+    { part: 'indicator', t: '開閉表示器', p: [-0.136, 1.12, 0.75], layer: 'ext-only' },
+    { part: 'front', t: '入切レバー', p: [-0.4, 0.66, 0.78], layer: 'ext-only' },
+    { part: 'plug', t: '制御回路プラグ', p: [PLUG[0] + 0.1, PLUG[1] - 0.2, PLUG[2] + 0.15] },
+    { part: 'vi', t: '真空バルブ', p: [-0.394, VY + 0.42, PZ] },
+    { part: 'terminal', t: '上部・下部接触子', p: [0.394, 1.2, PZ - 0.6] },
+    { part: 'wheel', t: '台車・車輪', p: [0.75, -0.08, 0.56], layer: 'ext-only' },
     { part: 'aux', t: '補助スイッチ（52a・52b）', p: [AUX[0] + 0.1, AUX[1] + 0.22, AUX[2]], layer: 'int' },
     { part: 'link', t: 'リンク', p: [0.62, 0.6, 0.3], layer: 'int' },
     { part: 'tc', t: '引外しコイル TC', p: [TCP[0], TCP[1] - 0.18, TCP[2] + 0.1], layer: 'int' },
     { part: 'cc', t: '投入コイル CC', p: [CCP[0] - 0.05, CCP[1] + 0.15, CCP[2]], layer: 'int' },
     { part: 'shaft', t: '主軸', p: [-0.2, SHY - 0.1, SHZ], layer: 'int' },
     { part: 'cspring', t: '投入ばね', p: [-0.6, 0.18, 0.5], layer: 'int' },
-    { part: 'ospring', t: '開路ばね', p: [0.68, 0.95, 0.2], layer: 'int' },
-    { part: 'rod', t: '絶縁操作ロッド', p: [0, 0.55, -0.2], layer: 'int' },
+    { part: 'ospring', t: '開路ばね', p: [0.68, 0.95, 0.36], layer: 'int' },
+    { part: 'rod', t: '絶縁操作ロッド', p: [0, 0.42, 0.12], layer: 'int' },
     { part: 'dc', t: '操作電源 P・N', p: [DC[0], DC[1] - 0.25, DC[2]], layer: 'int', when: function (s, m) { return m === 'op'; } },
     { part: 'cmd', t: '指令接点（67・CS）', p: [CMD[0], CMD[1] - 0.25, CMD[2]], layer: 'int', when: function (s, m) { return m === 'op'; } },
     { t: 'リンクが外れている', p: [0.75, 0.5, 0.55], hot: true, layer: 'int', when: function (s) { return s.broken; } },
@@ -197,8 +210,8 @@
     partOrder: ['front', 'indicator', 'plug', 'wheel', 'terminal', 'pole', 'vi', 'rod', 'shaft', 'ospring', 'cspring', 'motor', 'latch', 'tc', 'cc', 'aux', 'link', 'cmd', 'dc'],
     initial: base, build: build, tint: tint, labels: labels, scenarios: scenarios, stateList: stateList, svg: '#vcbWire', svgUpdate: svgUpdate,
     view: { yaw: -0.6, pitch: 0.3 },
-    views: { front: { label: '正面', yaw: 0, pitch: 0.1 }, mech: { label: '操作機構', yaw: -0.5, pitch: 0.25, zoom: 1.8, target: [0.2, 0.6, 0.35] }, back: { label: '背面（接触子）', yaw: Math.PI - 0.4, pitch: 0.2 } },
-    modeView: { op: { zoom: 0.85, target: [0, 0.85, 0.2] } },
-    banner: { ext: ['参考：三菱電機 VF-8D 引出形・電動ばね操作', '!前面の部品の並び・寸法比は外形図と未照合'], int: ['!操作機構の中は模式：補助スイッチ・リンクの位置と形は資料になく推定'], op: ['!順番を示す模式：時間・電流の大きさは表していない'], wire: [] }
+    views: { front: { label: '正面', yaw: 0, pitch: 0.1 }, mech: { label: '操作機構', yaw: -0.5, pitch: 0.25, zoom: 1.8, target: [0.2, 0.6, 0.4] }, back: { label: '背面（接触子）', yaw: Math.PI - 0.4, pitch: 0.2 } },
+    modeView: { op: { zoom: 0.85, target: [0, 0.8, 0.3] } },
+    banner: { ext: ['参考：三菱電機 VF-8D 引出形・電動ばね操作', '外形と前面の並びはカタログの外形図（図4.24）に合わせた'], int: ['!操作機構の中は模式：補助スイッチ・リンクの位置と形は資料になく推定'], op: ['!順番を示す模式：時間・電流の大きさは表していない'], wire: [] }
   };
 })();
