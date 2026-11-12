@@ -2,19 +2,19 @@
 <link rel="stylesheet" href="menu-layout.css?v=20260930">
 <link rel="stylesheet" href="hv3d.css?v=20261027">
 </head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
-<section class="hero"><span class="eyebrow">3Dモデル / PAS・VT・LA内蔵</span><h1>VT・LA内蔵PASの中を、<br>3Dで見る</h1><p class="lead">柱の上のPASの中で、主接点・ZCT・VT・LAはどうつながっているのか。360°回せるモデルで、入・切と耐圧試験のつなぎ方を切り替えて、試験電圧と電流がどこへ届くかを確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#parts">部品と資料の範囲</a><a href="#withstand">耐圧試験のきまり</a><a href="#note">確かめたこと</a></nav><p class="caption">見本は戸上電機の「VT･LA内蔵GR付PAS」（KLT-P(S)A-(D2)N11LT ほか）です。定格・接続関係・注意事項は公開資料によりますが、<b>PASの中の構造図は公開されていないため、部品の形と配置は推定</b>です。VTは<b>U–W間</b>としています。利用者が分解したPASの写真（VTの一次2本が、3本並んだ相の両端につながっている）と、戸上電機の外形図の注記によります（外形図の画像はこちらでは読めず、文字は未照合）。実際の試験は対象機種の取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
+<section class="hero"><span class="eyebrow">3Dモデル / PAS・VT・LA内蔵</span><h1>VT・LA内蔵PASの中を、<br>3Dで見る</h1><p class="lead">柱の上のPASの中で、主接点・ZCT・VT・LAはどうつながっているのか。360°回せるモデルで、入・切と耐圧試験のつなぎ方を切り替えて、試験電圧と電流がどこへ届くかを確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#parts">部品と資料の範囲</a><a href="#withstand">耐圧試験のきまり</a><a href="#note">確かめたこと</a></nav><p class="caption">見本は戸上電機の「VT･LA内蔵GR付PAS」（KLT-P(S)A-(D2)N11LT ほか）です。定格・接続関係・注意事項は公開資料によりますが、<b>PASの中の構造図は公開されていないため、部品の形と置き場所は推定</b>です。つながる順番（電源側 → ZCT → 主接点 → VT・LA → 負荷側）と、VTが<b>U–W間</b>（3本のうち外側の2本のあいだ）、LAが各相と大地のあいだにつながることは、戸上電機の取扱説明書 p.18 の接続図で確かめました。利用者が分解したPASの写真（VTの一次2本が、3本並んだ相の両端につながっている）とも合います。実際の試験は対象機種の取扱説明書・社内手順・作業責任者の指示に従います。</p></section>
 
 <section class="sheet" id="model"><h2>3Dモデル</h2>
 <p class="caption">参考型式：<b>戸上電機 KLT-PA-D2N11LT</b>（VT・LA内蔵GR付PAS）。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
 <p class="caption">「動作」の場面は、柱の上でPASと立上りケーブルのあいだにVCTが付く設備の竣工検査（VCTはまだ付いていない）。<b>柱の上の4口クリップでPASのU・V・Wとケーブル1心をつかみ、キュービクル側の4口クリップで3心を三線短絡して試験器をつなぐ</b>形です（<a href="pukapuka-diary.html#short-clip-9points-20261021">短絡クリップの9点の日誌</a>）。黄色い粒は充電電流の通り道（往路と帰路）のイメージで、大きさは表していません。数値は<a href="pas-vt-withstand-simulator.html#sim">VT内蔵PAS 耐圧試験シミュレーター</a>で確かめます。</p>
 <div id="hvRoot"></div>
-<template id="pasWire"><svg viewBox="0 0 540 360" style="font-size:15px" role="img" aria-label="VT・LA内蔵PASの耐圧試験の結線図。電源側から主接点を通って負荷側へ。負荷側のU–W間にVT、各相と大地のあいだにLA。柱の上のクリップでU・V・Wとケーブル1心をつなぎ、キュービクル側の三線短絡に試験器をつなぐ">
+<template id="pasWire"><svg viewBox="0 0 540 360" style="font-size:15px" role="img" aria-label="VT・LA内蔵PASの耐圧試験の結線図。電源側からZCT、主接点を通って負荷側へ。負荷側のU–W間にVT、各相と大地のあいだにLA。柱の上のクリップでU・V・Wとケーブル1心をつなぎ、キュービクル側の三線短絡に試験器をつなぐ">
 <g fill="#203b50" font-size="15"><text x="20" y="22">電源側</text><text x="300" y="22">負荷側</text><text x="8" y="65">U</text><text x="8" y="105">V</text><text x="8" y="145">W</text></g>
 <g data-part="bsrc" stroke="#203b50" stroke-width="2.5"><line x1="24" y1="60" x2="110" y2="60"/><line x1="24" y1="100" x2="110" y2="100"/><line x1="24" y1="140" x2="110" y2="140"/></g>
 <g id="ps-on" style="display:none"><rect x="22" y="44" width="92" height="108" fill="#d85a30" opacity=".15"/><text x="24" y="172" fill="#b83a2b" font-size="14" font-weight="700">入：電源側まで充電</text></g>
 <g data-part="contact" stroke="#203b50" stroke-width="3" fill="none"><path id="ps-sw-U" d="M110 60 L146 42"/><path id="ps-sw-V" d="M110 100 L146 82"/><path id="ps-sw-W" d="M110 140 L146 122"/></g>
 <g fill="#203b50"><circle cx="110" cy="60" r="3.5"/><circle cx="110" cy="100" r="3.5"/><circle cx="110" cy="140" r="3.5"/><circle cx="150" cy="60" r="3.5"/><circle cx="150" cy="100" r="3.5"/><circle cx="150" cy="140" r="3.5"/></g>
-<g data-part="zct"><ellipse cx="185" cy="100" rx="12" ry="56" fill="none" stroke="#3f4a55" stroke-width="2.5"/><text x="160" y="178" text-anchor="middle" fill="#4b6475" font-size="14">ZCT</text></g>
+<g data-part="zct"><ellipse cx="70" cy="100" rx="10" ry="54" fill="none" stroke="#3f4a55" stroke-width="2.5"/><text x="70" y="40" text-anchor="middle" fill="#4b6475" font-size="13">ZCT</text></g>
 <g data-part="bload" stroke="#203b50" stroke-width="2.5"><line x1="150" y1="60" x2="380" y2="60"/><line x1="150" y1="100" x2="380" y2="100"/><line x1="150" y1="140" x2="380" y2="140"/></g>
 <g data-part="vt"><path d="M215 60 V165 M245 140 V165" stroke="#d85a30" stroke-width="2.5" fill="none"/><rect x="205" y="165" width="50" height="22" rx="3" fill="#fff" stroke="#8a4b2e" stroke-width="2"/><text x="230" y="205" text-anchor="middle" fill="#712b13" font-size="14">VT（U–W間）</text><circle cx="215" cy="60" r="3.5" fill="#203b50"/><circle cx="245" cy="140" r="3.5" fill="#203b50"/></g>
 <g id="ps-vtbad" style="display:none"><rect x="199" y="159" width="62" height="34" rx="5" fill="none" stroke="#b83a2b" stroke-width="3"/><text x="230" y="222" text-anchor="middle" fill="#b83a2b" font-size="14" font-weight="700">VTに電流</text></g>
@@ -30,9 +30,9 @@
 <section class="sheet" id="parts"><h2>部品と、資料で確かめられた範囲</h2>
 <div class="table-wrap"><table class="rtab">
 <tr><th>部品</th><th>はたらき</th><th>資料</th></tr>
-<tr><td>VT</td><td>負荷側に内蔵。6,600/105V・25VA・耐電圧22/60kV。SOG制御装置の電源（P1・P2）。</td><td><span class="tg pub">公開資料</span> U–W間は実機写真と外形図の注記</td></tr>
-<tr><td>LA</td><td>負荷側に内蔵。定格8.4kV・公称放電電流2,500A・AC放電開始17kV以上（波高値）・制限電圧36kV以下・ZnO素子ギャップレス。</td><td><span class="tg pub">公開資料</span> つなぎ方は<span class="tg est">推定</span></td></tr>
-<tr><td>ZCT</td><td>3相の導体をまとめて通し、零相電流を検出してSOG制御装置へ送る（Z1・Z2）。</td><td>接続図に記号 <span class="tg est">位置は推定</span></td></tr>
+<tr><td>VT</td><td>負荷側に内蔵。6,600/105V・25VA・耐電圧22/60kV。SOG制御装置の電源（P1・P2）。</td><td><span class="tg pub">公開資料</span> U–W間は取扱説明書 p.18 の接続図と実機写真</td></tr>
+<tr><td>LA</td><td>負荷側に内蔵。定格8.4kV・公称放電電流2,500A・AC放電開始17kV以上（波高値）・制限電圧36kV以下・ZnO素子ギャップレス。</td><td><span class="tg pub">公開資料</span> 各相と大地のあいだに1つずつ（取扱説明書 p.18 の接続図）</td></tr>
+<tr><td>ZCT</td><td>3相の導体をまとめて通し、零相電流を検出してSOG制御装置へ送る（Z1・Z2）。</td><td><span class="tg pub">公開資料</span> 主接点より電源側（取扱説明書 p.18 の接続図）。箱の中の置き場所は<span class="tg est">推定</span></td></tr>
 <tr><td>主接点・消弧室</td><td>3相を同時に開閉。消弧媒体は気中（表示「A」）。</td><td><span class="tg est">形・配置は推定</span></td></tr>
 <tr><td>操作機構</td><td>ハンドルで入・切。SOGの信号でトリップコイルが働いて開く。過電流ロック付き。</td><td><span class="tg est">内部の形は推定</span></td></tr>
 <tr><td>外箱・接地</td><td>必ずA種接地。LA内蔵形は接地しないと雷から守れない。Z2端子は開閉器の中で外箱につながる。</td><td><span class="tg pub">公開資料</span></td></tr>
@@ -55,16 +55,16 @@
 <section class="sheet" id="note"><h2>確かめたこと</h2>
 <ul>
 <li>戸上電機の製品ページで、VT・LAが開閉器の負荷側に内蔵されていること、VTとLAの定格、Z2端子が外箱に接続されていること、Vc端子を接地しないことを確認しました。</li>
-<li>戸上電機の取扱説明書で、簡易接続図にVT・LA・ZCT・TCの記号があること、P2を接地相側に接続すること、LA内蔵形の接地が必須であること、P1・P2に別電源をかけないことを確認しました。展開接続図と内部構造図は掲載されていません。</li>
+<li>戸上電機の取扱説明書で、簡易接続図にVT・LA・ZCT・TCの記号があること、P2を接地相側に接続すること、LA内蔵形の接地が必須であること、P1・P2に別電源をかけないことを確認しました。p.18 の「方向性 VT・LA内蔵形 接続図」を画像で読み取り（2026年11月12日）、電源側から ZCT → 主接点 → OCR（過電流ロックリレー）→ ZPD → VT → LA → 負荷側の順につながること、VTの一次が3本のうち外側の2本のあいだにつながること、LAが各相と大地（E）のあいだに1つずつつながることを確認しました。それまで主接点の負荷側に描いていた ZCT を、電源側へ直しました。内部構造図は掲載されていません。</li>
 <li>LA内蔵形で直流試験をしない点、制御線を外して一括接地する点は、日本高圧電気の取扱説明書（このサイトの<a href="pas-vt-withstand-simulator.html#sources">PAS耐圧シミュレーターの根拠資料</a>で確認済み）によります。AC12kV・DC17kVの制限は、同じページで確認した戸上電機の資料によります。</li>
-<li>確かめられなかったこと：部品の形・配置・寸法、LAのつなぎ方（各相と大地の間とした）、ZCTの位置。VTのU–W間は、実機の分解写真と戸上電機の外形図の注記によりますが、外形図の文字はこちらで読めていません。モデルのこれらの部分は推定です。</li>
+<li>確かめられなかったこと：部品の形・寸法と、箱の中での置き場所。接続図は電気的なつながりを示すもので、実物の配置ではありません（図にも「端子配列は実物と異なります」とあります）。モデルのこれらの部分は推定です。</li>
 </ul>
 <p class="caption" style="font-size:12px">出典：<a href="https://www.togami-elec.co.jp/product/sog_kaiheiki/product_104.php" target="_blank" rel="noopener">戸上電機 VT･LA内蔵GR付PAS</a>、<a href="https://www.togami-elec.co.jp/document/catalogs/01314.pdf" target="_blank" rel="noopener">戸上電機 取扱説明書（GR付PAS）</a>、<a href="https://www.togami-elec.co.jp/document/catalogs/gr_pas_la_ippan_No.01314b.pdf" target="_blank" rel="noopener">戸上電機 取扱説明書（LA内蔵形）</a>、<a href="https://www.nkeco.co.jp/download/manual/PAS-07-B.pdf" target="_blank" rel="noopener">日本高圧電気 取説-PAS-07</a>（2026年10月26日閲覧。日本高圧電気の取説は既存ページでの確認内容による）</p>
 </section>
 
 <section class="sheet"><h2>つながる教材</h2><div class="related"><a href="pas-vt-withstand-simulator.html">VT内蔵PAS 耐圧試験シミュレーター</a><a href="vt-withstand-3d.html">VT単体の耐圧試験を3Dで見る</a><a href="vt-water-analogy.html">ケーブルはよくてVTがだめな理由</a><a href="pukapuka-diary.html#short-clip-9points-20261021">短絡クリップのつなぎ方を整理した日誌</a></div></section>
 </main><footer>うきわメモ / 2026年10月26日作成 / モデルは原理説明用で、実機の構造図・試験結線図ではありません。</footer>
-<script src="hv3d.js?v=20261027"></script><script src="pas-vtla-model.js?v=20261027"></script>
+<script src="hv3d.js?v=20261027"></script><script src="pas-vtla-model.js?v=20261112"></script>
 <script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.pas);</script>
 <script src="menu-layout.js?v=20260930"></script>
 </body></html>
