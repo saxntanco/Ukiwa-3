@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'none'; font-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="description" content="組作業の予定表から、自分の名前が入っている作業だけを抜き出してGoogleカレンダー用のCSVにします。予定表は端末の外に出ません。">
+<title>組作業カレンダー｜うきわの隠れ家</title>
+<style>
+/* うきわの隠れ家の夜の色。上から 1 名前 → 2 予定表 → 3 確認して保存 の3段 */
+:root{--bg:#091322;--panel:#132339;--panel2:#0f1d30;--ink:#eef6ff;--muted:#a9bed3;--line:#405675;--cyan:#70e8e9;--cyan-ink:#06222a;--ok:#6fe0a8;--warn:#f3c26b;--bad:#ff9a8f;--hit:#21445a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(at 85% 0%,#24365d,transparent 55%),var(--bg);color:var(--ink);font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:16px;line-height:1.7;min-height:100vh}
+.wrap{max-width:1000px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+a{color:var(--cyan)}
+.top{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.25;margin:8px 0 0;text-wrap:balance}
+.lead{margin:6px 0 0;color:var(--muted);max-width:42em}
+.safe{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:13px;font-weight:700;border:1px solid #2f6e73;color:var(--cyan);border-radius:999px;padding:2px 12px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.step>h2{margin:0;padding:10px 18px;font-size:17px;display:flex;gap:10px;align-items:baseline;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#174552,#201c42)}
+.step>h2 .n{color:var(--cyan);font-weight:900;font-variant-numeric:tabular-nums}
+.body{padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+label.f{font-weight:700}
+input[type=text],input[type=date],input[type=time],input[type=month]{font:inherit;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-height:44px;min-width:0}
+#q{font-size:20px;font-weight:700;width:12em;max-width:100%}
+button{font:inherit;font-weight:700;min-height:44px;padding:8px 16px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
+button.pri{background:var(--cyan);border-color:var(--cyan);color:var(--cyan-ink)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible,.drop:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.hint{color:var(--muted);font-size:14px;margin:0}
+.drop{border:2px dashed var(--cyan);border-radius:14px;background:#0f2a36;padding:24px 16px;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center}
+.drop.over{border-style:solid;background:#123744}
+.drop b{font-size:18px}
+.files{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.files li{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;background:var(--panel2)}
+.files .nm{font-weight:700;overflow-wrap:anywhere;min-width:0}
+.files .st{grid-column:1/-1;font-size:14px;color:var(--muted);overflow-wrap:anywhere}
+.files .st.ok{color:var(--ok)}.files .st.warn{color:var(--warn)}.files .st.bad{color:var(--bad)}
+.files .ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.files input[type=month]{min-height:40px;padding:4px 8px}
+.files button{min-height:40px;padding:4px 12px;font-size:14px}
+.sum{font-weight:700;margin:0}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:860px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:12px;letter-spacing:.04em;color:var(--muted);background:var(--panel2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tr.hit td{background:var(--hit)}
+tr.off td{opacity:.5}
+td input[type=date],td input[type=time]{min-height:38px;padding:4px 6px;font-size:14px;font-variant-numeric:tabular-nums}
+td input.cust,td input.addr{min-height:38px;padding:4px 8px;font-size:14px;width:100%}
+td.place{min-width:16em} td.place input.addr{margin-top:4px;font-size:13px}
+td input[type=checkbox]{width:22px;height:22px}
+td.who{font-size:13px;color:var(--muted);min-width:10em}
+td.who .ln,td.who .inf{display:block}
+td.who .inf{color:var(--ink)}
+td.who details{font-size:13px;color:var(--ink)} td.who summary{color:var(--cyan);font-weight:700;cursor:pointer}
+td.who .wk{max-width:22em} td.who .wk b{background:#2f6e73;padding:0 2px;border-radius:3px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:0 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.ex{border-color:var(--warn);color:var(--warn)}
+.note{font-size:14px;color:var(--muted);margin:0}
+.msg{font-size:15px;font-weight:700;margin:0}.msg.ok{color:var(--ok)}.msg.bad{color:var(--bad)}
+details.more{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+details.more summary{cursor:pointer;font-weight:700;color:var(--ink)}
+details.more ul{margin:8px 0 0;padding-left:1.2em}
+.claude{border:1px solid #5b4a8a;background:#1b1838;border-radius:12px;padding:12px 14px;font-size:14px}
+.claude b{color:#d8ccff}
+@media(max-width:560px){#q{width:100%}.files li{grid-template-columns:1fr}.files .ctl{justify-content:flex-start}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="top"><a href="hidden-menu.html">← うきわの隠れ家</a><span>TOOL / KUMI SAGYO</span></div>
+    <h1>組作業カレンダー</h1>
+    <p class="lead">組作業の予定表から、自分の名前が入っている作業だけを抜き出して、Googleカレンダーに取り込めるCSVにします。</p>
+    <div class="safe"><span class="chip">予定表は端末の外に出ない</span><span class="chip">登録・ログイン不要</span><span class="chip">住所録はこの端末だけ</span></div>
+  </header>
+
+  <section class="step">
+    <h2><span class="n">1</span>名前を入れる</h2>
+    <div class="body">
+      <div class="row">
+        <label class="f" for="q">さがす名前</label>
+        <input type="text" id="q" value="" maxlength="40" autocomplete="off" placeholder="例：大谷">
+        <button type="button" id="apply">この名前で抽出</button>
+      </div>
+      <p class="hint">作業員のマスか、担当者（作業責任者）にこの名前が入っている作業を選びます。空にすると全部の作業が出ます。名前はこの端末に覚えておきます。</p>
+    </div>
+  </section>
+
+  <section class="step">
+    <h2><span class="n">2</span>予定表を入れる</h2>
+    <div class="body">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="ファイルを選ぶ">
+        <b>ここへドロップ、またはタップして選ぶ</b>
+        <span class="hint">Excel（.xlsx・.xlsm・.xls）／文字入りPDF。何個でもまとめて入れられます。</span>
+      </div>
+      <input type="file" id="pick" multiple hidden accept=".xlsx,.xlsm,.xls,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+      <ul class="files" id="files"></ul>
+      <div class="claude"><b>スキャンした画像のPDFや写真は？</b> この版は予定表を端末の外に出さないかわりに、画像の文字は読めません。画像のPDFは <a id="claudeLink" href="#" target="_blank" rel="noopener noreferrer">Claude版の組作業カレンダー</a> で読めます（Claudeへのログインが必要で、画像はClaudeに送られます）。</div>
+    </div>
+  </section>
+
+  <section class="step">
+    <h2><span class="n">3</span>確認して、CSVを保存</h2>
+    <div class="body">
+      <p class="sum" id="sum"></p>
+      <label class="row" style="gap:8px"><input type="checkbox" id="showAll" style="width:22px;height:22px"> 名前が入っていない作業も表示する</label>
+      <div class="tblwrap"><table>
+        <thead><tr><th>入れる</th><th>日付</th><th>開始</th><th>終了</th><th>お客さま名・住所</th><th>担当・名前・補足</th></tr></thead>
+        <tbody id="tb"></tbody>
+      </table></div>
+      <p class="note">日付・時刻・お客さま名・住所は、ここで直せます。終了が開始より早いときは、翌日に終わる作業として出します。</p>
+      <div class="row">
+        <button type="button" class="pri" id="save">CSVを保存</button>
+        <button type="button" id="copy">CSVをコピー</button>
+      </div>
+      <p class="msg" id="msg" role="status"></p>
+      <details class="more">
+        <summary>住所録（この端末だけに保存）</summary>
+        <p>住所は1度入れると、お客さま番号ごとにこの端末のブラウザに覚えて、次の予定表から自動で入ります。サーバーには送りません。別の端末で使うときは、書き出したファイルを読み込みます。</p>
+        <p class="note" id="bookNote">この端末に覚えている住所：0 件</p>
+        <div class="row">
+          <button type="button" id="bookExport">住所録を書き出す</button>
+          <button type="button" id="bookImport">住所録を読み込む</button>
+          <button type="button" id="bookClear">この端末の住所録を消す</button>
+        </div>
+        <input type="file" id="bookFile" hidden accept=".json,application/json">
+      </details>
+      <details class="more">
+        <summary>Googleカレンダーへの取り込み方</summary>
+        <p>パソコンのGoogleカレンダーで、右上の歯車 →「設定」→「インポート／エクスポート」→ 保存したCSVを選んで「インポート」。スマホのアプリからは取り込めないので、パソコンかスマホのブラウザ（PC版サイト）で行います。</p>
+      </details>
+      <details class="more">
+        <summary>安全のしくみ</summary>
+        <ul>
+          <li>予定表は、このページを開いた端末のブラウザの中だけで読みます。ページの設定（Content-Security-Policy）で外部への通信そのものを止めているので、予定表や住所がどこかへ送られることはありません。</li>
+          <li>読み込みに使う部品（SheetJS 0.20.3・PDF.js 3.11.174）は、外部のサイトから取らず、このサイトに置いた版を使います。PDF.jsは、PDFの中の命令を実行しない設定で動かしています。</li>
+          <li>保存したCSVは、Excelで開いたときに式として動かないよう、= や + で始まる値の先頭に ' を付けています。</li>
+          <li>名前と住所録は、この端末のブラウザにだけ残ります。消したいときは「この端末の住所録を消す」を押すか、ブラウザのサイトデータを消してください。共用のパソコンでは、使い終わったら消すのがおすすめです。</li>
+          <li>このページは検索エンジンに載せない設定です。ただし、URLを知っている人は誰でも開けます。ページ自体には予定表の中身は入っていません。</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+</div>
+<script src="assets/kumi/xlsx.full.min.js"></script>
+<script src="assets/kumi/pdf.min.js"></script>
+<script src="kumi-calendar.js?v=20261115"></script>
+<script src="hideout-nav.js?v=20261024" defer></script>
+</body>
+</html>
