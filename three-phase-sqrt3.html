@@ -1,0 +1,268 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="三相の電力 P=√3VIcosθ の√3はどこから来る？ 120°ずつずれた3相の矢印、線間電圧が相電圧の√3倍になる理由、Y結線とΔ結線の相電圧はどこか、1相分×3から公式になるまでを、動かして確かめる。"><title>三相の電力の√3はどこから来る？｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930">
+<style>
+.simbox{background:#f5f9fc;color:#203b50;border:1px solid #cbdce5;border-radius:16px;padding:14px;margin:10px 0 6px}
+.simbox svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+.simbox .wave{max-width:640px}
+.simgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.ctrl{margin:12px 0}
+.ctrl label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;color:#4b6475}
+.ctrl label b{color:#203b50;font-size:18px;font-variant-numeric:tabular-nums}
+.ctrl input[type=range]{width:100%;accent-color:#7c4dcc;height:30px}
+.sbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.sbtns button{border:1px solid #b9cdd9;background:#fff;color:#203b50;border-radius:10px;padding:8px 13px;font-size:14px}
+.sbtns button[aria-pressed=true]{background:#7c4dcc;border-color:#7c4dcc;color:#fff;font-weight:800}
+.vals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;font-size:12px;text-align:center;margin-top:8px}
+.vals div{background:#fff;border:1px solid #dbe6ed;border-radius:10px;padding:6px 2px;color:#4b6475}
+.vals b{display:block;font-size:18px;color:#203b50;font-variant-numeric:tabular-nums}
+.vals .sum b{color:#7c4dcc}
+.calc{font-size:15px;background:#fff;border:1px solid #dbe6ed;border-radius:12px;padding:4px 12px;margin-top:10px}
+.calc .row{padding:9px 0;border-bottom:1px dashed #cbdce5}
+.calc .row:last-child{border:none}
+.calc .k{display:block;font-size:12px;color:#577180}
+.num{font-variant-numeric:tabular-nums;font-weight:800}
+.big{font-size:22px;font-weight:900;color:#7c4dcc;font-variant-numeric:tabular-nums}
+.hit{background:#fff1b8;border-radius:6px;padding:0 5px}
+.stack{display:flex;height:36px;border-radius:10px;overflow:hidden;margin-top:10px}
+.stack div{flex:1;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
+.keyline{border-left:5px solid #7c4dcc;background:var(--island-bg-f3f6f8-100,#edf5f8);padding:12px 16px;border-radius:6px;margin:14px 0}
+.legend{display:flex;gap:14px;font-size:13px;color:#4b6475;flex-wrap:wrap;justify-content:center;margin:4px 0}
+.legend i{display:inline-block;width:16px;height:4px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.ftab{min-width:0}
+.ftab td,.ftab th{padding:10px 9px}
+@media(max-width:760px){.simgrid{grid-template-columns:1fr}.sheet{padding:20px 16px}.hero .lead{font-size:17px}}
+</style>
+</head><body><header><nav><a href="index.html">🛟 うきわメモ</a><a href="single-line-lab.html">動く単線結線図</a></nav></header><main>
+
+<section class="hero"><span class="eyebrow">動かして学ぶ / 三相交流</span><h1>三相の電力の√3は、<br>どこから来る？</h1><p class="lead">P ＝ √3 VI cosθ。三相だけの特別な公式に見えますが、中身は<b>「1相分 × 3」</b>です。√3は、3つの相が<b>120°ずつずれている</b>ことから出てきます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#formulas">電力の公式</a><a href="#shift">① 120°のずれ</a><a href="#line">② 線間電圧の√3</a><a href="#where">Y・Δの相電圧はどこ？</a><a href="#power">③ 電力の式になるまで</a><a href="#summary">まとめ</a></nav></section>
+
+<section class="sheet" id="formulas"><h2>電力の公式は、根っこは同じ</h2>
+<div class="table-wrap"><table class="ftab"><thead><tr><th>種類</th><th>公式</th><th>V・Iの意味</th></tr></thead><tbody>
+<tr><td>直流</td><td><b>P ＝ VI</b></td><td>そのまま（位相のずれがないので力率は1）</td></tr>
+<tr><td>単相交流</td><td><b>P ＝ VI cosθ</b></td><td>2線間の電圧と電流</td></tr>
+<tr><td>三相交流</td><td><b>P ＝ √3 VI cosθ</b></td><td>線間電圧と線電流</td></tr>
+<tr><td>三相（相の値で書く）</td><td><b>P ＝ 3 V<sub>相</sub> I<sub>相</sub> cosθ</b></td><td>相電圧と相電流</td></tr>
+</tbody></table></div>
+<p class="keyline">1相ずつ見れば、どれも「電圧 × 電流 × 力率」。三相の√3は、<b>現場で測りやすい線間の値</b>に置き換えたときに出てくる数字です。</p>
+<details><summary>有効電力・無効電力・皮相電力の公式</summary>
+<p>単相：有効電力 P ＝ VI cosθ〔W〕、無効電力 Q ＝ VI sinθ〔var〕、皮相電力 S ＝ VI〔VA〕。S² ＝ P² ＋ Q²、力率 cosθ ＝ P / S。</p>
+<p>三相：P ＝ √3 VI cosθ〔W〕、Q ＝ √3 VI sinθ〔var〕、S ＝ √3 VI〔VA〕（Vは線間電圧、Iは線電流）。</p>
+<p>電力量：W ＝ Pt〔Wh〕（tは時間〔h〕）。</p>
+<p>直流では P ＝ VI ＝ I²R ＝ V²/R とも書けます。</p>
+</details>
+</section>
+
+<section class="sheet" id="shift"><h2>① 三相は「120°ずつずれた3本の矢印」</h2>
+<p>3本の矢印（R相・S相・T相）が同じ速さで回っています。矢印の<b>縦方向の高さ</b>が、その瞬間の電圧（瞬時値）です。</p>
+<div class="simbox">
+<div class="simgrid">
+<div><svg id="ph1" viewBox="0 0 300 300" role="img" aria-label="120°ずつずれて回るR相・S相・T相の矢印"></svg></div>
+<div><svg id="wv1" class="wave" viewBox="0 0 380 210" role="img" aria-label="R相・S相・T相の電圧波形と現在の瞬時値"></svg>
+<div class="legend"><span><i style="background:#d6403a"></i>R相</span><span><i style="background:#2b2f36"></i>S相</span><span><i style="background:#1f5fd1"></i>T相</span></div>
+<div class="vals"><div>R相<b id="vR">0</b></div><div>S相<b id="vS">0</b></div><div>T相<b id="vT">0</b></div><div class="sum">3つの合計<b id="vSum">0</b></div></div>
+<p class="caption" style="margin:6px 0 0">数値は最大値を1としたときの瞬時値</p></div>
+</div>
+<div class="ctrl"><label for="ang"><span>角度（時間の経過）</span><b id="angLbl">0°</b></label><input id="ang" type="range" min="0" max="359" step="1" value="0">
+<div class="sbtns"><button type="button" id="play" aria-pressed="true">⏸ 止める</button><button type="button" id="slow">ゆっくり</button><button type="button" id="fast">はやく</button></div></div>
+</div>
+<p class="keyline">3本はいつも<b>120°ずつ</b>ずれていて、どの瞬間でも<b>合計は0</b>。この「120°のずれ」が、次の√3を生みます。</p>
+</section>
+
+<section class="sheet" id="line"><h2>② 線間電圧 ＝ 2本の矢印の「先っぽどうしの距離」</h2>
+<p>線間電圧（R–S間）は、R相とS相の電圧の<b>差</b>です。図では、S相の矢印の先からR相の矢印の先までの紫の矢印になります。</p>
+<div class="simbox">
+<div class="simgrid">
+<div><svg id="ph2" viewBox="0 0 340 300" role="img" aria-label="R相とS相の矢印と、その差の線間電圧"></svg></div>
+<div>
+<div class="ctrl"><label for="phi"><span>R相とS相のずれ φ</span><b id="phiLbl">120°</b></label><input id="phi" type="range" min="10" max="180" step="5" value="120"></div>
+<div class="ctrl"><label for="vp"><span>相電圧 V<sub>相</sub></span><b id="vpLbl">115.5 V</b></label><input id="vp" type="range" min="50" max="250" step="0.01" value="115.47">
+<div class="sbtns"><button type="button" id="pre200">三相200V系</button><button type="button" id="pre400">三相400V系</button><button type="button" id="reset120">ずれを120°に戻す</button></div></div>
+<div class="calc" id="calc2" aria-live="polite" data-no-term-help></div>
+</div></div></div>
+<p class="keyline">φを動かすと、<b>120°のときだけ</b>倍率がちょうど√3（1.732倍）になります。三相200Vの相電圧が約115Vなのはこのためです。</p>
+<details><summary>式で確かめる（なぜ sin60°？）</summary>
+<p>R相とS相の矢印は、長さが同じ（V<sub>相</sub>）で、間の角度が120°の二等辺三角形をつくります。</p>
+<p>この三角形を真ん中で半分に切ると、角度は60°ずつ。半分の長さ（黄色）は V<sub>相</sub> × sin60° ＝ V<sub>相</sub> × √3/2 です（sin60° ＝ cos30°）。</p>
+<p>線間電圧はその2倍なので、<b>V<sub>線間</sub> ＝ 2 × √3/2 × V<sub>相</sub> ＝ √3 V<sub>相</sub></b>。</p>
+</details>
+</section>
+
+<section class="sheet" id="where"><h2>Y結線とΔ結線、相電圧はどこ？</h2>
+<p><b>相電圧</b>は「1つの負荷（1相分のコイル）の両端にかかる電圧」です。どこに負荷がつながっているかで、場所が変わります。</p>
+<div class="table-wrap"><table class="ftab"><thead><tr><th></th><th>Y結線（スター）</th><th>Δ結線（デルタ）</th></tr></thead><tbody>
+<tr><td>負荷のつながり方</td><td>線（R）〜中性点</td><td>線（R）〜線（S）</td></tr>
+<tr><td>相電圧の場所</td><td>R–中性点、S–中性点、T–中性点</td><td><b>R–S、S–T、T–R</b>（線間電圧と同じ場所）</td></tr>
+<tr><td>相電圧</td><td>線間電圧 ÷ √3</td><td>＝ 線間電圧</td></tr>
+<tr><td>相電流</td><td>＝ 線電流</td><td>線電流 ÷ √3</td></tr>
+</tbody></table></div>
+<p class="keyline">Δ結線には中性点がないので、相電圧はそのまま線間電圧。そのかわり、<b>√3は電流のほう</b>に出てきます。</p>
+<details><summary>Δ結線で、線電流が相電流の√3倍になる理由</summary>
+<p>R線から流れ込む電流は、R–S間の負荷とT–R間の負荷の2つに分かれます（逆に言えば、2つの相電流の差が線電流）。</p>
+<p>この2つの相電流は120°ずれているので、②の電圧と同じ理屈で、差の大きさは相電流の√3倍になります。</p>
+</details>
+</section>
+
+<section class="sheet" id="power"><h2>③ 「1相分 × 3」から公式になるまで</h2>
+<p>結線を切り替えて、電圧・電流・力率を動かしてみてください。「1相分 × 3」で出した電力と、公式 √3VI cosθ で出した電力が同じになります。</p>
+<div class="simbox">
+<div class="sbtns" role="group" aria-label="結線の切り替え"><button type="button" id="cY" aria-pressed="true">Y結線（スター）</button><button type="button" id="cD" aria-pressed="false">Δ結線（デルタ）</button></div>
+<div class="simgrid">
+<div><svg id="dg3" viewBox="0 0 320 255" role="img" aria-label="Y結線またはΔ結線の負荷と、相電圧・相電流"></svg></div>
+<div>
+<div class="ctrl"><label for="vl"><span>線間電圧 V</span><b id="vLbl">200 V</b></label><input id="vl" type="range" min="100" max="440" step="10" value="200"></div>
+<div class="ctrl"><label for="il"><span>線電流 I</span><b id="iLbl">10 A</b></label><input id="il" type="range" min="1" max="50" step="1" value="10"></div>
+<div class="ctrl"><label for="pf"><span>力率 cosθ</span><b id="pfLbl">0.80</b></label><input id="pf" type="range" min="0.5" max="1" step="0.05" value="0.8"></div>
+</div></div>
+<div class="calc" id="calc3" aria-live="polite" data-no-term-help></div>
+<div class="stack" id="stack"></div>
+<p class="keyline" id="pt3" style="background:#fff" data-no-term-help></p>
+</div>
+<details><summary>計算例：三相200Vのモーター</summary>
+<p>線間電圧200V、線電流10A、力率0.8のとき、P ＝ √3 × 200 × 10 × 0.8 ＝ 1.732 × 1,600 ≒ <b>2,771W（約2.77kW）</b>。</p>
+<p>Y結線なら相電圧は約115.5V、相電流は10Aで、1相分は約924W。その3倍で約2,771Wになり、公式と一致します。</p>
+</details>
+</section>
+
+<section class="sheet" id="summary"><h2>まとめ（覚え方）</h2>
+<ul>
+<li>120°ずれた2つの電圧（電流）の差は、ちょうど<b>√3倍</b>になる</li>
+<li>だから、Y結線では <b>V<sub>線間</sub> ＝ √3 V<sub>相</sub></b>、Δ結線では <b>I<sub>線</sub> ＝ √3 I<sub>相</sub></b></li>
+<li>電力は <b>3 × 1相分</b>。線間の値に置き換えると <b>3 ÷ √3 ＝ √3</b> が残る</li>
+<li><b>P ＝ √3 VI cosθ</b>（Vは線間電圧、Iは線電流）。Y結線でもΔ結線でも同じ式</li>
+</ul>
+<details><summary>このページの前提</summary>
+<ul>
+<li>正弦波で、3相の電圧が同じ大きさ・120°ずつずれている（対称三相）として計算しています。</li>
+<li>3相の負荷が同じ（平衡負荷）としています。負荷が相ごとに違う場合は、相ごとに電力を計算して足します。</li>
+<li>図は原理説明用で、実際の機器の結線図ではありません。</li>
+</ul>
+</details>
+</section>
+
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="single-line-lab.html">動く単線結線図（負荷と力率で電流を比べる）</a><a href="ct-calculator.html">変圧器容量からCT選定</a><a href="scott-transformer.html">非常用発電機とスコット</a></div></section>
+</main><footer>うきわメモ / 2026年11月18日作成 / 図は原理説明用です。</footer>
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function tx(str,attrs,parent){const t=el('text',Object.assign({'font-size':13,'font-family':'system-ui,sans-serif'},attrs),parent);t.textContent=str;return t;}
+const COL={R:'#d6403a',S:'#2b2f36',T:'#1f5fd1',L:'#7c4dcc',G:'#8aa0b0'};
+function defs(svg){const d=el('defs',{},svg);for(const k in COL){const m=el('marker',{id:svg.id+'-'+k,viewBox:'0 0 10 10',refX:8,refY:5,markerWidth:11,markerHeight:11,markerUnits:'userSpaceOnUse',orient:'auto'},d);el('path',{d:'M0,0 L10,5 L0,10 z',fill:COL[k]},m);}}
+const D=Math.PI/180,S3=Math.sqrt(3);
+const fmt=(n,d=1)=>n.toLocaleString('ja-JP',{minimumFractionDigits:d,maximumFractionDigits:d});
+const keys=['R','S','T'];
+
+/* ① */
+const p1=$('#ph1');defs(p1);
+const cx=150,cy=150,r=108;
+el('circle',{cx,cy,r,fill:'none',stroke:'#cbdce5','stroke-dasharray':'4 4'},p1);
+el('line',{x1:20,y1:cy,x2:280,y2:cy,stroke:'#e3ecf1'},p1);
+el('line',{x1:cx,y1:20,x2:cx,y2:280,stroke:'#e3ecf1'},p1);
+const arcs=[0,1,2].map(()=>el('path',{fill:'none',stroke:COL.L,'stroke-width':2,opacity:.7},p1));
+const arcT=[0,1,2].map(()=>tx('120°',{fill:COL.L,'font-size':12,'text-anchor':'middle','font-weight':700},p1));
+const arr={},lab={};
+keys.forEach(k=>{arr[k]=el('line',{x1:cx,y1:cy,stroke:COL[k],'stroke-width':4,'stroke-linecap':'round','marker-end':`url(#ph1-${k})`},p1);lab[k]=tx(k+'相',{fill:COL[k],'font-weight':800,'font-size':14,'text-anchor':'middle','dominant-baseline':'middle'},p1);});
+el('circle',{cx,cy,r:4,fill:'#203b50'},p1);
+const w1=$('#wv1');const X0=24,W=340,Y0=100,A=78;
+el('line',{x1:X0,y1:Y0,x2:X0+W,y2:Y0,stroke:'#b9cdd9'},w1);
+[0,90,180,270,360].forEach(a=>{const x=X0+a/360*W;el('line',{x1:x,y1:Y0-84,x2:x,y2:Y0+84,stroke:'#e3ecf1'},w1);tx(a+'°',{x,y:202,'text-anchor':'middle','font-size':11,fill:'#577180'},w1);});
+keys.forEach((k,i)=>{let d='';for(let j=0;j<=180;j++){const a=j*2,x=X0+a/360*W,y=Y0-A*Math.sin((a-120*i)*D);d+=(j?'L':'M')+x.toFixed(1)+','+y.toFixed(1);}el('path',{d,fill:'none',stroke:COL[k],'stroke-width':2.5,opacity:.85},w1);});
+const cur=el('line',{y1:Y0-88,y2:Y0+88,stroke:COL.L,'stroke-width':2,'stroke-dasharray':'4 3'},w1);
+const dots={};keys.forEach(k=>dots[k]=el('circle',{r:5,fill:COL[k],stroke:'#fff','stroke-width':2},w1));
+let th=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,speed=40,last=null,visible=true;
+const pt=(a,rr)=>[cx+rr*Math.cos(a*D),cy-rr*Math.sin(a*D)];
+function draw1(){
+  const g={R:th,S:th-120,T:th-240};
+  keys.forEach(k=>{const [x,y]=pt(g[k],r-4);arr[k].setAttribute('x2',x);arr[k].setAttribute('y2',y);const [lx,ly]=pt(g[k],r+20);lab[k].setAttribute('x',lx);lab[k].setAttribute('y',ly);});
+  [[g.S,g.R],[g.T,g.S],[g.R-360,g.T]].forEach(([a1,a2],i)=>{const rr=36,[x1,y1]=pt(a1,rr),[x2,y2]=pt(a2,rr);arcs[i].setAttribute('d',`M${x1},${y1} A${rr},${rr} 0 0 0 ${x2},${y2}`);const [mx,my]=pt((a1+a2)/2,55);arcT[i].setAttribute('x',mx);arcT[i].setAttribute('y',my+4);});
+  const a=((th%360)+360)%360,x=X0+a/360*W;cur.setAttribute('x1',x);cur.setAttribute('x2',x);
+  let sum=0;keys.forEach((k,i)=>{const v=Math.sin((a-120*i)*D);sum+=v;dots[k].setAttribute('cx',x);dots[k].setAttribute('cy',Y0-A*v);$('#v'+k).textContent=(v>=0?'+':'')+v.toFixed(2);});
+  $('#vSum').textContent=Math.abs(sum)<0.005?'0.00':sum.toFixed(2);
+  const ai=Math.round(a)%360;$('#ang').value=ai;$('#angLbl').textContent=ai+'°';
+}
+function setPlay(v){playing=v;$('#play').textContent=v?'⏸ 止める':'▶ 動かす';$('#play').setAttribute('aria-pressed',String(v));}
+if('IntersectionObserver' in window)new IntersectionObserver(e=>{visible=e[0].isIntersecting;},{}).observe(p1);
+function loop(t){if(last===null)last=t;const dt=Math.min((t-last)/1000,.1);last=t;if(playing&&visible&&!document.hidden){th=(th+speed*dt)%360;draw1();}requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+setPlay(playing);
+$('#play').onclick=()=>setPlay(!playing);
+$('#slow').onclick=()=>{speed=15;setPlay(true);};
+$('#fast').onclick=()=>{speed=90;setPlay(true);};
+$('#ang').oninput=e=>{setPlay(false);th=+e.target.value;draw1();};
+draw1();
+
+/* ② */
+const p2=$('#ph2');defs(p2);const g2=el('g',{},p2);const O={x:58,y:150},R2=132;
+function draw2(){
+  const phi=+$('#phi').value,vp=+$('#vp').value,a=phi/2*D;
+  $('#phiLbl').textContent=phi+'°';$('#vpLbl').textContent=fmt(vp)+' V';
+  g2.textContent='';
+  const Ax=O.x+R2*Math.cos(a),Ay=O.y-R2*Math.sin(a),By=O.y+R2*Math.sin(a),My=O.y;
+  el('path',{d:`M${O.x},${O.y} L${Ax},${Ay} L${Ax},${By} Z`,fill:'#ece4fb'},g2);
+  el('line',{x1:O.x,y1:O.y,x2:Ax,y2:My,stroke:COL.G,'stroke-width':1.5,'stroke-dasharray':'5 4'},g2);
+  if(Ax-O.x>14)el('path',{d:`M${Ax-10},${My} L${Ax-10},${My-10} L${Ax},${My-10}`,fill:'none',stroke:COL.G},g2);
+  el('line',{x1:Ax,y1:My,x2:Ax,y2:Ay,stroke:'#f5b800','stroke-width':10,'stroke-linecap':'round',opacity:.55},g2);
+  const ra=30;el('path',{d:`M${O.x+ra*Math.cos(a)},${O.y+ra*Math.sin(a)} A${ra},${ra} 0 0 0 ${O.x+ra*Math.cos(a)},${O.y-ra*Math.sin(a)}`,fill:'none',stroke:COL.L,'stroke-width':2},g2);
+  tx('φ='+phi+'°',{x:O.x+(phi>150?-6:36),y:O.y+(phi>150?-36:-7),fill:COL.L,'font-weight':700,'font-size':12,'text-anchor':phi>150?'end':'start'},g2);
+  el('line',{x1:O.x,y1:O.y,x2:Ax,y2:Ay,stroke:COL.R,'stroke-width':4,'stroke-linecap':'round','marker-end':'url(#ph2-R)'},g2);
+  el('line',{x1:O.x,y1:O.y,x2:Ax,y2:By,stroke:COL.S,'stroke-width':4,'stroke-linecap':'round','marker-end':'url(#ph2-S)'},g2);
+  el('line',{x1:Ax,y1:By-2,x2:Ax,y2:Ay+4,stroke:COL.L,'stroke-width':3,'marker-end':'url(#ph2-L)'},g2);
+  el('circle',{cx:O.x,cy:O.y,r:4,fill:'#203b50'},g2);
+  const half=vp*Math.sin(a),line=2*half;
+  tx('R相 '+fmt(vp)+'V',{x:(O.x+Ax)/2-8,y:(O.y+Ay)/2-10,fill:COL.R,'font-weight':700,'text-anchor':'end'},g2);
+  tx('S相 '+fmt(vp)+'V',{x:(O.x+Ax)/2-8,y:(O.y+By)/2+20,fill:COL.S,'font-weight':700,'text-anchor':'end'},g2);
+  tx('線間電圧',{x:Ax+12,y:O.y+22,fill:COL.L,'font-weight':700},g2);
+  tx(fmt(line)+' V',{x:Ax+12,y:O.y+40,fill:COL.L,'font-weight':800,'font-size':16},g2);
+  tx('半分 '+fmt(half)+'V',{x:Ax+12,y:(Ay+My)/2+4,fill:'#9a5b00','font-weight':700,'font-size':12},g2);
+  const ratio=2*Math.sin(a),is120=phi===120;
+  $('#calc2').innerHTML=
+   `<div class="row"><span class="k">① 半分の長さ（黄色）＝ V相 × sin(φ/2)</span>${fmt(vp)} × sin${phi/2}° ＝ ${fmt(vp)} × ${Math.sin(a).toFixed(3)} ＝ <span class="num">${fmt(half)} V</span></div>`+
+   `<div class="row"><span class="k">② 線間電圧（紫）＝ 半分 × 2</span><span class="num">${fmt(half)} × 2 ＝ ${fmt(line)} V</span></div>`+
+   `<div class="row"><span class="k">③ 線間電圧は相電圧の何倍？ ＝ 2 × sin(φ/2)</span><span class="big ${is120?'hit':''}">${ratio.toFixed(3)} 倍</span> ${is120?'<b style="color:#7c4dcc">← これが √3</b>':'<span style="color:#577180;font-size:13px">（120°にすると√3）</span>'}</div>`;
+}
+['phi','vp'].forEach(id=>$('#'+id).oninput=draw2);
+$('#pre200').onclick=()=>{$('#vp').value=(200/S3).toFixed(2);draw2();};
+$('#pre400').onclick=()=>{$('#vp').value=(400/S3).toFixed(2);draw2();};
+$('#reset120').onclick=()=>{$('#phi').value=120;draw2();};
+draw2();
+
+/* ③ */
+let conn='Y';const d3=$('#dg3');defs(d3);const g3=el('g',{},d3);
+const TP={R:{x:160,y:36},S:{x:44,y:212},T:{x:276,y:212}};
+function load(x1,y1,x2,y2,color){el('line',{x1,y1,x2,y2,stroke:color,'stroke-width':3},g3);const mx=(x1+x2)/2,my=(y1+y2)/2,deg=Math.atan2(y2-y1,x2-x1)/D;el('rect',{x:-18,y:-9,width:36,height:18,rx:3,fill:'#fff',stroke:color,'stroke-width':2.5,transform:`translate(${mx},${my}) rotate(${deg})`},g3);}
+function draw3(){
+  const V=+$('#vl').value,I=+$('#il').value,pf=+$('#pf').value;
+  $('#vLbl').textContent=V+' V';$('#iLbl').textContent=I+' A';$('#pfLbl').textContent=pf.toFixed(2);
+  const Y=conn==='Y',Vp=Y?V/S3:V,Ip=Y?I:I/S3,P1=Vp*Ip*pf,P=3*P1;
+  g3.textContent='';
+  keys.forEach(k=>{const p=TP[k],dx=k==='R'?0:(k==='S'?-1:1),dy=k==='R'?-1:0;el('line',{x1:p.x,y1:p.y,x2:p.x+dx*26,y2:p.y+dy*26,stroke:COL[k],'stroke-width':3},g3);});
+  if(Y){const N={x:160,y:148};keys.forEach(k=>load(TP[k].x,TP[k].y,N.x,N.y,COL[k]));el('circle',{cx:N.x,cy:N.y,r:4,fill:'#203b50'},g3);tx('中性点',{x:N.x,y:N.y+26,'font-size':11,fill:'#577180','text-anchor':'middle'},g3);
+    tx('相電圧 '+fmt(Vp)+'V',{x:172,y:96,fill:COL.R,'font-weight':700,'font-size':12},g3);tx('（R–中性点。V ÷ √3）',{x:172,y:112,fill:'#577180','font-size':11},g3);}
+  else{load(TP.R.x,TP.R.y,TP.S.x,TP.S.y,COL.L);load(TP.S.x,TP.S.y,TP.T.x,TP.T.y,COL.L);load(TP.T.x,TP.T.y,TP.R.x,TP.R.y,COL.L);
+    tx('相電流 '+fmt(Ip,2)+'A',{x:224,y:112,fill:COL.L,'font-weight':700,'font-size':12},g3);tx('（I ÷ √3）',{x:224,y:128,fill:'#577180','font-size':11},g3);
+    tx('相電圧 ＝ 線間電圧（S–T）',{x:160,y:200,fill:COL.L,'font-weight':700,'font-size':12,'text-anchor':'middle'},g3);}
+  keys.forEach(k=>{const p=TP[k];el('circle',{cx:p.x,cy:p.y,r:5,fill:'#fff',stroke:COL[k],'stroke-width':2.5},g3);});
+  tx('R',{x:TP.R.x-14,y:TP.R.y-10,fill:COL.R,'font-weight':800,'font-size':15,'text-anchor':'end'},g3);
+  tx('S',{x:TP.S.x-6,y:TP.S.y-14,fill:COL.S,'font-weight':800,'font-size':15,'text-anchor':'middle'},g3);
+  tx('T',{x:TP.T.x+6,y:TP.T.y-14,fill:COL.T,'font-weight':800,'font-size':15,'text-anchor':'middle'},g3);
+  tx('線電流 '+I+'A',{x:TP.R.x+10,y:20,fill:'#203b50','font-size':12},g3);
+  el('line',{x1:TP.S.x,y1:236,x2:TP.T.x,y2:236,stroke:COL.L,'stroke-width':1.5,'stroke-dasharray':'4 3'},g3);
+  tx('線間電圧 '+V+'V',{x:160,y:251,'text-anchor':'middle',fill:COL.L,'font-weight':700,'font-size':12},g3);
+  const rows=Y?[['相電圧（1相にかかる電圧）',`V ÷ √3 ＝ ${V} ÷ 1.732 ＝ <span class="num">${fmt(Vp)} V</span>`],['相電流（1相に流れる電流）',`線電流と同じ ＝ <span class="num">${I} A</span>`]]
+              :[['相電圧（1相にかかる電圧）',`線間電圧と同じ ＝ <span class="num">${V} V</span>`],['相電流（1相に流れる電流）',`I ÷ √3 ＝ ${I} ÷ 1.732 ＝ <span class="num">${fmt(Ip,2)} A</span>`]];
+  rows.push(['1相分の電力 ＝ 相電圧 × 相電流 × 力率',`${Y?fmt(Vp):V} × ${Y?I:fmt(Ip,2)} × ${pf.toFixed(2)} ＝ <span class="num">${fmt(P1,0)} W</span>`]);
+  rows.push(['3相分（× 3）',`${fmt(P1,0)} × 3 ＝ <span class="big">${fmt(P,0)} W</span>`]);
+  rows.push(['公式で検算 ＝ √3 × V × I × cosθ',`1.732 × ${V} × ${I} × ${pf.toFixed(2)} ＝ <span class="num">${fmt(S3*V*I*pf,0)} W</span>（同じ）`]);
+  $('#calc3').innerHTML=rows.map(r=>`<div class="row"><span class="k">${r[0]}</span>${r[1]}</div>`).join('');
+  $('#stack').innerHTML=keys.map(k=>`<div style="background:${COL[k]}">${k}相 ${fmt(P1,0)}W</div>`).join('');
+  $('#pt3').innerHTML=(Y?`Y結線：P ＝ 3 × <b>(V ÷ √3)</b> × I × cosθ`:`Δ結線：P ＝ 3 × V × <b>(I ÷ √3)</b> × cosθ`)+`<br>3 ÷ √3 ＝ <b>√3</b> なので → <b>P ＝ √3 VI cosθ</b>`;
+}
+['vl','il','pf'].forEach(id=>$('#'+id).oninput=draw3);
+function setConn(c){conn=c;$('#cY').setAttribute('aria-pressed',String(c==='Y'));$('#cD').setAttribute('aria-pressed',String(c==='D'));draw3();}
+$('#cY').onclick=()=>setConn('Y');$('#cD').onclick=()=>setConn('D');
+draw3();
+})();
+</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
