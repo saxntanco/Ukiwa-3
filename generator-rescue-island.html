@@ -298,6 +298,13 @@ footer{margin-top:50px;background:var(--island-bg-ffffff-100,#ffffff);color:var(
 .load-table{overflow-x:auto}.load-table table{width:100%;border-collapse:collapse;min-width:620px;text-align:left}
 .load-table th,.load-table td{padding:13px;border-bottom:1px solid var(--island-line-cbdbe4-100,#cbdbe4);vertical-align:top}
 .load-table thead{background:var(--island-bg-edf8ff-100,#edf8ff)}.load-table .btn{font-size:12px;padding:6px;margin-top:6px}
+.load-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}.mini-card{border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:14px;padding:14px 16px;background:var(--island-bg-ffffff-100,#fff)}.mini-card h4{margin:0 0 6px;font-size:18px}.mini-card p{margin:0}
+.takeaway-lite{border-left:5px solid var(--island-line-1b7fa5-100,#1b7fa5);background:var(--island-bg-edf8ff-100,#edf8ff);padding:12px 16px;border-radius:6px;font-size:18px}
+.kv-list{padding-left:20px}.kv-list li{padding:3px 0}
+.kit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.kit-grid fieldset{border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:14px;padding:10px 14px;margin:0}.kit-grid legend{font-weight:800;padding:0 6px}.kit-grid label{display:flex;gap:8px;align-items:flex-start;padding:5px 0;cursor:pointer}.kit-grid input{margin-top:6px;width:18px;height:18px;flex:none}
+.formula-box{background:var(--island-bg-fff9e9-100,#fff9e9);border:1px solid var(--island-line-ffd65c-100,#ffd65c);border-radius:14px;padding:12px 16px;margin:12px 0;font-weight:700}.formula-box small{font-weight:400}
+#loadCases .load-table table{min-width:640px}#loadCases td{font-size:15px}
+@media(max-width:650px){.load-two,.kit-grid{grid-template-columns:1fr}}
 .load-steps{padding-left:25px}.load-steps li{padding:8px 0}.load-steps p{margin:5px 0}
 .cooling-flow{background:var(--island-bg-edf8ff-100,#edf8ff);border-radius:12px;padding:14px;margin-top:12px;font-weight:800}
 .load-guide a{color:var(--island-fg-075c99-100,#075c99)}.load-guide [id]{scroll-margin-top:85px}
@@ -386,7 +393,7 @@ footer{margin-top:50px;background:var(--island-bg-ffffff-100,#ffffff);color:var(
       <div class="db-ico">🛡️</div><b>保護装置試験</b>
       <span>異常入力から、停止・遮断・警報・表示までを追う。</span><small>守れるかを見る</small>
     </button>
-    <button class="db-card" data-open-view="anatomy-load" data-search="負荷試験 乾式抵抗器 ドライダミー ドライダミ 消防法 負荷率 kW kVA 継続時間 30% 60%">
+    <button class="db-card" data-open-view="anatomy-load" data-search="負荷試験 乾式抵抗器 ドライダミー ドライダミ 消防法 負荷率 kW kVA 継続時間 30% 60% 準備品 上昇率 実例">
       <div class="db-ico">🔥</div><b>乾式抵抗器・負荷試験</b>
       <span>定格と負荷率からkWを計算。試験の流れ・時間・記録を確認。</span><small>電圧・電流・出力</small>
     </button>
@@ -561,7 +568,54 @@ footer{margin-top:50px;background:var(--island-bg-ffffff-100,#ffffff);color:var(
   <div class="panel">
     <small class="label">DRY LOAD TEST</small><h2>ドライダミー負荷試験</h2>
     <p>発電機に抵抗負荷をつなぎ、出力・周波数・温度・運転状態を確認します。負荷は発電機の定格と試験目的に合わせて決めます。</p>
-    <nav class="controls" aria-label="負荷試験の案内"><a class="btn" href="#loadPlanner">負荷を計算</a><a class="btn" href="#loadWorkflow">試験の流れ</a><button class="btn" type="button" data-open-view="anatomy-temp">温度はどこで測る？</button><a class="btn" href="#loadRecords">記録する項目</a><a class="btn" href="scott-transformer.html">単相負荷とスコット</a></nav>
+    <nav class="controls" aria-label="負荷試験の案内"><a class="btn" href="#loadWhat">そもそも何の試験？</a><a class="btn" href="#loadKit">準備品</a><a class="btn" href="#loadPlanner">負荷を計算</a><a class="btn" href="#loadWorkflow">試験の流れ</a><button class="btn" type="button" data-open-view="anatomy-temp">温度はどこで測る？</button><a class="btn" href="#loadRecords">記録する項目</a><a class="btn" href="#loadGovernor">調速機試験</a><a class="btn" href="#loadCases">3台の実例</a><a class="btn" href="scott-transformer.html">単相負荷とスコット</a></nav>
+  </div>
+  <div class="panel" id="loadWhat">
+    <h3>0. 乾式抵抗器試験（ドライダミー試験）とは</h3>
+    <p class="takeaway-lite"><b>建物の負荷の代わりに「電気を熱に変える箱」をつないで、発電機に本番に近い仕事をさせる試験</b>です。</p>
+    <div class="load-two">
+      <div class="mini-card"><h4>なぜ負荷をかける？</h4><p>無負荷運転だけでは、エンジンが十分に温まらず、燃料・潤滑・冷却・調速機が「力を出している状態」で正常かは分かりません。負荷運転は、回転数・電圧・周波数を保ったまま、油圧・水温・油温が安定するかを見ます。</p></div>
+      <div class="mini-card"><h4>なぜ乾式抵抗器？</h4><p>実負荷運転は建物を停電させて発電機へ切り替えますが、疑似負荷装置なら<b>商用電源を止めずに</b>発電機だけで試験できます。乾式は金属抵抗とファンで空冷するので、水抵抗のような水の準備がいりません。</p></div>
+    </div>
+    <ul class="kv-list">
+      <li><b>中身：</b>抵抗器を小さなブレーカーで段階的に入れていく。力率はほぼ1（有効電力だけを消費）。</li>
+      <li><b>目安の負荷：</b>消防の点検要領では定格出力の30％以上で運転状況を確認。</li>
+      <li><b>熱：</b>消費した電力はすべて熱風になる。吹出し方向に人・物・発電機の吸気口を置かない。</li>
+    </ul>
+    <p class="sub">根拠：<a href="https://www.fdma.go.jp/singi_kento/kento/items/yobou11.pdf" target="_blank" rel="noopener">消防庁 検討会資料（擬似負荷運転と実負荷運転の図）</a>／<a href="https://www.fdma.go.jp/mission/prevention/items/youryou24.pdf#page=10" target="_blank" rel="noopener">消防庁 点検要領 第24</a></p>
+  </div>
+  <div class="panel" id="loadKit">
+    <h3>準備品チェックリスト</h3>
+    <p class="sub">3台の現場で実際に使ったものを中心にまとめました。タップでチェックできます（このページを閉じると消えます）。</p>
+    <div class="kit-grid">
+      <fieldset><legend>負荷・接続</legend>
+        <label><input type="checkbox"> 乾式負荷装置（必要kW分の台数）</label>
+        <label><input type="checkbox"> 接続ケーブル（R赤・S白・T青で色分け）</label>
+        <label><input type="checkbox"> 中継端子台（負荷装置を並列にまとめる板）</label>
+        <label><input type="checkbox"> 負荷装置の補機（ファン）電源の確保</label>
+      </fieldset>
+      <fieldset><legend>測定</legend>
+        <label><input type="checkbox"> 電力計（kW・V・Hzを読める電力アナライザ等）</label>
+        <label><input type="checkbox"> クランプメーター（R・S・T各相の電流）</label>
+        <label><input type="checkbox"> 表面温度計（ホース・オイルパン・ケース）</label>
+        <label><input type="checkbox"> ストップウォッチ（調速機試験の整定時間）</label>
+        <label><input type="checkbox"> 電卓（√3VI・上昇率の確認）</label>
+      </fieldset>
+      <fieldset><legend>工具・養生</legend>
+        <label><input type="checkbox"> ラチェット・ソケット・メガネレンチ</label>
+        <label><input type="checkbox"> ビニルテープ・養生テープ（外した端末の絶縁）</label>
+        <label><input type="checkbox"> ウエス（端末の保護・油漏れ確認）</label>
+        <label><input type="checkbox"> カラーコーン・区画用品（熱風・ケーブルの通り道）</label>
+      </fieldset>
+      <fieldset><legend>安全・書類</legend>
+        <label><input type="checkbox"> 検電器・絶縁用保護具</label>
+        <label><input type="checkbox"> 前回の成績書（前回値と比べるため）</label>
+        <label><input type="checkbox"> 発電機の銘板値（kVA・力率・電流・回転速度）</label>
+        <label><input type="checkbox"> お客様との打合せ内容（停電の有無・立会者）</label>
+      </fieldset>
+    </div>
+    <details><summary>負荷装置は何台いる？</summary><p>必要kW ÷ 1台あたりの容量（使う電圧での値）で台数を決め、余裕を持たせます。例：320kW機の30％＝96kW。1台20kWの装置なら5台で最大100kW。各台のブレーカーで細かく調整し、電力計の実測kWで目標を確認します。</p></details>
+    <details><summary>現場で見かけた「貼り紙」の意味</summary><p>発電機の出力端子には「負荷試験時は上のボルトを外す」「青・白・赤」などの注意書きが貼られていることがあります。建物側（負荷側）ケーブルを外して負荷装置をつなぐ場所と、相の色を示したものです。必ず現場の注意書きと操作票に従い、外した建物側ケーブルの端末はテープとウエスで絶縁・養生します。</p></details>
   </div>
   <div class="panel" id="loadPlanner">
     <h3>1. 定格と負荷率から、必要なkWを出す</h3>
@@ -609,6 +663,44 @@ footer{margin-top:50px;background:var(--island-bg-ffffff-100,#ffffff);color:var(
     <tr><th>状態・復旧</th><td>漏れ、異音、振動、煙、警報、処置、待機復旧確認</td><td>異常なし／未測定／対象外を分ける</td></tr>
     </tbody></table></div>
     <details><summary>記録欄のひな形</summary><p>現場名／発電機型式／負荷装置型式／試験目的／根拠資料／管理値の出典</p><p>測定時刻｜負荷kW・％｜電圧V｜R/S/T電流A｜Hz｜油圧・単位｜温度℃・測定点ID｜異常・処置</p><p>管理値は型式別資料から転記します。水温・油温・軸受温度に、一律の合否温度は設定しません。</p></details>
+  </div>
+  <div class="panel" id="loadGovernor"><h3>5. 調速機試験：負荷を一気に切ったら、回転はどこまで上がる？</h3>
+    <p>負荷運転中に負荷装置のメインブレーカーを<b>一気に切る（負荷遮断）</b>と、エンジンは急に軽くなり回転が上がります。調速機（ガバナ）が燃料を絞って回転を戻すまでの<b>上がり幅</b>と<b>戻るまでの時間</b>を見ます。その後、再び投入（再投入）して落ち込みと回復も確認します。</p>
+    <div class="formula-box">上昇率〔%〕＝（遮断時の最高周波数 − 負荷時の周波数）÷ 負荷時の周波数 × 100<br><small>回転数で計算しても同じ（N＝120f／P なので、周波数に比例）</small></div>
+    <div class="load-inputs">
+      <label>負荷時の周波数 [Hz]<input id="govF1" type="number" min="0" step="any" inputmode="decimal" value="50.3"></label>
+      <label>遮断時の最高周波数 [Hz]<input id="govF2" type="number" min="0" step="any" inputmode="decimal" value="51.9"></label>
+      <label>極数（銘板の回転速度から）<select id="govPoles"><option value="2">2極（50Hzで3000rpm）</option><option value="4" selected>4極（50Hzで1500rpm）</option><option value="6">6極（50Hzで1000rpm）</option></select></label>
+    </div>
+    <div id="govResult" class="load-result" aria-live="polite"></div>
+    <p class="sub">判定の目安（成績書に記載の基準・日本内燃力発電設備協会）：瞬時の速度変動率±10％以内、整定時間8秒以内。機種固有の値がある場合はメーカー資料を優先します。</p>
+    <details><summary>極数はどう調べる？</summary><p>銘板の定格回転速度と周波数から P＝120f÷N。50Hzで1500min⁻¹なら 120×50÷1500＝4極。現場では周波数から回転数を出して記録することも多く、120×51.9÷4＝1557rpm のように計算します。</p></details>
+    <details><summary>前回の成績書を下書きにするときの注意</summary><p>前回値が印字された用紙に今回値を赤で書き込む場合、<b>上昇率のような計算値も今回の値で計算し直す</b>のを忘れがちです。負荷時・遮断時の周波数を直したら、上昇率も必ず書き換えます。</p></details>
+  </div>
+  <div class="panel" id="loadCases"><h3>6. 実例：3台の乾式抵抗器試験（2026年11月）</h3>
+    <p class="sub">現場名・お客様名は伏せています。数値は試験成績書の記録値です。</p>
+    <div class="load-table"><table><thead><tr><th>項目</th><th>A機</th><th>B機</th><th>C機</th></tr></thead><tbody>
+    <tr><th>発電機</th><td>400kVA／320kW<br>200V 1155A</td><td>170kVA／136kW<br>200V 491A</td><td>39kVA／31.2kW<br>パッケージ形</td></tr>
+    <tr><th>極数・回転</th><td>4極 1500min⁻¹</td><td>4極 1500min⁻¹</td><td>2極 3000min⁻¹</td></tr>
+    <tr><th>製造</th><td>2005年</td><td>2004年</td><td>2000年</td></tr>
+    <tr><th>30％の目標</th><td>96kW</td><td>40.8kW</td><td>9.36kW</td></tr>
+    <tr><th>実際の負荷</th><td>99.7kW（31％）<br>206V・280A</td><td>42kW（31％）<br>206V・118A</td><td>10.4kW（33％）<br>201V・30A</td></tr>
+    <tr><th>√3VIで検算</th><td>√3×206×280≒99.9kW</td><td>√3×206×118≒42.1kW</td><td>√3×201×30≒10.4kW</td></tr>
+    <tr><th>運転中の周波数・回転</th><td>50.7Hz／1521rpm</td><td>50.4Hz／1512rpm</td><td>51.2Hz／3072rpm</td></tr>
+    <tr><th>水温・油温</th><td>72℃・80℃</td><td>77〜79℃・82℃</td><td>90℃・90℃</td></tr>
+    <tr><th>潤滑油圧力</th><td>0.55MPa</td><td>0.51MPa</td><td><b>0.15MPa</b>（前回0.35）</td></tr>
+    <tr><th>調速機 遮断時</th><td>50.7→51.6Hz</td><td>50.3→51.9Hz</td><td>51.2→52.1Hz※</td></tr>
+    <tr><th>上昇率・整定</th><td>1.78％・2.5秒</td><td>3.18％・3.0秒</td><td>1.76％・2.0秒※</td></tr>
+    <tr><th>再投入時</th><td>50.4Hz</td><td>49.3Hz</td><td>51.1Hz※</td></tr>
+    <tr><th>結果・気づき</th><td>良。基準に対して十分な余裕。</td><td>良。小さい機械ほど回転部の慣性が小さく、上昇率が大きめ。外箱に錆の垂れ跡。</td><td>良。ただし油圧が前回の半分以下。オイル量・油圧計・メーカー規定値の確認と経過観察。</td></tr>
+    </tbody></table></div>
+    <p class="sub">※C機の調速機試験は前回成績書の値。</p>
+    <details open><summary>3台から分かったこと</summary><ul>
+      <li><b>30％はkWで考える：</b>kVA×力率0.8が定格kW。乾式抵抗器は力率1なので、電力計のkWで目標を確認し、√3VIで検算するとズレに気づける。（<a href="three-phase-sqrt3.html">√3はどこから来る？</a>）</li>
+      <li><b>電流で見るなら：</b>30％のkWを力率1で流すと、定格電流の30％より小さい電流になる（A機：280A＜1155A×0.3≒347A）。電流計だけで判断しない。</li>
+      <li><b>2極機は回転数が倍：</b>C機は3000rpm級。周波数→回転数の換算で極数を間違えない。</li>
+      <li><b>判定が「良」でも前回値と比べる：</b>C機の油圧のように、基準内でも変化が大きい項目は所見に残す。</li>
+    </ul></details>
   </div>
 </div>
 <div id="temperatureGuide" class="load-guide" hidden>
@@ -1519,6 +1611,19 @@ function openDbView(key, opts={}){
 document.querySelectorAll("[data-open-view]").forEach(b=>b.addEventListener("click",()=>openDbView(b.dataset.openView)));
 document.getElementById("dbBack")?.addEventListener("click",()=>openDbView("home"));
 
+
+// 調速機試験：上昇率と回転数
+(function(){
+ const f1=document.getElementById("govF1"),f2=document.getElementById("govF2"),pl=document.getElementById("govPoles"),out=document.getElementById("govResult");
+ if(!out)return;
+ const r=(n,d)=>Number(n.toFixed(d)).toLocaleString("ja-JP",{maximumFractionDigits:d});
+ const upd=()=>{const a=parseFloat(f1.value),b=parseFloat(f2.value),p=parseInt(pl.value,10);
+  if(!(a>0)||!(b>0)){out.textContent="負荷時と遮断時の周波数を、0より大きい値で入力してください。";return}
+  const rate=(b-a)/a*100,n1=120*a/p,n2=120*b/p;
+  const ok=Math.abs(rate)<=10;
+  out.innerHTML=`<b>上昇率：${r(rate,2)}％</b>（${ok?"瞬時±10％以内":"瞬時±10％を超えています"}）<br>回転数：負荷時 ${r(n1,0)}rpm → 遮断時 ${r(n2,0)}rpm（${p}極、N＝120f／P）<br><small>整定時間（8秒以内か）はストップウォッチの実測で確認します。</small>`};
+ [f1,f2,pl].forEach(x=>x.addEventListener("input",upd));upd();
+})();
 // Search over dashboard + direct terms
 const dbSearch=document.getElementById("dbSearch");
 const dbHits=document.getElementById("dbHits");
@@ -1529,7 +1634,7 @@ const searchRoutes=[
   ["排気温度","排気温度入口・出口","anatomy-temp"],["ソレノイド","停止ソレノイド","anatomy-parts"],
   ["ガバナ","調速機","governor"],["負荷率","乾式抵抗器 ドライダミー ドライダミ","anatomy-load"],
   ["消防法","負荷運転 30％ 点検","anatomy-load"],["継続時間","何分 kW kVA","anatomy-load"],
-  ["207V","42A","anatomy-load"],["60秒","120秒","auto"],["停電","復電","auto"],
+  ["207V","42A","anatomy-load"],["上昇率","速度変動率 調速機試験 負荷遮断","anatomy-load"],["準備品","持ち物 道具 乾式抵抗器","anatomy-load"],["実例","3台 成績書 400kVA 170kVA 39kVA","anatomy-load"],["60秒","120秒","auto"],["停電","復電","auto"],
   ["絶縁","絶縁抵抗","electrical"],["接地","接地抵抗","electrical"],["成績書","試験項目から探す","records"]
 ];
 function runDbSearch(){
@@ -1563,6 +1668,12 @@ document.querySelectorAll("[data-record-action]").forEach(b=>b.addEventListener(
 // Start at the menu, not at all content
 hideDbViews();
 dbToolbar?.classList.remove("show");
+// #loadWhat などのリンクで負荷試験を開く
+(function(){
+ const ids=["dryLoadGuide","loadWhat","loadKit","loadPlanner","loadWorkflow","loadRecords","loadGovernor","loadCases"];
+ const h=decodeURIComponent((location.hash||"").slice(1));
+ if(ids.includes(h)&&typeof openDbView==="function"){openDbView("anatomy-load");setTimeout(()=>document.getElementById(h)?.scrollIntoView({behavior:"smooth"}),150)}
+})();
 
 
 // Pure load arithmetic: no automatic time or compliance decision.
