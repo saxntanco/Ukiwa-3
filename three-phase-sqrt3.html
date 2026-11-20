@@ -96,10 +96,56 @@
 <tr><td>相電流</td><td>＝ 線電流</td><td>線電流 ÷ √3</td></tr>
 </tbody></table></div>
 <p class="keyline">Δ結線には中性点がないので、相電圧はそのまま線間電圧。そのかわり、<b>√3は電流のほう</b>に出てきます。</p>
-<details><summary>Δ結線で、線電流が相電流の√3倍になる理由</summary>
-<p>R線から流れ込む電流は、R–S間の負荷とT–R間の負荷の2つに分かれます（逆に言えば、2つの相電流の差が線電流）。</p>
-<p>この2つの相電流は120°ずれているので、②の電圧と同じ理屈で、差の大きさは相電流の√3倍になります。</p>
-</details>
+<h3 id="delta-current">Δ結線の線電流を図で見る</h3>
+<p>Δ結線では、1本の線（R）が<b>2つの負荷の角</b>につながっています。だから線電流は、2つの相電流が合わさったものになります。</p>
+<div class="simbox"><div class="simgrid"><div><svg viewBox="0 0 340 300" role="img" aria-label="Δ結線のR点で、線電流I_Rと2つの相電流I_RS、I_TRの関係">
+<defs><marker id="dA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#7c4dcc"/></marker></defs><defs><marker id="dB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#1f78b4"/></marker></defs><defs><marker id="dC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#5b7486"/></marker></defs>
+<line x1="170" y1="70" x2="270" y2="230" stroke="#203b50" stroke-width="2"/>
+<line x1="170" y1="70" x2="70" y2="230" stroke="#203b50" stroke-width="2"/>
+<line x1="70" y1="230" x2="270" y2="230" stroke="#203b50" stroke-width="2"/>
+<rect x="202" y="143" width="36" height="14" rx="3" fill="#fff" stroke="#203b50" stroke-width="2" transform="rotate(58 220 150)"/>
+<rect x="102" y="143" width="36" height="14" rx="3" fill="#fff" stroke="#203b50" stroke-width="2" transform="rotate(-58 120 150)"/>
+<rect x="152" y="223" width="36" height="14" rx="3" fill="#fff" stroke="#203b50" stroke-width="2"/>
+<line x1="170" y1="16" x2="170" y2="70" stroke="#203b50" stroke-width="2"/>
+<line x1="270" y1="230" x2="322" y2="230" stroke="#203b50" stroke-width="2"/>
+<line x1="70" y1="230" x2="18" y2="230" stroke="#203b50" stroke-width="2"/>
+<circle cx="170" cy="70" r="5" fill="#203b50"/><circle cx="270" cy="230" r="5" fill="#203b50"/><circle cx="70" cy="230" r="5" fill="#203b50"/>
+<line x1="160" y1="22" x2="160" y2="58" stroke="#7c4dcc" stroke-width="3" marker-end="url(#dA)"/>
+<text x="150" y="40" text-anchor="end" font-size="14" font-weight="800" fill="#7c4dcc">I<tspan font-size="11" dy="3">R</tspan><tspan dy="-3">（線電流）</tspan></text>
+<line x1="197" y1="87" x2="219" y2="122" stroke="#1f78b4" stroke-width="3" marker-end="url(#dB)"/>
+<text x="226" y="100" font-size="14" font-weight="800" fill="#1f78b4">I<tspan font-size="11" dy="3">RS</tspan></text>
+<line x1="121" y1="122" x2="143" y2="87" stroke="#5b7486" stroke-width="3" marker-end="url(#dC)"/>
+<text x="114" y="100" text-anchor="end" font-size="14" font-weight="800" fill="#5b7486">I<tspan font-size="11" dy="3">TR</tspan></text>
+<text x="182" y="66" font-size="14" font-weight="800" fill="#203b50">R</text>
+<text x="282" y="222" font-size="14" font-weight="800" fill="#203b50">S</text>
+<text x="52" y="222" font-size="14" font-weight="800" fill="#203b50">T</text>
+<text x="170" y="270" text-anchor="middle" font-size="13" fill="#203b50">R点に入る電流 ＝ 出る電流</text>
+<text x="170" y="290" text-anchor="middle" font-size="14" font-weight="800" fill="#203b50">I<tspan font-size="11" dy="3">R</tspan><tspan dy="-3"> ＋ I</tspan><tspan font-size="11" dy="3">TR</tspan><tspan dy="-3"> ＝ I</tspan><tspan font-size="11" dy="3">RS</tspan></text>
+</svg></div><div><svg viewBox="0 0 340 300" role="img" aria-label="相電流I_RSとI_TRは120°ずれていて、その差の線電流I_Rは相電流の√3倍、30°遅れ">
+<defs><marker id="pA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#7c4dcc"/></marker></defs><defs><marker id="pB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#1f78b4"/></marker></defs><defs><marker id="pC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#5b7486"/></marker></defs><defs><marker id="pD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#e07a1f"/></marker></defs>
+<path d="M140 150 A22 22 0 0 0 129 131" fill="none" stroke="#5b7486" stroke-width="1.5"/>
+<text x="148" y="128" font-size="12" fill="#5b7486">120°</text>
+<path d="M150 170 A40 40 0 0 1 145 190" fill="none" stroke="#7c4dcc" stroke-width="1.5"/>
+<text x="156" y="190" font-size="12" font-weight="800" fill="#7c4dcc">30°</text>
+<line x1="110" y1="170" x2="196" y2="170" stroke="#1f78b4" stroke-width="3" marker-end="url(#pB)"/>
+<line x1="110" y1="170" x2="67" y2="96" stroke="#5b7486" stroke-width="3" marker-end="url(#pC)"/>
+<line x1="200" y1="170" x2="243" y2="244" stroke="#e07a1f" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#pD)"/>
+<line x1="110" y1="170" x2="241" y2="246" stroke="#7c4dcc" stroke-width="4" marker-end="url(#pA)"/>
+<circle cx="110" cy="170" r="4" fill="#203b50"/>
+<text x="150" y="162" font-size="14" font-weight="800" fill="#1f78b4">I<tspan font-size="11" dy="3">RS</tspan></text>
+<text x="40" y="92" font-size="14" font-weight="800" fill="#5b7486">I<tspan font-size="11" dy="3">TR</tspan></text>
+<text x="232" y="196" font-size="14" font-weight="800" fill="#e07a1f">−I<tspan font-size="11" dy="3">TR</tspan></text>
+<text x="130" y="232" text-anchor="end" font-size="14" font-weight="800" fill="#7c4dcc">I<tspan font-size="11" dy="3">R</tspan><tspan dy="-3"> ＝ √3 × I</tspan><tspan font-size="11" dy="3">相</tspan></text>
+<text x="170" y="290" text-anchor="middle" font-size="14" font-weight="800" fill="#203b50">I<tspan font-size="11" dy="3">R</tspan><tspan dy="-3"> ＝ I</tspan><tspan font-size="11" dy="3">RS</tspan><tspan dy="-3"> − I</tspan><tspan font-size="11" dy="3">TR</tspan></text>
+</svg></div></div>
+<div class="legend"><span><i style="background:#7c4dcc"></i>線電流 I<sub>R</sub></span><span><i style="background:#1f78b4"></i>相電流 I<sub>RS</sub></span><span><i style="background:#5b7486"></i>相電流 I<sub>TR</sub></span><span><i style="background:#e07a1f"></i>−I<sub>TR</sub>（向きを反対に）</span></div></div>
+<ol>
+<li><b>左の図（回路）：</b>R点に入る電流と出る電流は等しい（キルヒホッフの法則）。入るのは I<sub>R</sub> と I<sub>TR</sub>、出るのは I<sub>RS</sub>。だから <b>I<sub>R</sub> ＝ I<sub>RS</sub> − I<sub>TR</sub></b>。</li>
+<li><b>右の図（ベクトル）：</b>I<sub>RS</sub> と I<sub>TR</sub> は120°ずれた同じ長さの矢印。引き算は「−I<sub>TR</sub>（逆向き）を足す」こと。足すと紫の矢印になります。</li>
+<li>紫の矢印は、②の線間電圧とまったく同じ形の二等辺三角形の底辺。だから長さは <b>√3倍</b>、向きは I<sub>RS</sub> より<b>30°遅れ</b>。</li>
+</ol>
+<div class="calc" data-no-term-help><div class="row"><span class="k">例：200V・Δ結線、1相の負荷に10A流れているとき</span>線電流 ＝ √3 × 10A ≒ <span class="big">17.3 A</span></div><div class="row"><span class="k">電力で確かめる</span>1相分 200V×10A＝2kW、3相で6kW ／ 公式 √3×200V×17.3A ≒ 6kW（力率1）</div></div>
+<p class="keyline">Y結線は「電圧が√3倍（線間電圧＝√3×相電圧）」、Δ結線は「電流が√3倍（線電流＝√3×相電流）」。どちらも<b>120°ずれた2本の矢印の差</b>だから√3が出てきます。</p>
 </section>
 
 <section class="sheet" id="power"><h2>③ 「1相分 × 3」から公式になるまで</h2>
