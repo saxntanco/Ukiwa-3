@@ -1,0 +1,355 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="三角関数をまるごと。sin・cos・tanに加えて、cot（コタンジェント）・sec（セカント）・csc（コセカント）、逆三角関数 arcsin・arccos・arctan（tan⁻¹）とatan2、ラジアン、相互関係・加法定理・合成、双曲線関数までを、単位円を動かしながら電気の計算（力率・インピーダンス角・力率改善・勾配）と一緒に。"><title>三角関数をまるごと（cot・sec・csc・arctanまで）｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930">
+<style>
+.simbox{background:#f5f9fc;color:#203b50;border:1px solid #cbdce5;border-radius:16px;padding:14px;margin:10px 0 6px}
+.simbox svg{display:block;width:100%;height:auto;max-width:440px;margin:0 auto}
+.simgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.ctrl{margin:12px 0}
+.ctrl label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;color:#4b6475}
+.ctrl label b{color:#203b50;font-size:18px;font-variant-numeric:tabular-nums}
+.ctrl input[type=range]{width:100%;accent-color:#7c4dcc;height:30px}
+.sbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.sbtns button{border:1px solid #b9cdd9;background:#fff;color:#203b50;border-radius:10px;padding:8px 12px;font-size:14px}
+.sbtns button[aria-pressed=true]{background:#7c4dcc;border-color:#7c4dcc;color:#fff;font-weight:800}
+.fvals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;font-size:12px;text-align:center;margin-top:8px}
+.fvals div{background:#fff;border:1px solid #dbe6ed;border-left-width:5px;border-radius:10px;padding:6px 2px;color:#4b6475}
+.fvals b{display:block;font-size:18px;color:#203b50;font-variant-numeric:tabular-nums}
+.fvals small{display:block;font-size:11px}
+.calc{font-size:15px;background:#fff;border:1px solid #dbe6ed;border-radius:12px;padding:4px 12px;margin-top:10px}
+.calc .row{padding:9px 0;border-bottom:1px dashed #cbdce5}
+.calc .row:last-child{border:none}
+.calc .k{display:block;font-size:12px;color:#577180}
+.num{font-variant-numeric:tabular-nums;font-weight:800}
+.big{font-size:22px;font-weight:900;color:#7c4dcc;font-variant-numeric:tabular-nums}
+.warn{color:#b3261e;font-weight:700}
+.keyline{border-left:5px solid #7c4dcc;background:var(--island-bg-f3f6f8-100,#edf5f8);padding:12px 16px;border-radius:6px;margin:14px 0}
+.ftab{min-width:0}
+.ftab td,.ftab th{padding:9px 8px;text-align:center}
+.ftab td:first-child,.ftab th:first-child{text-align:left}
+.inrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:10px}
+.inrow label{display:block;font-size:13px;color:#4b6475}
+.inrow input{width:100%;box-sizing:border-box;font-size:18px;padding:8px 10px;border:1px solid #b9cdd9;border-radius:10px;font-variant-numeric:tabular-nums}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.vs div{background:#fff;border:1px solid #dbe6ed;border-radius:12px;padding:10px 12px}
+.vs b.t{display:block;font-size:17px;margin-bottom:4px}
+.fx{font-size:16px;line-height:2}
+@media(max-width:760px){.simgrid,.vs{grid-template-columns:1fr}.sheet{padding:20px 16px}.hero .lead{font-size:17px}}
+</style>
+</head><body><header><nav><a href="index.html">🛟 うきわメモ</a><a href="three-phase-sqrt3.html">三相の√3</a></nav></header><main>
+
+<section class="hero"><span class="eyebrow">動かして学ぶ / 数学の道具</span><h1>三角関数を、まるごと。<br>cot・sec・csc・arctanまで</h1><p class="lead">sin・cos・tanは「角度 → 辺の比」。その<b>逆数</b>が csc・sec・cot、<b>逆向き</b>（比 → 角度）が arcsin・arccos・arctan です。全部で12個あるように見えますが、もとは<b>直角三角形1つ</b>です。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#six">6つの比</a><a href="#circle">単位円で動かす</a><a href="#table">角度の表</a><a href="#inverse">逆三角関数</a><a href="#trap">tan⁻¹とcotの違い</a><a href="#radian">ラジアン</a><a href="#ids">公式</a><a href="#elec">電気で使う場面</a><a href="#hyp">双曲線関数</a><a href="#summary">まとめ</a></nav></section>
+
+<section class="sheet" id="six"><h2>直角三角形の「6つの比」</h2>
+<p>直角三角形で、角θから見て<b>斜辺</b>・<b>隣の辺（底辺）</b>・<b>向かいの辺（高さ）</b>の3つの辺があります。3つの辺から2つ選んで割り算すると、組み合わせは6通り。それぞれに名前がついています。</p>
+<div class="simbox"><svg viewBox="0 0 360 200" role="img" aria-label="角θ、底辺、高さ、斜辺のある直角三角形"><polygon points="50,170 300,170 300,40" fill="#7c4dcc14" stroke="#203b50" stroke-width="2.5" stroke-linejoin="round"/><path d="M288 170 V158 H300" fill="none" stroke="#203b50" stroke-width="1.5"/><path d="M95 170 A45 45 0 0 0 90 149" fill="none" stroke="#7c4dcc" stroke-width="2"/><text x="102" y="162" font-size="15" font-weight="800" fill="#7c4dcc">θ</text><text x="175" y="192" text-anchor="middle" font-size="14" font-weight="800" fill="#1f5fd1">底辺（隣の辺）＝ x</text><text x="308" y="110" font-size="14" font-weight="800" fill="#d6403a">高さ</text><text x="308" y="128" font-size="14" font-weight="800" fill="#d6403a">＝ y</text><text x="160" y="92" text-anchor="end" font-size="14" font-weight="800" fill="#203b50">斜辺 ＝ r</text></svg></div>
+<div class="table-wrap"><table class="ftab"><thead><tr><th>名前（読み）</th><th>定義</th><th>関係</th><th>電力の三角形なら</th></tr></thead><tbody>
+<tr><td><b>sin</b>（サイン・正弦）</td><td>高さ ÷ 斜辺　y/r</td><td>—</td><td>Q/S（無効率）</td></tr>
+<tr><td><b>cos</b>（コサイン・余弦）</td><td>底辺 ÷ 斜辺　x/r</td><td>—</td><td>P/S（<b>力率</b>）</td></tr>
+<tr><td><b>tan</b>（タンジェント・正接）</td><td>高さ ÷ 底辺　y/x</td><td>sin/cos</td><td>Q/P</td></tr>
+<tr><td><b>cot</b>（コタンジェント・余接）</td><td>底辺 ÷ 高さ　x/y</td><td><b>1/tan</b></td><td>P/Q</td></tr>
+<tr><td><b>sec</b>（セカント・正割）</td><td>斜辺 ÷ 底辺　r/x</td><td><b>1/cos</b></td><td>S/P</td></tr>
+<tr><td><b>csc</b>（コセカント・余割）</td><td>斜辺 ÷ 高さ　r/y</td><td><b>1/sin</b></td><td>S/Q</td></tr>
+</tbody></table></div>
+<p class="keyline">下の3つ（cot・sec・csc）は、<b>上の3つをひっくり返しただけ</b>。新しく覚えることは「どれの逆数か」だけです。cscは <b>cosec</b> と書く本もあります。</p>
+<details><summary>名前の「co」は何？（覚え方）</summary>
+<p>「co」は complement（余角＝足して90°になるもう一方の角）の意味です。<b>cosθ は「余角（90°−θ）のsin」</b>、<b>cotθ は「余角のtan」</b>、<b>cscθ は「余角のsec」</b>。</p>
+<p>直角三角形のもう一方の角（90°−θ）から見ると、高さと底辺が入れ替わるので、sin ⇔ cos、tan ⇔ cot、sec ⇔ csc が入れ替わります。</p>
+<p>逆数の組は「<b>coがつくものとつかないもの</b>」が組になります：sin ↔ csc、cos ↔ sec、tan ↔ cot。</p>
+</details>
+</section>
+
+<section class="sheet" id="circle"><h2>単位円で動かす（6つ全部が線の長さになる）</h2>
+<p>半径1の円（単位円）の上で角θの点をとると、<b>6つの値がすべて図の線の長さ</b>として見えます。ボタンで表示する関数を選べます。</p>
+<div class="simbox">
+<div class="simgrid">
+<div><svg id="uc" viewBox="0 0 400 400" role="img" aria-label="単位円上のsin・cos・tan・cot・sec・cscの線分"></svg></div>
+<div>
+<div class="ctrl"><label for="th"><span>角度 θ</span><b id="thLbl">30°</b></label><input id="th" type="range" min="0" max="360" step="1" value="30">
+<div class="sbtns" id="presets"><button type="button" data-a="0">0°</button><button type="button" data-a="30">30°</button><button type="button" data-a="36.8699">36.87°（力率0.8）</button><button type="button" data-a="45">45°</button><button type="button" data-a="60">60°</button><button type="button" data-a="90">90°</button><button type="button" data-a="120">120°</button><button type="button" data-a="210">210°</button></div></div>
+<div class="sbtns" id="toggles" aria-label="表示する関数"><button type="button" data-f="sin" aria-pressed="true">sin</button><button type="button" data-f="cos" aria-pressed="true">cos</button><button type="button" data-f="tan" aria-pressed="true">tan</button><button type="button" data-f="cot" aria-pressed="false">cot</button><button type="button" data-f="sec" aria-pressed="false">sec</button><button type="button" data-f="csc" aria-pressed="false">csc</button></div>
+<div class="fvals" id="fvals" aria-live="polite" data-no-term-help></div>
+<div class="calc" id="pq" data-no-term-help></div>
+</div></div></div>
+<ul>
+<li><b>sin</b>（赤）は点の高さ、<b>cos</b>（青）は点の横位置。</li>
+<li><b>tan</b>（橙）は、右端の縦線（x＝1）まで半径を延ばしたときの高さ。<b>sec</b>（紫）はそのときの半径の長さ。</li>
+<li><b>cot</b>（緑）は、上端の横線（y＝1）まで延ばしたときの横の長さ。<b>csc</b>（桃）はそのときの半径の長さ。</li>
+</ul>
+<p class="keyline">θを90°に近づけると、tanとsecは<b>どこまでも長く</b>なり、90°ちょうどでは<b>定義できません</b>（線が平行になって交わらない）。cotとcscは0°・180°で同じことが起きます。</p>
+</section>
+
+<section class="sheet" id="table"><h2>よく使う角度の値（6つ全部）</h2>
+<div class="table-wrap"><table class="ftab"><thead><tr><th>角度</th><th>sin</th><th>cos</th><th>tan</th><th>cot</th><th>sec</th><th>csc</th></tr></thead><tbody>
+<tr><td>0°</td><td>0</td><td>1</td><td>0</td><td>—</td><td>1</td><td>—</td></tr>
+<tr><td>30°</td><td>1/2</td><td>√3/2</td><td>1/√3</td><td>√3</td><td>2/√3</td><td>2</td></tr>
+<tr><td>36.87°<br><small>3:4:5</small></td><td>0.6</td><td>0.8</td><td>0.75</td><td>4/3</td><td>1.25</td><td>5/3</td></tr>
+<tr><td>45°</td><td>1/√2</td><td>1/√2</td><td>1</td><td>1</td><td>√2</td><td>√2</td></tr>
+<tr><td>60°</td><td>√3/2</td><td>1/2</td><td>√3</td><td>1/√3</td><td>2</td><td>2/√3</td></tr>
+<tr><td>90°</td><td>1</td><td>0</td><td>—</td><td>0</td><td>—</td><td>1</td></tr>
+<tr><td>120°</td><td>√3/2</td><td>−1/2</td><td>−√3</td><td>−1/√3</td><td>−2</td><td>2/√3</td></tr>
+<tr><td>135°</td><td>1/√2</td><td>−1/√2</td><td>−1</td><td>−1</td><td>−√2</td><td>√2</td></tr>
+<tr><td>150°</td><td>1/2</td><td>−√3/2</td><td>−1/√3</td><td>−√3</td><td>−2/√3</td><td>2</td></tr>
+<tr><td>180°</td><td>0</td><td>−1</td><td>0</td><td>—</td><td>−1</td><td>—</td></tr>
+</tbody></table></div>
+<p>「—」は定義できない（分母が0になる）ところ。√の小数：<b>√2 ≒ 1.414、1/√2 ≒ 0.707、√3 ≒ 1.732、1/√3 ≒ 0.577、2/√3 ≒ 1.155</b>。</p>
+<details><summary>符号（＋−）の覚え方</summary>
+<p>単位円で、cos は<b>横の位置</b>、sin は<b>高さ</b>なので、点がどこにあるかで符号が決まります。</p>
+<ul>
+<li>0°〜90°（右上）：全部＋</li>
+<li>90°〜180°（左上）：sin・csc だけ＋</li>
+<li>180°〜270°（左下）：tan・cot だけ＋</li>
+<li>270°〜360°（右下）：cos・sec だけ＋</li>
+</ul>
+<p>逆数どうし（sin と csc など）は、いつも同じ符号です。</p>
+</details>
+</section>
+
+<section class="sheet" id="inverse"><h2>逆三角関数：比から角度を出す</h2>
+<p>sin・cos・tanは「角度 → 比」。その<b>逆向き</b>（比 → 角度）が逆三角関数です。書き方が2通りあります。</p>
+<div class="table-wrap"><table class="ftab"><thead><tr><th>名前</th><th>別の書き方</th><th>入れる値</th><th>出てくる角度（主値）</th></tr></thead><tbody>
+<tr><td><b>arcsin x</b>（アークサイン）</td><td>sin⁻¹ x</td><td>−1 〜 1</td><td>−90° 〜 90°</td></tr>
+<tr><td><b>arccos x</b>（アークコサイン）</td><td>cos⁻¹ x</td><td>−1 〜 1</td><td>0° 〜 180°</td></tr>
+<tr><td><b>arctan x</b>（アークタンジェント）</td><td>tan⁻¹ x</td><td>どんな数でも</td><td>−90° 〜 90°（両端は含まない）</td></tr>
+</tbody></table></div>
+<p>sin 30° も sin 150° も 1/2 なので、「sinが1/2になる角度」は1つに決まりません。そこで、出てくる角度の範囲（<b>主値</b>）を決めて、答えを1つにしています。</p>
+
+<div class="simbox">
+<div class="sbtns" id="invMode"><button type="button" data-m="asin" aria-pressed="false">arcsin</button><button type="button" data-m="acos" aria-pressed="false">arccos</button><button type="button" data-m="atan" aria-pressed="true">arctan</button><button type="button" data-m="atan2" aria-pressed="false">縦と横から（atan2）</button></div>
+<div class="inrow" id="inOne"><div><label for="ix" id="ixLbl">値 x</label><input id="ix" type="number" step="any" value="1.3333" inputmode="decimal"></div><div></div></div>
+<div class="inrow" id="inTwo" hidden><div><label for="iy">縦（高さ・X・Q）</label><input id="iy" type="number" step="any" value="4" inputmode="decimal"></div><div><label for="ixx">横（底辺・R・P）</label><input id="ixx" type="number" step="any" value="-3" inputmode="decimal"></div></div>
+<div class="calc" id="invOut" aria-live="polite" data-no-term-help></div>
+<div class="sbtns" id="invPre"><button type="button" data-p="acos,0.8">力率0.8 → θ</button><button type="button" data-p="atan,1.3333333">X/R＝4/3 → θ</button><button type="button" data-p="atan,0.1">勾配10% → 角度</button><button type="button" data-p="asin,0.5">sin⁻¹ 0.5</button><button type="button" data-p="atan2,4,-3">R＝−3、X＝4</button></div>
+</div>
+<details><summary>arccot・arcsec・arccsc（残りの3つ）</summary>
+<p>cot・sec・cscにも逆関数があります。電卓にはボタンがないことが多いので、<b>逆数にしてから</b>arctan・arccos・arcsinを使います。</p>
+<ul>
+<li><b>arcsec x ＝ arccos(1/x)</b>（|x| ≧ 1）</li>
+<li><b>arccsc x ＝ arcsin(1/x)</b>（|x| ≧ 1）</li>
+<li><b>arccot x ＝ arctan(1/x)</b>（x ＞ 0 のとき）。x が負のときは、本によって主値の決め方（0°〜180° か −90°〜90° か）が違うので、問題の前提を確認します。x ＝ 0 なら 90°。</li>
+</ul>
+<p>x ＞ 0 なら <b>arctan x ＋ arctan(1/x) ＝ 90°</b>。たとえば arctan(4/3) ≒ 53.13°、arctan(3/4) ≒ 36.87°、足して90°です。</p>
+</details>
+<details><summary>atan2 はなぜ必要？（電卓の落とし穴）</summary>
+<p>arctan は −90°〜90° しか返しません。横（R）が負の場合でも、y/x を1つの数にしてから arctan に入れると、<b>反対向きの角度</b>が出てしまいます。</p>
+<p>例：横 −3、縦 4 の矢印（本当の角度は約126.87°）。4 ÷ (−3) ＝ −1.333 を arctan に入れると −53.13° になり、180°ずれています。</p>
+<p><b>atan2(縦, 横)</b> は、縦と横を別々に受け取って符号を見るので、−180°〜180° の正しい向きを返します。関数電卓の「Pol（極座標変換）」も同じ働きです。</p>
+<p><b>Excel の ATAN2 は ATAN2(横, 縦) の順</b>（xが先）です。プログラム（JavaScript・Python）の atan2(y, x) とは引数の順番が逆なので注意します。</p>
+</details>
+</section>
+
+<section class="sheet" id="trap"><h2>いちばんの落とし穴：tan⁻¹ と cot は別物</h2>
+<div class="vs">
+<div><b class="t" style="color:#e07a1f">tan⁻¹ x ＝ arctan x</b>「tanが x になる<b>角度</b>」<br>tan⁻¹ 0.75 ＝ <b>36.87°</b>（答えは角度）</div>
+<div><b class="t" style="color:#1d9e75">cot θ ＝ 1 / tan θ ＝ (tan θ)⁻¹</b>「tanの<b>逆数</b>」<br>cot 36.87° ＝ 1 ÷ 0.75 ＝ <b>1.333</b>（答えは比）</div>
+</div>
+<p>どちらも「逆」と呼ばれるので混ざりやすいのですが、<b>tan⁻¹ の「⁻¹」は「逆関数」</b>の意味で、1/tan ではありません。逆数を書きたいときは (tan θ)⁻¹ とかっこをつけるか、cot θ と書きます。</p>
+<p class="keyline">ややこしいことに、<b>sin²θ は (sinθ)²</b>（2乗）の意味です。右肩の数字が「−1」のときだけ逆関数、それ以外は累乗、と覚えます。</p>
+</section>
+
+<section class="sheet" id="radian"><h2>度（°）とラジアン（rad）</h2>
+<p>角度には「度」のほかに、<b>円の半径と同じ長さの弧</b>に対する角度を1とする「ラジアン」があります。円1周（360°）は弧の長さが 2π なので、<b>360° ＝ 2π rad</b>、<b>180° ＝ π rad</b>。</p>
+<div class="table-wrap"><table class="ftab"><thead><tr><th>度</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th><th>120°</th><th>180°</th><th>360°</th></tr></thead><tbody>
+<tr><td>rad</td><td>π/6</td><td>π/4</td><td>π/3</td><td>π/2</td><td>2π/3</td><td>π</td><td>2π</td></tr>
+</tbody></table></div>
+<ul>
+<li>1 rad ≒ 57.3°。度 → rad は <b>× π/180</b>、rad → 度は <b>× 180/π</b>。</li>
+<li>交流の <b>ω ＝ 2πf</b>（角周波数）は「1秒間に何rad回るか」。50Hzで約314 rad/s、60Hzで約377 rad/s。X<sub>L</sub> ＝ ωL、X<sub>C</sub> ＝ 1/(ωC) の ω もこれです。</li>
+<li>関数電卓は<b>DEG（度）とRAD（ラジアン）の設定</b>を確認。Excel の SIN・COS・TAN・ATAN は<b>ラジアン</b>で計算するので、SIN(RADIANS(30))、DEGREES(ATAN(0.75)) のように変換します。</li>
+</ul>
+</section>
+
+<section class="sheet" id="ids"><h2>公式（関係式）</h2>
+<p class="fx"><b>sin²θ ＋ cos²θ ＝ 1</b>（三平方の定理を斜辺1で書いたもの）<br>
+両辺を cos²θ で割ると <b>1 ＋ tan²θ ＝ sec²θ</b>、sin²θ で割ると <b>1 ＋ cot²θ ＝ csc²θ</b></p>
+<p>力率 cosθ ＝ 0.8 なら sinθ ＝ √(1 − 0.64) ＝ 0.6。tanθ ＝ 0.6/0.8 ＝ 0.75。<b>1つわかれば残りの5つは全部出せます</b>。</p>
+<details><summary>余角・補角・負の角</summary>
+<ul>
+<li>余角：sin(90°−θ) ＝ cosθ、cos(90°−θ) ＝ sinθ、tan(90°−θ) ＝ cotθ</li>
+<li>補角：sin(180°−θ) ＝ sinθ、cos(180°−θ) ＝ −cosθ、tan(180°−θ) ＝ −tanθ</li>
+<li>負の角：sin(−θ) ＝ −sinθ、cos(−θ) ＝ cosθ、tan(−θ) ＝ −tanθ（遅れ・進みの符号）</li>
+<li>90°進める：sin(θ＋90°) ＝ cosθ、cos(θ＋90°) ＝ −sinθ（コイル・コンデンサの電流が90°ずれるのはこれ）</li>
+</ul>
+</details>
+<details><summary>加法定理・2倍角・半角</summary>
+<ul>
+<li>sin(α ± β) ＝ sinα cosβ ± cosα sinβ</li>
+<li>cos(α ± β) ＝ cosα cosβ ∓ sinα sinβ</li>
+<li>tan(α ± β) ＝ (tanα ± tanβ) / (1 ∓ tanα tanβ)</li>
+<li>2倍角：sin2θ ＝ 2 sinθ cosθ、cos2θ ＝ cos²θ − sin²θ ＝ 1 − 2sin²θ ＝ 2cos²θ − 1</li>
+<li>半角：sin²θ ＝ (1 − cos2θ)/2、cos²θ ＝ (1 + cos2θ)/2</li>
+</ul>
+<p><b>電気では：</b>sin²ωt ＝ (1 − cos2ωt)/2 の平均は 1/2。だから正弦波の2乗の平均は最大値²の1/2で、<b>実効値 ＝ 最大値 ÷ √2</b> になります。</p>
+</details>
+<details><summary>積を和に直す（瞬時電力）</summary>
+<p>sinα sinβ ＝ {cos(α − β) − cos(α + β)} / 2</p>
+<p>電圧 √2V sinωt、電流 √2I sin(ωt − θ) の積（瞬時電力）は、<b>p ＝ VI cosθ − VI cos(2ωt − θ)</b>。1つめが一定の有効電力、2つめは電源周波数の2倍で揺れて平均すると0になる部分です。</p>
+</details>
+<details><summary>合成（sinとcosの足し算を1つにまとめる）</summary>
+<p>a sinθ ＋ b cosθ ＝ √(a² ＋ b²) sin(θ ＋ α)、ただし tanα ＝ b/a（a ＞ 0 のとき α ＝ arctan(b/a)）</p>
+<p>例：3 sinωt ＋ 4 cosωt ＝ 5 sin(ωt ＋ 53.13°)。大きさが √(a²＋b²)、角度が arctan になるのは、R ＋ jX の大きさ・角度と同じ形です。</p>
+</details>
+<details><summary>余弦定理・正弦定理（ベクトルの足し算・引き算）</summary>
+<ul>
+<li>余弦定理：c² ＝ a² ＋ b² − 2ab cosC</li>
+<li>正弦定理：a/sinA ＝ b/sinB ＝ c/sinC</li>
+</ul>
+<p>同じ長さVで120°ずれた2本の矢印の差は、c² ＝ V² ＋ V² − 2V²cos120° ＝ 3V² なので c ＝ √3V。<a href="three-phase-sqrt3.html">三相の√3</a>は余弦定理からも出ます。</p>
+</details>
+</section>
+
+<section class="sheet" id="elec"><h2>電気で使う場面</h2>
+<div class="table-wrap"><table class="ftab"><thead><tr><th>場面</th><th>使う関数</th><th>式</th></tr></thead><tbody>
+<tr><td>力率・有効電力</td><td>cos</td><td>P ＝ S cosθ、力率 ＝ P/S</td></tr>
+<tr><td>無効電力</td><td>sin・tan</td><td>Q ＝ S sinθ ＝ P tanθ</td></tr>
+<tr><td>無効電力から有効電力</td><td>cot</td><td>P ＝ Q cotθ ＝ Q × cosθ ÷ sinθ</td></tr>
+<tr><td>有効電力から皮相電力</td><td>sec</td><td>S ＝ P secθ ＝ P ÷ cosθ</td></tr>
+<tr><td>インピーダンス角・力率角</td><td>arctan</td><td>θ ＝ tan⁻¹(X/R)、θ ＝ tan⁻¹(Q/P)</td></tr>
+<tr><td>力率から角度</td><td>arccos</td><td>θ ＝ cos⁻¹(力率)</td></tr>
+<tr><td>力率改善のコンデンサ容量</td><td>tan</td><td>Q<sub>C</sub> ＝ P (tanθ₁ − tanθ₂)</td></tr>
+<tr><td>誘電正接（絶縁診断）</td><td>tan</td><td>tanδ ＝ 損失分の電流 ÷ 充電電流</td></tr>
+<tr><td>坂道の勾配</td><td>tan・arctan</td><td>勾配％ ＝ tan(角度) × 100</td></tr>
+</tbody></table></div>
+<div class="calc" data-no-term-help>
+<div class="row"><span class="k">例1：力率改善　100kW、力率0.8 → 0.95</span>tanθ₁ ＝ 0.75、tanθ₂ ＝ √(1 − 0.95²) ÷ 0.95 ≒ 0.329<br>Q<sub>C</sub> ＝ 100 × (0.75 − 0.329) ≒ <span class="num">42.1 kvar</span></div>
+<div class="row"><span class="k">例2：インピーダンス角　R ＝ 3Ω、X ＝ 4Ω</span>θ ＝ tan⁻¹(4/3) ≒ <span class="num">53.13°</span>、力率 cosθ ＝ 3/5 ＝ <span class="num">0.6</span></div>
+<div class="row"><span class="k">例3：進み無効電力から有効電力　160kvar、力率0.8</span>P ＝ 160 × cot36.87° ＝ 160 × 0.8 ÷ 0.6 ≒ <span class="num">213 kW</span></div>
+<div class="row"><span class="k">例4：坂道　勾配10%</span>角度 ＝ tan⁻¹ 0.1 ≒ <span class="num">5.71°</span>。逆に30°の坂は tan30° ≒ <span class="num">57.7%</span></div>
+</div>
+<p class="keyline">力率改善は「cos」で考えたくなりますが、<b>コンデンサ容量は tan の差</b>で決まります。Q ＝ P tanθ で、Pを変えずに Q だけ減らすからです。</p>
+</section>
+
+<section class="sheet" id="hyp"><h2>おまけ：双曲線関数（sinh・cosh・tanh）</h2>
+<p>名前は似ていますが、角度の関数ではなく、指数関数 e<sup>x</sup> からつくる関数です。</p>
+<ul>
+<li>sinh x ＝ (e<sup>x</sup> − e<sup>−x</sup>)/2、cosh x ＝ (e<sup>x</sup> ＋ e<sup>−x</sup>)/2、tanh x ＝ sinh x / cosh x</li>
+<li>関係式は <b>cosh²x − sinh²x ＝ 1</b>（三角関数の sin² ＋ cos² ＝ 1 と符号が違う）</li>
+</ul>
+<details><summary>どこで出てくる？</summary>
+<ul>
+<li><b>長距離送電線の方程式</b>（分布定数回路）：送電端と受電端の電圧・電流の関係が cosh・sinh で表されます。電験二種・一種の範囲です。</li>
+<li><b>電線のたるみ（カテナリー曲線）</b>：両端を支えた電線は y ＝ a cosh(x/a) の形になります。電験三種では、これを近似した弛度 D ＝ WS²/(8T) を使います。</li>
+</ul>
+</details>
+</section>
+
+<section class="sheet" id="summary"><h2>まとめ（覚え方）</h2>
+<ul>
+<li>sin・cos・tan ＝ <b>角度 → 比</b>（高さ/斜辺、底辺/斜辺、高さ/底辺）</li>
+<li>csc・sec・cot ＝ <b>その逆数</b>（1/sin、1/cos、1/tan）。「coがつく・つかない」で組になる</li>
+<li>arcsin・arccos・arctan（sin⁻¹・cos⁻¹・tan⁻¹）＝ <b>比 → 角度</b>。tan⁻¹ は 1/tan ではない</li>
+<li>電気では、<b>力率 ＝ cos</b>、<b>Q/P ＝ tan</b>、<b>角度を出すなら arctan・arccos</b>、<b>力率改善は tan の差</b></li>
+</ul>
+<details><summary>このページの前提</summary>
+<ul>
+<li>角度は特にことわりがなければ度（°）で書いています。表の小数は四捨五入した値です。</li>
+<li>電力の三角形は、正弦波で、力率角θを0°〜90°として説明しています（遅れ・進みの区別は符号で扱います）。</li>
+<li>arccot の主値は本によって決め方が違います。試験や教科書の前提に合わせてください。</li>
+</ul>
+</details>
+</section>
+
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="three-phase-sqrt3.html">三相の電力の√3はどこから来る？</a><a href="single-line-lab.html">動く単線結線図（負荷と力率で電流を比べる）</a><a href="pukapuka-diary.html">ぷかぷか日記</a></div></section>
+</main><footer>うきわメモ / 2026年11月23日作成 / 図は原理説明用です。</footer>
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function tx(str,attrs,parent){const t=el('text',Object.assign({'font-size':13,'font-family':'system-ui,sans-serif','font-weight':800},attrs),parent);t.textContent=str;return t;}
+const D=Math.PI/180,EPS=1e-9;
+const COL={sin:'#d6403a',cos:'#1f5fd1',tan:'#e07a1f',cot:'#1d9e75',sec:'#7c4dcc',csc:'#b0457a'};
+const NAME={sin:'sin',cos:'cos',tan:'tan',cot:'cot',sec:'sec',csc:'csc'};
+const SUB={sin:'高さ',cos:'横',tan:'sin/cos',cot:'1/tan',sec:'1/cos',csc:'1/sin'};
+const show={sin:true,cos:true,tan:true,cot:false,sec:false,csc:false};
+const f3=n=>(Math.abs(n)<5e-5?0:n).toLocaleString('ja-JP',{minimumFractionDigits:3,maximumFractionDigits:3});
+const fA=n=>(+n.toFixed(2)).toLocaleString('ja-JP',{maximumFractionDigits:2});
+
+/* 単位円 */
+const svg=$('#uc');const C=200,U=100;
+const P=(x,y)=>[C+x*U,C-y*U];
+const defs=el('defs',{},svg);const cp=el('clipPath',{id:'ucclip'},defs);el('rect',{x:4,y:4,width:392,height:392},cp);
+el('line',{x1:4,y1:C,x2:396,y2:C,stroke:'#b9cdd9'},svg);el('line',{x1:C,y1:4,x2:C,y2:396,stroke:'#b9cdd9'},svg);
+el('circle',{cx:C,cy:C,r:U,fill:'none',stroke:'#8aa0b0','stroke-width':1.5},svg);
+el('line',{x1:C+U,y1:4,x2:C+U,y2:396,stroke:'#e3a66b','stroke-dasharray':'4 4'},svg);
+el('line',{x1:4,y1:C-U,x2:396,y2:C-U,stroke:'#7cc4a8','stroke-dasharray':'4 4'},svg);
+tx('x＝1',{x:C+U+4,y:392,fill:'#b8641a','font-size':11},svg);tx('y＝1',{x:8,y:C-U-5,fill:'#167a5c','font-size':11},svg);
+tx('1',{x:C+U+4,y:C+14,fill:'#577180','font-size':11,'font-weight':600},svg);tx('O',{x:C-14,y:C+14,fill:'#577180','font-size':12},svg);
+const g=el('g',{'clip-path':'url(#ucclip)'},svg);
+const arc=el('path',{fill:'none',stroke:'#203b50','stroke-width':1.5},g);
+const L={};
+['sec','csc','tan','cot','cos','sin'].forEach(k=>{L[k]=el('line',{stroke:COL[k],'stroke-width':k==='sec'||k==='csc'?7:4,'stroke-linecap':'round',opacity:k==='sec'||k==='csc'?.45:1},g);});
+const rad=el('line',{x1:C,y1:C,stroke:'#203b50','stroke-width':2},g);
+const dot=el('circle',{r:5,fill:'#203b50'},g);
+const T={};Object.keys(COL).forEach(k=>{T[k]=tx(k,{fill:COL[k],'text-anchor':'middle','dominant-baseline':'middle',stroke:'#f5f9fc','stroke-width':4,'paint-order':'stroke'},svg);});
+const thT=tx('θ',{fill:'#203b50','font-size':14},svg);
+function setLine(k,a,b){const [x1,y1]=P(a[0],a[1]),[x2,y2]=P(b[0],b[1]);const l=L[k];l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);}
+function label(k,x,y,vis){const t=T[k];const cx=Math.min(385,Math.max(15,C+x*U)),cy=Math.min(388,Math.max(12,C-y*U));t.setAttribute('x',cx);t.setAttribute('y',cy);t.style.display=vis?'':'none';}
+let th=30;
+function vals(a){const s=Math.sin(a*D),c=Math.cos(a*D);const sz=Math.abs(s)<EPS,cz=Math.abs(c)<EPS;return{s:sz?0:s,c:cz?0:c,sz,cz};}
+function draw(){
+ const {s,c,sz,cz}=vals(th);
+ $('#thLbl').textContent=fA(th)+'°';
+ const big=1e6;
+ const tn=cz?null:s/c, ct=sz?null:c/s;
+ const [px,py]=P(c,s);rad.setAttribute('x2',px);rad.setAttribute('y2',py);dot.setAttribute('cx',px);dot.setAttribute('cy',py);
+ const r0=28,ea=th*D;arc.setAttribute('d',`M${C+r0},${C} A${r0},${r0} 0 ${th>180?1:0} 0 ${C+r0*Math.cos(ea)},${C-r0*Math.sin(ea)}`);
+ const ha=ea/2;thT.setAttribute('x',C+42*Math.cos(ha)-4);thT.setAttribute('y',C-42*Math.sin(ha)+5);thT.style.display=th<8?'none':'';
+ setLine('cos',[0,0],[c,0]);setLine('sin',[c,0],[c,s]);
+ const tE=tn===null?null:Math.max(-big,Math.min(big,tn)), cE=ct===null?null:Math.max(-big,Math.min(big,ct));
+ if(tE!==null){setLine('tan',[1,0],[1,tE]);setLine('sec',[0,0],[1,tE]);}
+ if(cE!==null){setLine('cot',[0,1],[cE,1]);setLine('csc',[0,0],[cE,1]);}
+ const vis={sin:show.sin,cos:show.cos,tan:show.tan&&tE!==null,sec:show.sec&&tE!==null,cot:show.cot&&cE!==null,csc:show.csc&&cE!==null};
+ Object.keys(L).forEach(k=>L[k].style.display=vis[k]?'':'none');
+ label('cos',c/2,s>=0?-0.13:0.13,vis.cos);label('sin',c+(c>=0?0.17:-0.17),s/2,vis.sin);
+ if(tE!==null){label('tan',1.17,Math.max(-1.85,Math.min(1.85,tE/2)),vis.tan);const sm=Math.min(1,1.8/Math.hypot(1,tE));label('sec',sm*0.55+ (tE>=0?-0.12:0.12),sm*tE*0.55+(tE>=0?0.1:-0.1),vis.sec);} else {label('tan',0,0,false);label('sec',0,0,false);}
+ if(cE!==null){label('cot',Math.max(-1.85,Math.min(1.85,cE/2)),1.13,vis.cot);const sm=Math.min(1,1.8/Math.hypot(1,cE));label('csc',sm*cE*0.62-0.12,sm*0.62+0.08,vis.csc);} else {label('cot',0,0,false);label('csc',0,0,false);}
+ const v={sin:s,cos:c,tan:tn,cot:ct,sec:cz?null:1/c,csc:sz?null:1/s};
+ $('#fvals').innerHTML=Object.keys(v).map(k=>`<div style="border-left-color:${COL[k]}">${NAME[k]} ${fA(th)}°<b>${v[k]===null?'定義なし':f3(v[k])}</b><small>${SUB[k]}</small></div>`).join('');
+ const pq=$('#pq');
+ if(th>0&&th<90){const S=100;pq.innerHTML=`<div class="row"><span class="k">電力の三角形として読む（S ＝ 100 kVA、力率角 ${fA(th)}°）</span>力率 cosθ ＝ <span class="num">${f3(c)}</span>　P ＝ <span class="num">${(S*c).toFixed(1)} kW</span>　Q ＝ <span class="num">${(S*s).toFixed(1)} kvar</span><br>Q/P ＝ tanθ ＝ ${f3(tn)}、P/Q ＝ cotθ ＝ ${f3(ct)}、S/P ＝ secθ ＝ ${f3(1/c)}</div>`;}
+ else pq.innerHTML=`<div class="row"><span class="k">電力の三角形として読む</span>力率角は 0°〜90° の範囲で考えます（いまの角度 ${fA(th)}° は範囲外）。</div>`;
+}
+$('#th').addEventListener('input',e=>{th=+e.target.value;draw();});
+$('#presets').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;th=+b.dataset.a;$('#th').value=Math.round(th);draw();});
+$('#toggles').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.f;show[k]=!show[k];b.setAttribute('aria-pressed',show[k]);draw();});
+draw();
+
+/* 逆三角関数 */
+let mode='atan';
+const LBL={asin:'値 x（−1 〜 1）',acos:'値 x（−1 〜 1）',atan:'値 x（どんな数でも）'};
+const FN={asin:'arcsin',acos:'arccos',atan:'arctan'};
+const BACK={asin:'sin',acos:'cos',atan:'tan'};
+function inv(){
+ const out=$('#invOut');
+ document.querySelectorAll('#invMode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===mode));
+ $('#inOne').hidden=mode==='atan2';$('#inTwo').hidden=mode!=='atan2';
+ if(mode!=='atan2'){
+  $('#ixLbl').textContent=LBL[mode];
+  const raw=$('#ix').value,x=parseFloat(raw);
+  if(raw===''||!isFinite(x)){out.innerHTML='<div class="row warn">値 x を入れてください。</div>';return;}
+  if((mode==='asin'||mode==='acos')&&Math.abs(x)>1){out.innerHTML=`<div class="row"><span class="k">${FN[mode]} ${x}</span><span class="warn">定義できません：${BACK[mode]} の値は −1 〜 1 の範囲にしかならないため、${FN[mode]} に入れられるのも −1 〜 1 です。</span></div>`;return;}
+  const r=mode==='asin'?Math.asin(x):mode==='acos'?Math.acos(x):Math.atan(x);
+  const deg=r/D;
+  let note='';
+  if(mode==='asin')note=`同じ sin になる角度はほかに ${fA(180-deg)}° もあります（主値は −90°〜90°）。`;
+  if(mode==='acos')note=`同じ cos になる角度はほかに ${fA(-deg)}° もあります（主値は 0°〜180°）。`;
+  if(mode==='atan')note=`tan は180°ごとに同じ値なので、${fA(deg+180)}° も同じ tan です。向きまで決めたいときは「縦と横から（atan2）」。`;
+  out.innerHTML=`<div class="row"><span class="k">${FN[mode]} ${x}（＝ ${BACK[mode]}⁻¹ ${x}）</span>θ ＝ <span class="big">${fA(deg)}°</span>　（${r.toFixed(4)} rad）</div><div class="row"><span class="k">確かめ</span>${BACK[mode]} ${fA(deg)}° ≒ ${f3(mode==='asin'?Math.sin(r):mode==='acos'?Math.cos(r):Math.tan(r))}<br>${note}</div>`;
+ } else {
+  const ry=$('#iy').value,rx=$('#ixx').value,y=parseFloat(ry),x=parseFloat(rx);
+  if(ry===''||rx===''||!isFinite(x)||!isFinite(y)){out.innerHTML='<div class="row warn">縦と横の両方を入れてください。</div>';return;}
+  if(x===0&&y===0){out.innerHTML='<div class="row"><span class="warn">縦も横も0なので、向き（角度）が決まりません。</span></div>';return;}
+  const r=Math.atan2(y,x),deg=r/D;
+  const naive=x===0?null:Math.atan(y/x)/D;
+  let cmp=naive===null?'横が0なので、y/x は計算できません（arctanでは出せない）。':`arctan(縦÷横) ＝ arctan(${f3(y/x)}) ＝ ${fA(naive)}°`+(Math.abs(naive-deg)>0.01?`　<span class="warn">← 横が負なので180°ずれています</span>`:'　（横が正なので同じ）');
+  out.innerHTML=`<div class="row"><span class="k">atan2(縦 ${y}, 横 ${x})</span>θ ＝ <span class="big">${fA(deg)}°</span>　（${r.toFixed(4)} rad）、大きさ √(縦²＋横²) ＝ ${f3(Math.hypot(x,y))}</div><div class="row"><span class="k">比べる</span>${cmp}</div>`;
+ }
+}
+$('#invMode').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.m;inv();});
+['ix','iy','ixx'].forEach(id=>$('#'+id).addEventListener('input',inv));
+$('#invPre').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const p=b.dataset.p.split(',');mode=p[0];if(mode==='atan2'){$('#iy').value=p[1];$('#ixx').value=p[2];}else $('#ix').value=p[1];inv();});
+inv();
+})();
+</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
