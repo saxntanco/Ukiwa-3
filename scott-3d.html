@@ -1,0 +1,69 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="スコット結線変圧器（スコットトランス）を360°回して見る。M座とT座の2つの鉄心、中点タップ、巻数√3/2のT座。両座に同じ負荷で三相が平衡する理由、片側だけの負荷、二次を並列にしてはいけない理由を段階表示。"><title>スコットトランスを3Dで見る｜うきわメモ</title><link rel="stylesheet" href="field-guides.css?v=20260920"><link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="menu-layout.css?v=20260930"><link rel="stylesheet" href="hv3d.css?v=20261027">
+</head><body data-guide="pas-vt"><header><nav><a href="index.html">🛟 うきわメモ</a><a href="zukan.html#models3d">360°で見る高圧機器</a></nav></header><main>
+<section class="hero"><span class="eyebrow">3Dモデル / スコット結線変圧器</span><h1>スコットトランスを、3Dで見る。<br>三相から単相を2つ取り出す</h1><p class="lead">単相変圧器1台は一次が2端子なので、三相のうち2線しか使えず不平衡になります。スコットトランスは単相変圧器2台を組み合わせ、一次を R・S・T の3端子にして、3線すべてから電流を取ります。中点タップと巻数√3/2のしかけを、中を透かして確かめます。</p><span class="tag">原理を理解するための教材</span><nav class="guide-nav" aria-label="ページ内目次"><a href="#model">3Dモデル</a><a href="#points">見るポイント</a><a href="#evidence">根拠と未確認</a><a href="#sources">出典</a></nav></section>
+
+<section class="sheet" id="model"><h2>3Dモデル</h2>
+<p class="caption">想定：<b>非常用発電機の単相負荷（非常照明・コンセントなど）に使う、低圧の乾式スコット変圧器（保護ケース付き）</b>。外形は三菱電機の保護ケース付き外形寸法（10kVA）に比を合わせた概形で、特定の型式の中身ではありません。「外観」「内部」「動作」「結線」で切り替えます。部品をタップすると、名前・役割・つながる相手と、資料で確かめた範囲が出ます。</p>
+<div id="hvRoot"></div>
+<template id="scWire"><svg viewBox="0 0 440 300" style="font-size:15px" role="img" aria-label="スコット結線の原理図。M座一次はS-T間、T座一次はRと中点の間。二次はM座とT座の2回路">
+<g data-part="pterm" fill="#203b50"><circle cx="130" cy="34" r="6" fill="#fff" stroke="#203b50" stroke-width="2"/><text x="112" y="28" font-weight="700">R</text>
+<circle cx="24" cy="210" r="6" fill="#fff" stroke="#203b50" stroke-width="2"/><text x="10" y="196" font-weight="700">S</text>
+<circle cx="236" cy="210" r="6" fill="#fff" stroke="#203b50" stroke-width="2"/><text x="244" y="196" font-weight="700">T</text></g>
+<text id="sc3-iR" x="142" y="30" fill="#b05a10" font-size="13" font-weight="700"></text>
+<text id="sc3-iS" x="6" y="236" fill="#b05a10" font-size="13" font-weight="700"></text>
+<text id="sc3-iT" x="206" y="236" fill="#b05a10" font-size="13" font-weight="700"></text>
+<g data-part="tpri"><line x1="130" y1="40" x2="130" y2="66" stroke="#203b50" stroke-width="3"/><path d="M130 66 q16 10 0 20 q16 10 0 20 q16 10 0 20 q16 10 0 20 q16 10 0 20 q16 10 0 20" fill="none" stroke="#9c6b3c" stroke-width="3.5"/><line x1="130" y1="186" x2="130" y2="210" stroke="#203b50" stroke-width="3"/><text x="150" y="110" fill="#203b50" font-size="13">T座</text><text x="150" y="128" fill="#4b6475" font-size="12">巻数 √3/2</text></g>
+<g data-part="mpri"><line x1="30" y1="210" x2="40" y2="210" stroke="#203b50" stroke-width="3"/><path d="M40 210 q11.25 -16 22.5 0 q11.25 -16 22.5 0 q11.25 -16 22.5 0 q11.25 -16 22.5 0 q11.25 -16 22.5 0 q11.25 -16 22.5 0 q11.25 -16 22.5 0 q11.25 -16 22.5 0" fill="none" stroke="#9c6b3c" stroke-width="3.5"/><line x1="220" y1="210" x2="230" y2="210" stroke="#203b50" stroke-width="3"/><text x="64" y="256" fill="#203b50" font-size="13">M座（S-T間）</text></g>
+<g data-part="mmid"><circle cx="130" cy="210" r="5" fill="#2f8f6a"/><text x="138" y="230" fill="#2f8f6a" font-size="12">中点</text></g>
+<g data-part="tsec"><path d="M290 110 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0" fill="none" stroke="#c9874a" stroke-width="3.5"/><line x1="290" y1="110" x2="290" y2="80" stroke="#203b50" stroke-width="2.5"/><line x1="370" y1="110" x2="370" y2="80" stroke="#203b50" stroke-width="2.5"/><text x="292" y="146" fill="#203b50" font-size="13">T座二次</text></g>
+<g data-part="msec"><path d="M290 220 q10 14 20 0 q10 14 20 0 q10 14 20 0 q10 14 20 0" fill="none" stroke="#c9874a" stroke-width="3.5"/><line x1="290" y1="220" x2="290" y2="190" stroke="#203b50" stroke-width="2.5"/><line x1="370" y1="220" x2="370" y2="190" stroke="#203b50" stroke-width="2.5"/><text x="292" y="256" fill="#203b50" font-size="13">M座二次</text></g>
+<g data-part="tout"><line x1="290" y1="80" x2="370" y2="80" stroke="#203b50" stroke-width="2.5" stroke-dasharray="3 3"/><g id="sc3-loadB" style="display:none"><rect x="306" y="64" width="48" height="30" rx="5" fill="#fff" stroke="#203b50"/><text x="330" y="84" text-anchor="middle" fill="#203b50" font-size="12">負荷B</text></g></g>
+<g data-part="mout"><line x1="290" y1="190" x2="370" y2="190" stroke="#203b50" stroke-width="2.5" stroke-dasharray="3 3"/><g id="sc3-loadA" style="display:none"><rect x="306" y="174" width="48" height="30" rx="5" fill="#fff" stroke="#203b50"/><text x="330" y="194" text-anchor="middle" fill="#203b50" font-size="12">負荷A</text></g></g>
+<g id="sc3-par" style="display:none"><path d="M370 110 C410 130 410 200 370 220" fill="none" stroke="#e24b4a" stroke-width="3"/><path d="M290 110 C250 130 250 200 290 220" fill="none" stroke="#e24b4a" stroke-width="3"/><text x="300" y="168" fill="#b83a2b" font-size="12" font-weight="700">並列は禁止</text></g>
+<text x="272" y="36" fill="#4b6475" font-size="12">二次の2回路は</text><text x="272" y="52" fill="#4b6475" font-size="12">同じ大きさ・位相90°ちがい</text>
+<text x="10" y="274" fill="#4b6475" font-size="12">電流は M座の一次電流＝10A とした例。</text><text x="10" y="292" fill="#4b6475" font-size="12">両座が同じ負荷なら R・S・T がそろう。</text>
+</svg></template>
+</section>
+
+<section class="sheet" id="points"><h2>見るポイント</h2>
+<ul>
+<li><b>一次は3端子。</b>M座はS-T間、T座はRとM座の中点の間につなぎます。単相変圧器1台（2端子）と違い、3線すべてから電流を取ります。</li>
+<li><b>T座の電流は中点で半分ずつに分かれる。</b>M座の上半分と下半分は同じ鉄心に巻かれていて、中点から逆向きに流れる電流の起磁力が打ち消し合うので、ちょうど半分ずつに分かれて S と T へ戻ります。</li>
+<li><b>巻数√3/2で電圧をそろえる。</b>Rから中点までの電圧は線間電圧の√3/2倍（正三角形の高さ）で、S-T間と直角の向き。巻数を合わせて、二次の2回路を同じ大きさ・位相90°ちがいにします。</li>
+<li><b>両座が同じ負荷のときだけ平衡。</b>M座10A・T座11.55Aが合成されて、R・S・Tがそろって11.55Aになります。片側だけだと不平衡で、1座で使えるのは定格の半分までです。</li>
+<li><b>二次を並列にしない。</b>位相が90°ちがう2つの電圧をつなぐと、循環電流で焼損します。</li>
+</ul>
+<p class="caption">発電機がなぜ不平衡に弱いか、出力の算定でどう扱うかは<a href="scott-transformer.html">「非常用発電機とスコットトランス」</a>で詳しく説明しています。</p>
+</section>
+
+<section class="sheet" id="evidence"><h2>根拠と未確認</h2>
+<details open><summary>資料で確認できたこと・簡略化したこと・未確認のこと</summary>
+<div class="table-wrap"><table class="hv-evtab">
+<tr><th>表したもの</th><th>扱い</th><th>根拠・理由</th></tr>
+<tr><td>二次の2回路に別々の単相負荷をつなぐ。2回路を並列にすると焼損するので禁止</td><td><span class="hv-ev doc">資料で確認</span></td><td>ダイヘン FAQ Q13</td></tr>
+<tr><td>負荷A＝負荷Bのときだけ三相側が平衡。違うと三相側に不平衡電流が流れる（変圧器自体には影響なし）</td><td><span class="hv-ev doc">資料で確認</span></td><td>ダイヘン FAQ Q13</td></tr>
+<tr><td>定格容量P＝A＋B（A＝B）で、1座で使えるのは定格の1/2</td><td><span class="hv-ev doc">資料で確認</span></td><td>ダイヘン FAQ Q13</td></tr>
+<tr><td>M座はS-T間で中点を出し、T座はRと中点の間。T座の巻数はM座の√3/2</td><td><span class="hv-ev doc">資料で確認</span></td><td>日本電気技術者協会の解説（結線の原理）</td></tr>
+<tr><td>保護ケース付きの外形（10kVA：X465・Y440・590・Z395mm）</td><td><span class="hv-ev doc">資料で確認</span></td><td>三菱電機 外形寸法表。どの列が高さかは原本の外形図で再確認が望ましい</td></tr>
+<tr><td>R・S・Tの電流 11.55A（M座の一次電流を10Aとした例）</td><td><span class="hv-ev simp">簡略化</span></td><td>両座が同じ大きさ・同じ力率の負荷として計算。励磁電流・損失は含まない</td></tr>
+<tr><td>鉄心の形（外鉄形）、巻線の配置（二次が内側）、端子台の位置、二次の端子数（2つ）</td><td><span class="hv-ev unk">未確認</span></td><td>特定型式の構造図と照合していない。一般的な形の模式。単相3線の製品もあるので銘板で確かめる</td></tr>
+<tr><td>らせんの巻数（M座16回・T座14回）</td><td><span class="hv-ev simp">簡略化</span></td><td>√3/2の差を見せるための数で、実際の巻数ではない</td></tr>
+</table></div>
+<p class="caption">動きは順番を示すためのもので、時間や電流の大きさ、位相（90°のずれ）は表していません（計算で示した値は、そのつど式を書いています）。実際の結線・操作は、取扱説明書・社内手順・作業責任者の指示に従います。</p>
+</details>
+</section>
+
+<section class="sheet" id="sources"><h2>出典</h2>
+<ul class="caption">
+<li><a href="https://www.daihen.co.jp/products/electric/faq/how/q13.html" target="_blank" rel="noopener">ダイヘン「スコット変圧器は使用上どのような注意をすればいいですか？」</a> 2026年11月23日閲覧。</li>
+<li><a href="https://www.jeea.or.jp/course/contents/07209/" target="_blank" rel="noopener">日本電気技術者協会「変圧器のスコット（T）結線とその使用例」</a></li>
+<li><a href="https://www.mitsubishielectric.co.jp/fa/products/taca/trns/pmerit/dry/option/low_pressure09.html" target="_blank" rel="noopener">三菱電機 低圧配電用スコット結線変圧器 保護ケース付外形寸法</a> 2026年11月23日閲覧。</li>
+</ul>
+</section>
+<section class="sheet"><h2>つながる教材</h2><div class="related"><a href="scott-transformer.html">非常用発電機とスコットトランス</a><a href="zukan.html#models3d">360°で見る高圧機器（図鑑）</a><a href="tr-3d.html">油入変圧器を3Dで見る</a><a href="three-phase-sqrt3.html">三相の√3</a></div></section>
+</main><footer>うきわメモ / 2026年11月23日作成 / 中の構造は模式で、実機の構造図ではありません。</footer>
+<script src="hv3d.js?v=20261027"></script><script src="scott-3d.js?v=20261123"></script>
+<script>HV3D.mount(document.getElementById('hvRoot'), window.HV_MODELS.scott);</script>
+<script src="menu-layout.js?v=20260930"></script>
+</body></html>
