@@ -44,7 +44,8 @@
 <tr><td>二次の2回路に別々の単相負荷をつなぐ。2回路を並列にすると焼損するので禁止</td><td><span class="hv-ev doc">資料で確認</span></td><td>ダイヘン FAQ Q13</td></tr>
 <tr><td>負荷A＝負荷Bのときだけ三相側が平衡。違うと三相側に不平衡電流が流れる（変圧器自体には影響なし）</td><td><span class="hv-ev doc">資料で確認</span></td><td>ダイヘン FAQ Q13</td></tr>
 <tr><td>定格容量P＝A＋B（A＝B）で、1座で使えるのは定格の1/2</td><td><span class="hv-ev doc">資料で確認</span></td><td>ダイヘン FAQ Q13</td></tr>
-<tr><td>M座はS-T間で中点を出し、T座はRと中点の間。T座の巻数はM座の√3/2</td><td><span class="hv-ev doc">資料で確認</span></td><td>日本電気技術者協会の解説（結線の原理）</td></tr>
+<tr><td>M座一次の両端に三相の2線をつなぎ、その中点をT座一次の一端につなぐ。残りの1線はT座一次の、全巻数の0.866（√3/2）の点のタップにつなぐ（使う巻数がM座の√3/2になる）。二次は位相90°ちがいの2回路</td><td><span class="hv-ev doc">資料で確認</span></td><td>日本電気技術者協会の解説。図ではタップを省き、使う巻数だけの巻線として描いた</td></tr>
+<tr><td>高圧受電設備の非常用発電機で、単相負荷による不平衡を避けるためによく使われる</td><td><span class="hv-ev doc">資料で確認</span></td><td>日本電気技術者協会の解説</td></tr>
 <tr><td>保護ケース付きの外形（10kVA：X465・Y440・590・Z395mm）</td><td><span class="hv-ev doc">資料で確認</span></td><td>三菱電機 外形寸法表。どの列が高さかは原本の外形図で再確認が望ましい</td></tr>
 <tr><td>R・S・Tの電流 11.55A（M座の一次電流を10Aとした例）</td><td><span class="hv-ev simp">簡略化</span></td><td>両座が同じ大きさ・同じ力率の負荷として計算。励磁電流・損失は含まない</td></tr>
 <tr><td>鉄心の形（外鉄形）、巻線の配置（二次が内側）、端子台の位置、二次の端子数（2つ）</td><td><span class="hv-ev unk">未確認</span></td><td>特定型式の構造図と照合していない。一般的な形の模式。単相3線の製品もあるので銘板で確かめる</td></tr>
@@ -57,7 +58,7 @@
 <section class="sheet" id="sources"><h2>出典</h2>
 <ul class="caption">
 <li><a href="https://www.daihen.co.jp/products/electric/faq/how/q13.html" target="_blank" rel="noopener">ダイヘン「スコット変圧器は使用上どのような注意をすればいいですか？」</a> 2026年11月23日閲覧。</li>
-<li><a href="https://www.jeea.or.jp/course/contents/07209/" target="_blank" rel="noopener">日本電気技術者協会「変圧器のスコット（T）結線とその使用例」</a></li>
+<li><a href="https://www.jeea.or.jp/course/contents/07209/" target="_blank" rel="noopener">日本電気技術者協会「変圧器のスコット（T）結線とその使用例」</a> 2026年11月23日閲覧。</li>
 <li><a href="https://www.mitsubishielectric.co.jp/fa/products/taca/trns/pmerit/dry/option/low_pressure09.html" target="_blank" rel="noopener">三菱電機 低圧配電用スコット結線変圧器 保護ケース付外形寸法</a> 2026年11月23日閲覧。</li>
 </ul>
 </section>
