@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>保護継電器 判定範囲電卓（OCR・GR・DGR）｜うきわメモ</title>
+<link rel="stylesheet" href="island-pages.css?v=20260918"><script src="island-pages.js?v=20260930-content"></script>
+<link rel="stylesheet" href="relay-test-reference.css?v=20261011">
+<meta name="description" content="整定値を入れると、OCR・GR・DGRの試験電流と判定範囲（JIS C 4602・4601・4609）がすぐ分かる。測定値を入れれば範囲内かも判定。">
+<style>
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 0}
+.tabs button{font:inherit;font-weight:800;padding:10px 18px;border-radius:999px;border:1px solid #7399ad;background:#fff;color:#07577e;cursor:pointer}
+.tabs button[aria-selected="true"]{background:#07577e;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0}
+.field label{display:block;font-weight:750;font-size:14px;margin-bottom:4px}
+.field label small{font-weight:500;color:var(--island-fg-607d8c-100,#526e80)}
+input[type=number],.panel select{width:100%;font:inherit;padding:11px;border:1px solid #7399ad;border-radius:8px;background:#fff;color:inherit}
+.rows{display:grid;gap:12px;margin-top:8px}
+.row{border:1px solid var(--island-line-cbdbe4-100,#cbdbe4);border-radius:12px;padding:14px 16px;background:var(--island-bg-eef9fd-100,#f7fbfd);color:var(--island-fg-123954-100,#123954)}
+.row h3,.row label{color:inherit}
+.row h3{font-size:16px;margin:0 0 4px}
+.row .cond{font-size:13px;color:var(--island-fg-607d8c-100,#526e80);margin:0}
+.row .range{font-size:22px;font-weight:800;margin:6px 0;color:var(--island-fg-07577e-100,#07577e);font-variant-numeric:tabular-nums}
+.row .meas{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row .meas input{max-width:160px}
+.verdict{font-weight:800;padding:4px 12px;border-radius:999px;font-size:14px}
+.verdict.ok{background:#dff3e4;color:#1d6b33}
+.verdict.ng{background:#fde2e0;color:#a3261b}
+.verdict.na{background:#eef2f4;color:#526e80}
+.warn{border-left:4px solid #d99d30;padding:8px 14px;font-size:14px;margin:12px 0;background:var(--island-bg-eef9fd-100,#fff8ea)}
+.formula{font-family:ui-monospace,monospace;font-size:14px;background:var(--island-bg-eef9fd-100,#eef7fa);padding:10px;border-radius:8px;overflow-x:auto}
+[hidden]{display:none!important}
+</style></head><body>
+<header><a href="index.html">◎ うきわメモ</a><a href="protective-relay.html">保護継電器一覧へ</a></header>
+<main>
+<section class="intro"><p class="eyebrow">FIELD TOOL · 判定範囲</p><h1>整定値を入れる。<br>試験電流と判定範囲が出る。</h1>
+<p>OCR・GR・DGRの単体試験で「何Aを流して、何秒〜何秒なら良か」をその場で計算します。測定値を入れると範囲内かも表示します。</p>
+<p class="muted">基準：JIS C 4602（OCR）・JIS C 4601（GR）・JIS C 4609（DGR）の公開値。会社・団体独自の管理値は登録していません。メーカーが別の判定値を示す型式は、その値を優先してください。</p></section>
+
+<div class="tabs" role="tablist">
+<button role="tab" aria-selected="true" data-tab="ocr">OCR 過電流</button>
+<button role="tab" aria-selected="false" data-tab="gr">GR 地絡</button>
+<button role="tab" aria-selected="false" data-tab="dgr">DGR 地絡方向</button>
+</div>
+
+<!-- ================= OCR ================= -->
+<section class="panel" id="tab-ocr">
+<h2>OCR（過電流継電器）</h2>
+<div class="grid">
+<div class="field"><label for="ocrTap">限時 電流整定（タップ）<small>A（CT二次）</small></label><input id="ocrTap" type="number" step="any" inputmode="decimal" value="4"></div>
+<div class="field"><label for="ocrLever">動作時間整定（レバー／ダイヤル）<small>目盛</small></label><input id="ocrLever" type="number" step="any" inputmode="decimal" value="10"></div>
+<div class="field"><label for="ocrInst">瞬時 電流整定<small>A（ロックなら空欄）</small></label><input id="ocrInst" type="number" step="any" inputmode="decimal" value="40"></div>
+<div class="field"><label for="ocrCurve">限時特性</label>
+<select id="ocrCurve">
+<option value="EI">超反限時 EI（10s / 1.67s）</option>
+<option value="VI">強反限時 VI（6.75s / 2.25s）</option>
+<option value="NI">反限時 NI（6.3s / 3.53s）</option>
+<option value="manual">銘板・取説の公称値を手入力（誘導形・定限時など）</option>
+</select></div>
+</div>
+<div class="grid" id="ocrManualBox" hidden>
+<div class="field"><label for="ocrT300">レバー10・300%の公称動作時間<small>s</small></label><input id="ocrT300" type="number" step="any" inputmode="decimal" placeholder="例 10"></div>
+<div class="field"><label for="ocrT700">レバー10・700%の公称動作時間<small>s（任意）</small></label><input id="ocrT700" type="number" step="any" inputmode="decimal" placeholder="例 1.52"></div>
+</div>
+<p class="muted" id="ocrCurveNote"></p>
+<div class="rows" id="ocrRows"></div>
+<details><summary>計算のしかた（公式と許容差）</summary>
+<p><b>最小動作電流</b>：限時は整定値の±10%、瞬時は±15%。</p>
+<p><b>限時の動作時間</b>：レバー10での公称動作時間 T に対して、300%で±17%、700%で±12%。レバー N で試験する場合は、JISの考え方 <span class="formula">|t/T − N/10| ≤ 0.17（700%は0.12）</span> から、範囲を T×N/10 ± 0.17T として計算しています。誤差幅は「レバー10の公称値」を基準にするので、レバーを下げても幅は狭くなりません。</p>
+<p><b>公称動作時間の式</b>（TMS = N/10、M = 整定値に対する倍率）</p>
+<p class="formula">EI：t = 80 ÷ (M² − 1) × N/10<br>VI：t = 13.5 ÷ (M − 1) × N/10<br>NI：t = 0.14 ÷ (M^0.02 − 1) × N/10</p>
+<p>誘導円板形などの旧形はこの式に乗らない機種が多いので、「手入力」を選んで銘板・取説の公称値を入れてください。</p>
+<p><b>瞬時の動作時間</b>：瞬時整定値の200%で0.05秒以下。</p>
+</details>
+</section>
+
+<!-- ================= GR ================= -->
+<section class="panel" id="tab-gr" hidden>
+<h2>GR（地絡継電器・無方向）</h2>
+<div class="grid">
+<div class="field"><label for="grIo">零相電流整定<small>mA（Io一次）</small></label><input id="grIo" type="number" step="any" inputmode="decimal" value="200"></div>
+</div>
+<div class="rows" id="grRows"></div>
+<details><summary>計算のしかた</summary>
+<p>最小動作電流は整定値の±10%。動作時間は整定値の130%で0.1〜0.3秒、400%で0.1〜0.2秒（JIS C 4601）。</p>
+</details>
+</section>
+
+<!-- ================= DGR ================= -->
+<section class="panel" id="tab-dgr" hidden>
+<h2>DGR（地絡方向継電器）</h2>
+<div class="grid">
+<div class="field"><label for="dgrIo">零相電流整定<small>mA（Io一次）</small></label><input id="dgrIo" type="number" step="any" inputmode="decimal" value="200"></div>
+<div class="field"><label for="dgrVo">零相電圧整定<small>%（完全地絡電圧比）</small></label><input id="dgrVo" type="number" step="any" inputmode="decimal" value="5"></div>
+<div class="field"><label for="dgrSys">系統電圧<small>V（完全地絡電圧の換算用）</small></label><input id="dgrSys" type="number" step="any" inputmode="decimal" value="6600"></div>
+</div>
+<p class="muted" id="dgrVoNote"></p>
+<div class="rows" id="dgrRows"></div>
+<details><summary>計算のしかた</summary>
+<p>最小動作電流：零相電圧を整定の150%で加え、整定値の±10%。最小動作電圧：零相電流を整定の150%で流し、整定値の±25%。</p>
+<p>動作時間：Vo150%と、Io130%で0.1〜0.3秒、Io400%で0.1〜0.2秒。不動作試験：Vo150%・Io1000%・位相差180°で動作しないこと。位相特性はメーカーが示す範囲（JIS C 4609）。</p>
+<p>完全地絡電圧は 系統電圧 ÷ √3（6.6kVなら約3,811V）。試験器のVo端子に加える電圧は、ZPD・継電器の定格によって換算が変わるので、取扱説明書で確認してください。</p>
+</details>
+</section>
+
+<details class="panel"><summary>使うときの注意・出典</summary>
+<p class="warn">ここでの範囲は規格の一般値です。製造業者が型式ごとに別の判定値・試験条件を示している場合は、そちらに従ってください。公称値・許容差は「試験で良否を見るための値」で、保護協調の成立を保証するものではありません。</p>
+<ul class="sources">
+<li>JIS C 4602:2017 高圧受電用過電流継電器（<a href="https://kikakurui.com/c4/C4602-2017-01.html" target="_blank" rel="noopener">規格本文の参照</a>）</li>
+<li>JIS C 4601 高圧受電用地絡継電装置／JIS C 4609 高圧受電用地絡方向継電装置</li>
+<li>公称動作時間・許容差の照合：<a href="https://www.hikari-gr.co.jp/dcms_media/other/C019_LOC-23_24.pdf" target="_blank" rel="noopener">光商工 LOC-23/24 カタログ</a>、<a href="https://www.marutsu.co.jp/contents/shop/marutsu/datasheet/KANC-716B.pdf" target="_blank" rel="noopener">オムロン K2CA→K2OC 置換資料</a></li>
+</ul>
+<p class="muted">資料確認：2026/11/24</p>
+</details>
+
+<footer><a href="relay-test-reference.html">型式別 試験早見表</a> · <a href="relay-quickref.html">試験方法アンチョコ</a> · <a href="ocr-tap-calculator.html">OCR整定計算</a></footer>
+</main>
+
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const num=id=>{const v=parseFloat($(id).value);return Number.isFinite(v)?v:NaN;};
+const ok=v=>Number.isFinite(v)&&v>0;
+const f=(v,d=3)=>{if(!Number.isFinite(v))return '—';const r=Number(v.toPrecision(4));return r.toLocaleString('ja-JP',{maximumFractionDigits:d});};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// 測定値は再描画しても残す
+const measured={};
+document.addEventListener('input',e=>{if(e.target.dataset.meas){measured[e.target.dataset.meas]=e.target.value;updateVerdict(e.target);}});
+
+function rowHTML(r){
+  const key=r.key;
+  const val=measured[key]??'';
+  const rangeTxt=r.range?r.range:'—';
+  const meas=r.lo!==undefined||r.hi!==undefined
+    ?`<div class="meas"><label for="m-${key}">測定値</label><input id="m-${key}" type="number" step="any" inputmode="decimal" data-meas="${key}" data-lo="${r.lo??''}" data-hi="${r.hi??''}" value="${esc(val)}" placeholder="${esc(r.unit)}"><span>${esc(r.unit)}</span><span class="verdict na" aria-live="polite">未入力</span></div>`:'';
+  return `<div class="row"><h3>${esc(r.title)}</h3><p class="cond">${r.cond}</p><p class="range">${rangeTxt}</p>${r.note?`<p class="cond">${r.note}</p>`:''}${meas}</div>`;
+}
+function updateVerdict(inp){
+  const span=inp.parentElement.querySelector('.verdict');
+  const v=parseFloat(inp.value);
+  const lo=inp.dataset.lo===''?-Infinity:parseFloat(inp.dataset.lo);
+  const hi=inp.dataset.hi===''?Infinity:parseFloat(inp.dataset.hi);
+  if(!Number.isFinite(v)){span.className='verdict na';span.textContent='未入力';return;}
+  if(!Number.isFinite(lo)&&!Number.isFinite(hi)){span.className='verdict na';span.textContent='範囲未計算';return;}
+  const inside=v>=lo-1e-9&&v<=hi+1e-9;
+  span.className='verdict '+(inside?'ok':'ng');
+  span.textContent=inside?'範囲内（良）':(v<lo?'範囲外：小さい':'範囲外：大きい');
+}
+function render(rootId,rows){
+  $(rootId).innerHTML=rows.map(rowHTML).join('');
+  $(rootId).querySelectorAll('input[data-meas]').forEach(updateVerdict);
+}
+
+// ---------- OCR ----------
+const curves={
+  EI:{name:'超反限時 EI',t:M=>80/(M*M-1)},
+  VI:{name:'強反限時 VI',t:M=>13.5/(M-1)},
+  NI:{name:'反限時 NI',t:M=>0.14/(Math.pow(M,0.02)-1)}
+};
+function nominal10(M){
+  const c=$('ocrCurve').value;
+  if(c==='manual'){const v=num(M===3?'ocrT300':'ocrT700');return ok(v)?v:NaN;}
+  return curves[c].t(M);
+}
+function ocr(){
+  const tap=num('ocrTap'),N=num('ocrLever'),inst=num('ocrInst');
+  const manual=$('ocrCurve').value==='manual';
+  $('ocrManualBox').hidden=!manual;
+  $('ocrCurveNote').textContent=manual
+    ?'銘板・取扱説明書・カタログにある「レバー10」での公称値を入れてください。'
+    :'公称値はIEC 60255系の特性式（JIS C 4602の反限時・超反限時、強反限時はメーカー搭載特性）から計算しています。型式の取説の値と一致するか確認してください。';
+  const rows=[];
+  const tapOk=ok(tap);
+  rows.push({key:'ocrPick',title:'限時 最小動作電流',unit:'A',
+    cond:'電流を徐々に上げて動作した値を読む。判定：整定値の±10%',
+    range:tapOk?`${f(tap*0.9)} 〜 ${f(tap*1.1)} A`:'限時整定を入力',
+    lo:tapOk?tap*0.9:undefined,hi:tapOk?tap*1.1:undefined});
+  const leverOk=ok(N);
+  for(const [M,tol] of [[3,0.17],[7,0.12]]){
+    const T=nominal10(M);
+    const okT=tapOk&&leverOk&&ok(T);
+    const center=okT?T*N/10:NaN, lo=okT?center-tol*T:NaN, hi=okT?center+tol*T:NaN;
+    let note='';
+    if(okT&&N!==10) note=`レバー${f(N)}の中心値 ${f(center)} s ＝ レバー10公称 ${f(T)} s × ${f(N)}/10。許容幅 ±${f(tol*T)} s はレバー10公称値の±${tol*100}%で計算（JISの考え方）。団体・会社の基準がレバー10での試験のみを定めている場合は、レバー10に戻して試験するのが確実です。`;
+    else if(okT) note=`公称 ${f(T)} s の±${tol*100}%`;
+    if(M===7&&manual&&!ok(T)) note='700%の公称値が未入力のため計算していません。';
+    rows.push({key:'ocrT'+M,title:`限時 動作時間（${M*100}%）`,unit:'s',
+      cond:tapOk?`試験電流 <b>${f(tap*M)} A</b>（整定 ${f(tap)} A × ${M*100}%）・レバー ${leverOk?f(N):'—'}`:'限時整定を入力',
+      range:okT?`${f(Math.max(lo,0))} 〜 ${f(hi)} s`:(leverOk?'公称動作時間を入力':'レバーを入力'),
+      note, lo:okT?lo:undefined, hi:okT?hi:undefined});
+  }
+  const instOk=ok(inst);
+  rows.push({key:'ocrIPick',title:'瞬時 最小動作電流',unit:'A',
+    cond:'判定：整定値の±15%',
+    range:instOk?`${f(inst*0.85)} 〜 ${f(inst*1.15)} A`:'瞬時整定なし（ロック）',
+    lo:instOk?inst*0.85:undefined,hi:instOk?inst*1.15:undefined});
+  rows.push({key:'ocrIT',title:'瞬時 動作時間',unit:'s',
+    cond:instOk?`試験電流 <b>${f(inst*2)} A</b>（瞬時整定 ${f(inst)} A × 200%）`:'瞬時整定なし（ロック）',
+    range:instOk?'0.05 s 以下':'—',
+    lo:instOk?0:undefined,hi:instOk?0.05:undefined});
+  render('ocrRows',rows);
+}
+
+// ---------- GR ----------
+function gr(){
+  const io=num('grIo'),o=ok(io);
+  render('grRows',[
+    {key:'grPick',title:'最小動作電流',unit:'mA',cond:'判定：整定値の±10%',
+      range:o?`${f(io*0.9)} 〜 ${f(io*1.1)} mA`:'整定を入力',lo:o?io*0.9:undefined,hi:o?io*1.1:undefined},
+    {key:'grT130',title:'動作時間（130%）',unit:'s',cond:o?`試験電流 <b>${f(io*1.3)} mA</b>`:'整定を入力',
+      range:'0.1 〜 0.3 s',lo:0.1,hi:0.3},
+    {key:'grT400',title:'動作時間（400%）',unit:'s',cond:o?`試験電流 <b>${f(io*4)} mA</b>`:'整定を入力',
+      range:'0.1 〜 0.2 s',lo:0.1,hi:0.2}
+  ]);
+}
+
+// ---------- DGR ----------
+function dgr(){
+  const io=num('dgrIo'),vo=num('dgrVo'),sys=num('dgrSys');
+  const oi=ok(io),ov=ok(vo),os=ok(sys);
+  const full=os?sys/Math.sqrt(3):NaN;
+  const voV=ov&&os?full*vo/100:NaN;
+  $('dgrVoNote').textContent=ov&&os?`完全地絡電圧 ${f(full)} V → 整定 ${f(vo)}% ＝ 約 ${f(voV)} V（一次換算）`:'';
+  const vRange=ov?`${f(vo*0.75)} 〜 ${f(vo*1.25)} %`+(os?`（約 ${f(voV*0.75)} 〜 ${f(voV*1.25)} V）`:''):'整定を入力';
+  const vo150=ov?`Vo ${f(vo*1.5)} %`+(os?`（約 ${f(voV*1.5)} V）`:''):'Vo 150%';
+  render('dgrRows',[
+    {key:'dgrPick',title:'最小動作電流',unit:'mA',cond:`${vo150} を加えて電流を上げる。判定：整定値の±10%`,
+      range:oi?`${f(io*0.9)} 〜 ${f(io*1.1)} mA`:'整定を入力',lo:oi?io*0.9:undefined,hi:oi?io*1.1:undefined},
+    {key:'dgrVpick',title:'最小動作電圧',unit:'%',cond:`${oi?`Io <b>${f(io*1.5)} mA</b>（150%）`:'Io 150%'} を流して電圧を上げる。判定：整定値の±25%`,
+      range:vRange,lo:ov?vo*0.75:undefined,hi:ov?vo*1.25:undefined,
+      note:'測定値は%で入力（Vで読んだ場合は上の換算値と比べてください）'},
+    {key:'dgrT130',title:'動作時間（Io 130%）',unit:'s',cond:`${vo150}・${oi?`Io <b>${f(io*1.3)} mA</b>`:'Io 130%'}`,range:'0.1 〜 0.3 s',lo:0.1,hi:0.3},
+    {key:'dgrT400',title:'動作時間（Io 400%）',unit:'s',cond:`${vo150}・${oi?`Io <b>${f(io*4)} mA</b>`:'Io 400%'}`,range:'0.1 〜 0.2 s',lo:0.1,hi:0.2},
+    {key:'dgrNo',title:'不動作試験',unit:'',cond:`${vo150}・${oi?`Io <b>${f(io*10)} mA</b>（1000%）`:'Io 1000%'}・位相差 180°`,range:'動作しないこと'},
+    {key:'dgrPhase',title:'位相特性',unit:'',cond:'Vo 150%・Io はメーカー指定値で、位相を回して動作範囲を見る',range:'メーカーが示す範囲内',note:'型式ごとに範囲が違います（例：進み45°中心で遅れ45°〜進み135°など）。<a href="relay-test-reference.html">型式別 試験早見表</a>で確認。'}
+  ]);
+}
+
+const all=()=>{ocr();gr();dgr();};
+['ocrTap','ocrLever','ocrInst','ocrCurve','ocrT300','ocrT700'].forEach(id=>$(id).addEventListener('input',ocr));
+$('ocrCurve').addEventListener('change',ocr);
+['grIo'].forEach(id=>$(id).addEventListener('input',gr));
+['dgrIo','dgrVo','dgrSys'].forEach(id=>$(id).addEventListener('input',dgr));
+
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
+  for(const t of ['ocr','gr','dgr']) $('tab-'+t).hidden=t!==b.dataset.tab;
+}));
+all();
+})();
+</script>
+</body></html>
